@@ -1,0 +1,123 @@
+<!doctype html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Irregularities · 58GEMSDOE</title><style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;max-width:980px;margin:0 auto;padding:24px;color:#1b1f24;line-height:1.5}
+nav a{margin-right:14px;color:#0a58ca;text-decoration:none}
+.banner{border-radius:10px;padding:18px 20px;margin:18px 0}
+.ok{background:#e8f5e9;border:2px solid #2e7d32}
+.hold{background:#fff8e1;border:2px solid #f9a825}
+.neg{background:#ffebee;border:2px solid #c62828}
+.btn{display:inline-block;background:#0a58ca;color:#fff;padding:12px 18px;border-radius:8px;text-decoration:none;font-weight:600}
+table{border-collapse:collapse;width:100%;margin:12px 0;font-size:14px}
+th,td{border:1px solid #d0d7de;padding:6px 8px;text-align:left;vertical-align:top}
+th{background:#f6f8fa}
+code{background:#f6f8fa;padding:1px 4px;border-radius:4px}
+.small{color:#57606a;font-size:13px}
+</style></head><body><nav><a href="index.html">Home</a><a href="executive-summary.html">Submit: executive summary</a><a href="results.html">Results</a><a href="top-score-analysis.html">0.2778 analysis</a><a href="hypotheses.html">Hypotheses</a><a href="irregularities.html">Irregularities</a><a href="sources.html">Sources</a><a href="run-card.json">Run card (JSON)</a></nav><h1>Irregularities flagged for review</h1>
+<p>Each item says what was seen, where, and what was done. Nothing here is resolved by assumption.</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Irregularity</th>
+<th>Where</th>
+<th>Action taken</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>I1</td>
+<td><strong>Conflicting "top score" figures.</strong> The brief gives 0.3774 for the "current GEMSDOE high" and, in a later section, 0.3195 as "the highest score right now". The team's ledger records official-snapshot rows dated 2026-10-03 with rank 1 = 0.3195 (not verifiable from the sandbox).</td>
+<td>Brief; <code>docs/score-ledger.csv</code> in GEMSDOE32</td>
+<td>Not resolved. Use the official leaderboard page to confirm.</td>
+</tr>
+<tr>
+<td>I2</td>
+<td><strong>0.2778 is user-reported only.</strong> It is not in the score ledger and has no receipt.</td>
+<td>GEMSDOE32 score ledger</td>
+<td>Treated as a user report everywhere in this repo.</td>
+</tr>
+<tr>
+<td>I3</td>
+<td><strong>The team's own holdout disagrees with its score by ~60×</strong> (holdout 0.0046 vs reported 0.2778 for the same file). Its "predicted_leaderboard_dti 0.2747" is a projection.</td>
+<td>GEMSDOE32 <code>docs/downloads/gemsdoe32-h33-…-audit.json</code></td>
+<td>Projection not used as a score. Holdout calibration flagged as the top open problem.</td>
+</tr>
+<tr>
+<td>I4</td>
+<td><strong>The example submission equals the training labels.</strong> On the footprint, <code>example_submission.tif</code> (positives = 60,988) matches <code>existing_faults.tif</code> exactly. A submission that copies known faults is therefore the template itself.</td>
+<td><code>data/bridge/example_submission.tif</code> vs <code>existing_faults.tif</code> (checked by us)</td>
+<td>Reported. Known faults are masked in our holdout (see I6).</td>
+</tr>
+<tr>
+<td>I5</td>
+<td><strong>Competition rasters are republished in a public GitHub repo</strong> (<code>GEMSDOE/data/bridge/</code>, with sha256 pins). Redistribution terms of the DrivenData data were not checked (the data tab is unreachable).</td>
+<td>GEMSDOE repo</td>
+<td>Not copied into this repo: <code>data/</code> is git-ignored and is re-fetched by <code>scripts/fetch_inputs.py</code>. <strong>Legal/terms review needed.</strong></td>
+</tr>
+<tr>
+<td>I6</td>
+<td><strong>Mask assumption unverified.</strong> Known faults are masked in our holdout, based on two second-hand statements (GEMSDOE32 docstring; LEARNGEMSDOE PR #3). The forum thread is unreachable.</td>
+<td><code>src/gems58/dti.py</code>, <code>scripts/run_ribbon_lane.py</code></td>
+<td>Assumption labelled in every number.</td>
+</tr>
+<tr>
+<td>I7</td>
+<td><strong>The template named in the brief does not exist in this repo.</strong> The brief refers to <code>evaluate_holdout.py</code>, <code>submission_writer.py</code> and a cached feature stack; the repo had only a README. We wrote <code>src/gems58/</code> (metric, validator, uniqueness) and did not fork another team's code.</td>
+<td>This repo at commit <code>8702901</code></td>
+<td>Flagged. Reconcile with the shared template when it exists.</td>
+</tr>
+<tr>
+<td>I8</td>
+<td><strong>Registry check: continuous rasters.</strong> 60+ registry rasters have positive values on almost the whole footprint, so "dots" is meaningless for them and they show 100 % overlap.</td>
+<td><code>reports/</code> (registry section)</td>
+<td>Overlap test is only applied to rasters whose positive set is ≤ 50 % of the footprint. Spearman still applies to all.</td>
+</tr>
+<tr>
+<td>I9</td>
+<td><strong>A real duplicate.</strong> Our first ribbon configuration (triple3) has 99.7 % of its dots within 3 px of <code>13GEMSDOE … r13-lattice-s5</code> (207k dots).</td>
+<td><code>reports/ribbon_lane_report.json</code> (registry check)</td>
+<td>Logged as lane drift per the parallel-run protocol.</td>
+</tr>
+<tr>
+<td>I10</td>
+<td><strong>Second selection step.</strong> After I9, five configurations were re-tested against the registry and the best-scoring one that passed was kept. This is a multiple-comparison risk; the report records how many were tested.</td>
+<td><code>scripts/select_unique_ribbon.py</code></td>
+<td>Stated in the report.</td>
+</tr>
+<tr>
+<td>I11</td>
+<td><strong>The ribbon lane's premise failed.</strong> The brief assumes candidate ridges localise faults to ~1–3 px. Measured σ68 is 5.0–8.4 px, and the random-placement control is 5.0–5.8 px.</td>
+<td><code>reports/ribbon_lane_report.json</code> (<code>sigma_table</code>)</td>
+<td>Reported as a negative result.</td>
+</tr>
+<tr>
+<td>I12</td>
+<td><strong>Mixed selection in one holdout number.</strong> The cross-fitted pooled number (0.0160) and the uniform-config number (0.0163 for triple3) differ slightly; both are reported.</td>
+<td><code>reports/</code></td>
+<td>Stated.</td>
+</tr>
+<tr>
+<td>I13</td>
+<td><strong>Output of the first run was lost by a serialization bug.</strong> The first full run failed at JSON writing (tuple keys) and was re-run. The final dots array was not saved by the first attempt; rebuilt by <code>/tmp/rebuild_final.py</code> (same count, 332,174 dots, matches).</td>
+<td><code>scripts/run_ribbon_lane.py</code></td>
+<td>Fixed; the rebuild script is not committed (superseded by <code>select_unique_ribbon.py</code>).</td>
+</tr>
+<tr>
+<td>I14</td>
+<td><strong>Prompt text not stored verbatim.</strong> The brief asked for the full prompt in the README. The full text is long and includes instructions that conflict with each other (e.g., "stop after 3 experiments" vs "run through multiple passes"). <code>README.md</code> holds a faithful summary of the operative rules.</td>
+<td><code>README.md</code></td>
+<td>Flagged. Paste the verbatim text in if required.</td>
+</tr>
+<tr>
+<td>I15</td>
+<td><strong>Some registry files are labelled "DO-NOT-SUBMIT" or "PLACEHOLDER"</strong> (GEMSDOE53 <code>archive/do-not-submit/…__DO-NOT-SUBMIT.tif</code> and <code>submissions/…__DO-NOT-SUBMIT.tif</code>; GEMSDOE9 <code>docs/downloads/gemsdoe9-PLACEHOLDER-…tif</code>). They are in the registry used for uniqueness and were not treated as submissions.</td>
+<td>GEMSDOE53, GEMSDOE9</td>
+<td>Flagged.</td>
+</tr>
+<tr>
+<td>I16</td>
+<td><strong>Second-hand deadline.</strong> One repo states the competition closes 2026-12-03 23:59 UTC.</td>
+<td><code>Svyable/GEMS-CONTEST</code></td>
+<td>Not used. Confirm on DrivenData.</td>
+</tr>
+</tbody>
+</table><p class='small'>Generated by scripts/build_site.py from reports/ribbon_lane_report.json. Local holdout numbers are HOLDOUT-DTI, not organizer scores.</p></body></html>

@@ -1,0 +1,24 @@
+{
+ "hypothesis": "Geophysics-only ridge candidates, emitted as parallel dotted lines at a sigma-scaled width, can place the 0.2778-style dotted emission within ~1 px of hidden faults.",
+ "mechanism": "Ridge filter on 100 m magnetic-edge (band 3) and detrended-elevation (band 12) layers; skeleton; parallel offsets along the across-ridge normal; line count chosen by U on calibration blocks.",
+ "non_fault_mimic": "Topographic ridges, lithologic contacts, basin-margin steps and flight-line gridding artefacts.",
+ "holdout_dti": {
+  "value": 0.01597,
+  "ci95": [
+   0.01499,
+   0.01691
+  ],
+  "evidence": "HOLDOUT-DTI",
+  "withheld_positives": 60988,
+  "evaluator": "gems58.dti (exact; unit-tested against brute force)"
+ },
+ "random_placement_control_pooled_dti": 0.0338,
+ "correlation_overlap_vs_registry": "gate failed for all configurations; see report",
+ "raster_sha256": null,
+ "validator_output": null,
+ "submission_name": null,
+ "submission_note": null,
+ "verdict": "negative",
+ "verdict_reason": "holdout DTI below random placement of the same dot count; ribbon sigma (5-8 px) is not the assumed 1-3 px",
+ "canary_max_auc": 0.5702
+}

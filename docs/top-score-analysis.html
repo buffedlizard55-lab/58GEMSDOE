@@ -1,0 +1,72 @@
+<!doctype html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>0.2778 analysis · 58GEMSDOE</title><style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;max-width:980px;margin:0 auto;padding:24px;color:#1b1f24;line-height:1.5}
+nav a{margin-right:14px;color:#0a58ca;text-decoration:none}
+.banner{border-radius:10px;padding:18px 20px;margin:18px 0}
+.ok{background:#e8f5e9;border:2px solid #2e7d32}
+.hold{background:#fff8e1;border:2px solid #f9a825}
+.neg{background:#ffebee;border:2px solid #c62828}
+.btn{display:inline-block;background:#0a58ca;color:#fff;padding:12px 18px;border-radius:8px;text-decoration:none;font-weight:600}
+table{border-collapse:collapse;width:100%;margin:12px 0;font-size:14px}
+th,td{border:1px solid #d0d7de;padding:6px 8px;text-align:left;vertical-align:top}
+th{background:#f6f8fa}
+code{background:#f6f8fa;padding:1px 4px;border-radius:4px}
+.small{color:#57606a;font-size:13px}
+</style></head><body><nav><a href="index.html">Home</a><a href="executive-summary.html">Submit: executive summary</a><a href="results.html">Results</a><a href="top-score-analysis.html">0.2778 analysis</a><a href="hypotheses.html">Hypotheses</a><a href="irregularities.html">Irregularities</a><a href="sources.html">Sources</a><a href="run-card.json">Run card (JSON)</a></nav><h1>Why did the 0.2778 submission score highest, and can we beat it?</h1>
+<p>Subject: <code>gemsdoe32-h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros.tif</code> (GEMSDOE32, the "h33-h33-2-b2" candidate), user-reported score <strong>0.2778</strong>.</p>
+<h2>1. What the file is (FETCHED from GEMSDOE32, <code>docs/downloads/…-audit.json</code>)</h2>
+<ul>
+<li>Description in its own audit: "0.2708 base with every dot at d(catalogue) &lt;= 2 px deleted (37,654 dots)".</li>
+<li>So it is a dotted-ridge base (score 0.2708 claimed by the same team) with one operation applied: a
+  <strong>catalogue-flank prune</strong>: every dot within 2 px (200 m) of a catalogue fault is removed.</li>
+<li>Output: 37,654 positive pixels; 0 on the catalogue; 5,167,373 in-footprint pixels; EPSG:32611; 3730 × 3292;
+  float32. Its own checks say all passed. Their zeros and NaN variants carry identical dots.</li>
+<li>Evidence class of the 0.2778 score: <strong>user-report only</strong>. It is absent from the team's score ledger
+  (<code>docs/score-ledger.csv</code>), which holds user reports and official-snapshot rows dated 2026-10-03 (rank 1 = 0.3195).</li>
+</ul>
+<h2>2. The mechanism, stated as a testable claim</h2>
+<p>Write the metric as the task brief and the official page give it: <code>DTI = TP / (0.2(TP+FP) + 0.8|G|)</code>.
+Two consequences matter here (both verified by unit tests in <code>tests/test_dti.py</code>):</p>
+<ol>
+<li>The denominator's floor <code>0.8|G|</code> is fixed by the hidden labels. Every unit of predicted mass costs
+   <code>0.2</code> whether or not it earns credit. A dot earns credit only if it is the nearest strong mass to a
+   hidden fault pixel within 3 px.</li>
+<li>A dot near a <strong>known</strong> trace earns credit only if hidden labels lie within 300 m of that trace, and it costs
+   FP if they do not. Removing dots near known traces therefore helps exactly when hidden labels are <em>away</em> from
+   known traces.</li>
+</ol>
+<p>So the 0.2708 → 0.2778 step (+0.007, user-reported) is consistent with removing FP mass in a band where the
+hidden labels are absent. <strong>The sign of this effect depends on an assumption that we cannot check here:</strong>
+whether new-fault labels lie within 300 m of known traces. A second-hand note (LEARNGEMSDOE PR #3, quoting a
+forum post) says they may. The forum thread itself (11516) is unreachable from the sandbox. If that note is right,
+the prune removes true credit and the 0.2778 result is partly luck. Resolve this with an organizer-confirmed
+receipt, not with a holdout.</p>
+<h2>3. Why this file's holdout disagrees with its score (irregularity — flag for review)</h2>
+<p>The same team's holdout for this file reports <code>catalogue_hidden_mean = 0.0046</code> (its audit JSON). The
+<code>predicted_leaderboard_dti = 0.2747</code> field is a <strong>projection</strong> (a regression from their own holdout), not a
+score. The actual reported score (0.2778) is far from the holdout (0.0046). So their holdout does not predict
+the leaderboard, and any selection that relies on it is unreliable until it is calibrated against organizer
+receipts. The same caution applies to our holdout (below).</p>
+<h2>4. Can we generate something that scores above 0.2778?</h2>
+<p><strong>Not demonstrated, and our evidence points the other way for the lane we tested.</strong></p>
+<ul>
+<li>Our ribbon-lane candidates score pooled holdout DTI ≈ 0.016 and do <strong>not</strong> beat random placement of the same
+  number of dots (pooled ≈ 0.034). See <code>reports/ribbon_lane_report.json</code> (holdout, baselines).</li>
+<li>A 0.2778 leaderboard score cannot be compared with our holdout numbers directly. Our holdout is a proxy, and the
+  team's own holdout shows that proxies in this competition are badly miscalibrated (3.); we have no organizer
+  receipts of our own to calibrate against.</li>
+<li>The three things that could plausibly add score, in order of how well they are supported:</li>
+<li><strong>Calibrate</strong> the holdout against organizer receipts (one or two small submissions inside the weekly cap).
+     Without this, no holdout result in this repo can be turned into a leaderboard projection.</li>
+<li><strong>Test the prune assumption</strong> directly: score base vs. base-with-catalogue-prune on a holdout where withheld
+     segments are placed near (≤ 300 m) and far from visible traces, and see which wins. This decides whether the
+     0.2778 trick generalises.</li>
+<li><strong>Improve localisation</strong> (σ). Our σ measurement says ridge candidates from the 100 m stack land 5–8 px off
+     faults, no better than random placement (<code>docs/results.html</code>). Finer-scale raw magnetic grids (H1 in
+     <code>docs/hypotheses.md</code>) are the candidate fix, but they are not reachable from this sandbox.</li>
+</ul>
+<h2>5. Verdict</h2>
+<ul>
+<li>The 0.2778 result is user-reported, its mechanism is plausible but unverified, and its own holdout disagrees with
+  it by a factor of 60. Treat it as a hypothesis about the prune, not as an established method.</li>
+<li>We have <strong>no</strong> validated submission that beats 0.2778. Our one candidate lane is negative on the holdout.</li>
+</ul><p class='small'>Generated by scripts/build_site.py from reports/ribbon_lane_report.json. Local holdout numbers are HOLDOUT-DTI, not organizer scores.</p></body></html>

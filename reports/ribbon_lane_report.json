@@ -1,0 +1,930 @@
+{
+ "generated_utc": "2026-10-11T00:34:51+00:00",
+ "lane": "ribbon (parallel dotted lines, sigma-scaled emission width)",
+ "metric": {
+  "alpha": 0.2,
+  "beta": 0.8,
+  "radius_px": 3,
+  "evaluator": "gems58.dti (exact, cross-checked vs brute force in tests/test_dti.py)",
+  "evidence_class": "HOLDOUT-DTI (local hide-and-recover; not the DrivenData score)"
+ },
+ "holdout": {
+  "scheme": "4 spatial blocks by segment centroid; withheld block scored; visible faults masked; 5 px buffer",
+  "withheld_positives_total": 60988,
+  "pooled_dti": 0.01597,
+  "pooled_dti_ci95_tile_bootstrap": [
+   0.01499,
+   0.01691
+  ],
+  "bootstrap": "2000 resamples of 8x8 px tiles",
+  "per_block": [
+   {
+    "block": "NW",
+    "dti": 0.03751,
+    "tp": 3222.568,
+    "fp": 309031.0,
+    "n_truth": 29334,
+    "dots": 333145,
+    "config": {
+     "topo/native": "triple3",
+     "topo/coarse": "triple3",
+     "edge/native": "triple2",
+     "edge/coarse": "triple3"
+    }
+   },
+   {
+    "block": "NE",
+    "dti": 0.00482,
+    "tp": 362.764,
+    "fp": 325921.0,
+    "n_truth": 12572,
+    "dots": 332174,
+    "config": {
+     "topo/native": "triple3",
+     "topo/coarse": "triple3",
+     "edge/native": "triple3",
+     "edge/coarse": "triple3"
+    }
+   },
+   {
+    "block": "SW",
+    "dti": 0.01233,
+    "tp": 894.174,
+    "fp": 324352.0,
+    "n_truth": 9364,
+    "dots": 332174,
+    "config": {
+     "topo/native": "triple3",
+     "topo/coarse": "triple3",
+     "edge/native": "triple3",
+     "edge/coarse": "triple3"
+    }
+   },
+   {
+    "block": "SE",
+    "dti": 0.00578,
+    "tp": 422.959,
+    "fp": 326884.0,
+    "n_truth": 9718,
+    "dots": 332174,
+    "config": {
+     "topo/native": "triple3",
+     "topo/coarse": "triple3",
+     "edge/native": "triple3",
+     "edge/coarse": "triple3"
+    }
+   }
+  ],
+  "baselines": {
+   "all_ones_in_domain": [
+    {
+     "block": "NW",
+     "dti": 0.02953,
+     "tp": 29334.0,
+     "fp": 4820089.0
+    },
+    {
+     "block": "NE",
+     "dti": 0.01248,
+     "tp": 12572.0,
+     "fp": 4973661.0
+    },
+    {
+     "block": "SW",
+     "dti": 0.00923,
+     "tp": 9364.0,
+     "fp": 5024341.0
+    },
+    {
+     "block": "SE",
+     "dti": 0.00959,
+     "tp": 9718.0,
+     "fp": 5020341.0
+    }
+   ],
+   "null_union_same_size": [
+    {
+     "block": "NW",
+     "dti": 0.05691,
+     "tp": 5138.876537643028,
+     "fp": 328991.0
+    },
+    {
+     "block": "NE",
+     "dti": 0.02819,
+     "tp": 2145.9483388864946,
+     "fp": 328178.0
+    },
+    {
+     "block": "SW",
+     "dti": 0.02133,
+     "tp": 1566.6369451799983,
+     "fp": 328289.0
+    },
+    {
+     "block": "SE",
+     "dti": 0.02374,
+     "tp": 1750.9336236136526,
+     "fp": 328186.0
+    }
+   ]
+  }
+ },
+ "sigma_table": [
+  {
+   "ridge_type": "topo",
+   "resolution": "native",
+   "block": "NW",
+   "n_pairs": 3746,
+   "sigma68": 7.065271604610699,
+   "median_abs": 5.7003107526552945,
+   "null_sigma68": 5.502842171502304
+  },
+  {
+   "ridge_type": "topo",
+   "resolution": "native",
+   "block": "NE",
+   "n_pairs": 2266,
+   "sigma68": 7.260323063854932,
+   "median_abs": 6.0,
+   "null_sigma68": 5.798130037501004
+  },
+  {
+   "ridge_type": "topo",
+   "resolution": "native",
+   "block": "SW",
+   "n_pairs": 1033,
+   "sigma68": 7.063092182096025,
+   "median_abs": 5.741823599786679,
+   "null_sigma68": 5.089031106042377
+  },
+  {
+   "ridge_type": "topo",
+   "resolution": "native",
+   "block": "SE",
+   "n_pairs": 792,
+   "sigma68": 6.7485298891730725,
+   "median_abs": 4.949669515472246,
+   "null_sigma68": 5.373189021693146
+  },
+  {
+   "ridge_type": "topo",
+   "resolution": "coarse",
+   "block": "NW",
+   "n_pairs": 1446,
+   "sigma68": 7.778174593052022,
+   "median_abs": 6.2512876785667455,
+   "null_sigma68": 5.366689940786894
+  },
+  {
+   "ridge_type": "topo",
+   "resolution": "coarse",
+   "block": "NE",
+   "n_pairs": 579,
+   "sigma68": 8.355259639463538,
+   "median_abs": 7.359677115646958,
+   "null_sigma68": 5.681576270381681
+  },
+  {
+   "ridge_type": "topo",
+   "resolution": "coarse",
+   "block": "SW",
+   "n_pairs": 335,
+   "sigma68": 8.236793375119289,
+   "median_abs": 6.451225351854004,
+   "null_sigma68": 5.570854617635623
+  },
+  {
+   "ridge_type": "topo",
+   "resolution": "coarse",
+   "block": "SE",
+   "n_pairs": 336,
+   "sigma68": 7.388416281144733,
+   "median_abs": 6.121198235945919,
+   "null_sigma68": 4.999355506448254
+  },
+  {
+   "ridge_type": "edge",
+   "resolution": "native",
+   "block": "NW",
+   "n_pairs": 12561,
+   "sigma68": 5.421129436018561,
+   "median_abs": 3.602438606165741,
+   "null_sigma68": 5.382044988918938
+  },
+  {
+   "ridge_type": "edge",
+   "resolution": "native",
+   "block": "NE",
+   "n_pairs": 998,
+   "sigma68": 5.836185727673675,
+   "median_abs": 3.998623391176771,
+   "null_sigma68": 5.604785853260818
+  },
+  {
+   "ridge_type": "edge",
+   "resolution": "native",
+   "block": "SW",
+   "n_pairs": 2576,
+   "sigma68": 5.156612387051321,
+   "median_abs": 3.1212009110063983,
+   "null_sigma68": 5.5512112566743514
+  },
+  {
+   "ridge_type": "edge",
+   "resolution": "native",
+   "block": "SE",
+   "n_pairs": 808,
+   "sigma68": 5.088806437806783,
+   "median_abs": 3.525704289304513,
+   "null_sigma68": 5.258010746620186
+  },
+  {
+   "ridge_type": "edge",
+   "resolution": "coarse",
+   "block": "NW",
+   "n_pairs": 3976,
+   "sigma68": 5.458615262881953,
+   "median_abs": 3.7490404856457515,
+   "null_sigma68": 5.597904632727169
+  },
+  {
+   "ridge_type": "edge",
+   "resolution": "coarse",
+   "block": "NE",
+   "n_pairs": 384,
+   "sigma68": 5.0,
+   "median_abs": 3.6148524845854357,
+   "null_sigma68": 5.6292575369303055
+  },
+  {
+   "ridge_type": "edge",
+   "resolution": "coarse",
+   "block": "SW",
+   "n_pairs": 676,
+   "sigma68": 5.533824735069847,
+   "median_abs": 3.684527334991546,
+   "null_sigma68": 5.334171063118552
+  },
+  {
+   "ridge_type": "edge",
+   "resolution": "coarse",
+   "block": "SE",
+   "n_pairs": 287,
+   "sigma68": 5.822170678958976,
+   "median_abs": 3.338242307429822,
+   "null_sigma68": 5.14559682867923
+  }
+ ],
+ "selection_cv": [
+  {
+   "held_out": "NW",
+   "ridge_type": "topo",
+   "resolution": "native",
+   "chosen": "triple3",
+   "U_by_config": {
+    "single": 41.069,
+    "pair2": 205.211,
+    "pair3": 293.725,
+    "triple1": 102.668,
+    "triple2": 202.43,
+    "triple3": 315.057
+   },
+   "dti0_calibration": 0.00162
+  },
+  {
+   "held_out": "NW",
+   "ridge_type": "topo",
+   "resolution": "coarse",
+   "chosen": "triple3",
+   "U_by_config": {
+    "single": 28.65,
+    "pair2": 42.942,
+    "pair3": 49.598,
+    "triple1": 50.556,
+    "triple2": 55.211,
+    "triple3": 73.695
+   },
+   "dti0_calibration": 0.00113
+  },
+  {
+   "held_out": "NW",
+   "ridge_type": "edge",
+   "resolution": "native",
+   "chosen": "triple2",
+   "U_by_config": {
+    "single": 227.041,
+    "pair2": 282.978,
+    "pair3": 235.391,
+    "triple1": 232.412,
+    "triple2": 378.368,
+    "triple3": 367.94
+   },
+   "dti0_calibration": 0.00897
+  },
+  {
+   "held_out": "NW",
+   "ridge_type": "edge",
+   "resolution": "coarse",
+   "chosen": "triple3",
+   "U_by_config": {
+    "single": 117.651,
+    "pair2": 150.202,
+    "pair3": 137.229,
+    "triple1": 180.33,
+    "triple2": 210.711,
+    "triple3": 231.137
+   },
+   "dti0_calibration": 0.00465
+  },
+  {
+   "held_out": "NE",
+   "ridge_type": "topo",
+   "resolution": "native",
+   "chosen": "triple3",
+   "U_by_config": {
+    "single": 123.641,
+    "pair2": 340.014,
+    "pair3": 505.964,
+    "triple1": 232.344,
+    "triple2": 386.669,
+    "triple3": 595.336
+   },
+   "dti0_calibration": 0.00319
+  },
+  {
+   "held_out": "NE",
+   "ridge_type": "topo",
+   "resolution": "coarse",
+   "chosen": "triple3",
+   "U_by_config": {
+    "single": 66.282,
+    "pair2": 135.231,
+    "pair3": 156.575,
+    "triple1": 147.679,
+    "triple2": 173.798,
+    "triple3": 213.468
+   },
+   "dti0_calibration": 0.00171
+  },
+  {
+   "held_out": "NE",
+   "ridge_type": "edge",
+   "resolution": "native",
+   "chosen": "triple3",
+   "U_by_config": {
+    "single": 813.644,
+    "pair2": 1337.812,
+    "pair3": 1362.062,
+    "triple1": 1184.301,
+    "triple2": 1627.7,
+    "triple3": 1778.453
+   },
+   "dti0_calibration": 0.02101
+  },
+  {
+   "held_out": "NE",
+   "ridge_type": "edge",
+   "resolution": "coarse",
+   "chosen": "triple3",
+   "U_by_config": {
+    "single": 351.283,
+    "pair2": 745.769,
+    "pair3": 761.9,
+    "triple1": 732.118,
+    "triple2": 910.147,
+    "triple3": 1009.403
+   },
+   "dti0_calibration": 0.00907
+  },
+  {
+   "held_out": "SW",
+   "ridge_type": "topo",
+   "resolution": "native",
+   "chosen": "triple3",
+   "U_by_config": {
+    "single": 116.283,
+    "pair2": 367.655,
+    "pair3": 532.662,
+    "triple1": 231.407,
+    "triple2": 412.019,
+    "triple3": 618.816
+   },
+   "dti0_calibration": 0.00282
+  },
+  {
+   "held_out": "SW",
+   "ridge_type": "topo",
+   "resolution": "coarse",
+   "chosen": "triple3",
+   "U_by_config": {
+    "single": 51.957,
+    "pair2": 110.225,
+    "pair3": 133.658,
+    "triple1": 116.911,
+    "triple2": 144.622,
+    "triple3": 179.56
+   },
+   "dti0_calibration": 0.00126
+  },
+  {
+   "held_out": "SW",
+   "ridge_type": "edge",
+   "resolution": "native",
+   "chosen": "triple3",
+   "U_by_config": {
+    "single": 730.283,
+    "pair2": 1156.844,
+    "pair3": 1149.29,
+    "triple1": 1009.346,
+    "triple2": 1419.002,
+    "triple3": 1529.683
+   },
+   "dti0_calibration": 0.01768
+  },
+  {
+   "held_out": "SW",
+   "ridge_type": "edge",
+   "resolution": "coarse",
+   "chosen": "triple3",
+   "U_by_config": {
+    "single": 327.815,
+    "pair2": 703.942,
+    "pair3": 739.147,
+    "triple1": 684.016,
+    "triple2": 853.472,
+    "triple3": 967.824
+   },
+   "dti0_calibration": 0.00794
+  },
+  {
+   "held_out": "SE",
+   "ridge_type": "topo",
+   "resolution": "native",
+   "chosen": "triple3",
+   "U_by_config": {
+    "single": 123.204,
+    "pair2": 360.292,
+    "pair3": 500.701,
+    "triple1": 241.375,
+    "triple2": 404.931,
+    "triple3": 595.059
+   },
+   "dti0_calibration": 0.003
+  },
+  {
+   "held_out": "SE",
+   "ridge_type": "topo",
+   "resolution": "coarse",
+   "chosen": "triple3",
+   "U_by_config": {
+    "single": 49.695,
+    "pair2": 112.899,
+    "pair3": 125.592,
+    "triple1": 121.252,
+    "triple2": 141.157,
+    "triple3": 167.164
+   },
+   "dti0_calibration": 0.00121
+  },
+  {
+   "held_out": "SE",
+   "ridge_type": "edge",
+   "resolution": "native",
+   "chosen": "triple3",
+   "U_by_config": {
+    "single": 834.934,
+    "pair2": 1377.828,
+    "pair3": 1388.746,
+    "triple1": 1214.694,
+    "triple2": 1676.861,
+    "triple3": 1819.647
+   },
+   "dti0_calibration": 0.02036
+  },
+  {
+   "held_out": "SE",
+   "ridge_type": "edge",
+   "resolution": "coarse",
+   "chosen": "triple3",
+   "U_by_config": {
+    "single": 347.979,
+    "pair2": 749.72,
+    "pair3": 768.389,
+    "triple1": 736.368,
+    "triple2": 909.622,
+    "triple3": 1013.886
+   },
+   "dti0_calibration": 0.00848
+  }
+ ],
+ "final_config_on_all_blocks": {
+  "topo/native": "triple3",
+  "topo/coarse": "triple3",
+  "edge/native": "triple3",
+  "edge/coarse": "triple3"
+ },
+ "canary": [
+  {
+   "feature": "band1",
+   "description": "Magnetic anomaly - deviation from expected Earth's magnetic field",
+   "auc": 0.4916
+  },
+  {
+   "feature": "band2",
+   "description": "Reduced to pole magnetic data - magnetic anomaly corrected for latitud",
+   "auc": 0.4983
+  },
+  {
+   "feature": "band3",
+   "description": "Total magnetic intensity horizontal gradient - rate of change in horiz",
+   "auc": 0.527
+  },
+  {
+   "feature": "band4",
+   "description": "Geodetic second invariant - measure of strain rate tensor magnitude",
+   "auc": 0.5702
+  },
+  {
+   "feature": "band5",
+   "description": "Isostatic gravity anomaly slope - gradient of gravity after isostatic ",
+   "auc": 0.5336
+  },
+  {
+   "feature": "band6",
+   "description": "Tilt angle or total curvature - magnetic field derivative for edge det",
+   "auc": 0.4485
+  },
+  {
+   "feature": "band7",
+   "description": "Geodetic shear rate - rate of angular deformation from GPS/InSAR",
+   "auc": 0.5691
+  },
+  {
+   "feature": "band8",
+   "description": "Geodetic dilatation rate - rate of volumetric strain (expansion/contra",
+   "auc": 0.5253
+  },
+  {
+   "feature": "band9",
+   "description": "Total magnetic intensity vertical gradient - rate of change in vertica",
+   "auc": 0.487
+  },
+  {
+   "feature": "band10",
+   "description": "Distance to earthquake (n=100km radius, a=15\u00b0 azimuth parameters)",
+   "auc": 0.5509
+  },
+  {
+   "feature": "band11",
+   "description": "Isostatic gravity anomaly vertical gradient - vertical rate of change",
+   "auc": 0.5264
+  },
+  {
+   "feature": "band12",
+   "description": "Detrended elevation - topography with regional trends removed",
+   "auc": 0.4846
+  },
+  {
+   "feature": "band13",
+   "description": "Isostatic gravity anomaly - gravity after compensating for topographic",
+   "auc": 0.4586
+  },
+  {
+   "feature": "band14",
+   "description": "Total magnetic intensity - total strength of magnetic field",
+   "auc": 0.4889
+  },
+  {
+   "feature": "band15",
+   "description": "Depth to basement surface - thickness of sedimentary cover",
+   "auc": 0.5129
+  },
+  {
+   "feature": "band16",
+   "description": "Earthquake intensity or density (n=100km radius, a=15\u00b0 parameters)",
+   "auc": 0.5684
+  },
+  {
+   "feature": "band17",
+   "description": "Conductivity surface - electrical conductivity of subsurface",
+   "auc": 0.4841
+  },
+  {
+   "feature": "band18",
+   "description": "Isostatic gravity anomaly horizontal gradient - horizontal rate of cha",
+   "auc": 0.4989
+  },
+  {
+   "feature": "band19",
+   "description": "Detrended elevation slope - gradient of elevation after detrending",
+   "auc": 0.5573
+  },
+  {
+   "feature": "ridge:topo/native",
+   "description": "candidate ridge score (geophysics only)",
+   "auc": 0.5118
+  },
+  {
+   "feature": "ridge:topo/coarse",
+   "description": "candidate ridge score (geophysics only)",
+   "auc": 0.5063
+  },
+  {
+   "feature": "ridge:edge/native",
+   "description": "candidate ridge score (geophysics only)",
+   "auc": 0.5222
+  },
+  {
+   "feature": "ridge:edge/coarse",
+   "description": "candidate ridge score (geophysics only)",
+   "auc": 0.5289
+  }
+ ],
+ "canary_max_auc": 0.5702,
+ "registry_check": {},
+ "runtime_s": 470,
+ "config_selection": {
+  "rule": "best pooled holdout DTI among configurations that pass gate B (uniqueness)",
+  "multiple_selection_note": "6 configurations x 687 unique registry rasters were tested",
+  "configurations": {
+   "single": {
+    "offsets_px": [
+     0
+    ],
+    "holdout": {
+     "pooled_dti": 0.01407,
+     "tp": 2112.753,
+     "fp": 504608.0,
+     "withheld_positives": 60988,
+     "per_block": [
+      {
+       "block": "NW",
+       "dti": 0.02904
+      },
+      {
+       "block": "NE",
+       "dti": 0.00436
+      },
+      {
+       "block": "SW",
+       "dti": 0.01163
+      },
+      {
+       "block": "SE",
+       "dti": 0.0054
+      }
+     ],
+     "dots": 130301
+    },
+    "registry_rasters_compared": 682,
+    "dot_set_rasters": 639,
+    "max_spearman": 0.1619,
+    "max_dot_overlap_3px": 0.9962,
+    "worst_match": {
+     "repo": "13GEMSDOE",
+     "path": "docs/downloads/13gems_20261001_r13-lattice-s5_v2_nan-outside.tif",
+     "sha": "81c802618e6d",
+     "spearman": -0.0013,
+     "dot_overlap_3px": 0.9962,
+     "positives": 206895
+    },
+    "rasters_over_70pct": 27,
+    "passed_gate_B": false
+   },
+   "pair2": {
+    "offsets_px": [
+     -2,
+     2
+    ],
+    "holdout": {
+     "pooled_dti": 0.01606,
+     "tp": 3696.998,
+     "fp": 903073.0,
+     "withheld_positives": 60988,
+     "per_block": [
+      {
+       "block": "NW",
+       "dti": 0.03684
+      },
+      {
+       "block": "NE",
+       "dti": 0.00499
+      },
+      {
+       "block": "SW",
+       "dti": 0.01219
+      },
+      {
+       "block": "SE",
+       "dti": 0.0054
+      }
+     ],
+     "dots": 233318
+    },
+    "registry_rasters_compared": 682,
+    "dot_set_rasters": 639,
+    "max_spearman": 0.2,
+    "max_dot_overlap_3px": 0.9971,
+    "worst_match": {
+     "repo": "13GEMSDOE",
+     "path": "docs/downloads/13gems_20261001_r13-lattice-s5_v2_nan-outside.tif",
+     "sha": "81c802618e6d",
+     "spearman": -0.0008,
+     "dot_overlap_3px": 0.9971,
+     "positives": 206895
+    },
+    "rasters_over_70pct": 28,
+    "passed_gate_B": false
+   },
+   "pair3": {
+    "offsets_px": [
+     -3,
+     3
+    ],
+    "holdout": {
+     "pooled_dti": 0.01716,
+     "tp": 3867.769,
+     "fp": 878922.0,
+     "withheld_positives": 60988,
+     "per_block": [
+      {
+       "block": "NW",
+       "dti": 0.03957
+      },
+      {
+       "block": "NE",
+       "dti": 0.00491
+      },
+      {
+       "block": "SW",
+       "dti": 0.01278
+      },
+      {
+       "block": "SE",
+       "dti": 0.00605
+      }
+     ],
+     "dots": 227271
+    },
+    "registry_rasters_compared": 682,
+    "dot_set_rasters": 639,
+    "max_spearman": 0.1827,
+    "max_dot_overlap_3px": 0.9979,
+    "worst_match": {
+     "repo": "13GEMSDOE",
+     "path": "docs/downloads/13gems_20261001_r13-lattice-s5_v2_nan-outside.tif",
+     "sha": "81c802618e6d",
+     "spearman": 0.0013,
+     "dot_overlap_3px": 0.9979,
+     "positives": 206895
+    },
+    "rasters_over_70pct": 28,
+    "passed_gate_B": false
+   },
+   "triple1": {
+    "offsets_px": [
+     -1,
+     0,
+     1
+    ],
+    "holdout": {
+     "pooled_dti": 0.01327,
+     "tp": 4019.92,
+     "fp": 1266790.0,
+     "withheld_positives": 60988,
+     "per_block": [
+      {
+       "block": "NW",
+       "dti": 0.03138
+      },
+      {
+       "block": "NE",
+       "dti": 0.00355
+      },
+      {
+       "block": "SW",
+       "dti": 0.0107
+      },
+      {
+       "block": "SE",
+       "dti": 0.00458
+      }
+     ],
+     "dots": 327331
+    },
+    "registry_rasters_compared": 682,
+    "dot_set_rasters": 639,
+    "max_spearman": 0.2419,
+    "max_dot_overlap_3px": 0.997,
+    "worst_match": {
+     "repo": "13GEMSDOE",
+     "path": "docs/downloads/13gems_20261001_r13-lattice-s5_v2_nan-outside.tif",
+     "sha": "81c802618e6d",
+     "spearman": 0.0001,
+     "dot_overlap_3px": 0.997,
+     "positives": 206895
+    },
+    "rasters_over_70pct": 27,
+    "passed_gate_B": false
+   },
+   "triple2": {
+    "offsets_px": [
+     -2,
+     0,
+     2
+    ],
+    "holdout": {
+     "pooled_dti": 0.01509,
+     "tp": 4627.336,
+     "fp": 1284868.0,
+     "withheld_positives": 60988,
+     "per_block": [
+      {
+       "block": "NW",
+       "dti": 0.03571
+      },
+      {
+       "block": "NE",
+       "dti": 0.00457
+      },
+      {
+       "block": "SW",
+       "dti": 0.01158
+      },
+      {
+       "block": "SE",
+       "dti": 0.00523
+      }
+     ],
+     "dots": 331947
+    },
+    "registry_rasters_compared": 682,
+    "dot_set_rasters": 639,
+    "max_spearman": 0.2335,
+    "max_dot_overlap_3px": 0.9969,
+    "worst_match": {
+     "repo": "13GEMSDOE",
+     "path": "docs/downloads/13gems_20261001_r13-lattice-s5_v2_nan-outside.tif",
+     "sha": "81c802618e6d",
+     "spearman": -0.0007,
+     "dot_overlap_3px": 0.9969,
+     "positives": 206895
+    },
+    "rasters_over_70pct": 28,
+    "passed_gate_B": false
+   },
+   "triple3": {
+    "offsets_px": [
+     -3,
+     0,
+     3
+    ],
+    "holdout": {
+     "pooled_dti": 0.01627,
+     "tp": 4992.488,
+     "fp": 1285499.0,
+     "withheld_positives": 60988,
+     "per_block": [
+      {
+       "block": "NW",
+       "dti": 0.03861
+      },
+      {
+       "block": "NE",
+       "dti": 0.00482
+      },
+      {
+       "block": "SW",
+       "dti": 0.01233
+      },
+      {
+       "block": "SE",
+       "dti": 0.00578
+      }
+     ],
+     "dots": 332174
+    },
+    "registry_rasters_compared": 682,
+    "dot_set_rasters": 639,
+    "max_spearman": 0.2246,
+    "max_dot_overlap_3px": 0.9973,
+    "worst_match": {
+     "repo": "13GEMSDOE",
+     "path": "docs/downloads/13gems_20261001_r13-lattice-s5_v2_nan-outside.tif",
+     "sha": "81c802618e6d",
+     "spearman": -0.0001,
+     "dot_overlap_3px": 0.9973,
+     "positives": 206895
+    },
+    "rasters_over_70pct": 28,
+    "passed_gate_B": false
+   }
+  },
+  "chosen": null,
+  "duplicate_log": [
+   "ALL configurations failed gate B: logged as lane drift / duplicate; no file written"
+  ]
+ },
+ "submission": null
+}

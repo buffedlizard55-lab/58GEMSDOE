@@ -1,0 +1,224 @@
+<!doctype html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Sources · 58GEMSDOE</title><style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;max-width:980px;margin:0 auto;padding:24px;color:#1b1f24;line-height:1.5}
+nav a{margin-right:14px;color:#0a58ca;text-decoration:none}
+.banner{border-radius:10px;padding:18px 20px;margin:18px 0}
+.ok{background:#e8f5e9;border:2px solid #2e7d32}
+.hold{background:#fff8e1;border:2px solid #f9a825}
+.neg{background:#ffebee;border:2px solid #c62828}
+.btn{display:inline-block;background:#0a58ca;color:#fff;padding:12px 18px;border-radius:8px;text-decoration:none;font-weight:600}
+table{border-collapse:collapse;width:100%;margin:12px 0;font-size:14px}
+th,td{border:1px solid #d0d7de;padding:6px 8px;text-align:left;vertical-align:top}
+th{background:#f6f8fa}
+code{background:#f6f8fa;padding:1px 4px;border-radius:4px}
+.small{color:#57606a;font-size:13px}
+</style></head><body><nav><a href="index.html">Home</a><a href="executive-summary.html">Submit: executive summary</a><a href="results.html">Results</a><a href="top-score-analysis.html">0.2778 analysis</a><a href="hypotheses.html">Hypotheses</a><a href="irregularities.html">Irregularities</a><a href="sources.html">Sources</a><a href="run-card.json">Run card (JSON)</a></nav><h1>Sources — verification ledger</h1>
+<p>Every row says <strong>how</strong> it was checked. Nothing here is cited from memory.</p>
+<p>Verification levels:
+- <strong>FETCHED</strong> — opened by the sandbox this session (GitHub hosts are the only ones reachable; the sandbox allow-list is github.com, api.github.com, codeload.github.com, registry.npmjs.org, pypi.org, files.pythonhosted.org).
+- <strong>SEARCH-EXCERPT</strong> — the page text was returned by the web search tool this session, but the page itself could not be opened from the sandbox. Open the link yourself for manual review.
+- <strong>UNREACHABLE</strong> — neither opened nor searched; cited only from the user's brief or a repo file. Treat as unverified.
+- <strong>SECOND-HAND</strong> — stated in another project's repo; not checked against the original.</p>
+<p>Link check run 2026-10-11 (curl, HTTP status): GitHub links returned 200; drivendata.org, docs.nlr.gov, gdr.openei.org, doi.org, usgs.gov, sciencebase.gov, epsg.io and en.wikipedia.org returned 000 (no connection from the sandbox).</p>
+<h2>A. Competition and rules</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Source</th>
+<th>Used for</th>
+<th>Verification</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A1</td>
+<td>DrivenData, GEMS Prize problem description (page 967) — DTI definition, R = 300 m (3 px), α = 0.2, β = 0.8, TP_w/FP_w/FN_w formulas</td>
+<td>Metric</td>
+<td>SEARCH-EXCERPT (formulas match <code>src/gems58/dti.py</code>)</td>
+<td>https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/</td>
+</tr>
+<tr>
+<td>A2</td>
+<td>DrivenData competition page</td>
+<td>Overview, submission limits</td>
+<td>UNREACHABLE (not opened)</td>
+<td>https://www.drivendata.org/competitions/306/competition-doe-gems/</td>
+</tr>
+<tr>
+<td>A3</td>
+<td>DrivenData leaderboard</td>
+<td>Public scores</td>
+<td>UNREACHABLE. The score ledger in another repo records a 2026-10-03 snapshot (rank 1 = 0.3195) — SECOND-HAND</td>
+<td>https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/</td>
+</tr>
+<tr>
+<td>A4</td>
+<td>DrivenData data tab</td>
+<td>Input file list</td>
+<td>UNREACHABLE (login-gated per the user's brief)</td>
+<td>https://www.drivendata.org/competitions/306/competition-doe-gems/data/</td>
+</tr>
+<tr>
+<td>A5</td>
+<td>Official rules, NLR document 96647 (Sept 2026)</td>
+<td>Submission format, what is scored, §3.5 "distance-weighted Tversky index"</td>
+<td>UNREACHABLE. A text extraction is in the GEMSDOE repo (<code>data/evidence/rules_extracted_text.txt</code>) — SECOND-HAND</td>
+<td>https://docs.nlr.gov/docs/fy26osti/96647.pdf</td>
+</tr>
+<tr>
+<td>A6</td>
+<td>DrivenData forum thread 11516 — whether known USGS/INGENIOUS faults are masked when scoring</td>
+<td>Holdout mask design</td>
+<td>UNREACHABLE. Cited by two other repos (GEMSDOE32 <code>src/gems32/metric.py</code>; LEARNGEMSDOE PR #3, which quotes a staff reply that the mask is "pixel-exact"). <strong>Not verified here — the holdout uses the mask as an assumption.</strong></td>
+<td>https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516</td>
+</tr>
+<tr>
+<td>A7</td>
+<td>Reference solution (John Lipor, PSU) — README + <code>unet-mc-cv-reference-solution.ipynb</code></td>
+<td>Output format (single-band GeoTIFF from <code>labels.tif</code> georeferencing), Tversky loss α = 0.2, β = 0.8, patch size 128</td>
+<td>FETCHED (commit <code>aebe92f7c8a990f0e3443451b7a825d9afd6336b</code>, 2026-06-16)</td>
+<td>https://github.com/drivendataorg/gems-prize-reference-solution</td>
+</tr>
+</tbody>
+</table>
+<h2>B. Data (the competition rasters are not downloadable from the sandbox)</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Source</th>
+<th>Used for</th>
+<th>Verification</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B1</td>
+<td>INGENIOUS — Great Basin Regional Dataset Compilation (GBCGE, NBMG, UNR, 2022), DOI 10.15121/1881483. This is the source of the training labels.</td>
+<td>Known faults (<code>labels.tif</code> = <code>existing_faults.tif</code>)</td>
+<td>SEARCH-EXCERPT (DOI and citation). The GDR record is not reachable from the sandbox.</td>
+<td>https://gdr.openei.org/submissions/1391 · https://doi.org/10.15121/1881483 · https://gbcge.org/current-projects/ingenious/</td>
+</tr>
+<tr>
+<td>B2</td>
+<td>USGS data release, GeoDAWN airborne magnetic and radiometric surveys, northwestern Great Basin NV/CA, DOI 10.5066/P93LGLVQ (Glen &amp; Earney, 2024). Pub. date 2024-03-01; data 2021-08-01 to 2022-11-20. Includes .zip grids (<code>22103_area1_grids.zip</code> 42.43 MB; <code>22103_area2_grids.zip</code> 227.39 MB) and .gdb files.</td>
+<td>Source of the 19-band feature stack (magnetic, gravity, strain, DEM-derived, seismic)</td>
+<td>SEARCH-EXCERPT. <strong>Not reachable from the sandbox — this is the single most useful unexploited free source (raw, finer-than-100 m grids), and it cannot be downloaded from here.</strong></td>
+<td>https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and · https://data.usgs.gov/datacatalog/data/USGS:657e1d85d34e23d3533209f7 · https://www.sciencebase.gov/catalog/item/657e1d85d34e23d3533209f7</td>
+</tr>
+<tr>
+<td>B3</td>
+<td>USGS Quaternary Fault and Fold Database (QFFD) — about 2,000 Quaternary faults, US (USGS Fact Sheet 2004-3033)</td>
+<td>Candidate independent fault catalogue (not used in this build)</td>
+<td>SEARCH-EXCERPT (the 2004 fact sheet text). Current database at the USGS earthquake hazards site was not reachable.</td>
+<td>https://pubs.usgs.gov/fs/2004/3033/fs-2004-3033.html · https://earthquake.usgs.gov/hazards/qfaults/</td>
+</tr>
+<tr>
+<td>B4</td>
+<td>Feature-stack band descriptions (19 bands, EPSG:32611, 100 m, 3292 × 3730)</td>
+<td>Band definitions in this build</td>
+<td>FETCHED from the file tags of <code>training_features.tif</code> (sha256 pinned, see <code>data/bridge/manifest.json</code> in the GEMSDOE repo)</td>
+<td>https://github.com/buffedlizard55-lab/GEMSDOE (<code>data/bridge/manifest.json</code>)</td>
+</tr>
+<tr>
+<td>B5</td>
+<td>Competition rasters as reproduced in the GEMSDOE repo's <code>data/bridge/</code> (split parts, sha256 pins)</td>
+<td>Inputs for this build</td>
+<td>FETCHED; all three whole-file hashes match the manifest pins. These hashes prove the bytes match the pins, <strong>not</strong> that the pins match DrivenData.</td>
+<td>https://github.com/buffedlizard55-lab/GEMSDOE/tree/main/data/bridge</td>
+</tr>
+<tr>
+<td>B6</td>
+<td>EPSG:32611 (WGS 84 / UTM zone 11N)</td>
+<td>CRS of every raster</td>
+<td>Read from the GeoTIFF headers in this build (FETCHED). epsg.io is UNREACHABLE.</td>
+<td>https://epsg.io/32611</td>
+</tr>
+</tbody>
+</table>
+<h2>C. Method references</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Source</th>
+<th>Used for</th>
+<th>Verification</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C1</td>
+<td>Tversky index (Wikipedia)</td>
+<td>Background on α/β asymmetry</td>
+<td>UNREACHABLE from sandbox; statement is textbook-level and not load-bearing</td>
+<td>https://en.wikipedia.org/wiki/Tversky_index</td>
+</tr>
+<tr>
+<td>C2</td>
+<td>scikit-image <code>sato</code> ridge filter; <code>remove_small_objects</code> (0.26.0 API: <code>max_size</code>)</td>
+<td>Candidate ridges</td>
+<td>FETCHED from installed package docs/warnings (scikit-image 0.26.0)</td>
+<td>https://pypi.org/project/scikit-image/</td>
+</tr>
+<tr>
+<td>C3</td>
+<td>SciPy <code>distance_transform_edt</code>, <code>cKDTree</code></td>
+<td>Exact metric and overlap tests</td>
+<td>FETCHED (SciPy 1.17.1 installed from PyPI)</td>
+<td>https://pypi.org/project/scipy/</td>
+</tr>
+</tbody>
+</table>
+<h2>D. Other GEMS repos (third-party; SECOND-HAND unless stated)</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Repo</th>
+<th>What it is</th>
+<th>Why it matters</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D1</td>
+<td><code>buffedlizard55-lab/GEMSDOE32</code> (FETCHED)</td>
+<td>Source of the 0.2778 submission and its audit JSON; score ledger; holdout code</td>
+<td>Source for the analysis of the top submission; its holdout reports DTI 0.0046 for the 0.2778 file (see irregularities)</td>
+<td>https://github.com/buffedlizard55-lab/GEMSDOE32</td>
+</tr>
+<tr>
+<td>D2</td>
+<td><code>buffedlizard55-lab/GEMSDOE</code> (FETCHED)</td>
+<td>Holds the competition rasters in <code>data/bridge/</code> and 80+ registry TIFs</td>
+<td>Input source and the uniqueness registry</td>
+<td>https://github.com/buffedlizard55-lab/GEMSDOE</td>
+</tr>
+<tr>
+<td>D3</td>
+<td><code>Gameassassin777/gems-eval</code> (SEARCH-EXCERPT)</td>
+<td>Says it implements the published DTI and a held-out-segment protocol. Its README reports the reference model at 0.0435 held-out vs 0.0387 leaderboard — SECOND-HAND, one data point</td>
+<td>Independent second implementation of the DTI and a calibration point</td>
+<td>https://github.com/Gameassassin777/gems-eval</td>
+</tr>
+<tr>
+<td>D4</td>
+<td><code>buffedlizard55-lab/LEARNGEMSDOE</code> PR #3 (SEARCH-EXCERPT)</td>
+<td>Claims the mask is pixel-exact (quoting forum post 4)</td>
+<td>Central to the holdout mask assumption; SECOND-HAND</td>
+<td>https://github.com/buffedlizard55-lab/LEARNGEMSDOE/pull/3</td>
+</tr>
+<tr>
+<td>D5</td>
+<td><code>Svyable/GEMS-CONTEST</code> (SEARCH-EXCERPT)</td>
+<td>Says the competition closes 2026-12-03 23:59 UTC</td>
+<td>Deadline is SECOND-HAND; confirm on the DrivenData page</td>
+<td>https://github.com/Svyable/GEMS-CONTEST</td>
+</tr>
+</tbody>
+</table><p class='small'>Generated by scripts/build_site.py from reports/ribbon_lane_report.json. Local holdout numbers are HOLDOUT-DTI, not organizer scores.</p></body></html>

@@ -1,0 +1,98 @@
+<!doctype html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Hypotheses · 58GEMSDOE</title><style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;max-width:980px;margin:0 auto;padding:24px;color:#1b1f24;line-height:1.5}
+nav a{margin-right:14px;color:#0a58ca;text-decoration:none}
+.banner{border-radius:10px;padding:18px 20px;margin:18px 0}
+.ok{background:#e8f5e9;border:2px solid #2e7d32}
+.hold{background:#fff8e1;border:2px solid #f9a825}
+.neg{background:#ffebee;border:2px solid #c62828}
+.btn{display:inline-block;background:#0a58ca;color:#fff;padding:12px 18px;border-radius:8px;text-decoration:none;font-weight:600}
+table{border-collapse:collapse;width:100%;margin:12px 0;font-size:14px}
+th,td{border:1px solid #d0d7de;padding:6px 8px;text-align:left;vertical-align:top}
+th{background:#f6f8fa}
+code{background:#f6f8fa;padding:1px 4px;border-radius:4px}
+.small{color:#57606a;font-size:13px}
+</style></head><body><nav><a href="index.html">Home</a><a href="executive-summary.html">Submit: executive summary</a><a href="results.html">Results</a><a href="top-score-analysis.html">0.2778 analysis</a><a href="hypotheses.html">Hypotheses</a><a href="irregularities.html">Irregularities</a><a href="sources.html">Sources</a><a href="run-card.json">Run card (JSON)</a></nav><h1>Candidate hypotheses (generated before implementing anything new)</h1>
+<p>Band numbers are 1-based indices into the official 19-band stack (<code>training_features.tif</code>; band
+descriptions from the file tags — see <code>docs/sources.md</code> B4). Ranking: expected DTI gain × probability
+of success ÷ implementation cost. Only the first is the ribbon lane tested in this session.</p>
+<table>
+<thead>
+<tr>
+<th>Rank</th>
+<th>Hypothesis</th>
+<th>Layers</th>
+<th>Physical signature targeted</th>
+<th>Why it should find a fault missing from INGENIOUS</th>
+<th>Difference from what exists in this repo</th>
+<th>Cost</th>
+<th>Validatable here?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>H1</td>
+<td><strong>Finer-scale magnetic edges, then ribbon emission.</strong> A fault's magnetic edge at native grid resolution is narrower than the 100 m grid; the 100 m edge response (band 3, "horizontal gradient") smears it.</td>
+<td>Raw GeoDAWN magnetic grids (USGS DOI 10.5066/P93LGLVQ) → recompute THD / tilt</td>
+<td>Narrow linear magnetic lows/highs along strike; sharp tilt-angle zero crossings</td>
+<td>Catalogue-independent: magnetic edges come from the survey, not from mapped traces, so uncatalogued faults are candidates</td>
+<td>Current stack is 100 m only; this would be a new feature resolution</td>
+<td>Medium (download of 42 MB + 227 MB zips, gridding, re-run)</td>
+<td><strong>No — needs the USGS grids, which the sandbox cannot reach.</strong> The ribbon-lane σ table in this build is the test that decides whether it is worth doing.</td>
+</tr>
+<tr>
+<td>H2</td>
+<td><strong>Basement-step lines.</strong> A normal fault offsets the basement; the gradient of depth-to-basement (band 15) traces the step.</td>
+<td>Band 15 "Depth to basement surface" (</td>
+<td>∇</td>
+<td>)</td>
+<td>Linear sediment-thickness discontinuity</td>
+<td>Uses no fault catalogue, so it can find faults the catalogue lacks</td>
+<td>Current ridges use bands 3 and 12 only</td>
+</tr>
+<tr>
+<td>H3</td>
+<td><strong>Strike-prior from visible faults only.</strong> Orient candidate ridges that lie near <em>visible</em> faults to the local visible strike ±20°; use no withheld truth.</td>
+<td>Visible catalogue (only the other blocks in hide-and-recover) + candidate ridges</td>
+<td>Fault-parallel alignment of ridge candidates within 10 px of known traces</td>
+<td>Catalogue-derived, but only from visible faults, so it can extend known traces along strike into the gaps</td>
+<td>Current pipeline has no catalogue-derived feature</td>
+<td>Low–medium</td>
+<td>Yes, under the buffer rule (5 px).</td>
+</tr>
+<tr>
+<td>H4</td>
+<td><strong>Coincidence gating across physics.</strong> Keep a ridge only if magnetic edge (band 3) and gravity horizontal gradient (band 18) peaks coincide within 2 px.</td>
+<td>Bands 3 + 18</td>
+<td>Co-located magnetic and gravity discontinuities</td>
+<td>Physically independent methods agreeing; unlikely to be produced by a single noise source</td>
+<td>Other lanes in the GEMSDOE registry use multi-physics unions and corroboration (see the registry); overlap risk high</td>
+<td>Low</td>
+<td>Yes; check overlap with the registry before placement.</td>
+</tr>
+<tr>
+<td>H5</td>
+<td><strong>Radiometric / conductivity edges</strong> (bands 17 "Conductivity surface"; 19 "Detrended elevation slope").</td>
+<td>Bands 17, 19</td>
+<td>Alteration or conductive zones along faults</td>
+<td>Independent of magnetic and topographic evidence</td>
+<td>Not yet used</td>
+<td>Low</td>
+<td>Yes.</td>
+</tr>
+</tbody>
+</table>
+<h2>Non-fault processes that could mimic each signature (named, as required)</h2>
+<ul>
+<li>H1/H2: lithologic contacts (dykes, plutons, basalt margins) and sediment-thickness changes at basin margins.</li>
+<li>H3: topographic lineaments from erosion and drainage, and mapped-trace extrapolation errors.</li>
+<li>H4: a single noise source appearing in both fields (e.g., flight-line artifacts or gridding edges).</li>
+<li>H5: hydrothermal alteration without faulting, and soil/vegetation cover.</li>
+</ul>
+<h2>Priority</h2>
+<ol>
+<li>H2 is the cheapest validatable test; it is planned as the next experiment.</li>
+<li>H3 has the best chance to add catalogue-aware skill without leaking truth; implement after H2.</li>
+<li>H1 is the highest expected value, because the ribbon-lane σ table shows that the 100 m ridge candidates
+   have no measurable localization skill at all (see <code>reports/ribbon_lane_report.json</code>). But it cannot be validated
+   in this sandbox, so the action item is data access (see README "Limitations").</li>
+</ol><p class='small'>Generated by scripts/build_site.py from reports/ribbon_lane_report.json. Local holdout numbers are HOLDOUT-DTI, not organizer scores.</p></body></html>
