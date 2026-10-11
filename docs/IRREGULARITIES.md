@@ -236,3 +236,15 @@ verdict; each one removes a claim that the evidence did not support.
   writing a TIFF. The pre-emission contract it enforces is
   [`scripts/qualification_gates.py`](../scripts/qualification_gates.py), documented in
   [`docs/research/qualification_gates.md`](research/qualification_gates.md).
+- **IR-58-S6-06 — `main`'s front door advertised an unscanned ML candidate as "Submission ready".**
+  PR #30 (merged into `main` as `089d4b2`) rewrote `README.md` to say *"**Submission ready:** …
+  Download and submit"* for `docs/downloads/gems58-ml-binary-ridge-20261012T000000Z.tif`
+  (sha256 `40c2518802a9a220fa362be0b152f2c4c7ca753c3919624eed22a556c5769366`, 45,355 pixels at 1.0,
+  RandomForest on 20 gradient features). That artifact has a **format-only** receipt
+  (`docs/downloads/gems58-ml-binary-ridge-20261012T000000Z.evidence.json`): no RATIFIED-UNIQ-v1
+  screen against the 703-raster registry, no holdout receipt, no organizer receipt, and a validation
+  AUC 0.7152 measured against the *catalogue* on a non-spatial split. Under the standing contract
+  (gates, not labels) it is **NOT OK TO SUBMIT — REVIEW ONLY**, which is how
+  [`docs/downloads/index.html`](downloads/index.html) lists it. The artifact is kept for review; the
+  README and both front doors are restored to the fail-closed banner. Anyone reviewing this
+  repository should read the banner and the per-file table, not a prose claim.

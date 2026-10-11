@@ -157,3 +157,24 @@ Negative results are valid deliverables. Do not turn missing evidence into a pas
 - Source/evidence register: `docs/SOURCES.md`.
 
 <!-- END FULL PROMPT: PROMPT.md -->
+
+## Session-8 lane addition — `gems61` (extended-layer ridge lane)
+
+This branch adds the `gems61` lane next to the historical lanes. It changes no verdict and no
+download label: the literal uniqueness stop recorded above governs, and the review-only raster stays
+review-only. Contents:
+
+| Path | What it is | State |
+|---|---|---|
+| `src/gems61/layers.py` | reader for the hash-pinned GeoDAWN radiometric / 3DEP lidar / DEM mirrors, as ordinal bands on the competition grid | implemented |
+| `src/gems61/detect.py` | multi-family, multi-scale, dual-polarity ridge field (Hessian + non-maximum suppression) with per-family quantile thresholds | implemented |
+| `src/gems61/lane.py` | σ(x) table (block × scale × sign, leave-one-block-out), exact-metric pattern ladder `U = (1 − 0.2·DTI₀)·ΔTP − 0.2·DTI₀·ΔFP`, `emit_dots`, `uniqueness_repair`, `score_dots` (cross-checked against `gems58w.metric.dti_binary`) | implemented |
+| `scripts/gems61_run.py` | `field\|sigma\|pattern\|canary\|emit` driver | only `field` executed |
+| `scripts/gems61_screen.py` | registry screen that publishes the literal 70 % reading beside the ratified one | implemented, not yet run on a candidate |
+| `scripts/gems61_fetch_extended.sh`, `data/external/gems61_extension_pins.json` | byte-verified restore of the five mirror files | implemented |
+| `evidence/gems61/field.json` | 5,167,205 ridge pixels, 41 classes, 9 feature families | written |
+
+`sigma`, `pattern`, `canary` and `emit` have **not** been run on this branch: the lane has produced
+no candidate, no σ table, no simulated gain and no holdout number, and nothing above is clearance.
+`evidence/ribbon_qualification.json` is still absent, so `scripts/build_ribbon_emission.py` remains
+fail-closed, and the literal rule in `PROMPT.md` applies to any future candidate from this lane as-is.
