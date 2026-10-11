@@ -248,7 +248,7 @@ def build_submit(card: dict, audit: dict, tif: Path) -> str:
 <p>The required qualification gates are not all satisfied. Do not choose a competition slot or
 upload this artifact.</p>
 <table><thead><tr><th>Required item</th><th>Decision</th><th>Record</th></tr></thead><tbody>{''.join(rows)}</tbody></table>
-<p>A local format pass is not proof of a valid portal upload. The reported portal `[0,1]` error has
+<p>A local format pass is not proof of a valid portal upload. Local format validation is not portal acceptance. There is no organizer receipt/hash crosswalk for this artifact. The reported portal `[0,1]` error has
 no candidate-bound response or receipt in this repository, so its cause is unknown. Candidate nodata
 metadata also differs from the sample and has not been tested at the portal.</p>
 <h2>Evidence/reporting rules</h2>

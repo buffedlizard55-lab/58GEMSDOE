@@ -86,39 +86,42 @@ def load_grid(data_dir: Path | None = None) -> Grid:
                 transform=TRANSFORM, height=HEIGHT, width=WIDTH)
 
 
-def write_submission(path: Path, values: np.ndarray, *, mode: str = "zeros") -> dict:
-    """Serialize a pre-normalized array on the pinned grid without repairing it.
+def write_submission(path: Path, values: np.ndarray, *, mode: str = "nan") -> dict:
+    """Serialize predictions using the official sample's null/NaN outside mask.
 
-    ``mode="zeros"`` is the only submission-compatible mode: callers must pass
-    an all-finite field already in ``[0,1]`` (normally with cells outside the
-    footprint explicitly set to zero). Out-of-range and non-finite values are
-    rejected; nothing is clipped or silently replaced.
-
-    ``mode="nan"`` is retained for local diagnostics only. The organizer's
-    nodata handling is not inferred here, and a prior portal range error does
-    not establish NaN as its cause. Prefer the stricter all-finite zeros policy
-    for any future candidate.
+    ``mode="nan"`` is the submission representation: finite in-range
+    probabilities are required inside the footprint, and cells outside it are
+    written as NaN with a NaN nodata tag. Existing NaNs are accepted only
+    outside the footprint. ``mode="zeros"`` is retained for internal
+    diagnostics and is not portal-format compliant.
     """
     values = np.asarray(values)
     if values.shape != (HEIGHT, WIDTH):
         raise ValueError(f"values shape {values.shape} != {(HEIGHT, WIDTH)}")
     if not np.issubdtype(values.dtype, np.number):
         raise ValueError("values must be numeric")
-    if mode == "zeros":
+    footprint = load_grid().footprint
+    if mode == "nan":
+        if np.isinf(values).any():
+            raise ValueError("submission cannot contain infinite values")
+        if not np.isfinite(values[footprint]).all():
+            raise ValueError("submission values inside the footprint must be finite")
+        if (values[footprint] < 0.0).any() or (values[footprint] > 1.0).any():
+            raise ValueError("submission values inside the footprint must be in [0,1]; no clipping")
+        if np.any(np.isfinite(values[~footprint]) & (values[~footprint] != 0.0)):
+            raise ValueError("only zero/NaN input is allowed outside the footprint")
+        out = values.astype(np.float32, copy=True)
+        out[~footprint] = np.nan
+        nodata = float("nan")
+    elif mode == "zeros":
         if not np.isfinite(values).all():
-            raise ValueError("zeros mode requires all values finite; set outside-footprint cells to 0 explicitly")
+            raise ValueError("diagnostic zeros mode requires all values finite")
         if (values < 0.0).any() or (values > 1.0).any():
-            raise ValueError("submission values must already be in [0,1]; no clipping")
+            raise ValueError("values must be in [0,1]; no clipping")
         out = values.astype(np.float32, copy=False)
         nodata = None
-    elif mode == "nan":
-        finite = np.isfinite(values)
-        if np.isinf(values).any() or (values[finite] < 0.0).any() or (values[finite] > 1.0).any():
-            raise ValueError("diagnostic values must remain in [0,1] except for NaN cells; no silent clipping")
-        out = values.astype(np.float32, copy=False)
-        nodata = float("nan")
     else:
-        raise ValueError("mode must be 'zeros' or 'nan'")
+        raise ValueError("mode must be 'nan' or 'zeros'")
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     with rasterio.open(
@@ -128,7 +131,8 @@ def write_submission(path: Path, values: np.ndarray, *, mode: str = "zeros") -> 
     ) as dst:
         dst.write(out, 1)
         dst.set_band_description(1, "predicted_new_fault_probability")
-    return {"path": str(path), "mode": mode, "nodata": nodata}
+    return {"path": str(path), "mode": mode,
+            "nodata": "NaN" if nodata is not None and np.isnan(nodata) else nodata}
 
 def read_geotiff(path: str | Path) -> dict:
     """Everything a validator can complain about, re-derived from the bytes on disk.
@@ -165,8 +169,10 @@ def read_geotiff(path: str | Path) -> dict:
 def write_geotiff(path: str | Path, arr: np.ndarray, *, nodata: float | None = None) -> dict:
     """Write a single-band float32 GeoTIFF on the pinned grid and re-read it.
 
-    The re-read is the contract: this returns what the *file* says. Tiled 256 px
-    with deflate + horizontal predictor, matching what this family has shipped.
+    NaN cells are permitted only when the caller explicitly sets ``nodata`` to
+    NaN; the shared submission writer uses that form for cells outside the
+    official study footprint. This low-level function cannot verify where those
+    cells occur, so pass its result through the footprint-aware validator.
     """
     from rasterio.transform import from_origin
 
@@ -176,10 +182,14 @@ def write_geotiff(path: str | Path, arr: np.ndarray, *, nodata: float | None = N
         raise TypeError(f"submission must be float32, got {arr.dtype}")
     if arr.shape != SHAPE:
         raise ValueError(f"submission must be {SHAPE}, got {arr.shape}")
-    if not np.isfinite(arr).all():
-        raise ValueError("submission contains NaN/inf; the local all-finite export policy rejects it")
-    if arr.min() < 0.0 or arr.max() > 1.0:
-        raise ValueError(f"submission out of range: min={arr.min()} max={arr.max()}")
+    allow_nan = nodata is not None and np.isnan(nodata)
+    if np.isinf(arr).any() or (np.isnan(arr).any() and not allow_nan):
+        raise ValueError("NaN is allowed only with nodata=NaN; infinite values are never allowed")
+    finite = arr[np.isfinite(arr)]
+    if finite.size == 0:
+        raise ValueError("GeoTIFF must contain at least one finite probability")
+    if finite.min() < 0.0 or finite.max() > 1.0:
+        raise ValueError(f"submission out of range: min={finite.min()} max={finite.max()}")
     tr = Affine(*[float(v) for v in tuple(TRANSFORM)[:6]])
     west, north, xs, ys = tr.c, tr.f, tr.a, -tr.e
     check = from_origin(west, north, xs, ys)

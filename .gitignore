@@ -10,7 +10,6 @@ __pycache__/
 *.npz
 submissions/
 # NOTE: pinned small competition-bridge rasters under data/ are intentionally
-# tracked (sha256-verified template restore); the validated submission TIF is
-# intentionally tracked under docs/downloads/ (it is the one-click deliverable).
-# scratch sweep directories from the session-4 ribbon lane
-evidence/ribbon_v3_smoke*/
+# tracked (sha256-verified template restore). Raster files under docs/downloads/
+# are retained as review artifacts and are individually status-labeled; a local
+# format pass alone does not authorize competition submission.
