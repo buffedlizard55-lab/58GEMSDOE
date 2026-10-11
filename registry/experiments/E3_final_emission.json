@@ -1,0 +1,116 @@
+{
+  "experiment": "E3",
+  "submission": "docs/downloads/58GEMSDOE-ribbon-lane-v1-20261011.tif",
+  "selection": {
+    "grav-coarse200m": {
+      "frac": 0.01,
+      "config": "D3o+1",
+      "sigma_px_all_blocks": 3.684678165446103,
+      "sigma_rule_forced": false,
+      "U_sum_all_blocks": 963.8871631698482,
+      "n_dots_class": 32650
+    },
+    "grav-fine100m": {
+      "frac": 0.01,
+      "config": "D3o+1",
+      "sigma_px_all_blocks": 3.5500096789970894,
+      "sigma_rule_forced": false,
+      "U_sum_all_blocks": 1379.9335628671083,
+      "n_dots_class": 48888
+    },
+    "mag-coarse200m": {
+      "frac": 0.01,
+      "config": "D3o+1",
+      "sigma_px_all_blocks": 3.3663802757039605,
+      "sigma_rule_forced": false,
+      "U_sum_all_blocks": 1160.6136151039927,
+      "n_dots_class": 46678
+    },
+    "mag-fine100m": {
+      "frac": 0.01,
+      "config": "D3o+1",
+      "sigma_px_all_blocks": 4.097805616558811,
+      "sigma_rule_forced": false,
+      "U_sum_all_blocks": 825.9351941960479,
+      "n_dots_class": 45451
+    },
+    "topo-coarse200m": {
+      "frac": 0.01,
+      "config": "D3o+1",
+      "sigma_px_all_blocks": 3.878145206753831,
+      "sigma_rule_forced": false,
+      "U_sum_all_blocks": 2069.192999106066,
+      "n_dots_class": 40894
+    },
+    "topo-fine100m": {
+      "frac": 0.01,
+      "config": "D3o+1",
+      "sigma_px_all_blocks": 4.244611947411474,
+      "sigma_rule_forced": false,
+      "U_sum_all_blocks": 698.6749363877148,
+      "n_dots_class": 21636
+    }
+  },
+  "dots_total": 194251,
+  "validator": {
+    "path": "/home/user/58GEMSDOE/docs/downloads/58GEMSDOE-ribbon-lane-v1-20261011.tif",
+    "sha256": "053f88f51cc0ea8f37d2bae767316fcae3f283ebb91af986649df7d0a883111e",
+    "bytes": 1759778,
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "crs_epsg_32611": true,
+      "resolution_100m": true,
+      "shape_matches_reference": true,
+      "transform_matches_reference": true,
+      "bounds_match_reference": true,
+      "no_nan_inside_footprint": true,
+      "values_in_0_1_inside_footprint": true,
+      "nan_or_nodata_outside_footprint": true
+    },
+    "all_pass": true,
+    "notes": [
+      "footprint_px=5167373"
+    ],
+    "reference": "/home/user/.cache/gems-data/sample_submission.tif",
+    "stats_inside_footprint": {
+      "min": 0.0,
+      "max": 1.0,
+      "n_ones": 194251,
+      "n_zeros": 4973122,
+      "n_other": 0
+    }
+  },
+  "uniqueness": {
+    "label": "final_58GEMSDOE-ribbon-lane-v1-20261011",
+    "n_registry_compared": 731,
+    "n_flagged": 25,
+    "max_rho": 0.22750946926042828,
+    "max_dot_overlap": 0.9948726132684002,
+    "n_dense_registry_excluded_from_overlap": 43,
+    "argmax_rho_file": "/home/user/.cache/gems-src/GEMSDOE40/docs/downloads/gemsdoe40-h8-asa-spi-depthkde-20261006T035031Z-b845d3ad449e-zeros.tif",
+    "thresholds": {
+      "rho_max": 0.9,
+      "dot_overlap_max": 0.7,
+      "radius_px": 3.0
+    },
+    "verdict": "DUPLICATE_OR_DRIFT"
+  },
+  "in_sample_holdout_dti_optimistic": 0.04096271769751654,
+  "seconds": 911.3,
+  "uniqueness_superseded_old_tool": {
+    "label": "final",
+    "n_registry_compared": 731,
+    "n_flagged": 54,
+    "max_rho": 0.22750946926042828,
+    "max_dot_overlap": 1.0,
+    "argmax_rho_file": "/home/user/.cache/gems-src/GEMSDOE40/docs/downloads/gemsdoe40-h8-asa-spi-depthkde-20261006T035031Z-b845d3ad449e-zeros.tif",
+    "thresholds": {
+      "rho_max": 0.9,
+      "dot_overlap_max": 0.7,
+      "radius_px": 3.0
+    },
+    "verdict": "DUPLICATE_OR_DRIFT"
+  },
+  "uniqueness_note": "2026-10-11 rerun with the fixed shared tool (DENSE_FRAC=0.10 exclusion, exact KD-tree). The earlier 54-flag result came from the unfixed tool and is kept only under uniqueness_superseded_old_tool. Chance control: registry/chance_coverage_final.csv."
+}

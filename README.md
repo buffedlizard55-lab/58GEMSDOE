@@ -158,3 +158,10 @@ python3 -m pytest tests/test_metric.py         # shared metric oracle tests
 ## Irregularities log
 
 See `docs/research/irregularities.md`.
+
+---
+
+## Earlier sibling attempts (archived)
+
+- Session without sandbox data: no submission generated; run card `docs/RUN_CARD.json` (verdict negative, not evaluated).
+- Geophysical-ridge ribbon v1 (`src/gems58`, root `gems/` approximation): raster archived at `docs/downloads/archive/58GEMSDOE-ribbon-lane-v1-20261011.tif`; holdout DTI 0.0368 (CI 0.006-0.068); uniqueness HOLD (12/25 flags exceed chance by >0.08); run card `registry/RUN_CARD.json`. Full README preserved verbatim at `docs/research/README_sibling_session_0124041b.md`. **Superseded by the current submission below.**

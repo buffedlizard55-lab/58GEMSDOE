@@ -1,0 +1,183 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Evidence — 58GEMSDOE</title><style>
+:root{--ink:#1c2430;--mut:#5b6675;--line:#e3e7ee;--ok:#1b7f4b;--warn:#b26a00;--bad:#b3261e;--acc:#0b5fa5;--bg:#f7f9fc}
+*{box-sizing:border-box}body{margin:0;font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--ink);background:var(--bg)}
+header{background:#0f2238;color:#fff;padding:14px 24px}header a{color:#cfe3ff;margin-right:16px;text-decoration:none}
+header .brand{font-weight:700;font-size:18px;margin-right:24px;color:#fff}
+main{max-width:1040px;margin:0 auto;padding:24px}
+section{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px 24px;margin:18px 0}
+h1{font-size:28px;margin:6px 0 10px}h2{font-size:21px;margin:4px 0 12px}h3{font-size:17px;margin:14px 0 6px}
+.hero{border:2px solid var(--acc)}
+.btn{display:inline-block;background:var(--acc);color:#fff!important;padding:14px 22px;border-radius:10px;font-weight:700;text-decoration:none;font-size:18px}
+.btn.alt{background:#fff;color:var(--acc)!important;border:2px solid var(--acc);font-size:15px;padding:10px 16px}
+.chip{display:inline-block;padding:3px 10px;border-radius:999px;font-size:13px;font-weight:700;margin-right:6px;color:#fff}
+.ok{background:var(--ok)}.warn{background:var(--warn)}.bad{background:var(--bad)}.info{background:#56607a}
+table{width:100%;border-collapse:collapse;font-size:14px;margin:8px 0}th,td{border-bottom:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}
+th{background:#f0f4fa}code,pre{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px}pre{background:#0f2238;color:#e7eefb;padding:14px;border-radius:10px;overflow:auto}
+.mut{color:var(--mut);font-size:14px}.yes{color:var(--ok);font-weight:700}.no{color:var(--bad);font-weight:700}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}@media(max-width:760px){.grid{grid-template-columns:1fr}}
+.box{border:1px solid var(--line);border-radius:10px;padding:14px}
+footer{max-width:1040px;margin:0 auto;padding:10px 24px 40px;color:var(--mut);font-size:13px}
+</style></head><body>
+<header><span class="brand">58GEMSDOE · GEMS Prize</span><a href="index.html">Summary</a><a href="submit.html">How to submit</a><a href="evidence.html" style="font-weight:700">Evidence</a><a href="sources.html">Sources & irregularities</a><a href="https://github.com/buffedlizard55-lab/58GEMSDOE">Repo</a></header>
+<main>
+<section>
+<h1>Evidence</h1>
+<p class="mut">Every number below is read from <code>registry/</code>. HOLDOUT-DTI means the score on our hide-and-recover catalogue holdout. It is <b>not</b> an organizer score.</p>
+<h2>0. Method notes (what was actually run)</h2>
+<ul>
+<li><b>Ridge fields:</b> Hessian of a Gaussian-smoothed band, scale 1 px (100 m features) and 2 px (200 m features). The 1.5 px scale in the original plan was <b>not</b> used; this is a documented deviation (<code>RESOLUTIONS</code> in <code>src/gems58/ribbon.py</code>).</li>
+<li><b>Ridge bands:</b> total magnetic (<code>tmi_hg</code>), isostatic gravity (<code>iso_grav_anom_hg</code>), and topographic slope (<code>det_elev_slope</code>), each at fine and coarse scale. Values are clipped to the 1st–99th percentile and standardised before the Hessian.</li>
+<li><b>σ rule:</b> σ = 1.4826 × MAD of distances from withheld truth to the nearest candidate, counting only matches within 10 px (<code>robust_sigma</code>, <code>run_ribbon_lane.py</code>). The lane's σ rule restricts configurations only when σ &lt; 0.5 (tight line) or σ is 2–3 px (ribbon of ±round(σ)). Every pooled σ selected here was outside those bands, so all configurations were admissible and the utility U alone decided.</li>
+<li><b>Emission (E3):</b> all six classes selected 1% of footprint pixels and configuration <code>D3o+1</code>. Pooled σ across blocks: 3.37–4.24 px.</li>
+</ul>
+<h2>1. Holdout (HOLDOUT-DTI)</h2>
+<table><tr><th>value</th><td><b>0.0368</b></td></tr>
+<tr><th>95% CI</th><td>0.0058 – 0.0679 (jackknife over 4 blocks, t₃ = 3.182; low power)</td></tr>
+<tr><th>withheld positives</th><td>60,988</td></tr>
+<tr><th>evaluator</th><td>gems.metric (58GEMSDOE, verified vs rules worked example + brute force)</td></tr>
+<tr><th>baseline (single-line union, no selection)</th><td>0.0265</td></tr></table>
+<table><thead><tr><th>held-out block</th><th>withheld positives</th><th>DTI (nested)</th><th>dots</th><th>selected (class: frac/config)</th></tr></thead><tbody>
+<tr><td>0</td><td>29,340</td><td>0.0626</td><td>141,119</td><td>grav-coarse200m: 0.01/D3o+1; grav-fine100m: 0.01/D3o+1; mag-coarse200m: 0.01/D1o+1; mag-fine100m: 0.005/D1o+1; topo-coarse200m: 0.01/D3o+1; topo-fine100m: 0.01/D3o-1</td></tr>
+<tr><td>1</td><td>12,566</td><td>0.0314</td><td>194,251</td><td>grav-coarse200m: 0.01/D3o+1; grav-fine100m: 0.01/D3o+1; mag-coarse200m: 0.01/D3o+1; mag-fine100m: 0.01/D3o+1; topo-coarse200m: 0.01/D3o+1; topo-fine100m: 0.01/D3o+1</td></tr>
+<tr><td>2</td><td>9,403</td><td>0.0318</td><td>194,251</td><td>grav-coarse200m: 0.01/D3o+1; grav-fine100m: 0.01/D3o+1; mag-coarse200m: 0.01/D3o+1; mag-fine100m: 0.01/D3o+1; topo-coarse200m: 0.01/D3o+1; topo-fine100m: 0.01/D3o+1</td></tr>
+<tr><td>3</td><td>9,679</td><td>0.0189</td><td>194,251</td><td>grav-coarse200m: 0.01/D3o+1; grav-fine100m: 0.01/D3o+1; mag-coarse200m: 0.01/D3o+1; mag-fine100m: 0.01/D3o+1; topo-coarse200m: 0.01/D3o+1; topo-fine100m: 0.01/D3o+1</td></tr>
+</tbody></table>
+<h2>2. Leakage canary (each feature alone)</h2>
+<p>Leak threshold 0.90 (none exceeds it). Watch: <code>geod_2ndinv</code> reaches 0.896 on one block; not above the threshold.</p>
+<table><thead><tr><th>feature / class</th><th>mean AUC (4 blocks)</th><th>max AUC</th><th>leak flag (&gt;0.90)</th></tr></thead><tbody>
+<tr><td>geod_2ndinv</td><td>0.750</td><td>0.896</td><td>no</td></tr>
+<tr><td>ieq_n100a15</td><td>0.706</td><td>0.888</td><td>no</td></tr>
+<tr><td>deq_n100a15</td><td>0.697</td><td>0.859</td><td>no</td></tr>
+<tr><td>geod_shearrate</td><td>0.749</td><td>0.843</td><td>no</td></tr>
+<tr><td>geod_dilaterate</td><td>0.608</td><td>0.764</td><td>no</td></tr>
+<tr><td>cond_surf</td><td>0.564</td><td>0.685</td><td>no</td></tr>
+<tr><td>iso_grav_anom</td><td>0.588</td><td>0.655</td><td>no</td></tr>
+<tr><td>tmi_hg</td><td>0.596</td><td>0.642</td><td>no</td></tr>
+<tr><td>tc</td><td>0.574</td><td>0.620</td><td>no</td></tr>
+<tr><td>det_elev_slope</td><td>0.578</td><td>0.610</td><td>no</td></tr>
+<tr><td>iso_grav_anom_slope</td><td>0.568</td><td>0.608</td><td>no</td></tr>
+<tr><td>topo-coarse200m</td><td>0.577</td><td>0.592</td><td>no</td></tr>
+<tr><td>rtp</td><td>0.558</td><td>0.590</td><td>no</td></tr>
+<tr><td>topo-fine100m</td><td>0.566</td><td>0.582</td><td>no</td></tr>
+<tr><td>iso_grav_anom_vg</td><td>0.532</td><td>0.576</td><td>no</td></tr>
+<tr><td>tmi</td><td>0.541</td><td>0.575</td><td>no</td></tr>
+<tr><td>mag_anom</td><td>0.541</td><td>0.575</td><td>no</td></tr>
+<tr><td>mag-fine100m</td><td>0.511</td><td>0.570</td><td>no</td></tr>
+<tr><td>mag-coarse200m</td><td>0.513</td><td>0.566</td><td>no</td></tr>
+<tr><td>iso_grav_anom_hg</td><td>0.530</td><td>0.555</td><td>no</td></tr>
+<tr><td>det_elev</td><td>0.541</td><td>0.553</td><td>no</td></tr>
+<tr><td>depth_to_base_surf</td><td>0.517</td><td>0.537</td><td>no</td></tr>
+<tr><td>tmi_vg</td><td>0.516</td><td>0.533</td><td>no</td></tr>
+<tr><td>grav-fine100m</td><td>0.508</td><td>0.521</td><td>no</td></tr>
+<tr><td>grav-coarse200m</td><td>0.507</td><td>0.515</td><td>no</td></tr>
+</tbody></table>
+<h2>3. Localisation σ by class × block (ridge fraction 0.5%)</h2>
+<p>σ = 1.4826 × MAD of matched distances (withheld truth → nearest candidate, within 10 px). At the 0.5% fraction, matched-distance medians range 3.0–7.2 px and σ ranges 1.90–4.45 px, so the tight-line regime (σ &lt; 0.5 px) was never reached.</p>
+<table><thead><tr><th>ridge class</th><th>block</th><th>matched n</th><th>median d (px)</th><th>within 3 px</th><th>σ (px)</th></tr></thead><tbody>
+<tr><td>mag-fine100m</td><td>0</td><td>2,388</td><td>5.10</td><td>0.287</td><td>3.37</td></tr>
+<tr><td>mag-fine100m</td><td>1</td><td>73</td><td>6.00</td><td>0.123</td><td>1.90</td></tr>
+<tr><td>mag-fine100m</td><td>2</td><td>131</td><td>6.40</td><td>0.153</td><td>3.20</td></tr>
+<tr><td>mag-fine100m</td><td>3</td><td>129</td><td>6.32</td><td>0.333</td><td>4.03</td></tr>
+<tr><td>mag-coarse200m</td><td>0</td><td>2,857</td><td>5.10</td><td>0.284</td><td>3.37</td></tr>
+<tr><td>mag-coarse200m</td><td>1</td><td>118</td><td>5.92</td><td>0.280</td><td>3.46</td></tr>
+<tr><td>mag-coarse200m</td><td>2</td><td>1,004</td><td>6.00</td><td>0.210</td><td>3.06</td></tr>
+<tr><td>mag-coarse200m</td><td>3</td><td>120</td><td>7.21</td><td>0.158</td><td>2.61</td></tr>
+<tr><td>grav-fine100m</td><td>0</td><td>2,508</td><td>6.00</td><td>0.242</td><td>3.06</td></tr>
+<tr><td>grav-fine100m</td><td>1</td><td>1,129</td><td>6.32</td><td>0.305</td><td>3.97</td></tr>
+<tr><td>grav-fine100m</td><td>2</td><td>1,020</td><td>5.83</td><td>0.306</td><td>3.96</td></tr>
+<tr><td>grav-fine100m</td><td>3</td><td>562</td><td>6.36</td><td>0.194</td><td>3.32</td></tr>
+<tr><td>grav-coarse200m</td><td>0</td><td>1,501</td><td>6.00</td><td>0.252</td><td>3.06</td></tr>
+<tr><td>grav-coarse200m</td><td>1</td><td>838</td><td>6.00</td><td>0.340</td><td>4.45</td></tr>
+<tr><td>grav-coarse200m</td><td>2</td><td>575</td><td>5.83</td><td>0.294</td><td>3.96</td></tr>
+<tr><td>grav-coarse200m</td><td>3</td><td>157</td><td>7.07</td><td>0.134</td><td>2.86</td></tr>
+<tr><td>topo-fine100m</td><td>0</td><td>998</td><td>5.66</td><td>0.269</td><td>3.70</td></tr>
+<tr><td>topo-fine100m</td><td>1</td><td>281</td><td>5.00</td><td>0.299</td><td>4.17</td></tr>
+<tr><td>topo-fine100m</td><td>2</td><td>571</td><td>6.32</td><td>0.233</td><td>3.29</td></tr>
+<tr><td>topo-fine100m</td><td>3</td><td>77</td><td>5.66</td><td>0.351</td><td>4.19</td></tr>
+<tr><td>topo-coarse200m</td><td>0</td><td>2,106</td><td>5.39</td><td>0.250</td><td>3.54</td></tr>
+<tr><td>topo-coarse200m</td><td>1</td><td>877</td><td>3.00</td><td>0.501</td><td>2.97</td></tr>
+<tr><td>topo-coarse200m</td><td>2</td><td>1,065</td><td>5.00</td><td>0.303</td><td>3.88</td></tr>
+<tr><td>topo-coarse200m</td><td>3</td><td>620</td><td>4.00</td><td>0.394</td><td>3.09</td></tr>
+</tbody></table>
+<h2>4. Uniqueness (protocol §1)</h2>
+<p>Surface (before placement): max Spearman ρ 0.141; literal dot-overlap flags 25 (dense maps excluded from the overlap test: 43); verdict <b>DUPLICATE_OR_DRIFT</b>. Chance control: <code>registry/chance_coverage_surface.csv</code>: excess over chance from -0.121 to +0.186; 12 of 25 are above +0.08.</p>
+<h3>Chance-level control, final file (top 12 by excess)</h3>
+<table><thead><tr><th>excess</th><th>observed overlap</th><th>chance</th><th>registry dots</th><th>ρ</th><th>registry raster</th></tr></thead><tbody>
+<tr><td>+0.172</td><td>0.817</td><td>0.646</td><td>344,041</td><td>0.021</td><td>13GEMSDOE/docs/downloads/archive/13gems-r6-ensemble-20260929T182914Z.tif</td></tr>
+<tr><td>+0.172</td><td>0.817</td><td>0.646</td><td>344,041</td><td>0.026</td><td>13GEMSDOE/docs/downloads/archive/13gems-r6-ensemble-20260929T182914Z_allfinite.tif</td></tr>
+<tr><td>+0.108</td><td>0.867</td><td>0.759</td><td>452,679</td><td>0.018</td><td>13GEMSDOE/docs/downloads/archive/13gems-r8-ensemble-20260930T014614Z.tif</td></tr>
+<tr><td>+0.108</td><td>0.867</td><td>0.759</td><td>452,679</td><td>0.014</td><td>13GEMSDOE/docs/downloads/archive/13gems-r8-ensemble-20260930T014614Z_allfinite.tif</td></tr>
+<tr><td>+0.087</td><td>0.827</td><td>0.740</td><td>272,853</td><td>0.004</td><td>13GEMSDOE/docs/downloads/13gems_20261001_r11-greedy-mp_v2_nan-outside.tif</td></tr>
+<tr><td>+0.087</td><td>0.827</td><td>0.740</td><td>272,853</td><td>0.006</td><td>13GEMSDOE/docs/downloads/13gems_20261001_r11-greedy-mp_v2_zerofill.tif</td></tr>
+<tr><td>+0.087</td><td>0.827</td><td>0.740</td><td>272,853</td><td>0.008</td><td>13GEMSDOE/docs/downloads/archive/13gems-r11-greedy-mp.tif</td></tr>
+<tr><td>+0.087</td><td>0.827</td><td>0.740</td><td>272,853</td><td>0.011</td><td>13GEMSDOE/docs/downloads/archive/13gems-r11-greedy-mp_allfinite.tif</td></tr>
+<tr><td>+0.081</td><td>0.761</td><td>0.680</td><td>246,469</td><td>0.007</td><td>13GEMSDOE/docs/downloads/archive/13gems-toporef-holdoutref.tif</td></tr>
+<tr><td>+0.081</td><td>0.761</td><td>0.680</td><td>246,469</td><td>0.006</td><td>13GEMSDOE/docs/downloads/archive/13gems-toporef-holdoutref_allfinite.tif</td></tr>
+<tr><td>+0.081</td><td>0.805</td><td>0.724</td><td>338,755</td><td>0.006</td><td>13GEMSDOE/docs/downloads/archive/13gems-composite-20260928T040920Z.tif</td></tr>
+<tr><td>+0.081</td><td>0.805</td><td>0.724</td><td>338,755</td><td>-0.000</td><td>13GEMSDOE/docs/downloads/archive/13gems-composite-20260928T040920Z_allfinite.tif</td></tr>
+</tbody></table>
+<p class="mut">Excess = observed dot overlap − chance coverage (share of the footprint within 3 px of that raster's dots, which a random placement with the same density would also hit). Positive excess means overlap above chance. Spearman ρ for all listed rasters is below 0.03. Duplicate-named _allfinite and _nan copies are counted separately in the CSV.</p>
+<p>Final file: max Spearman ρ 0.228; literal dot-overlap flags 25; verdict <b>DUPLICATE_OR_DRIFT</b>. Source: <code>registry/uniqueness_final_58GEMSDOE-ribbon-lane-v1-20261011_summary.json</code>.</p>
+<h2>5. Run card (protocol §5)</h2>
+<pre>{
+  &quot;hypothesis&quot;: &quot;H0 ribbon lane: candidate geophysical ridges (tmi_hg, iso_grav_anom_hg, det_elev_slope; fine and coarse scale) emitted as dotted or ribbon lines with class-specific offsets chosen by U = (1-0.2*DTI0)TP - 0.2*DTI0*FP&quot;,
+  &quot;mechanism&quot;: &quot;Hessian bright-ridge strength + non-maximum suppression + top-quantile threshold; sigma per class x block from matched withheld-truth distances; configuration chosen by leave-one-block-out U on the holdout&quot;,
+  &quot;named_non_fault_process_that_could_mimic_it&quot;: &quot;Lithologic contacts and intrusive or basin-edge gradients in magnetic/gravity fields, and topographic breaks from erosion or landslides, which give linear ridge responses without slip&quot;,
+  &quot;holdout_dti&quot;: {
+    &quot;value&quot;: 0.0368,
+    &quot;ci95&quot;: [
+      0.0058,
+      0.0679
+    ],
+    &quot;method&quot;: &quot;jackknife over 4 quadrant blocks, t(3)&quot;,
+    &quot;n_withheld_positives&quot;: 60988,
+    &quot;evaluator&quot;: &quot;gems58.metric (58GEMSDOE) \u2014 checked vs rules worked example and brute force&quot;
+  },
+  &quot;baseline_L1_union_holdout_dti&quot;: 0.0265,
+  &quot;canary&quot;: {
+    &quot;max_single_feature_auc&quot;: 0.896,
+    &quot;feature&quot;: &quot;geod_2ndinv&quot;,
+    &quot;threshold&quot;: 0.9,
+    &quot;leak_flag&quot;: false
+  },
+  &quot;correlation_overlap_vs_registry&quot;: {
+    &quot;surface_pre_placement&quot;: {
+      &quot;max_spearman_rho&quot;: 0.141,
+      &quot;flagged_literal_dot_overlap&quot;: 25,
+      &quot;verdict_literal&quot;: &quot;DUPLICATE_OR_DRIFT&quot;
+    },
+    &quot;final&quot;: {
+      &quot;max_spearman_rho&quot;: 0.228,
+      &quot;flagged_literal_dot_overlap&quot;: 25,
+      &quot;verdict_literal&quot;: &quot;DUPLICATE_OR_DRIFT&quot;
+    },
+    &quot;chance_control&quot;: {
+      &quot;source&quot;: &quot;registry/chance_coverage_final.csv&quot;,
+      &quot;final_flagged_excess_gt_0p08&quot;: 12,
+      &quot;final_max_excess_over_chance&quot;: 0.172,
+      &quot;final_min_excess_over_chance&quot;: -0.017
+    }
+  },
+  &quot;raster_sha256&quot;: &quot;053f88f51cc0ea8f37d2bae767316fcae3f283ebb91af986649df7d0a883111e&quot;,
+  &quot;validator&quot;: {
+    &quot;single_band&quot;: true,
+    &quot;dtype_float32&quot;: true,
+    &quot;crs_epsg_32611&quot;: true,
+    &quot;resolution_100m&quot;: true,
+    &quot;shape_matches_reference&quot;: true,
+    &quot;transform_matches_reference&quot;: true,
+    &quot;bounds_match_reference&quot;: true,
+    &quot;no_nan_inside_footprint&quot;: true,
+    &quot;values_in_0_1_inside_footprint&quot;: true,
+    &quot;nan_or_nodata_outside_footprint&quot;: true,
+    &quot;all_pass&quot;: true
+  },
+  &quot;submission_name&quot;: &quot;58GEMSDOE-ribbon-lane-v1-20261011&quot;,
+  &quot;note_140_chars&quot;: &quot;Ribbon lane v1: geophysical ridges, class-wise dotted lines; holdout DTI 0.037 (CI 0.006-0.068). Format-valid. Not promoted.&quot;,
+  &quot;verdict&quot;: &quot;negative&quot;
+}</pre>
+</section>
+</main>
+<footer>Generated by <code>scripts/build_site.py</code> from <code>registry/</code>. Competition: <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">DrivenData #306</a> · Rules: <a href="https://docs.nlr.gov/docs/fy26osti/96647.pdf">NLR PDF 96647</a>. Not affiliated with DOE or DrivenData.</footer>
+</body></html>
