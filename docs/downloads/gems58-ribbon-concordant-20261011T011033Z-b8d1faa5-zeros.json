@@ -1,0 +1,198 @@
+{
+  "file": "gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.tif",
+  "sha256": "8b196e6eea06fef0d6cf2c9109091d1e2677a77d6e48d8b04f334a879551687f",
+  "bytes": 184413,
+  "submission_name": "gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros",
+  "note": "H58b ribbon lane: +/-sigma (3 px) parallel dotted lines; concordant sgmc+cat axes; dots 1.0; holdout-validated rule.",
+  "note_chars": 116,
+  "validator": {
+    "file": "docs/downloads/gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.tif",
+    "bytes": 184413,
+    "sha256": "8b196e6eea06fef0d6cf2c9109091d1e2677a77d6e48d8b04f334a879551687f",
+    "meta": {
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "count": 1,
+      "nodata": null,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "profile_compress": "deflate"
+    },
+    "band_description": [
+      null
+    ],
+    "n_finite": 12279160,
+    "n_nan": 0,
+    "n_infinite": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.005487264599651098,
+    "emitted_positive_pixels": 67379,
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "dimensions_3730x3292": true,
+      "crs_epsg_32611": true,
+      "transform_matches_sample_submission": true,
+      "no_nan_anywhere": true,
+      "no_inf_anywhere": true,
+      "no_sentinel_values": true,
+      "range_0_1_guaranteed": true,
+      "min_ge_0": true,
+      "max_le_1": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_range_0_1": true,
+      "outside_footprint_zero": true,
+      "zero_dots_on_mapped_catalogue": true
+    },
+    "all_checks_passed": true,
+    "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+    "on_catalogue_positive_pixels": 0,
+    "in_footprint_positive_pixels": 67379,
+    "footprint_fraction": 0.013039314173759085
+  },
+  "template_report": {
+    "path": "docs/downloads/gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.tif",
+    "bytes": 184413,
+    "sha256": "8b196e6eea06fef0d6cf2c9109091d1e2677a77d6e48d8b04f334a879551687f",
+    "bands": 1,
+    "dtype": "float32",
+    "crs": "EPSG:32611",
+    "width": 3292,
+    "height": 3730,
+    "bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+    ],
+    "ref_bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+    ],
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "nodata": null,
+    "blocksize": [
+      256,
+      256
+    ],
+    "fixture_grid": false,
+    "has_validity_mask": false,
+    "nan_pixels": 0,
+    "infinity_pixels": 0,
+    "n_nan": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.005487264599651098,
+    "n_nonzero": 67379,
+    "mass": 67379.0,
+    "mass_outside_footprint": 0,
+    "problems": [],
+    "ok": true,
+    "validation_class": "local on-disk template/range check; not organizer upload acceptance"
+  },
+  "zip_file": "gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.zip",
+  "zip_sha256": "2d03286315dfdf60bdcc1e9b4dfccc3c6ccdae0d8aad3f31660be219fec77385",
+  "approved_for_weekly_slot": false,
+  "promoted": false,
+  "submission_slots_used": 0,
+  "status": "locally validated within separately recorded inventory scope; not organizer acceptance or slot approval",
+  "metadata": {
+    "lane": "ribbon (emission width = measured localization error)",
+    "live_rule": "cat-axis ribbons blanket; sgmc-axis ribbons within 8 px (sigma-match cap) of catalogue",
+    "holdout_live_rule_dti": 0.1309466329193189,
+    "holdout_blanket_dti": 0.1252,
+    "holdout_ribbon_arm_dti": 0.35832971058014196,
+    "holdout_tight_arm_dti": 0.15729798989964808,
+    "paired_delta": {
+      "delta": 0.20103172068049388,
+      "ci95": [
+        0.19101762328792596,
+        0.21077503344939316
+      ]
+    },
+    "sigma_table": [
+      {
+        "block": "NW",
+        "ridge_type": "cat-axis",
+        "sigma_px": 3.0206379670509547,
+        "n_matched": 700
+      },
+      {
+        "block": "NW",
+        "ridge_type": "sgmc-axis",
+        "sigma_px": 3.0497543370384825,
+        "n_matched": 533
+      },
+      {
+        "block": "NE",
+        "ridge_type": "cat-axis",
+        "sigma_px": 2.700016467508443,
+        "n_matched": 805
+      },
+      {
+        "block": "NE",
+        "ridge_type": "sgmc-axis",
+        "sigma_px": 3.0628331242320153,
+        "n_matched": 779
+      },
+      {
+        "block": "SW",
+        "ridge_type": "cat-axis",
+        "sigma_px": 3.1584326308097874,
+        "n_matched": 1701
+      },
+      {
+        "block": "SW",
+        "ridge_type": "sgmc-axis",
+        "sigma_px": 3.391555103172113,
+        "n_matched": 432
+      },
+      {
+        "block": "SE",
+        "ridge_type": "cat-axis",
+        "sigma_px": 2.9330323428739775,
+        "n_matched": 1687
+      },
+      {
+        "block": "SE",
+        "ridge_type": "sgmc-axis",
+        "sigma_px": 3.356516833995336,
+        "n_matched": 990
+      }
+    ],
+    "dots": 67379,
+    "dots_by_type": {
+      "cat-axis": 38912,
+      "sgmc-axis": 29910
+    },
+    "segments": {
+      "cat-axis": 7212,
+      "sgmc-axis": 3797,
+      "sgmc-axis-dropped": 4963
+    },
+    "pattern_counts": {
+      "cat-axis|ribbon2o3": 7212,
+      "sgmc-axis|ribbon2o3": 3797
+    }
+  }
+}

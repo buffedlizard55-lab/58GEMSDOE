@@ -1,18 +1,13 @@
-# Competition rasters and other large inputs are NEVER committed (see README data policy)
-data/*
-!data/.gitkeep
-!data/fetch_log.json
+# registry raster cache (restorable via scripts/fetch_registry_sparse.py; pinned by sha256 in registry/)
 .cache/
+# python
+__pycache__/
+*.pyc
+.pytest_cache/
+# large non-pinned artifacts
 *.npy
 *.npz
-__pycache__/
-.pytest_cache/
-*.pyc
-.venv/
-.venv*/
-# Generated TIFs are not committed EXCEPT the one validated submission served for one-click download
-*.tif
-*.tiff
-!docs/downloads/*.tif
-*.zip
 submissions/
+# NOTE: pinned small competition-bridge rasters under data/ are intentionally
+# tracked (sha256-verified template restore); the validated submission TIF is
+# intentionally tracked under docs/downloads/ (it is the one-click deliverable).

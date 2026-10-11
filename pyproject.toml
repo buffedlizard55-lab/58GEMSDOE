@@ -10,4 +10,8 @@ dependencies = ["numpy", "scipy", "rasterio"]
 
 [tool.setuptools]
 package-dir = {"" = "src"}
-packages = ["gems58"]
+packages = ["gems58", "gems57"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
