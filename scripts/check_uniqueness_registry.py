@@ -114,6 +114,8 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("candidate", help="path to the candidate -zeros.tif")
     ap.add_argument("--workers", type=int, default=8)
+    ap.add_argument("--out", default="ribbon_uniqueness.json",
+                    help="evidence file to write (default keeps the ribbon lane's name)")
     a = ap.parse_args()
 
     reg = json.loads((ROOT / "registry" / "registry_refreshed.json").read_text())
@@ -149,7 +151,7 @@ def main() -> int:
                             candidate_rank_variation=True),
         scope="All hash-verified accessible entries of the indexed public owner-repository inventory (57 sibling repos, 695 rasters); not a complete organizer registry.",
     )
-    out = ROOT / "evidence" / "ribbon_uniqueness.json"
+    out = ROOT / "evidence" / a.out
     out.write_text(json.dumps(summary, indent=1, default=float) + "\n")
     print(f"verdict: {summary['verdict']} | worst rho {summary['worst_spearman_full_footprint']} "
           f"({summary['worst_rho_submission']}) | worst overlap {summary['worst_dot_overlap']} "

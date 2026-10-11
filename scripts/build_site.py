@@ -342,6 +342,69 @@ def build_run_card() -> dict:
     return card
 
 
+def candidate_register() -> str:
+    """HTML table of every GeoTIFF offered under ``docs/downloads/``.
+
+    The repository now carries more than one candidate from more than one session.
+    A single pinned TIF is not enough to answer "is it OK to download and submit
+    this?", so every candidate is listed with the facts that can be checked from
+    its own bytes, and none of them is described as cleared. Session-2 evidence is
+    attached where the session-2 scan exists.
+    """
+    uniq2 = load_json(EV / "model_uniqueness.json")
+    e3 = load_json(EV / "model_e3.json")
+    per_sha = {}
+    if uniq2.get("candidate_file_sha256"):
+        per_sha[uniq2["candidate_file_sha256"]] = uniq2
+    rows = []
+    for tif in sorted(DL.glob("*.tif")):
+        receipt = load_json(tif.with_suffix(".json"))
+        sha = receipt.get("sha256") or ""
+        live = ""
+        try:
+            live = hashlib.sha256(tif.read_bytes()).hexdigest()
+        except OSError:
+            pass
+        v = receipt.get("validator", {})
+        dots = v.get("emitted_positive_pixels", receipt.get("metadata", {}).get("dots_emitted"))
+        scan = per_sha.get(sha)
+        if scan:
+            note = (f"session-2 scan: {scan.get('registry_rasters_checked')}/"
+                    f"{scan.get('registry_rasters_expected')} rasters; worst rho "
+                    f"{fmt(scan.get('worst_spearman_full_footprint'), 3)}; worst overlap "
+                    f"{fmt(scan.get('worst_dot_overlap'), 3)} &rarr; {scan.get('verdict')}")
+        else:
+            note = "no session-2 full-registry scan on file"
+        rows.append(
+            "<tr>"
+            f"<td><code>{html.escape(tif.name)}</code><br><span class=\"small\">sha256 "
+            f"<code>{html.escape(sha[:16])}&hellip;</code>"
+            f"{'' if sha == live else ' <b>MISMATCH vs bytes on disk</b>'}</span></td>"
+            f"<td>{html.escape(str(dots if dots is not None else 'not recorded'))}</td>"
+            f"<td>{'passed' if v.get('all_checks_passed') else 'not recorded'}</td>"
+            f"<td><b>NOT CLEARED</b> &mdash; {note}</td>"
+            "</tr>")
+    if not rows:
+        return "<p>No candidate GeoTIFF is published under <code>docs/downloads/</code>.</p>"
+    table = ("<table><tr><th>Candidate file</th><th>Positive pixels</th>"
+             "<th>Local format/range preflight</th><th>Uniqueness / lane status</th></tr>"
+             + "".join(rows) + "</table>")
+    extra = ""
+    if e3:
+        best = (e3.get("holdout_sweep", {}).get("detached", {}) or {})
+        arm = e3.get("best_detached_arm")
+        dti = (best.get(arm) or {}).get("dti")
+        extra = (
+            "<p class=\"small\">Session-2 equal-budget ranking contest (detached HOLDOUT-DTI, shared "
+            f"exact evaluator): best arm <code>{html.escape(str(arm))}</code> at "
+            f"{fmt(dti)} with nu*={fmt(e3.get('nu_star_detached'), 2)} and an off-catalogue buffer of "
+            f"{html.escape(str(e3.get('buffer_star_px')))} px. The ribbon lane's own truth-free live rule "
+            "scored 0.1309 on the same instrument, below its 0.1573 tight-line baseline. "
+            "Details: <code>evidence/model_e3.json</code>, <code>evidence/model_run_card.json</code>.</p>")
+    return ("<h3>Every candidate in <code>docs/downloads/</code> &mdash; none is cleared</h3>"
+            + table + extra)
+
+
 def build_site(card: dict) -> None:
     uniq = load_json(EV / "ribbon_uniqueness.json")
     freshness = load_json(EV / "registry_freshness_audit.json")
@@ -353,6 +416,7 @@ def build_site(card: dict) -> None:
     status = html.escape(card["human_readable_status"])
     reasons = "".join(f"<li>{html.escape(x)}</li>" for x in card["qualification_gaps"])
     note = html.escape(card.get("submission_note", ""))
+    register = candidate_register()
     sha = html.escape(card.get("raster_sha256") or "not recorded")
     overlap = uniq.get("worst_dot_overlap")
     rho = uniq.get("worst_spearman_full_footprint")
@@ -413,6 +477,9 @@ def build_site(card: dict) -> None:
   <p>Optional one-TIFF ZIP: <a href="downloads/{html.escape(zip_name)}">{html.escape(zip_name)}</a>. {html.escape(zip_warning)}</p>
   <p><b>Raster SHA256:</b> <code>{sha}</code><br><b>Internal local format check:</b> {local_validation}. This does not establish uniqueness or organizer acceptance.</p>
   <h3>Blocking reasons</h3><ol>{reasons}</ol>
+</section>
+<section>
+{register}
 </section>
 <section>
 <h2>Gate evidence</h2>
