@@ -30,7 +30,12 @@
       "flagged_literal_dot_overlap": 25,
       "verdict_literal": "DUPLICATE_OR_DRIFT"
     },
-    "chance_control": "registry/chance_coverage_*.csv"
+    "chance_control": {
+      "source": "registry/chance_coverage_final.csv",
+      "final_flagged_excess_gt_0p08": 12,
+      "final_max_excess_over_chance": 0.172,
+      "final_min_excess_over_chance": -0.017
+    }
   },
   "raster_sha256": "053f88f51cc0ea8f37d2bae767316fcae3f283ebb91af986649df7d0a883111e",
   "validator": {

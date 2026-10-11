@@ -47,6 +47,10 @@ def irregularities():
             rows.append(cells)
     return rows
 
+_chance_final = list(csv.DictReader(open(REG / "chance_coverage_final.csv")))
+_exf = [float(r["excess"]) for r in _chance_final]
+n_gt08 = sum(e > 0.08 for e in _exf)
+max_ex = max(_exf)
 # ---------- run card ----------
 blocks = e2["per_block"]
 canary = e1["canary_summary"]
@@ -68,7 +72,10 @@ run_card = {
         "final": None if uniq_final is None else {"max_spearman_rho": round(uniq_final["max_rho"], 3),
                                                   "flagged_literal_dot_overlap": uniq_final["n_flagged"],
                                                   "verdict_literal": uniq_final["verdict"]},
-        "chance_control": "registry/chance_coverage_*.csv"},
+        "chance_control": {"source": "registry/chance_coverage_final.csv",
+                           "final_flagged_excess_gt_0p08": n_gt08,
+                           "final_max_excess_over_chance": round(max_ex, 3),
+                           "final_min_excess_over_chance": round(min(_exf), 3)}},
     "raster_sha256": sha,
     "validator": {k: bool(v) for k, v in val["checks"].items()} | {"all_pass": bool(val["all_pass"])},
     "submission_name": SUB,
@@ -287,4 +294,11 @@ body_src = f"""
 <section><h2>Irregularities flagged for review</h2>{irr_table}</section>
 """
 (DOCS / "sources.html").write_text(page("Sources", body_src, "sources.html"))
+# keep README section 10 identical to registry/RUN_CARD.json
+readme = ROOT / "README.md"
+txt = readme.read_text()
+m = re.search(r"(## 10\. Run card[^\n]*\n\n```json\n)(.*?)(\n```)", txt, flags=re.S)
+if m:
+    txt = txt[:m.start(2)] + json.dumps(run_card, indent=2, ensure_ascii=False) + txt[m.end(2):]
+    readme.write_text(txt)
 print("site written:", SUBFILE, "NOTE len", len(NOTE))

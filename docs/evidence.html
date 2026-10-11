@@ -152,7 +152,12 @@ footer{max-width:1040px;margin:0 auto;padding:10px 24px 40px;color:var(--mut);fo
       &quot;flagged_literal_dot_overlap&quot;: 25,
       &quot;verdict_literal&quot;: &quot;DUPLICATE_OR_DRIFT&quot;
     },
-    &quot;chance_control&quot;: &quot;registry/chance_coverage_*.csv&quot;
+    &quot;chance_control&quot;: {
+      &quot;source&quot;: &quot;registry/chance_coverage_final.csv&quot;,
+      &quot;final_flagged_excess_gt_0p08&quot;: 12,
+      &quot;final_max_excess_over_chance&quot;: 0.172,
+      &quot;final_min_excess_over_chance&quot;: -0.017
+    }
   },
   &quot;raster_sha256&quot;: &quot;053f88f51cc0ea8f37d2bae767316fcae3f283ebb91af986649df7d0a883111e&quot;,
   &quot;validator&quot;: {
