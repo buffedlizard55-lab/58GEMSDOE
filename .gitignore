@@ -1,0 +1,10 @@
+# Competition rasters and other large inputs are NEVER committed (see README §Data policy)
+data/
+.cache/
+*.npy
+*.npz
+__pycache__/
+.pytest_cache/
+*.pyc
+.venv/
+# Submission rasters are committed ONLY under docs/downloads/ (small, validated)

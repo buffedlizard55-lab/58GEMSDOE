@@ -1,0 +1,15 @@
+{
+  "label": "surface_pre-placement",
+  "n_registry_compared": 731,
+  "n_flagged": 25,
+  "max_rho": 0.14082317244114997,
+  "max_dot_overlap": 0.9719361685402091,
+  "n_dense_registry_excluded_from_overlap": 43,
+  "argmax_rho_file": "/home/user/.cache/gems-src/GEMSDOE2/data/evidence/runs/structure-consensus-v1/submission.tif",
+  "thresholds": {
+    "rho_max": 0.9,
+    "dot_overlap_max": 0.7,
+    "radius_px": 3.0
+  },
+  "verdict": "DUPLICATE_OR_DRIFT"
+}

@@ -1,0 +1,72 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Submission — 58GEMSDOE</title><style>
+:root{--ink:#1c2430;--mut:#5b6675;--line:#e3e7ee;--ok:#1b7f4b;--warn:#b26a00;--bad:#b3261e;--acc:#0b5fa5;--bg:#f7f9fc}
+*{box-sizing:border-box}body{margin:0;font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--ink);background:var(--bg)}
+header{background:#0f2238;color:#fff;padding:14px 24px}header a{color:#cfe3ff;margin-right:16px;text-decoration:none}
+header .brand{font-weight:700;font-size:18px;margin-right:24px;color:#fff}
+main{max-width:1040px;margin:0 auto;padding:24px}
+section{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px 24px;margin:18px 0}
+h1{font-size:28px;margin:6px 0 10px}h2{font-size:21px;margin:4px 0 12px}h3{font-size:17px;margin:14px 0 6px}
+.hero{border:2px solid var(--acc)}
+.btn{display:inline-block;background:var(--acc);color:#fff!important;padding:14px 22px;border-radius:10px;font-weight:700;text-decoration:none;font-size:18px}
+.btn.alt{background:#fff;color:var(--acc)!important;border:2px solid var(--acc);font-size:15px;padding:10px 16px}
+.chip{display:inline-block;padding:3px 10px;border-radius:999px;font-size:13px;font-weight:700;margin-right:6px;color:#fff}
+.ok{background:var(--ok)}.warn{background:var(--warn)}.bad{background:var(--bad)}.info{background:#56607a}
+table{width:100%;border-collapse:collapse;font-size:14px;margin:8px 0}th,td{border-bottom:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}
+th{background:#f0f4fa}code,pre{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px}pre{background:#0f2238;color:#e7eefb;padding:14px;border-radius:10px;overflow:auto}
+.mut{color:var(--mut);font-size:14px}.yes{color:var(--ok);font-weight:700}.no{color:var(--bad);font-weight:700}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}@media(max-width:760px){.grid{grid-template-columns:1fr}}
+.box{border:1px solid var(--line);border-radius:10px;padding:14px}
+footer{max-width:1040px;margin:0 auto;padding:10px 24px 40px;color:var(--mut);font-size:13px}
+</style></head><body>
+<header><span class="brand">58GEMSDOE · GEMS Prize</span><a href="index.html" style="font-weight:700">Summary</a><a href="submit.html">How to submit</a><a href="evidence.html">Evidence</a><a href="sources.html">Sources & irregularities</a><a href="https://github.com/buffedlizard55-lab/58GEMSDOE">Repo</a></header>
+<main>
+<section class="hero">
+<h1>Submission file for the GEMS Prize — download, then upload</h1>
+<p class="mut">The file is a single-band float32 GeoTIFF on the official grid (EPSG:32611, 100 m, 3,292 columns × 3,730 rows, NaN outside the study footprint, values exactly 0 or 1). It passes every format check we can run.</p>
+<p><a class="btn" href="downloads/58GEMSDOE-ribbon-lane-v1-20261011.tif">⬇ Download the submission GeoTIFF</a>
+&nbsp; <a class="btn alt" href="submit.html">Step-by-step: how to submit</a></p>
+<table>
+<tr><th>File</th><td><code>58GEMSDOE-ribbon-lane-v1-20261011.tif</code> (1,759,778 bytes)</td></tr>
+<tr><th>Unique submission name</th><td><code>58GEMSDOE-ribbon-lane-v1-20261011</code></td></tr>
+<tr><th>Note (≤140 chars)</th><td><code>Ribbon lane v1: geophysical ridges, class-wise dotted lines; holdout DTI 0.037 (CI 0.006-0.068). Format-valid. Not promoted.</code> (124 chars)</td></tr>
+<tr><th>sha256</th><td><code>053f88f51cc0ea8f37d2bae767316fcae3f283ebb91af986649df7d0a883111e</code></td></tr>
+</table>
+<p>
+<span class="chip ok">FORMAT: PASS</span>
+<span class="chip warn">UNIQUENESS: HOLD (literal test fails)</span>
+<span class="chip warn">VERDICT: NEGATIVE — do not spend a weekly slot yet</span>
+<span class="chip info">ORGANIZER SCORE: none yet</span></p>
+</section>
+
+<section>
+<h2>Is it OK to download and submit this file?</h2>
+<div class="grid">
+<div class="box"><h3>Download — <span class="yes">YES</span></h3>
+<p>The file was generated in this repository from the official feature stack. It contains only our predicted values: no copied competition labels and no third-party raster. It passes the format checks we can run.</p></div>
+<div class="box"><h3>Submit to a weekly slot — <span class="no">NOT YET</span></h3>
+<p>Two reasons. (1) Our protocol's literal dot-overlap test flags <b>25</b> registry rasters. The chance-level control shows that <b>12</b> of them overlap more than 0.08 above what chance would give (largest: +0.172, 13GEMSDOE r6 ensemble map), so density alone does not explain the flags. Their rankings are not shared (max Spearman ρ 0.23). The team has not relaxed the literal test. (2) Holdout DTI is <b>0.0368</b> (95% CI 0.006–0.068; HOLDOUT-DTI; 60,988 withheld positives). That proxy is not comparable to leaderboard scores (irregularity I-6), but it gives no evidence that this file would place high. Choosing a slot is a separate team decision.</p></div>
+</div>
+</section>
+
+<section>
+<h2>Leaderboard context (verified)</h2>
+<p>The DrivenData public leaderboard (read 2026-10-11) lists <b>0.3774</b> at #1 (xiaofanhu), <b>0.3195</b> at #8 (DARD) and <b>0.2778</b> at #23 (extradr19). Scores are the public split only. The first prize round is scored on a privately withheld test set (rules §1.1, §3.6.1). <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">Source</a>.</p>
+<p class="mut">Note: the session request said 0.3195 is the highest score. That is incorrect; see irregularity I-3.</p>
+</section>
+
+<section>
+<h2>Why did 0.2778 score well, and can we beat it?</h2>
+<p><b>What it is.</b> The file <code>gemsdoe32-h33-h33-2-b2-…-zeros.tif</code> is a prune of a 0.2708 base: every dot within 2 px of the catalogue is deleted (37,654 dots, 0 on the catalogue). Its owner's page states <i>"NO ORGANISER SCORE EXISTS"</i> and that the 0.2747 figure is <i>"a MODEL, not a score"</i> (<a href="https://github.com/buffedlizard55-lab/GEMSDOE32">repo</a>).</p>
+<p><b>The GEMSDOE32 owner's own account (their claim, not verified by us).</b> Their page explains why the dotted H19-5 file scored highest with a credit-density argument: each emitted pixel costs 0.2 unless it covers a truth pixel, so thinning a thick surface while keeping its geometry raises credit per pixel. They report an empirical break-even of 0.0548 credit per dot, and say this equals 0.2·0.26 = 0.0520 from the published formula. <b>Those two numbers are not equal</b> (irregularity I-16). Source: <a href="https://buffedlizard55-lab.github.io/GEMSDOE32/docs/index.html">GEMSDOE32 index</a>.</p>
+<p><b>Mechanism (plausible, not measured).</b> Organizer staff said pixels of known USGS/INGENIOUS faults are masked from evaluation (<a href="https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516">forum, 2026-09-16</a>). Masking is pixel-exact, so a dot 1–2 px from a known trace can still fall inside the 300 m kernel of an unmapped fault and score, while a dot 3 px or more away on the catalogue is pure false positive. Removing the catalogue-adjacent band trades a little recall for much less false positive.</p>
+<p><b>Can we beat it from this sandbox?</b> <span class="no">Not with the lane we built.</span> The ribbon lane reached holdout DTI 0.0368. We do not claim a higher score.</p>
+</section>
+
+<section>
+<h2>AI disclosure (rules §3.2)</h2>
+<p>Generative AI tools were used to write code, documentation and this site, and to plan the analysis (required by rules §3.2). All numbers on this site are generated from the files in <code>registry/</code> by <code>scripts/build_site.py</code>. Verification steps are listed on the <a href="sources.html">Sources</a> page. The registered competitor is responsible for the accuracy of the final narrative.</p>
+</section>
+</main>
+<footer>Generated by <code>scripts/build_site.py</code> from <code>registry/</code>. Competition: <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">DrivenData #306</a> · Rules: <a href="https://docs.nlr.gov/docs/fy26osti/96647.pdf">NLR PDF 96647</a>. Not affiliated with DOE or DrivenData.</footer>
+</body></html>
