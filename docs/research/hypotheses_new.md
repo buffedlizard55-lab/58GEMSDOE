@@ -123,5 +123,8 @@ proposals in this review.
    result is valid.
 
 **Current disposition:** H58-U1 is the ranked first hypothesis, but it is **not validated**. The
-existing 83 literal final-dot firings and the missing fresh-inventory / pre-placement / qualification
-receipts prohibit the holdout run. Do not waive the stop to obtain a result.
+historical session-6 40,768-dot artifact's frozen 703-raster scan recorded 83 literal firings; that is
+not a current-inventory clearance. The current session-7 review TIFF has a directly measured 1.0000
+overlap with a hash-pinned witness. That literal stop, together with the missing fresh-inventory,
+pre-placement and qualification receipts, prohibits a holdout run. Do not waive the stop to obtain a
+result.

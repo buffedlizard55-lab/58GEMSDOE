@@ -1,31 +1,35 @@
 {
   "schema": "gems58.ribbon-archive/v2",
   "status": "NOT OK TO SUBMIT — DO NOT SUBMIT",
-  "evidence_class": "CURRENT-FAIL-CLOSED-STATUS",
+  "evidence_class": "HISTORICAL-ARCHIVE-STATUS",
   "legacy_downloads_offered": false,
-  "legacy_candidate": {
-    "status": "ARCHIVED_FOR_AUDIT_ONLY",
-    "file_is_offered": false,
-    "archive_path": "evidence/ribbon/archive-downloads/"
+  "current_status_page": "../../index.html",
+  "current_review_artifact": {
+    "file": "../../downloads/58GEMSDOE-ribbon-sparse-review-only-20261011T182511Z.tif",
+    "sha256": "b4cd208015892a19bb2de36585a6f5ff8203dd78b95d49d6b88c8d4c927c1448",
+    "status": "REVIEW_ONLY_NOT_OK_TO_SUBMIT",
+    "final_dot_overlap_within_3px": 1.0,
+    "literal_overlap_stop": 0.7,
+    "evidence": "evidence/58gemsdoe_unique_ribbon/audit.json"
   },
-  "current_diagnostic": {
-    "file": "../../downloads/gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.tif",
-    "sha256": "8b196e6eea06fef0d6cf2c9109091d1e2677a77d6e48d8b04f334a879551687f",
-    "status": "DIAGNOSTIC_ONLY_NOT_CLEARED"
+  "archived_session6_diagnostic": {
+    "file": "../../downloads/gems58-concordance-ribbon-40768-20261011T160514Z.tif",
+    "sha256": "f709b6f12d5188e34aa3aed3b83d785b97a232224692dcdfffedaa009dee9d0d",
+    "status": "ARCHIVED_FOR_AUDIT_ONLY",
+    "historical_screen": "evidence/ribbon/uniqueness_full_inventory.json"
   },
   "registry": {
-    "evidence_class": "REGISTRY-MEASUREMENT; PINNED INVENTORY ONLY",
-    "expected_rasters": 695,
-    "checked_rasters": 694,
-    "complete_accessible_scan": false,
-    "worst_final_dot_overlap_within_3px": 1.0,
+    "evidence_class": "REGISTRY-MEASUREMENT; DIRECT WITNESS ONLY",
+    "current_inventory_freshness": "BLOCKED_NOT_EXHAUSTIVE",
+    "fresh_current_inventory_clearance": false,
+    "current_review_artifact_overlap": 1.0,
     "literal_overlap_limit": 0.7,
     "verdict": "STOP_REQUIRED"
   },
   "holdout": {
     "evidence_class": "NOT A HOLDOUT-DTI CLAIM",
     "promotion_grade_result": null,
-    "status": "NOT MEASURED with the current buffered/nested shared evaluator"
+    "status": "NOT MEASURED for the current review artifact"
   },
   "organizer_receipt_for_current_tiff": null,
   "public_leaderboard_context": "See ../../LEADERBOARD.md. Public-board rows are not artifact/hash attribution.",

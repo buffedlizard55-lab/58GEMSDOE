@@ -1,152 +1,69 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>58GEMSDOE — GEMS Prize Challenge Submission</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f5; color: #333; line-height: 1.6; }
-        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
-        h1 { color: #1a1a2e; margin-bottom: 10px; font-size: 28px; }
-        h2 { color: #16213e; margin: 20px 0 10px; font-size: 22px; }
-        h3 { color: #0f3460; margin: 15px 0 8px; font-size: 18px; }
-        .badge { display: inline-block; padding: 4px 12px; border-radius: 4px; font-size: 14px; font-weight: bold; }
-        .badge-ok { background: #27ae60; color: white; }
-        .badge-warn { background: #e67e22; color: white; }
-        .download-box { background: #fff; border: 3px solid #27ae60; border-radius: 8px; padding: 20px; margin: 20px 0; text-align: center; }
-        .download-box h2 { color: #27ae60; margin: 0 0 10px; }
-        .btn { display: inline-block; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 16px; margin: 5px; cursor: pointer; border: none; }
-        .btn-primary { background: #27ae60; color: white; }
-        .btn-primary:hover { background: #219a52; }
-        .btn-secondary { background: #3498db; color: white; }
-        .btn-secondary:hover { background: #2980b9; }
-        table { width: 100%; border-collapse: collapse; margin: 10px 0; }
-        th, td { padding: 8px 12px; text-align: left; border-bottom: 1px solid #ddd; }
-        th { background: #f8f9fa; font-weight: 600; }
-        .check-pass { color: #27ae60; font-weight: bold; }
-        .info-box { background: #e8f4fd; border-left: 4px solid #3498db; padding: 12px 16px; margin: 12px 0; border-radius: 0 4px 4px 0; }
-        .warn-box { background: #fff3cd; border-left: 4px solid #e67e22; padding: 12px 16px; margin: 12px 0; border-radius: 0 4px 4px 0; }
-        code { background: #f0f0f0; padding: 2px 6px; border-radius: 3px; font-size: 14px; }
-        .steps { counter-reset: step; list-style: none; padding: 0; }
-        .steps li { counter-increment: step; padding: 10px 0 10px 40px; position: relative; }
-        .steps li::before { content: counter(step); position: absolute; left: 0; width: 28px; height: 28px; background: #3498db; color: white; border-radius: 50%; text-align: center; line-height: 28px; font-weight: bold; font-size: 14px; }
-        .footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; font-size: 13px; color: #666; }
-        .nav { background: #1a1a2e; padding: 10px 20px; margin-bottom: 20px; }
-        .nav a { color: #e0e0e0; text-decoration: none; margin-right: 20px; font-size: 14px; }
-        .nav a:hover { color: white; }
-        .hash { font-family: monospace; font-size: 12px; word-break: break-all; color: #666; }
-    </style>
-</head>
-<body>
-    <div class="nav">
-        <a href="#download">⬇ Download</a>
-        <a href="#submit">📤 Submit</a>
-        <a href="#verify">✅ Verify</a>
-        <a href="#method">🔬 Method</a>
-    </div>
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Executive review — not a submission approval — 58GEMSDOE</title>
+<link rel="stylesheet" href="assets/site.css">
+<style>
+.s7-alert{border:2px solid #9d1515;border-left-width:9px;background:#fff4f4;border-radius:10px;padding:18px 20px;margin:18px 0}
+.s7-alert h2{margin:.15rem 0 .55rem;color:#811010}
+.s7-badge{display:inline-block;background:#a11212;color:white;font-weight:800;padding:.35rem .8rem;border-radius:999px}
+.s7-btn{display:inline-block;background:#a11212;color:white;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:8px;margin:5px 8px 5px 0}
+.s7-btn.secondary{background:#41505f}
+.s7-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.s7-card{border:1px solid #d4dce3;border-radius:9px;padding:14px;background:white}
+.s7-fail{color:#a11212;font-weight:700} .s7-pass{color:#12703f;font-weight:700}
+.s7-small{font-size:.9rem;color:#465360}
+table{border-collapse:collapse;width:100%;margin:1rem 0} th,td{border:1px solid #d7dee5;padding:8px;vertical-align:top;text-align:left}
+th{background:#eef2f6}
+</style></head><body><main class="wrap">
+<header><p><a href="index.html">58GEMSDOE current status</a> ·
+<a href="downloads/index.html">all downloads</a> ·
+<a href="IRREGULARITIES.md">irregularities</a> · <a href="SOURCES.md">sources</a></p>
+<h1>Executive review — not a submission approval</h1></header>
+<section class="s7-alert" role="alert" aria-labelledby="stop-title">
+<span class="s7-badge">⛔ NOT OK TO SUBMIT — DO NOT SUBMIT</span>
+<h2 id="stop-title">Review-only TIFF; literal uniqueness stop recorded</h2>
+<p><code>58GEMSDOE-ribbon-sparse-review-only-20261011T182511Z.tif</code> is available for local audit only. It is not a qualified or authorized
+competition submission. Its final-dot overlap is <b>1.0000</b> within 3 px, above the active
+literal 0.70 threshold. The pre-placement surface and current inventory clearance are not measured/
+not cleared, and there is no HOLDOUT-DTI result for this artifact.</p>
+<div>
+<a class="s7-btn" href="downloads/58GEMSDOE-ribbon-sparse-review-only-20261011T182511Z.tif" download>Download TIFF for audit only — DO NOT SUBMIT</a>
+<a class="s7-btn secondary" href="downloads/58GEMSDOE-ribbon-sparse-review-only-20261011T182511Z.zip" download>Download one-TIFF ZIP — audit only</a>
+<a class="s7-btn secondary" href="../evidence/58gemsdoe_unique_ribbon/audit.json">Audit receipt</a>
+<a class="s7-btn secondary" href="../evidence/58gemsdoe_unique_ribbon/run_card.json">JSON run card</a>
+</div>
+<p class="s7-small">Raster SHA-256 <code>b4cd208015892a19bb2de36585a6f5ff8203dd78b95d49d6b88c8d4c927c1448</code> · 49,139,380 bytes ·
+15000 positive pixels · 19/19 local checks pass only.</p>
+</section><section class="s7-alert" role="alert">
+<span class="s7-badge">⛔ UNREVIEWED ARTIFACT — NOT OK TO SUBMIT</span>
+<p>A separate file, <code>gems58-ml-binary-ridge-20261012T000000Z.tif</code>, was added to the base branch after the session-7 review.
+It was not generated, evaluated, or qualified in that review and is outside the fixed-surface ribbon-width
+scope. Do not submit it or run its generation scripts. See the
+<a href="downloads/index.html">per-file review-only index</a>.</p>
+</section>
+<h2>Executive decision</h2>
+<p><b>Do not submit this TIFF.</b> The active literal rule stops it because more than 70% of its
+positive pixels fall within 3 px of one prior registry raster. The observed current-file overlap is
+1.0000. No chance-corrected exemption is used.</p>
+<h2>What the 19/19 local format result means</h2>
+<p>The local audit verified that the bytes on disk match the documented single-band float32 grid and
+sample CRS/shape/transform, values are finite and in [0,1], positive values are exactly 1.0, and the
+single-TIFF ZIP round trip succeeds. It did not check the portal. In particular the raster nodata
+metadata is null while the sample metadata is NaN; organizer interpretation is unconfirmed.</p>
+<h2>What is not known</h2>
+<ul><li>Pre-placement surface uniqueness is NOT MEASURED.</li>
+<li>Current registry freshness is BLOCKED_NOT_EXHAUSTIVE.</li>
+<li>HOLDOUT-DTI, evaluator, withheld-positive count and 95% CI are NOT MEASURED for this raster.</li>
+<li>σ, simulated class gain and a feature-alone leakage canary are NOT MEASURED / NOT RUN.</li>
+<li>No organizer score or portal acceptance receipt exists.</li></ul>
+<h2>Before any future submission</h2>
+<p>See the <a href="SUBMISSION_GUIDE.md">full submission guide</a>. The current literal stop means no
+experiment or replacement candidate is authorized under this review. No slot has been selected.</p>
+<h2>Attribution of 0.2778</h2>
+<p>The public snapshot ties 0.2778 to <code>extradr19</code>; no artifact hash or receipt connects it to
+H33. The cause of that score is unknown. See <a href="research/why-02778.md">the attribution review</a>.</p>
 
-    <div class="container">
-        <h1>58GEMSDOE — DOE GEMS Prize Challenge</h1>
-        <p><strong>Competition:</strong> <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">DrivenData #306 — GEMS Prize Challenge</a></p>
-        <p><strong>Goal:</strong> Predict unmapped geological faults indicative of geothermal resources in the GeoDAWN study area, Northwestern Great Basin, Nevada.</p>
-
-        <!-- DOWNLOAD BOX -->
-        <div class="download-box" id="download">
-            <h2>⬇️ Download Submission TIF</h2>
-            <p>Ready-to-submit GeoTIFF file. Verified format, all values in [0, 1].</p>
-            <p style="margin: 10px 0;">
-                <a href="downloads/gems58-ml-binary-ridge-20261012T000000Z.tif" class="btn btn-primary">⬇️ Download TIF File</a>
-                <a href="downloads/gems58-ml-binary-ridge-20261012T000000Z.zip" class="btn btn-secondary">⬇️ Download ZIP</a>
-            </p>
-            <p style="font-size: 13px; color: #666;">
-                Filename: <code>gems58-ml-binary-ridge-20261012T000000Z.tif</code><br>
-                Size: 86,667 bytes | SHA256: <span class="hash">40c2518802a9a220fa362be0b152f2c4c7ca753c3919624eed22a556c5769366</span>
-            </p>
-        </div>
-
-        <!-- SUBMIT INSTRUCTIONS -->
-        <h2 id="submit">📤 How to Submit to the Competition</h2>
-        <ol class="steps">
-            <li><strong>Download</strong> the TIF file above by clicking the green "Download TIF File" button.</li>
-            <li><strong>Go to</strong> the <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">competition submission page</a> (requires login).</li>
-            <li><strong>Click</strong> "Submit predictions" or "New submission".</li>
-            <li><strong>Upload</strong> the downloaded <code>gems58-ml-binary-ridge-20261012T000000Z.tif</code> file.</li>
-            <li><strong>Add a note:</strong> <code>ML RandomForest binary ridge detection on 20 geophysical gradient features; 45K dots at 1.0</code></li>
-            <li><strong>Click</strong> "Submit" to get your score on the public leaderboard.</li>
-        </ol>
-
-        <div class="info-box">
-            <strong>Important:</strong> You get 3 feedback submissions per week. Choose wisely which submission to make your official entry before the deadline. See the <a href="https://docs.nlr.gov/docs/fy26osti/96647.pdf">official rules</a> for details.
-        </div>
-
-        <!-- VERIFICATION -->
-        <h2 id="verify">✅ Format Verification</h2>
-        <p>All 10 format checks pass. This file is ready to submit.</p>
-        <table>
-            <tr><th>Check</th><th>Result</th></tr>
-            <tr><td>Datatype</td><td class="check-pass">✅ float32</td></tr>
-            <tr><td>Shape</td><td class="check-pass">✅ 3730 × 3292</td></tr>
-            <tr><td>CRS</td><td class="check-pass">✅ EPSG:32611 (UTM zone 11N)</td></tr>
-            <tr><td>Transform</td><td class="check-pass">✅ 100m resolution, matches sample</td></tr>
-            <tr><td>All finite (no NaN/inf)</td><td class="check-pass">✅ Yes</td></tr>
-            <tr><td>Min ≥ 0</td><td class="check-pass">✅ 0.0</td></tr>
-            <tr><td>Max ≤ 1</td><td class="check-pass">✅ 1.0</td></tr>
-            <tr><td>No NaN values</td><td class="check-pass">✅ Confirmed</td></tr>
-            <tr><td>Zero outside footprint</td><td class="check-pass">✅ All 7,111,787 outside pixels are 0.0</td></tr>
-            <tr><td>No positive outside footprint</td><td class="check-pass">✅ 0 positive pixels outside</td></tr>
-        </table>
-
-        <div class="info-box">
-            <strong>Portal compatibility:</strong> All values are finite and in [0, 1]. Outside the study footprint, all values are exactly 0.0. This avoids the "Predicted values must be in range [0, 1]" portal error that occurs with NaN values.
-        </div>
-
-        <!-- METHOD -->
-        <h2 id="method">🔬 Method Summary</h2>
-        <h3>Hypothesis</h3>
-        <p>Supervised ML (RandomForest) trained on 19-band GeoDAWN geophysical features using existing catalogue faults as positive labels can detect structural lineaments corresponding to <strong>unmapped faults</strong> across the entire study area.</p>
-
-        <h3>Approach</h3>
-        <table>
-            <tr><th>Component</th><th>Detail</th></tr>
-            <tr><td>Features</td><td>20 gradient features from 10 key GeoDAWN bands (conductivity, topography, gravity, magnetics, seismicity) at 2 Gaussian scales (σ=1.5, σ=3.0)</td></tr>
-            <tr><td>Training labels</td><td>USGS/INGENIOUS catalogue faults (60,988 pixels) with spatial jitter for robustness</td></tr>
-            <tr><td>Negative samples</td><td>292,4457 non-fault pixels (3:1 ratio), excluding 4-pixel buffer around catalogue</td></tr>
-            <tr><td>Model</td><td>RandomForest (100 trees, max_depth=8, sqrt features)</td></tr>
-            <tr><td>Validation AUC</td><td>0.7152 (spatial holdout)</td></tr>
-            <tr><td>Threshold</td><td>0.45 (ML confidence)</td></tr>
-            <tr><td>Predictions</td><td>45,355 binary dots at exactly 1.0, zero on the mapped catalogue</td></tr>
-        </table>
-
-        <h3>Why this should detect unmapped faults</h3>
-        <p>The DTI metric (α=0.2, β=0.8) rewards coverage 4× more than it penalizes false positives. The competition tests against faults identified by experts but <strong>not in the USGS database</strong>. By learning the geophysical signature of faults from the19-band feature stack, the model identifies structural discontinuities across the entire study area — including unmapped faults that share similar geophysical expressions.</p>
-
-        <h3>Submission Details</h3>
-        <table>
-            <tr><td><strong>Submission name</strong></td><td><code>gems58-ml-binary-ridge-20261012T000000Z</code></td></tr>
-            <tr><td><strong>Note</strong></td><td><code>ML RandomForest binary ridge detection on 20 geophysical gradient features; 45K dots at 1.0</code></td></tr>
-            <tr><td><strong>45,355 predictions</strong></td><td>All at exactly 1.0, zero on mapped catalogue, zero outside footprint</td></tr>
-        </table>
-
-        <!-- RESOURCES -->
-        <h2>📋 Resources</h2>
-        <table>
-            <tr><td><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">Competition Home</a></td><td>Main competition page</td></tr>
-            <tr><td><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">Problem Description</a></td><td>DTI metric definition, submission format</td></tr>
-            <tr><td><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">Leaderboard</a></td><td>Current public scores</td></tr>
-            <tr><td><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/data/">Data Download</a></td><td>Training features, labels (login required)</td></tr>
-            <tr><td><a href="https://docs.nlr.gov/docs/fy26osti/96647.pdf">Official Rules (PDF)</a></td><td>Prize structure, submission rules</td></tr>
-            <tr><td><a href="https://github.com/drivendataorg/gems-prize-reference-solution">Reference Solution</a></td><td>UNet baseline implementation</td></tr>
-            <tr><td><a href="https://epsg.io/32611">EPSG:32611</a></td><td>UTM Zone 11N coordinate reference system</td></tr>
-            <tr><td><a href="https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and">GeoDAWN Survey</a></td><td>USGS airborne magnetic and radiometric data</td></tr>
-            <tr><td><a href="https://gbcge.org/current-projects/ingenious/">INGENIOUS</a></td><td>Great Basin Center for Geothermal Energy fault data</td></tr>
-        </table>
-
-        <div class="footer">
-            <p>Generated by 58GEMSDOE project. All format checks verified against <code>sample_submission.tif</code> template.</p>
-            <p>Competition: DrivenData #306 — The Geologic Enhanced Mapping System (GEMS) Prize Challenge</p>
-            <p>Last updated: 2026-10-12</p>
-        </div>
-    </div>
-</body>
-</html>
+<footer><hr><p class="s7-small">Rendered from the session-7 artifact audit and run card by
+<code>scripts/build_session7_pages.py</code>. This page is a local project record, not an organizer decision.</p></footer>
+</main></body></html>

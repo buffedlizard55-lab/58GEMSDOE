@@ -1,0 +1,16 @@
+{
+  "evidence_class": "LOCAL-FILE-AUDIT",
+  "artifact_file": "58GEMSDOE-ribbon-sparse-review-only-20261011T182511Z.tif",
+  "artifact_sha256": "b4cd208015892a19bb2de36585a6f5ff8203dd78b95d49d6b88c8d4c927c1448",
+  "artifact_bytes": 49139380,
+  "zip_file": "58GEMSDOE-ribbon-sparse-review-only-20261011T182511Z.zip",
+  "zip_sha256": "3f00cef2c4c6f8443b6e64ec0576fde470ccf17850fc165a0501f472b3240689",
+  "review_status": "NOT OK TO SUBMIT \u2014 DO NOT SUBMIT",
+  "submission_name": "58GEMSDOE-ribbon-sparse-diagnostic-20261011T182511Z",
+  "submission_note": "Diagnostic only; uniqueness and holdout gates are not cleared.",
+  "submission_identifier_authorized_for_portal": false,
+  "organizer_confirmed_score": null,
+  "audit_record": "../../evidence/58gemsdoe_unique_ribbon/audit.json",
+  "run_card": "../../evidence/58gemsdoe_unique_ribbon/run_card.json",
+  "scope": "Local format/range record only; no holdout score, portal acceptance, uniqueness clearance, or slot approval."
+}

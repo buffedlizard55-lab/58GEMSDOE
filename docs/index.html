@@ -1,11 +1,80 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0; url=executive-summary.html">
-    <title>58GEMSDOE — Redirecting...</title>
-</head>
-<body>
-    <p>Redirecting to <a href="executive-summary.html">executive summary</a>...</p>
-</body>
-</html>
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Current status — negative review — 58GEMSDOE</title>
+<link rel="stylesheet" href="assets/site.css">
+<style>
+.s7-alert{border:2px solid #9d1515;border-left-width:9px;background:#fff4f4;border-radius:10px;padding:18px 20px;margin:18px 0}
+.s7-alert h2{margin:.15rem 0 .55rem;color:#811010}
+.s7-badge{display:inline-block;background:#a11212;color:white;font-weight:800;padding:.35rem .8rem;border-radius:999px}
+.s7-btn{display:inline-block;background:#a11212;color:white;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:8px;margin:5px 8px 5px 0}
+.s7-btn.secondary{background:#41505f}
+.s7-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.s7-card{border:1px solid #d4dce3;border-radius:9px;padding:14px;background:white}
+.s7-fail{color:#a11212;font-weight:700} .s7-pass{color:#12703f;font-weight:700}
+.s7-small{font-size:.9rem;color:#465360}
+table{border-collapse:collapse;width:100%;margin:1rem 0} th,td{border:1px solid #d7dee5;padding:8px;vertical-align:top;text-align:left}
+th{background:#eef2f6}
+</style></head><body><main class="wrap">
+<header><p><a href="index.html">58GEMSDOE current status</a> ·
+<a href="downloads/index.html">all downloads</a> ·
+<a href="IRREGULARITIES.md">irregularities</a> · <a href="SOURCES.md">sources</a></p>
+<h1>Current status — negative review</h1></header>
+<section class="s7-alert" role="alert" aria-labelledby="stop-title">
+<span class="s7-badge">⛔ NOT OK TO SUBMIT — DO NOT SUBMIT</span>
+<h2 id="stop-title">Review-only TIFF; literal uniqueness stop recorded</h2>
+<p><code>58GEMSDOE-ribbon-sparse-review-only-20261011T182511Z.tif</code> is available for local audit only. It is not a qualified or authorized
+competition submission. Its final-dot overlap is <b>1.0000</b> within 3 px, above the active
+literal 0.70 threshold. The pre-placement surface and current inventory clearance are not measured/
+not cleared, and there is no HOLDOUT-DTI result for this artifact.</p>
+<div>
+<a class="s7-btn" href="downloads/58GEMSDOE-ribbon-sparse-review-only-20261011T182511Z.tif" download>Download TIFF for audit only — DO NOT SUBMIT</a>
+<a class="s7-btn secondary" href="downloads/58GEMSDOE-ribbon-sparse-review-only-20261011T182511Z.zip" download>Download one-TIFF ZIP — audit only</a>
+<a class="s7-btn secondary" href="../evidence/58gemsdoe_unique_ribbon/audit.json">Audit receipt</a>
+<a class="s7-btn secondary" href="../evidence/58gemsdoe_unique_ribbon/run_card.json">JSON run card</a>
+</div>
+<p class="s7-small">Raster SHA-256 <code>b4cd208015892a19bb2de36585a6f5ff8203dd78b95d49d6b88c8d4c927c1448</code> · 49,139,380 bytes ·
+15000 positive pixels · 19/19 local checks pass only.</p>
+</section><section class="s7-alert" role="alert">
+<span class="s7-badge">⛔ UNREVIEWED ARTIFACT — NOT OK TO SUBMIT</span>
+<p>A separate file, <code>gems58-ml-binary-ridge-20261012T000000Z.tif</code>, was added to the base branch after the session-7 review.
+It was not generated, evaluated, or qualified in that review and is outside the fixed-surface ribbon-width
+scope. Do not submit it or run its generation scripts. See the
+<a href="downloads/index.html">per-file review-only index</a>.</p>
+</section>
+<section class="s7-grid">
+<div class="s7-card"><h2>Current decision</h2><p><b>negative</b>. No experiment, slot, or upload
+occurred in this review. A filename/download link is not permission to submit.</p>
+<p>Current session guide: <a href="SUBMISSION_GUIDE.md">submission guide</a> ·
+<a href="research/session7_review_20261011.md">full review</a>.</p></div>
+<div class="s7-card"><h2>Top untested width hypothesis</h2><p>H58-U1: condition ribbon width on local relief around fixed existing topographic ridge
+centerlines. Proposal only; not implemented, not measured. A width change cannot detect a fault that
+the fixed ridge surface entirely missed.</p><p><a href="research/hypotheses_new.md">See ranked hypotheses and falsifiers</a>.</p></div>
+<div class="s7-card"><h2>Reported 0.2778</h2><p>The dated public snapshot attributes 0.2778 to participant <code>extradr19</code>.
+No receipt/hash crosswalk ties it to GEMSDOE32 H33; its owner page labels the H33 file unscored.
+The cause of the participant's result is unknown.</p><p><a href="research/why-02778.md">Attribution review</a> · <a href="LEADERBOARD.md">dated leaderboard record</a>.</p></div>
+</section>
+<h2>Current artifact gate matrix</h2>
+<p>Evidence classes are kept separate: local validation, registry measurements, holdout evidence, and organizer results are not interchangeable.</p>
+<table><thead><tr><th>Gate</th><th>Result</th><th>Evidence / limitation</th></tr></thead><tbody><tr><td>Local format/range audit</td><td class="s7-pass">PASS — LOCAL ONLY</td><td>19/19 LOCAL-FILE-AUDIT checks pass; nodata metadata differs from sample</td></tr><tr><td>Pre-placement surface uniqueness</td><td class="s7-fail">NOT CLEARED / FAILED</td><td>NOT MEASURED</td></tr><tr><td>Literal final-dot overlap within 3 px</td><td class="s7-fail">NOT CLEARED / FAILED</td><td>FAIL — overlap 1.0000 exceeds literal threshold 0.70; stop required</td></tr><tr><td>Fresh complete registry</td><td class="s7-fail">NOT CLEARED / FAILED</td><td>BLOCKED_NOT_EXHAUSTIVE</td></tr><tr><td>HOLDOUT-DTI qualification</td><td class="s7-fail">NOT CLEARED / FAILED</td><td>NOT MEASURED</td></tr><tr><td>Artifact-specific σ table and simulated class gain</td><td class="s7-fail">NOT CLEARED / FAILED</td><td>σ: NOT MEASURED; gain: NOT MEASURED</td></tr><tr><td>Feature-alone leakage canary</td><td class="s7-fail">NOT CLEARED / FAILED</td><td>NOT RUN</td></tr><tr><td>Organizer/portal acceptance and score receipt</td><td class="s7-fail">NOT CLEARED / FAILED</td><td>NOT CONFIRMED; no hash-bound organizer receipt</td></tr></tbody></table>
+<h2>Key files</h2>
+<ul>
+<li><a href="SUBMISSION_GUIDE.md">Executive submission guide</a></li>
+<li><a href="research/session7_review_20261011.md">Full session-7 review</a></li>
+<li><a href="research/hypotheses_new.md">Ranked within-lane hypotheses</a></li>
+<li><a href="SOURCES.md">Official/primary source register and limits</a></li>
+<li><a href="IRREGULARITIES.md">Current blockers and corrections</a></li>
+<li><a href="../FINAL_DELIVERABLE_SUMMARY.md">Final deliverable summary</a></li>
+</ul>
+<h2>Format audit scope</h2>
+<p>The local 19/19 check covers one-band float32 encoding, sample-grid alignment, finite [0,1]
+values, exact positive values, footprint/catalogue checks, and ZIP round trip. Candidate `nodata=null`
+differs from sample `nodata=NaN`; its portal treatment is unconfirmed. This audit does not establish
+unique status, holdout performance, score, or organizer acceptance.</p>
+<p class="s7-small">Current witness comparison checked one hash-pinned raster directly. The earlier
+703-raster inventory was complete only for its frozen scope and is not a current exhaustive
+clearance. The literal stop is decisive; this page does not claim a fresh complete scan.</p>
+
+<footer><hr><p class="s7-small">Rendered from the session-7 artifact audit and run card by
+<code>scripts/build_session7_pages.py</code>. This page is a local project record, not an organizer decision.</p></footer>
+</main></body></html>

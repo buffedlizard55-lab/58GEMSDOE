@@ -38,44 +38,45 @@ def main() -> int:
             if not (path.parent / link).resolve().exists():
                 errors.append(f"{name}: broken internal link {link}")
 
-    card_path = ROOT / "evidence" / "run_card.json"
+    card_path = ROOT / "evidence" / "58gemsdoe_unique_ribbon" / "run_card.json"
+    audit_path = ROOT / "evidence" / "58gemsdoe_unique_ribbon" / "audit.json"
     try:
         card = json.loads(card_path.read_text(encoding="utf-8"))
+        audit = json.loads(audit_path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as exc:
-        card = {}
-        errors.append(f"cannot read current run card: {exc}")
-    if card.get("submission_status") != "NOT_OK_TO_SUBMIT":
-        errors.append("current run card does not deny submission")
-    if card.get("verdict") != "negative":
-        errors.append("current run card verdict is not negative")
-    scan = card.get("correlation_overlap_vs_registry", {})
-    gate = scan.get("final_dot_gate", {})
-    if gate.get("passed") is not False or float(gate.get("worst_dot_overlap", 0.0)) <= 0.70:
-        errors.append("current run card does not preserve the literal final-dot overlap stop")
-    if scan.get("latest_pinned_snapshot_scan", {}).get("complete_accessible_scan") is not False:
-        errors.append("current run card no longer records the incomplete pinned scan")
+        card, audit = {}, {}
+        errors.append(f"cannot read session-7 run card/audit: {exc}")
+    if card.get("submission_identifier_authorized_for_portal") is not False:
+        errors.append("current run card must not authorize the proposed portal identifier")
+    if card.get("verdict") != "negative" or card.get("stop_required") is not True:
+        errors.append("session-7 run card does not preserve the negative stop")
+    if card.get("slots_used") != 0 or card.get("experiments_this_review") != 0:
+        errors.append("session-7 run card reports an experiment or slot")
+    final = (((audit.get("correlation_overlap_vs_registry") or {}).get("final_dots") or {})
+             .get("witness_measurement", {}) or {})
+    if (final.get("direct_current_file_measurement") is not True
+            or float(final.get("observed_candidate_dot_overlap_within_3_px", 0.0)) <= 0.70):
+        errors.append("session-7 audit does not preserve the direct literal final-dot overlap stop")
+    if audit.get("format_pass") is not True or audit.get("format_checks_passed") != 19:
+        errors.append("session-7 local format audit is missing or has changed")
 
     root_index = DOCS / "index.html"
     if not root_index.is_file():
         errors.append("missing current root status page docs/index.html")
     else:
         body = root_index.read_text(encoding="utf-8")
-        # The banner must match the current run card, whichever way it points.
         try:
             site_card = json.loads((DOCS / "RUN_CARD.json").read_text(encoding="utf-8"))
         except (OSError, json.JSONDecodeError) as exc:
             site_card = {}
             errors.append(f"cannot read docs/RUN_CARD.json: {exc}")
-        verdict = site_card.get("site_verdict")
-        if verdict == "OK_TO_DOWNLOAD_AND_SUBMIT":
-            if "OK TO DOWNLOAD AND SUBMIT" not in body:
-                errors.append("run card says OK but the root page lacks the green banner")
-        else:
-            if "NOT CLEARED" not in body and "DO NOT SUBMIT" not in body \
-                    and "NOT OK TO SUBMIT" not in body:
-                errors.append("root status page has no negative submission status")
-        if "LEADERBOARD.md" not in body:
-            errors.append("root status page does not link the score-attribution record")
+        if site_card.get("site_verdict") != "NOT_OK_TO_SUBMIT":
+            errors.append("current site card does not say NOT_OK_TO_SUBMIT")
+        for required in ("NOT OK TO SUBMIT — DO NOT SUBMIT", "1.0000",
+                         "58GEMSDOE-ribbon-sparse-review-only-20261011T182511Z.tif",
+                         "LEADERBOARD.md"):
+            if required not in body:
+                errors.append(f"root status page lacks required session-7 evidence: {required}")
 
     legacy_dir = RIBBON / "downloads"
     if legacy_dir.exists() and any(legacy_dir.iterdir()):
