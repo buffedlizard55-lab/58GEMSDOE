@@ -47,6 +47,10 @@ UNIQ = dict(n_compared=694, n_witnesses=694, missing_or_invalid=0, inventory_com
             worst_jaccard_dot_sets=0.01, byte_unique_among_checked=True,
             pixel_unique_among_checked=True, duplicate_count=0, unique=True, verdict="negative")
 CANARY = dict(n_features=20, n_leaking=0, worst_auc=0.80)
+RATIFIED = dict(n_scored=694, n_discriminating=618, rule_a_firings=0, rule_b_firings=0,
+                e_limit=0.70, lift_limit=0.50, max_lift=0.30,
+                worst_overlap_discriminating=0.20, worst_overlap_discriminating_E=0.10,
+                max_lift_submission="x")
 READING = dict(n_flagged_literal=81, n_flagged_degenerate=53, n_flagged_informative=28,
                worst_jaccard_among_flagged=0.01, worst_spearman_among_flagged=0.04,
                footprint_pixels=5167373)
@@ -61,11 +65,12 @@ def _docs_dir(tmp_path, monkeypatch):
     return tmp_path
 
 
-def gates(emi=None, uniq=None, canary=None, reading=None):
+def gates(emi=None, uniq=None, canary=None, reading=None, ratified=None):
     return b3.evaluate_gates(emi if emi is not None else EMI,
                              uniq if uniq is not None else UNIQ,
                              canary if canary is not None else CANARY,
-                             reading if reading is not None else READING)
+                             reading if reading is not None else READING,
+                             ratified if ratified is not None else RATIFIED)
 
 
 def ok_of(gs):
@@ -81,13 +86,41 @@ def test_g5_organizer_receipt_is_always_open_and_never_counts():
     st = ok_of(gs)
     assert st["G5"] is False
     # every other gate is satisfiable, so G5 must be excluded from `passing`
-    assert st["G1"] and st["G2"] and st["G3"] and st["G4"]
+    assert st["G1"] and st["G2"] and st["G2L"] and st["G3"] and st["G4"]
     assert passing is True
 
 
 def test_missing_uniqueness_receipt_fails_closed():
     st = ok_of(gates(uniq={})[0])
+    assert st["G2"] is False and st["G2L"] is False
+
+
+def test_missing_ratified_measurement_fails_closed():
+    """The ratified rule governs since 2026-10-11; without its rows, fail closed."""
+    st = ok_of(gates(ratified={})[0])
     assert st["G2"] is False
+
+
+def test_ratified_rule_a_firing_blocks():
+    st = ok_of(gates(ratified={**RATIFIED, "rule_a_firings": 7,
+                               "worst_overlap_discriminating": 0.7887,
+                               "worst_overlap_discriminating_E": 0.6456})[0])
+    assert st["G2"] is False
+
+
+def test_ratified_rule_b_firing_blocks():
+    st = ok_of(gates(ratified={**RATIFIED, "rule_b_firings": 1, "max_lift": 0.5624})[0])
+    assert st["G2"] is False
+
+
+def test_literal_reading_is_a_hard_stop_even_when_ratified_passes():
+    """Both readings are mandatory stops; clearing one does not clear the banner."""
+    st = ok_of(gates(uniq={**UNIQ, "worst_dot_overlap": 1.0, "duplicate_count": 81,
+                           "unique": False, "verdict": "negative"})[0])
+    assert st["G2"] is True          # ratified A/B both clean
+    assert st["G2L"] is False        # literal reading still fires
+    assert gates(uniq={**UNIQ, "worst_dot_overlap": 1.0, "duplicate_count": 81,
+                       "unique": False, "verdict": "negative"})[1] is False
 
 
 def test_missing_canary_fails_closed():
@@ -102,13 +135,13 @@ def test_chance_corrected_reading_never_closes_itself():
 
 def test_stop_limits_are_inclusive():
     assert gid(gates(uniq={**UNIQ, "worst_spearman_full_footprint": 0.90})[0], "G2")["ok"] is False
-    assert gid(gates(uniq={**UNIQ, "worst_dot_overlap": 0.70})[0], "G2")["ok"] is False
+    assert gid(gates(uniq={**UNIQ, "worst_dot_overlap": 0.70})[0], "G2L")["ok"] is False
     assert gid(gates(canary={**CANARY, "worst_auc": 0.90})[0], "G3")["ok"] is False
 
 
 def test_incomplete_inventory_cannot_pass():
     st = ok_of(gates(uniq={**UNIQ, "inventory_complete": False})[0])
-    assert st["G2"] is False
+    assert st["G2"] is False and st["G2L"] is False
 
 
 def test_sha_taken_from_disk_not_from_the_receipt(tmp_path: Path):

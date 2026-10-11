@@ -363,16 +363,30 @@ Two results deserve to be argued with, not just recorded:
 
 ## Gate state
 
+The uniqueness rule was **ratified while this session was running** (`RATIFIED-UNIQ-v1`, merged from
+`main`): chance-corrected rules A/B govern, and the literal reading stays a *mandatory hard stop*
+published beside them. The artifact was therefore re-screened under the ratified protocol
+(`scripts/ribbon_ratified_screen.py`, the same 694 byte-verified witnesses with the chance
+expectation E and the lift added to each row).
+
 | gate | status | note |
 |---|---|---|
 | G1 portal format | PASS | 15/15 local checks; sha256 recomputed from the bytes on disk; all-finite zeros export |
-| G2 uniqueness, public inventory scan (literal rule) | **OPEN** | 81 of 694 witnesses show > 70 % of my dots within 3 px of theirs |
-| G2i uniqueness, chance-corrected reading | OPEN by construction | owner decision, never closed by a script |
+| G2 uniqueness, **RATIFIED-UNIQ-v1** (governing) | **OPEN** | rule A (O > 0.70 against a witness with E < 0.70): **7 firings**, worst O **0.7887** at E = 0.6456 (`13GEMSDOE:r14-union-tips10`); rule B (lift > 0.50): **0 firings**, max lift **0.4554** vs `GEMSDOE50:h52-coincidence8-80000`. 618 of 694 witnesses are discriminating (E < 0.70) |
+| G2L uniqueness, literal > 70 % reading (mandatory hard stop) | **OPEN** | 81 raw firings over 694 witnesses |
+| G2i chance-corrected reading | informational, never closed by a script | 53 of the 81 literal firings are against witnesses with E ≥ 0.50, i.e. essentially unaffected by chance |
 | G3 leakage canary | PASS | worst single-feature AUC **0.8950** vs the 0.90 tripwire, 0 leaking |
 | G4 holdout recorded and labelled | PASS | HOLDOUT-DTI, not an organizer score |
 | G5 organizer receipt | OPEN, permanently | none exists |
 
 **Verdict: NOT OK TO SUBMIT.** The banner is generated from these gates, not written by hand.
+
+The artifact fails **both** readings, so no definitional choice is doing any work in this verdict —
+the same conclusion the repository has already reached for its other emitters: under rule A no
+nonempty emitter here is cleared. The one number worth the owner's attention is that rule A's worst
+firing (E = 0.6456) sits just under the E < 0.70 discriminating cut, and the pre-ratification
+variant the owner had proposed (E ≤ 0.61) would exclude it; that threshold choice, and not another
+experiment, is what separates cleared from stopped for every file in this repository.
 
 ## The blocking decision, now with the missing number
 
@@ -410,7 +424,10 @@ arms is intractable at ~3.5k arms — replaced by `gems57.exact_emission.sorted_
 
 ## Next session, in order
 
-1. **Get the S3.1 uniqueness decision from the owner.** Everything else is blocked on it.
+1. **Get the S3.1 uniqueness decision from the owner.** Everything else is blocked on it. The extra
+   number this session contributes: rule A's worst firing sits at E = 0.6456, so the *only* thing
+   standing between all of this repository's emitters and a cleared banner is whether the
+   discriminating cut is E < 0.70 (ratified) or E ≤ 0.61 (pre-ratification variant).
 2. Do not re-run EXP-1/EXP-2; both are complete and their receipts are on disk.
 3. If the decision is "literal rule stands", the honest next move is to change the *candidate
    surface*, not the geometry: every ribbon built on this ridge field lands inside 3 px of the same

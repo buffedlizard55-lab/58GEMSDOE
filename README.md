@@ -383,6 +383,21 @@ binding elements, restated:
 * **Core values:** Maximize P(Win) and Own the Outcome — report the actual result, including a
   negative one, and flag irregularities rather than smoothing them over.
 
+## Session-4 result: ribbon width beats the tight line at an equal dot budget
+
+**Ribbon lane, session 4.** At an identical 44,090-dot budget per fold on the same ridge segments, a
+five-line ribbon at 0, ±3, ±6 px scores **HOLDOUT-DTI 0.059635** against **0.044854** for a single
+tight line — **+33 % relative**. The per-segment σ-adaptive width ranks last of seven arms
+(0.038106), so the σ table describes classes, not instances. Measured σ_across is 4.30 px (median).
+
+The deliverable (`docs/downloads/gems58-s4-ribbon-r5-d3-44090-20261011T175553Z.tif`, 44,090 dots,
+0 on the catalogue, all-finite zeros export) scores **0.038248** on its own delivered bytes
+(95 % CI 0.032263–0.043873) and is byte- and pixel-unique among all 694 checked witnesses — but it
+is **NOT CLEARED**: under the ratified `RATIFIED-UNIQ-v1` protocol rule A fires 7× (worst O 0.7887
+at E = 0.6456) and the literal 70 % reading fires 81×. Both readings are mandatory stops, so no
+definitional choice is doing any work in that verdict. Full evidence, gates and run card on
+[`docs/session4.html`](docs/session4.html) and `evidence/ribbon_v3/RUN_CARD.json`.
+
 ## Standing prompt (embedded summary; the full operating contract is in `PROMPT.md`)
 
 > **Mission:** maximize the probability of winning the DOE GEMS Prize and own the outcome. The target is faults indicative of geothermal resources, not geothermal vents. Stay exclusively in the **ribbon-width/localization-error lane**. Current artifact status is **NOT OK TO SUBMIT — DO NOT SUBMIT**.

@@ -69,7 +69,12 @@
   },
   {
    "id": "G2",
-   "name": "Uniqueness \u2014 public inventory scan (literal protocol gate)",
+   "name": "Uniqueness \u2014 public inventory scan (RATIFIED-UNIQ-v1)",
+   "status": "OPEN"
+  },
+  {
+   "id": "G2L",
+   "name": "Uniqueness \u2014 literal >70% reading (hard stop under the current brief)",
    "status": "OPEN"
   },
   {
@@ -95,7 +100,8 @@
  ],
  "verdict": "NOT OK TO SUBMIT",
  "blocking_gate": [
-  "G2"
+  "G2",
+  "G2L"
  ],
  "stop_conditions_hit": [
   "literal uniqueness rule: 81 of 694 witnesses show > 70 % of my dots within 3 px of theirs, which under the standing instruction means log the duplicate and stop."
@@ -130,5 +136,5 @@
   "note": "CI runs pytest then both site builders on ubuntu-latest; the uniqueness screen and the leakage canary are run by hand because they need the restored registry cache, which is not committed"
  },
  "next_action": "Owner decides the uniqueness reading (S3.1): the 53 degenerate dense witnesses score 1.00 against every candidate and cannot discriminate, while the 28 informative ones show a worst dot-set Jaccard of 0.0103. Until that is ratified the banner stays NOT OK and the artifact must not be submitted.",
- "generated_utc": "2026-10-11T18:29:43Z"
+ "generated_utc": "2026-10-11T18:43:16Z"
 }

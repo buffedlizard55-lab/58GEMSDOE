@@ -105,7 +105,8 @@ def label(kind: str) -> str:
 
 # ------------------------------------------------------------------ gates
 def evaluate_gates(emi: dict, uniq: dict, canary: dict,
-                   reading: dict | None = None) -> tuple[list[dict], bool]:
+                   reading: dict | None = None,
+                   ratified: dict | None = None) -> tuple[list[dict], bool]:
     gates: list[dict] = []
 
     def add(gid, name, ok, detail):
@@ -131,25 +132,48 @@ def evaluate_gates(emi: dict, uniq: dict, canary: dict,
         f"on-catalogue dots = {esc(checks.get('zero_dots_on_mapped_catalogue'))}.")
 
     if not uniq:
-        add("G2", "Uniqueness — public inventory scan", False,
-            "<code>evidence/ribbon_v3/uniqueness.json</code> is missing: the literal scan over the "
+        add("G2", "Uniqueness — public inventory scan (RATIFIED-UNIQ-v1)", False,
+            "<code>evidence/ribbon_v3/uniqueness.json</code> is missing: the governing scan over the "
             "byte-verified public inventory has not completed. Fail closed.")
+        add("G2L", "Uniqueness — literal >70% reading (hard stop under the current brief)", False,
+            "The literal reading cannot be computed without the same scan. Fail closed.")
     else:
         worst_rho = uniq.get("worst_spearman_full_footprint")
         worst_ov = uniq.get("worst_dot_overlap")
-        ok = (uniq.get("unique") is True and uniq.get("inventory_complete") is True
-              and worst_rho is not None and float(worst_rho) < RHO_LIMIT
-              and worst_ov is not None and float(worst_ov) < OVERLAP_LIMIT)
-        add("G2", "Uniqueness — public inventory scan (literal protocol gate)", ok,
-            f"{uniq.get('n_compared', uniq.get('n_witnesses'))} sha256-verified witnesses from "
-            f"<code>registry/registry_v3_index.json</code>; missing/invalid "
-            f"{uniq.get('missing_or_invalid')}; inventory complete {uniq.get('inventory_complete')}. "
-            f"Worst rank correlation {fmt(worst_rho)} (limit {RHO_LIMIT:.2f}); worst 3&nbsp;px "
-            f"forward overlap <b>{fmt(worst_ov)}</b> (limit {OVERLAP_LIMIT:.2f}); worst dot-set "
-            f"Jaccard {fmt(uniq.get('worst_jaccard_dot_sets'))}; byte-unique "
-            f"{uniq.get('byte_unique_among_checked')}, pixel-unique "
-            f"{uniq.get('pixel_unique_among_checked')}; duplicate_count "
-            f"{uniq.get('duplicate_count')}; verdict {esc(uniq.get('verdict'))}.")
+        base_ok = (uniq.get("inventory_complete") is True
+                   and uniq.get("byte_unique_among_checked") is True
+                   and uniq.get("pixel_unique_among_checked") is True
+                   and worst_rho is not None and float(worst_rho) < RHO_LIMIT)
+        if not ratified:
+            add("G2", "Uniqueness — public inventory scan (RATIFIED-UNIQ-v1)", False,
+                "<code>evidence/ribbon_v3/ratified_uniqueness.json</code> is missing: the ratified "
+                "chance-corrected measurement has not been run over the scan rows. The ratified rule "
+                f"governs since 2026-10-11, and the literal reading below records {uniq.get('duplicate_count')} "
+                "raw firings of the 0.70 forward-overlap test. Fail closed.")
+        else:
+            add("G2", "Uniqueness — public inventory scan (RATIFIED-UNIQ-v1)", bool(
+                base_ok and ratified.get("rule_a_firings") == 0 and ratified.get("rule_b_firings") == 0),
+                f"{ratified.get('n_scored')} sha256-verified witnesses, "
+                f"{ratified.get('n_discriminating')} of them discriminating (chance expectation "
+                f"E &lt; {ratified.get('e_limit'):.2f}); byte-unique "
+                f"{uniq.get('byte_unique_among_checked')}, pixel-unique "
+                f"{uniq.get('pixel_unique_among_checked')}, worst rank correlation {fmt(worst_rho)} "
+                f"vs the {RHO_LIMIT:.2f} limit. <b>Ratified rule A</b> (literal overlap &gt; 0.70 "
+                f"against a witness with E &lt; 0.70): <b>{ratified.get('rule_a_firings')} firings</b>, "
+                f"worst discriminating overlap {fmt(ratified.get('worst_overlap_discriminating'))} at "
+                f"E = {fmt(ratified.get('worst_overlap_discriminating_E'))}. <b>Rule B</b> "
+                f"(chance-corrected lift &gt; {ratified.get('lift_limit'):.2f}): "
+                f"<b>{ratified.get('rule_b_firings')} firings</b>, max lift "
+                f"{fmt(ratified.get('max_lift'), 3)} "
+                f"({esc(ratified.get('max_lift_submission'))}).")
+        add("G2L", "Uniqueness — literal >70% reading (hard stop under the current brief)",
+            bool(base_ok and worst_ov is not None and float(worst_ov) < OVERLAP_LIMIT),
+            f"<b>Literal reading:</b> worst 3&nbsp;px forward overlap <b>{fmt(worst_ov)}</b> against "
+            f"the {OVERLAP_LIMIT:.2f} limit, <b>{uniq.get('duplicate_count')} raw firings</b> over "
+            f"{uniq.get('n_compared')} witnesses. This reading fires for every nonempty candidate "
+            f"against any witness whose 3&nbsp;px dilation covers the footprint, so it cannot "
+            f"discriminate lane drift — but it is a mandatory hard stop under the current brief and "
+            f"is published unchanged. Scan verdict as recorded: {esc(uniq.get('verdict'))}.")
 
     if reading:
         add("G2i", "Uniqueness — chance-corrected reading (informational)", False,
@@ -608,6 +632,37 @@ def run_card(emi: dict, uniq: dict, exp2: dict, tab: dict, sim: dict,
         generated_utc=datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"))
 
 
+
+def deliverable_box(emi: dict, gates: list[dict], ok: bool) -> str:
+    """The one box session 4 injects into the shared front door."""
+    colour = "#1d7a45" if ok else "#a11212"
+    st = emi.get("stats") or {}
+    name = Path((emi.get("receipt") or {}).get("file", "")).name
+    stem = Path(name).stem
+    ho = ((emi.get("holdout") or {}).get("summary") or {}).get("scores", {}).get("delivered") or {}
+    open_ids = [g["id"] for g in gates if not g["ok"] and g["id"] not in ("G5", "G2i")]
+    badge = ("OK TO DOWNLOAD AND SUBMIT" if ok else
+             "NOT OK TO SUBMIT — DO NOT SUBMIT: open gate(s) " + ", ".join(open_ids))
+    return ('<section class="submit-box" id="session4-deliverable-box" '
+            f'style="border-color:{colour}">'
+            '<h2 style="margin-top:0">Session 4 — ribbon lane: the current deliverable</h2>'
+            f'<div class="badge" style="background:{colour}">{esc(badge)}</div>'
+            f'<p class="small"><code>{esc(stem)}.tif</code> — {st.get("n_dots", 0):,} dots at '
+            'exactly 1.0, 0 on the mapped catalogue, all-finite zeros export. '
+            f'HOLDOUT-DTI of the delivered bytes {fmt(ho.get("dti"), 6)} '
+            f'(95&nbsp;% CI {fmt(ho.get("ci95", [None, None])[0], 6)}–'
+            f'{fmt(ho.get("ci95", [None, None])[1], 6)}). '
+            f'{label("HOLDOUT-DTI")} — not an organizer score; no receipt exists.</p>'
+            '<div class="dlrow">'
+            f'<a class="big-btn" style="background:{colour}" href="downloads/{esc(stem)}.tif" download>'
+            '⬇ Download the GeoTIFF</a>'
+            f'<a class="big-btn" style="background:#2f5f8f" href="downloads/{esc(stem)}.zip" download>'
+            '⬇ Download the ZIP</a>'
+            '<a class="big-btn" style="background:#41505f" href="session4.html">'
+            'Evidence, gates and run card</a>'
+            '</div></section>')
+
+
 def main(argv=None) -> int:
     strict = "--strict" in (argv or sys.argv)
     emi = load(EV / "exp3_emission.json")
@@ -625,11 +680,20 @@ def main(argv=None) -> int:
         print("no emission receipt; rendered the empty-state index")
         return 2
     reading = load(EV / "uniqueness_reading.json")
-    gates, ok = evaluate_gates(emi, uniq, canary, reading)
-    (DOCS / "index.html").write_text(build_index(emi, uniq, exp2, gates, ok, ""))
-    (DOCS / "executive-summary.html").write_text(build_exec(emi, gates, ok))
-    (DOCS / "session4.html").write_text(
-        build_evidence(emi, uniq, exp2, tab, sim, gates, ok))
+    ratified = load(EV / "ratified_uniqueness.json")
+    gates, ok = evaluate_gates(emi, uniq, canary, reading, ratified)
+    (DOCS / "session4.html").write_text(build_index(emi, uniq, exp2, gates, ok, ""))
+    # The front door belongs to whichever lane rendered last, so session 4 does not
+    # overwrite it: it injects one box after the header, the same way the sibling
+    # lane's page builder does.
+    box = deliverable_box(emi, gates, ok)
+    for page in ("index.html", "executive-summary.html"):
+        target = DOCS / page
+        if target.is_file():
+            text = target.read_text(encoding="utf-8")
+            if "session4-deliverable-box" not in text and "</header>" in text:
+                target.write_text(text.replace("</header>", "</header>\n" + box, 1),
+                                  encoding="utf-8")
     card = run_card(emi, uniq, exp2, tab, sim, canary, reading, gates, ok)
     (EV / "RUN_CARD.json").write_text(json.dumps(card, indent=1, default=str))
     (DOCS / "RUN_CARD_SESSION4.json").write_text(json.dumps(card, indent=1, default=str))

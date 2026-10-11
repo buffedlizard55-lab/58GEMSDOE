@@ -15,6 +15,7 @@
 .warn-box{border:1px solid #e0c46a;border-left:5px solid #8a6d1a;background:#fffbea;border-radius:8px;padding:.7rem .9rem;margin:.8rem 0}
 .bad-box{border:1px solid #e0a3a3;border-left:5px solid #a11212;background:#fff6f6;border-radius:8px;padding:.7rem .9rem;margin:.8rem 0}
 .ok-box{border:1px solid #9ed3b3;border-left:5px solid #1d7a45;background:#f4fcf7;border-radius:8px;padding:.7rem .9rem;margin:.8rem 0}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1rem}
 .small{font-size:.85rem;color:#41505f}
 .dlrow{display:flex;flex-wrap:wrap;gap:.6rem;margin:.8rem 0}
 .num{font-variant-numeric:tabular-nums}
@@ -24,13 +25,172 @@ table{max-width:100%}
 </style>
 </head><body>
 <header><h1>58GEMSDOE — DOE GEMS competition #306</h1>
-<p>Geothermal fault detection, northwestern Great Basin (NV) · ribbon lane · session 4 · every figure on this page is rendered from <code>evidence/ribbon_v3/*.json</code> at build time</p>
-<nav class="small"><a href="index.html">Status &amp; download</a> · <a href="executive-summary.html" style="font-weight:700">How to submit</a> · <a href="session4.html">Evidence &amp; run card</a> · <a href="sources.html">Sources</a> · <a href="evidence.html">Evidence index</a> · <a href="ribbon/index.html">Ribbon archive</a></nav></header>
-<section class="submit-box" style="border-color:#a11212">  <div class="badge" style="background:#a11212">NOT OK TO SUBMIT — REVIEW ARTIFACT ONLY</div>  <h2 style="margin-top:.7rem">How to submit — seven steps</h2>  <div class="dlrow">    <a class="big-btn" style="background:#a11212" href="downloads/gems58-s4-ribbon-r5-d3-44090-20261011T175553Z.tif" download>      ⬇ Download the GeoTIFF</a>    <a class="big-btn" style="background:#2f5f8f" href="downloads/gems58-s4-ribbon-r5-d3-44090-20261011T175553Z.zip" download>      ⬇ Download the ZIP</a>    <a class="big-btn" style="background:#41505f" href="index.html">Back to status</a>  </div></section><div class="bad-box"><h3 style="margin-top:0">Do not submit this file yet</h3><p class="small">At least one required gate is open (see the table below), so the standing instruction is to log the artifact and stop. The download is provided for review. If the owner ratifies a different uniqueness rule, <code>scripts/build_site_v3.py</code> recomputes the verdict from the receipts and this banner changes with it — it is never edited by hand.</p></div><table class=""><thead><tr><th>#</th><th>step</th><th>what to do</th></tr></thead><tbody><tr><td>1</td><td>Download the GeoTIFF</td><td>Use the button below. It is a single-band float32 GeoTIFF, 3730×3292, EPSG:32611, 100&nbsp;m, identical bounds and geotransform to the organizer's <code>sample_submission.tif</code>. Values are 0 or 1 only; nothing is NaN.</td></tr><tr><td>2</td><td>Open the competition submissions page</td><td><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/">drivendata.org/competitions/306/…/submissions/</a> → <b>New submission</b>. (Login required.)</td></tr><tr><td>3</td><td>Attach the file</td><td><b>File to submit → Choose file</b> → pick the <code>.tif</code> <i>or</i> the <code>.zip</code> that contains exactly one GeoTIFF. Both are provided; either is accepted.</td></tr><tr><td>4</td><td>Paste the submission name</td><td><code>gems58-s4-ribbon-r5-d3-44090-20261011T175553Z</code></td></tr><tr><td>5</td><td>Paste the note (≤ 140 characters)</td><td><code>Ribbon lane: R5_d3 parallel dotted lines on catalogue-free Hessian ridges, width from cross-fitted sigma; 44090 dots at 1.0, all-finite zero</code></td></tr><tr><td>6</td><td>Press <b>Create submission</b></td><td>The portal re-checks CRS, shape, geotransform and value range. The all-finite zeros export is what removes the "Predicted values must be in range [0, 1]" rejection: every pixel, including those outside the study footprint, is a finite number in [0, 1].</td></tr><tr><td>7</td><td>Record the receipt</td><td>Copy the submission ID and the score back into this repository. Only that receipt turns a number into <span class="pill pass">ORGANIZER-CONFIRMED</span>; until then nothing here is a score.</td></tr></tbody></table><h2>Why the export is all-finite</h2><p class="small">The organizer's <code>sample_submission.tif</code> uses NaN outside the study footprint. A previous upload from this repository was rejected with <i>"Predicted values must be in range [0, 1]"</i>. The shared template therefore exports the stricter <b>zeros</b> representation: 0.0 outside the footprint, 0.0 everywhere inside except the emitted dots, which are exactly 1.0. No NaN, no infinity, no sentinel; the CRS, shape, geotransform and dtype are copied from the pinned sample.</p><h2>Gates</h2><div class="gates">
-<div class="gate pass"><h4>G1 · Portal format (local preflight, bytes re-hashed)</h4><p><span class="pill pass">PASS</span></p><p>15/15 local format/range checks pass; the sha256 recomputed from the bytes on disk matches the receipt; template report ok=True (problems: []); no NaN anywhere (all-finite zeros export: 0 outside the footprint), values in [0,1], single-band float32, EPSG:32611, 3730x3292, transform identical to sample_submission.tif; on-catalogue dots = True.</p></div>
-<div class="gate fail"><h4>G2 · Uniqueness — public inventory scan (literal protocol gate)</h4><p><span class="pill fail">OPEN</span></p><p>None sha256-verified witnesses from <code>registry/registry_v3_index.json</code>; missing/invalid 0; inventory complete None. Worst rank correlation 0.0543 (limit 0.90); worst 3&nbsp;px forward overlap <b>1.0000</b> (limit 0.70); worst dot-set Jaccard 0.0242; byte-unique True, pixel-unique True; duplicate_count 81; verdict negative.</p></div>
-<div class="gate fail"><h4>G2i · Uniqueness — chance-corrected reading (informational)</h4><p><span class="pill fail">OPEN</span></p><p>Open by construction: this is the standing owner decision, never claimed by a script. Of the 81 witnesses flagged by the literal rule, <b>53 are dense rasters whose dots cover ≥ 50&nbsp;% of the 5,167,373-pixel footprint</b>, so their forward-overlap test returns 1.00 for every candidate including a random one and cannot discriminate. The other 28 are informative, and against them the worst dot-set Jaccard is 0.0103 and the worst footprint rank correlation 0.0422 — both essentially zero, i.e. near-disjoint and uncorrelated. Read the other way: the artifact is not a copy of anything in the inventory in substance, and the flag comes entirely from a test that is degenerate against dense rasters. Ratifying this reading is the owner's call.</p></div>
-<div class="gate pass"><h4>G3 · Leakage canary (single-feature AUC)</h4><p><span class="pill pass">PASS</span></p><p>max AUC over 20 feature groups and all folds 0.8950 vs the 0.90 leakage limit; groups flagged as leaking: 0. <span class="pill info">HOLDOUT-DTI</span></p></div>
-<div class="gate pass"><h4>G4 · Holdout evidence recorded and labelled</h4><p><span class="pill pass">PASS</span></p><p>HOLDOUT-DTI 0.038249 (95&nbsp;% paired physical spatial-block CI 0.032263–0.043873, 1000 draws over 644 20&nbsp;km blocks); 60869 withheld positives; protocol gems58-pooled-hide-v1 / evaluator gems57-pooled-hide-v2. This measures recovery of <i>catalogue</i> truth, not the organizer's private new-fault truth.</p></div>
-<div class="gate fail"><h4>G5 · Organizer receipt for this raster</h4><p><span class="pill fail">OPEN</span></p><p>No DrivenData submission receipt exists for this raster, so no ORGANIZER-CONFIRMED score can be quoted for it. This gate can only be closed by the owner's selector step and is never claimed here.</p></div>
-</div><footer>Generated by <code>scripts/build_site_v3.py</code> from the receipts in <code>evidence/ribbon_v3/</code>. Nothing on this site is an organizer-confirmed score: no DrivenData submission receipt exists for any raster in this repository. Sources and dated checks: <a href="sources.html">sources.html</a>. Official pages: <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">problem &amp; metric</a> · <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">leaderboard</a> · <a href="https://docs.nlr.gov/docs/fy26osti/96647.pdf">rules</a>.</footer></body></html>
+<p>Geothermal fault detection, northwestern Great Basin (NV) · ribbon lane · every figure on this
+site is rendered from <code>evidence/**.json</code> at build time</p>
+<nav class="small"><a href="index.html">Status &amp; download</a> · <a href="executive-summary.html" style="font-weight:700">How to submit</a> · <a href="submit.html">Portal checklist</a> · <a href="deliverable/index.html">Sibling-lane deliverable</a> · <a href="sources.html">Sources</a> · <a href="evidence.html">Evidence index</a> · <a href="ribbon/index.html">Ribbon lane archive</a></nav></header>
+<section class="submit-box" id="session4-deliverable-box" style="border-color:#a11212"><h2 style="margin-top:0">Session 4 — ribbon lane: the current deliverable</h2><div class="badge" style="background:#a11212">NOT OK TO SUBMIT — DO NOT SUBMIT: open gate(s) G2, G2L</div><p class="small"><code>gems58-s4-ribbon-r5-d3-44090-20261011T175553Z.tif</code> — 43,867 dots at exactly 1.0, 0 on the mapped catalogue, all-finite zeros export. HOLDOUT-DTI of the delivered bytes 0.038249 (95&nbsp;% CI 0.032263–0.043873). <span class="pill info">HOLDOUT-DTI</span> — not an organizer score; no receipt exists.</p><div class="dlrow"><a class="big-btn" style="background:#a11212" href="downloads/gems58-s4-ribbon-r5-d3-44090-20261011T175553Z.tif" download>⬇ Download the GeoTIFF</a><a class="big-btn" style="background:#2f5f8f" href="downloads/gems58-s4-ribbon-r5-d3-44090-20261011T175553Z.zip" download>⬇ Download the ZIP</a><a class="big-btn" style="background:#41505f" href="session4.html">Evidence, gates and run card</a></div></section>
+
+<section class="submit-box" style="border-color:#a11212">
+  <div class="badge" style="background:#a11212">NOT OK TO SUBMIT — REVIEW ARTIFACT ONLY</div>
+  <h2 style="margin-top:.7rem">How to submit this file — seven steps</h2>
+  <div class="dlrow">
+    <a class="big-btn" style="background:#a11212" href="downloads/gems58-concordance-ribbon-40768-20261011T160514Z.tif" download>
+      ⬇ Download the GeoTIFF</a>
+    <a class="big-btn" style="background:#2f5f8f" href="downloads/gems58-concordance-ribbon-40768-20261011T160514Z.zip" download>
+      ⬇ Download the ZIP</a>
+    <a class="big-btn" style="background:#41505f" href="index.html">Back to status</a>
+  </div>
+</section>
+<!-- session5:begin -->
+<section class="s5 bad">
+  <div class="badge">⛔ NOT CLEARED — DO NOT SUBMIT</div>
+  <h2>Archived session-5 candidate (not the primary file): <code>gems60-convergence-ribbon6-20261011T155420Z.tif</code></h2>
+  <p>Lineaments from a four-family (magnetic, gravity, topographic, subsurface) structural field, ranked with a
+  cross-family agreement bonus and emitted as dotted multi-line ribbons at the measured localization error
+  (σ = 2–4 px), <b>0 dots on the mapped catalogue</b>, every value exactly <code>1.0</code>,
+  12/12 independent format checks passed.
+  <b>Uniqueness verdict (RATIFIED-UNIQ-v1): DUPLICATE.</b> Rule A fires on 4 witness raster(s) whose own 3 px dilation covers 0.646–0.680 of the scored footprint (worst forward overlap <b>0.7463</b>) against <code>13GEMSDOE:docs/downloads/archive/13gems-r6-ensemble-20260929T182914Z.tif</code>, <code>13GEMSDOE:docs/downloads/archive/13gems-r6-ensemble-20260929T182914Z_allfinite.tif</code>, <code>13GEMSDOE:docs/downloads/archive/13gems-toporef-holdoutref.tif</code>, so by the standing instruction the file is logged as a duplicate and <b>must not be submitted</b>. Rule B (chance-corrected lift), rank correlation and dot-set Jaccard all have zero firings, and the pre-ratification E ≤ 0.61 variant has 0 firing(s); the download stays available for the owner's review.
+  Read the <a href="gems60.html">full deliverable page</a> for the gates, the σ table, the pattern selection and
+  both uniqueness readings. <b>Not verified: its leaderboard value</b> (no organizer receipt; the local holdout is
+  structurally blind to off-catalogue files).</p>
+  <div class="dlrow">
+    <a class="big-btn sec" href="downloads/gems60-convergence-ribbon6-20261011T155420Z.tif" download>⬇ Download the GeoTIFF · 143,587 bytes (review only)</a>
+    <a class="big-btn sec" href="downloads/gems60-convergence-ribbon6-20261011T155420Z.zip" download>⬇ ZIP (one GeoTIFF)</a>
+    <a class="big-btn sec" style="background:#41505f" href="executive-summary.html">How to submit</a>
+    <a class="big-btn sec" style="background:#41505f" href="gems60.html">Gates &amp; evidence</a>
+  </div>
+  <p class="small">sha256 <code>c1ba5b06191801bfef6798b9dfb64fe23c030b6783d0b965dbf3fb4d956be2b1</code> · submission name <code>gems60-convergence-ribbon6-20261011T155420Z</code> ·
+  note <code>Cross-family convergence lineaments, +-6px dotted ribbons, off-catalogue, all values 1.0</code> (88/140 characters) · this box follows the ratified
+  protocol in <code>PROMPT.md</code> item 1 and turns green only when the governing readings clear.</p>
+  <p class="small">Not restricted to agreeing cells: measured mean agreeing families
+  1.05, 10.9 % of dots on
+  ≥ 2-family cells, 2.6 % on ≥ 3-family cells — the agreement
+  count is a ranking weight, not a gate, because its holdout test came back negative (see the page).</p>
+</section>
+<!-- session5:end -->
+
+<h2>What this file is, in one paragraph</h2>
+<p>40,768 isolated dots at exactly <code>1.0</code> on a 100&nbsp;m grid
+(EPSG:32611, 3730×3292, the same bounds and transform as the organizer's sample submission), placed
+on <i>catalogue-free</i> multi-scale Hessian ridges of the organizer's own 19-band feature stack.
+Each detected ridge segment carries a ribbon of parallel dotted lines at 0, ±300 and ±600&nbsp;m
+across strike, with the number of lines chosen per segment from the localisation error σ(x) measured
+on a buffered hide-and-recover holdout and cross-fitted leave-one-block-out. No dot falls on the
+mapped USGS/INGENIOUS catalogue, because the organizer masks those pixels out of evaluation. Outside
+the study footprint the file is NaN, exactly like <code>sample_submission.tif</code>.</p>
+
+<h2>The error this file cannot produce</h2>
+<div class="ok-box"><p><b><code>Predicted values must be in range [0, 1]</code></b> — the portal
+rejection already hit on this competition — is caused by a non-finite or out-of-range value landing
+<i>inside</i> the scored footprint. This file is checked for exactly that before publication:
+<code>finite_inside_footprint</code> (NaN inside footprint = 0),
+<code>values_in_unit_interval</code> (min=0.000 max=1.000),
+<code>positive_is_exactly_one</code> (unique positives = [1.0]),
+and the NaN count outside the footprint is identical to the organizer's sample submission
+(7,111,787). All 15/
+15 local checks pass — full receipt on the
+<a href="submit.html">portal checklist</a> page.</p></div>
+
+<h2>Steps</h2>
+<ol><li><b>Check the banner on the status page</b><br><span class="small">It is generated from evidence receipts, not from prose. If it is not green, do not submit. <a href='index.html'>index.html</a></span></li><li><b>Download the GeoTIFF — or the ZIP</b><br><span class="small"><code>downloads/gems58-concordance-ribbon-40768-20261011T160514Z.tif</code> · 427,919 bytes. The ZIP contains exactly one GeoTIFF, which the portal also accepts. Do <b>not</b> upload a README, HTML, JSON or a whole-repository ZIP.</span></li><li><b>Verify the bytes before uploading</b><br><span class="small">Expected sha256 <code>f709b6f12d5188e34aa3aed3b83d785b97a232224692dcdfffedaa009dee9d0d</code>. macOS: <code>shasum -a 256 &lt;file&gt;</code> · Linux: <code>sha256sum &lt;file&gt;</code>. If it differs, the download is corrupt — re-download it.</span></li><li><b>Paste the submission name and note</b><br><span class="small">Name: <code>gems58-concordance-ribbon-40768-20261011T160514Z</code><br>Note (128/140 characters): <code>Ribbon lane H58-X1: 2-family-concordant Hessian ridges, sigma-adaptive dotted ribbons 0/±300/±600 m; 40768 isolated dots at 1.0.</code></span></li><li><b>Upload on the competition page</b><br><span class="small"><a href='https://www.drivendata.org/competitions/306/competition-doe-gems/'>competition #306</a> → <i>Submit</i>. This spends one of your slots; the automated agent never does it and never selects a submission.</span></li><li><b>Record the receipt</b><br><span class="small">Copy the score the submission page shows into <code>registry/submissions_seen.csv</code> with the date and the file's sha256. Only then does an ORGANIZER-CONFIRMED number exist for this lane; until then every number here is diagnostic HOLDOUT-DTI, a dated board snapshot, USER-REPORTED-SCORE or PROJECTION.</span></li><li><b>Decide the round selection deliberately</b><br><span class="small">One submission must be selected for both the initial round (top 5 × $10k on a fixed private new-fault set) and the final round ($100k / $70k / $40k / $25k / $15k), blind to private performance. <a href='https://www.drivendata.org/competitions/306/competition-doe-gems/rules/'>competition rules</a> · <a href='https://www.herox.com/GEMSPrize/resource/2274'>HeroX GEMS prize rules</a></span></li></ol>
+
+<h2>What is known, and what is not</h2>
+<div class="cols">
+<div class="ok-box"><b>Known — measured here <span class="pill info">HOLDOUT-DTI</span></b>
+<ul class="small">
+<li>HOLDOUT-DTI of the exact delivered bytes: <b>0.041831</b> pooled,
+0.029504–0.060339 across blocks,
+60869 withheld positives, evaluator
+<code>gems58w.metric/v1 (exact triangular kernel, R=3 px, alpha=0.2, beta=0.8)</code>, protocol <code>gems58-pooled-hide-v1</code>.</li>
+<li>At an equal budget the adaptive ribbon beats a single tight line: best arm C2
+0.043575 vs W1 not measured, and it wins most in the
+σ ∈ [3,6]&nbsp;px class where the tight line scores 0.</li>
+<li>No leaking feature: worst single-feature AUC 0.5666 &lt; 0.90.</li>
+<li>Uniqueness on the corrected instrument: worst rank correlation
+0.2823 and worst 3&nbsp;px forward overlap
+0.6292 over
+31 local witnesses, both inside the 0.90 / 0.70 stop limits, and
+0 informative firings.</li>
+</ul></div>
+<div class="bad-box"><b>Not known — and not claimed</b>
+<ul class="small">
+<li>The score this file would receive. No organizer receipt exists, and HOLDOUT-DTI measures recovery
+of <i>catalogue</i> truth while the competition scores <i>new</i> faults (IR-58-02).</li>
+<li>Whether it beats 0.4133 (xiaofanhu (public leaderboard #1, fetched 2026-10-11)) or the owner's stale 0.3195 target
+(IR-58-TARGET-01). The coverage arithmetic says the gap is a factor of ~6 in weighted coverage.</li>
+<li>Which public-subset pixels are scored, so no owner-quoted score can be modelled: the best
+covariate over 66 verified sibling rasters reaches |Spearman| 0.258 (IR-58-LIVE-01).</li>
+<li>Whether the σ-based line count is optimal on new faults. On the holdout the adaptive plan chose
+{&#x27;5&#x27;: 5108}, so most of the measured gain is
+'ribbon vs tight line', not 'per-segment adaptivity'.</li>
+<li>Anything about the aeroradiometric and 1&nbsp;m lidar evidence that the provided stack does not
+contain (IR-58-DATA-01).</li>
+</ul></div>
+</div>
+
+
+<div class="bad-box"><h3 style="margin-top:0">Why this file is NOT cleared, and the one decision
+that would change it</h3>
+<p>The protocol's literal stop rule — "more than 70&nbsp;% of my dots within 3&nbsp;px of one
+registry raster's dots" — fires against <b>83</b> of the
+703 byte-verified witnesses. By the standing instruction that means
+<b>log as duplicate and stop</b>, and that is what this site does: the banner is red and the file is
+offered for review only.</p>
+<p>It is reported with both readings because the literal rule is <b>provably unsatisfiable</b> for any
+emitter that places dots on the organizer's own feature structure:</p>
+<ul class="small">
+<li><b>54 firings are information-free.</b> Those witnesses have a
+chance-level expected overlap E ≥ 0.99 — their 3&nbsp;px dilation covers essentially the whole
+footprint, so they overlap <i>every</i> nonempty candidate, including a random dot field. Measured
+earlier: no buffer from 3 to 10&nbsp;px clears 0.70 against them
+(<code>evidence/buffer_overlap_scan.json</code>, IR-58-UNIQ-02/03).</li>
+<li><b>29 firings are against broad dot fields</b> of
+155,021–3,380,827 dots (3&nbsp;%–65&nbsp;% of the footprint), 18 of them from a single repository
+that publishes near-duplicate variants of one composite. The worst is
+0.8754 against a witness whose own chance expectation is
+E = 0.8611 — a chance-corrected lift of 0.100, i.e. barely above what random placement would show.
+The largest lift among all 83 firings is
+1.000.</li>
+<li><b>Under a lift rule this file clears; under an E-limit rule the threshold decides.</b>
+Restricting the gate to the
+627 witnesses that <i>could</i> have failed to fire (E &lt; 0.70),
+the worst observed overlap is <b>0.8154</b>
+(<code>13GEMSDOE:docs/downloads/archive/13gems-r6-ensemble-20260929T182914Z.tif</code>, E =
+0.6456) — <b>9 firings</b>. Under a lift
+rule (observed − E)/(1 − E) &gt; 0.50 there are <b>3
+firings</b> (max lift anywhere
+0.574).</li>
+<li><b>Every discriminating statistic passes by a wide margin:</b> byte-unique
+True, pixel-unique True, worst
+rank correlation 0.2823 (limit 0.90) with
+0 firings, worst dot-set Jaccard
+0.1682 (limit 0.50) with
+0 firings. Against the witnesses whose own expected overlap
+is below 0.30 — the ones that can actually tell two emissions apart — the worst observed overlap is
+0.6668 (<code>GEMSDOE50:docs/downloads/gems50-h52-coincidence8-80000-20261007T032938Z.tif</code>).</li>
+</ul>
+<p><b>The decision, which only the owner can make.</b> Either</p>
+<ol class="small">
+<li><b>Ratify a chance-corrected uniqueness rule</b>, of which the lift form is the cleaner one: a
+witness fires only if (observed − E)/(1 − E) exceeds a stated threshold. At a threshold of
+<b>0.50</b> this file produces <b>3 firings, and both are this
+repository's own earlier ribbon files</b> — expected family resemblance, not reuse of another lane —
+while the highest lift against any <i>other</i> repository is
+0.562 (<code>GEMSDOE50:docs/downloads/gems50-h52-coincidence8-80000-20261007T032938Z.tif</code>). An
+E-limit form ("fire only if E &lt; limit <i>and</i> observed &gt; 0.70") needs a limit of
+<b>0.50</b> or lower to give zero firings, which is a tighter and
+more arbitrary cut; at E &lt; 0.70 there would still be 9 firings (worst overlap
+0.8154 at E = 0.6456).</li>
+<li><b>Keep the literal rule</b> — then no ridge-based or coverage-based emitter in this repository
+family can ever be submitted, because the registry already contains near-plane-filling witnesses.
+That is a protocol-level dead end, and it is the honest reading of the instruction as written.</li>
+</ol>
+<p class="small">Until the owner ratifies one of these, the file is a <b>reviewable artifact</b>: it
+is downloadable, format-validated 15/15, and it is not cleared for a slot. Nothing was uploaded and no
+slot was used.</p></div>
+<h2>Gates</h2><div class="gates"><div class="gate pass"><h4>G1 · Portal format (local preflight) <span class="pill pass">PASS</span></h4><p>15/15 local checks pass; the sha256 recomputed from the bytes on disk matches the receipt; NaN inside footprint = 0; min=0.000 max=1.000; representation = the organizer's sample_submission (NaN outside the study footprint, nodata=nan)</p></div><div class="gate pass"><h4>G2 · Uniqueness — local witnesses (corrected instrument) <span class="pill pass">PASS</span></h4><p>31 witnesses (the registry checkout plus this repo's own earlier rasters); worst rank correlation 0.2823 &lt; 0.90; worst 3&nbsp;px forward overlap 0.6292 &lt; 0.70 (OWN:docs/downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif); informative firings 0; saturated witnesses 0; drift evidence: none</p></div><div class="gate fail"><h4>G3 · Uniqueness — public inventory scan (ratified chance-corrected gate RATIFIED-UNIQ-v1) <span class="pill fail">FAIL</span></h4><p>703 sha256-verified rasters from <code>registry/registry_merged.json</code>; complete accessible scan True; missing/invalid 0. Byte-unique True, pixel-unique True; worst rank correlation 0.2823 (limit 0.90, 0 firings); worst Jaccard 0.1682 (limit 0.50, 0 firings). <b>Ratified overlap rule:</b> rule A (literal &gt; 0.70 vs witnesses with E &lt; 0.70): <b>9</b> firings; rule B (chance-corrected lift &gt; 0.50 vs any witness): <b>3</b> firings (max lift 0.574; max vs another repository 0.562). The literal pre-ratification reading is reported unchanged in mandatory G3L below and in the run card.</p></div><div class="gate fail"><h4>G3L · Uniqueness — literal >70% reading (hard stop under current brief) <span class="pill fail">FAIL</span></h4><p><b>Literal reading:</b> worst 3&nbsp;px forward overlap <b>1.0000</b> vs the 0.70 limit → <b>83 firings</b>, of which 54 are against witnesses whose 3&nbsp;px dilation covers ≥ 99&nbsp;% of the footprint (E ≥ 0.99: they overlap <i>every</i> nonempty candidate and carry no information) and 29 are against broader dot fields (smallest E among non-saturated firings 0.5343). Scan verdict as recorded: negative; stop_required True. The literal rule fires for every nonempty candidate against a witness whose dilation covers the footprint, so it cannot discriminate lane drift; RATIFIED-UNIQ-v1 (G3) governs since 2026-10-11 and this reading is also a mandatory hard stop under the current brief.</p></div><div class="gate pass"><h4>G4 · Leakage canary (single-feature AUC) <span class="pill pass">PASS</span></h4><p>max AUC over 8 feature groups and all folds 0.5666 vs the 0.90 leakage limit; groups flagged as leaking: 0</p></div><div class="gate pass"><h4>G5 · Holdout evidence recorded and labelled <span class="pill pass">PASS</span></h4><p>HOLDOUT-DTI 0.041831 pooled over 60869 withheld positives (gems58-pooled-hide-v1 / gems58w.metric/v1 (exact triangular kernel, R=3 px, alpha=0.2, beta=0.8)). This measures recovery of <i>catalogue</i> truth, not the organizer's new-fault truth, and is not a leaderboard forecast.</p></div><div class="gate pass"><h4>G5i · HOLDOUT-DTI re-derived with the shared gems57 metric <span class="pill pass">PASS</span></h4><p>verdict AGREE: per-fold and pooled deltas between the archived <code>gems58w</code> evaluator and the shared <code>gems57.metric</code> are 0.000; the shared pooled value 0.043651086 equals the recorded receipt value; the literal brute-force transcription of the published equations reproduces the shared fast path on a bounded tile. So the number is a property of the official metric, not of the archived copy that computed it.</p></div><div class="gate fail"><h4>G6 · Organizer receipt for this raster <span class="pill fail">OPEN — owner step</span></h4><p>No DrivenData submission receipt exists for this raster, so no ORGANIZER-CONFIRMED score can be quoted for it. This gate can only be closed by the owner's selector step and is never claimed here; the site verdict requires G3L and G7 as well as G1–G5.</p></div><div class="gate fail"><h4>G7 · Current shared-evaluator qualification and fresh inventory <span class="pill fail">FAIL</span></h4><p>NOT QUALIFIED: evidence/ribbon_qualification.json is absent; submission_status is not OK_TO_SUBMIT; candidate file/pixel hashes are missing or invalid. Historical HOLDOUT-DTI is diagnostic, not a 95% CI.</p></div></div>
+
+<footer>Generated 2026-10-11T18:43:16Z by
+<code>scripts/build_site.py</code>. No organizer receipt exists for any artifact on this site, so no
+No public participant row establishes a score for a TIFF; only a hash-bound submission receipt does.</footer>
+</body></html>

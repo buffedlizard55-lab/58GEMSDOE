@@ -78,6 +78,36 @@ jobs:
           else
             echo "gems60_build_page.py failed to render from the receipts"; exit 1
           fi
+      - name: Label every public raster in the downloads index
+        run: python scripts/build_downloads_index.py
+      - name: Render the session-4 ribbon-lane page and inject its deliverable box
+        run: |
+          # build_site_v3.py writes docs/session4.html from evidence/ribbon_v3/*.json and injects
+          # the current-deliverable box into docs/index.html and docs/executive-summary.html. It
+          # must run LAST: build_site.py rewrites those two pages from the older lane's receipts
+          # and gems60_build_page.py injects into them afterwards.
+          set +e
+          python scripts/build_site_v3.py --strict
+          code=$?
+          set -e
+          echo "strict exit code: $code"
+          if [ "$code" -eq 0 ]; then
+            grep -q "OK TO DOWNLOAD AND SUBMIT" docs/session4.html
+            grep -q "OK TO DOWNLOAD AND SUBMIT" docs/index.html
+          elif [ "$code" -eq 2 ]; then
+            grep -q "NOT OK TO SUBMIT" docs/session4.html
+            grep -q "DO NOT SUBMIT" docs/session4.html
+            grep -q "NOT OK TO SUBMIT" docs/index.html
+          else
+            echo "build_site_v3.py failed to render from the receipts"; exit 1
+          fi
+          # the deliverable must be one obvious click on the lane page and the front door
+          grep -q "big-btn" docs/session4.html
+          grep -q "big-btn" docs/index.html
+          grep -q "Download the GeoTIFF" docs/session4.html
+          grep -q "Download the GeoTIFF" docs/index.html
+          grep -q "session4-deliverable-box" docs/index.html
+          grep -q "session4-deliverable-box" docs/executive-summary.html
           grep -q "big-btn" docs/gems60.html
           grep -q "gems60-convergence-ribbon6" docs/gems60.html
           grep -q "session5:begin" docs/index.html
