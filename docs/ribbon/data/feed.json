@@ -1,0 +1,73 @@
+{
+ "schema": "gems58.feed/v1",
+ "generated_utc": "2026-10-11T03:55:54+00:00",
+ "lane": "ribbon",
+ "deliverable": {
+  "name": "gems58-adaptive-ribbon-38000-20261011T000000Z",
+  "tif_url": "downloads/gems58-adaptive-ribbon-38000-20261011T000000Z.tif",
+  "zip_url": "downloads/gems58-adaptive-ribbon-38000-20261011T000000Z.zip",
+  "sha256": "d631b4af205bd6e0961f4bad3f4d12bc27b651a020dcd38666e4c5f5246720f7",
+  "bytes": 426559,
+  "n_dots": 38000,
+  "note": "Ribbon lane: per-segment dotted ribbons (5 lines at 0, +-300 m, +-600 m) on off-catalogue ridge detections; 38k isolated dots.",
+  "note_chars": 126,
+  "download_ok": true,
+  "submit": "your decision \u2014 this project spends no slot"
+ },
+ "validator": {
+  "passed": true,
+  "n_checks": 15,
+  "failed": []
+ },
+ "uniqueness": {
+  "n_checked": 19,
+  "worst_rho": 0.013745320203254023,
+  "worst_forward_overlap": 0.36,
+  "triggers": 0,
+  "dense_priors": 0
+ },
+ "scores": {
+  "organizer_confirmed": [],
+  "holdout_dti": {
+   "value": 0.0,
+   "evaluator": "gems58w.metric/v1 (exact triangular kernel, R=3 px, alpha=0.2, beta=0.8)",
+   "protocol": "gems58-pooled-hide-v1",
+   "withheld_positives": 60869,
+   "ci": [
+    null,
+    null
+   ],
+   "ci_note": "not reported: the four spatial blocks give only 4 paired observations, so a bootstrap interval over blocks is not informative; the equal-budget width test reports the block-paired bootstrap instead"
+  },
+  "owner_reported": [
+   0.2778,
+   0.3195,
+   0.3774
+  ],
+  "projections": []
+ },
+ "label_rules": [
+  [
+   "ORGANIZER-CONFIRMED",
+   "copied from the submission page together with a file hash"
+  ],
+  [
+   "HOLDOUT-DTI",
+   "exact metric on gems58-pooled-hide-v1; never a live-score forecast"
+  ],
+  [
+   "OWNER-REPORTED",
+   "appears on the owner's page or in the brief; no receipt in this repo"
+  ],
+  [
+   "PROJECTION",
+   "a model output; must never be quoted as a score"
+  ],
+  [
+   "MEASURED",
+   "computed in-repo from hash-pinned bytes"
+  ]
+ ],
+ "source_health": "not checked in this run (pass --check-sources)",
+ "source_health_note": "a link returning 'unreachable' here only means this sandbox's egress allowlist blocks it; it is not evidence about the source"
+}

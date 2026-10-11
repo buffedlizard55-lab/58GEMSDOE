@@ -1,0 +1,88 @@
+{
+ "purpose": "Every externally sourced claim used by this repository, with its official link, so a human can verify each line by hand. Nothing here is inferred.",
+ "checked_utc": "2026-10-11",
+ "entries": [
+  {
+   "id": "S1",
+   "claim": "The competition, its task framing and its prize structure are the DOE GEMS Prize hosted by DrivenData as competition 306.",
+   "source": "https://www.drivendata.org/competitions/306/competition-doe-gems/",
+   "status": "READ (owner-supplied link; page text not archived in this sandbox)",
+   "label": "OFFICIAL"
+  },
+  {
+   "id": "S2",
+   "claim": "Metric definition: triangular kernel k(d) = max(1 - d/R, 0) with R = 300 m; alpha = 0.2; beta = 0.8; TP_w / (TP_w + alpha*FP_w + beta*FN_w); 100 m pixels.",
+   "source": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+   "status": "Transcribed into src/gems58/metric.py and reproduced verbatim in docs/research/metric.md; the transcription is what the tests and scripts/verify_theorems.py validate.",
+   "label": "OFFICIAL"
+  },
+  {
+   "id": "S3",
+   "claim": "Known USGS/INGENIOUS fault pixels are removed from scoring, so a prediction on a mapped fault is inert and cannot radiate kernel credit into the scored domain.",
+   "source": "https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516",
+   "status": "Recorded by the sibling lane (GEMSDOE32 src/gems32/metric.py docstring) as the organizer clarification; not independently re-fetched here.",
+   "label": "OFFICIAL (second-hand transcription)"
+  },
+  {
+   "id": "S4",
+   "claim": "Submission format: a single-band GeoTIFF or a ZIP holding one GeoTIFF, matching the submission format's CRS, shape and geotransform; values in [0, 1].",
+   "source": "https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/ and the owner-supplied portal screenshot reproduced in the brief",
+   "status": "Encoded as the 15 checks in src/gems58/submission.py; the file layout is taken from the organizer's own example_submission.tif (S6).",
+   "label": "OFFICIAL"
+  },
+  {
+   "id": "S5",
+   "claim": "The competition's own example submission, still distributed by the organizers, is a raster that is NaN outside the footprint and holds 1.0 on the 60,988 mapped catalogue pixels (i.e. it is the catalogue itself, scored against faults the catalogue does not contain).",
+   "source": "data/official/sample_submission.tif, sha256 2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc, 1,599,597 bytes",
+   "status": "MEASURED in this checkout.",
+   "label": "MEASURED"
+  },
+  {
+   "id": "S6",
+   "claim": "Mapped-fault catalogue for the competition extent: 60,988 pixels at 100 m, coded 1, -1 outside.",
+   "source": "data/official/existing_faults.tif, sha256 7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093, 425,830 bytes. Byte-identical to data/official/labels.tif in this checkout.",
+   "status": "MEASURED in this checkout.",
+   "label": "MEASURED"
+  },
+  {
+   "id": "S7",
+   "claim": "The 19-band geophysical feature stack is the organizer's training_features.tif, published under the filename gems-geodawn-numerical-features.tif, 418,912,844 bytes.",
+   "source": "sha256 4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5; transport pin at https://github.com/buffedlizard55-lab/5GEMSDOE/blob/main/data/bridge/manifest.json",
+   "status": "Hash re-verified in this session after reassembling the five parts. Transport provenance only: the bridge is community-maintained; the DrivenData data tab itself redirects to login and was not reachable from this sandbox.",
+   "label": "THIRD-PARTY BRIDGE (hash-verified)"
+  },
+  {
+   "id": "S8",
+   "claim": "Band identity of the 19 channels (mag_anom, rtp, tmi_hg, geod_2ndinv, iso_grav_anom_slope, tc, geod_shearrate, geod_dilaterate, tmi_vg, deq_n100a15, iso_grav_anom_vg, det_elev, iso_grav_anom, tmi, depth_to_base_surf, ieq_n100a15, cond_surf, iso_grav_anom_hg, det_elev_slope) and their data_category tags.",
+   "source": "TIFF band descriptions and band tags inside the stack (scripts).",
+   "status": "MEASURED in this checkout via src/gems58/features.py::band_table.",
+   "label": "MEASURED"
+  },
+  {
+   "id": "S9",
+   "claim": "The 1 m DEM used by the sibling lane's scarp work is the USGS 3DEP / National Map staged product (USGS_Seamless_DEM_13.vrt); the radiometric grids are USGS GeoDAWN (DOI 10.5066/P93LGLVQ).",
+   "source": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/13/TIFF/USGS_Seamless_DEM_13.vrt ; https://doi.org/10.5066/P93LGLVQ",
+   "status": "Read from the sibling lane's auxiliary-bridge manifests; those rasters are NOT used by this lane.",
+   "label": "OFFICIAL (not used here)"
+  },
+  {
+   "id": "S10",
+   "claim": "Live leaderboard numbers quoted anywhere in this repository (0.2778, 0.3195, 0.3774) are owner-reported.",
+   "source": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/ (dynamic; not fetched from this sandbox)",
+   "status": "NOT VERIFIED HERE. No organizer receipt in this checkout ties any leaderboard number to any file hash. See IR-58-01.",
+   "label": "OWNER-REPORTED"
+  },
+  {
+   "id": "S11",
+   "claim": "Geological prior used to name the mimic processes: aeromagnetic flight-line levelling and draped-sensor artefacts, and volcanic/alluvial contacts in the detrended DEM, both produce lineaments that no fault occupies.",
+   "source": "Named as the mimic in evidence/run_card.json (named_non_fault_process). This is a statement about the data this lane actually processes, not a citation.",
+   "status": "Stated as a limitation, not measured.",
+   "label": "LIMITATION"
+  }
+ ],
+ "not_obtainable_from_this_sandbox": [
+  "https://www.drivendata.org/competitions/306/competition-doe-gems/data/ (redirects to login)",
+  "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/ (dynamic page)",
+  "binaries at usgs.gov / sciencebase.gov (egress restricted to a small allowlist)"
+ ]
+}

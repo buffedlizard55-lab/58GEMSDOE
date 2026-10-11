@@ -1,0 +1,79 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Research — 58GEMSDOE ribbon lane</title>
+<link rel="stylesheet" href="assets/site.css"></head><body><div class="wrap">
+<nav><a href="index.html">Overview</a><a href="executive-summary.html">How to submit</a>
+<a href="hypotheses.html">Hypotheses</a><a href="research.html">Research</a>
+<a href="sources.html">Sources</a><a href="irregularities.html">Irregularities</a></nav>
+<h1>Research: the algebra, the σ table, the sweep</h1>
+<div class="card">
+<h2 style="margin-top:0">1. The metric, literally</h2>
+<pre>k(d)  = max(1 - d/R, 0),   R = 300 m = 3 px
+TP_w  = sum over truth g of  max over predictions x with d(x,g) &lt;= R  of  p(x)*k(d(x,g))
+FP_w  = sum over predictions x of  p(x) * (1 - max over truth g of k(d(x,g)))
+FN_w  = sum over truth g of  (1 - max over predictions ...)  =  |G| - TP_w
+DTI   = TP_w / (TP_w + 0.2*FP_w + 0.8*FN_w)  =  TP / (0.2*(TP+FP) + 0.8*|G|)</pre>
+<p><code>src/gems58w/metric.py</code> is this transcription; <code>dti_bruteforce</code> is an
+unoptimised O(|G|·|P|) oracle, and the test suite asserts the fast paths reproduce it to machine
+precision on random grids.</p>
+</div>
+<div class="card">
+<h2 style="margin-top:0">2. Two corollaries, machine-verified</h2>
+<p><code>scripts/ribbon_verify_theorems.py</code> →
+<code>evidence/theorems.json</code>: all three pass.</p>
+<ul>
+<li><strong>Denominator identity</strong> (FN = |G| − TP): max abs difference
+<strong>0.0e+00</strong>.</li>
+<li><strong>Binary dominates graded</strong>: DTI(λ) strictly increasing on (0, 1]
+(max abs error vs closed form
+5.6e-17).
+Hence every included dot is written at exactly 1.0.</li>
+<li><strong>Marginal inclusion</strong>: a dot pays iff its kernel credit
+k ≥ 0.2·DTI₀. Measured break-even bracket
+0.0572–0.2546
+against a closed-form threshold of
+0.0741;
+every sign agrees.</li>
+</ul>
+<table><thead><tr><th>DTI₀</th><th>required credit k</th><th>implied maximum distance</th></tr></thead><tbody><tr><td>0.1000</td><td>0.0200</td><td>294.0 m</td></tr><tr><td>0.2000</td><td>0.0400</td><td>288.0 m</td></tr><tr><td>0.2778</td><td>0.0556</td><td>283.3 m</td></tr><tr><td>0.3195</td><td>0.0639</td><td>280.8 m</td></tr><tr><td>0.4000</td><td>0.0800</td><td>276.0 m</td></tr></tbody></table>
+<p class="small">The reference values in the table are <strong>OWNER-REPORTED</strong>
+(0.2778 = the group's best measured file, 0.3195 = the leader quoted in the brief, 0.3774 =
+the brief's other ceiling, see IR-58-01); 0.40 is included only as an illustrative future target.
+They are inputs to a threshold, never results of this repository.</p>
+</div>
+<div class="card">
+<h2 style="margin-top:0">3. The σ table (across-strike localisation error)</h2>
+<p>Measured on <code>gems58-pooled-hide-v1</code> against
+60,988 withheld positives in four spatial blocks. σ is the
+censored RMS distance from a withheld component to the nearest candidate-ridge pixel; the
+detection column is the fraction of withheld pixels within the 3 px kernel.
+Model-free, and the same estimator is the input to the ribbon plan.</p>
+<table><thead><tr><th>stratum (band family / ridge scale)</th><th>ridge px</th><th>detection ≤ 300 m</th><th>σ (RMS)</th></tr></thead><tbody><tr><td>geodetic/1.5px</td><td>16,566</td><td>2.27%</td><td>1.26 px</td></tr><tr><td>geodetic/3px</td><td>16,664</td><td>2.24%</td><td>1.26 px</td></tr><tr><td>geodetic/6px</td><td>16,351</td><td>2.24%</td><td>1.26 px</td></tr><tr><td>gravity/1.5px</td><td>35,418</td><td>3.27%</td><td>1.40 px</td></tr><tr><td>gravity/3px</td><td>42,951</td><td>3.89%</td><td>1.46 px</td></tr><tr><td>gravity/6px</td><td>43,336</td><td>4.19%</td><td>1.50 px</td></tr><tr><td>magnetic/1.5px</td><td>84,821</td><td>7.16%</td><td>1.55 px</td></tr><tr><td>magnetic/3px</td><td>82,775</td><td>6.75%</td><td>1.54 px</td></tr><tr><td>magnetic/6px</td><td>65,837</td><td>5.66%</td><td>1.51 px</td></tr><tr><td>seismic/1.5px</td><td>13,322</td><td>2.04%</td><td>1.25 px</td></tr><tr><td>seismic/3px</td><td>13,512</td><td>2.07%</td><td>1.25 px</td></tr><tr><td>seismic/6px</td><td>13,016</td><td>2.03%</td><td>1.25 px</td></tr><tr><td>subsurface/1.5px</td><td>19,652</td><td>2.44%</td><td>1.36 px</td></tr><tr><td>subsurface/3px</td><td>20,208</td><td>2.44%</td><td>1.36 px</td></tr><tr><td>subsurface/6px</td><td>14,717</td><td>2.38%</td><td>1.42 px</td></tr><tr><td>topographic/1.5px</td><td>90,953</td><td>9.88%</td><td>1.67 px</td></tr><tr><td>topographic/3px</td><td>76,301</td><td>8.75%</td><td>1.68 px</td></tr><tr><td>topographic/6px</td><td>55,460</td><td>5.77%</td><td>1.67 px</td></tr><tr><td><strong>pooled (all families/scales)</strong></td><td>138,576</td><td>13.57%</td><td>1.70 px</td></tr></tbody></table>
+<p class="small">Two σ numbers are in play, and both are reported. The estimator above uses only
+<em>detected</em> pixels (≤ 3 px): pooled 1.70 px. The
+estimator that drives the per-segment plan (`src/gems58w/sigma.py`) is the censored RMS over every
+pixel of a matched withheld component: median
+6.88 px,
+rms 8.01 px over
+994 matched components. σ sits between
+"a single tight line" (σ &lt; 0.5 px) and the 2–3 px band where the lane prescribes a ribbon — which
+is exactly why the width question had to be decided by the exact metric, and why the margin is small.</p>
+</div>
+<div class="card">
+<h2 style="margin-top:0">4. The equal-budget width sweep</h2>
+<p>Every arm emits isolated dots (no two 8-adjacent) and is capped at the same
+38,000-dot budget, so only the support geometry differs.</p>
+<table><thead><tr><th>arm</th><th>HOLDOUT-DTI</th><th>TP</th><th>FP</th><th>Δ vs tight line</th></tr></thead><tbody><tr><td>1 line(s)</td><td>0.039363</td><td>2999.4</td><td>134516.1</td><td>+0.000000</td></tr><tr><td>2 line(s)</td><td>0.039633</td><td>3020.9</td><td>134610.4</td><td>+0.000000</td></tr><tr><td>3 line(s)</td><td>0.039929</td><td>3044.3</td><td>134694.3</td><td>+0.000000</td></tr><tr><td>4 line(s)</td><td>0.040008</td><td>3050.5</td><td>134717.0</td><td>+0.000000</td></tr></tbody></table>
+<p class="small">Per-σ-class simulated gain (tight line vs 3-line ribbon) is published in
+<code>evidence/equal_budget.json</code>: the ribbon wins by +0.0003 (σ 1.5–2.5 px) and +0.0003
+(σ 2.5–3 px), is the only geometry that reaches the σ ∈ [3, 6] px class at all
+(0.000000 → +0.0016), and loses by −0.0014 where σ &lt; 1.5 px.</p>
+<p class="small">HOLDOUT-DTI is labelled with its evaluator
+(gems58w.metric/v1 (exact triangular kernel, R=3 px, alpha=0.2, beta=0.8)), the withheld positive count
+(60,988) and the protocol. It is
+<strong>not</strong> a live-score forecast — see Irregularities IR-58-02.</p>
+</div>
+
+<footer>58GEMSDOE · ribbon lane · every figure on this site is rendered from
+<code>evidence/*.json</code> · no organizer-confirmed score exists for any artifact here.</footer>
+</div></body></html>

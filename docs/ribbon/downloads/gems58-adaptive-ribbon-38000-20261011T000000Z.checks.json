@@ -1,0 +1,112 @@
+{
+ "validator": {
+  "passed": true,
+  "checks": {
+   "exists": {
+    "ok": true,
+    "detail": "/home/user/58GEMSDOE/docs/ribbon/downloads/gems58-adaptive-ribbon-38000-20261011T000000Z.tif"
+   },
+   "single_band": {
+    "ok": true,
+    "detail": "count=1"
+   },
+   "dtype_float32": {
+    "ok": true,
+    "detail": "float32"
+   },
+   "crs_match": {
+    "ok": true,
+    "detail": "EPSG:32611"
+   },
+   "shape_match": {
+    "ok": true,
+    "detail": "3730x3292"
+   },
+   "transform_match": {
+    "ok": true,
+    "detail": "(100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0)"
+   },
+   "nan_outside_footprint": {
+    "ok": true,
+    "detail": "finite pixels outside the footprint = 0"
+   },
+   "finite_inside_footprint": {
+    "ok": true,
+    "detail": "NaN inside footprint = 0"
+   },
+   "values_in_unit_interval": {
+    "ok": true,
+    "detail": "min=0.000 max=1.000"
+   },
+   "positive_is_exactly_one": {
+    "ok": true,
+    "detail": "unique positives = [1.0]"
+   },
+   "positives_inside_footprint": {
+    "ok": true,
+    "detail": "outside = 0"
+   },
+   "footprint_mask_identical": {
+    "ok": true,
+    "detail": "finite=5167373 footprint=5167373"
+   },
+   "no_positive_on_catalogue": {
+    "ok": true,
+    "detail": "on-catalogue dots = 0"
+   },
+   "positive_count_in_range": {
+    "ok": true,
+    "detail": "n_positives = 38000"
+   },
+   "byte_size_reasonable": {
+    "ok": true,
+    "detail": "0.407 MB"
+   }
+  },
+  "sha256": "d631b4af205bd6e0961f4bad3f4d12bc27b651a020dcd38666e4c5f5246720f7",
+  "bytes": 426559,
+  "n_positives": 38000
+ },
+ "uniqueness_summary": {
+  "n_checked": 19,
+  "n_skipped": 0,
+  "skipped": [],
+  "worst_rho": 0.013745320203254023,
+  "worst_rho_name": "GEMSDOE49__gate_ortho_w0.25-40k.tif",
+  "worst_forward_overlap": 0.36,
+  "worst_forward_overlap_name": "GEMSDOE49__gate_ortho_w0.25-40k.tif",
+  "n_triggers": 0,
+  "n_dense_priors": 0,
+  "rho_max": 0.9,
+  "overlap_max": 0.7,
+  "buffer_px": 3
+ },
+ "holdout": {
+  "pooled": 0.0,
+  "per_fold": {
+   "NW": 0.0,
+   "NE": 0.0,
+   "SW": 0.0,
+   "SE": 0.0
+  }
+ },
+ "catalogue_distance_profile": {
+  "median_px": 21.931713104248047,
+  "mean_px": 29.9034481048584,
+  "frac_le3px": 0.01931578947368421,
+  "frac_le10px": 0.24573684210526317,
+  "on_catalogue": 0
+ },
+ "geometry": {
+  "width": "adaptive",
+  "line_step_px": 3.0,
+  "dti0": 0.3195,
+  "min_separation_px": 2,
+  "budget": 38000,
+  "catalogue_margin_px": 3.0,
+  "threshold": 0.6,
+  "n_ridge_segments": 3024,
+  "n_raw_ribbon": 492976,
+  "n_after_catalogue_screen": 409033
+ }
+}

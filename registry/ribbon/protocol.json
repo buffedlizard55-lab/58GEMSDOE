@@ -1,0 +1,27 @@
+{
+ "lane": "ribbon",
+ "one_line": "match emission width to the measured localisation error",
+ "holdout_protocol": "gems58-pooled-hide-v1",
+ "evaluator": "gems58.metric/v1 (exact triangular kernel, R=3 px, alpha=0.2, beta=0.8)",
+ "holdout_rules": {
+  "unit": "8-connected catalogue component (whole fault segment)",
+  "blocks": ["NW", "NE", "SW", "SE"],
+  "buffer_px": 3,
+  "catalogue_features": "none are used; the ridge field reads only the organizer stack",
+  "known_mask": "visible catalogue dilated by 3 px, applied pixel-exactly",
+  "pooling": "sum TP, FP, FN over folds, then the index once"
+ },
+ "uniqueness_gate": {"rho_max": 0.90, "forward_overlap_max": 0.70, "buffer_px": 3},
+ "budget": {"max_experiments": 3, "max_hours": 2},
+ "emission": {"value": 1.0, "budget_dots": 38000, "line_step_px": 3.0,
+              "max_lines": 3, "min_separation_px": 2, "catalogue_margin_px": 3.0,
+              "ridge_threshold": 0.6},
+ "experiments": [
+  {"id": "EXP-1", "name": "sigma(x) on the holdout", "script": "scripts/run_holdout_sigma.py",
+   "evidence": "evidence/holdout_sigma.json"},
+  {"id": "EXP-2", "name": "exact-metric emission comparison",
+   "script": "scripts/run_holdout_eval.py", "evidence": "evidence/holdout_eval.json"},
+  {"id": "EXP-3", "name": "equal-budget width test (the decisive one)",
+   "script": "scripts/run_equal_budget.py", "evidence": "evidence/equal_budget.json"}
+ ]
+}
