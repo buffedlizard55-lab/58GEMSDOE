@@ -2,6 +2,13 @@
 
 Core values: **Maximize P(Win)** and **Own the Outcome** — report the actual result, including a negative one.
 
+> **Session 4 (2026-10-11):** verification only, no new TIFF, no experiment, no slot. The registered
+> candidate passes the format check (float32, EPSG:32611, footprint NaN identical to the organizer sample,
+> all values in [0,1]) but **fails the uniqueness gate G3**, so it stays NOT OK TO SUBMIT. The 0.2778 figure
+> belongs to `extradr19` on the official board, not to the GEMSDOE32 H33 file. See
+> [`docs/research/session4_verification_20261011.md`](docs/research/session4_verification_20261011.md) and
+> [`docs/IRREGULARITIES.md`](docs/IRREGULARITIES.md) (IR-58-S4-01 to 04).
+
 ## Submission decision: **NOT OK TO SUBMIT — DO NOT SUBMIT**
 
 Two artifacts are downloadable and **neither is cleared**. The authoritative, evidence-generated banner
