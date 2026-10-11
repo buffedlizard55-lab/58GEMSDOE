@@ -1,0 +1,51 @@
+{
+  "schema": "ribbon-run-card/v1",
+  "date_utc": "2026-10-11",
+  "hypothesis": "H58-U1: condition fixed topographic-ridge ribbon width on local relief; NOT TESTED in this review",
+  "mechanism": "local relief may condition across-strike location error of an already detected scarp ridge; line count/offset require exact pooled DTI marginal utility",
+  "named_non_fault_process_that_could_mimic_it": "drainage-channel incision and alluvial-fan/terrace margins",
+  "holdout_dti": {
+    "status": "NOT MEASURED for H58-U1",
+    "evaluator": "gems57.evaluate_holdout/v2 required",
+    "n_withheld_positives": null,
+    "ci95": null,
+    "historical_diagnostic_only": "gems58w.metric/v1, 60988 withheld positives, cross-fitted old arm 0.043575; no defensible 95% CI"
+  },
+  "registry": {
+    "surface_preplacement": "NOT MEASURED for H58-U1; no placement attempted",
+    "final_dots": "NOT MEASURED for H58-U1; no file emitted",
+    "historical_candidate": {
+      "rasters_checked": 703,
+      "literal_overlap_firings": 83,
+      "stop_required": true
+    },
+    "freshness": "BLOCKED_NOT_EXHAUSTIVE"
+  },
+  "raster_sha256": null,
+  "historical_review_only_raster": {
+    "file": "docs/downloads/gems58-concordance-ribbon-40768-20261011T160514Z.tif",
+    "sha256": "f709b6f12d5188e34aa3aed3b83d785b97a232224692dcdfffedaa009dee9d0d"
+  },
+  "validator": {
+    "new_raster": "NOT APPLICABLE",
+    "historical_file_local_checks": {
+      "single_band_float32": true,
+      "crs_shape_transform_match_sample": true,
+      "nodata_nan_metadata_matches_sample": true,
+      "inside_footprint_finite": true,
+      "inside_footprint_values_in_unit_interval": true,
+      "inside_footprint_unique_values_zero_one": true,
+      "outside_footprint_nan_like_sample": true,
+      "positive_pixel_count_matches_record": true,
+      "tiff_sha256_matches_record": true,
+      "zip_contains_exactly_this_tiff_and_roundtrips": true
+    },
+    "historical_file_local_all_passed": true,
+    "portal_acceptance": "UNKNOWN"
+  },
+  "submission_name": "NO NEW SUBMISSION",
+  "note_140_chars": "H58-U1 not emitted: prior duplicate, stale registry and missing shared holdout CI. DO NOT SUBMIT.",
+  "verdict": "negative",
+  "slots_used": 0,
+  "reason": "Literal >70% overlap stop on previous candidate, incomplete freshness and absent promotion-grade qualification; no safe unique TIFF can be certified."
+}

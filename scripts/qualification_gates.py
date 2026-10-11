@@ -160,8 +160,20 @@ def _ci95(record: dict, *, require_reportable: bool = True) -> tuple[bool, str]:
         conf = float(confidence)
     except (TypeError, ValueError):
         return False, "95% interval lacks valid bounds, cluster count, or confidence"
+    # A min/max over four quadrants is NOT a 95% confidence interval. A
+    # self-declared `reportable: true` must not turn it into one. Require a
+    # stated physical-cluster bootstrap with actual draws; statistical validity
+    # still depends on the cluster design being reviewed independently.
+    bootstrap = record.get("bootstrap", {}) if isinstance(record.get("bootstrap"), dict) else {}
+    try:
+        draws = int(bootstrap.get("draws", 0))
+    except (TypeError, ValueError):
+        draws = 0
+    method = str(note).lower()
     valid = (math.isfinite(lo) and math.isfinite(hi) and 0 <= lo <= hi <= 1
-             and bool(note) and n_clusters >= 2 and math.isclose(conf, 0.95, abs_tol=1e-9)
+             and "spatial-cluster" in method and "bootstrap" in method
+             and n_clusters >= 10 and draws >= 1000
+             and math.isclose(conf, 0.95, abs_tol=1e-9)
              and (reportable is True or not require_reportable))
     if not valid:
         return False, "95% interval is not supported by a declared physical-cluster method"

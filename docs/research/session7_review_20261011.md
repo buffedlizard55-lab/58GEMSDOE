@@ -1,8 +1,12 @@
 # Session-7 DOE GEMS review — 2026-10-11 UTC
 
-**Decision: NOT OK TO SUBMIT — DO NOT SUBMIT.** This is a research/code review in the existing ribbon-width/localization-error lane. No new TIFF, width experiment, promotion-grade holdout, competition submission, or slot selection was performed. The only candidate still under review is
+**Decision: NOT OK TO SUBMIT — DO NOT SUBMIT.** This is a research/code review in the existing ribbon-width/localization-error lane. No new TIFF, width experiment, promotion-grade holdout, competition submission, or slot selection was performed. The candidate reviewed here is
 [`gems58-concordance-ribbon-40768-20261011T160514Z.tif`](../downloads/gems58-concordance-ribbon-40768-20261011T160514Z.tif), SHA-256
 `f709b6f12d5188e34aa3aed3b83d785b97a232224692dcdfffedaa009dee9d0d` (40,768 positive pixels).
+
+The separate Session-4 R5_d3 artifact and its session-specific measurements remain archived; this
+review neither repeats nor transfers that artifact's results to H58-X1. See the explicitly
+session-scoped record at [`docs/session4.html`](../session4.html).
 
 The existing file passes local format checks. That is not portal acceptance. Its recorded final-dot
 scan has **83 literal >70% overlap triggers** over the saved **703-raster** public-inventory snapshot;

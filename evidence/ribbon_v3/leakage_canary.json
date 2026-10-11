@@ -1,0 +1,96 @@
+{
+ "evidence_class": "HOLDOUT-DTI",
+ "evaluator_version": "gems57-pooled-hide-v2",
+ "protocol": "gems58-pooled-hide-v1",
+ "question": "each feature tested alone against truth hidden by a 20 km physical block, so a leak cannot be hidden by the model that uses it",
+ "n_features": 20,
+ "n_folds": 4,
+ "leakage_limit": 0.9,
+ "worst_auc": 0.894977,
+ "n_leaking": 0,
+ "mean_auc": 0.519527,
+ "leaks": [],
+ "top10": [
+  {
+   "protocol_fold": "SW",
+   "feature": "geodawn band geod_2ndinv",
+   "group": "geodawn band",
+   "n": 5164312,
+   "n_pos": 9360,
+   "auc": 0.894977
+  },
+  {
+   "protocol_fold": "SW",
+   "feature": "geodawn band ieq_n100a15",
+   "group": "geodawn band",
+   "n": 5164312,
+   "n_pos": 9360,
+   "auc": 0.887534
+  },
+  {
+   "protocol_fold": "SW",
+   "feature": "geodawn band deq_n100a15",
+   "group": "geodawn band",
+   "n": 5164312,
+   "n_pos": 9360,
+   "auc": 0.860278
+  },
+  {
+   "protocol_fold": "SW",
+   "feature": "geodawn band geod_shearrate",
+   "group": "geodawn band",
+   "n": 5164312,
+   "n_pos": 9360,
+   "auc": 0.811221
+  },
+  {
+   "protocol_fold": "SW",
+   "feature": "geodawn band geod_dilaterate",
+   "group": "geodawn band",
+   "n": 5164312,
+   "n_pos": 9360,
+   "auc": 0.765596
+  },
+  {
+   "protocol_fold": "SE",
+   "feature": "geodawn band geod_shearrate",
+   "group": "geodawn band",
+   "n": 5164312,
+   "n_pos": 9648,
+   "auc": 0.699425
+  },
+  {
+   "protocol_fold": "SE",
+   "feature": "geodawn band deq_n100a15",
+   "group": "geodawn band",
+   "n": 5164312,
+   "n_pos": 9648,
+   "auc": 0.682885
+  },
+  {
+   "protocol_fold": "SE",
+   "feature": "geodawn band ieq_n100a15",
+   "group": "geodawn band",
+   "n": 5164312,
+   "n_pos": 9648,
+   "auc": 0.677985
+  },
+  {
+   "protocol_fold": "SE",
+   "feature": "geodawn band geod_2ndinv",
+   "group": "geodawn band",
+   "n": 5164312,
+   "n_pos": 9648,
+   "auc": 0.666552
+  },
+  {
+   "protocol_fold": "NW",
+   "feature": "geodawn band geod_shearrate",
+   "group": "geodawn band",
+   "n": 5164312,
+   "n_pos": 29307,
+   "auc": 0.625298
+  }
+ ],
+ "seconds": 1107.0
+}

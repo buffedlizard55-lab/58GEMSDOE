@@ -12,3 +12,5 @@ submissions/
 # NOTE: pinned small competition-bridge rasters under data/ are intentionally
 # tracked (sha256-verified template restore); the validated submission TIF is
 # intentionally tracked under docs/downloads/ (it is the one-click deliverable).
+# scratch sweep directories from the session-4 ribbon lane
+evidence/ribbon_v3_smoke*/

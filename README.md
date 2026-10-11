@@ -35,6 +35,11 @@ The live status pages are generated from the shared evaluator by `scripts/build_
 machine-readable negative decision is [`docs/RUN_CARD.json`](docs/RUN_CARD.json). Every downloadable
 file is individually marked in [`docs/downloads/index.html`](docs/downloads/index.html).
 
+A separate Session-4 R5_d3 artifact and its measured session-specific record remain archived at
+[`docs/session4.html`](docs/session4.html) and [`docs/RUN_CARD_SESSION4.json`](docs/RUN_CARD_SESSION4.json).
+Those results belong only to that different artifact; they are not transferred to H58-X1 or used as
+this review's current HOLDOUT-DTI.
+
 ## Research status and next work
 
 Four specific, untried ribbon-width hypotheses are ranked in
@@ -113,9 +118,12 @@ python scripts/build_downloads_index.py       # per-file review-only labels
 python scripts/ribbon_check_site.py           # generated-site and archived-page checks
 ```
 
-Do **not** run historical `gems60_build_page.py` as part of the current site build: it injects a
-session-5 front-door panel. Legacy ribbon experiment/site/feed paths are archival and are not used to
-qualify the current candidate. Prior negative experiments and their unmodified receipts remain under
+The current workflow renders the front door only with `scripts/build_site.py`. Do **not** run the
+session-specific `gems60_build_page.py` or `build_site_v3.py` as part of the current site build;
+they regenerate archived session pages. The session-5 builder retains an old front-page injection
+path; the session-4 builder now writes only its archived report. Session-4 and session-5
+artifacts/receipts remain for audit, are individually marked review-only in the download index, and
+do not qualify the current candidate. Prior negative experiments and their unmodified receipts remain under
 `evidence/ribbon/`, `evidence/gems60/`, and the historical sections of
 [`docs/IRREGULARITIES.md`](docs/IRREGULARITIES.md); they are diagnostic records, not current
 promotion-grade HOLDOUT-DTI.
