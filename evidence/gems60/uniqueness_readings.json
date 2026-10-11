@@ -1,0 +1,271 @@
+{
+ "evidence_class": "LOCAL-UNIQUENESS-READINGS",
+ "rule_id": "RATIFIED-UNIQ-v1",
+ "source": "evidence/gems60/uniqueness_full.json",
+ "candidate": "docs/downloads/gems60-convergence-ribbon6-20261011T155420Z.tif",
+ "candidate_sha256": "c1ba5b06191801bfef6798b9dfb64fe23c030b6783d0b965dbf3fb4d956be2b1",
+ "n_witnesses_screened": 668,
+ "n_pinned": 668,
+ "pin_size_mismatches": 0,
+ "n_witnesses_with_E_below_rule_A": 616,
+ "scan_note": "668 of 670 byte-available witnesses screened at pinned sha256; the inventory kept growing during session 5 (703 rasters on main), so these firing counts are a lower bound \u2014 every added witness can only add firings, never remove one.",
+ "limits": {
+  "overlap": 0.7,
+  "rho": 0.9,
+  "lift": 0.5,
+  "jaccard": 0.5,
+  "e_rule_a": 0.7,
+  "e_strict_variant": 0.61,
+  "e_saturated": 0.99
+ },
+ "rule_a": {
+  "n": 4,
+  "rule": "forward 3 px overlap > 0.70 and witness E < 0.70",
+  "worst": 0.7463,
+  "firings": [
+   {
+    "witness": "70c4ccd5dd51c6cbf1c0b8019738885a357dde7be64c17b4fb278a12f073e1e4.tif",
+    "witness_sha256": "70c4ccd5dd51c6cbf1c0b8019738885a357dde7be64c17b4fb278a12f073e1e4",
+    "source": "13GEMSDOE:docs/downloads/archive/13gems-r6-ensemble-20260929T182914Z_allfinite.tif",
+    "their_dots": 344041,
+    "forward_overlap": 0.7463,
+    "reverse_overlap": 0.1667185015739403,
+    "jaccard": 0.007688048888643991,
+    "E": 0.6455732922705599,
+    "saturated": false,
+    "lift": 0.284196155461095,
+    "representation": "dot_field"
+   },
+   {
+    "witness": "bd1e3d056e83e792aed8c77b3249f833d119320779b94d2eb7c5b65ac5161428.tif",
+    "witness_sha256": "bd1e3d056e83e792aed8c77b3249f833d119320779b94d2eb7c5b65ac5161428",
+    "source": "13GEMSDOE:docs/downloads/archive/13gems-r6-ensemble-20260929T182914Z.tif",
+    "their_dots": 344041,
+    "forward_overlap": 0.7463,
+    "reverse_overlap": 0.1667185015739403,
+    "jaccard": 0.007688048888643991,
+    "E": 0.6455732922705599,
+    "saturated": false,
+    "lift": 0.284196155461095,
+    "representation": "dot_field"
+   },
+   {
+    "witness": "88976dc5b2504838b193d41b718df95eb1e237b870b94a6443dc3bee65e98e06.tif",
+    "witness_sha256": "88976dc5b2504838b193d41b718df95eb1e237b870b94a6443dc3bee65e98e06",
+    "source": "13GEMSDOE:docs/downloads/archive/13gems-toporef-holdoutref.tif",
+    "their_dots": 246469,
+    "forward_overlap": 0.7191,
+    "reverse_overlap": 0.14908974353772686,
+    "jaccard": 0.00548249077769237,
+    "E": 0.6797862279343876,
+    "saturated": false,
+    "lift": 0.122773520364255,
+    "representation": "dot_field"
+   },
+   {
+    "witness": "e050b1ec627e8207c1fe5f7530f015d0cf2feb6bb98c5bce225e5db806afb0e3.tif",
+    "witness_sha256": "e050b1ec627e8207c1fe5f7530f015d0cf2feb6bb98c5bce225e5db806afb0e3",
+    "source": "13GEMSDOE:docs/downloads/archive/13gems-toporef-holdoutref_allfinite.tif",
+    "their_dots": 246469,
+    "forward_overlap": 0.7191,
+    "reverse_overlap": 0.14908974353772686,
+    "jaccard": 0.00548249077769237,
+    "E": 0.6797862279343876,
+    "saturated": false,
+    "lift": 0.122773520364255,
+    "representation": "dot_field"
+   }
+  ]
+ },
+ "rule_b": {
+  "n": 0,
+  "rule": "(obs - E) / (1 - E) > 0.50 against witnesses with E < 0.99",
+  "worst_lift": 0.0,
+  "firings": []
+ },
+ "literal": {
+  "n": 56,
+  "n_vacuous": 35,
+  "n_nonvacuous": 21,
+  "rule": "forward 3 px overlap > 0.70 against every screened witness (pre-ratification)",
+  "worst": 1.0,
+  "note": "every literal firing is against a witness whose own 3 px dilation covers at least 0.646 of the scored footprint, so those witnesses overlap every nonempty footprint-respecting candidate",
+  "firings": [
+   {
+    "witness": "045dc7f613648fc118333e51832ae9e6b13197e85278aa83e9383586b01b46e9.tif",
+    "witness_sha256": "045dc7f613648fc118333e51832ae9e6b13197e85278aa83e9383586b01b46e9",
+    "source": "GEMSDOE48:docs/downloads/diagnostics/GEMSDOE48-H56-OWDS-B2xH33D-20261007-1f7b5a4f18db-unassigned-mtheta.tif",
+    "their_dots": 5167373,
+    "forward_overlap": 1.0,
+    "reverse_overlap": 0.13000358209093865,
+    "jaccard": 0.007740877231041769,
+    "E": 1.0,
+    "saturated": true,
+    "lift": 0.0,
+    "representation": "continuous_surface"
+   },
+   {
+    "witness": "0707aea945e02d2eb601d7d25456bf624261ab583a8d49f9988fed2de04409a4.tif",
+    "witness_sha256": "0707aea945e02d2eb601d7d25456bf624261ab583a8d49f9988fed2de04409a4",
+    "source": "GEMSDOE48:docs/downloads/gemsdoe48-ds-plausibility-20261006T201749Z-95897e3f8125.tif",
+    "their_dots": 5167373,
+    "forward_overlap": 1.0,
+    "reverse_overlap": 0.13000358209093865,
+    "jaccard": 0.007740877231041769,
+    "E": 1.0,
+    "saturated": true,
+    "lift": 0.0,
+    "representation": "continuous_surface"
+   },
+   {
+    "witness": "0a7f1d02e509ace05626aae079cbc3f1205857b493386c98a97af16e48e51d21.tif",
+    "witness_sha256": "0a7f1d02e509ace05626aae079cbc3f1205857b493386c98a97af16e48e51d21",
+    "source": "GEMSDOE48:docs/downloads/gemsdoe48-ds48-mtheta.tif",
+    "their_dots": 12279160,
+    "forward_overlap": 1.0,
+    "reverse_overlap": 0.05517258509539741,
+    "jaccard": 0.003257551819505569,
+    "E": 1.0,
+    "saturated": true,
+    "lift": 0.0,
+    "representation": "continuous_surface"
+   },
+   {
+    "witness": "11c0e3b6569ef65ed2e311acfd37e6c91d0c325fc2ee803887cd6cebe06e031b.tif",
+    "witness_sha256": "11c0e3b6569ef65ed2e311acfd37e6c91d0c325fc2ee803887cd6cebe06e031b",
+    "source": "GEMSDOE48:docs/downloads/gemsdoe48-ds-unassigned-mass-20261006T201749Z-95897e3f8125.tif",
+    "their_dots": 5167373,
+    "forward_overlap": 1.0,
+    "reverse_overlap": 0.13000358209093865,
+    "jaccard": 0.007740877231041769,
+    "E": 1.0,
+    "saturated": true,
+    "lift": 0.0,
+    "representation": "continuous_surface"
+   },
+   {
+    "witness": "18dc6b7fe0f4bf17791b2bda6b985364324f6b3c23f89303543416ee5729d6e5.tif",
+    "witness_sha256": "18dc6b7fe0f4bf17791b2bda6b985364324f6b3c23f89303543416ee5729d6e5",
+    "source": "GEMSDOE48:docs/downloads/diagnostics/gemsdoe48-h56b-mtheta-126ca59c2801.tif",
+    "their_dots": 5167373,
+    "forward_overlap": 1.0,
+    "reverse_overlap": 0.13000358209093865,
+    "jaccard": 0.007740877231041769,
+    "E": 1.0,
+    "saturated": true,
+    "lift": 0.0,
+    "representation": "continuous_surface"
+   },
+   {
+    "witness": "2c0785c4b3ec46c734d1be7a7aedbb3e816201100ab358033a3af074418c894a.tif",
+    "witness_sha256": "2c0785c4b3ec46c734d1be7a7aedbb3e816201100ab358033a3af074418c894a",
+    "source": "GEMSDOE24:data/external/audit_sources/acquisition_block_id_100m.tif",
+    "their_dots": 5167373,
+    "forward_overlap": 1.0,
+    "reverse_overlap": 0.13000358209093865,
+    "jaccard": 0.007740877231041769,
+    "E": 1.0,
+    "saturated": true,
+    "lift": 0.0,
+    "representation": "continuous_surface"
+   },
+   {
+    "witness": "326ee7020b9bb32794b053befd2da5ef5b3531eeae91de822651f3f6ee4ecd15.tif",
+    "witness_sha256": "326ee7020b9bb32794b053befd2da5ef5b3531eeae91de822651f3f6ee4ecd15",
+    "source": "GEMSDOE48:docs/downloads/diagnostics/gemsdoe48-h56b-noflank-mtheta-5bb2c03c981e.tif",
+    "their_dots": 5167373,
+    "forward_overlap": 1.0,
+    "reverse_overlap": 0.13000358209093865,
+    "jaccard": 0.007740877231041769,
+    "E": 1.0,
+    "saturated": true,
+    "lift": 0.0,
+    "representation": "continuous_surface"
+   },
+   {
+    "witness": "35598693474710c8b7237a879bbe7ae91da154715f42ff1970d040b6267892a3.tif",
+    "witness_sha256": "35598693474710c8b7237a879bbe7ae91da154715f42ff1970d040b6267892a3",
+    "source": "GEMSDOE48:docs/downloads/diagnostics/gemsdoe48-h56-plausibility-9ec0d605c45b.tif",
+    "their_dots": 5167373,
+    "forward_overlap": 1.0,
+    "reverse_overlap": 0.13000358209093865,
+    "jaccard": 0.007740877231041769,
+    "E": 1.0,
+    "saturated": true,
+    "lift": 0.0,
+    "representation": "continuous_surface"
+   },
+   {
+    "witness": "405346c4c940615e725bca74370888d527860fd561ef237723626acd9f6c2b40.tif",
+    "witness_sha256": "405346c4c940615e725bca74370888d527860fd561ef237723626acd9f6c2b40",
+    "source": "GEMSDOE48:docs/downloads/diagnostics/gemsdoe48-h50-unassigned-mTheta-20261007-5b59e106.tif",
+    "their_dots": 5167373,
+    "forward_overlap": 1.0,
+    "reverse_overlap": 0.13000358209093865,
+    "jaccard": 0.007740877231041769,
+    "E": 1.0,
+    "saturated": true,
+    "lift": 0.0,
+    "representation": "continuous_surface"
+   },
+   {
+    "witness": "56abce3cfd91c7a6961ffed128ed92ce11d6c17c293d02e02f0f9d6a88fad3a2.tif",
+    "witness_sha256": "56abce3cfd91c7a6961ffed128ed92ce11d6c17c293d02e02f0f9d6a88fad3a2",
+    "source": "GEMSDOE48:docs/downloads/gemsdoe48-h58-diag-plausibility-20261008T175914Z-e58.tif",
+    "their_dots": 5167373,
+    "forward_overlap": 1.0,
+    "reverse_overlap": 0.13000358209093865,
+    "jaccard": 0.007740877231041769,
+    "E": 1.0,
+    "saturated": true,
+    "lift": 0.0,
+    "representation": "continuous_surface"
+   },
+   {
+    "witness": "59ef8e7d8374e228bc1e41376f03fc67dd5b8a5e6804885a1ae802f399140b89.tif",
+    "witness_sha256": "59ef8e7d8374e228bc1e41376f03fc67dd5b8a5e6804885a1ae802f399140b89",
+    "source": "GEMSDOE48:docs/downloads/gemsdoe48-h58-continuous-pignistic-20261008T175914Z-e58.tif",
+    "their_dots": 5167373,
+    "forward_overlap": 1.0,
+    "reverse_overlap": 0.13000358209093865,
+    "jaccard": 0.007740877231041769,
+    "E": 1.0,
+    "saturated": true,
+    "lift": 0.0,
+    "representation": "continuous_surface"
+   },
+   {
+    "witness": "639e2a2f0b7a5afbca516f7b9fae44179aab2dc2fe0dba408bf0f616cb04a5a8.tif",
+    "witness_sha256": "639e2a2f0b7a5afbca516f7b9fae44179aab2dc2fe0dba408bf0f616cb04a5a8",
+    "source": "GEMSDOE48:docs/downloads/diagnostics/gemsdoe48-h56b-noflank-plausibility-5bb2c03c981e.tif",
+    "their_dots": 5167373,
+    "forward_overlap": 1.0,
+    "reverse_overlap": 0.13000358209093865,
+    "jaccard": 0.007740877231041769,
+    "E": 1.0,
+    "saturated": true,
+    "lift": 0.0,
+    "representation": "continuous_surface"
+   }
+  ]
+ },
+ "e_strict_variant": {
+  "n": 0,
+  "rule": "fire only against witnesses with E <= 0.61 (pre-ratification variant, kept for audit)",
+  "firings": []
+ },
+ "rho": {
+  "n": 0,
+  "worst": 0.3499287738460745
+ },
+ "jaccard": {
+  "n": 0,
+  "worst": 0.024845624576278966
+ },
+ "max_chance_corrected_lift": 0.4551746753789072,
+ "governing": {
+  "cleared": false,
+  "rule": "duplicate iff rule A (forward overlap > 0.70 vs a witness with E < 0.70), or rule B (lift > 0.50 vs a witness with E < 0.99), or rho > 0.90, or Jaccard > 0.50, or bytes/pixels identical",
+  "verdict": "DUPLICATE under RATIFIED-UNIQ-v1: 4 rule-A firing(s), 0 rule-B firing(s) \u2014 stop and log, download for review only"
+ }
+}

@@ -1,0 +1,75 @@
+{
+  "evidence_class": "LOCAL-FILE-AUDIT",
+  "generated_utc": "2026-10-11T18:23:26Z",
+  "file": "docs/downloads/gems58-concordance-ribbon-40768-20261011T160514Z.tif",
+  "zip_file": "docs/downloads/gems58-concordance-ribbon-40768-20261011T160514Z.zip",
+  "sample_file": "data/official/sample_submission.tif",
+  "sha256": "f709b6f12d5188e34aa3aed3b83d785b97a232224692dcdfffedaa009dee9d0d",
+  "decoded_prediction_sha256": "59ea2a0c4390ec814ae419fdf0a7a3744b6f879c491ee3bc84999324f27e7e6d",
+  "zip_sha256": "9f94456cc513deb7f39e421ad211e60dd3a0e388885cd9349eed467f8781ac4f",
+  "bytes": 427919,
+  "positive_pixels": 40768,
+  "inside_unique_values": [
+    0.0,
+    1.0
+  ],
+  "candidate_metadata": {
+    "count": 1,
+    "dtype": "float32",
+    "crs": "EPSG:32611",
+    "shape": [
+      3730,
+      3292
+    ],
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "nodata_is_nan": true
+  },
+  "sample_metadata": {
+    "count": 1,
+    "dtype": "float32",
+    "crs": "EPSG:32611",
+    "shape": [
+      3730,
+      3292
+    ],
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "nodata_is_nan": true
+  },
+  "zip_members": [
+    "gems58-concordance-ribbon-40768-20261011T160514Z.tif"
+  ],
+  "decoded_pixel_binding": {
+    "recorded_in_receipt": false,
+    "recorded": null,
+    "computed": "59ea2a0c4390ec814ae419fdf0a7a3744b6f879c491ee3bc84999324f27e7e6d",
+    "matches": null
+  },
+  "checks": {
+    "single_band_float32": true,
+    "crs_shape_transform_match_sample": true,
+    "nodata_nan_metadata_matches_sample": true,
+    "inside_footprint_finite": true,
+    "inside_footprint_values_in_unit_interval": true,
+    "inside_footprint_unique_values_zero_one": true,
+    "outside_footprint_nan_like_sample": true,
+    "positive_pixel_count_matches_record": true,
+    "tiff_sha256_matches_record": true,
+    "zip_contains_exactly_this_tiff_and_roundtrips": true
+  },
+  "all_checks_passed": true,
+  "scope_note": "Local TIFF/ZIP grid and value audit only. Does not establish portal acceptance, registry uniqueness, promotion-grade holdout, organizer score, or submit eligibility."
+}

@@ -38,7 +38,19 @@ from gems57 import metric as shared            # noqa: E402
 from gems58w import grid, holdout              # noqa: E402
 from gems58w import metric as lane             # noqa: E402
 
-CANDIDATE = (ROOT / "docs/downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif")
+def _current_candidate() -> Path:
+    """The candidate named by the current emission receipt, else the session-3 file."""
+    try:
+        rec = json.loads((ROOT / "evidence/ribbon/emission.json").read_text())
+        p = ROOT / rec["file"]
+        if p.is_file():
+            return p
+    except (OSError, KeyError, json.JSONDecodeError):
+        pass
+    return ROOT / "docs/downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif"
+
+
+CANDIDATE = _current_candidate()
 OUT = ROOT / "evidence/ribbon/shared_metric_crosscheck.json"
 TOL = 1e-12
 

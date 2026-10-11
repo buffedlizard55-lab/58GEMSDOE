@@ -1,0 +1,135 @@
+{
+ "evidence_class": "HOLDOUT-DTI (catalogue proxy truth; not a leaderboard forecast)",
+ "generated_utc": "2026-10-11T15:52:23Z",
+ "protocol": "gems58-pooled-hide-v1",
+ "evaluator": "gems58w.metric/v1 (exact triangular kernel, R=3 px, alpha=0.2, beta=0.8)",
+ "n_withheld_positives": 60988,
+ "budget": 38000,
+ "min_sep": 1,
+ "dti0": 0.4133,
+ "ranking": "k_hat(family, magnitude decile), leave-one-block-out cross-fitted for every arm including the control (fixes the pooled-k_hat defect of the session-3 instrument)",
+ "screen": "dots selected outside the fold's visible catalogue + 3 px collar (leak-free)",
+ "arms": {
+  "R0": {
+   "cfg": {
+    "tau": 0.45,
+    "gated": false
+   },
+   "n_segments": 6286,
+   "support_px": 1022719,
+   "dots_per_fold": {
+    "NW": 38000,
+    "NE": 38000,
+    "SW": 38000,
+    "SE": 38000
+   },
+   "lines_histogram": {
+    "3": 492,
+    "5": 5794
+   },
+   "pooled": 0.04010480496417232,
+   "per_fold": {
+    "NW": 0.05032031281493624,
+    "NE": 0.019939433714879117,
+    "SW": 0.0448326293815171,
+    "SE": 0.03789291035162411
+   },
+   "coverage": 0.052322222139163314,
+   "agg": {
+    "tp": 3184.801339388732,
+    "fp": 150399.020075262,
+    "fn": 57684.19866061126,
+    "n_truth": 60869,
+    "n_dots": 152000
+   }
+  },
+  "C1": {
+   "cfg": {
+    "tau": 0.45,
+    "gated": true
+   },
+   "n_segments": 3517,
+   "support_px": 512599,
+   "dots_per_fold": {
+    "NW": 38000,
+    "NE": 38000,
+    "SW": 38000,
+    "SE": 38000
+   },
+   "lines_histogram": {
+    "5": 3517
+   },
+   "pooled": 0.04091068867748319,
+   "per_fold": {
+    "NW": 0.04551497767327118,
+    "NE": 0.029241121582760616,
+    "SW": 0.050542904020481574,
+    "SE": 0.03549972560856362
+   },
+   "coverage": 0.05335406788877009,
+   "agg": {
+    "tp": 3247.6087583215467,
+    "fp": 150190.84847849782,
+    "fn": 57621.39124167846,
+    "n_truth": 60869,
+    "n_dots": 152000
+   }
+  },
+  "C2": {
+   "cfg": {
+    "tau": 0.35,
+    "gated": true
+   },
+   "n_segments": 5108,
+   "support_px": 850846,
+   "dots_per_fold": {
+    "NW": 38000,
+    "NE": 38000,
+    "SW": 38000,
+    "SE": 38000
+   },
+   "lines_histogram": {
+    "5": 5108
+   },
+   "pooled": 0.043575334754236986,
+   "per_fold": {
+    "NW": 0.04670810463603169,
+    "NE": 0.02940197247662162,
+    "SW": 0.05422430336313382,
+    "SE": 0.04302451828015162
+   },
+   "coverage": 0.05686045908917047,
+   "agg": {
+    "tp": 3461.0392842987176,
+    "fp": 150195.80017853391,
+    "fn": 57407.96071570127,
+    "n_truth": 60869,
+    "n_dots": 152000
+   }
+  }
+ },
+ "deltas_vs_R0": {
+  "C1": {
+   "pooled": 0.000805883713310869,
+   "per_fold": {
+    "NW": -0.0048053351416650625,
+    "NE": 0.009301687867881499,
+    "SW": 0.005710274638964473,
+    "SE": -0.0023931847430604877
+   }
+  },
+  "C2": {
+   "pooled": 0.0034705297900646664,
+   "per_fold": {
+    "NW": -0.0036122081789045496,
+    "NE": 0.009462538761742502,
+    "SW": 0.009391673981616722,
+    "SE": 0.005131607928527515
+   }
+  }
+ },
+ "winner": "C2",
+ "promotion_rule": "gated arm promoted iff pooled >= R0 pooled (preregistered)",
+ "promoted": "C-arm C2",
+ "wall_seconds": 58.0
+}

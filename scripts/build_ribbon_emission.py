@@ -11,8 +11,11 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
+import shutil
 import sys
 import time
+from datetime import datetime, timezone
 from pathlib import Path
 
 import numpy as np
@@ -27,7 +30,7 @@ from gems57.holdout import FOLD_NAMES, quadrant_ids
 from gems57.submission_writer import write_submission
 
 import ribbon_lane as rl
-import build_site as gate_validation
+import qualification_gates as gate_validation
 
 MAX_NAME = 140
 
@@ -38,31 +41,59 @@ def main() -> int:
     if not qpath.is_file():
         print("BLOCKED: evidence/ribbon_qualification.json is missing; no TIFF will be emitted.", file=sys.stderr)
         return 2
-    qualification = json.loads(qpath.read_text())
-    required_gates = {
-        "promotion_grade_holdout": qualification.get("promotion_grade_holdout", {}).get("passed") is True,
-        "leakage_canary": qualification.get("leakage_canary", {}).get("passed") is True,
-        "fresh_current_inventory": qualification.get("registry", {}).get("fresh_current_inventory") is True,
-        "preplacement_surface_gate": qualification.get("preplacement_surface_gate", {}).get("passed") is True,
-        "final_dot_gate": qualification.get("final_dot_gate", {}).get("passed") is True,
-    }
-    if qualification.get("submission_status") != "OK_TO_SUBMIT" or not all(required_gates.values()):
-        failed = [k for k, passed in required_gates.items() if not passed]
-        print(f"BLOCKED: qualification status/gates are not all clear: {failed or ['submission_status']}", file=sys.stderr)
+    try:
+        qualification = json.loads(qpath.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        print(f"BLOCKED: invalid qualification receipt: {exc}; no TIFF will be emitted.", file=sys.stderr)
         return 2
-    e1 = json.loads((ROOT / "evidence" / "ribbon_e1_sigma.json").read_text())
-    e2 = json.loads((ROOT / "evidence" / "ribbon_e2_arms.json").read_text())
+
+    inventory_path = ROOT / "evidence" / "ribbon" / "uniqueness_full_inventory.json"
+    freshness_path = ROOT / "evidence" / "registry_freshness_audit.json"
+    index_path = ROOT / "registry" / "registry_merged.json"
+    try:
+        inventory = json.loads(inventory_path.read_text(encoding="utf-8"))
+        freshness = json.loads(freshness_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        print(f"BLOCKED: current inventory/freshness receipt unavailable: {exc}; no TIFF will be emitted.", file=sys.stderr)
+        return 2
+    index_sha = gate_validation.sha256(index_path) if index_path.is_file() else None
+    inventory_sha = gate_validation.sha256(inventory_path) if inventory_path.is_file() else None
+    freshness_sha = gate_validation.sha256(freshness_path) if freshness_path.is_file() else None
+    qualification_failures = gate_validation.preemission_qualification_failures(
+        qualification, inventory, freshness,
+        inventory_index_sha256=index_sha,
+        inventory_receipt_sha256=inventory_sha,
+        freshness_receipt_sha256=freshness_sha,
+    )
+    if qualification_failures:
+        print("BLOCKED: qualification does not bind fresh inventory and all hard gates:", file=sys.stderr)
+        for reason in qualification_failures:
+            print(f"  - {reason}", file=sys.stderr)
+        print("No TIFF will be emitted.", file=sys.stderr)
+        return 2
+
+    e1_path = ROOT / "evidence" / "ribbon_e1_sigma.json"
+    e2_path = ROOT / "evidence" / "ribbon_e2_arms.json"
+    if not e1_path.is_file() or not e2_path.is_file():
+        missing = [p.name for p in (e1_path, e2_path) if not p.is_file()]
+        print(f"BLOCKED: promotion-grade E1/E2 receipts missing: {missing}; no TIFF will be emitted.", file=sys.stderr)
+        return 2
+    try:
+        e1 = json.loads(e1_path.read_text(encoding="utf-8"))
+        e2 = json.loads(e2_path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        print(f"BLOCKED: invalid E1/E2 receipt: {exc}; no TIFF will be emitted.", file=sys.stderr)
+        return 2
     canary_aucs = e1.get("leakage_canary", {}).get("max_auc_by_type", {})
     canary_clear = (isinstance(canary_aucs, dict) and bool(canary_aucs)
-                    and all(isinstance(v, (int, float)) and np.isfinite(v) and 0 <= v <= 0.90
+                    and all(isinstance(v, (int, float)) and np.isfinite(v) and 0 <= v < 0.90
                             for v in canary_aucs.values()))
-    if (e1.get("promotion_grade") is not True
-            or e1.get("buffered_whole_component_context_used") is not True
-            or not gate_validation.validated_sigma_table(e1)
+    if (not gate_validation.validated_sigma_table(e1)
             or not canary_clear
             or not gate_validation.validated_holdout_result(e2)
             or not gate_validation.validated_per_class_gains(e2)):
-        print("BLOCKED: E1/E2 lack the full buffered holdout, sigma, canary, score/CI and per-class evidence contract; no TIFF will be emitted.", file=sys.stderr)
+        print("BLOCKED: E1/E2 lack complete buffered shared-evaluator sigma, feature-alone canary, "
+              "HOLDOUT-DTI/CI and per-class evidence; no TIFF will be emitted.", file=sys.stderr)
         return 2
 
     grid = load_grid(ROOT / "data" / "bridge")
@@ -137,7 +168,17 @@ def main() -> int:
 
     out_dir = ROOT / "docs" / "downloads"
     out_dir.mkdir(parents=True, exist_ok=True)
-    receipt = write_submission(out_dir / f"{name}.tif", pred, ROOT / "data" / "official" / "sample_submission.tif",
+    stage_root = out_dir / ".staging"
+    stage_dir = stage_root / name
+    final_tif = out_dir / f"{name}.tif"
+    final_zip = out_dir / f"{name}.zip"
+    final_receipt = out_dir / f"{name}.json"
+    if any(path.exists() for path in (final_tif, final_zip, final_receipt)):
+        print("BLOCKED: refusing to overwrite an existing deliverable; no TIFF was emitted.", file=sys.stderr)
+        return 2
+    stage_dir.mkdir(parents=True, exist_ok=False)
+    staged_tif = stage_dir / f"{name}.tif"
+    receipt = write_submission(staged_tif, pred, ROOT / "data" / "official" / "sample_submission.tif",
                                grid.footprint, note=note, name=name, catalogue=grid.catalogue,
                                metadata=dict(
                                    lane="ribbon (emission width = measured localization error)",
@@ -154,6 +195,50 @@ def main() -> int:
                                    pattern_rule=dict(stride_px=rl.STRIDE_PX,
                                                      offsets="tight if sigma<0.5 else +/-clip(round(sigma),1,3)"),
                                ))
+    expected_file_sha = qualification.get("candidate_file_sha256")
+    if (receipt.get("sha256") != expected_file_sha
+            or receipt.get("decoded_prediction_sha256") != decoded_sha256
+            or receipt.get("decoded_prediction_sha256") != qualification.get("candidate_decoded_sha256")
+            or receipt.get("validator", {}).get("all_checks_passed") is not True):
+        shutil.rmtree(stage_dir, ignore_errors=True)
+        print("BLOCKED: staged TIFF bytes/pixels do not match the exact qualified hashes; "
+              "staged files removed and nothing published.", file=sys.stderr)
+        return 2
+
+    staged_zip = staged_tif.with_suffix(".zip")
+    staged_receipt = staged_tif.with_suffix(".json")
+    published = []
+    temp_q = qpath.with_name(f".{qpath.name}.tmp")
+    try:
+        for source, destination in ((staged_zip, final_zip), (staged_receipt, final_receipt),
+                                    (staged_tif, final_tif)):
+            os.replace(source, destination)
+            published.append(destination)
+        qualification["candidate_file"] = str(final_tif.relative_to(ROOT))
+        qualification["candidate_zip"] = str(final_zip.relative_to(ROOT))
+        qualification["candidate_file_sha256"] = receipt["sha256"]
+        qualification["candidate_decoded_sha256"] = receipt["decoded_prediction_sha256"]
+        qualification["emission_receipt_sha256"] = gate_validation.sha256(final_receipt)
+        qualification["emitted_utc"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+        temp_q.write_text(json.dumps(qualification, indent=2, allow_nan=False) + "\n", encoding="utf-8")
+        os.replace(temp_q, qpath)
+    except Exception:
+        for path in published:
+            try:
+                path.unlink()
+            except FileNotFoundError:
+                pass
+        try:
+            temp_q.unlink()
+        except FileNotFoundError:
+            pass
+        raise
+    finally:
+        shutil.rmtree(stage_dir, ignore_errors=True)
+        try:
+            stage_root.rmdir()
+        except OSError:
+            pass
     print(f"wrote {name}.tif | sha256 {receipt['sha256']} | validator all_checks_passed="
           f"{receipt['validator']['all_checks_passed']}", flush=True)
     print(f"E3 done in {time.time()-t0:.0f}s", flush=True)

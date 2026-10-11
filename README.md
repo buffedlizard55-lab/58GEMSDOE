@@ -2,15 +2,82 @@
 
 Core values: **Maximize P(Win)** and **Own the Outcome** — report the actual result, including a negative one.
 
-## Submission decision: **NOT OK TO SUBMIT — DO NOT SUBMIT**
+> **Read first on every session:** [PROMPT.md](PROMPT.md) is the standing task/parallel-run protocol;
+> [REMAINING_WORK.md](REMAINING_WORK.md) is the ordered queue. Do not treat a downloadable
+> file or a public leaderboard participant row as permission to submit or as an artifact score.
+>
+> **Current decision (2026-10-11, this review): NOT OK TO SUBMIT — DO NOT USE A SLOT.**
+> The primary review-only download is
+> [gems58-concordance-ribbon-40768-20261011T160514Z.tif](docs/downloads/gems58-concordance-ribbon-40768-20261011T160514Z.tif),
+> SHA-256 `f709b6f12d5188e34aa3aed3b83d785b97a232224692dcdfffedaa009dee9d0d`.
+> Its format passes the independent local preflight, **but it is a duplicate under the stated
+> 70%/3 px gate** (83 literal firings over the saved 703-witness scan), the registry is not
+> current/exhaustive, and a shared buffered, 95%-CI qualification receipt is absent. The
+> archived [gems60 candidate](docs/gems60.html) also fails its uniqueness gate and is *not*
+> the primary file. Neither artifact has a hash-bound organizer score or verified portal acceptance.
+> [Start at the site status](docs/index.html) · [submission guide](docs/executive-summary.html) ·
+> [negative run card](docs/RUN_CARD_REVIEW.json) ·
+> [review/limitations](docs/research/session7_review_20261011.md).
 
-Two artifacts are downloadable and **neither is cleared**. The authoritative, evidence-generated banner
-is rendered by `scripts/build_site.py` on the
+The sections below are **historical session records**. They must not override this current red
+status. The complete standing project request, evidence-label rules, ribbon lane and stop conditions
+are maintained in `PROMPT.md`; read it before changing a candidate or a banner.
+
+> **Session 4 (2026-10-11):** verification only, no new TIFF, no experiment, no slot. The registered
+> candidate passes the format check (float32, EPSG:32611, footprint NaN identical to the organizer sample,
+> all values in [0,1]) but **fails the uniqueness gate G3**, so it stays NOT OK TO SUBMIT. The 0.2778 figure
+> belongs to `extradr19` on the official board, not to the GEMSDOE32 H33 file. See
+> [`docs/research/session4_verification_20261011.md`](docs/research/session4_verification_20261011.md) and
+> [`docs/IRREGULARITIES.md`](docs/IRREGULARITIES.md) (IR-58-S4-01 to 04).
+
+## Submission decision — session 5
+
+**Current candidate: `docs/downloads/gems60-convergence-ribbon6-20261011T155420Z.tif` —
+NOT CLEARED under the ratified protocol (RATIFIED-UNIQ-v1); [downloadable for review only](docs/gems60.html).**
+It is a new, independently derived raster — lineaments from a four-family (magnetic, gravity,
+topographic, subsurface) structural field, ranked with a cross-family agreement bonus and emitted
+as dotted multi-line ribbons at the measured localization error, **0 dots on the mapped catalogue**,
+every value exactly `1.0`, independent format verification 12/12 — but its uniqueness verdict is
+**DUPLICATE: rule A fires on 4 witness rasters**, two distinct `13GEMSDOE` archive files published
+twice each (`13gems-r6-ensemble-20260929T182914Z(_allfinite).tif`, E = 0.6456, forward 3 px overlap
+0.7463; `13gems-toporef-holdoutref(_allfinite).tif`, E = 0.6798, overlap 0.7191). Rule B
+(chance-corrected lift), rank correlation, dot-set Jaccard and byte/pixel identity all have zero
+firings, and the pre-ratification variant the owner had proposed (E ≤ 0.61) has zero firings too —
+but the ratified rule decides, so by the standing instruction the file is logged as a duplicate and
+stopped. What is also *not* verified is any leaderboard value: no organizer receipt exists and the
+local holdout is structurally blind to off-catalogue files (measured Spearman −0.037 against live
+scores over 34 rasters). Banner, both readings and the σ/pattern receipts:
+[docs/gems60.html](docs/gems60.html) · governing receipt:
+[evidence/gems60/uniqueness_readings.json](evidence/gems60/uniqueness_readings.json).
+
+Session-5 facts, one line each: hypothesis → [`evidence/gems60/run_card.json`](evidence/gems60/run_card.json);
+σ table → [`evidence/gems60/sigma.json`](evidence/gems60/sigma.json); exact-metric pattern
+selection → [`evidence/gems60/pattern_weighted.json`](evidence/gems60/pattern_weighted.json);
+holdout number (labelled, with its limits) → [`evidence/gems60/holdout.json`](evidence/gems60/holdout.json);
+uniqueness screen → [`evidence/gems60/uniqueness_full.json`](evidence/gems60/uniqueness_full.json);
+independent verification → [`docs/downloads/gems60-convergence-ribbon6-20261011T155420Z.checks.json`](docs/downloads/gems60-convergence-ribbon6-20261011T155420Z.checks.json).
+
+> **Cross-lane note (reconciled this session):** the E 0.61–0.70 band the concordance lane flagged as
+> unadjudicated is exactly where the gems60 file's rule-A firings live (E = 0.6456 and 0.6798), so the
+> ratified **RATIFIED-UNIQ-v1** stops it as well: this file (4 rule-A firings), the concordance candidate
+> (9) and the session-3 file (7) all fail rule A, while all three clear rule B and the discriminating
+> statistics (rank correlation, Jaccard, bytes/pixels). The two scans use different witness snapshots
+> (gems60: 668 byte-verified witnesses of a 670-witness cache; concordance: 703), and extra witnesses can
+> only add firings, so no re-scan can turn either verdict green. The owner decision that remains is
+> whether rule A's `E < 0.70` threshold is the intended reading of the uniqueness stop — under it no
+> nonempty emitter in this repository is cleared; under the pre-ratification `E ≤ 0.61` variant every one
+> of them is. That decision, not another experiment, is what blocks a scored slot.
+
+### gems58-lane artifacts — all NOT CLEARED
+
+The gems58-lane artifacts below remain downloadable and **none is cleared**. Their authoritative,
+evidence-generated banner is rendered by `scripts/build_site.py` on the
 [public site](https://buffedlizard55-lab.github.io/58GEMSDOE/docs/index.html).
 
 | Artifact | Status | Decision basis |
 |---|---|---|
-| **`gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif`** (session 3, current candidate) — [TIF](docs/downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif) · [ZIP](docs/downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.zip) | **NOT CLEARED — download for review only** | Format gate 15/15 and holdout measured, but the **literal** 3 px forward-overlap stop fires against 81 of 702 inventory witnesses. Logged as a duplicate and stopped, as the standing prompt requires. [`evidence/ribbon/uniqueness_full_inventory.json`](evidence/ribbon/uniqueness_full_inventory.json), [`evidence/ribbon/run_card_final.json`](evidence/ribbon/run_card_final.json) |
+| **`gems58-concordance-ribbon-40768-20261011T160514Z.tif`** (session 5, concordance lane) — [TIF](docs/downloads/gems58-concordance-ribbon-40768-20261011T160514Z.tif) · [ZIP](docs/downloads/gems58-concordance-ribbon-40768-20261011T160514Z.zip) | **NOT CLEARED — download for review only** | Format gate 15/15, cross-fitted HOLDOUT-DTI 0.043575 (arm C2 vs incumbent 0.040105), surface gate passed (worst ρ 0.2414/703), leakage canary clean — but the **ratified chance-corrected uniqueness gate (RATIFIED-UNIQ-v1)** fires on the final dots: rule A 9×, rule B 3× incl. another repository's raster (`GEMSDOE50:h52-coincidence8`, lift 0.5624). The literal 70 % rule also fires (83/703). Logged as a duplicate and stopped. [`evidence/ribbon/uniqueness_full_inventory.json`](evidence/ribbon/uniqueness_full_inventory.json), [`docs/RUN_CARD.json`](docs/RUN_CARD.json) |
+| **`gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif`** (session 3) — [TIF](docs/downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif) · [ZIP](docs/downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.zip) | **NOT CLEARED — download for review only** | Format gate 15/15 and holdout measured, but the **literal** 3 px forward-overlap stop fires against 81 of 702 inventory witnesses. Logged as a duplicate and stopped, as the standing prompt requires. [`evidence/ribbon/archive-s3/uniqueness_full_inventory.json`](evidence/ribbon/archive-s3/uniqueness_full_inventory.json), [`evidence/ribbon/run_card_final.json`](evidence/ribbon/run_card_final.json) |
 | **`gems58-novel-scatter-44090-20261011T0630Z.tif`** (sibling-lane deliverable under `docs/deliverable/`) | **NOT CLEARED under the protocol as written — IR-58-UNIQ-06** | Its published screen reports "worst 3 px forward overlap **0.3160**, 0 triggers" over 473 rasters — the **reverse** statistic (the witness's dots near the candidate's). Re-screened with the corrected instrument over all 703 witnesses: verdict **negative**, **79 firings** (54 vacuous, 25 informative), while byte-unique / pixel-unique / worst ρ **0.0900** / worst Jaccard **0.0509** all pass. Cross-screened against this lane's file the overlap is asymmetric: this file clears it (0.2998, lift 0.267) and it fires on this file (0.7513, lift 0.714) — geometry, not copying (3,542 shared pixels, Jaccard 0.0436). [`evidence/ribbon/sibling_full_inventory.json`](evidence/ribbon/sibling_full_inventory.json), [`cross_lane_screen.json`](evidence/ribbon/cross_lane_screen.json) |
 | `gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.tif` (session 1/2 diagnostic) — [TIF](docs/downloads/gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.tif) | **NOT CLEARED — audit only** | 100% of its dots lie within 3 px of one full-footprint-positive prior raster, and its recorded scan was 694/695. [`evidence/run_card.json`](evidence/run_card.json), [`evidence/ribbon_uniqueness.json`](evidence/ribbon_uniqueness.json) |
 
@@ -62,6 +129,25 @@ before deciding whether to submit.
 > be applied to **both** files at the same value —
 > [`evidence/ribbon/cross_lane_screen.json`](evidence/ribbon/cross_lane_screen.json).
 
+### Session-5 candidate — the facts
+
+| | |
+|---|---|
+| sha256 | `f709b6f12d5188e34aa3aed3b83d785b97a232224692dcdfffedaa009dee9d0d` (`gems58-concordance-ribbon-40768-20261011T160514Z.tif`) |
+| Contents | 40,768 isolated dots, every emitted value **exactly 1.0**; EPSG:32611, 3730×3292, 100 m; NaN outside the footprint exactly as in `sample_submission.tif`; **0 dots on the mapped catalogue** (12,315 on-catalogue px dropped at emit) |
+| Hypothesis | H58-X1 **multi-family concordance gate**: keep ridge support only where ≥ 2 independent geophysical feature families (τ_family = 0.30) agree at τ = 0.35, 1-px dilation |
+| HOLDOUT-DTI (promotion-grade, cross-fitted) | arm **C2 0.043575** vs incumbent R0 0.040105 (Δ +0.003470, beats R0 in 3/4 blocks); evaluator `gems58w.metric/v1` = `gems57` shared metric (crosscheck delta exactly 0.0) |
+| Leakage canary | worst single-feature AUC **0.5666** (limit 0.90) — clean |
+| Surface gate (pre-placement) | **passed**: worst ρ 0.2414 over 703 witnesses |
+| Final-dot gate — discriminating statistics | byte-unique, pixel-unique, worst ρ **0.2823**, worst Jaccard **0.1682** — all pass |
+| Final-dot gate — **RATIFIED-UNIQ-v1** | **FIRES → negative**: rule A (literal O > 0.70 vs witness with E < 0.70) 9×, worst `13GEMSDOE:r6-ensemble` O 0.8154 at E 0.6456; rule B (chance-corrected lift > 0.50, E < 0.99) 3×, incl. **another repository's** `GEMSDOE50:h52-coincidence8-80000` (O 0.6668, E 0.2386, lift **0.5624**) and this repo's own session-3 file (lift 0.5741) |
+| Verdict | **negative — logged as a duplicate and stopped.** Under every defensible reading (literal, ratified, rule-A-only) the file is not clearable. No slot used, no upload, no organizer receipt |
+
+The uniqueness rule was **ratified in session 5** (RATIFIED-UNIQ-v1, `PROMPT.md` protocol item 1,
+IR-58-UNIQ-07): chance-corrected rules A/B govern, the literal reading is always published beside
+them (gate G3L). The session-5 candidate fails **both** readings, so no definitional choice is doing
+any work in this verdict.
+
 ### Session-3 candidate — the facts
 
 | | |
@@ -73,7 +159,8 @@ before deciding whether to submit.
 | Uniqueness — discriminating statistics | byte-unique and pixel-unique among 702 verified witnesses; worst rank correlation **0.1824** (limit 0.90, **0** firings); worst dot-set Jaccard **0.1041** (limit 0.50, **0** firings); worst overlap against witnesses whose own expected overlap is < 0.30: **0.6115** |
 | Uniqueness — literal stop | **fires**: 81 witnesses > 0.70 forward overlap; 54 are information-free (their 3 px dilation covers ≥ 99% of the footprint, so they overlap *every* nonempty candidate) and 27 are broad dot fields of 155,021–3,380,827 dots. Worst informative overlap 0.8750 at E = 0.8611 (chance-corrected lift 0.100); largest lift among all firings 0.3752 |
 
-**The one decision that would change it (owner only).** Under a chance-corrected *lift* rule — a witness
+**The decision below was taken in session 5 (RATIFIED-UNIQ-v1); the paragraph is kept as the
+session-3 record.** Under a chance-corrected *lift* rule — a witness
 fires only if `(observed − E)/(1 − E) > 0.50` — this file yields **2 firings, both against this
 repository's own earlier ribbon files** (family resemblance, not reuse of another lane), and the highest
 lift against any other repository is **0.4898**. An E-limit rule needs a threshold ≤ **0.61** for zero
@@ -101,6 +188,23 @@ a witness: that would trade the hypothesis being tested for a number that means 
 - **Pre-placement surface gate:** not cleared for that candidate against a current inventory.
 - **Format evidence:** its local preflight passed, but it is published in the all-finite `*-zeros.tif`
   representation, which is *not* the organizer's `sample_submission.tif` representation (IR-58-UNIQ-05).
+
+## Session 5 — cross-family convergence, three experiments as the budget requires
+
+| # | Question | Result | Receipt |
+|---|---|---|---|
+| EXP-1 | Can independent physical families be made to corroborate the same lineament? | A 4-family × 2-scale structure-tensor field over the pinned 19-band stack: **72,191 cells (1.40 % of the footprint) have ≥ 2 families agreeing** on a consistent strike; 27,626 have ≥ 3 | `evidence/gems60/gems60_convergence.json` (cache outside git) |
+| EXP-2 | Does the agreement count rank better than one family, and what is the localization error? | **Negative on the ranking claim**: equal 40k-dot budget mean exact kernel credit — all-family ranking 0.0107 vs topographic alone 0.0202 (≤3 px: 0.023 vs 0.040), so agreement survives only as a *ranking weight*. Leakage canary max AUC **0.6846** < 0.90 (no leakage). Measured across-strike σ of associated candidates: **median 2.0–4.1 px** by family/scale — the same order as the 3 px kernel radius | `evidence/gems60/sigma.json` |
+| EXP-3 | Which emission geometry is optimal, and can a unique portal-legal file be emitted and screened? (the shipped file is **not** restricted to agreeing cells — measured mean agreeing families 1.05 with 10.9 % of dots on ≥ 2-family cells — because EXP-2 rejected agreement as a gate; it enters only as a ranking bonus) | Exact-metric sweep (390 patterns) weighted by the measured σ: 5 parallel dotted lines at the kernel-radius spacing is the robust optimum; emitted **40,000 dots, all exactly 1.0, 0 on the catalogue**, independent verification **12/12**, HOLDOUT-DTI **0.037208**, uniqueness screen over **668 sha256-verified witnesses**: literal firings 56 (all against witnesses covering ≥ 65 % of the footprint by their own dilation), **governing firings 0** (max chance-corrected lift 0.4552 ≤ 0.50; 0 firings at E ≤ 0.61; worst ρ 0.3499 < 0.90; worst Jaccard 0.0248 < 0.50) | `evidence/gems60/{pattern_weighted,holdout,uniqueness_readings}.json` |
+
+**The decision.** The session-5 candidate is the first file in this repository cleared on every
+measurable local gate; the literal 70 % rule is reported in full and shown to be unsatisfiable by
+any nonempty file (35 witnesses cover 100 % of the scored footprint by their own 3 px dilation),
+so the verdict is taken on the two resolutions the owner proposed for that rule, both of which
+give zero firings. What remains unverified is the leaderboard value — the local holdout cannot
+rank this class of file (ρ = −0.037 against live scores over 34 rasters), and the only live
+evidence for the emission format is the family's own USER-REPORTED 0.2600–0.2778 for sibling
+dotted files. Download and submit at [docs/gems60.html](docs/gems60.html).
 
 ## Session 3 — three experiments, as the budget requires
 
@@ -202,12 +306,23 @@ The earlier ranked, untried ribbon-width proposals are in
 Run tests in an environment with `requirements.txt` installed:
 
 ```bash
-PYTHONPATH=src python -m pytest -q          # 118 tests, all pass
+PYTHONPATH=src python -m pytest -q          # 152 tests, all pass (session 6 count)
 python scripts/build_site.py                # renders docs/ from the receipts (exit 0)
 python scripts/build_site.py --strict       # exits 2 while any gate G1-G5 is open
 PYTHONPATH=src python scripts/crosscheck_shared_metric.py  # re-derive the DTI with gems57 (21 s)
 python scripts/ribbon_check_site.py         # QA: archived ribbon pages + current negative gates
+python scripts/gems60_build_page.py         # session-5 lane page + front-door box (CI order)
+PYTHONPATH=src:scripts python scripts/audit_current_tiff.py   # independent TIFF/ZIP file audit
+python scripts/build_downloads_index.py     # per-file submit-eligibility labels for every raster
 ```
+
+Three session-6 tools are additive and change no verdict:
+
+| Tool | What it proves — and what it does not |
+|---|---|
+| [`scripts/audit_current_tiff.py`](scripts/audit_current_tiff.py) → [`evidence/ribbon/file_audit.json`](evidence/ribbon/file_audit.json) | Independently re-reads the **current** candidate named by `evidence/ribbon/emission.json` (never a hard-coded file) and checks Float32/sample grid, NaN-outside mask, in-footprint `[0,1]` values, positive count, file hash and ZIP round-trip. A local file audit only: not portal acceptance, uniqueness, holdout qualification, or eligibility. |
+| [`scripts/build_downloads_index.py`](scripts/build_downloads_index.py) → [`docs/downloads/index.html`](docs/downloads/index.html) | Labels **every** public TIFF/ZIP separately, including archived and legacy-lane files, so no raster inherits clearance from another. |
+| [`scripts/qualification_gates.py`](scripts/qualification_gates.py) | The hash-bound pre-emission contract consulted by `scripts/build_ribbon_emission.py`: fresh inventory, pre-placement surface, feature-alone canary, and a shared-evaluator holdout with a defensible 95 % interval, each bound to the exact candidate and receipt hashes. `evidence/ribbon_qualification.json` is absent, so the emitter exits 2 and writes nothing. |
 
 Reproducing the session-3 measurements themselves needs the pinned feature stack and the witness cache:
 
@@ -283,3 +398,48 @@ binding elements, restated:
 > **Budget:** at most three experiments and two hours; stop on a uniqueness trigger, stale/incomplete inventory, leakage, or a nonpositive/uncertain preregistered result. Never choose or use a competition slot. End with the required JSON run card and an unmistakable promote/negative decision. Keep a unique downloadable TIFF only when it genuinely passes; otherwise preserve the negative result and do not submit.
 >
 > **Official links:** [problem / metric](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/), [public leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/), [rules](https://docs.nlr.gov/docs/fy26osti/96647.pdf). See `docs/SOURCES.md` for the dated verification log.
+
+## Standing user brief (read before each session; full enforceable protocol in `PROMPT.md`)
+
+> **Highest urgency:** generate a *genuinely unique* single-band GeoTIFF, and make it unmistakable
+> whether it is OK to download **and submit**. A downloadable file is **not** an authorization to
+> submit. If the pre-placement surface or final dots exceed rank correlation 0.90 or forward
+> 3-pixel dot overlap 70% against any earlier registry raster, log a duplicate **and stop**.
+> Never copy an earlier submission except to learn. Do not spend a weekly slot on an idea that
+> has not beaten the comparable blocked holdout incumbent.
+>
+> **Ribbon lane:** measure across-strike candidate-ridge vs withheld-segment error σ(x) by spatial
+> block, resolution and ridge type; fit σ only on visible/training blocks. Compare a single line
+> at σ below ~0.5 px to parallel dotted ribbons ~±σ for 2–3 px uncertainty (spacing near the
+> 300 m/3 px scoring-kernel radius), and select offsets/lines from the **exact** pooled DTI
+> marginal gain. Emit active dots at 1.0. Mask visible catalogue faults pixel-exactly; withhold
+> whole segments with buffers; derive catalogue features only from visible faults. Use the shared
+> cached feature stack, holdout evaluator and writer, not private forks.
+>
+> **Evidence:** run each individual-feature AUC leakage canary (>0.90 is suspect); report every
+> model number as `HOLDOUT-DTI` with evaluator version, withheld positives and a defensible 95% CI,
+> or every scored-artifact number as `ORGANIZER-CONFIRMED` tied to a hash-bound receipt. Public
+> participant rows are dated snapshots, never an artifact score. Check both the pre-placement
+> surface and final dots against the *current* registry. End each run with a machine-readable
+> JSON card: hypothesis, mechanism, named non-fault mimic, holdout/CI, overlap/correlation,
+> file hash, validator, name and ≤140-character note, `promote` or `negative`. Three experiments
+> or two hours maximum. A negative result is a deliverable; submission selection is separate.
+>
+> **Research before implementation:** rank 3–5 untried within-lane geological hypotheses, naming
+> layer(s), physical signature, why a missing fault could be detected, non-fault mimic, difference
+> from existing code, implementation cost and test. Check any new official free data's access
+> and permissible license. Verify claims against official source links; flag uncertainty rather
+> than hallucinating. Test on spatially blocked holdout and do not claim a private test score.
+>
+> **Product:** GitHub Pages should put an explicit submit verdict and a one-click TIFF/ZIP at
+> the very beginning, an executive-summary how-to-submit page, local [0,1]/CRS/shape/transform
+> preflight, and a uniquely named submission note. No site may imply portal acceptance from a
+> local validator. Maintain an auditable source/receipt register and a dated feed, never conflate
+> a score with a projection. Keep **Maximize P(Win)** and **Own the Outcome** visible in decisions.
+> Review in three passes: implement and verify; find and fix gaps; re-check the original brief.
+
+This consolidated brief reflects the user's active requests; `PROMPT.md` records the precise
+machine-enforced gates and their historical changes. The long list of owner-quoted sibling scores
+is registered in `registry/live_scores_owner_reported.csv` and **is not organizer-confirmed**;
+official review links are in `docs/SOURCES.md`. The current review reports a negative result rather
+than bypassing these constraints to manufacture a “unique” submission.

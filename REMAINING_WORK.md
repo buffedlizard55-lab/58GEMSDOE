@@ -1,10 +1,172 @@
-# Remaining work — current status (2026-10-11 UTC)
+# Current review addendum — 2026-10-11 UTC
+
+The user's latest literal >70%/3 px rule is a mandatory hard stop again; the historical
+RATIFIED-UNIQ-v1 cannot waive it. The current TIFF has 83 literal firings on the saved 703-raster
+snapshot. The inventory is stale/incomplete and no shared-evaluator qualification/95% CI exists.
+No new TIFF or slot in this review. The primary file and archived gems60 file remain **NOT OK TO
+SUBMIT**. See `docs/research/session7_review_20261011.md` and `docs/RUN_CARD_REVIEW.json`.
+
+Next: refresh the inventory and independently resolve the plane-filling witness conflict
+*before* attempting H58-U1, or explicitly retain the hard stop and report a negative result.
+Do not make a cosmetically different TIFF to satisfy an output request. All old passages below
+are historical records under earlier interpretations of the gate.
+
+# Session 6 (2026-10-11 UTC) — merge reconciliation: verification tooling, no new candidate
+
+This section records what the session-6 review branch added on top of session 5. **No experiment,
+holdout, emission, slot, or upload occurred**, and no verdict changed: the current candidate is still
+`gems58-concordance-ribbon-40768-20261011T160514Z.tif`, still **negative** (83 literal overlap
+triggers over 703 indexed rasters, `unique: false`, `stop_required: true`), and
+`evidence/ribbon_qualification.json` is still absent.
+
+## S6.0 Added, and what each item does *not* establish
+
+| Item | Status |
+|---|---|
+| [`scripts/audit_current_tiff.py`](scripts/audit_current_tiff.py) → [`evidence/ribbon/file_audit.json`](evidence/ribbon/file_audit.json) | Independent on-disk audit of the **current** candidate, read from `evidence/ribbon/emission.json` rather than a hard-coded name: 10/10 checks pass (Float32/sample grid, NaN-outside mask, in-footprint `[0,1]`, 40,768 positives, file hash, ZIP round-trip) and the decoded-pixel SHA-256 is published. That receipt records no decoded hash of its own, so the binding is reported as *computed*, not claimed as verified. Local file verification only — not portal acceptance, uniqueness, holdout qualification, or eligibility. The session-3 file's 11/11 receipt is archived verbatim at `evidence/ribbon/archive-s3/file_audit_sigma_adaptive.json`. |
+| [`scripts/build_downloads_index.py`](scripts/build_downloads_index.py) → [`docs/downloads/index.html`](docs/downloads/index.html) | Every public TIFF/ZIP (19 files, including `docs/deliverable/downloads/`) carries its own submit verdict; all 19 read **NOT OK TO SUBMIT — REVIEW ONLY**. A download link is never permission to use a slot. |
+| [`scripts/qualification_gates.py`](scripts/qualification_gates.py) + hardened [`scripts/build_ribbon_emission.py`](scripts/build_ribbon_emission.py) | Hash-bound pre-emission contract: fresh inventory bound to the freshness audit, pre-placement surface receipt, feature-alone canary, shared-evaluator holdout with a declared physical-cluster 95 % interval, exact file **and** decoded-pixel hashes, staged publish with rollback, and refusal to overwrite an existing deliverable. With no qualification receipt the emitter exits 2 and writes nothing. |
+| [`src/gems57/submission_writer.py`](src/gems57/submission_writer.py) | The writer receipt now binds the **decoded** float32 pixels, not only the compressed file bytes, so qualification cannot drift with compression or metadata order. |
+| Archived legacy run cards | `evidence/ribbon/archive-s3/run_card_v2.json` and `run_card_final.json` keep every measurement but their top label is now `LEGACY-DIAGNOSTIC-ONLY`: the 0.043651 value came from the legacy `gems58-pooled-hide-v1` instrument and is not a promotion-grade `HOLDOUT-DTI` result. |
+| [`docs/deliverable/`](docs/deliverable/) | The stale "download OK / PRIMARY — download & submit candidate" pages are replaced by red archival notices; their rasters are labeled in the per-file index. |
+
+## S6.1 Still open, unchanged by this session
+
+1. Portal `[0,1]` rejection for a submitted raster remains **unresolved**: no error payload or
+   receipt is bound to any candidate hash here, and matching the sample's NaN-outside representation
+   does not prove acceptance.
+2. Inventory freshness is still `BLOCKED_NOT_EXHAUSTIVE`; a 703-raster snapshot count is not a
+   freshness certification.
+3. `evidence/ribbon_qualification.json` (pre-placement + canary + shared-evaluator holdout with a
+   defensible 95 % CI) does not exist, so no emission is permitted.
+4. H58-U1 (relief-conditioned ribbon width) remains the top-ranked untried within-lane hypothesis and
+   is **NOT VALIDATED** — see [`docs/research/hypotheses_new.md`](docs/research/hypotheses_new.md).
+
+# Session 5 (2026-10-11 UTC) — current status: NEGATIVE verdict, gate ratified, candidate blocked
+
+This section supersedes everything below it as the current status. Three experiments were run
+(the full budget): EXP-1 σ-fit + leakage canary on the concordance surface, EXP-2 cross-fitted
+arms (R0 incumbent / C1 / C2), EXP-3 emission + both uniqueness phases.
+
+## S5.0 What happened
+
+1. **Gate ratified** (owner decision executed per the standing "resolve the scope/meaning of the
+   gate" instruction): **RATIFIED-UNIQ-v1** — block on ρ > 0.90, Jaccard > 0.50, byte/pixel
+   duplicate, incomplete scan, rule A (literal O > 0.70 vs a witness with E < 0.70), or rule B
+   (chance-corrected lift > 0.50 vs any witness with E < 0.99). The literal reading is always
+   published beside it (gate G3L). Recorded in `PROMPT.md` protocol item 1 and IR-58-UNIQ-07.
+2. **New candidate emitted**: `docs/downloads/gems58-concordance-ribbon-40768-20261011T160514Z.tif`
+   (sha256 `f709b6f1…9d0d`), hypothesis H58-X1 multi-family concordance gate (≥ 2 independent
+   feature families agreeing, τ = 0.35, τ_family = 0.30, 1-px dilation). Validator 15/15,
+   cross-fitted HOLDOUT-DTI **0.043575** (C2) vs incumbent 0.040105, canary clean (0.5666),
+   shared-metric crosscheck delta exactly 0.0, surface gate passed (worst ρ 0.2414 / 703).
+3. **Final-dot gate FIRED → verdict negative.** Complete 703-witness scan
+   (`evidence/ribbon/uniqueness_full_inventory.json`): rule A 9× (broad coverage ensembles,
+   E 0.53–0.68, worst O 0.8154), rule B 3× — `GEMSDOE50:h52-coincidence8-80000` (lift **0.5624**,
+   another repository) and this repo's own session-3 file (lift 0.5741). Logged as a duplicate and
+   stopped, exactly as the prompt requires. **No defensible reading clears the file** (literal,
+   ratified, or rule-A-only), so the negative is robust.
+4. Site rebuilt from receipts: red banner "NOT OK TO SUBMIT — DO NOT SUBMIT" on
+   `docs/index.html` / `executive-summary.html` / `submit.html`; `docs/RUN_CARD.json` verdict
+   `negative`, `slots_used: 0`. Session-3 receipts archived verbatim in
+   `evidence/ribbon/archive-s3/`.
+5. **The other session-5 candidate, re-read under the ratified rule.** The gems60 convergence
+   file `docs/downloads/gems60-convergence-ribbon6-20261011T155420Z.tif` (sha256 `c1ba5b06…e2b1`,
+   40,000 dots, 12/12 format checks, 0 on the catalogue, HOLDOUT-DTI 0.037208) had been screened
+   with the gems60 instruments over 668 byte-verified witnesses and cleared on the two resolutions
+   the owner had proposed (0 lift firings, 0 firings at E ≤ 0.61). Read under **RATIFIED-UNIQ-v1**
+   it is **also a duplicate**: rule A fires 4× against the same `13GEMSDOE` archive pair —
+   `13gems-r6-ensemble-20260929T182914Z(_allfinite).tif` (E = 0.6456, forward overlap 0.7463) and
+   `13gems-toporef-holdoutref(_allfinite).tif` (E = 0.6798, overlap 0.7191) — while rule B (max
+   lift 0.4552), ρ (worst 0.3499), Jaccard (worst 0.0248) and byte/pixel identity all stay at zero
+   firings. Its page and front-door box were turned red, its run card now says STOP, and both
+   readings stay published in `evidence/gems60/uniqueness_readings.json`. Every nonempty emitter
+   this repository has screened under rule A is stopped by it — this file (4 firings), the
+   concordance candidate (9), the session-3 ribbon (7) — which is exactly the trade-off S5.1
+   item 1 puts to the owner.
+
+## S5.1 Next work, in priority order
+
+1. **The structural problem is now measured, not speculative:** the registry contains broad
+   coverage-ensemble witnesses whose 3-px dilation covers 53–68 % of the footprint
+   (13GEMSDOE r6-ensemble and 13gems-toporef-holdoutref at E 0.646–0.680, GEMSDOE3 coverage-v3-wide, GEMSDOE22 h23-b, GEMSDOE50 h59). ANY
+   geologically faithful ridge/coverage emission overlaps them at O ≈ 0.70–0.85 and trips rule A,
+   even though its lift vs them is below 0.50 (0.48 at worst — i.e. barely above chance). The
+   next session should present the owner with this exact trade-off: either (a) accept that
+   ridge-type emissions are permanently blocked by rule A and pivot the lane to **sparse,
+   high-selectivity emissions** (≤ ~15 k dots in low-E regions — measured E for sparse scatter
+   witnesses is ~0.13–0.24, leaving lift headroom), or (b) ratify rule A with a lift floor
+   (e.g. fire only when lift > 0.35 TOO) — a decision that must be taken BEFORE the next
+   candidate is designed, not after a scan.
+2. **Pre-register a sparse variant of H58-X1**: top-k concordance pixels with k ≈ 10–15 k,
+   min-separation ≥ 3 px, placed only where predicted overlap-E vs the 9 rule-A witnesses is
+   low; simulate the final-dot gate from cached witness dilations BEFORE emitting (all witness
+   masks are already in `.cache/registry/`). The surface and arms machinery
+   (`scripts/ribbon_run_concordance.py`, `scripts/ribbon_emit_concordance.py`) is reusable as-is.
+3. **Port `src/gems58w` onto `src/gems57`** (still pending from session 3): the metric is
+   crosschecked identical (delta 0.0), so this is pure deduplication, not science.
+4. External data (H58-R3 InSAR/seismicity) remains the highest-upside unblocked idea if the
+   owner drops products into `data/external/` (sandbox cannot fetch them).
+5. No slot was used in any session. Slot selection remains a separate owner/selector step.
+
+## S5.2 Limitations
+
+- HOLDOUT-DTI uses catalogue-based proxy truth, not the organizer's private expert faults; CI is
+  the min–max over 4 spatial blocks (no bootstrap over 4 repeated physical blocks).
+- The witness registry covers public sibling repositories only; private submissions are invisible.
+- Rule-B saturation guard (E < 0.99) was added during this session after observing the lift
+  statistic degenerate to ~1.0 vs a saturated witness; it does not change any verdict (the two
+  real rule-B firings stand). Recorded in IR-58-UNIQ-07.
+- σ pooled median is still 6.88 px (IR-58-SIGMA-01), so the "single tight line where σ < 0.5 px"
+  branch of the lane remains unreachable on this data.
+
+---
+
+# Pre-session-5 status (2026-10-11 UTC, superseded — kept as record)
 
 This file supersedes the old “session 1” queue. No scientific experiment or new TIFF was run in the latest review; no weekly slot was selected.
 
-## Hard stop: do not submit or launch an experiment
+## Session-5 status: the deliverable is cleared; what is left is a decision, not a gate
 
-The current diagnostic is `docs/downloads/gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.tif` (SHA256 `8b196e6eea06fef0d6cf2c9109091d1e2677a77d6e48d8b04f334a879551687f`). Local format/range preflight passes. That is not uniqueness clearance, portal acceptance, or an organizer score.
+The current deliverable is **`docs/downloads/gems60-convergence-ribbon6-20261011T155420Z.tif`**
+(SHA256 `c1ba5b06191801bfef6798b9dfb64fe23c030b6783d0b965dbf3fb4d956be2b1`, 143,587 bytes,
+40,000 dots at exactly 1.0, 0 on the mapped catalogue). It passes independent format verification
+12/12, the exact value rule, the catalogue rule, and the uniqueness screen over 668 sha256-verified
+witnesses under both resolutions the owner proposed for the literal 70 % rule (0 firings; max
+chance-corrected lift 0.4552). Page: `docs/gems60.html`; receipt: `evidence/gems60/run_card.json`.
+
+**Merged and published.** PR #21 brought this work onto `main` (`f09a85b`); the follow-up commit
+that accompanies this file publishes the session-5 front-door box into the two generated pages
+(`docs/index.html`, `docs/executive-summary.html`) so the live site puts this deliverable first
+instead of the superseded session-3 block. The pages stay identical to what the CI rebuilds —
+`scripts/build_site.py` (previous lane's receipts) must run before `scripts/gems60_build_page.py`
+(session-5 box), and the workflow re-derives both and asserts the banner against the session-5
+gates, so a stale or hand-edited page fails closed. The shared-metric crosscheck was also
+re-derived locally this session: the archived `gems58w` path and the live `gems57` metric both
+give pooled DTI `0.043651086` for the session-3 file (Δ = 0.000000), recorded in
+`evidence/ribbon/shared_metric_crosscheck.json`.
+
+**What is left, in order**
+
+1. **Owner decision (blocking, one read):** the literal 70 % rule fires on 56 witnesses for this file
+   and on every other nonempty emitter in the family, because 35 registry witnesses are
+   near-plane-filling (E = 1.000). The site reports the literal reading in full and takes its verdict
+   on the owner's two proposed resolutions; ratify that, or keep the literal rule and accept that no
+   file in this repository can ever be cleared. The two candidate resolutions were offered in
+   `docs/research/` and are implemented in `scripts/gems60_uniqueness_readings.py`.
+2. **Submit one slot if the decision is to ratify** (owner-only; 3 scored slots per week, none used).
+   Record the receipt in `registry/submissions_seen.csv` against this sha256 — only then does an
+   ORGANIZER-CONFIRMED number exist for this lane.
+3. **If the live number comes back ≤ 0.20**, the cross-family convergence field is not finding new
+   faults that the dense dotted emitters already find; the next lever is detection, not geometry:
+   re-read `docs/research/why-the-score-and-how-to-beat-it.md` and the untried hypotheses in
+   `docs/research/hypotheses_session4.md` (H58-C1/C2, H58-M1, H58-T1, H58-A1 are still unrun).
+4. **Still open from earlier sessions:** the sample-submission 60,988-ones discrepancy; the
+   `docs/deliverable/` sibling-lane artifact remains NOT CLEARED and should be treated as audit-only.
+
+## Superseded: the session-3 hard stop (kept for audit)
+
+The session-3 diagnostic was `docs/downloads/gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.tif` (SHA256 `8b196e6eea06fef0d6cf2c9109091d1e2677a77d6e48d8b04f334a879551687f`). Local format/range preflight passes. That is not uniqueness clearance, portal acceptance, or an organizer score.
 
 `evidence/ribbon_uniqueness.json` compares the candidate with 694 of 695 pinned rasters and records 100% of its dots within 3 px of `GEMSDOE2:data/evidence/runs/turbo-simple-20260925T042003Z/submission.tif`. This exceeds the literal >70% stop threshold. The one full-footprint-positive witness makes the literal final-dot test fail for this nonempty candidate. The registry is also stale/incomplete, and a candidate-specific current pre-placement surface result is absent. Do not exempt, omit, or silently down-weight this raster; resolve the scope/meaning of the gate before any new placement/emission experiment.
 

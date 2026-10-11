@@ -78,7 +78,14 @@ def evidence(tmp_path):
     inv = {"unique": True, "complete_accessible_scan": True, "n_compared": 702,
            "worst_spearman_full_footprint": 0.42, "worst_dot_overlap": 0.55,
            "worst_rho_submission": "some-repo", "worst_overlap_submission": "some-repo",
-           "duplicate_count": 0, "verdict": "unique", "index": "registry/registry_merged.json"}
+           "duplicate_count": 0, "verdict": "unique", "index": "registry/registry_merged.json",
+           # RATIFIED-UNIQ-v1 additionally requires byte/pixel uniqueness flags and
+           # row-level chance measurements (E) so firings can be classified.
+           "byte_unique_among_checked": True, "pixel_unique_among_checked": True,
+           "worst_jaccard_dot_sets": 0.05,
+           "rows": [{"submission": "some-repo", "my_dots_within_3px_of_theirs": 0.55,
+                     "chance_expected_overlap": 0.30, "chance_corrected_lift": 0.357,
+                     "jaccard_dot_sets": 0.05, "spearman_full_footprint": 0.42}]}
     arms = {"budget": 38000, "min_sep": 1, "ranking": "k_hat", "screen": "visible+3px",
             "dti0": 0.4133, "n_withheld_positives": 60988, "evaluator": "gems58w.metric/v1",
             "results": {"W1": {"pooled": 0.042462, "coverage": 0.0554,
@@ -223,3 +230,20 @@ def test_shared_metric_crosscheck_is_required_and_must_agree(evidence):
     gs, ok = gates(evidence, xcheck=disagree)
     assert by_id(gs)["G5i"]["ok"] is False
     assert ok is False
+
+
+def test_live_site_requires_current_qualification_not_legacy_green():
+    """A previous positive legacy diagnostic cannot override the new hard stops."""
+    import json
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    card = json.loads((root / "docs/RUN_CARD.json").read_text())
+    gates = {g["id"]: g for g in card["site_gates"]}
+    assert gates["G7"]["ok"] is False
+    assert gates["G3L"]["ok"] is False
+    assert card["site_verdict"] == "NOT_OK_TO_SUBMIT"
+    assert card["verdict"] == "negative"
+    page = (root / "docs/index.html").read_text()
+    assert page.index('<section class="submit-box"') < page.index("<!-- session5:begin -->")
+    assert 'PUBLIC-LEADERBOARD-SNAPSHOT' in page
+    assert 'NOT OK TO SUBMIT' in page
