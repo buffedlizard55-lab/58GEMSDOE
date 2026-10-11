@@ -17,7 +17,7 @@
 | Leaderboard numbers | User-supplied, **unverified**. See [`docs/LEADERBOARD.md`](docs/LEADERBOARD.md). |
 | Run card | [`docs/RUN_CARD.json`](docs/RUN_CARD.json): negative (not evaluated; not promoted). |
 
-Pages site (once GitHub Pages is enabled for `main`, `/docs`): the executive summary and submission guide are at `docs/index.html`.
+GitHub Pages site: the executive summary and submission guide are in the root `index.html`. Pages is set to serve the repo root of `main`, so this file is what it shows. The `/docs` source could not be set from the build sandbox (HTTP 403).
 
 ## Quick start
 
@@ -45,8 +45,9 @@ scripts/fetch_data.py  public-link downloader with audit log (no login bypass)
 scripts/check_data.py  inventory and per-band leakage canary
 scripts/make_submission.py  prob.npy -> validated GeoTIFF
 tests/                 metric (incl. brute-force cross-check), submission, holdout
-docs/                  index.html (Pages), SUBMISSION_GUIDE, SOURCES, IRREGULARITIES, HYPOTHESES,
+docs/                  SUBMISSION_GUIDE, SOURCES, IRREGULARITIES, HYPOTHESES,
                        ANALYSIS_H33, LEADERBOARD, RUN_CARD.json, AI_USAGE, MISSION
+index.html             GitHub Pages landing page (executive summary, submission steps, flags)
 ```
 
 Competition rasters and generated TIFs are **not committed** (`.gitignore`): DrivenData terms prohibit redistribution, and large artifacts stay out of Git.
