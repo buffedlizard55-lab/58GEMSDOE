@@ -1,9 +1,33 @@
 # Remaining work and limitations — 58GEMSDOE session 1 (2026-10-11)
 
-**Status of the delivered artifact** `gems58-ribbon-sigma168-w3-38000-20261011T000000Z.tif`:
+**Status of the delivered artifact**
+`docs/ribbon/downloads/gems58-adaptive-ribbon-38000-20261011T000000Z.tif`
+(sha256 `d631b4af205bd6e0961f4bad3f4d12bc27b651a020dcd38666e4c5f5246720f7`):
 download **OK**, submit **your decision**, **zero competition slots spent by this project**.
 15/15 local acceptance checks pass, 0 duplicates against the registry, 38,000 dots, all exactly
 `1.0`, no `NaN` inside the footprint.
+
+## 0. Merge status and scope of the uniqueness claim
+
+This lane is merged into `main` (PR #11, merge commit `967f400`) and namespaced so it sits beside
+the other lanes: code in `src/gems58w/`, scripts as `scripts/ribbon_*`, receipts in
+`evidence/ribbon/`, registry metadata in `registry/ribbon/`, site in `docs/ribbon/`.
+
+**Scope of "not a duplicate" (the single most important caveat):** the uniqueness screen in this
+session ran against the **19 earlier rasters present in this checkout**
+(`data/registry/rasters/`), and the worst pair was rank correlation **0.0137** / 3 px forward
+overlap **0.3600** — below the 0.90 / 0.70 stop limits. The sibling lane maintains a **695-raster
+frozen inventory** and found a candidate there at **100 %** 3 px overlap. This lane's file has
+**not** been screened against that larger inventory, so it must not be described as cleared until
+`scripts/check_uniqueness_registry.py` (main) is run against it. This is a stop-looking condition:
+treat the delivered raster as **downloadable for review, not cleared for submission** until that
+scan exists.
+
+## 0b. What the merged file is
+
+38,000 dots at exactly `1.0`, `NaN` outside the footprint, 15/15 local acceptance checks, median
+catalogue distance 21.9 px, 0 dots on the catalogue, per-segment 5-line ribbon at `0, ±300 m,
+±600 m` (σ-driven), lead-time note 126 characters.
 
 ## 1. The one thing that is actually blocking a higher score
 
@@ -24,7 +48,7 @@ rate, which is the only number that matters.
 
 1. **IR-58-02 — the mandated holdout cannot score an off-catalogue file.** Its withheld truth *is*
    catalogue, so any catalogue-margin screen makes HOLDOUT-DTI read exactly 0 by construction
-   (`evidence/instrument_control.json`). The standing rule "validate on the holdout before touching
+   (`evidence/ribbon/instrument_control.json`). The standing rule "validate on the holdout before touching
    a slot" is therefore **not sufficient** for this family of files. A holdout whose truth is a
    *held-out inventory* (e.g. a state geological survey compilation the organizer also excluded
    from the catalogue) is needed. Sibling lane `57GEMSDOE`'s `IR-57-INSTR-01`
@@ -65,7 +89,7 @@ rate, which is the only number that matters.
 
 * `data/official/` holds only the two small rasters plus the template. The 419 MB stack is fetched
   by `scripts/fetch_features.sh`; nothing large is committed.
-* The Pages site is static HTML rendered by `scripts/build_site.py` from `evidence/*.json`;
+* The Pages site is static HTML rendered by `scripts/ribbon_build_site.py` from `evidence/ribbon/*.json`;
   `scripts/check_site.py` re-derives the hashes and fails closed.
 * Changing Pages settings needs repository administration scope, which this integration does not
   have; the site is served from `docs/` on the default branch.
