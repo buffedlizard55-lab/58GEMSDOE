@@ -8,9 +8,11 @@ typed by hand.
 
 > **Current repo-level verdict: NOT OK TO SUBMIT — DO NOT SUBMIT.**
 > No organizer submission receipt exists for any artifact, so nothing here can be labelled
-> accepted or scored. The newest candidate (`gems58-concordance-ribbon-40768-20261011T160514Z.tif`,
+> accepted or scored. The current candidate (`gems58-concordance-ribbon-40768-20261011T160514Z.tif`,
 > sha256 `f709b6f1…d0d`) is stopped by the ratified uniqueness gate — rule A fires against 9
-> witnesses, rule B against 3 (IR-58-UNIQ-07). **The owner has used 0 of the weekly slots.**
+> witnesses, rule B against 3 (IR-58-UNIQ-07). The newest artifact merged from `main` (the ML
+> RandomForest candidate, PR #30) carries a format receipt **only**: no uniqueness screen, no
+> holdout receipt, no organizer receipt (IR-58-S6-06). **The owner has used 0 of the weekly slots.**
 
 ---
 
@@ -84,7 +86,7 @@ the verbatim brief in **[docs/MISSION.md](docs/MISSION.md)** and the current dec
 | Metric = distance-weighted Tversky index, α = 0.2 (false positives), β = 0.8 (false negatives), triangular kernel **R = 300 m = 3 px**: `DTI = TP_w / (TP_w + 0.2·FP_w + 0.8·FN_w)`. | page 967, *Performance metric* |
 | Submission = single-band **float32** GeoTIFF in **EPSG:32611**, 100 m, region bounds identical to the training data, **values within [0, 1]**, *"data outside the bounds is null or nan"*. | page 967, *Submission format* |
 | Portal rejection *"Predicted values must be in range [0, 1]"* is **unresolved**: no portal response or receipt in this repository is bound to a candidate's SHA-256, so the cause is neither asserted nor explained away. | [docs/SOURCES.md](docs/SOURCES.md) §*Portal `[0,1]` report* |
-| Public leaderboard snapshot **2026-10-11**: #1 `xiaofanhu` **0.4133**, #8 `kinghorton42` 0.3261, #9 `DARD` **0.3195**, #23 `extradr19` **0.2778**. Ranks are dynamic; rows identify no TIFF. | [leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/), recorded in [docs/LEADERBOARD.md](docs/LEADERBOARD.md) |
+| Public leaderboard snapshot **2026-10-11**: #1 `xiaofanhu` **0.4133**, #8 `kinghorton42` 0.3261, #9 `DARD` **0.3195**, #23 `extradr19` **0.2778**. Ranks are dynamic (DARD was observed at rank 8 earlier the same day); rows identify no TIFF. | [leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/), recorded in [docs/LEADERBOARD.md](docs/LEADERBOARD.md) |
 | The **0.2778** figure is the `extradr19` participant row. The `GEMSDOE32` H33 artifact is marked **UNSCORED** by its own audit (projected 0.2747, sha256 `c55bafc4…`); no hash/receipt crosswalk ties 0.2778 to it. | [docs/LEADERBOARD.md](docs/LEADERBOARD.md), [registry/submissions_seen.csv](registry/submissions_seen.csv) |
 | The **0.3774** figure is a historical repository-page figure, not the live board. | 60GEMSDOE README erratum, 2026-10-11 |
 
@@ -95,6 +97,22 @@ controlled probe inside that family shows the gap is **placement, not density**:
 matches the family's arrangement statistics to four decimals, shares 644 of 37,654 dots with it
 (Jaccard 0.0086) — and scored **0.0778**. Which pixels are chosen is what pays. See
 [docs/research/why-02778.md](docs/research/why-02778.md) and [docs/HYPOTHESES.md](docs/HYPOTHESES.md).
+
+### Official links for manual review
+
+| Purpose | Link |
+|---|---|
+| Competition home | <https://www.drivendata.org/competitions/306/competition-doe-gems/> |
+| Problem statement, metric, submission format | <https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/> |
+| Live public leaderboard | <https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/> |
+| Official rules (PDF) | <https://docs.nlr.gov/docs/fy26osti/96647.pdf> |
+| Official reference solution | <https://github.com/drivendataorg/gems-prize-reference-solution> |
+| GeoDAWN airborne magnetic/radiometric survey (USGS) | <https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and> |
+| INGENIOUS fault catalogue (GBCGE) | <https://gbcge.org/current-projects/ingenious/> |
+| EPSG:32611 grid definition | <https://epsg.io/32611> |
+
+The full source register, with what each source does and does not establish, is
+[docs/SOURCES.md](docs/SOURCES.md) and [registry/sources.csv](registry/sources.csv).
 
 ---
 
@@ -126,6 +144,7 @@ python3 scripts/gems61_screen.py --candidate docs/downloads/<name>.tif \
         --out evidence/gems61/uniqueness.json         # RATIFIED-UNIQ-v1 screen vs 703 witnesses
 python3 scripts/build_downloads_index.py              # docs/downloads/index.html (one verdict per file)
 python3 scripts/build_site.py                         # docs/index.html gates + banner
+python3 scripts/gems60_build_page.py                  # session-5 deliverable box (must run last)
 python3 -m pytest tests/ -q
 ```
 
@@ -164,6 +183,8 @@ mirrors and re-verified at run time, and a mismatch aborts the run.
   scaling; this lane uses them **ordinal-only** and claims no physical units.
 * The registry inventory is a snapshot of public repositories, not an organizer-wide inventory;
   `BLOCKED_NOT_EXHAUSTIVE` still applies to the freshness audit.
+* The ML candidate merged from `main` has a format receipt only; its local AUC 0.7152 measures
+  catalogue-fault discrimination on a non-spatial split and is not a HOLDOUT-DTI and not a score.
 * Weekly slots are an owner decision; this repository never spends one.
 
 See [REMAINING_WORK.md](REMAINING_WORK.md) for ranked next steps and
