@@ -31,3 +31,46 @@ A public leaderboard observation is recorded separately from an artifact score. 
 - [Official public leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/)
 - [GEMSDOE32 owner-maintained H33 page](https://buffedlizard55-lab.github.io/GEMSDOE32/docs/index.html)
 - [GEMSDOE32 source page on GitHub](https://github.com/buffedlizard55-lab/GEMSDOE32/blob/main/docs/index.html)
+
+---
+
+## What the leader's score implies arithmetically — PROJECTION, never a score
+
+From the official metric (`DTI = TP_w / (TP_w + 0.2·FP_w + 0.8·FN_w + ε)`, kernel
+`k(d) = max(1 − d/300 m, 0)`), re-verified in `evidence/ribbon/theorems.json`:
+
+| Assumed operating score | A dot pays only if its kernel credit ≥ α·score | Max distance that still pays |
+|---|---|---|
+| 0.4133 (observed rank 1) | 0.0827 | 2.752 px = 275 m |
+| 0.3195 (observed rank 8) | 0.0639 | 2.872 px = 287 m |
+| 0.2778 (observed rank 23) | 0.0556 | 2.902 px = 290 m |
+
+Random placement over the ~12,691-pixel public truth gives DTI ≈ 0.063; 0.2600 with 44,090 dots needs
+≈4,933 weighted true positives (~39 % weighted coverage); **0.4133 implies ≈0.36 weighted coverage with
+near-zero wasted mass**. The session-3 candidate reaches **0.0561** weighted coverage of *catalogue*
+truth on the local holdout (HOLDOUT-DTI 0.043651). The gap is coverage, not geometry.
+
+## Owner-quoted sibling scores — USER-REPORTED-SCORE, no receipt
+
+The full 78-row list with the site URL each came from is
+[`registry/live_scores_owner_reported.csv`](../registry/live_scores_owner_reported.csv); 66 of those
+files were matched to sha256-verified bytes and re-measured in
+[`evidence/live_evidence_fit.json`](../evidence/live_evidence_fit.json). None of these numbers is an
+organizer receipt for any file, and none is tied to a public-board row.
+
+| Quoted file | Quoted score | Dots | Dots on catalogue | Median catalogue distance |
+|---|---|---|---|---|
+| d28-poisson300m-offcat-44090 | 0.2600 | 44,090 | 0 | 14–20 px |
+| anderson-geothermal-pinn-38854 | 0.2750 | 38,854 | 0 | 14–20 px |
+| h36-1-rung30-blind-r1 | 0.2710 | — | 0 | 14–20 px |
+| gate_ortho_w0.25-40k | 0.2376 | 40,000 | 0 | — |
+| h19-5-powerlaw-budget-multiline | 0.1922 | — | 0 | — |
+| gems6_hgb88-topk03 | 0.0286 | 155,021 | 23,605 | 2.0 px |
+| repo-c0-habitat-emission | 0.0041 | — | high | — |
+
+**The one pattern that survives measurement:** every quoted file scoring ≥ 0.2449 has **0 dots on the
+mapped catalogue**, 37,654–61,328 dots and a median catalogue distance of 14–20 px, while
+catalogue-hugging files score 0.004–0.03. The session-3 candidate matches that family by construction
+(0 on-catalogue dots, 40,768 dots, median distance 19.7 px). That is a **family comparison, not a
+forecast**: over the same 66 rasters no covariate reaches |Spearman| 0.258 against the quoted scores
+(IR-58-LIVE-01), because the organizers will not disclose public-subset membership.

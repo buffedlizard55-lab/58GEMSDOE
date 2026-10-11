@@ -11,7 +11,7 @@ import json
 from pathlib import Path
 import numpy as np
 import rasterio
-from scipy.ndimage import binary_dilation
+from scipy.ndimage import binary_dilation, distance_transform_edt
 from scipy.stats import rankdata, spearmanr
 from .metric import RADIUS_PX
 
@@ -75,7 +75,63 @@ def summarize_registry_rows(rows, *, registry_rasters_expected, complete_accessi
     my_dot_count = int(candidate_meta['my_dots'])
     norm = bool(candidate_meta['candidate_rank_variation'])
     unique = complete and my_dot_count > 0 and norm and not flags
+
+    # ---- informative reading (added; the literal gate above is unchanged) ----
+    # A firing of the 0.70 forward-overlap rule is only evidence of lane drift if
+    # the witness could have failed to fire.  Rows may carry
+    # ``chance_expected_overlap`` (E) and/or ``their_dots``; when they do, the
+    # overlap firings are split into informative and vacuous ones and the worst
+    # informative overlap is reported next to the literal worst.
+    def _e(r):
+        if r.get('chance_expected_overlap') is not None:
+            return float(r['chance_expected_overlap'])
+        return None
+
+    with_e = [r for r in checked if _e(r) is not None]
+    saturated = [r for r in with_e if _e(r) >= SATURATED_E]
+    informative = [r for r in with_e if _e(r) < SATURATED_E]
+    ov_firings = [r for r in checked if r.get('duplicate_by_overlap')]
+    ov_firings_informative = [r for r in ov_firings
+                              if _e(r) is not None and _e(r) < SATURATED_E]
+    ov_firings_vacuous = [r for r in ov_firings
+                          if _e(r) is None or _e(r) >= SATURATED_E]
+    worst_inf = max(informative, key=lambda r: r.get('my_dots_within_3px_of_theirs', 0.0),
+                    default=None)
+    worst_lift = max((r for r in informative if r.get('chance_corrected_lift') is not None),
+                     key=lambda r: r['chance_corrected_lift'], default=None)
+    if not ov_firings:
+        drift_evidence = 'none'
+    elif ov_firings_informative:
+        drift_evidence = 'informative'
+    elif with_e:
+        drift_evidence = 'vacuous-only'
+    else:
+        drift_evidence = 'undetermined (no chance-coverage measurement on the rows)'
+    informative_reading = dict(
+        rasters_with_chance_measurement=len(with_e),
+        rasters_saturated=len(saturated), rasters_informative=len(informative),
+        saturated_threshold_E=SATURATED_E,
+        worst_forward_overlap_informative=(
+            worst_inf['my_dots_within_3px_of_theirs'] if worst_inf else None),
+        worst_forward_overlap_informative_submission=(
+            worst_inf.get('submission') if worst_inf else None),
+        worst_chance_corrected_lift=(
+            worst_lift['chance_corrected_lift'] if worst_lift else None),
+        worst_chance_corrected_lift_submission=(
+            worst_lift.get('submission') if worst_lift else None),
+        overlap_firings=len(ov_firings),
+        overlap_firings_informative=len(ov_firings_informative),
+        overlap_firings_vacuous=len(ov_firings_vacuous),
+        overlap_firings_informative_submissions=[
+            r.get('submission') for r in ov_firings_informative],
+        lane_drift_evidence=drift_evidence,
+        note=('The literal 0.70 forward-overlap rule is reported unchanged. This reading only '
+              'states whether a firing is supported by a witness that could have failed to '
+              'fire: a witness whose 3-px dilation covers >= 99% of the footprint overlaps '
+              'every nonempty candidate, so its firing cannot distinguish drift from chance.'),
+    )
     return dict(
+        informative_reading=informative_reading,
         my_file=candidate_meta.get('my_file'), evidence_class='REGISTRY-MEASUREMENT',
         my_dots=my_dot_count,
         candidate_decoded_sha256=candidate_meta.get('candidate_decoded_sha256'),
@@ -344,6 +400,34 @@ def saturation_certificate(registry_path, footprint, catalogue=None, *, expected
         universal_overlap_blocker=uncovered==0, overlap_limit=OVERLAP_LIMIT,
         support_definition='finite prediction > 0 (inherited literal support rule)',
         implication='Every nonempty candidate dot set in the allowed domain has forward overlap 1.0 with this prior; therefore it cannot pass the 0.70 gate.' if uncovered==0 else 'No universal blockage established.')
+
+
+SATURATED_E = 0.99
+"""Chance-coverage above which a forward-overlap firing carries no information.
+
+``E`` is the fraction of the scored footprint lying within ``RADIUS_PX`` of a
+registry raster's positive support: the overlap a *randomly placed* candidate
+with the same dot count would show.  When ``E >= SATURATED_E`` every nonempty
+candidate overlaps that witness by construction, so the literal 0.70 firing is a
+property of the witness and not evidence of lane drift.  Measured, not assumed:
+``saturation_certificate`` proves the universal-blocker case, and
+``evidence/buffer_overlap_scan.json`` records a 5-px lattice whose 3-px dilation
+covers 0.9987 of the footprint (forward overlap 0.9986 at every buffer from 3 to
+10 px).
+"""
+
+
+def chance_expected_overlap(their_support, footprint, radius_px=RADIUS_PX) -> float:
+    """Overlap a randomly placed candidate would show against one witness.
+
+    ``E = |{x in footprint : d(x, their dots) <= radius}| / |footprint|``.
+    """
+    fp = np.asarray(footprint, bool)
+    sup = np.asarray(their_support, bool) & fp
+    if not sup.any():
+        return 0.0
+    d = distance_transform_edt(~sup)
+    return float((d[fp] <= radius_px).mean())
 
 
 DENSE_SUPPORT_FRACTION = 0.20

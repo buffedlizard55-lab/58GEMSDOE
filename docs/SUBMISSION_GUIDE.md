@@ -1,7 +1,74 @@
-# Submission guide — current decision: **NOT OK TO SUBMIT**
+# Submission guide
 
-> **DO NOT UPLOAD OR SELECT A WEEKLY SLOT FOR THE CURRENT FILE.**
-> The file below is retained as a research/diagnostic artifact so its findings are auditable. It is not a cleared competition submission.
+## Current decision (session 3, 2026-10-11): **NOT OK TO SUBMIT — download for review only**
+
+> **DO NOT UPLOAD OR SELECT A WEEKLY SLOT.** The current candidate is format-valid and measured, but
+> the protocol's literal uniqueness rule fires against it, so by the standing instruction it is logged
+> as a duplicate and stopped. The authoritative, evidence-generated banner is on the
+> [site status page](index.html); the how-to-submit steps are on the
+> [executive summary](executive-summary.html); the full local preflight receipt is on the
+> [portal checklist](submit.html).
+
+### Current candidate
+
+- File: [`gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif`](downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif)
+  (+ a [ZIP](downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.zip) containing exactly one GeoTIFF)
+- Name: `gems58-ribbon-sigma-adaptive-40768-20261011T052942Z`
+- Note (135/140 chars): `Ribbon lane: adaptive dotted ribbons 0/+-300/+-600 m on catalogue-free Hessian ridges (sigma cross-fitted); 40768 isolated dots at 1.0.`
+- SHA256: `ecf833f8ea7a6698636b48b0dcd0d03aa925d603753e60e03d9d1660922711dd` (433,419 B)
+- Raster: one float32 band; EPSG:32611; 3730 × 3292; 100 m; transform `(100, 0, 243350, 0, -100, 4508550)`;
+  40,768 dots, every emitted value **exactly 1.0**; **NaN outside the study footprint exactly as in the
+  organizer's `sample_submission.tif`** (7,111,787 NaN, `nodata=nan`) and finite everywhere inside it —
+  which is what makes the portal rejection `Predicted values must be in range [0, 1]` impossible for
+  this file. **15/15** local checks pass (`evidence/ribbon/emission.json` → `validator`).
+- HOLDOUT-DTI of the exact delivered bytes: **0.043651** pooled (NW 0.046854 / NE 0.036240 /
+  SW 0.056175 / SE 0.033176), 60,869 withheld positives, protocol `gems58-pooled-hide-v1`, evaluator
+  `gems58w.metric/v1`, interval 0.033176–0.056175 (min–max over the four blocks). This measures
+  recovery of *catalogue* truth, not the organizer's new-fault truth, and is **not** a leaderboard
+  forecast.
+- 0 dots on the mapped catalogue (the organizer masks those pixels out of evaluation in both rounds).
+
+### Why the status is still negative
+
+1. **The literal 3 px forward-overlap rule fires.** The governing scan over **702** sha256-verified
+   public witness rasters (`evidence/ribbon/uniqueness_full_inventory.json`, complete, 0 missing or
+   invalid, 0 source errors) reports **81** witnesses with more than 70 % of this file's dots within
+   3 px of theirs. Verdict `negative`, `stop_required` true.
+2. **Those firings are all against broad or plane-filling witnesses.** 54 have a chance-level expected
+   overlap E ≥ 0.99, so they overlap *every* nonempty candidate and carry no information; the other 27
+   are dot fields of 155,021–3,380,827 dots (18 of them near-duplicate variants published by one
+   repository). The worst is 0.8750 against a witness with E = 0.8611 (chance-corrected lift 0.100);
+   the largest lift among all 81 firings is 0.3752.
+3. **Every discriminating statistic passes by a wide margin.** Byte-unique and pixel-unique among all
+   702; worst rank correlation **0.1824** against a 0.90 limit (**0** firings, and the worst case is
+   this repository's own control raster); worst dot-set Jaccard **0.1041** against a 0.50 limit
+   (**0** firings). Against witnesses whose own expected overlap is below 0.30 — the ones that can tell
+   two emissions apart — the worst observed overlap is **0.6115**.
+4. **No organizer receipt exists.** Nothing was uploaded and no slot was used, so no
+   ORGANIZER-CONFIRMED score exists for this or any other file here.
+
+### The decision that would change it (owner only)
+
+Ratify a chance-corrected uniqueness rule. In its **lift** form — a witness fires only if
+`(observed − E)/(1 − E) > 0.50` — this file produces **2 firings, both against this repository's own
+earlier ribbon files** (family resemblance, not reuse of another lane), and the highest lift against
+any other repository is **0.4898**. In its **E-limit** form ("fire only if E < limit and observed >
+0.70") the limit must be ≤ **0.61** to give zero firings. Keeping the literal rule instead means no
+ridge-based or coverage-based emitter in this repository family can ever be submitted, because the
+registry already contains near-plane-filling witnesses (IR-58-UNIQ-02/03). `scripts/build_site.py`
+computes both readings from the scan rows at build time and does not choose between them.
+
+---
+
+# Archive — the session-1 guide and its diagnostic file
+
+Everything below describes the **previous** candidate
+(`gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.tif`) and the state of the repository
+before session 3. It is retained for audit. Two of its statements are corrected by session 3 and are
+annotated inline: the registry restore is now **695/695** complete plus a current-default-branch delta
+(703 byte-verified witnesses, IR-58-REG-01), and the uniqueness instrument's two overlap directions
+were exchanged until 2026-10-11 (IR-58-UNIQ-04), so overlap numbers quoted below were measured with
+the directions swapped.
 
 ## Score-attribution note
 

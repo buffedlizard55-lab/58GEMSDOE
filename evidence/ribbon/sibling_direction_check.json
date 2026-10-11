@@ -1,0 +1,106 @@
+{
+ "evidence_class": "REGISTRY-MEASUREMENT",
+ "generated_utc": "2026-10-11T07:00:00Z",
+ "purpose": "Direction check of the sibling deliverable docs/deliverable/downloads/gems58-novel-scatter-44090-20261011T0630Z.tif against the same byte-verified inventory. The protocol statistic is the fraction of MY dots within 3 px of ONE witness's dots; the archived gems58w.screen_against triggered on the reverse fraction (IR-58-UNIQ-04), so a clearance measured that way is not the protocol statistic.",
+ "sibling_file": "docs/deliverable/downloads/gems58-novel-scatter-44090-20261011T0630Z.tif",
+ "sibling_dots": 44090,
+ "session3_file": "docs/downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif",
+ "session3_dots": 40768,
+ "witnesses_checked": 702,
+ "sibling_firings_protocol_direction": 78,
+ "sibling_firings_reverse_direction": 0,
+ "sibling_worst_protocol_overlap": 1.0,
+ "sibling_worst_protocol_witness": "GEMSDOE2:data/evidence/runs/turbo-simple-20260925T042003Z/submission.tif",
+ "top_witnesses": [
+  {
+   "witness": "GEMSDOE2:data/evidence/runs/turbo-simple-20260925T042003Z/submission.tif",
+   "their_dots": 5167373,
+   "E": 1.0,
+   "mine_protocol": 1.0,
+   "mine_reverse": 0.12950623072884423,
+   "sibling_protocol": 1.0,
+   "sibling_reverse": 0.04502616706786988
+  },
+  {
+   "witness": "GEMSDOE48:docs/downloads/diagnostics/GEMSDOE48-H56-OWDS-B2xH33D-20261007-1f7b5a4f18db-unassigned-mtheta.tif",
+   "their_dots": 5167373,
+   "E": 1.0,
+   "mine_protocol": 1.0,
+   "mine_reverse": 0.12950623072884423,
+   "sibling_protocol": 1.0,
+   "sibling_reverse": 0.04502616706786988
+  },
+  {
+   "witness": "GEMSDOE48:docs/downloads/gemsdoe48-ds-plausibility-20261006T201749Z-95897e3f8125.tif",
+   "their_dots": 5167373,
+   "E": 1.0,
+   "mine_protocol": 1.0,
+   "mine_reverse": 0.12950623072884423,
+   "sibling_protocol": 1.0,
+   "sibling_reverse": 0.04502616706786988
+  },
+  {
+   "witness": "GEMSDOE48:docs/downloads/gemsdoe48-ds-unassigned-mass-20261006T201749Z-95897e3f8125.tif",
+   "their_dots": 5167373,
+   "E": 1.0,
+   "mine_protocol": 1.0,
+   "mine_reverse": 0.12950623072884423,
+   "sibling_protocol": 1.0,
+   "sibling_reverse": 0.04502616706786988
+  },
+  {
+   "witness": "GEMSDOE24:data/external/audit_sources/acquisition_block_id_100m.tif",
+   "their_dots": 5167373,
+   "E": 1.0,
+   "mine_protocol": 1.0,
+   "mine_reverse": 0.12950623072884423,
+   "sibling_protocol": 1.0,
+   "sibling_reverse": 0.04502616706786988
+  },
+  {
+   "witness": "GEMSDOE48:docs/downloads/diagnostics/gemsdoe48-h56b-noflank-mtheta-5bb2c03c981e.tif",
+   "their_dots": 5167373,
+   "E": 1.0,
+   "mine_protocol": 1.0,
+   "mine_reverse": 0.12950623072884423,
+   "sibling_protocol": 1.0,
+   "sibling_reverse": 0.04502616706786988
+  },
+  {
+   "witness": "GEMSDOE48:docs/downloads/diagnostics/gemsdoe48-h56-plausibility-9ec0d605c45b.tif",
+   "their_dots": 5167373,
+   "E": 1.0,
+   "mine_protocol": 1.0,
+   "mine_reverse": 0.12950623072884423,
+   "sibling_protocol": 1.0,
+   "sibling_reverse": 0.04502616706786988
+  },
+  {
+   "witness": "GEMSDOE48:docs/downloads/diagnostics/gemsdoe48-h50-unassigned-mTheta-20261007-5b59e106.tif",
+   "their_dots": 5167373,
+   "E": 1.0,
+   "mine_protocol": 1.0,
+   "mine_reverse": 0.12950623072884423,
+   "sibling_protocol": 1.0,
+   "sibling_reverse": 0.04502616706786988
+  },
+  {
+   "witness": "GEMSDOE48:docs/downloads/gemsdoe48-h58-diag-plausibility-20261008T175914Z-e58.tif",
+   "their_dots": 5167373,
+   "E": 1.0,
+   "mine_protocol": 1.0,
+   "mine_reverse": 0.12950623072884423,
+   "sibling_protocol": 1.0,
+   "sibling_reverse": 0.04502616706786988
+  },
+  {
+   "witness": "GEMSDOE4:data/evidence/newfault/seed44/prob_raw.tif",
+   "their_dots": 5167373,
+   "E": 1.0,
+   "mine_protocol": 1.0,
+   "mine_reverse": 0.12950623072884423,
+   "sibling_protocol": 1.0,
+   "sibling_reverse": 0.04502616706786988
+  }
+ ]
+}

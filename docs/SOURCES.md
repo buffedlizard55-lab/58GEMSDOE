@@ -44,3 +44,35 @@ The public competition homepage states **Dec. 3, 2026, 11:59 p.m. UTC**. Appendi
 - The GEMSDOE32 owner page's no-score/projection statement is a team-maintained page, not independent organizer confirmation.
 - No raw GeoDAWN, SGMC 2026, 3DEP DEM, or GDR archive was downloaded in this review.
 - No organizer confirmation was obtained for the deadline discrepancy, NaN/mask behavior, or whether any candidate file is accepted.
+
+---
+
+## Session 3 verification log (2026-10-11) — register rows S17–S24
+
+`bash` egress in this sandbox is limited to github.com / codeload / api.github.com / pypi, but the
+`fetch_page` tool reaches DrivenData, the community forum and GitHub. Everything below was read with
+`fetch_page` on 2026-10-11 and is recorded verbatim in
+[`evidence/organizer_confirmed.json`](../evidence/organizer_confirmed.json) with its URL; the register
+rows are S17–S24 of [`registry/sources.csv`](../registry/sources.csv).
+
+| What was verified | Source | Consequence |
+|---|---|---|
+| **Known USGS/INGENIOUS fault pixels are masked out of evaluation in both rounds** (staff) | [thread 11516](https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516) | Dots on the catalogue are inert, so the emitter drops only *on*-catalogue dots and keeps a non-zero HOLDOUT-DTI (IR-58-02) |
+| The public leaderboard is **pooled**; the final round re-evaluates the **whole GeoDAWN area**; **subset membership will not be disclosed** (staff) | [thread 11550](https://community.drivendata.org/t/leaderboard-aggregation-pooled-over-public-test-pixels-or-mean-of-per-chunk-scores/11550) | No owner-quoted score can be modelled (IR-58-LIVE-01); the budget comes from the measured family, not a fit |
+| **Test-fault provenance will not be disclosed**; Phase-2 labels are updated by expert review of all Phase-1 submissions (staff) | [thread 11527](https://community.drivendata.org/t/how-were-the-new-test-faults-identified-data-sources-and-fault-types/11527) | No local held-out truth set can be reconstructed; the mandated holdout can only score catalogue recovery |
+| The **reference solution**: Tversky α 0.2 / β 0.8 binary surrogate, `labels.tif` ≡ `existing_faults.tif`, writer emits single-band float32 with crs/transform from labels and **no NaN inside the footprint** | [drivendataorg/gems-prize-reference-solution](https://github.com/drivendataorg/gems-prize-reference-solution) (cloned) | Grounds the writer and the NaN rule; the shared scanner was fixed to accept the official NaN-outside-footprint representation (IR-58-UNIQ-05) |
+| GeoDAWN acquired **aeromagnetic *and* aeroradiometric** surveys plus coordinated **3DEP lidar**; "most faults … are more subtle, and many are hidden below the surface" | [page 968](https://www.drivendata.org/competitions/306/competition-doe-gems/page/968/) | The delivered 19-band stack has **no** radiometric or 1 m lidar channel (IR-58-DATA-01); recorded as an owner-download hypothesis only |
+| The one missing registry pin `927dc17f…` was recovered from `55GEMSDOE` commit `d92606c2…` and re-hashed to the pin (1,516,449 B) | git protocol | The witness inventory is now 695/695 pinned + a current-tree delta = **703** byte-verified rasters (IR-58-REG-01) |
+| Owner-quoted sibling scores and their site URLs | sibling GitHub Pages sites | 78 rows in `registry/live_scores_owner_reported.csv`; 66 matched to verified bytes; calibration verdict **NEGATIVE** |
+
+### Claims deliberately not made (session 3)
+
+- No organizer score or receipt was obtained **for any file in this repository**; gate G6 on the site can
+  never pass from this sandbox, and no local number is presented as ORGANIZER-CONFIRMED.
+- No raw GeoDAWN, SGMC 2026, 3DEP DEM or GDR archive was downloaded; none is fetchable here, so no
+  number is derived from them.
+- No candidate file has been accepted by the portal: the 15-check preflight reproduces the published
+  format rules locally and is not an acceptance.
+- The frozen inventory is a **public sibling-repository** inventory, not an organizer registry. Its
+  freshness caveat is closed for the 56 reachable clones' current default branches, not for private,
+  renamed or deleted repositories.

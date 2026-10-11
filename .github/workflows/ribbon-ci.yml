@@ -2,30 +2,23 @@ name: Fail-closed repository checks
 on:
   push:
     paths:
-      - "src/gems57/**"
-      - "src/gems58w/**"
-      - "scripts/build_site.py"
-      - "scripts/ribbon_check_site.py"
+      - "src/**"
+      - "scripts/**"
       - "tests/**"
       - "docs/**"
-      - "evidence/run_card.json"
-      - "evidence/ribbon_uniqueness.json"
+      - "evidence/**"
+      - "registry/**"
       - "pyproject.toml"
       - "requirements.txt"
       - ".github/workflows/ribbon-ci.yml"
   pull_request:
     paths:
-      - "src/gems57/**"
-      - "src/gems58w/**"
-      - "scripts/build_site.py"
-      - "scripts/ribbon_check_site.py"
+      - "src/**"
+      - "scripts/**"
       - "tests/**"
       - "docs/**"
-      - "evidence/run_card.json"
-      - "evidence/ribbon_uniqueness.json"
-      - "pyproject.toml"
-      - "requirements.txt"
-      - ".github/workflows/ribbon-ci.yml"
+      - "evidence/**"
+      - "registry/**"
 jobs:
   verify:
     runs-on: ubuntu-latest
@@ -40,5 +33,30 @@ jobs:
         run: PYTHONPATH=src python -m pytest -q
       - name: Build current fail-closed status site
         run: python scripts/build_site.py
+      - name: The rendered banner must match the gates in the receipts
+        run: |
+          # build_site.py exits 0 when it could render from complete receipts and 2 under
+          # --strict when a gate is open. Assert the two agree with the rendered copy, so a
+          # green banner can never be published over an open gate.
+          set +e
+          python scripts/build_site.py --strict
+          code=$?
+          set -e
+          echo "strict exit code: $code"
+          if [ "$code" -eq 0 ]; then
+            grep -q "OK TO DOWNLOAD AND SUBMIT" docs/index.html
+            grep -q "OK TO DOWNLOAD AND SUBMIT" docs/executive-summary.html
+          elif [ "$code" -eq 2 ]; then
+            grep -q "NOT OK TO SUBMIT" docs/index.html
+            grep -q "DO NOT SUBMIT" docs/index.html
+            grep -q "NOT OK TO SUBMIT" docs/executive-summary.html
+          else
+            echo "build_site.py failed to render from the receipts"; exit 1
+          fi
+          # the deliverable and its hash must be reachable from the first screen
+          grep -q "big-btn" docs/index.html
+          grep -q "gems58-ribbon-sigma-adaptive" docs/index.html
+      - name: Re-derive the delivered HOLDOUT-DTI with the shared gems57 metric
+        run: PYTHONPATH=src python scripts/crosscheck_shared_metric.py
       - name: Check archived ribbon pages and current negative gates
         run: python scripts/ribbon_check_site.py
