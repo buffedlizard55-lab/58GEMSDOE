@@ -1,0 +1,4706 @@
+{
+ "experiment": "E1-leakage-canary + E2-metric-optimal-emission",
+ "evidence_class": "HOLDOUT-DTI",
+ "instrument": {
+  "kind": "hide-and-recover",
+  "seeds": [
+   20,
+   21
+  ],
+  "modes": [
+   "all",
+   "detached"
+  ],
+  "evaluator": "gems57.holdout.score_cell (shared, exact)",
+  "alpha": 0.2,
+  "beta": 0.8,
+  "triangular_radius_px": 3.0
+ },
+ "stack_path": "/home/user/.cache/gems/training_features.tif",
+ "stack_sha256": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
+ "features": [
+  "raw/mag_anom",
+  "raw/rtp",
+  "raw/tmi_hg",
+  "raw/geod_2ndinv",
+  "raw/iso_grav_anom_slope",
+  "raw/tc",
+  "raw/geod_shearrate",
+  "raw/geod_dilaterate",
+  "raw/tmi_vg",
+  "raw/deq_n100a15",
+  "raw/iso_grav_anom_vg",
+  "raw/det_elev",
+  "raw/iso_grav_anom",
+  "raw/tmi",
+  "raw/depth_to_base_surf",
+  "raw/ieq_n100a15",
+  "raw/cond_surf",
+  "raw/iso_grav_anom_hg",
+  "raw/det_elev_slope",
+  "coh_s1/rtp",
+  "coh_s1/tmi",
+  "coh_s1/iso_grav_anom",
+  "coh_s1/det_elev",
+  "coh_s3/rtp",
+  "coh_s3/det_elev",
+  "std3/rtp",
+  "std3/tmi",
+  "std3/det_elev",
+  "std3/iso_grav_anom",
+  "std3/tmi_hg",
+  "std3/iso_grav_anom_hg",
+  "std7/rtp",
+  "std7/det_elev",
+  "lap/det_elev",
+  "lap/iso_grav_anom"
+ ],
+ "canary": {
+  "all": {
+   "n_pixels": 422641,
+   "n_truth": 22641,
+   "auc_by_feature": {
+    "CTX/distance_to_visible_catalogue": 0.8557990024181793,
+    "std7/det_elev": 0.568094282385937,
+    "std3/det_elev": 0.5630023676074378,
+    "raw/tc": 0.5592918108188684,
+    "raw/det_elev_slope": 0.5589829641469016,
+    "raw/ieq_n100a15": 0.5571570725122565,
+    "raw/geod_shearrate": 0.5534336100437259,
+    "raw/geod_2ndinv": 0.552273146724968,
+    "coh_s3/det_elev": 0.547974602104589,
+    "lap/det_elev": 0.538825487500552,
+    "coh_s1/det_elev": 0.5382661695596485,
+    "raw/deq_n100a15": 0.537931512355903,
+    "std7/rtp": 0.5348745232101055,
+    "std3/tmi_hg": 0.534795800594055,
+    "std3/iso_grav_anom_hg": 0.5345867586458195,
+    "std3/rtp": 0.532694888918334,
+    "std3/iso_grav_anom": 0.5322361959498255,
+    "raw/iso_grav_anom_slope": 0.53218676118546,
+    "std3/tmi": 0.5306466196833178,
+    "raw/tmi_hg": 0.5294625869550815,
+    "raw/iso_grav_anom": 0.5225146538359613,
+    "raw/iso_grav_anom_vg": 0.5205976693277682,
+    "raw/geod_dilaterate": 0.5205372331169118,
+    "raw/rtp": 0.519803142032154,
+    "raw/mag_anom": 0.5155583823594364,
+    "raw/depth_to_base_surf": 0.5152799885164083,
+    "raw/tmi": 0.510742902588225,
+    "coh_s3/rtp": 0.5096674834371273,
+    "raw/tmi_vg": 0.5092603017203303,
+    "coh_s1/tmi": 0.5044534720749967,
+    "coh_s1/iso_grav_anom": 0.5044360360076852,
+    "raw/det_elev": 0.5026334962015812,
+    "coh_s1/rtp": 0.5023599849829955,
+    "raw/cond_surf": 0.5017812761693389,
+    "lap/iso_grav_anom": 0.5014626724195044,
+    "raw/iso_grav_anom_hg": 0.500133676902522
+   },
+   "max_auc": 0.8557990024181793,
+   "max_auc_feature": "CTX/distance_to_visible_catalogue",
+   "leakage_flag": false,
+   "rule": "single feature alone vs withheld truth; AUC > 0.90 = leakage until proven otherwise"
+  },
+  "detached": {
+   "n_pixels": 422619,
+   "n_truth": 22619,
+   "auc_by_feature": {
+    "CTX/distance_to_visible_catalogue": 0.8444435717759406,
+    "raw/tc": 0.5844669500198948,
+    "std7/det_elev": 0.5822219153698218,
+    "std3/det_elev": 0.5754115574848578,
+    "raw/det_elev_slope": 0.5706302652084531,
+    "raw/ieq_n100a15": 0.566844638688713,
+    "raw/geod_dilaterate": 0.5633307759516335,
+    "std7/rtp": 0.5541306984172598,
+    "std3/rtp": 0.5523437835448075,
+    "std3/tmi": 0.5496335794022724,
+    "std3/tmi_hg": 0.5487509254940537,
+    "raw/geod_2ndinv": 0.5487233732149962,
+    "raw/tmi_hg": 0.5486974012445289,
+    "raw/geod_shearrate": 0.5414984192493038,
+    "lap/det_elev": 0.5401523096180202,
+    "coh_s3/det_elev": 0.537509592543879,
+    "std3/iso_grav_anom_hg": 0.5322422038993766,
+    "coh_s1/det_elev": 0.5285048660970866,
+    "raw/deq_n100a15": 0.527877513318449,
+    "std3/iso_grav_anom": 0.5271938686502498,
+    "raw/iso_grav_anom_slope": 0.5226368786750077,
+    "raw/mag_anom": 0.5219456584619125,
+    "raw/iso_grav_anom_vg": 0.5216078991113666,
+    "raw/tmi_vg": 0.5201518937618816,
+    "raw/rtp": 0.5176054349219683,
+    "raw/det_elev": 0.5156752161346656,
+    "raw/depth_to_base_surf": 0.5136527169636146,
+    "raw/cond_surf": 0.5130024815420664,
+    "raw/tmi": 0.5093765790375349,
+    "coh_s3/rtp": 0.5073947142888722,
+    "raw/iso_grav_anom": 0.5055288866660771,
+    "lap/iso_grav_anom": 0.5046258017595827,
+    "coh_s1/tmi": 0.503889903897166,
+    "coh_s1/rtp": 0.5035474324130156,
+    "coh_s1/iso_grav_anom": 0.5004040864428135,
+    "raw/iso_grav_anom_hg": 0.5000334029466378
+   },
+   "max_auc": 0.8444435717759406,
+   "max_auc_feature": "CTX/distance_to_visible_catalogue",
+   "leakage_flag": false,
+   "rule": "single feature alone vs withheld truth; AUC > 0.90 = leakage until proven otherwise"
+  }
+ },
+ "arms": {
+  "GF|dotted3px|all": {
+   "0.5": {
+    "pooled_dti": 0.015227734826079507,
+    "pooled_coverage": 0.012685882973656021,
+    "pooled_tp": 287.221076406546,
+    "pooled_fp": 3457.315185546875,
+    "pooled_fn": 22353.778923593454,
+    "dots": 3580,
+    "n_truth": 22641,
+    "per_cell": {
+     "draw20_foldNW_all": {
+      "dti": 0.0074811112309600665,
+      "dots": 485,
+      "cov": 0.006366971868383254
+     },
+     "draw20_foldNE_all": {
+      "dti": 0.026021968618369723,
+      "dots": 358,
+      "cov": 0.02167464632105796
+     },
+     "draw20_foldSW_all": {
+      "dti": 0.01105060575714265,
+      "dots": 533,
+      "cov": 0.009163816648278356
+     },
+     "draw20_foldSE_all": {
+      "dti": 0.021042595032753044,
+      "dots": 412,
+      "cov": 0.01740846249125069
+     },
+     "draw21_foldNW_all": {
+      "dti": 0.015030576379476161,
+      "dots": 486,
+      "cov": 0.012807366751183696
+     },
+     "draw21_foldNE_all": {
+      "dti": 0.017547378896131893,
+      "dots": 356,
+      "cov": 0.01459625616790849
+     },
+     "draw21_foldSW_all": {
+      "dti": 0.009532109556348277,
+      "dots": 534,
+      "cov": 0.007902926346172737
+     },
+     "draw21_foldSE_all": {
+      "dti": 0.016177248840652865,
+      "dots": 416,
+      "cov": 0.013380133122793028
+     }
+    }
+   },
+   "0.7": {
+    "pooled_dti": 0.004550884090815359,
+    "pooled_coverage": 0.003663187449691827,
+    "pooled_tp": 82.93822704847265,
+    "pooled_fp": 476.2648620605469,
+    "pooled_fn": 22558.06177295153,
+    "dots": 511,
+    "n_truth": 22641,
+    "per_cell": {
+     "draw20_foldNW_all": {
+      "dti": 0.003460268488832069,
+      "dots": 107,
+      "cov": 0.0028076459819940535
+     },
+     "draw20_foldNE_all": {
+      "dti": 0.0049463909630840675,
+      "dots": 56,
+      "cov": 0.003982883590981784
+     },
+     "draw20_foldSW_all": {
+      "dti": 0.0016285258786803093,
+      "dots": 37,
+      "cov": 0.0013062687304128357
+     },
+     "draw20_foldSE_all": {
+      "dti": 0.008493284019388996,
+      "dots": 54,
+      "cov": 0.006829943411687706
+     },
+     "draw21_foldNW_all": {
+      "dti": 0.009589839433219099,
+      "dots": 108,
+      "cov": 0.007788836260513943
+     },
+     "draw21_foldNE_all": {
+      "dti": 0.004857328620451801,
+      "dots": 56,
+      "cov": 0.003911006666756248
+     },
+     "draw21_foldSW_all": {
+      "dti": 0.0024636388944408558,
+      "dots": 38,
+      "cov": 0.0019764068692454486
+     },
+     "draw21_foldSE_all": {
+      "dti": 0.0035570183059204378,
+      "dots": 55,
+      "cov": 0.002858720436971539
+     }
+    }
+   },
+   "0.8": {
+    "pooled_dti": 0.0014319850355253578,
+    "pooled_coverage": 0.0011471332049682334,
+    "pooled_tp": 25.972242893685774,
+    "pooled_fp": 96.18106651306152,
+    "pooled_fn": 22615.027757106312,
+    "dots": 107,
+    "n_truth": 22641,
+    "per_cell": {
+     "draw20_foldNW_all": {
+      "dti": 0.00021574973033059358,
+      "dots": 25,
+      "cov": 0.0001731601731601732
+     },
+     "draw20_foldNE_all": {
+      "dti": 0.00034160065374168986,
+      "dots": 3,
+      "cov": 0.0002733763979878559
+     },
+     "draw20_foldSW_all": {
+      "dti": 0.0,
+      "dots": 5,
+      "cov": 0.0
+     },
+     "draw20_foldSE_all": {
+      "dti": 0.004147805935376678,
+      "dots": 20,
+      "cov": 0.0033249338273275753
+     },
+     "draw21_foldNW_all": {
+      "dti": 0.003494966991556192,
+      "dots": 25,
+      "cov": 0.002806363236649153
+     },
+     "draw21_foldNE_all": {
+      "dti": 0.0,
+      "dots": 3,
+      "cov": 0.0
+     },
+     "draw21_foldSW_all": {
+      "dti": 0.0008273563916707783,
+      "dots": 6,
+      "cov": 0.0006622020897500373
+     },
+     "draw21_foldSE_all": {
+      "dti": 0.002410748220031815,
+      "dots": 20,
+      "cov": 0.0019321313734648432
+     }
+    }
+   },
+   "0.9": {
+    "pooled_dti": 0.00011999501638590197,
+    "pooled_coverage": 9.601006044169022e-05,
+    "pooled_tp": 2.1737637784603083,
+    "pooled_fp": 11.078689336776733,
+    "pooled_fn": 22638.82623622154,
+    "dots": 12,
+    "n_truth": 22641,
+    "per_cell": {
+     "draw20_foldNW_all": {
+      "dti": 0.0,
+      "dots": 3,
+      "cov": 0.0
+     },
+     "draw20_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_all": {
+      "dti": 0.0007152354336480306,
+      "dots": 3,
+      "cov": 0.0005723728289401481
+     },
+     "draw21_foldNW_all": {
+      "dti": 0.0,
+      "dots": 3,
+      "cov": 0.0
+     },
+     "draw21_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_all": {
+      "dti": 0.00011979777012907496,
+      "dots": 3,
+      "cov": 9.58607334515852e-05
+     }
+    }
+   },
+   "0.95": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22641.0,
+    "dots": 0,
+    "n_truth": 22641,
+    "per_cell": {
+     "draw20_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.97": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22641.0,
+    "dots": 0,
+    "n_truth": 22641,
+    "per_cell": {
+     "draw20_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.98": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22641.0,
+    "dots": 0,
+    "n_truth": 22641,
+    "per_cell": {
+     "draw20_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.99": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22641.0,
+    "dots": 0,
+    "n_truth": 22641,
+    "per_cell": {
+     "draw20_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.995": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22641.0,
+    "dots": 0,
+    "n_truth": 22641,
+    "per_cell": {
+     "draw20_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.998": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22641.0,
+    "dots": 0,
+    "n_truth": 22641,
+    "per_cell": {
+     "draw20_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.999": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22641.0,
+    "dots": 0,
+    "n_truth": 22641,
+    "per_cell": {
+     "draw20_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   }
+  },
+  "GF|dotted3px|detached": {
+   "0.5": {
+    "pooled_dti": 0.016673738852560287,
+    "pooled_coverage": 0.013892983793158288,
+    "pooled_tp": 314.24540041744734,
+    "pooled_fp": 3443.388458251953,
+    "pooled_fn": 22304.754599582557,
+    "dots": 3581,
+    "n_truth": 22619,
+    "per_cell": {
+     "draw20_foldNW_detached": {
+      "dti": 0.017341652598159306,
+      "dots": 485,
+      "cov": 0.014779591324246222
+     },
+     "draw20_foldNE_detached": {
+      "dti": 0.01946203802757121,
+      "dots": 357,
+      "cov": 0.01619512889384165
+     },
+     "draw20_foldSW_detached": {
+      "dti": 0.006683357136969128,
+      "dots": 533,
+      "cov": 0.005539382395409521
+     },
+     "draw20_foldSE_detached": {
+      "dti": 0.017808264099883817,
+      "dots": 415,
+      "cov": 0.014728326768901064
+     },
+     "draw21_foldNW_detached": {
+      "dti": 0.019389205141255847,
+      "dots": 486,
+      "cov": 0.016528579723789873
+     },
+     "draw21_foldNE_detached": {
+      "dti": 0.025500900332822405,
+      "dots": 356,
+      "cov": 0.021234331490436163
+     },
+     "draw21_foldSW_detached": {
+      "dti": 0.010320509404283742,
+      "dots": 534,
+      "cov": 0.008557382449513094
+     },
+     "draw21_foldSE_detached": {
+      "dti": 0.02403439510682302,
+      "dots": 415,
+      "cov": 0.019895211111484394
+     }
+    }
+   },
+   "0.7": {
+    "pooled_dti": 0.004268480452329461,
+    "pooled_coverage": 0.003435841897945577,
+    "pooled_tp": 77.715307889631,
+    "pooled_fp": 480.2120552062988,
+    "pooled_fn": 22541.28469211037,
+    "dots": 514,
+    "n_truth": 22619,
+    "per_cell": {
+     "draw20_foldNW_detached": {
+      "dti": 0.011449426000914604,
+      "dots": 108,
+      "cov": 0.00930108389467648
+     },
+     "draw20_foldNE_detached": {
+      "dti": 0.005481840930893922,
+      "dots": 57,
+      "cov": 0.004414779561769942
+     },
+     "draw20_foldSW_detached": {
+      "dti": 0.0001100182630224286,
+      "dots": 37,
+      "cov": 8.823010411152286e-05
+     },
+     "draw20_foldSE_detached": {
+      "dti": 0.003263565167335608,
+      "dots": 55,
+      "cov": 0.002622742793284372
+     },
+     "draw21_foldNW_detached": {
+      "dti": 0.006945656352194074,
+      "dots": 108,
+      "cov": 0.005639039203790392
+     },
+     "draw21_foldNE_detached": {
+      "dti": 0.0060450004850843555,
+      "dots": 57,
+      "cov": 0.0048684283585870335
+     },
+     "draw21_foldSW_detached": {
+      "dti": 0.0006069151013418672,
+      "dots": 37,
+      "cov": 0.00048675758929568234
+     },
+     "draw21_foldSE_detached": {
+      "dti": 0.006285807768731728,
+      "dots": 55,
+      "cov": 0.005053528082156306
+     }
+    }
+   },
+   "0.8": {
+    "pooled_dti": 0.0012578969492682407,
+    "pooled_coverage": 0.0010076626053174224,
+    "pooled_tp": 22.792320469674777,
+    "pooled_fp": 98.13806772232056,
+    "pooled_fn": 22596.207679530326,
+    "dots": 107,
+    "n_truth": 22619,
+    "per_cell": {
+     "draw20_foldNW_detached": {
+      "dti": 0.004068886242838984,
+      "dots": 26,
+      "cov": 0.003267863019434003
+     },
+     "draw20_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 3,
+      "cov": 0.0
+     },
+     "draw20_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 5,
+      "cov": 0.0
+     },
+     "draw20_foldSE_detached": {
+      "dti": 0.0007152171175961289,
+      "dots": 20,
+      "cov": 0.0005730775046298251
+     },
+     "draw21_foldNW_detached": {
+      "dti": 0.0029176529170449805,
+      "dots": 25,
+      "cov": 0.002342566066420812
+     },
+     "draw21_foldNE_detached": {
+      "dti": 0.00034189028966234405,
+      "dots": 3,
+      "cov": 0.0002736082694026039
+     },
+     "draw21_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 5,
+      "cov": 0.0
+     },
+     "draw21_foldSE_detached": {
+      "dti": 0.003650349505664737,
+      "dots": 20,
+      "cov": 0.0029261610070155865
+     }
+    }
+   },
+   "0.9": {
+    "pooled_dti": 0.0002090408153920794,
+    "pooled_coverage": 0.00016725936101105436,
+    "pooled_tp": 3.7832394867090384,
+    "pooled_fp": 10.666666507720947,
+    "pooled_fn": 22615.216760513293,
+    "dots": 12,
+    "n_truth": 22619,
+    "per_cell": {
+     "draw20_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 3,
+      "cov": 0.0
+     },
+     "draw20_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 3,
+      "cov": 0.0
+     },
+     "draw21_foldNW_detached": {
+      "dti": 0.0012475630761651301,
+      "dots": 3,
+      "cov": 0.0009986022215003828
+     },
+     "draw21_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_detached": {
+      "dti": 0.0007161157101906269,
+      "dots": 3,
+      "cov": 0.0005730775046298251
+     }
+    }
+   },
+   "0.95": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22619.0,
+    "dots": 0,
+    "n_truth": 22619,
+    "per_cell": {
+     "draw20_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.97": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22619.0,
+    "dots": 0,
+    "n_truth": 22619,
+    "per_cell": {
+     "draw20_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.98": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22619.0,
+    "dots": 0,
+    "n_truth": 22619,
+    "per_cell": {
+     "draw20_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.99": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22619.0,
+    "dots": 0,
+    "n_truth": 22619,
+    "per_cell": {
+     "draw20_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.995": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22619.0,
+    "dots": 0,
+    "n_truth": 22619,
+    "per_cell": {
+     "draw20_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.998": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22619.0,
+    "dots": 0,
+    "n_truth": 22619,
+    "per_cell": {
+     "draw20_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.999": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22619.0,
+    "dots": 0,
+    "n_truth": 22619,
+    "per_cell": {
+     "draw20_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   }
+  },
+  "CTX|dotted3px|all": {
+   "0.5": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22641.0,
+    "dots": 0,
+    "n_truth": 22641,
+    "per_cell": {
+     "draw20_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.7": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22641.0,
+    "dots": 0,
+    "n_truth": 22641,
+    "per_cell": {
+     "draw20_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.8": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22641.0,
+    "dots": 0,
+    "n_truth": 22641,
+    "per_cell": {
+     "draw20_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.9": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22641.0,
+    "dots": 0,
+    "n_truth": 22641,
+    "per_cell": {
+     "draw20_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.95": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22641.0,
+    "dots": 0,
+    "n_truth": 22641,
+    "per_cell": {
+     "draw20_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.97": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22641.0,
+    "dots": 0,
+    "n_truth": 22641,
+    "per_cell": {
+     "draw20_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.98": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22641.0,
+    "dots": 0,
+    "n_truth": 22641,
+    "per_cell": {
+     "draw20_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.99": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22641.0,
+    "dots": 0,
+    "n_truth": 22641,
+    "per_cell": {
+     "draw20_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.995": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22641.0,
+    "dots": 0,
+    "n_truth": 22641,
+    "per_cell": {
+     "draw20_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.998": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22641.0,
+    "dots": 0,
+    "n_truth": 22641,
+    "per_cell": {
+     "draw20_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.999": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22641.0,
+    "dots": 0,
+    "n_truth": 22641,
+    "per_cell": {
+     "draw20_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   }
+  },
+  "CTX|dotted3px|detached": {
+   "0.5": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22619.0,
+    "dots": 0,
+    "n_truth": 22619,
+    "per_cell": {
+     "draw20_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.7": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22619.0,
+    "dots": 0,
+    "n_truth": 22619,
+    "per_cell": {
+     "draw20_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.8": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22619.0,
+    "dots": 0,
+    "n_truth": 22619,
+    "per_cell": {
+     "draw20_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.9": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22619.0,
+    "dots": 0,
+    "n_truth": 22619,
+    "per_cell": {
+     "draw20_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.95": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22619.0,
+    "dots": 0,
+    "n_truth": 22619,
+    "per_cell": {
+     "draw20_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.97": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22619.0,
+    "dots": 0,
+    "n_truth": 22619,
+    "per_cell": {
+     "draw20_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.98": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22619.0,
+    "dots": 0,
+    "n_truth": 22619,
+    "per_cell": {
+     "draw20_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.99": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22619.0,
+    "dots": 0,
+    "n_truth": 22619,
+    "per_cell": {
+     "draw20_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.995": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22619.0,
+    "dots": 0,
+    "n_truth": 22619,
+    "per_cell": {
+     "draw20_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.998": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22619.0,
+    "dots": 0,
+    "n_truth": 22619,
+    "per_cell": {
+     "draw20_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.999": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22619.0,
+    "dots": 0,
+    "n_truth": 22619,
+    "per_cell": {
+     "draw20_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   }
+  },
+  "GF|solid|all": {
+   "0.5": {
+    "pooled_dti": 0.03433851936964144,
+    "pooled_coverage": 0.04295614461513638,
+    "pooled_tp": 972.5700702313028,
+    "pooled_fp": 50078.45703125,
+    "pooled_fn": 21668.4299297687,
+    "dots": 52097,
+    "n_truth": 22641,
+    "per_cell": {
+     "draw20_foldNW_all": {
+      "dti": 0.0213745315035309,
+      "dots": 8037,
+      "cov": 0.03475672851247307
+     },
+     "draw20_foldNE_all": {
+      "dti": 0.04811903050974499,
+      "dots": 5154,
+      "cov": 0.05901186868769057
+     },
+     "draw20_foldSW_all": {
+      "dti": 0.02439670824398849,
+      "dots": 6604,
+      "cov": 0.027942936844628667
+     },
+     "draw20_foldSE_all": {
+      "dti": 0.047357015366858955,
+      "dots": 6244,
+      "cov": 0.05541233346243147
+     },
+     "draw21_foldNW_all": {
+      "dti": 0.029771658121115496,
+      "dots": 8064,
+      "cov": 0.04844011943778038
+     },
+     "draw21_foldNE_all": {
+      "dti": 0.0370197790136805,
+      "dots": 5149,
+      "cov": 0.045381736164331075
+     },
+     "draw21_foldSW_all": {
+      "dti": 0.022746562579428257,
+      "dots": 6601,
+      "cov": 0.026027022663242222
+     },
+     "draw21_foldSE_all": {
+      "dti": 0.04769754003086894,
+      "dots": 6244,
+      "cov": 0.055853683579181676
+     }
+    }
+   },
+   "0.7": {
+    "pooled_dti": 0.012646244084574708,
+    "pooled_coverage": 0.010663014925088286,
+    "pooled_tp": 241.42132091892387,
+    "pooled_fp": 4646.366302490234,
+    "pooled_fn": 22399.578679081078,
+    "dots": 5069,
+    "n_truth": 22641,
+    "per_cell": {
+     "draw20_foldNW_all": {
+      "dti": 0.013361063211540635,
+      "dots": 1063,
+      "cov": 0.01214826548110635
+     },
+     "draw20_foldNE_all": {
+      "dti": 0.009804206860027568,
+      "dots": 284,
+      "cov": 0.00807198593838555
+     },
+     "draw20_foldSW_all": {
+      "dti": 0.0020820613534185107,
+      "dots": 359,
+      "cov": 0.0017055512740636665
+     },
+     "draw20_foldSE_all": {
+      "dti": 0.026021882920499666,
+      "dots": 830,
+      "cov": 0.02202645508115911
+     },
+     "draw21_foldNW_all": {
+      "dti": 0.018621595626143725,
+      "dots": 1065,
+      "cov": 0.01694433459862396
+     },
+     "draw21_foldNE_all": {
+      "dti": 0.011905261477886639,
+      "dots": 287,
+      "cov": 0.009804633404671288
+     },
+     "draw21_foldSW_all": {
+      "dti": 0.00432552272744898,
+      "dots": 364,
+      "cov": 0.003541759197504372
+     },
+     "draw21_foldSE_all": {
+      "dti": 0.018804729781972448,
+      "dots": 817,
+      "cov": 0.015915691496979557
+     }
+    }
+   },
+   "0.8": {
+    "pooled_dti": 0.004182804822748483,
+    "pooled_coverage": 0.0033793932111335864,
+    "pooled_tp": 76.51284169327553,
+    "pooled_fp": 820.6536908149719,
+    "pooled_fn": 22564.487158306725,
+    "dots": 921,
+    "n_truth": 22641,
+    "per_cell": {
+     "draw20_foldNW_all": {
+      "dti": 0.0025087908823518937,
+      "dots": 231,
+      "cov": 0.002066754094849181
+     },
+     "draw20_foldNE_all": {
+      "dti": 0.00034145601972951166,
+      "dots": 7,
+      "cov": 0.0002733763979878559
+     },
+     "draw20_foldSW_all": {
+      "dti": 0.0,
+      "dots": 23,
+      "cov": 0.0
+     },
+     "draw20_foldSE_all": {
+      "dti": 0.013361619345587862,
+      "dots": 202,
+      "cov": 0.010840370424366988
+     },
+     "draw21_foldNW_all": {
+      "dti": 0.005225896187531395,
+      "dots": 232,
+      "cov": 0.0043089308134900235
+     },
+     "draw21_foldNE_all": {
+      "dti": 0.0,
+      "dots": 7,
+      "cov": 0.0
+     },
+     "draw21_foldSW_all": {
+      "dti": 0.0008263746416008932,
+      "dots": 24,
+      "cov": 0.0006622020897500373
+     },
+     "draw21_foldSE_all": {
+      "dti": 0.00979283831156766,
+      "dots": 195,
+      "cov": 0.007946360721823767
+     }
+    }
+   },
+   "0.9": {
+    "pooled_dti": 0.00019442725735631944,
+    "pooled_coverage": 0.00015562396707687043,
+    "pooled_tp": 3.5234822385874236,
+    "pooled_fp": 44.314757347106934,
+    "pooled_fn": 22637.476517761414,
+    "dots": 47,
+    "n_truth": 22641,
+    "per_cell": {
+     "draw20_foldNW_all": {
+      "dti": 0.0,
+      "dots": 18,
+      "cov": 0.0
+     },
+     "draw20_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_all": {
+      "dti": 0.0011137083551716605,
+      "dots": 6,
+      "cov": 0.0008914270847683401
+     },
+     "draw21_foldNW_all": {
+      "dti": 0.0,
+      "dots": 18,
+      "cov": 0.0
+     },
+     "draw21_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_all": {
+      "dti": 0.00023955767519940566,
+      "dots": 5,
+      "cov": 0.0001917214669031704
+     }
+    }
+   },
+   "0.95": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22641.0,
+    "dots": 0,
+    "n_truth": 22641,
+    "per_cell": {
+     "draw20_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.97": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22641.0,
+    "dots": 0,
+    "n_truth": 22641,
+    "per_cell": {
+     "draw20_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.98": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22641.0,
+    "dots": 0,
+    "n_truth": 22641,
+    "per_cell": {
+     "draw20_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.99": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22641.0,
+    "dots": 0,
+    "n_truth": 22641,
+    "per_cell": {
+     "draw20_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.995": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22641.0,
+    "dots": 0,
+    "n_truth": 22641,
+    "per_cell": {
+     "draw20_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.998": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22641.0,
+    "dots": 0,
+    "n_truth": 22641,
+    "per_cell": {
+     "draw20_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.999": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22641.0,
+    "dots": 0,
+    "n_truth": 22641,
+    "per_cell": {
+     "draw20_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   }
+  },
+  "GF|solid|detached": {
+   "0.5": {
+    "pooled_dti": 0.03689539952376566,
+    "pooled_coverage": 0.0461734312347926,
+    "pooled_tp": 1044.3968410997738,
+    "pooled_fp": 50014.43603515625,
+    "pooled_fn": 21574.60315890023,
+    "dots": 52098,
+    "n_truth": 22619,
+    "per_cell": {
+     "draw20_foldNW_detached": {
+      "dti": 0.04292315615386753,
+      "dots": 8082,
+      "cov": 0.06978621735894766
+     },
+     "draw20_foldNE_detached": {
+      "dti": 0.044981885749491794,
+      "dots": 5157,
+      "cov": 0.05502265109091417
+     },
+     "draw20_foldSW_detached": {
+      "dti": 0.019959768541059672,
+      "dots": 6591,
+      "cov": 0.022901708340510803
+     },
+     "draw20_foldSE_detached": {
+      "dti": 0.03934665209232903,
+      "dots": 6208,
+      "cov": 0.046178879173156544
+     },
+     "draw21_foldNW_detached": {
+      "dti": 0.04058440006849025,
+      "dots": 8068,
+      "cov": 0.06581342656284038
+     },
+     "draw21_foldNE_detached": {
+      "dti": 0.05117925605001874,
+      "dots": 5164,
+      "cov": 0.06262086253761619
+     },
+     "draw21_foldSW_detached": {
+      "dti": 0.01924438484667246,
+      "dots": 6602,
+      "cov": 0.022066495882897042
+     },
+     "draw21_foldSE_detached": {
+      "dti": 0.04889200731744385,
+      "dots": 6226,
+      "cov": 0.05733835971512217
+     }
+    }
+   },
+   "0.7": {
+    "pooled_dti": 0.009910244618854775,
+    "pooled_coverage": 0.008358054384639943,
+    "pooled_tp": 189.05083212617086,
+    "pooled_fp": 4716.465667724609,
+    "pooled_fn": 22429.94916787383,
+    "dots": 5041,
+    "n_truth": 22619,
+    "per_cell": {
+     "draw20_foldNW_detached": {
+      "dti": 0.02434406408406286,
+      "dots": 1076,
+      "cov": 0.022155382019155487
+     },
+     "draw20_foldNE_detached": {
+      "dti": 0.011614695991062036,
+      "dots": 284,
+      "cov": 0.00957189717365762
+     },
+     "draw20_foldSW_detached": {
+      "dti": 0.00027233697278228894,
+      "dots": 358,
+      "cov": 0.00022303370787016242
+     },
+     "draw20_foldSE_detached": {
+      "dti": 0.0073506592747358225,
+      "dots": 797,
+      "cov": 0.006231868225199146
+     },
+     "draw21_foldNW_detached": {
+      "dti": 0.019611907480392134,
+      "dots": 1068,
+      "cov": 0.017797415084745576
+     },
+     "draw21_foldNE_detached": {
+      "dti": 0.012882564543246029,
+      "dots": 283,
+      "cov": 0.010613934271826133
+     },
+     "draw21_foldSW_detached": {
+      "dti": 0.001563208729160881,
+      "dots": 360,
+      "cov": 0.0012801984779494777
+     },
+     "draw21_foldSE_detached": {
+      "dti": 0.014083771654544755,
+      "dots": 815,
+      "cov": 0.01192216974800149
+     }
+    }
+   },
+   "0.8": {
+    "pooled_dti": 0.0030924075545942105,
+    "pooled_coverage": 0.0024978908425644635,
+    "pooled_tp": 56.499792967965604,
+    "pooled_fp": 819.9367318153381,
+    "pooled_fn": 22562.500207032033,
+    "dots": 935,
+    "n_truth": 22619,
+    "per_cell": {
+     "draw20_foldNW_detached": {
+      "dti": 0.006800965725099666,
+      "dots": 234,
+      "cov": 0.0056079943300123575
+     },
+     "draw20_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 7,
+      "cov": 0.0
+     },
+     "draw20_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 23,
+      "cov": 0.0
+     },
+     "draw20_foldSE_detached": {
+      "dti": 0.002908605756003989,
+      "dots": 193,
+      "cov": 0.002359700420642249
+     },
+     "draw21_foldNW_detached": {
+      "dti": 0.008990217756851365,
+      "dots": 239,
+      "cov": 0.007396546121038589
+     },
+     "draw21_foldNE_detached": {
+      "dti": 0.0003417454103340008,
+      "dots": 7,
+      "cov": 0.0002736082694026039
+     },
+     "draw21_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 23,
+      "cov": 0.0
+     },
+     "draw21_foldSE_detached": {
+      "dti": 0.008803268151134558,
+      "dots": 209,
+      "cov": 0.00713920041424304
+     }
+    }
+   },
+   "0.9": {
+    "pooled_dti": 0.0004567158461726758,
+    "pooled_coverage": 0.0003655704598385143,
+    "pooled_tp": 8.268838231087354,
+    "pooled_fp": 40.70747232437134,
+    "pooled_fn": 22610.731161768912,
+    "dots": 47,
+    "n_truth": 22619,
+    "per_cell": {
+     "draw20_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 18,
+      "cov": 0.0
+     },
+     "draw20_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_detached": {
+      "dti": 0.00011992677262150012,
+      "dots": 5,
+      "cov": 9.597875220621934e-05
+     },
+     "draw21_foldNW_detached": {
+      "dti": 0.0032774225322035294,
+      "dots": 18,
+      "cov": 0.0026284776291153516
+     },
+     "draw21_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_detached": {
+      "dti": 0.0011150787860043114,
+      "dots": 6,
+      "cov": 0.0008925245634815052
+     }
+    }
+   },
+   "0.95": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22619.0,
+    "dots": 0,
+    "n_truth": 22619,
+    "per_cell": {
+     "draw20_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.97": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22619.0,
+    "dots": 0,
+    "n_truth": 22619,
+    "per_cell": {
+     "draw20_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.98": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22619.0,
+    "dots": 0,
+    "n_truth": 22619,
+    "per_cell": {
+     "draw20_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.99": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22619.0,
+    "dots": 0,
+    "n_truth": 22619,
+    "per_cell": {
+     "draw20_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.995": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22619.0,
+    "dots": 0,
+    "n_truth": 22619,
+    "per_cell": {
+     "draw20_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.998": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22619.0,
+    "dots": 0,
+    "n_truth": 22619,
+    "per_cell": {
+     "draw20_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.999": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22619.0,
+    "dots": 0,
+    "n_truth": 22619,
+    "per_cell": {
+     "draw20_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   }
+  },
+  "CTX|solid|all": {
+   "0.5": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22641.0,
+    "dots": 0,
+    "n_truth": 22641,
+    "per_cell": {
+     "draw20_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.7": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22641.0,
+    "dots": 0,
+    "n_truth": 22641,
+    "per_cell": {
+     "draw20_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.8": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22641.0,
+    "dots": 0,
+    "n_truth": 22641,
+    "per_cell": {
+     "draw20_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.9": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22641.0,
+    "dots": 0,
+    "n_truth": 22641,
+    "per_cell": {
+     "draw20_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.95": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22641.0,
+    "dots": 0,
+    "n_truth": 22641,
+    "per_cell": {
+     "draw20_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.97": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22641.0,
+    "dots": 0,
+    "n_truth": 22641,
+    "per_cell": {
+     "draw20_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.98": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22641.0,
+    "dots": 0,
+    "n_truth": 22641,
+    "per_cell": {
+     "draw20_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.99": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22641.0,
+    "dots": 0,
+    "n_truth": 22641,
+    "per_cell": {
+     "draw20_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.995": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22641.0,
+    "dots": 0,
+    "n_truth": 22641,
+    "per_cell": {
+     "draw20_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.998": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22641.0,
+    "dots": 0,
+    "n_truth": 22641,
+    "per_cell": {
+     "draw20_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.999": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22641.0,
+    "dots": 0,
+    "n_truth": 22641,
+    "per_cell": {
+     "draw20_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_all": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   }
+  },
+  "CTX|solid|detached": {
+   "0.5": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22619.0,
+    "dots": 0,
+    "n_truth": 22619,
+    "per_cell": {
+     "draw20_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.7": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22619.0,
+    "dots": 0,
+    "n_truth": 22619,
+    "per_cell": {
+     "draw20_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.8": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22619.0,
+    "dots": 0,
+    "n_truth": 22619,
+    "per_cell": {
+     "draw20_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.9": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22619.0,
+    "dots": 0,
+    "n_truth": 22619,
+    "per_cell": {
+     "draw20_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.95": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22619.0,
+    "dots": 0,
+    "n_truth": 22619,
+    "per_cell": {
+     "draw20_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.97": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22619.0,
+    "dots": 0,
+    "n_truth": 22619,
+    "per_cell": {
+     "draw20_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.98": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22619.0,
+    "dots": 0,
+    "n_truth": 22619,
+    "per_cell": {
+     "draw20_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.99": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22619.0,
+    "dots": 0,
+    "n_truth": 22619,
+    "per_cell": {
+     "draw20_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.995": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22619.0,
+    "dots": 0,
+    "n_truth": 22619,
+    "per_cell": {
+     "draw20_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.998": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22619.0,
+    "dots": 0,
+    "n_truth": 22619,
+    "per_cell": {
+     "draw20_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   },
+   "0.999": {
+    "pooled_dti": 0.0,
+    "pooled_coverage": 0.0,
+    "pooled_tp": 0.0,
+    "pooled_fp": 0.0,
+    "pooled_fn": 22619.0,
+    "dots": 0,
+    "n_truth": 22619,
+    "per_cell": {
+     "draw20_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw20_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldNE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSW_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     },
+     "draw21_foldSE_detached": {
+      "dti": 0.0,
+      "dots": 0,
+      "cov": 0.0
+     }
+    }
+   }
+  }
+ },
+ "best_on_all": {
+  "arm": "GF|solid|all",
+  "threshold": 0.5,
+  "pooled_dti": 0.03433851936964144,
+  "pooled_coverage": 0.04295614461513638,
+  "pooled_tp": 972.5700702313028,
+  "pooled_fp": 50078.45703125,
+  "pooled_fn": 21668.4299297687,
+  "dots": 52097,
+  "n_truth": 22641
+ },
+ "best_on_detached": {
+  "arm": "GF|solid|detached",
+  "threshold": 0.5,
+  "pooled_dti": 0.03689539952376566,
+  "pooled_coverage": 0.0461734312347926,
+  "pooled_tp": 1044.3968410997738,
+  "pooled_fp": 50014.43603515625,
+  "pooled_fn": 21574.60315890023,
+  "dots": 52098,
+  "n_truth": 22619
+ },
+ "paired": {
+  "dotted3px_minus_solid|all": {
+   "delta": -0.019110784543561934,
+   "ci95": [
+    -0.02445543128368049,
+    -0.015007342887655878
+   ],
+   "draws": 1000,
+   "seed": 520810,
+   "cells": 8,
+   "caveat": "Conditional on the fitted folds and fixed thresholds; not a leaderboard interval.",
+   "solid_control_tau": 0.5
+  },
+  "dotted3px_minus_solid|detached": {
+   "delta": -0.02022166067120537,
+   "ci95": [
+    -0.02416560015295403,
+    -0.016110524843851448
+   ],
+   "draws": 1000,
+   "seed": 520810,
+   "cells": 8,
+   "caveat": "Conditional on the fitted folds and fixed thresholds; not a leaderboard interval.",
+   "solid_control_tau": 0.5
+  }
+ }
+}

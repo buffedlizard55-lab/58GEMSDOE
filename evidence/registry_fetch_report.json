@@ -3,241 +3,240 @@
  "method": "git sparse clone (blob:none) over github.com; sha256 verified before caching",
  "registry_snapshot_sha256": "846eddb9459f0e5b67f33da519bbd62c966bf5f539545ba3dad262fbfbc308c2",
  "pinned_rasters": 695,
- "restored": 695,
- "missing": 0,
+ "restored": 694,
+ "missing": 1,
  "hash_mismatch": 0,
  "repos": {
   "11GEMSDOE": {
    "ok": true,
-   "seconds": 1.2
+   "seconds": 0.8
   },
   "15GEMSDOE": {
    "ok": true,
-   "seconds": 1.3
+   "seconds": 0.9
   },
   "12GEMSDOE": {
    "ok": true,
-   "seconds": 1.5
+   "seconds": 1.0
   },
-  "13GEMSDOE": {
+  "16GEMSDOE": {
    "ok": true,
-   "seconds": 2.6
+   "seconds": 1.2
   },
   "18GEMSDOE": {
    "ok": true,
    "seconds": 1.2
   },
-  "16GEMSDOE": {
+  "13GEMSDOE": {
    "ok": true,
-   "seconds": 1.6
-  },
-  "20GEMSDOE": {
-   "ok": true,
-   "seconds": 1.3
-  },
-  "19GEMSDOE": {
-   "ok": true,
-   "seconds": 1.5
+   "seconds": 2.4
   },
   "17GEMSDOE": {
    "ok": true,
-   "seconds": 3.0
+   "seconds": 1.9
+  },
+  "19GEMSDOE": {
+   "ok": true,
+   "seconds": 1.2
+  },
+  "20GEMSDOE": {
+   "ok": true,
+   "seconds": 1.1
   },
   "57GEMSDOE-PR6": {
    "ok": false,
    "error": "clone rc=128: remote: Repository not found.\nfatal: repository 'https://github.com/buffedlizard55-lab/57GEMSDOE-PR6.git/' not found"
   },
+  "56GEMSDOE": {
+   "ok": true,
+   "seconds": 0.9
+  },
+  "6GEMSDOE": {
+   "ok": true,
+   "seconds": 0.9
+  },
   "55GEMSDOE": {
    "ok": true,
    "seconds": 2.6
   },
-  "56GEMSDOE": {
-   "ok": true,
-   "seconds": 2.2
-  },
-  "6GEMSDOE": {
-   "ok": true,
-   "seconds": 1.0
-  },
   "5GEMSDOE": {
    "ok": true,
-   "seconds": 3.2
-  },
-  "57GEMSDOE": {
-   "ok": true,
-   "seconds": 3.9
+   "seconds": 2.5
   },
   "8GEMSDOE": {
    "ok": true,
-   "seconds": 2.2
+   "seconds": 1.1
+  },
+  "7GEMSDOE": {
+   "ok": true,
+   "seconds": 1.7
+  },
+  "57GEMSDOE": {
+   "ok": true,
+   "seconds": 3.1
   },
   "GEMSDOE": {
    "ok": true,
    "seconds": 1.0
   },
-  "7GEMSDOE": {
-   "ok": true,
-   "seconds": 2.8
-  },
   "GEMSDOE21": {
    "ok": true,
-   "seconds": 1.7
+   "seconds": 0.7
   },
   "GEMSDOE10": {
    "ok": true,
-   "seconds": 2.8
-  },
-  "GEMSDOE22": {
-   "ok": true,
-   "seconds": 2.7
+   "seconds": 1.1
   },
   "GEMSDOE23": {
    "ok": true,
-   "seconds": 1.5
+   "seconds": 1.1
   },
   "GEMSDOE25": {
    "ok": true,
-   "seconds": 0.9
-  },
-  "GEMSDOE26": {
-   "ok": true,
-   "seconds": 1.1
+   "seconds": 1.0
   },
   "GEMSDOE24": {
+   "ok": true,
+   "seconds": 2.0
+  },
+  "GEMSDOE22": {
    "ok": true,
    "seconds": 2.3
   },
   "GEMSDOE2": {
    "ok": true,
-   "seconds": 4.7
+   "seconds": 3.6
   },
-  "GEMSDOE27": {
-   "ok": true,
-   "seconds": 1.3
-  },
-  "GEMSDOE28": {
-   "ok": true,
-   "seconds": 1.6
-  },
-  "GEMSDOE29": {
-   "ok": true,
-   "seconds": 1.7
-  },
-  "GEMSDOE30": {
+  "GEMSDOE26": {
    "ok": true,
    "seconds": 1.5
   },
-  "GEMSDOE3": {
+  "GEMSDOE27": {
    "ok": true,
-   "seconds": 2.5
+   "seconds": 1.7
+  },
+  "GEMSDOE28": {
+   "ok": true,
+   "seconds": 1.8
+  },
+  "GEMSDOE29": {
+   "ok": true,
+   "seconds": 1.5
+  },
+  "GEMSDOE30": {
+   "ok": true,
+   "seconds": 2.1
   },
   "GEMSDOE31": {
    "ok": true,
-   "seconds": 1.1
+   "seconds": 2.2
   },
   "GEMSDOE32": {
    "ok": true,
-   "seconds": 1.4
+   "seconds": 2.0
+  },
+  "GEMSDOE3": {
+   "ok": true,
+   "seconds": 2.9
   },
   "GEMSDOE33": {
    "ok": true,
-   "seconds": 1.2
+   "seconds": 1.0
   },
   "GEMSDOE35": {
    "ok": true,
-   "seconds": 1.0
+   "seconds": 0.7
   },
   "GEMSDOE34": {
    "ok": true,
-   "seconds": 1.1
+   "seconds": 0.9
   },
   "GEMSDOE36": {
    "ok": true,
-   "seconds": 0.9
+   "seconds": 0.8
   },
   "GEMSDOE37": {
    "ok": true,
-   "seconds": 1.0
-  },
-  "GEMSDOE38": {
-   "ok": true,
-   "seconds": 1.0
+   "seconds": 0.8
   },
   "GEMSDOE39": {
+   "ok": true,
+   "seconds": 0.8
+  },
+  "GEMSDOE38": {
    "ok": true,
    "seconds": 0.9
   },
   "GEMSDOE42": {
    "ok": true,
-   "seconds": 0.9
+   "seconds": 0.7
   },
   "GEMSDOE41": {
    "ok": true,
-   "seconds": 1.4
+   "seconds": 1.2
   },
   "GEMSDOE43": {
    "ok": true,
-   "seconds": 1.2
+   "seconds": 0.9
   },
   "GEMSDOE44": {
    "ok": true,
-   "seconds": 1.2
+   "seconds": 0.9
   },
   "GEMSDOE40": {
    "ok": true,
-   "seconds": 3.2
+   "seconds": 2.6
   },
   "GEMSDOE45": {
    "ok": true,
-   "seconds": 1.0
+   "seconds": 0.9
   },
   "GEMSDOE46": {
    "ok": true,
-   "seconds": 4.9
+   "seconds": 1.2
   },
   "GEMSDOE47": {
    "ok": true,
-   "seconds": 4.6
+   "seconds": 1.2
   },
   "GEMSDOE49": {
    "ok": true,
-   "seconds": 1.1
+   "seconds": 1.2
   },
   "GEMSDOE50": {
    "ok": true,
-   "seconds": 1.9
+   "seconds": 1.8
   },
   "GEMSDOE51": {
    "ok": true,
-   "seconds": 4.1
-  },
-  "GEMSDOE52": {
-   "ok": true,
-   "seconds": 3.4
+   "seconds": 1.5
   },
   "GEMSDOE53": {
    "ok": true,
    "seconds": 1.4
   },
+  "GEMSDOE52": {
+   "ok": true,
+   "seconds": 1.9
+  },
   "GEMSDOE4": {
    "ok": true,
-   "seconds": 15.1
-  },
-  "GEMSDOE54": {
-   "ok": true,
-   "seconds": 1.7
+   "seconds": 9.6
   },
   "GEMSDOE9": {
    "ok": true,
-   "seconds": 1.0
+   "seconds": 1.8
+  },
+  "GEMSDOE54": {
+   "ok": true,
+   "seconds": 2.0
   },
   "GEMSDOE48": {
    "ok": true,
-   "seconds": 15.3
+   "seconds": 7.9
   }
  },
- "complete_accessible_scan": true,
+ "complete_accessible_scan": false,
  "cache_dir": "/home/user/58GEMSDOE/.cache/registry",
- "generated_utc": "2026-10-11T00:27:36Z",
- "note": "1 raster (927dc17f...) absent from 55GEMSDOE current main; recovered from its registry-pinned commit d92606c2 via git fetch of that commit; sha256 verified against the pin. IRREGULARITY FLAGGED: a registry-pinned path no longer exists at that repo s current main."
+ "generated_utc": "2026-10-11T01:42:55Z"
 }
