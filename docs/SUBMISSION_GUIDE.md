@@ -1,73 +1,58 @@
-# Submission guide — current file is review-only
+# Submission guide — current artifact is stopped
 
-> **NOT OK TO SUBMIT — DO NOT UPLOAD OR SELECT A SLOT.** The TIFF linked below is an audit artifact,
-> not a cleared competition submission. A local preflight pass is not portal acceptance.
+> **NOT OK TO SUBMIT — DO NOT UPLOAD OR SELECT A SLOT.** The TIFF linked here is downloadable for audit only. It is not a qualified competition submission. A local format pass is not organizer/portal acceptance.
 
-## Current downloadable candidate
+## Current artifact and verdict
 
-Named by [`evidence/ribbon/emission.json`](../evidence/ribbon/emission.json); the rendered status is
-[`docs/RUN_CARD.json`](RUN_CARD.json) (`site_verdict: NOT_OK_TO_SUBMIT`).
+- GeoTIFF: [`58GEMSDOE-ribbon-sparse-review-only-20261011T182511Z.tif`](downloads/58GEMSDOE-ribbon-sparse-review-only-20261011T182511Z.tif)
+- ZIP containing one TIFF: [`58GEMSDOE-ribbon-sparse-review-only-20261011T182511Z.zip`](downloads/58GEMSDOE-ribbon-sparse-review-only-20261011T182511Z.zip)
+- Per-file metadata: [`58GEMSDOE-ribbon-sparse-review-only-20261011T182511Z.json`](downloads/58GEMSDOE-ribbon-sparse-review-only-20261011T182511Z.json)
+- Artifact SHA-256: `b4cd208015892a19bb2de36585a6f5ff8203dd78b95d49d6b88c8d4c927c1448` (49,139,380 bytes).
+- Proposed internal name only: `58GEMSDOE-ribbon-sparse-diagnostic-20261011T182511Z`. This is **not authorized** for the portal.
+- Proposed note (62/140 characters): `Diagnostic only; uniqueness and holdout gates are not cleared.` This is **not a submission instruction**.
 
-- TIFF: [`gems58-concordance-ribbon-40768-20261011T160514Z.tif`](downloads/gems58-concordance-ribbon-40768-20261011T160514Z.tif)
-- ZIP: [`gems58-concordance-ribbon-40768-20261011T160514Z.zip`](downloads/gems58-concordance-ribbon-40768-20261011T160514Z.zip)
-- SHA-256: `f709b6f12d5188e34aa3aed3b83d785b97a232224692dcdfffedaa009dee9d0d` (427,919 bytes)
-- Recorded positive pixels: 40,768.
-- The session-3 diagnostic `gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif`
-  (`ecf833f8…2711dd`) is retained beside it as an archived artifact, with its own audit receipt in
-  [`evidence/ribbon/archive-s3/`](../evidence/ribbon/archive-s3/).
+The previous filename contained `unique`, but there was no supporting uniqueness measurement when it was named. It has been renamed review-only; the raster pixel bytes did not change. Keep the artifact only for audit/reproducibility. Its download link does not indicate eligibility.
 
-Both files are available **for review and reproducibility only**. The directory index at
-[`downloads/`](downloads/index.html) labels each TIFF/ZIP separately. Do not upload this candidate,
-select a weekly slot, or infer eligibility from the existence of a download button.
+## Gate-by-gate status
 
-## What local validation establishes — and what it does not
+| Gate | Result | Evidence and limit |
+|---|---|---|
+| On-disk format/range | **19/19 LOCAL-FILE-AUDIT checks pass** | One-band float32; EPSG:32611; 3730×3292; sample CRS/shape/transform match; values finite in [0,1]; positives exactly 1.0; outside-footprint positives zero; no positive on the bridged mapped catalogue; ZIP round trip succeeds. This establishes only the recorded local checks. |
+| Nodata metadata | **Difference flagged** | Candidate has `nodata=null`; sample has `nodata=NaN`. Candidate values are finite everywhere. Portal acceptance of this representation is unconfirmed. |
+| Pre-placement registry surface | **NOT MEASURED** | No candidate-specific scalar surface, generating script, or pre-placement receipt exists for this diagnostic. |
+| Final-dot literal uniqueness rule | **FAIL — STOP** | **REGISTRY-MEASUREMENT:** 1.0000 of final dots lie within 3 px of a hash-pinned registry witness; the user's stop threshold is >0.70. This is a duplicate/drift protocol stop, not a byte- or pixel-copying claim. |
+| Registry freshness | **BLOCKED_NOT_EXHAUSTIVE** | The prior 703-raster scan is complete only for its frozen scope; current exhaustive accessible-registry clearance is not established. One directly observed literal trigger already stops this file. |
+| HOLDOUT-DTI | **NOT MEASURED** | No shared `gems57.evaluate_holdout` run for this TIFF; no evaluator result, withheld-positive count, or 95% CI. |
+| σ table / gain by class | **NOT MEASURED** | No current artifact-specific calibration result. |
+| Feature-alone leakage canary | **NOT RUN** | AUC >0.90 remains a leakage stop until explained. |
+| Organizer score/acceptance | **NONE / NOT CONFIRMED** | No hash-bound organizer receipt or portal response exists. Do not infer a score or acceptance. |
+| Experiments / slots / uploads | **0 / 0 / 0** | No experiment, slot selection, or upload occurred during this review. |
 
-The candidate's emission receipt records 15/15 checks in a local format/range preflight. A separate
-[on-disk TIFF/ZIP audit](../evidence/ribbon/file_audit.json) records 10/10 checks for the decoded
-float32 grid, official-sample alignment, in-footprint `[0,1]` values, NaN outside mask, pixel count,
-file hash and ZIP round-trip, and publishes the decoded-pixel SHA-256 it computed. That emission
-receipt records no decoded-pixel hash of its own, so the audit reports the binding as computed rather
-than claiming a verified match; it is not a silent pass. This is local artifact verification only—not
-portal validation, uniqueness clearance, organizer scoring, or submit authorization. Neither receipt
-is an organizer response. The final-dot registry scan independently records 83 literal overlap
-triggers (29 informative, 54 against witnesses whose 3 px dilation covers ≥ 99 % of the footprint)
-over 703 indexed rasters, and a hard stop. The candidate-specific pre-placement surface gate, current inventory
-freshness clearance, promotion-grade leakage canary and shared-evaluator holdout qualification are
-not cleared. See the [current irregularities log](IRREGULARITIES.md) and [status page](index.html).
+## The direct overlap stop
 
-The repository's stricter shared validator and the custom emission preflight have different rules
-about outside-footprint values. The candidate and official sample use NaNs outside the evaluation
-footprint; the shared writer's standard output is finite with zero outside. Neither a local pass nor
-matching the sample's NaN-outside representation proves that this exact candidate will pass the
-portal. In particular, the organizer-reported `[0,1]` rejection remains **unresolved**: this checkout
-has no portal error payload, submission receipt, or acceptance record bound to the TIFF SHA above.
-Do not claim that NaNs caused the rejection or that matching the sample makes rejection impossible.
+The hash-pinned witness is `GEMSDOE2:data/evidence/runs/turbo-simple-20260925T042003Z/submission.tif`, SHA-256 `03d619fa75689b48bd3eb4f74c3fa529a9b04c19bd716e15640d910baf3d5a90`. The public blob matches the owner-maintained registry pin; it is not independent organizer provenance. The witness has 5,167,373 positive cells across all 5,167,373 cells in the bridged allowed footprint; 3-px dilation leaves zero uncovered cells. The current file's final-dot overlap was measured directly at 1.0000. This satisfies the active literal >70% stop. Rank correlation with the all-positive constant witness is undefined; the overlap trigger is decisive. See [`evidence/58gemsdoe_unique_ribbon/audit.json`](../evidence/58gemsdoe_unique_ribbon/audit.json) and [`evidence/58gemsdoe_unique_ribbon/run_card.json`](../evidence/58gemsdoe_unique_ribbon/run_card.json).
 
-## Evidence gates before any future submission decision
+Do not replace this literal test with the chance-corrected interpretation retained in old session-5 docs. Do not generate a replacement candidate under the same active stop, and do not use a competition slot.
 
-The software and status page use the following gates:
+## The reported portal `[0,1]` error
 
-1. Exact candidate file/pixel hashes and local format report.
-2. Candidate-specific **pre-placement surface** comparison against a fresh, complete inventory.
-3. Exact **final-dot** comparison against that same inventory. Stop if rank correlation exceeds 0.90
-   or more than 70% of candidate dots lie within 3 px of any one registry raster. A stale or
-   incomplete inventory is not clearance; literal triggers cannot be waived by a chance-adjusted
-   calculation, dense-raster exception, or changed overlap direction.
-4. Promotion-grade feature-alone leakage tests.
-5. Buffered whole-fault-segment spatial holdout: catalogue features from visible faults only,
-   pixel-exact masking of visible faults, pooled DTI with α=0.2/β=0.8 and a 300 m triangular kernel,
-   scored by `gems57.evaluate_holdout`. Numeric reporting requires evaluator/version,
-   withheld-positive count and a defensible 95% CI. Emission uses `gems57.submission_writer`.
-6. A submission receipt is post-upload evidence only; no such receipt exists for the current TIFF.
+The reported error's cause is **unknown**. The repository has no hash-bound portal response, submission ID, or validation receipt establishing whether NaN, an out-of-range value, or another issue caused it. A local all-finite `[0,1]` check is a precaution, not a causal diagnosis or an acceptance guarantee. Candidate nodata metadata also differs from the sample (`null` versus `NaN`), and the effect of that difference has not been tested at the portal. See [`docs/IRREGULARITIES.md`](IRREGULARITIES.md#session-7-verified-blockers-and-corrections) and [`docs/SOURCES.md`](SOURCES.md#portal-01-report--unresolved).
 
-The current final-dot gate is already negative. The next safe action is an inventory refresh and
-independent gate audit—not another emission, hypothesis test, slot selection or upload. Experiments
-are capped at three or two hours, whichever comes first, with earlier stops on uniqueness, stale or
-incomplete inventory, leakage, or unsupported/nonpositive results. A negative result is valid.
+## Score attribution: 0.2778
 
-## Portal error record needed to resolve the reported rejection
+The dated public leaderboard observation ties 0.2778 to participant `extradr19`, not to a local raster hash. The GEMSDOE32 owner-maintained H33 page calls its file unscored and describes 0.2747 as a projection; no organizer receipt/hash crosswalk links H33 to `extradr19`. The actual cause of the public 0.2778 score is unknown from the public row. It is not an ORGANIZER-CONFIRMED score for this repository. See [`docs/research/why-02778.md`](research/why-02778.md) and [`docs/LEADERBOARD.md`](LEADERBOARD.md).
 
-If the organizer's `[0,1]` error recurs in an authorized future submission, preserve the exact
-response body/screenshot, timestamp, submission ID, candidate SHA-256 and portal validation stage.
-Until a receipt binds those details, the cause cannot be distinguished from another validation
-issue and portal acceptance remains unknown.
+## Future qualification — only if the active stop no longer applies
+
+Any future authorized research would have to be preregistered and stay in the ribbon-width/localization-error lane: hold the ridge-placement surface fixed; vary only width/offset calibration; fit on training-only blocks; test each feature alone; use buffered whole-segment holdouts; derive catalogue features only from visible faults; mask visible faults pixel-exactly; use pooled DTI with α=0.2, β=0.8, 300 m triangular kernel; and reuse shared `gems57.evaluate_holdout` and `gems57.submission_writer`. Report HOLDOUT-DTI with evaluator/version, withheld-positive count, protocol, and defensible 95% CI. Stop on a literal uniqueness trigger, stale/incomplete inventory, AUC >0.90, invalid holdout, or unsupported/nonpositive result. Budget is at most three experiments or two hours. **No slot selection or upload during research.**
+
+Before any eventual competition action, require a complete current inventory, pre-placement surface measurement, final-dot measurement, all local format checks (including an explicitly accepted nodata representation), leakage/holdout evidence, the exact artifact hash, and a human/organizer authorization step. A public leaderboard row is not a file score; an organizer receipt/hash crosswalk is required for ORGANIZER-CONFIRMED.
+
+## Primary-source links for manual review
+
+- [Official problem and metric](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/)
+- [Official competition data tab](https://www.drivendata.org/competitions/306/competition-doe-gems/data/) — login may be required.
+- [Official rules PDF](https://docs.nlr.gov/docs/fy26osti/96647.pdf)
+- [Official reference solution](https://github.com/drivendataorg/gems-prize-reference-solution)
+- [Official public leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/) — dynamic; the repository contains a dated snapshot, not a fresh fetch from this session.
+- Complete source ledger: [`docs/SOURCES.md`](SOURCES.md).

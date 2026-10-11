@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
-"""Build the owner-facing GitHub Pages site from recorded evidence, fail-closed.
+"""Historical session-5/6 site generator (not the current session-7 renderer).
 
-One generator, one source of truth: every number on the page is read out of an
-``evidence/**.json`` receipt at build time and re-verified where it can be (the
-delivered raster's sha256 is recomputed from the bytes on disk, never trusted
-from the receipt).  Nothing is presented as a score unless it carries one of the
-labels the protocol allows:
+Its gate helpers remain available for regression tests and historical audit. The
+current session-7 pages are owned by ``scripts/build_session7_pages.py``; this
+builder refuses to overwrite them while the current artifact-specific run card is
+present.
+
+One generator, one source of truth: every number on the historical page is read
+out of an ``evidence/**.json`` receipt at build time and re-verified where it can
+be. Nothing is presented as a score unless it carries one of the historical
+labels:
 
     ORGANIZER-CONFIRMED   copied from a DrivenData page or submission receipt
     HOLDOUT-DTI           measured here with the named evaluator and protocol,
@@ -598,15 +602,13 @@ def irregularities() -> list[tuple[str, str, str]]:
          "reading that excludes saturated witnesses, with the literal reading still reported "
          "alongside it."),
         ("IR-58-UNIQ-05", "warn",
-         "<b>The scanner rejected the organizer's own submission representation.</b> "
+         "<b>Portal error cause is unverified; the old diagnosis is withdrawn.</b> "
          "<code>sample_submission.tif</code> carries NaN outside the study footprint "
-         "(<code>nodata=nan</code>, 7,111,787 pixels) and finite values inside it, but the "
-         "uniqueness scanner demanded an all-finite candidate, which is why earlier artifacts had "
-         "to be published as <code>*-zeros.tif</code> variants that do not match the official "
-         "representation. Fixed once in the shared tool: non-finite <i>inside</i> the footprint "
-         "stays a hard error (that is exactly the portal rejection <code>Predicted values must be in "
-         "range [0, 1]</code>), non-finite outside it is normalised to 0 for statistics that are "
-         "footprint-restricted anyway."),
+         "(<code>nodata=nan</code>) and finite values inside it. An owner-reported portal message "
+         "said <code>Predicted values must be in range [0, 1]</code>, but this repository has no "
+         "hash-bound portal response proving whether NaN, an out-of-range value, or another issue "
+         "caused it. The shared local validator checks finite [0,1] values and footprint handling; "
+         "those checks are precautionary and do not establish organizer acceptance."),
         ("IR-58-02", "warn",
          "<b>The mandated holdout cannot score an off-catalogue file.</b> The withheld truth "
          "<i>is</i> catalogue, so a candidate that keeps a 3&nbsp;px catalogue margin scores "
@@ -1078,17 +1080,16 @@ on a buffered hide-and-recover holdout and cross-fitted leave-one-block-out. No 
 mapped USGS/INGENIOUS catalogue, because the organizer masks those pixels out of evaluation. Outside
 the study footprint the file is NaN, exactly like <code>sample_submission.tif</code>.</p>
 
-<h2>The error this file cannot produce</h2>
-<div class="ok-box"><p><b><code>Predicted values must be in range [0, 1]</code></b> — the portal
-rejection already hit on this competition — is caused by a non-finite or out-of-range value landing
-<i>inside</i> the scored footprint. This file is checked for exactly that before publication:
+<h2>Local checks related to the reported portal error</h2>
+<div class="warn-box"><p>The owner-reported portal message <code>Predicted values must be in range [0, 1]</code>
+has no hash-bound response or submission record in this repository, so its cause is <b>unknown</b>.
+This historical candidate's local receipt records:
 <code>finite_inside_footprint</code> ({esc(emi['validator']['checks']['finite_inside_footprint']['detail'])}),
 <code>values_in_unit_interval</code> ({esc(emi['validator']['checks']['values_in_unit_interval']['detail'])}),
 <code>positive_is_exactly_one</code> ({esc(emi['validator']['checks']['positive_is_exactly_one']['detail'])}),
-and the NaN count outside the footprint is identical to the organizer's sample submission
-(7,111,787). All {sum(1 for c in emi['validator']['checks'].values() if c['ok'])}/
-{len(emi['validator']['checks'])} local checks pass — full receipt on the
-<a href="submit.html">portal checklist</a> page.</p></div>
+and an outside-footprint mask comparison. These local checks do not prove the cause of a prior error,
+that the same error cannot occur, or that the portal will accept this file. See the
+<a href="IRREGULARITIES.md">current status log</a>.</p></div>
 
 <h2>Steps</h2>
 <ol>{''.join(f'<li><b>{esc(t)}</b><br><span class="small">{d}</span></li>' for t, d in steps)}</ol>
@@ -1313,6 +1314,12 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--strict", action="store_true",
                     help="exit 2 unless every gate G1-G5 passes (banner green)")
     strict = ap.parse_args(argv).strict
+
+    current_card = ROOT / "evidence" / "58gemsdoe_unique_ribbon" / "run_card.json"
+    if current_card.is_file():
+        print("refusing to overwrite current session-7 pages with the historical session-5/6 builder; "
+              "run scripts/build_session7_pages.py instead", file=sys.stderr)
+        return 2
 
     emi = load(RIB / "emission.json")
     card = load(RIB / "run_card_v2.json")

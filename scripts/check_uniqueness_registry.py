@@ -46,17 +46,18 @@ def _init(candidate_path: str):
         if src.count != 1 or (src.shape, src.crs, src.transform) != _EXPECTED_GRID:
             raise ValueError("candidate CRS/shape/transform differs from sample submission")
         mine = src.read(1).astype(np.float32)
-    # The organizer's own sample_submission.tif carries NaN outside the study
-    # footprint (nodata=nan) and finite values inside it, so that is the official
-    # representation and a delivered candidate may legitimately contain it. A
-    # non-finite value INSIDE the footprint is exactly the portal rejection the
-    # owner already hit ("Predicted values must be in range [0, 1]"), so it stays
-    # a hard error; outside the footprint it is normalised to 0, which changes
-    # nothing because every statistic below is footprint-restricted.
+    # The bridged sample carries NaN outside the study footprint (nodata=nan)
+    # and finite values inside it. An owner-reported portal range error exists,
+    # but no hash-bound portal response proves its cause or candidate identity;
+    # do not attribute it to inside-footprint NaNs without evidence. This local
+    # scanner requires finite in-footprint values as a conservative policy and
+    # normalises outside-footprint non-finite values for footprint-restricted
+    # statistics. Neither choice establishes organizer acceptance.
     fp = grid.footprint
     if not np.isfinite(mine[fp]).all():
         raise ValueError("candidate has non-finite values inside the scored footprint; "
-                         "the portal rejects these ('Predicted values must be in range [0, 1]')")
+                         "the local scanner requires finite in-footprint values. The cause of the "
+                         "reported portal range error is unverified.")
     _CAND["nan_inside_footprint"] = 0
     _CAND["nan_outside_footprint"] = int((~np.isfinite(mine) & ~fp).sum())
     mine = np.where(np.isfinite(mine), mine, 0.0).astype(np.float32)

@@ -1,8 +1,20 @@
 # Current irregularities, evidence and stop decision
 
-**Last reviewed: 2026-10-11 UTC. Current decision: NOT OK TO SUBMIT — DO NOT SUBMIT.** This page and [`evidence/run_card.json`](../evidence/run_card.json) are the current status. No experiment, new TIFF, or competition-slot selection was performed in this review. Historical ribbon records are not current evidence.
+**Last reviewed: 2026-10-11 UTC (session 7). Current decision: NOT OK TO SUBMIT — DO NOT SUBMIT.** The current artifact-specific run card is [`evidence/58gemsdoe_unique_ribbon/run_card.json`](../evidence/58gemsdoe_unique_ribbon/run_card.json); the previous site-wide card [`evidence/run_card.json`](../evidence/run_card.json) describes an earlier candidate and does not qualify the latest TIFF. No experiment, new prediction raster, competition-slot selection, or upload was made in this review. The previously existing sparse TIFF was renamed review-only without changing its raster bytes.
 
-## Verified blockers
+## Session-7 verified blockers and corrections
+
+1. **IR-58-S7-01 — literal 3-px overlap hard stop.** The review-only TIFF's final dots were directly compared with one hash-pinned prior registry raster. **REGISTRY-MEASUREMENT:** overlap **1.0000**, above the user's **0.70** stop threshold; the witness covers every cell in the bridged footprint. Logged as a duplicate/drift stop, not as a claim of byte/pixel copying. The current public-inventory freshness remains `BLOCKED_NOT_EXHAUSTIVE`, so no complete current-registry clearance is claimed. Evidence: [`evidence/58gemsdoe_unique_ribbon/audit.json`](../evidence/58gemsdoe_unique_ribbon/audit.json).
+2. **IR-58-S7-02 — missing pre-placement lineage.** No candidate-specific placement-surface raster, emitter script, or pre-placement comparison receipt exists for the sparse TIFF. The required pre-placement surface gate is **NOT MEASURED**; the final-dot stop is already decisive.
+3. **IR-58-S7-03 — no current holdout evidence.** The sparse TIFF has no buffered whole-segment `gems57.evaluate_holdout` receipt, withheld-positive count, defensible 95% interval, σ table, simulated gain by class, or feature-alone canary. All are `NOT MEASURED` / `NOT RUN`; no score is projected.
+4. **IR-58-S7-04 — undocumented/overstated artifact identity.** The prior filename included `unique`, the old run card explicitly said the uniqueness scan had not run, and root docs nevertheless claimed uniqueness-filtered and expected a pass. The file has been renamed to `review-only`; inaccurate readiness claims are superseded. Its grid/value audit passes locally, but nodata metadata differs from the sample and organizer acceptance is unknown.
+5. **IR-58-S7-05 — false portal-error diagnosis.** An earlier status-page paragraph asserted that the portal's `[0,1]` rejection was caused by nonfinite/out-of-range values inside the footprint. The repository has no hash-bound portal response establishing that cause. The statement is corrected: the cause is unknown; local range validation is a precaution, not proof of portal acceptance.
+6. **IR-58-S7-06 — current download index had not yet been regenerated.** This review regenerated `docs/downloads/index.html`; it now lists each of the 21 public TIFF/ZIP files separately and labels the latest raster/ZIP with the measured 1.0000 literal-overlap stop. The session-7 page builder also records the negative status in `docs/RUN_CARD.json`.
+7. **Feature-stack cache restored, provenance limited.** All five stack chunks and whole-file hash match the owner-maintained GitHub bridge pin; Rasterio read a 19-band header. This is byte integrity relative to the mirror, not independent proof of organizer provenance. The cache is outside Git. See [`evidence/feature_stack_restore_20261011.json`](../evidence/feature_stack_restore_20261011.json).
+
+The detailed review and ranked within-lane hypotheses are in [`research/session7_review_20261011.md`](research/session7_review_20261011.md). **Do not submit the downloadable diagnostic.**
+
+## Historical verified blockers
 
 1. **Literal final-dot overlap stop — REGISTRY-MEASUREMENT (frozen inventory).** The existing diagnostic `docs/downloads/gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.tif` has 67,379 positive pixels. The pinned scan records **1.000** of its candidate dots within 3 px of `GEMSDOE2:data/evidence/runs/turbo-simple-20260925T042003Z/submission.tif`, above the mandated **0.70** limit. Its worst Spearman correlation, about **0.190**, is below 0.90; that does not override the independent overlap failure. Evidence: [`evidence/run_card.json`](../evidence/run_card.json) and [`evidence/ribbon_uniqueness.json`](../evidence/ribbon_uniqueness.json).
 2. **Inventory is incomplete and stale.** The latest pinned scan checked **694/695** rasters; one is missing or invalid. The pinned snapshot is not a complete current inventory of accessible public repository trees. Therefore no uniqueness clearance can be inferred from the scan. Evidence: [`evidence/registry_fetch_report.json`](../evidence/registry_fetch_report.json) and [`evidence/registry_freshness_audit.json`](../evidence/registry_freshness_audit.json).
@@ -25,7 +37,12 @@ For current metric algebra and the official DTI definition (α=0.2, β=0.8; 300 
 
 ---
 
-# Session 3 (2026-10-11 UTC) — additional irregularities, and two closures
+> **Historical log warning:** the session-3 entries below preserve earlier interpretations, proposed
+> chance-corrected exceptions, and candidate-specific inventory counts. They are not current policy or
+> current-candidate evidence. The session-7 literal stop and artifact-specific run card at the top of
+> this document govern this review; do not follow older exemption or submission recommendations.
+
+# Session 3 (historical, 2026-10-11 UTC) — additional irregularities and two closures
 
 Numbering continues the historical list that this page replaced; each item carries its own ID.
 

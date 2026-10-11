@@ -1,0 +1,148 @@
+{
+  "evidence_class": "LOCAL-FILE-AUDIT + REGISTRY-MEASUREMENT",
+  "generated_utc": "2026-10-11T19:02:40Z",
+  "artifact": "docs/downloads/58GEMSDOE-ribbon-sparse-review-only-20261011T182511Z.tif",
+  "public_review_record": "docs/downloads/58GEMSDOE-ribbon-sparse-review-only-20261011T182511Z.audit.json",
+  "artifact_sha256": "b4cd208015892a19bb2de36585a6f5ff8203dd78b95d49d6b88c8d4c927c1448",
+  "decoded_prediction_sha256": "21178ff6da8eef1bc286826deb963224a7909c0ee4f318dc4feac7a9e1ff5b15",
+  "artifact_bytes": 49139380,
+  "positive_pixels_local_format_audit": 15000,
+  "positive_values": [
+    1.0
+  ],
+  "candidate_metadata": {
+    "band_count": 1,
+    "dtype": "float32",
+    "shape": [
+      3730,
+      3292
+    ],
+    "crs": "EPSG:32611",
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "nodata": null
+  },
+  "format_checks": {
+    "single_band": true,
+    "dtype_float32": true,
+    "dimensions_3730x3292": true,
+    "crs_epsg_32611": true,
+    "transform_matches_sample_submission": true,
+    "no_nan_anywhere": true,
+    "no_inf_anywhere": true,
+    "no_sentinel_values": true,
+    "range_0_1_guaranteed": true,
+    "min_ge_0": true,
+    "max_le_1": true,
+    "in_footprint_all_finite": true,
+    "in_footprint_range_0_1": true,
+    "outside_footprint_zero": true,
+    "zero_dots_on_mapped_catalogue": true,
+    "matches_sample_grid_metadata": true,
+    "positive_pixels_are_exactly_one": true,
+    "single_tiff_zip_roundtrip": true,
+    "recorded_file_sha256_matches": true
+  },
+  "format_checks_passed": 19,
+  "format_checks_total": 19,
+  "format_pass": true,
+  "footprint_cells_local_grid": 5167373,
+  "catalogue_positive_overlap_local_format_audit": 0,
+  "zip_members": [
+    "58GEMSDOE-ribbon-sparse-review-only-20261011T182511Z.tif"
+  ],
+  "zip_roundtrip": true,
+  "correlation_overlap_vs_registry": {
+    "preplacement_surface": {
+      "status": "NOT MEASURED",
+      "reason": "No placement-surface raster, generating script, or candidate-specific pre-placement receipt exists for this artifact."
+    },
+    "final_dots": {
+      "status": "FAIL \u2014 literal overlap stop",
+      "overlap_radius_px": 3.0,
+      "overlap_limit": 0.7,
+      "witnesses_directly_checked": 1,
+      "witness_measurement": {
+        "source": "GEMSDOE2:data/evidence/runs/turbo-simple-20260925T042003Z/submission.tif",
+        "expected_sha256": "03d619fa75689b48bd3eb4f74c3fa529a9b04c19bd716e15640d910baf3d5a90",
+        "prior_inventory_evidence": {
+          "prior_scan_complete_accessible_scan": true,
+          "prior_scan_rasters_checked": 703,
+          "prior_scan_generated_utc": null,
+          "registry_index_generated_utc": "2026-10-11T05:34:05Z",
+          "witness_source": "GEMSDOE2:data/evidence/runs/turbo-simple-20260925T042003Z/submission.tif",
+          "witness_sha256": "03d619fa75689b48bd3eb4f74c3fa529a9b04c19bd716e15640d910baf3d5a90",
+          "witness_positive_cells_in_prior_receipt": 5167373,
+          "chance_expected_overlap_in_prior_receipt": 1.0,
+          "prior_row_candidate_overlap": 1.0,
+          "prior_row_overlap_is_not_reused_for_current_candidate": true,
+          "index_pin_matches_source": true
+        },
+        "direct_current_file_measurement": true,
+        "witness_file": ".cache/registry/universal-blocker.tif",
+        "sha256_verified": true,
+        "coverage_certificate": {
+          "evidence_class": "REGISTRY-MEASUREMENT",
+          "witness_file": ".cache/registry/universal-blocker.tif",
+          "witness_sha256": "03d619fa75689b48bd3eb4f74c3fa529a9b04c19bd716e15640d910baf3d5a90",
+          "positive_pixels": 5167373,
+          "allowed_pixels": 5167373,
+          "uncovered_allowed_pixels": 0,
+          "covered_allowed_fraction": 1.0,
+          "universal_overlap_blocker": true,
+          "overlap_limit": 0.7,
+          "support_definition": "finite prediction > 0 (inherited literal support rule)",
+          "implication": "Every nonempty candidate dot set in the allowed domain has forward overlap 1.0 with this prior; therefore it cannot pass the 0.70 gate."
+        },
+        "observed_candidate_dot_overlap_within_3_px": 1.0,
+        "literal_overlap_threshold": 0.7,
+        "literal_overlap_trigger": true,
+        "rank_correlation": "undefined for an all-positive constant witness; overlap independently triggers"
+      },
+      "inventory_snapshot": {
+        "rasters_checked_in_prior_full_scan": 703,
+        "prior_scan_complete_for_its_frozen_scope": true,
+        "fresh_current_inventory": false,
+        "freshness_decision": "BLOCKED_NOT_EXHAUSTIVE"
+      },
+      "byte_or_pixel_copy_claim": false,
+      "interpretation": "This is a fail/stop under the user's literal lane-drift criterion, not a claim of byte- or pixel-copying."
+    }
+  },
+  "holdout_dti": {
+    "evidence_class": "HOLDOUT-DTI",
+    "status": "NOT MEASURED",
+    "value": null,
+    "evaluator_version_required": "gems57-pooled-hide-v2",
+    "protocol": "buffered whole-segment hide-and-recover with exact visible-catalogue mask; not run",
+    "withheld_positive_count": null,
+    "ci95": null,
+    "reason": "No promotion-grade holdout receipt exists for this artifact; experiment stopped at the literal uniqueness gate."
+  },
+  "sigma_table": "NOT MEASURED",
+  "simulated_gain_per_class": "NOT MEASURED",
+  "leakage_canary": {
+    "status": "NOT RUN",
+    "feature_alone_auc": null
+  },
+  "submission_name": "58GEMSDOE-ribbon-sparse-diagnostic-20261011T182511Z",
+  "submission_note": "Diagnostic only; uniqueness and holdout gates are not cleared.",
+  "submission_note_characters": 62,
+  "submission_identifier_is_authorized": false,
+  "verdict": "negative",
+  "stop_required": true,
+  "experiments_run_this_review": 0,
+  "slots_used": 0,
+  "limitations": [
+    "The registry scan is a dated public owner-repository snapshot; freshness is blocked.",
+    "The pre-placement surface and its generating lineage are absent.",
+    "The locally restored feature stack is pinned to an owner-maintained GitHub bridge, not independently authenticated as an organizer download.",
+    "A format pass is not DrivenData portal acceptance or an organizer score."
+  ]
+}

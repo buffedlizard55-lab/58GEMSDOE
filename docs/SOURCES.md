@@ -1,7 +1,18 @@
 # Sources and evidence classes
 
-**Reviewed:** 2026-10-11 UTC. Links below are for independent review. A source statement, owner page,
-local validator, or public participant row is not an organizer score receipt.
+**Updated:** 2026-10-11 UTC (session 7). Links below are for independent review. Official DrivenData,
+USGS and PDF pages were not freshly fetched in this session; dated source observations from prior
+repository records remain snapshots. A source statement, owner page, local validator, or public
+participant row is not an organizer score receipt.
+
+## Session-7 artifact-specific evidence
+
+| Local record | Evidence class and scope |
+|---|---|
+| [`evidence/58gemsdoe_unique_ribbon/run_card.json`](../evidence/58gemsdoe_unique_ribbon/run_card.json) | `SESSION-RUN-CARD`: current negative verdict; exact TIFF/file and decoded-pixel hashes; direct literal 3-px final-dot stop; missing pre-placement surface and holdout evidence; local validator limits; zero experiments and slots. |
+| [`evidence/58gemsdoe_unique_ribbon/audit.json`](../evidence/58gemsdoe_unique_ribbon/audit.json) | `LOCAL-FILE-AUDIT` plus `REGISTRY-MEASUREMENT`: 19/19 local format checks and a direct 1.0000 final-dot overlap against one hash-verified public registry witness. This is not an exhaustive fresh scan, not byte/pixel-copy evidence, not holdout evidence, and not portal acceptance. |
+| [`evidence/feature_stack_restore_20261011.json`](../evidence/feature_stack_restore_20261011.json) | `PROVENANCE-PIN / LOCAL-RESTORE`: five chunks and complete stack match owner-maintained bridge hashes; the hash proves mirror-relative integrity only, not independent organizer provenance. |
+| [`docs/research/session7_review_20261011.md`](research/session7_review_20261011.md) | Current source-bounded status, 0.2778 attribution limits, and ranked within-lane proposals. |
 
 ## Official competition sources
 
@@ -29,16 +40,19 @@ The 19-band feature names are read from the raster descriptions and summarized i
 [`src/gems58w/features.py`](../src/gems58w/features.py). The expected `training_features.tif` payload
 is not committed as an ordinary repository file. The owner-maintained bridge records SHA-256
 `4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5` in
-[`data/bridge/feature_stack_pins.json`](../data/bridge/feature_stack_pins.json). That pin checks mirror integrity; it is
-not an independent organizer signature. The raw stack was not downloaded in this review.
+[`data/bridge/feature_stack_pins.json`](../data/bridge/feature_stack_pins.json). The cache was restored
+in session 7 and all five part hashes plus the whole-file pin were verified; see
+[`evidence/feature_stack_restore_20261011.json`](../evidence/feature_stack_restore_20261011.json).
+This proves mirror-relative integrity, not an independent organizer signature. The cache is outside
+Git and may need to be restored again in a later session.
 
-## Current local evidence
+## Historical session-5 local evidence (not status for the current session-7 artifact)
 
 | Local record | Evidence class and scope |
 |---|---|
-| [`evidence/ribbon/emission.json`](../evidence/ribbon/emission.json) | Local emission/format receipt for the current candidate `gems58-concordance-ribbon-40768-20261011T160514Z.tif`; 40,768 positive pixels and SHA-256 `f709b6f12d5188e34aa3aed3b83d785b97a232224692dcdfffedaa009dee9d0d`. Not portal acceptance, uniqueness clearance, or HOLDOUT-DTI. |
-| [`evidence/ribbon/file_audit.json`](../evidence/ribbon/file_audit.json) | Independent on-disk audit of the current candidate passes 10/10 checks: Float32/sample grid, mask and range, in-footprint values, positive count, file hash and ZIP round-trip, plus the decoded-pixel SHA-256 it computed (that emission receipt records none, so the binding is reported, not claimed). The session-3 file's 11/11 receipt is archived at [`evidence/ribbon/archive-s3/file_audit_sigma_adaptive.json`](../evidence/ribbon/archive-s3/file_audit_sigma_adaptive.json). Local file verification only—not portal acceptance or submit eligibility. |
-| [`evidence/ribbon/uniqueness_full_inventory.json`](../evidence/ribbon/uniqueness_full_inventory.json) | Candidate-matched final-dot scan: 703 indexed rasters; 83 literal triggers (29 informative, 54 against near-plane-filling witnesses); `unique: false`, `stop_required: true`. It is scoped to the saved public-inventory snapshot, not an organizer-wide inventory or current freshness certification. The session-3 702-raster/81-trigger scan is archived under [`evidence/ribbon/archive-s3/`](../evidence/ribbon/archive-s3/). |
+| [`evidence/ribbon/emission.json`](../evidence/ribbon/emission.json) | Historical session-5 emission/format receipt for `gems58-concordance-ribbon-40768-20261011T160514Z.tif`; 40,768 positive pixels and SHA-256 `f709b6f12d5188e34aa3aed3b83d785b97a232224692dcdfffedaa009dee9d0d`. Not portal acceptance, uniqueness clearance, or current HOLDOUT-DTI. |
+| [`evidence/ribbon/file_audit.json`](../evidence/ribbon/file_audit.json) | Historical on-disk audit of that session-5 candidate: Float32/sample grid, mask/range, positive count, file hash and ZIP round-trip. It does not qualify the session-7 artifact. The session-3 file's receipt is archived at [`evidence/ribbon/archive-s3/file_audit_sigma_adaptive.json`](../evidence/ribbon/archive-s3/file_audit_sigma_adaptive.json). |
+| [`evidence/ribbon/uniqueness_full_inventory.json`](../evidence/ribbon/uniqueness_full_inventory.json) | Historical session-5 candidate-matched scan: 703 rasters; 83 literal triggers (29 informative, 54 against near-plane-filling witnesses); `unique: false`, `stop_required: true`. Scoped to a saved public-inventory snapshot, not an organizer-wide inventory or a current freshness certification. The session-3 702-raster/81-trigger scan is archived under [`evidence/ribbon/archive-s3/`](../evidence/ribbon/archive-s3/). |
 | [`evidence/registry_freshness_audit.json`](../evidence/registry_freshness_audit.json) | Prior freshness audit records `fresh_current_inventory: false` / `BLOCKED_NOT_EXHAUSTIVE`. It is not superseded by the 703-raster count. |
 | `evidence/ribbon_qualification.json` (absent) | Required qualification receipt is absent. No promotion-grade pre-placement, canary, or holdout qualification is available. |
 | [`evidence/ribbon/shared_metric_crosscheck.json`](../evidence/ribbon/shared_metric_crosscheck.json) | Arithmetic cross-check of a legacy diagnostic only. It does not replace the legacy evaluator, selection protocol, or invalid min/max-as-CI interpretation. |
