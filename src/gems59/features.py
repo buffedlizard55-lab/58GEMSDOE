@@ -181,6 +181,26 @@ def _coh(a: np.ndarray, sigma: float) -> np.ndarray:
     return np.where(valid, out, np.nan).astype(np.float32)
 
 
+def read_block_halo(stack: Stack, r0: int, r1: int, halo: int) -> tuple[np.ndarray, int, int]:
+    """Read rows ``[r0 - halo, r1 + halo)`` clipped to the grid.
+
+    Returns ``(block, top, bot)`` where ``block`` covers the padded window and
+    the caller keeps ``block[:, top:bot, :]`` to recover rows ``[r0, r1)`` after
+    running neighbourhood filters on the padded window.  Added for the session-5
+    convergence lane so it reuses this module's verified stack reader instead of
+    forking a second one.
+    """
+    if halo < 0:
+        raise ValueError('halo must be non-negative')
+    h0, h1 = max(0, r0 - halo), min(HEIGHT, r1 + halo)
+    return read_block(stack, h0, h1), r0 - h0, h1 - h0 - (h1 - r1)
+
+
+#: Public alias of the NaN-aware smoother, so lanes outside this module do not
+#: have to import a private name (parallel-run protocol: no private forks).
+gsmooth = _gsmooth
+
+
 def compute_block(stack: Stack, blk: np.ndarray, band_ix: dict[str, int]) -> np.ndarray:
     """Derive the non-raw features for one (halo-padded) block.
 

@@ -1,0 +1,72 @@
+{
+  "file": "gems60-convergence-ribbon3-20261011T155249Z.tif",
+  "sha256": "46a23184190c3f5182e0bb5e01e490f22d15cb037eaed893cef20f7a7e77c69a",
+  "bytes": 119619,
+  "n_positives": 26408,
+  "checks": [
+    {
+      "name": "single band",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "float32",
+      "ok": true,
+      "detail": "dtype=float32"
+    },
+    {
+      "name": "crs matches sample",
+      "ok": true,
+      "detail": "EPSG:32611 vs EPSG:32611"
+    },
+    {
+      "name": "shape matches sample",
+      "ok": true,
+      "detail": "(3730, 3292) vs (3730, 3292)"
+    },
+    {
+      "name": "transform matches sample",
+      "ok": true,
+      "detail": "| 100.00, 0.00, 243350.00|\n| 0.00,-100.00, 4508550.00|\n| 0.00, 0.00, 1.00| vs | 100.00, 0.00, 243350.00|\n| 0.00,-100.00, 4508550.00|\n| 0.00, 0.00, 1.00|"
+    },
+    {
+      "name": "finite everywhere",
+      "ok": true,
+      "detail": "non-finite=0"
+    },
+    {
+      "name": "values in [0,1]",
+      "ok": true,
+      "detail": "min=0.0 max=1.0"
+    },
+    {
+      "name": "binary values",
+      "ok": true,
+      "detail": "unique=[0.0, 1.0]"
+    },
+    {
+      "name": "no positive mass outside the footprint",
+      "ok": true,
+      "detail": "positives outside=0"
+    },
+    {
+      "name": "no positive mass on the mapped catalogue",
+      "ok": true,
+      "detail": "positives on catalogue=0"
+    },
+    {
+      "name": "positive support inside the footprint",
+      "ok": true,
+      "detail": "n_positives=26408"
+    },
+    {
+      "name": "zip twin contains exactly this TIFF",
+      "ok": true,
+      "detail": "names=['gems60-convergence-ribbon3-20261011T155249Z.tif']"
+    }
+  ],
+  "passed": 12,
+  "total": 12,
+  "verdict": "LOCAL FORMAT OK",
+  "caveat": "local format validity is not organizer acceptance, not a uniqueness clearance outside the screened inventory, and not a score"
+}
