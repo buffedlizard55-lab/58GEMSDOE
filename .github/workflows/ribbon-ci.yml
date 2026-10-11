@@ -8,6 +8,9 @@ on:
       - "docs/**"
       - "evidence/**"
       - "registry/**"
+      - "PROMPT.md"
+      - "README.md"
+      - "REMAINING_WORK.md"
       - "pyproject.toml"
       - "requirements.txt"
       - ".github/workflows/ribbon-ci.yml"
@@ -19,6 +22,11 @@ on:
       - "docs/**"
       - "evidence/**"
       - "registry/**"
+      - "PROMPT.md"
+      - "README.md"
+      - "REMAINING_WORK.md"
+      - "pyproject.toml"
+      - "requirements.txt"
 jobs:
   verify:
     runs-on: ubuntu-latest
@@ -31,56 +39,11 @@ jobs:
         run: pip install -r requirements.txt
       - name: Run unit and repository-hygiene tests
         run: PYTHONPATH=src python -m pytest -q
-      - name: Build current fail-closed status site
-        run: python scripts/build_site.py
-      - name: The rendered banner must match the gates in the receipts
-        run: |
-          # build_site.py exits 0 when it could render from complete receipts and 2 under
-          # --strict when a gate is open. Assert the two agree with the rendered copy, so a
-          # green banner can never be published over an open gate.
-          set +e
-          python scripts/build_site.py --strict
-          code=$?
-          set -e
-          echo "strict exit code: $code"
-          if [ "$code" -eq 0 ]; then
-            grep -q "OK TO DOWNLOAD AND SUBMIT" docs/index.html
-            grep -q "OK TO DOWNLOAD AND SUBMIT" docs/executive-summary.html
-          elif [ "$code" -eq 2 ]; then
-            grep -q "NOT OK TO SUBMIT" docs/index.html
-            grep -q "DO NOT SUBMIT" docs/index.html
-            grep -q "NOT OK TO SUBMIT" docs/executive-summary.html
-          else
-            echo "build_site.py failed to render from the receipts"; exit 1
-          fi
-          # the deliverable and its hash must be reachable from the first screen
-          grep -q "big-btn" docs/index.html
-          grep -q "gems58-concordance-ribbon" docs/index.html
-      - name: Re-derive the delivered HOLDOUT-DTI with the shared gems57 metric
-        run: PYTHONPATH=src python scripts/crosscheck_shared_metric.py
-      - name: Check archived ribbon pages and current negative gates
+      - name: Re-render current session-7 status pages
+        run: python scripts/build_session7_pages.py
+      - name: Rebuild per-file download eligibility index
+        run: python scripts/build_downloads_index.py
+      - name: Confirm session-7 pages match the hash-bound run card
+        run: python scripts/build_session7_pages.py --check
+      - name: Check archived links and current fail-closed status
         run: python scripts/ribbon_check_site.py
-      - name: Render the session-5 deliverable page and inject the front-door box
-        run: python scripts/gems60_build_page.py
-      - name: The session-5 banner must match the session-5 gates
-        run: |
-          # gems60_build_page.py writes docs/gems60.html from evidence/gems60/*.json and injects the
-          # current-deliverable box into docs/index.html and docs/executive-summary.html (it must run
-          # after build_site.py, which rewrites those two pages from the previous lane's receipts).
-          set +e
-          python scripts/gems60_build_page.py --strict
-          code=$?
-          set -e
-          if [ "$code" -eq 0 ]; then
-            grep -q "OK TO DOWNLOAD AND SUBMIT" docs/gems60.html
-          elif [ "$code" -eq 2 ]; then
-            grep -q "NOT CLEARED" docs/gems60.html
-          else
-            echo "gems60_build_page.py failed to render from the receipts"; exit 1
-          fi
-          grep -q "big-btn" docs/gems60.html
-          grep -q "gems60-convergence-ribbon6" docs/gems60.html
-          grep -q "session5:begin" docs/index.html
-          grep -q "session5:begin" docs/executive-summary.html
-      - name: Fail-closed checks on the session-5 deliverable itself
-        run: PYTHONPATH=src python -m pytest -q tests/test_gems60_deliverable.py

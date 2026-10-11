@@ -1,62 +1,57 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Evidence index — 58GEMSDOE (GEMS competition #306)</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Session-7 evidence index — 58GEMSDOE</title>
 <link rel="stylesheet" href="assets/site.css">
 <style>
-.gates{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:.6rem;margin:.8rem 0}
-.gate{border:1px solid #d7dee6;border-left:5px solid #999;border-radius:8px;padding:.55rem .7rem;background:#fbfcfd}
-.gate.pass{border-left-color:#1d7a45;background:#f2fbf5}
-.gate.fail{border-left-color:#a11212;background:#fdf3f3}
-.gate h4{margin:0 0 .25rem;font-size:.95rem}
-.gate p{margin:0;font-size:.83rem;color:#41505f}
-.pill{display:inline-block;padding:.1em .55em;border-radius:999px;font-size:.76rem;font-weight:700;color:#fff}
-.pill.pass{background:#1d7a45}.pill.fail{background:#a11212}.pill.info{background:#2f5f8f}.pill.warn{background:#8a6d1a}
-.warn-box{border:1px solid #e0c46a;border-left:5px solid #8a6d1a;background:#fffbea;border-radius:8px;padding:.7rem .9rem;margin:.8rem 0}
-.bad-box{border:1px solid #e0a3a3;border-left:5px solid #a11212;background:#fff6f6;border-radius:8px;padding:.7rem .9rem;margin:.8rem 0}
-.ok-box{border:1px solid #9ed3b3;border-left:5px solid #1d7a45;background:#f4fcf7;border-radius:8px;padding:.7rem .9rem;margin:.8rem 0}
-.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1rem}
-.small{font-size:.85rem;color:#41505f}
-.dlrow{display:flex;flex-wrap:wrap;gap:.6rem;margin:.8rem 0}
-.num{font-variant-numeric:tabular-nums}
-nav a{margin-right:.9rem}
-footer{margin-top:2rem;border-top:1px solid #d7dee6;padding-top:.6rem;font-size:.82rem;color:#41505f}
-table{max-width:100%}
-</style>
-</head><body>
-<header><h1>58GEMSDOE — DOE GEMS competition #306</h1>
-<p>Geothermal fault detection, northwestern Great Basin (NV) · ribbon lane · every figure on this
-site is rendered from <code>evidence/**.json</code> at build time</p>
-<nav class="small"><a href="index.html">Status &amp; download</a> · <a href="executive-summary.html">How to submit</a> · <a href="submit.html">Portal checklist</a> · <a href="deliverable/index.html">Sibling-lane deliverable</a> · <a href="sources.html">Sources</a> · <a href="evidence.html" style="font-weight:700">Evidence index</a> · <a href="ribbon/index.html">Ribbon lane archive</a></nav></header>
+.s7-alert{border:2px solid #9d1515;border-left-width:9px;background:#fff4f4;border-radius:10px;padding:18px 20px;margin:18px 0}
+.s7-alert h2{margin:.15rem 0 .55rem;color:#811010}
+.s7-badge{display:inline-block;background:#a11212;color:white;font-weight:800;padding:.35rem .8rem;border-radius:999px}
+.s7-btn{display:inline-block;background:#a11212;color:white;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:8px;margin:5px 8px 5px 0}
+.s7-btn.secondary{background:#41505f}
+.s7-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.s7-card{border:1px solid #d4dce3;border-radius:9px;padding:14px;background:white}
+.s7-fail{color:#a11212;font-weight:700} .s7-pass{color:#12703f;font-weight:700}
+.s7-small{font-size:.9rem;color:#465360}
+table{border-collapse:collapse;width:100%;margin:1rem 0} th,td{border:1px solid #d7dee5;padding:8px;vertical-align:top;text-align:left}
+th{background:#eef2f6}
+</style></head><body><main class="wrap">
+<header><p><a href="index.html">58GEMSDOE current status</a> ·
+<a href="downloads/index.html">all downloads</a> ·
+<a href="IRREGULARITIES.md">irregularities</a> · <a href="SOURCES.md">sources</a></p>
+<h1>Session-7 evidence index</h1></header>
+<section class="s7-alert" role="alert" aria-labelledby="stop-title">
+<span class="s7-badge">⛔ NOT OK TO SUBMIT — DO NOT SUBMIT</span>
+<h2 id="stop-title">Review-only TIFF; literal uniqueness stop recorded</h2>
+<p><code>58GEMSDOE-ribbon-sparse-review-only-20261011T182511Z.tif</code> is available for local audit only. It is not a qualified or authorized
+competition submission. Its final-dot overlap is <b>1.0000</b> within 3 px, above the active
+literal 0.70 threshold. The pre-placement surface and current inventory clearance are not measured/
+not cleared, and there is no HOLDOUT-DTI result for this artifact.</p>
+<div>
+<a class="s7-btn" href="downloads/58GEMSDOE-ribbon-sparse-review-only-20261011T182511Z.tif" download>Download TIFF for audit only — DO NOT SUBMIT</a>
+<a class="s7-btn secondary" href="downloads/58GEMSDOE-ribbon-sparse-review-only-20261011T182511Z.zip" download>Download one-TIFF ZIP — audit only</a>
+<a class="s7-btn secondary" href="../evidence/58gemsdoe_unique_ribbon/audit.json">Audit receipt</a>
+<a class="s7-btn secondary" href="../evidence/58gemsdoe_unique_ribbon/run_card.json">JSON run card</a>
+</div>
+<p class="s7-small">Raster SHA-256 <code>b4cd208015892a19bb2de36585a6f5ff8203dd78b95d49d6b88c8d4c927c1448</code> · 49,139,380 bytes ·
+15000 positive pixels · 19/19 local checks pass only.</p>
+</section><section class="s7-alert" role="alert">
+<span class="s7-badge">⛔ UNREVIEWED ARTIFACT — NOT OK TO SUBMIT</span>
+<p>A separate file, <code>gems58-ml-binary-ridge-20261012T000000Z.tif</code>, was added to the base branch after the session-7 review.
+It was not generated, evaluated, or qualified in that review and is outside the fixed-surface ribbon-width
+scope. Do not submit it or run its generation scripts. See the
+<a href="downloads/index.html">per-file review-only index</a>.</p>
+</section>
+<h2>Bound evidence</h2>
+<ul><li>Current run card: <a href="../evidence/58gemsdoe_unique_ribbon/run_card.json">JSON</a>.</li>
+<li>Independent audit receipt: <a href="../evidence/58gemsdoe_unique_ribbon/audit.json">JSON</a>.</li>
+<li>Feature-stack restoration/pin record: <a href="../evidence/feature_stack_restore_20261011.json">JSON</a>; owner mirror integrity only.</li>
+<li>Download metadata: <a href="downloads/58GEMSDOE-ribbon-sparse-review-only-20261011T182511Z.json">JSON</a>.</li></ul>
+<p>Artifact size 49,139,380 bytes; raster SHA-256 <code>b4cd208015892a19bb2de36585a6f5ff8203dd78b95d49d6b88c8d4c927c1448</code>;
+decoded pixel SHA-256 <code>21178ff6da8eef1bc286826deb963224a7909c0ee4f318dc4feac7a9e1ff5b15</code>.</p>
+<p>Verdict: <b>negative</b>; final-dot literal overlap stop: <b>1.0000 &gt; 0.70</b>; current inventory freshness
+is blocked; holdout is not measured. No organizer score receipt exists.</p>
 
-<h2>Every receipt this site is built from</h2>
-<p class="small">Nothing on this site is written by hand: <code>scripts/build_site.py</code> reads
-these files at build time and re-derives the delivered raster's sha256 from the bytes on disk. A
-missing receipt turns its gate red.</p>
-<table class="kv"><thead><tr><th>receipt</th><th>state</th><th>size</th><th>generated (UTC)</th><th>label it may carry</th><th>what it establishes</th></tr></thead><tbody><tr><td><code>evidence/organizer_confirmed.json</code></td><td><span class="pill pass">present</span></td><td>8,373 B</td><td></td><td><span class="pill pass">ORGANIZER-CONFIRMED</span></td><td>Metric, submission format, masking, aggregation, label provenance, the live public leaderboard of 2026-10-11, prizes and dataset provenance — each entry quoted from a DrivenData/USGS page with its URL and fetch date.</td></tr><tr><td><code>evidence/ribbon/emission.json</code></td><td><span class="pill pass">present</span></td><td>66,885 B</td><td>2026-10-11T16:06:53Z</td><td><span class="pill info">HOLDOUT-DTI + local measurement</span></td><td>The delivered raster: design, budget rule, σ tables, k̂ calibration, HOLDOUT-DTI of the exact bytes, catalogue-distance profile, the 15-check validator receipt and the corrected local uniqueness screen.</td></tr><tr><td><code>evidence/ribbon/run_card_v2.json</code></td><td><span class="pill pass">present</span></td><td>5,772 B</td><td>2026-10-11T16:08:13Z</td><td><span class="pill info">protocol run card</span></td><td>Hypothesis, mechanism, named non-fault process, HOLDOUT-DTI + interval, registry correlation/overlap, raster sha256, validator output, submission name and note, verdict.</td></tr><tr><td><code>evidence/ribbon/adaptive_sigma.json</code></td><td><span class="pill pass">present</span></td><td>41,289 B</td><td>2026-10-11T15:51:33Z</td><td><span class="pill info">HOLDOUT-DTI</span></td><td>EXP-1: leave-one-block-out cross-fitted σ(x) by block, ridge scale and ridge type; credit calibration k̂(family, magnitude decile); the leakage canary; the marginal-inclusion bar.</td></tr><tr><td><code>evidence/ribbon/adaptive_arms.json</code></td><td><span class="pill pass">present</span></td><td>4,746 B</td><td>2026-10-11T15:52:23Z</td><td><span class="pill info">HOLDOUT-DTI</span></td><td>EXP-2: arms W1 / W3 / AD / AD2 at an equal budget of 38,000 isolated dots per fold, with per-fold DTI, paired bootstrap over the four blocks, per-σ-class gain and the catalogue distance profile of each arm.</td></tr><tr><td><code>evidence/ribbon/uniqueness_full_inventory.json</code></td><td><span class="pill pass">present</span></td><td>655,067 B</td><td></td><td><span class="pill info">REGISTRY-MEASUREMENT</span></td><td>EXP-3 gate G3: the candidate against every sha256-verified raster of the public sibling-repository inventory, with E, chance-corrected lift, saturation and both the literal and the informative reading.</td></tr><tr><td><code>evidence/live_evidence_fit.json</code></td><td><span class="pill pass">present</span></td><td>156,638 B</td><td>2026-10-11T05:17:57Z</td><td><span class="pill warn">USER-REPORTED-SCORE</span></td><td>66 owner-quoted sibling scores matched to sha256-verified bytes and re-measured; the calibration verdict is NEGATIVE (R² = −1.27, no covariate above |Spearman| 0.258).</td></tr><tr><td><code>registry/live_scores_owner_reported.csv</code></td><td><span class="pill pass">present</span></td><td>12,567 B</td><td></td><td><span class="pill warn">USER-REPORTED-SCORE</span></td><td>All 78 owner-quoted live scores with the site URL each came from. No receipt exists for any of them.</td></tr><tr><td><code>registry/registry_merged.json</code></td><td><span class="pill pass">present</span></td><td>300,502 B</td><td>2026-10-11T05:34:05Z</td><td><span class="pill info">REGISTRY-MEASUREMENT</span></td><td>The witness inventory: 695 pinned rasters (now 695/695 byte-restored) plus the current-default-branch delta, 703 in total.</td></tr><tr><td><code>evidence/ribbon/shared_metric_crosscheck.json</code></td><td><span class="pill pass">present</span></td><td>4,033 B</td><td>2026-10-11T16:31:37Z</td><td><span class="pill info">HOLDOUT-DTI</span></td><td>The delivered candidate's HOLDOUT-DTI re-derived with the shared gems57 metric (main has archived the gems58w path), plus the literal brute-force oracle on a bounded tile.</td></tr><tr><td><code>evidence/ribbon/sibling_full_inventory.json</code></td><td><span class="pill pass">present</span></td><td>655,027 B</td><td></td><td><span class="pill info">REGISTRY-MEASUREMENT</span></td><td>The sibling lane's deliverable re-screened with the corrected instrument against the same 703-witness inventory: verdict, both readings, and the ratification analysis.</td></tr><tr><td><code>evidence/ribbon/cross_lane_screen.json</code></td><td><span class="pill pass">present</span></td><td>2,439 B</td><td>2026-10-11T07:20:00Z</td><td><span class="pill info">REGISTRY-MEASUREMENT</span></td><td>The two candidates screened against each other in the protocol direction, with the chance correction: the overlap is asymmetric (0.2998 vs 0.7513) because of geometry, not reuse.</td></tr><tr><td><code>evidence/ribbon/sibling_direction_check.json</code></td><td><span class="pill pass">present</span></td><td>3,828 B</td><td>2026-10-11T07:00:00Z</td><td><span class="pill info">REGISTRY-MEASUREMENT</span></td><td>The measurement behind IR-58-UNIQ-06: the sibling deliverable's published clearance is the reverse statistic; in the protocol direction it fires 78 times.</td></tr><tr><td><code>evidence/ribbon/theorems.json</code></td><td><span class="pill pass">present</span></td><td>2,302 B</td><td></td><td><span class="pill warn">PROJECTION</span></td><td>Algebraic properties of the official metric, including why DTI is monotone in emitted mass on a fixed support (emit 1.0) and the marginal-inclusion bar per assumed score.</td></tr><tr><td><code>evidence/ribbon/instrument_control.json</code></td><td><span class="pill pass">present</span></td><td>2,456 B</td><td></td><td><span class="pill info">HOLDOUT-DTI</span></td><td>IR-58-02: the control raster that keeps a 3 px catalogue margin reads HOLDOUT-DTI exactly 0.0, which is a property of the mandated holdout, not of the candidate.</td></tr><tr><td><code>evidence/buffer_overlap_scan.json</code></td><td><span class="pill pass">present</span></td><td>26,426 B</td><td></td><td><span class="pill info">REGISTRY-MEASUREMENT</span></td><td>IR-58-UNIQ-03: no buffer from 3 to 10 px clears the literal 0.70 gate against saturated blanket/lattice witnesses.</td></tr><tr><td><code>evidence/sibling_record.json</code></td><td><span class="pill pass">present</span></td><td>14,504 B</td><td></td><td><span class="pill warn">USER-REPORTED-SCORE</span></td><td>The earlier 20-raster sibling analysis, including the n=20 Spearman(dots, score) = −0.831 that the corrected 66-file analysis supersedes.</td></tr></tbody></table>
-
-<h2>Complete receipt listing under <code>evidence/</code></h2>
-<p class="small"><code>evidence/58gemsdoe_unique_ribbon/run_card.json</code>, <code>evidence/buffer_overlap_scan.json</code>, <code>evidence/gems60/arms/gems60-convergence-ribbon3-20261011T155249Z.checks.json</code>, <code>evidence/gems60/arms/gems60-convergence-ribbon3-20261011T155249Z.json</code>, <code>evidence/gems60/gems60-convergence-ribbon3-20261011T154953Z.screen.json</code>, <code>evidence/gems60/gems60-convergence-ribbon3-20261011T155138Z.screen.json</code>, <code>evidence/gems60/gems60-convergence-ribbon3-20261011T155249Z.screen.json</code>, <code>evidence/gems60/gems60-convergence-ribbon6-20261011T155420Z.screen.json</code>, <code>evidence/gems60/holdout.json</code>, <code>evidence/gems60/pattern.json</code>, <code>evidence/gems60/pattern_weighted.json</code>, <code>evidence/gems60/run_card.json</code>, <code>evidence/gems60/sigma.json</code>, <code>evidence/gems60/uniqueness_full.json</code>, <code>evidence/gems60/uniqueness_readings.json</code>, <code>evidence/live_evidence_fit.json</code>, <code>evidence/mece_run_card.json</code>, <code>evidence/model_e1e2.json</code>, <code>evidence/model_e3.json</code>, <code>evidence/model_run_card.json</code>, <code>evidence/model_uniqueness.json</code>, <code>evidence/official_leaderboard_observation_20261011.json</code>, <code>evidence/official_leaderboard_observation_20261011_review.json</code>, <code>evidence/organizer_confirmed.json</code>, <code>evidence/prior_h58_run_card.json</code>, <code>evidence/prior_h58_uniqueness_final_dots.json</code>, <code>evidence/registry_cache_restore.json</code>, <code>evidence/registry_cache_restore_s5.json</code>, <code>evidence/registry_fetch_report.json</code>, <code>evidence/registry_freshness_audit.json</code>, <code>evidence/registry_h33_0p2778_structure.json</code>, <code>evidence/registry_scan_index.json</code>, <code>evidence/registry_scan_rows.json</code>, <code>evidence/ribbon/adaptive_arms.json</code>, <code>evidence/ribbon/adaptive_sigma.json</code>, <code>evidence/ribbon/archive-downloads/gems58-adaptive-ribbon-38000-20261011T000000Z.checks.json</code>, <code>evidence/ribbon/archive-s3/adaptive_arms.json</code>, <code>evidence/ribbon/archive-s3/adaptive_sigma.json</code>, <code>evidence/ribbon/archive-s3/emission.json</code>, <code>evidence/ribbon/archive-s3/file_audit_sigma_adaptive.json</code>, <code>evidence/ribbon/archive-s3/run_card_final.json</code>, <code>evidence/ribbon/archive-s3/run_card_v2.json</code>, <code>evidence/ribbon/archive-s3/shared_metric_crosscheck.json</code>, <code>evidence/ribbon/archive-s3/uniqueness_full_inventory.json</code>, <code>evidence/ribbon/concordance_arms.json</code>, <code>evidence/ribbon/concordance_emission.json</code>, <code>evidence/ribbon/concordance_emit_state.json</code>, <code>evidence/ribbon/concordance_sigma.json</code>, <code>evidence/ribbon/concordance_surface_uniqueness.json</code>, <code>evidence/ribbon/cross_lane_screen.json</code>, <code>evidence/ribbon/emission.json</code>, <code>evidence/ribbon/equal_budget.json</code>, <code>evidence/ribbon/file_audit.json</code>, <code>evidence/ribbon/final_sweep.json</code>, <code>evidence/ribbon/geometry_sweep.json</code>, <code>evidence/ribbon/holdout_eval.json</code>, <code>evidence/ribbon/holdout_sigma.json</code>, <code>evidence/ribbon/instrument_control.json</code>, <code>evidence/ribbon/leakage_canary.json</code>, <code>evidence/ribbon/run_card.json</code>, <code>evidence/ribbon/run_card_final.json</code>, <code>evidence/ribbon/run_card_novel.json</code>, <code>evidence/ribbon/run_card_v2.json</code>, <code>evidence/ribbon/shared_metric_crosscheck.json</code>, <code>evidence/ribbon/sibling_direction_check.json</code>, <code>evidence/ribbon/sibling_full_inventory.json</code>, <code>evidence/ribbon/theorems.json</code>, <code>evidence/ribbon/uniqueness.json</code>, <code>evidence/ribbon/uniqueness_full_inventory.json</code>, <code>evidence/ribbon_e1_sigma.json</code>, <code>evidence/ribbon_e2_arms.json</code>, <code>evidence/ribbon_e2b_liverule.json</code>, <code>evidence/ribbon_e2c_liverule_variants.json</code>, <code>evidence/ribbon_uniqueness.json</code>, <code>evidence/ribbon_uniqueness_chance_corrected.json</code>, <code>evidence/ribbon_v2/equal_budget.json</code>, <code>evidence/ribbon_v2/equal_budget_spacing_scan.json</code>, <code>evidence/ribbon_v2/registry_study.json</code>, <code>evidence/ribbon_v2/run_card_equibudget_adaptive.json</code>, <code>evidence/ribbon_v2/run_card_novel.json</code>, <code>evidence/ribbon_v2/run_card_scatter_cover.json</code>, <code>evidence/ribbon_v2/screens.json</code>, <code>evidence/ribbon_v2/signed_sigma.json</code>, <code>evidence/run_card.json</code>, <code>evidence/session4_verification_20261011.json</code>, <code>evidence/sibling_record.json</code></p>
-
-<h2>How to re-derive any number on the site</h2>
-<ol class="small">
-<li><code>pip install --break-system-packages -r requirements.txt</code> (adds
-<code>scikit-learn</code> for the canary's <code>roc_auc_score</code>).</li>
-<li><code>bash scripts/fetch_feature_stack.sh</code> — 419 MB, sha256-pinned
-<code>4371c82e…3bc5</code>; then <code>export GEMS_FEATURE_STACK=~/.cache/gems/training_features.tif</code>.</li>
-<li><code>python3 scripts/fetch_registry_sparse.py</code> and
-<code>python3 scripts/registry_delta_inventory.py --clones /tmp/reg</code> — the 703 witness rasters.</li>
-<li><code>PYTHONPATH=src python3 scripts/ribbon_run_adaptive.py</code> — EXP-1 and EXP-2
-(~4 minutes).</li>
-<li><code>PYTHONPATH=src:scripts python3 scripts/ribbon_emit_adaptive.py</code> — EXP-3: emit,
-validate, screen, write the receipts (~2 minutes).</li>
-<li><code>PYTHONPATH=src python3 scripts/check_uniqueness_registry.py &lt;candidate&gt; --workers 2
---out ribbon/uniqueness_full_inventory.json</code> — gate G3 (~30–40 minutes on 2 CPUs).</li>
-<li><code>PYTHONPATH=src:. python3 -m pytest tests -q</code> then
-<code>python3 scripts/build_site.py</code> (exit 0 = the banner says OK, exit 2 = it does not).</li>
-</ol>
-
-<footer>Generated 2026-10-11T19:46:18Z by
-<code>scripts/build_site.py</code>. No organizer receipt exists for any artifact on this site, so no
-number here is a leaderboard score unless it is labelled ORGANIZER-CONFIRMED.</footer>
-</body></html>
+<footer><hr><p class="s7-small">Rendered from the session-7 artifact audit and run card by
+<code>scripts/build_session7_pages.py</code>. This page is a local project record, not an organizer decision.</p></footer>
+</main></body></html>
