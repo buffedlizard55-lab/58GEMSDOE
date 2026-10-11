@@ -1,0 +1,102 @@
+{
+ "protocol": "gems58-pooled-hide-v1",
+ "evaluator": "gems58.metric/v1",
+ "threshold": 0.8,
+ "scales": [
+  1.5,
+  3.0,
+  6.0
+ ],
+ "n_segments": 1681,
+ "ridge_pixels": 48010,
+ "n_withheld_positives_total": 60474,
+ "folds": [
+  "NW",
+  "NE",
+  "SW",
+  "SE"
+ ],
+ "per_fold": {
+  "NW": {
+   "n_truth": 29021,
+   "n_pairs": 4,
+   "pooled": {
+    "n": 4,
+    "median": 610.5461674059642,
+    "mean": 570.3051716055168,
+    "p25": 488.85411410947233,
+    "p75": 691.9972249020086,
+    "rms": 608.7915407745818
+   },
+   "by_scale": {}
+  },
+  "NE": {
+   "n_truth": 12455,
+   "n_pairs": 0,
+   "pooled": null,
+   "by_scale": {}
+  },
+  "SW": {
+   "n_truth": 9362,
+   "n_pairs": 9,
+   "pooled": {
+    "n": 9,
+    "median": 153.26808653138778,
+    "mean": 159.28977316920677,
+    "p25": 97.56159573258168,
+    "p75": 186.7857624041867,
+    "rms": 193.53388391966055
+   },
+   "by_scale": {}
+  },
+  "SE": {
+   "n_truth": 9636,
+   "n_pairs": 1,
+   "pooled": {
+    "n": 1,
+    "median": 416.9785275999591,
+    "mean": 416.9785275999591,
+    "p25": 416.9785275999591,
+    "p75": 416.9785275999591,
+    "rms": 416.9785275999591
+   },
+   "by_scale": {}
+  }
+ },
+ "table": {
+  "n_pairs": 14,
+  "pooled": {
+   "n": 14,
+   "median": 211.70703855412012,
+   "mean": 295.1290837532062,
+   "p25": 122.67230903129906,
+   "p75": 410.6811933179699,
+   "rms": 377.34769216764266
+  },
+  "by_block": {
+   "SW": {
+    "n": 9,
+    "median": 153.26808653138778,
+    "mean": 159.28977316920677,
+    "p25": 97.56159573258168,
+    "p75": 186.7857624041867,
+    "rms": 193.53388391966055
+   }
+  },
+  "by_scale": {
+   "6px": {
+    "n": 9,
+    "median": 186.7857624041867,
+    "mean": 295.39055225985715,
+    "p25": 112.47371653126949,
+    "p75": 416.9785275999591,
+    "rms": 384.26611343286356
+   }
+  },
+  "by_type": {},
+  "by_type_scale": {},
+  "by_block_scale": {}
+ },
+ "wall_seconds": 348.37,
+ "note": "sigma is the RMS signed across-strike offset of a matched ridge segment from the withheld component's principal axis; HOLDOUT-DTI is reported separately in holdout_eval.json"
+}

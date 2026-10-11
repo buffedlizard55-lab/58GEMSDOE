@@ -1,0 +1,112 @@
+{
+ "theorem_1_fna_identity": {
+  "abs_diff": 0.0,
+  "passed": true
+ },
+ "theorem_2_binary_dominates_soft": {
+  "monotone": true,
+  "max_abs_error": 5.551115123125783e-17,
+  "passed": true
+ },
+ "theorem_3_marginal_inclusion": {
+  "dti_before": 0.3703703703701646,
+  "threshold_alpha_s": 0.07407407407403292,
+  "samples": [
+   {
+    "dy": 0,
+    "dx": 1,
+    "distance_px": 1.0,
+    "credit": 0.6666666666666667,
+    "delta_dti": 0.2962962962961687,
+    "rule_says_improve": true,
+    "measured_improve": true,
+    "agree": true
+   },
+   {
+    "dy": 1,
+    "dx": 1,
+    "distance_px": 1.4142135623730951,
+    "credit": 0.5285954792089682,
+    "delta_dti": 0.22726070256735398,
+    "rule_says_improve": true,
+    "measured_improve": true,
+    "agree": true
+   },
+   {
+    "dy": 0,
+    "dx": 2,
+    "distance_px": 2.0,
+    "credit": 0.33333333333333337,
+    "delta_dti": 0.12962962962958535,
+    "rule_says_improve": true,
+    "measured_improve": true,
+    "agree": true
+   },
+   {
+    "dy": 1,
+    "dx": 2,
+    "distance_px": 2.23606797749979,
+    "credit": 0.2546440075000701,
+    "delta_dti": 0.09028496671297342,
+    "rule_says_improve": true,
+    "measured_improve": true,
+    "agree": true
+   },
+   {
+    "dy": 2,
+    "dx": 2,
+    "distance_px": 2.8284271247461903,
+    "credit": 0.05719095841793653,
+    "delta_dti": -0.008441557828043955,
+    "rule_says_improve": false,
+    "measured_improve": false,
+    "agree": true
+   },
+   {
+    "dy": 0,
+    "dx": 3,
+    "distance_px": 3.0,
+    "credit": 0.0,
+    "delta_dti": -0.037037037036997955,
+    "rule_says_improve": false,
+    "measured_improve": false,
+    "agree": true
+   }
+  ],
+  "measured_break_even_bracket": [
+   0.05719095841793653,
+   0.2546440075000701
+  ],
+  "bracketed": true,
+  "all_signs_agree": true,
+  "passed": true
+ },
+ "threshold_table": [
+  {
+   "dti": 0.1,
+   "required_credit": 0.020000000000000004,
+   "max_distance_m": 294.0
+  },
+  {
+   "dti": 0.2,
+   "required_credit": 0.04000000000000001,
+   "max_distance_m": 288.0
+  },
+  {
+   "dti": 0.2778,
+   "required_credit": 0.05556,
+   "max_distance_m": 283.33199999999994
+  },
+  {
+   "dti": 0.3195,
+   "required_credit": 0.0639,
+   "max_distance_m": 280.83
+  },
+  {
+   "dti": 0.4,
+   "required_credit": 0.08000000000000002,
+   "max_distance_m": 276.0
+  }
+ ],
+ "all_passed": true
+}

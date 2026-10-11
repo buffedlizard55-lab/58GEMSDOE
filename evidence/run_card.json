@@ -1,0 +1,7389 @@
+{
+ "name": "gems58-adaptive-ribbon-38000-20261011T000000Z",
+ "hypothesis": "H58-R ribbon lane: emission width matched to the measured localisation error",
+ "mechanism": "the scoring kernel is isotropic, so a detected ridge that is off by sigma covers truth only within 3 px of the ridge; three parallel dotted lines at the kernel radius +-3 px convert a 1.68 px RMS localisation error into kernel credit",
+ "named_non_fault_process": "flight-line levelling and draped-sensor artefacts in the aeromagnetic grid produce lineaments parallel to survey flight lines that no fault occupies; dense volcanic and alluvial contacts in the detrended DEM produce scarp-shaped curvature that is not tectonic",
+ "holdout_dti": 0.0,
+ "holdout_dti_evaluator": "gems58.metric/v1 (exact triangular kernel, R=3 px, alpha=0.2, beta=0.8)",
+ "holdout_dti_protocol": "gems58-pooled-hide-v1",
+ "holdout_dti_withheld_positives": 60869,
+ "holdout_dti_per_fold": {
+  "NW": 0.0,
+  "NE": 0.0,
+  "SW": 0.0,
+  "SE": 0.0
+ },
+ "holdout_dti_ci": [
+  null,
+  null
+ ],
+ "holdout_dti_ci_note": "not reported: the four spatial blocks give only 4 paired observations, so a bootstrap interval over blocks is not informative; the equal-budget width test reports the block-paired bootstrap instead",
+ "registry": {
+  "n_checked": 19,
+  "n_skipped": 0,
+  "skipped": [],
+  "worst_rho": 0.013745320203254023,
+  "worst_rho_name": "GEMSDOE49__gate_ortho_w0.25-40k.tif",
+  "worst_forward_overlap": 0.36,
+  "worst_forward_overlap_name": "GEMSDOE49__gate_ortho_w0.25-40k.tif",
+  "n_triggers": 0,
+  "n_dense_priors": 0,
+  "rho_max": 0.9,
+  "overlap_max": 0.7,
+  "buffer_px": 3
+ },
+ "registry_rows": [
+  {
+   "name": "19GEMSDOE__h19-4-multiline-corroborated.tif",
+   "rho": 0.0046180496121935284,
+   "forward_overlap": 0.18691377374191098,
+   "reverse_overlap": 0.2800526315789474,
+   "n_other_positives": 123779,
+   "dense": false,
+   "triggers": []
+  },
+  {
+   "name": "19GEMSDOE__h19-5-powerlaw-budget-multiline.tif",
+   "rho": 0.004210025515992399,
+   "forward_overlap": 0.18425506270071246,
+   "reverse_overlap": 0.26513157894736844,
+   "n_other_positives": 121131,
+   "dense": false,
+   "triggers": []
+  },
+  {
+   "name": "57GEMSDOE__faultzone-anatomy-60000px-prev.tif",
+   "rho": 0.0021517470912827785,
+   "forward_overlap": 0.17116666666666666,
+   "reverse_overlap": 0.13157894736842105,
+   "n_other_positives": 60000,
+   "dense": false,
+   "triggers": []
+  },
+  {
+   "name": "57GEMSDOE__h57-anatomy-enechelon-zeros.tif",
+   "rho": -0.0007390640132107196,
+   "forward_overlap": 0.12206785320166379,
+   "reverse_overlap": 0.030131578947368422,
+   "n_other_positives": 35341,
+   "dense": false,
+   "triggers": []
+  },
+  {
+   "name": "57GEMSDOE__h57r2-shipped8-all-flank0-20261009T180433Z-90e532947353-zeros.tif",
+   "rho": -0.0012444996813613777,
+   "forward_overlap": 0.1206,
+   "reverse_overlap": 0.04168421052631579,
+   "n_other_positives": 40000,
+   "dense": false,
+   "triggers": []
+  },
+  {
+   "name": "57GEMSDOE__parallel-12000dots-zeros.tif",
+   "rho": 0.0002237094556305023,
+   "forward_overlap": 0.17333333333333334,
+   "reverse_overlap": 0.018657894736842106,
+   "n_other_positives": 12000,
+   "dense": false,
+   "triggers": []
+  },
+  {
+   "name": "GEMSDOE24__h25-1-dotted-h19-5-d1-5.tif",
+   "rho": 0.002203196831834529,
+   "forward_overlap": 0.17687992142369607,
+   "reverse_overlap": 0.24226315789473685,
+   "n_other_positives": 60069,
+   "dense": false,
+   "triggers": []
+  },
+  {
+   "name": "GEMSDOE25__dotted-h19-5-d2-8.tif",
+   "rho": 0.0020383178714207854,
+   "forward_overlap": 0.17589022454071218,
+   "reverse_overlap": 0.23060526315789473,
+   "n_other_positives": 44090,
+   "dense": false,
+   "triggers": []
+  },
+  {
+   "name": "GEMSDOE27__topo-gap-closure-t-v2-on-d1-5.tif",
+   "rho": 0.0021962432464438255,
+   "forward_overlap": 0.17559679102530654,
+   "reverse_overlap": 0.24557894736842106,
+   "n_other_positives": 61328,
+   "dense": false,
+   "triggers": []
+  },
+  {
+   "name": "GEMSDOE28__h27-4-r1-solo-d2-8.tif",
+   "rho": 0.002871568064547659,
+   "forward_overlap": 0.18652205278738276,
+   "reverse_overlap": 0.2262894736842105,
+   "n_other_positives": 40199,
+   "dense": false,
+   "triggers": []
+  },
+  {
+   "name": "GEMSDOE28__h32-1-prethin-tip-euler-d2-8.tif",
+   "rho": 0.0024379501847170207,
+   "forward_overlap": 0.18149146451033243,
+   "reverse_overlap": 0.22976315789473684,
+   "n_other_positives": 42294,
+   "dense": false,
+   "triggers": []
+  },
+  {
+   "name": "GEMSDOE28__h36-1-rung30-blind-r1.tif",
+   "rho": 0.0027176399368645274,
+   "forward_overlap": 0.18587360594795538,
+   "reverse_overlap": 0.22336842105263158,
+   "n_other_positives": 37660,
+   "dense": false,
+   "triggers": []
+  },
+  {
+   "name": "GEMSDOE28__h38-1-hf-euler-r30-r1.tif",
+   "rho": 0.0027776799441068755,
+   "forward_overlap": 0.18549920760697305,
+   "reverse_overlap": 0.22407894736842104,
+   "n_other_positives": 37860,
+   "dense": false,
+   "triggers": []
+  },
+  {
+   "name": "GEMSDOE29__wormrank-d28.tif",
+   "rho": 0.0016783089366602792,
+   "forward_overlap": 0.1741980744109536,
+   "reverse_overlap": 0.22692105263157894,
+   "n_other_positives": 41338,
+   "dense": false,
+   "triggers": []
+  },
+  {
+   "name": "GEMSDOE30__d28-poisson300m-offcat-44090.tif",
+   "rho": 0.0020383178714207854,
+   "forward_overlap": 0.17589022454071218,
+   "reverse_overlap": 0.23060526315789473,
+   "n_other_positives": 44090,
+   "dense": false,
+   "triggers": []
+  },
+  {
+   "name": "GEMSDOE32__h33-2-b2-zeros.tif",
+   "rho": 0.003464708306327374,
+   "forward_overlap": 0.19036490147129123,
+   "reverse_overlap": 0.22023684210526315,
+   "n_other_positives": 37654,
+   "dense": false,
+   "triggers": []
+  },
+  {
+   "name": "GEMSDOE33__h33d-analog-tip-stepover-r30.tif",
+   "rho": 0.0023026167168078465,
+   "forward_overlap": 0.18115370834826228,
+   "reverse_overlap": 0.2296315789473684,
+   "n_other_positives": 41865,
+   "dense": false,
+   "triggers": []
+  },
+  {
+   "name": "GEMSDOE36__anderson-geothermal-pinn-38854.tif",
+   "rho": 0.003913962417961122,
+   "forward_overlap": 0.1980748442888763,
+   "reverse_overlap": 0.23371052631578948,
+   "n_other_positives": 38854,
+   "dense": false,
+   "triggers": []
+  },
+  {
+   "name": "GEMSDOE49__gate_ortho_w0.25-40k.tif",
+   "rho": 0.013745320203254023,
+   "forward_overlap": 0.36,
+   "reverse_overlap": 0.41121052631578947,
+   "n_other_positives": 40000,
+   "dense": false,
+   "triggers": []
+  }
+ ],
+ "raster_sha256": "d631b4af205bd6e0961f4bad3f4d12bc27b651a020dcd38666e4c5f5246720f7",
+ "raster_bytes": 426559,
+ "validator": {
+  "passed": true,
+  "n_positives": 38000,
+  "checks": {
+   "exists": {
+    "ok": true,
+    "detail": "/home/user/58GEMSDOE/docs/downloads/gems58-adaptive-ribbon-38000-20261011T000000Z.tif"
+   },
+   "single_band": {
+    "ok": true,
+    "detail": "count=1"
+   },
+   "dtype_float32": {
+    "ok": true,
+    "detail": "float32"
+   },
+   "crs_match": {
+    "ok": true,
+    "detail": "EPSG:32611"
+   },
+   "shape_match": {
+    "ok": true,
+    "detail": "3730x3292"
+   },
+   "transform_match": {
+    "ok": true,
+    "detail": "(100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0)"
+   },
+   "nan_outside_footprint": {
+    "ok": true,
+    "detail": "finite pixels outside the footprint = 0"
+   },
+   "finite_inside_footprint": {
+    "ok": true,
+    "detail": "NaN inside footprint = 0"
+   },
+   "values_in_unit_interval": {
+    "ok": true,
+    "detail": "min=0.000 max=1.000"
+   },
+   "positive_is_exactly_one": {
+    "ok": true,
+    "detail": "unique positives = [1.0]"
+   },
+   "positives_inside_footprint": {
+    "ok": true,
+    "detail": "outside = 0"
+   },
+   "footprint_mask_identical": {
+    "ok": true,
+    "detail": "finite=5167373 footprint=5167373"
+   },
+   "no_positive_on_catalogue": {
+    "ok": true,
+    "detail": "on-catalogue dots = 0"
+   },
+   "positive_count_in_range": {
+    "ok": true,
+    "detail": "n_positives = 38000"
+   },
+   "byte_size_reasonable": {
+    "ok": true,
+    "detail": "0.407 MB"
+   }
+  }
+ },
+ "catalogue_distance_profile": {
+  "median_px": 21.931713104248047,
+  "mean_px": 29.9034481048584,
+  "frac_le3px": 0.01931578947368421,
+  "frac_le10px": 0.24573684210526317,
+  "on_catalogue": 0
+ },
+ "sigma_table": {
+  "n_matched": 994,
+  "pooled": {
+   "n": 994,
+   "median": 6.879371866135871,
+   "mean": 7.089667603532706,
+   "p25": 4.181969361229541,
+   "p75": 10.296865240487138,
+   "rms": 8.012342763659568
+  },
+  "recovery": {
+   "n_components_withheld": 994,
+   "median_frac_within": 1.0
+  },
+  "by_block": {
+   "NE": {
+    "n": 166,
+    "median": 6.788769554187615,
+    "mean": 7.0549717599657775,
+    "p25": 3.8893725108085566,
+    "p75": 10.65867098370883,
+    "rms": 8.062255878204644
+   },
+   "NW": {
+    "n": 578,
+    "median": 7.078050036395487,
+    "mean": 7.311992461249217,
+    "p25": 4.329654780937755,
+    "p75": 10.379172179959081,
+    "rms": 8.176841408905124
+   },
+   "SE": {
+    "n": 82,
+    "median": 8.543803320640599,
+    "mean": 7.4516245221757265,
+    "p25": 4.928236620898887,
+    "p75": 10.115197462802112,
+    "rms": 8.26919966198268
+   },
+   "SW": {
+    "n": 168,
+    "median": 5.791042476963057,
+    "mean": 6.182377573432934,
+    "p25": 3.6476808797762637,
+    "p75": 9.12881510962944,
+    "rms": 7.225046672318947
+   }
+  },
+  "by_scale": {
+   "1.5px": {
+    "n": 117,
+    "median": 7.582875444051551,
+    "mean": 7.843439831305052,
+    "p25": 5.18927465341462,
+    "p75": 10.8510843580737,
+    "rms": 8.608141012658344
+   },
+   "3px": {
+    "n": 238,
+    "median": 8.01216827925461,
+    "mean": 7.904561384052181,
+    "p25": 5.221711746181396,
+    "p75": 10.76826084952191,
+    "rms": 8.654055197942503
+   },
+   "6px": {
+    "n": 639,
+    "median": 6.395799402733016,
+    "mean": 6.648140106798748,
+    "p25": 3.729277324012838,
+    "p75": 9.737473626102652,
+    "rms": 7.64205932853755
+   }
+  },
+  "by_type": {
+   "geodetic/crest": {
+    "n": 12,
+    "median": 5.324653263336966,
+    "mean": 5.147478357901728,
+    "p25": 2.3438176104500292,
+    "p75": 6.35205848228889,
+    "rms": 6.282225224760052
+   },
+   "gravity/crest": {
+    "n": 19,
+    "median": 9.044335243676011,
+    "mean": 8.508840948547618,
+    "p25": 5.801413031229314,
+    "p75": 11.554299013617028,
+    "rms": 9.142970071856046
+   },
+   "gravity/trough": {
+    "n": 137,
+    "median": 7.389181280764467,
+    "mean": 7.4068498701962096,
+    "p25": 4.329195708658938,
+    "p75": 10.684880283216405,
+    "rms": 8.34801550526299
+   },
+   "magnetic/crest": {
+    "n": 158,
+    "median": 7.809713965589786,
+    "mean": 7.700744177191831,
+    "p25": 4.611296303788969,
+    "p75": 10.951386072306047,
+    "rms": 8.58173773882528
+   },
+   "magnetic/trough": {
+    "n": 242,
+    "median": 5.421894360525578,
+    "mean": 5.650325899116397,
+    "p25": 1.9379838551658457,
+    "p75": 8.880976459914791,
+    "rms": 6.901105588382238
+   },
+   "subsurface/trough": {
+    "n": 23,
+    "median": 6.750661343263234,
+    "mean": 7.329062392830777,
+    "p25": 4.688400295658506,
+    "p75": 9.826671435069475,
+    "rms": 7.901614566937886
+   },
+   "topographic/crest": {
+    "n": 401,
+    "median": 7.439955724093429,
+    "mean": 7.595984807642563,
+    "p25": 4.954795656734998,
+    "p75": 10.33478070922128,
+    "rms": 8.28494440650775
+   }
+  },
+  "by_block_scale": {
+   "NE/1.5px": {
+    "n": 10,
+    "median": 8.893050866105236,
+    "mean": 7.628765512072482,
+    "p25": 3.7523946498395184,
+    "p75": 10.757210016890847,
+    "rms": 8.65252305158147
+   },
+   "NE/3px": {
+    "n": 40,
+    "median": 7.1427000070516975,
+    "mean": 7.519773772569616,
+    "p25": 4.651539883368912,
+    "p75": 10.925481068921107,
+    "rms": 8.479114503438435
+   },
+   "NE/6px": {
+    "n": 116,
+    "median": 6.573108391286274,
+    "mean": 6.8452302252656025,
+    "p25": 3.805025107211679,
+    "p75": 10.449351668614492,
+    "rms": 7.859497950700091
+   },
+   "NW/1.5px": {
+    "n": 81,
+    "median": 7.400623674341965,
+    "mean": 7.698511117676522,
+    "p25": 5.137011669140814,
+    "p75": 11.1280426550824,
+    "rms": 8.510969415062007
+   },
+   "NW/3px": {
+    "n": 142,
+    "median": 8.173640708842907,
+    "mean": 7.910649755281559,
+    "p25": 5.105682751876934,
+    "p75": 10.732096020440249,
+    "rms": 8.666727165519392
+   },
+   "NW/6px": {
+    "n": 355,
+    "median": 6.6332495807108,
+    "mean": 6.984337962873993,
+    "p25": 4.081409655274541,
+    "p75": 9.91313564326652,
+    "rms": 7.892270020864985
+   },
+   "SE/3px": {
+    "n": 23,
+    "median": 9.316792987876642,
+    "mean": 8.607761033755287,
+    "p25": 7.027981098036734,
+    "p75": 10.40272383763827,
+    "rms": 9.145436973941797
+   },
+   "SE/6px": {
+    "n": 51,
+    "median": 7.3199602582130305,
+    "mean": 6.823885377246985,
+    "p25": 4.176821951860548,
+    "p75": 9.543790215223318,
+    "rms": 7.8125644535135965
+   },
+   "SW/1.5px": {
+    "n": 18,
+    "median": 9.374910225394006,
+    "mean": 8.487713989318136,
+    "p25": 6.015693368360909,
+    "p75": 10.79999672522878,
+    "rms": 9.077119914554718
+   },
+   "SW/3px": {
+    "n": 33,
+    "median": 7.5065189060546915,
+    "mean": 7.854663317432756,
+    "p25": 5.205308645530839,
+    "p75": 9.887201664614551,
+    "rms": 8.454900655247531
+   },
+   "SW/6px": {
+    "n": 117,
+    "median": 4.802776974487434,
+    "mean": 5.356040094476285,
+    "p25": 1.8099342720014773,
+    "p75": 8.26041009877839,
+    "rms": 6.489773682814836
+   }
+  },
+  "unreachable": {
+   "geodetic/crest": {
+    "n": 12,
+    "median": 5.324653263336966,
+    "mean": 5.147478357901728,
+    "p25": 2.3438176104500292,
+    "p75": 6.35205848228889,
+    "rms": 6.282225224760052
+   },
+   "gravity/crest": {
+    "n": 19,
+    "median": 9.044335243676011,
+    "mean": 8.508840948547618,
+    "p25": 5.801413031229314,
+    "p75": 11.554299013617028,
+    "rms": 9.142970071856046
+   },
+   "gravity/trough": {
+    "n": 137,
+    "median": 7.389181280764467,
+    "mean": 7.4068498701962096,
+    "p25": 4.329195708658938,
+    "p75": 10.684880283216405,
+    "rms": 8.34801550526299
+   },
+   "magnetic/crest": {
+    "n": 158,
+    "median": 7.809713965589786,
+    "mean": 7.700744177191831,
+    "p25": 4.611296303788969,
+    "p75": 10.951386072306047,
+    "rms": 8.58173773882528
+   },
+   "magnetic/trough": {
+    "n": 242,
+    "median": 5.421894360525578,
+    "mean": 5.650325899116397,
+    "p25": 1.9379838551658457,
+    "p75": 8.880976459914791,
+    "rms": 6.901105588382238
+   },
+   "subsurface/trough": {
+    "n": 23,
+    "median": 6.750661343263234,
+    "mean": 7.329062392830777,
+    "p25": 4.688400295658506,
+    "p75": 9.826671435069475,
+    "rms": 7.901614566937886
+   },
+   "topographic/crest": {
+    "n": 401,
+    "median": 7.439955724093429,
+    "mean": 7.595984807642563,
+    "p25": 4.954795656734998,
+    "p75": 10.33478070922128,
+    "rms": 8.28494440650775
+   }
+  }
+ },
+ "plan_histogram": {
+  "5": 3024
+ },
+ "plan_rows": [
+  {
+   "block": "NW",
+   "family": "magnetic",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 4.326661530556787,
+   "stratum": "type_scale:magnetic/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 667
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 180
+  },
+  {
+   "block": "NW",
+   "family": "subsurface",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:subsurface/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 54
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 58
+  },
+  {
+   "block": "NW",
+   "family": "gravity",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type:gravity/crest",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 24
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 32
+  },
+  {
+   "block": "NE",
+   "family": "gravity",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:gravity/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 227
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 63
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 28
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 51
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 14
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 9
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 16
+  },
+  {
+   "block": "NE",
+   "family": "gravity",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:gravity/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 157
+  },
+  {
+   "block": "NE",
+   "family": "gravity",
+   "sign": 1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type:gravity/trough",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 307
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 28
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 34
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 20
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 14
+  },
+  {
+   "block": "NW",
+   "family": "subsurface",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:subsurface/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 40
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 15
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 50
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 28
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 44
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 105
+  },
+  {
+   "block": "NW",
+   "family": "gravity",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type:gravity/crest",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 35
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 51
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 11
+  },
+  {
+   "block": "NE",
+   "family": "gravity",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:gravity/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 109
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 79
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 48
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 9
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 8
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 21
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 17
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 9
+  },
+  {
+   "block": "NW",
+   "family": "subsurface",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:subsurface/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 34
+  },
+  {
+   "block": "NW",
+   "family": "magnetic",
+   "sign": 1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/trough/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 17
+  },
+  {
+   "block": "NW",
+   "family": "subsurface",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:subsurface/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 41
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 27
+  },
+  {
+   "block": "NE",
+   "family": "gravity",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:gravity/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 173
+  },
+  {
+   "block": "NW",
+   "family": "gravity",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:gravity/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 20
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 10
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 11
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 12
+  },
+  {
+   "block": "NE",
+   "family": "gravity",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:gravity/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 170
+  },
+  {
+   "block": "NW",
+   "family": "gravity",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:gravity/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 52
+  },
+  {
+   "block": "NE",
+   "family": "gravity",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:gravity/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 12
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 27
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 8
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 10
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 20
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 12
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 10
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 112
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 12
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 17
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 8
+  },
+  {
+   "block": "NW",
+   "family": "gravity",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:gravity/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 54
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 23
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 25
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 19
+  },
+  {
+   "block": "NW",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 11
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 18
+  },
+  {
+   "block": "NE",
+   "family": "gravity",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:gravity/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 259
+  },
+  {
+   "block": "NW",
+   "family": "gravity",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:gravity/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 53
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 12
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 66
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 16
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 14
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 13
+  },
+  {
+   "block": "NE",
+   "family": "gravity",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:gravity/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 48
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 15
+  },
+  {
+   "block": "NE",
+   "family": "gravity",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:gravity/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 240
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 8
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 11
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 14
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 19
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 35
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 25
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 8
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 119
+  },
+  {
+   "block": "NW",
+   "family": "magnetic",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 4.326661530556787,
+   "stratum": "type_scale:magnetic/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 1727
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 17
+  },
+  {
+   "block": "NW",
+   "family": "magnetic",
+   "sign": 1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/trough/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 25
+  },
+  {
+   "block": "NW",
+   "family": "magnetic",
+   "sign": 1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/trough/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 9
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 12
+  },
+  {
+   "block": "NW",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 22
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 42
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 10
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 366
+  },
+  {
+   "block": "NE",
+   "family": "gravity",
+   "sign": 1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type:gravity/trough",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 11
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 9
+  },
+  {
+   "block": "NW",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 10
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 10
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": 1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/trough/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 12
+  },
+  {
+   "block": "NE",
+   "family": "gravity",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:gravity/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 65
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 14
+  },
+  {
+   "block": "NW",
+   "family": "gravity",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:gravity/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 387
+  },
+  {
+   "block": "NW",
+   "family": "magnetic",
+   "sign": 1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/trough/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 119
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 18
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 13
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 26
+  },
+  {
+   "block": "NW",
+   "family": "magnetic",
+   "sign": 1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/trough/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 174
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 9
+  },
+  {
+   "block": "NW",
+   "family": "magnetic",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 4.326661530556787,
+   "stratum": "type_scale:magnetic/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 8
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": 1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/trough/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 22
+  },
+  {
+   "block": "NW",
+   "family": "gravity",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:gravity/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 20
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 8
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": 1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/trough/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 9
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": 1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/trough/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 9
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": 1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/trough/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 14
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 10
+  },
+  {
+   "block": "NW",
+   "family": "magnetic",
+   "sign": 1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/trough/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 18
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 15
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 32
+  },
+  {
+   "block": "NE",
+   "family": "gravity",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:gravity/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 23
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 10
+  },
+  {
+   "block": "NW",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 11
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 14
+  },
+  {
+   "block": "NW",
+   "family": "magnetic",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 4.326661530556787,
+   "stratum": "type_scale:magnetic/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 12
+  },
+  {
+   "block": "NW",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 25
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 12
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 10
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 54
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 8
+  },
+  {
+   "block": "NW",
+   "family": "magnetic",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 4.326661530556787,
+   "stratum": "type_scale:magnetic/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 38
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 13
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 13
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 16
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 23
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 13
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 14
+  },
+  {
+   "block": "NW",
+   "family": "gravity",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:gravity/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 86
+  },
+  {
+   "block": "NW",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 52
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 26
+  },
+  {
+   "block": "NE",
+   "family": "gravity",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type:gravity/crest",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 9
+  },
+  {
+   "block": "NW",
+   "family": "gravity",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:gravity/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 20
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 69
+  },
+  {
+   "block": "NW",
+   "family": "gravity",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:gravity/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 11
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 11
+  },
+  {
+   "block": "NW",
+   "family": "magnetic",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 4.326661530556787,
+   "stratum": "type_scale:magnetic/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 38
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 28
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 8
+  },
+  {
+   "block": "NW",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 53
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 25
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 8
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 13
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 11
+  },
+  {
+   "block": "NE",
+   "family": "gravity",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:gravity/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 77
+  },
+  {
+   "block": "NW",
+   "family": "gravity",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:gravity/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 8
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 13
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 24
+  },
+  {
+   "block": "NW",
+   "family": "magnetic",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 4.326661530556787,
+   "stratum": "type_scale:magnetic/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 77
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 10
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 16
+  },
+  {
+   "block": "NW",
+   "family": "gravity",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:gravity/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 51
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 11
+  },
+  {
+   "block": "NW",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 20
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 8
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 11
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 24
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 8
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 8
+  },
+  {
+   "block": "NW",
+   "family": "subsurface",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:subsurface/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 41
+  },
+  {
+   "block": "NW",
+   "family": "subsurface",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:subsurface/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 41
+  },
+  {
+   "block": "NE",
+   "family": "gravity",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:gravity/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 57
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 11
+  },
+  {
+   "block": "NW",
+   "family": "gravity",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:gravity/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 35
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 16
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 17
+  },
+  {
+   "block": "NW",
+   "family": "magnetic",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 4.326661530556787,
+   "stratum": "type_scale:magnetic/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 10
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 86
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 9
+  },
+  {
+   "block": "NW",
+   "family": "magnetic",
+   "sign": 1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/trough/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 343
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 99
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 22
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 22
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 18
+  },
+  {
+   "block": "NW",
+   "family": "magnetic",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 4.326661530556787,
+   "stratum": "type_scale:magnetic/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 41
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 40
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 9
+  },
+  {
+   "block": "NW",
+   "family": "subsurface",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:subsurface/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 50
+  },
+  {
+   "block": "NW",
+   "family": "subsurface",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:subsurface/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 55
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 8
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 14
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 31
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 12
+  },
+  {
+   "block": "NW",
+   "family": "gravity",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:gravity/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 103
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 13
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 9
+  },
+  {
+   "block": "NE",
+   "family": "gravity",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type:gravity/crest",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 57
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 16
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 9
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 26
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 9
+  },
+  {
+   "block": "NW",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 163
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 24
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 16
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 29
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 8
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 26
+  },
+  {
+   "block": "NW",
+   "family": "gravity",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:gravity/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 26
+  },
+  {
+   "block": "NW",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 14
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 18
+  },
+  {
+   "block": "NE",
+   "family": "gravity",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:gravity/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 36
+  },
+  {
+   "block": "NW",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 62
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 24
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 13
+  },
+  {
+   "block": "NW",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 25
+  },
+  {
+   "block": "NE",
+   "family": "gravity",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:gravity/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 24
+  },
+  {
+   "block": "NW",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 8
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 8
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 17
+  },
+  {
+   "block": "NW",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 16
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 12
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 8
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 34
+  },
+  {
+   "block": "NW",
+   "family": "gravity",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:gravity/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 18
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 11
+  },
+  {
+   "block": "NW",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 18
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 38
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": 1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/trough/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 20
+  },
+  {
+   "block": "NE",
+   "family": "gravity",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:gravity/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 41
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 22
+  },
+  {
+   "block": "NW",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 9
+  },
+  {
+   "block": "NW",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 237
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 207
+  },
+  {
+   "block": "NW",
+   "family": "gravity",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:gravity/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 37
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 12
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 9
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 9
+  },
+  {
+   "block": "NW",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 13
+  },
+  {
+   "block": "NW",
+   "family": "gravity",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:gravity/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 9
+  },
+  {
+   "block": "NW",
+   "family": "magnetic",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 4.326661530556787,
+   "stratum": "type_scale:magnetic/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 63
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 9
+  },
+  {
+   "block": "NW",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 8
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 8
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 9
+  },
+  {
+   "block": "NW",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 16
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 10
+  },
+  {
+   "block": "NW",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 10
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 9
+  },
+  {
+   "block": "NW",
+   "family": "gravity",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:gravity/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 10
+  },
+  {
+   "block": "NW",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 19
+  },
+  {
+   "block": "NW",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 9
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 41
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 16
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 23
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 8
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 33
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 9
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 8
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 26
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 10
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 72
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 18
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 15
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 10
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 12
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 9
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 14
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 9
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 8
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 18
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 8
+  },
+  {
+   "block": "NW",
+   "family": "gravity",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:gravity/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 60
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 22
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 24
+  },
+  {
+   "block": "NW",
+   "family": "gravity",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:gravity/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 21
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 15
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 11
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 4.326661530556787,
+   "stratum": "type_scale:magnetic/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 194
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 9
+  },
+  {
+   "block": "NE",
+   "family": "gravity",
+   "sign": 1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type:gravity/trough",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 41
+  },
+  {
+   "block": "NW",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 174
+  },
+  {
+   "block": "NW",
+   "family": "gravity",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type:gravity/crest",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 24
+  },
+  {
+   "block": "NW",
+   "family": "gravity",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:gravity/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 8
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 10
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 108
+  },
+  {
+   "block": "NW",
+   "family": "subsurface",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:subsurface/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 12
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 51
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 10
+  },
+  {
+   "block": "NW",
+   "family": "magnetic",
+   "sign": 1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/trough/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 15
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 67
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 17
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 27
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 14
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 9
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 15
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 4.326661530556787,
+   "stratum": "type_scale:magnetic/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 86
+  },
+  {
+   "block": "NE",
+   "family": "gravity",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:gravity/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 60
+  },
+  {
+   "block": "NW",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 8
+  },
+  {
+   "block": "NW",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 16
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 56
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 8
+  },
+  {
+   "block": "NW",
+   "family": "subsurface",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:subsurface/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 16
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 8
+  },
+  {
+   "block": "NW",
+   "family": "gravity",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:gravity/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 56
+  },
+  {
+   "block": "NW",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 10
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 9
+  },
+  {
+   "block": "NE",
+   "family": "gravity",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type:gravity/crest",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 17
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 22
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 16
+  },
+  {
+   "block": "NW",
+   "family": "gravity",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:gravity/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 251
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 43
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 19
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 11
+  },
+  {
+   "block": "NE",
+   "family": "gravity",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:gravity/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 28
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 8
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 4.326661530556787,
+   "stratum": "type_scale:magnetic/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 690
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": 1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/trough/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 34
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 19
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 12
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 18
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 47
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 8
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 15
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": 1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "scale:1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 8
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 8
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 8
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 14
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 10
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 17
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 70
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": 1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/trough/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 24
+  },
+  {
+   "block": "NW",
+   "family": "magnetic",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 4.326661530556787,
+   "stratum": "type_scale:magnetic/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 785
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 4.326661530556787,
+   "stratum": "type_scale:magnetic/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 33
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 15
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 25
+  },
+  {
+   "block": "NW",
+   "family": "gravity",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:gravity/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 301
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 10
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 13
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 9
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 28
+  },
+  {
+   "block": "NW",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 12
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 63
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 49
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 64
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 26
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 4.326661530556787,
+   "stratum": "type_scale:magnetic/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 37
+  },
+  {
+   "block": "NE",
+   "family": "subsurface",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "scale:3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 102
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": 1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/trough/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 8
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": 1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/trough/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 48
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 10
+  },
+  {
+   "block": "NW",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 269
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 10
+  },
+  {
+   "block": "NW",
+   "family": "magnetic",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 4.326661530556787,
+   "stratum": "type_scale:magnetic/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 53
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 9
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 8
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 10
+  },
+  {
+   "block": "NE",
+   "family": "gravity",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type:gravity/crest",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 19
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 10
+  },
+  {
+   "block": "NW",
+   "family": "gravity",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:gravity/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 25
+  },
+  {
+   "block": "NE",
+   "family": "gravity",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:gravity/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 38
+  },
+  {
+   "block": "NW",
+   "family": "magnetic",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 4.326661530556787,
+   "stratum": "type_scale:magnetic/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 81
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 10
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 8
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 20
+  },
+  {
+   "block": "NE",
+   "family": "gravity",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:gravity/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 189
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 8
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 4.326661530556787,
+   "stratum": "type_scale:magnetic/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 23
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 161
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 13
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 12
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 9
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 11
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": 1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/trough/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 30
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 9
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 14
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 9
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 11
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 15
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 18
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 36
+  },
+  {
+   "block": "NE",
+   "family": "gravity",
+   "sign": 1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:gravity/trough/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 11
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 8
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 9
+  },
+  {
+   "block": "NW",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 64
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": 1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "scale:1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 9
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 32
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 10
+  },
+  {
+   "block": "NW",
+   "family": "magnetic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 43
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 19
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 69
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 10
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 9
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 8
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 11
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 8
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 11
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 8
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 13
+  },
+  {
+   "block": "NE",
+   "family": "gravity",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:gravity/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 32
+  },
+  {
+   "block": "NE",
+   "family": "magnetic",
+   "sign": 1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:magnetic/trough/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 21
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 23
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 9
+  },
+  {
+   "block": "NE",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 3.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/3px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 27
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 6.0,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/6px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 74
+  },
+  {
+   "block": "NW",
+   "family": "topographic",
+   "sign": -1,
+   "scale": 1.5,
+   "sigma_px": 6.0,
+   "stratum": "type_scale:topographic/crest/1.5px",
+   "n_lines": 5,
+   "offsets_px": [
+    -6.0,
+    -3.0,
+    0.0,
+    3.0,
+    6.0
+   ],
+   "segment_px": 9
+  }
+ ],
+ "geometry": {
+  "width": "adaptive",
+  "line_step_px": 3.0,
+  "dti0": 0.3195,
+  "min_separation_px": 2,
+  "budget": 38000,
+  "catalogue_margin_px": 3.0,
+  "threshold": 0.6,
+  "n_ridge_segments": 3024,
+  "n_raw_ribbon": 492976,
+  "n_after_catalogue_screen": 409033
+ },
+ "submission_note": "Ribbon lane: per-segment dotted ribbons (5 lines at 0, +-300 m, +-600 m) on off-catalogue ridge detections; 38k isolated dots.",
+ "submission_note_chars": 126,
+ "verdict": "candidate \u2014 download OK, submit decision belongs to the slot selector",
+ "wall_seconds": 90.07,
+ "zip_sha256": "3022bcb44c7ee9aec96be82178675bc98b856745a12c92e9929e00a00e232b78",
+ "zip_contains": [
+  "gems58-adaptive-ribbon-38000-20261011T000000Z.tif"
+ ]
+}

@@ -1,0 +1,66 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Overview — 58GEMSDOE ribbon lane</title>
+<link rel="stylesheet" href="assets/site.css"></head><body><div class="wrap">
+<nav><a href="index.html">Overview</a><a href="executive-summary.html">How to submit</a>
+<a href="hypotheses.html">Hypotheses</a><a href="research.html">Research</a>
+<a href="sources.html">Sources</a><a href="irregularities.html">Irregularities</a></nav>
+<div class="card ok">
+<h2 style="margin-top:0;border:0">Download — and what it is for</h2>
+<p><strong>Download: OK &nbsp;·&nbsp; Submit to the competition: YOUR DECISION</strong>
+(this project never clicks Submit and never spends a slot).</p>
+<a class="dl" href="downloads/gems58-adaptive-ribbon-38000-20261011T000000Z.tif">⬇ Download the submission GeoTIFF &nbsp;·&nbsp; gems58-adaptive-ribbon-38000-20261011T000000Z.tif &nbsp;·&nbsp; 426,559 bytes</a>
+<a class="dl" href="downloads/gems58-adaptive-ribbon-38000-20261011T000000Z.zip">⬇ Download the single-GeoTIFF ZIP (portal accepts this too)</a>
+<p class="small">sha256 <code>d631b4af205bd6e0961f4bad3f4d12bc27b651a020dcd38666e4c5f5246720f7</code> &nbsp;·&nbsp; 38,000 dots, every value exactly
+<code>1.0</code> &nbsp;·&nbsp; <strong>15/15 local acceptance checks pass</strong>
+&nbsp;·&nbsp; worst registry rank correlation <strong>0.0137</strong>
+&nbsp;·&nbsp; worst 3&nbsp;px forward overlap <strong>0.3600</strong>
+&nbsp;·&nbsp; <strong>0 duplicates</strong></p>
+<p><strong>Suggested submission note (126 / 140 characters):</strong><br>
+<code>Ribbon lane: per-segment dotted ribbons (5 lines at 0, +-300 m, +-600 m) on off-catalogue ridge detections; 38k isolated dots.</code></p>
+<p class="small">Do not upload this page, a JSON receipt, or a ZIP of the repository:
+the portal takes the <code>.tif</code>, or a ZIP containing exactly one GeoTIFF.</p>
+</div>
+<h1>58GEMSDOE — the ribbon lane</h1>
+<p>One lane of a parallel run on the
+<a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">DOE GEMS Prize</a>.
+The lane is fixed by the standing prompt: <em>match the emission width to the measured
+localisation error.</em>
+<a href="executive-summary.html">Full submit guide →</a></p>
+
+<div class="card">
+<h3 style="margin-top:0">Why the group's best file scores what it scores</h3>
+<p>With <code>R = 300 m = 3 px</code>, <code>α = 0.2</code>, <code>β = 0.8</code> and
+<code>FN = |G| − TP</code>, the official index collapses to</p>
+<pre>DTI = TP / (0.2·(TP + FP) + 0.8·|G|)</pre>
+<p>so <strong>every emitted pixel of unit mass moves the denominator by exactly 0.2 and the
+numerator by its kernel credit</strong>. One dot pays if and only if its credit exceeds
+<code>0.2 · DTI₀</code>. At the leader <strong>0.3195 (OWNER-REPORTED)</strong> that is
+<code>0.0639</code> — <strong>within 281 m</strong> of a scored truth pixel. The metric is a
+distance filter, not a precision filter. That is why the top file is <em>binary, sparse and
+off-catalogue</em>, and why dense parallel chains that hug the catalogue spend mass for nothing.
+Machine-checked in <a href="research.html">Research</a>.</p>
+</div>
+
+<div class="card">
+<h3 style="margin-top:0">What this lane measured</h3>
+<table><thead><tr><th>measurement</th><th>value</th></tr></thead><tbody><tr><td>ridge detections within 300 m of withheld truth</td><td>13.6%</td></tr><tr><td>RMS localisation error σ of those detections</td><td>1.70 px = 170 m</td></tr><tr><td>equal-budget holdout DTI, tight single line</td><td>0.039363</td></tr><tr><td>equal-budget holdout DTI, 3-line ribbon (±300 m)</td><td>0.039929</td></tr><tr><td>delivered dots on the mapped catalogue</td><td>0</td></tr><tr><td>delivered median distance to the catalogue</td><td>21.9 px</td></tr></tbody></table>
+<p class="small">σ_detect = 1.70 px is inside the kernel but well above
+one pixel, so the lane's rule selects a <strong>ribbon</strong>: dotted lines on the kernel-radius
+lattice, which the per-segment plan resolves to 5 lines at 0, ±300 m, ±600 m. The exact metric ranks
+the ribbon above the tight line at equal dot budget — the pooled margin is
+<strong>+0.0006 DTI</strong>,
+concentrated in the badly-localised strata (see Research), not the +0.025 an unheld-budget sweep appears to show.</p>
+</div>
+
+<div class="card warn">
+<h3 style="margin-top:0">Honest gap</h3>
+<p>Detection is <strong>13.6%</strong>
+of the withheld catalogue target. A file that reaches
+<strong>0.3195</strong> needs weighted coverage of roughly <strong>45 %</strong> of the hidden
+faults. <strong>The binding constraint is coverage, not emission geometry.</strong> No emission
+rule in this lane closes that gap, and this repository does not claim it does.</p>
+</div>
+<footer>58GEMSDOE · ribbon lane · every figure on this site is rendered from
+<code>evidence/*.json</code> · no organizer-confirmed score exists for any artifact here.</footer>
+</div></body></html>

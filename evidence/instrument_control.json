@@ -1,0 +1,86 @@
+{
+ "purpose": "the delivered file's HOLDOUT-DTI is exactly 0 because its catalogue-margin screen removes every dot from the holdout's scoring domain; this control isolates the geometry",
+ "delivered": {
+  "name": "gems58-adaptive-ribbon-38000-20261011T000000Z",
+  "sha256": "d631b4af205bd6e0961f4bad3f4d12bc27b651a020dcd38666e4c5f5246720f7",
+  "holdout_dti": 0.0,
+  "catalogue_margin_px": 3.0,
+  "catalogue_distance_profile": {
+   "median_px": 21.931713104248047,
+   "mean_px": 29.9034481048584,
+   "frac_le3px": 0.01931578947368421,
+   "frac_le10px": 0.24573684210526317,
+   "on_catalogue": 0
+  }
+ },
+ "rows": {
+  "M0": {
+   "catalogue_margin_px": 0.0,
+   "n_dots": 38000,
+   "on_catalogue": 522,
+   "holdout_dti": 0.053433473145662956,
+   "holdout_dti_per_fold": {
+    "NW": 0.062396702411562234,
+    "NE": 0.041864160582504376,
+    "SW": 0.06539244653675952,
+    "SE": 0.036033211374496256
+   },
+   "n_withheld_positives": 60869,
+   "tp": 4083.406201463903,
+   "fp": 134542.48247160483,
+   "fn": 56785.593798536094,
+   "catalogue_distance": {
+    "median_px": 19.79899024963379,
+    "frac_le3px": 0.10736842105263159,
+    "frac_le10px": 0.29923684210526313
+   }
+  },
+  "M1": {
+   "catalogue_margin_px": 1.0,
+   "n_dots": 38000,
+   "on_catalogue": 0,
+   "holdout_dti": 0.05211178434490415,
+   "holdout_dti_per_fold": {
+    "NW": 0.060894822436243154,
+    "NE": 0.039732076183099804,
+    "SW": 0.06440316377865388,
+    "SE": 0.03567892100775912
+   },
+   "n_withheld_positives": 60869,
+   "tp": 3976.039931777477,
+   "fp": 134039.4002252013,
+   "fn": 56892.96006822253,
+   "catalogue_distance": {
+    "median_px": 19.646883010864258,
+    "frac_le3px": 0.11244736842105263,
+    "frac_le10px": 0.3032105263157895
+   }
+  },
+  "M3": {
+   "catalogue_margin_px": 3.0,
+   "n_dots": 38000,
+   "on_catalogue": 0,
+   "holdout_dti": 0.0,
+   "holdout_dti_per_fold": {
+    "NW": 0.0,
+    "NE": 0.0,
+    "SW": 0.0,
+    "SE": 0.0
+   },
+   "n_withheld_positives": 60869,
+   "tp": 0.0,
+   "fp": 143994.0,
+   "fn": 60869.0,
+   "catalogue_distance": {
+    "median_px": 21.931713104248047,
+    "frac_le3px": 0.01931578947368421,
+    "frac_le10px": 0.24573684210526317
+   }
+  }
+ },
+ "control_file": "/home/user/58GEMSDOE/docs/downloads/gems58-ribbon-sigma168-w3-38000-M1-CONTROL-20261011T000000Z.tif",
+ "control_sha256": "53496109b49a8f0b758f0d41998b388d7b3afdbdb584be1c32fa2294def98032",
+ "control_validator_passed": true,
+ "control_n_positives": 38000,
+ "wall_seconds": 26.8
+}

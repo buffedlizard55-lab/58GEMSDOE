@@ -1,0 +1,23 @@
+name: CI
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install
+        run: pip install -r requirements.txt
+      - name: Metric theorems (no feature stack needed)
+        run: PYTHONPATH=src python scripts/verify_theorems.py
+      - name: Tests
+        run: PYTHONPATH=src:. python -m pytest -q
+      - name: Site renders from the receipts
+        run: PYTHONPATH=src python scripts/build_site.py
+      - name: Site QA
+        run: PYTHONPATH=src python scripts/check_site.py

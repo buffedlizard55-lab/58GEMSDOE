@@ -1,0 +1,6 @@
+.cache/
+__pycache__/
+*.pyc
+.pytest_cache/
+data/official/training_features.tif
+data/official/gems-geodawn-numerical-features.tif

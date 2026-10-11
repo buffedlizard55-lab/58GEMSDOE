@@ -1,0 +1,1735 @@
+{
+ "protocol": "gems58-pooled-hide-v1",
+ "evaluator": "gems58.metric/v1 (exact triangular kernel, R=3 px, alpha=0.2, beta=0.8)",
+ "threshold": 0.6,
+ "n_segments": 3340,
+ "n_ridge_px": 112925,
+ "n_withheld_positives": 60474,
+ "sigma_pooled_detected": 1.6803510909189479,
+ "dti0_reference": 0.3195,
+ "marginal_credit_threshold": 0.0639,
+ "max_distance_m": 280.83,
+ "stratum": {
+  "magnetic/crest/1.5px": {
+   "n_ridge_px": 64273,
+   "detection_rate_le3px": 0.05330622652561938,
+   "detection_rate_le6px": 0.08962475448812929,
+   "rms_detected": 1.5898026693500447,
+   "n_detected": 1547
+  },
+  "magnetic/trough/1.5px": {
+   "n_ridge_px": 34044,
+   "detection_rate_le3px": 0.03917852589504152,
+   "detection_rate_le6px": 0.06429826677233727,
+   "rms_detected": 1.5656268185913105,
+   "n_detected": 1137
+  },
+  "magnetic/crest/3px": {
+   "n_ridge_px": 55073,
+   "detection_rate_le3px": 0.05234140794597016,
+   "detection_rate_le6px": 0.0879707797801592,
+   "rms_detected": 1.6201089861664475,
+   "n_detected": 1519
+  },
+  "magnetic/trough/3px": {
+   "n_ridge_px": 45298,
+   "detection_rate_le3px": 0.0366286482202543,
+   "detection_rate_le6px": 0.05912959580993074,
+   "rms_detected": 1.5515597711413733,
+   "n_detected": 1063
+  },
+  "magnetic/crest/6px": {
+   "n_ridge_px": 39051,
+   "detection_rate_le3px": 0.035112504737948386,
+   "detection_rate_le6px": 0.05768236794045691,
+   "rms_detected": 1.5606797542697972,
+   "n_detected": 1019
+  },
+  "magnetic/trough/6px": {
+   "n_ridge_px": 32926,
+   "detection_rate_le3px": 0.026153475069777058,
+   "detection_rate_le6px": 0.04072912718376348,
+   "rms_detected": 1.5412637902533899,
+   "n_detected": 759
+  },
+  "gravity/crest/1.5px": {
+   "n_ridge_px": 20552,
+   "detection_rate_le3px": 0.008890114055339238,
+   "detection_rate_le6px": 0.013610833534337204,
+   "rms_detected": 1.5749984619163155,
+   "n_detected": 258
+  },
+  "gravity/trough/1.5px": {
+   "n_ridge_px": 22318,
+   "detection_rate_le3px": 0.007890837669273974,
+   "detection_rate_le6px": 0.0133696288894249,
+   "rms_detected": 1.4923385124722408,
+   "n_detected": 229
+  },
+  "gravity/crest/3px": {
+   "n_ridge_px": 22758,
+   "detection_rate_le3px": 0.01047517315047724,
+   "detection_rate_le6px": 0.0176423968850143,
+   "rms_detected": 1.5271662784730624,
+   "n_detected": 304
+  },
+  "gravity/trough/3px": {
+   "n_ridge_px": 26733,
+   "detection_rate_le3px": 0.010130595086316805,
+   "detection_rate_le6px": 0.017883601529926605,
+   "rms_detected": 1.5779087167410373,
+   "n_detected": 294
+  },
+  "gravity/crest/6px": {
+   "n_ridge_px": 15759,
+   "detection_rate_le3px": 0.006478067606216188,
+   "detection_rate_le6px": 0.013025050825264464,
+   "rms_detected": 1.7534161186399488,
+   "n_detected": 188
+  },
+  "gravity/trough/6px": {
+   "n_ridge_px": 27444,
+   "detection_rate_le3px": 0.014610109920402467,
+   "detection_rate_le6px": 0.026015643844112885,
+   "rms_detected": 1.7717649232887038,
+   "n_detected": 424
+  },
+  "topographic/crest/1.5px": {
+   "n_ridge_px": 70507,
+   "detection_rate_le3px": 0.05950863168050722,
+   "detection_rate_le6px": 0.11164329278798112,
+   "rms_detected": 1.7128892484050682,
+   "n_detected": 1727
+  },
+  "topographic/crest/3px": {
+   "n_ridge_px": 64661,
+   "detection_rate_le3px": 0.05368526239619586,
+   "detection_rate_le6px": 0.0978601702215637,
+   "rms_detected": 1.7294548622810375,
+   "n_detected": 1558
+  },
+  "topographic/crest/6px": {
+   "n_ridge_px": 47769,
+   "detection_rate_le3px": 0.03556045622135695,
+   "detection_rate_le6px": 0.07125874366837807,
+   "rms_detected": 1.7182896670366616,
+   "n_detected": 1032
+  },
+  "subsurface/crest/1.5px": {
+   "n_ridge_px": 10084,
+   "detection_rate_le3px": 0.004100478963509183,
+   "detection_rate_le6px": 0.005788911477895317,
+   "rms_detected": 1.2702146976599116,
+   "n_detected": 119
+  },
+  "subsurface/trough/1.5px": {
+   "n_ridge_px": 19251,
+   "detection_rate_le3px": 0.003411322835188312,
+   "detection_rate_le6px": 0.007546259605113539,
+   "rms_detected": 1.7407765595569784,
+   "n_detected": 99
+  },
+  "subsurface/crest/3px": {
+   "n_ridge_px": 10308,
+   "detection_rate_le3px": 0.004100478963509183,
+   "detection_rate_le6px": 0.005788911477895317,
+   "rms_detected": 1.2702146976599116,
+   "n_detected": 119
+  },
+  "subsurface/trough/3px": {
+   "n_ridge_px": 21276,
+   "detection_rate_le3px": 0.003342407222356225,
+   "detection_rate_le6px": 0.007580717411529582,
+   "rms_detected": 1.7290722141222108,
+   "n_detected": 97
+  },
+  "subsurface/crest/6px": {
+   "n_ridge_px": 8119,
+   "detection_rate_le3px": 0.004100478963509183,
+   "detection_rate_le6px": 0.005788911477895317,
+   "rms_detected": 1.2702146976599116,
+   "n_detected": 119
+  },
+  "subsurface/trough/6px": {
+   "n_ridge_px": 13420,
+   "detection_rate_le3px": 0.0012060232245615244,
+   "detection_rate_le6px": 0.003480238448020399,
+   "rms_detected": 2.197401062294143,
+   "n_detected": 35
+  },
+  "geodetic/crest/1.5px": {
+   "n_ridge_px": 20848,
+   "detection_rate_le3px": 0.005995658316391579,
+   "detection_rate_le6px": 0.008959029668171324,
+   "rms_detected": 1.4142135623730951,
+   "n_detected": 174
+  },
+  "geodetic/crest/3px": {
+   "n_ridge_px": 18831,
+   "detection_rate_le3px": 0.004996381930326315,
+   "detection_rate_le6px": 0.007098308121704972,
+   "rms_detected": 1.3871329896713158,
+   "n_detected": 145
+  },
+  "geodetic/trough/3px": {
+   "n_ridge_px": 18634,
+   "detection_rate_le3px": 0.004686261672581923,
+   "detection_rate_le6px": 0.006030116122807622,
+   "rms_detected": 1.3339459376998313,
+   "n_detected": 136
+  },
+  "geodetic/crest/6px": {
+   "n_ridge_px": 18347,
+   "detection_rate_le3px": 0.005168670962406533,
+   "detection_rate_le6px": 0.007201681540953103,
+   "rms_detected": 1.346600658448277,
+   "n_detected": 150
+  },
+  "geodetic/trough/6px": {
+   "n_ridge_px": 18503,
+   "detection_rate_le3px": 0.004548430446917749,
+   "detection_rate_le6px": 0.006030116122807622,
+   "rms_detected": 1.3200091827045153,
+   "n_detected": 132
+  },
+  "seismic/crest/1.5px": {
+   "n_ridge_px": 13681,
+   "detection_rate_le3px": 0.0045828882533337926,
+   "detection_rate_le6px": 0.006340236380552014,
+   "rms_detected": 1.3544690716902374,
+   "n_detected": 133
+  },
+  "seismic/crest/3px": {
+   "n_ridge_px": 16219,
+   "detection_rate_le3px": 0.004307225802005444,
+   "detection_rate_le6px": 0.005547706832983012,
+   "rms_detected": 1.2992305415129373,
+   "n_detected": 125
+  },
+  "seismic/crest/6px": {
+   "n_ridge_px": 10782,
+   "detection_rate_le3px": 0.004031563350677096,
+   "detection_rate_le6px": 0.005306502188070708,
+   "rms_detected": 1.215990328346603,
+   "n_detected": 117
+  },
+  "_pooled": {
+   "n_ridge_px": 112925,
+   "detection_rate_le3px": 0.10488956273043658,
+   "detection_rate_le6px": 0.19410082354157335,
+   "rms_detected": 1.7149914854035195,
+   "n_detected": 3044
+  },
+  "_pooled_all_folds": {
+   "n_ridge_px": 112925,
+   "n_truth": 60474,
+   "detection_rate_le3px": 0.1158514402883884,
+   "detection_rate_le6px": 0.20665079207593345,
+   "rms_detected": 1.6803510909189479
+  }
+ },
+ "per_fold_stratum": {
+  "NW": {
+   "magnetic/crest/1.5px": {
+    "n_ridge_px": 64273,
+    "detection_rate_le3px": 0.05330622652561938,
+    "detection_rate_le6px": 0.08962475448812929,
+    "rms_detected": 1.5898026693500447,
+    "n_detected": 1547
+   },
+   "magnetic/trough/1.5px": {
+    "n_ridge_px": 34044,
+    "detection_rate_le3px": 0.03917852589504152,
+    "detection_rate_le6px": 0.06429826677233727,
+    "rms_detected": 1.5656268185913105,
+    "n_detected": 1137
+   },
+   "magnetic/crest/3px": {
+    "n_ridge_px": 55073,
+    "detection_rate_le3px": 0.05234140794597016,
+    "detection_rate_le6px": 0.0879707797801592,
+    "rms_detected": 1.6201089861664475,
+    "n_detected": 1519
+   },
+   "magnetic/trough/3px": {
+    "n_ridge_px": 45298,
+    "detection_rate_le3px": 0.0366286482202543,
+    "detection_rate_le6px": 0.05912959580993074,
+    "rms_detected": 1.5515597711413733,
+    "n_detected": 1063
+   },
+   "magnetic/crest/6px": {
+    "n_ridge_px": 39051,
+    "detection_rate_le3px": 0.035112504737948386,
+    "detection_rate_le6px": 0.05768236794045691,
+    "rms_detected": 1.5606797542697972,
+    "n_detected": 1019
+   },
+   "magnetic/trough/6px": {
+    "n_ridge_px": 32926,
+    "detection_rate_le3px": 0.026153475069777058,
+    "detection_rate_le6px": 0.04072912718376348,
+    "rms_detected": 1.5412637902533899,
+    "n_detected": 759
+   },
+   "gravity/crest/1.5px": {
+    "n_ridge_px": 20552,
+    "detection_rate_le3px": 0.008890114055339238,
+    "detection_rate_le6px": 0.013610833534337204,
+    "rms_detected": 1.5749984619163155,
+    "n_detected": 258
+   },
+   "gravity/trough/1.5px": {
+    "n_ridge_px": 22318,
+    "detection_rate_le3px": 0.007890837669273974,
+    "detection_rate_le6px": 0.0133696288894249,
+    "rms_detected": 1.4923385124722408,
+    "n_detected": 229
+   },
+   "gravity/crest/3px": {
+    "n_ridge_px": 22758,
+    "detection_rate_le3px": 0.01047517315047724,
+    "detection_rate_le6px": 0.0176423968850143,
+    "rms_detected": 1.5271662784730624,
+    "n_detected": 304
+   },
+   "gravity/trough/3px": {
+    "n_ridge_px": 26733,
+    "detection_rate_le3px": 0.010130595086316805,
+    "detection_rate_le6px": 0.017883601529926605,
+    "rms_detected": 1.5779087167410373,
+    "n_detected": 294
+   },
+   "gravity/crest/6px": {
+    "n_ridge_px": 15759,
+    "detection_rate_le3px": 0.006478067606216188,
+    "detection_rate_le6px": 0.013025050825264464,
+    "rms_detected": 1.7534161186399488,
+    "n_detected": 188
+   },
+   "gravity/trough/6px": {
+    "n_ridge_px": 27444,
+    "detection_rate_le3px": 0.014610109920402467,
+    "detection_rate_le6px": 0.026015643844112885,
+    "rms_detected": 1.7717649232887038,
+    "n_detected": 424
+   },
+   "topographic/crest/1.5px": {
+    "n_ridge_px": 70507,
+    "detection_rate_le3px": 0.05950863168050722,
+    "detection_rate_le6px": 0.11164329278798112,
+    "rms_detected": 1.7128892484050682,
+    "n_detected": 1727
+   },
+   "topographic/crest/3px": {
+    "n_ridge_px": 64661,
+    "detection_rate_le3px": 0.05368526239619586,
+    "detection_rate_le6px": 0.0978601702215637,
+    "rms_detected": 1.7294548622810375,
+    "n_detected": 1558
+   },
+   "topographic/crest/6px": {
+    "n_ridge_px": 47769,
+    "detection_rate_le3px": 0.03556045622135695,
+    "detection_rate_le6px": 0.07125874366837807,
+    "rms_detected": 1.7182896670366616,
+    "n_detected": 1032
+   },
+   "subsurface/crest/1.5px": {
+    "n_ridge_px": 10084,
+    "detection_rate_le3px": 0.004100478963509183,
+    "detection_rate_le6px": 0.005788911477895317,
+    "rms_detected": 1.2702146976599116,
+    "n_detected": 119
+   },
+   "subsurface/trough/1.5px": {
+    "n_ridge_px": 19251,
+    "detection_rate_le3px": 0.003411322835188312,
+    "detection_rate_le6px": 0.007546259605113539,
+    "rms_detected": 1.7407765595569784,
+    "n_detected": 99
+   },
+   "subsurface/crest/3px": {
+    "n_ridge_px": 10308,
+    "detection_rate_le3px": 0.004100478963509183,
+    "detection_rate_le6px": 0.005788911477895317,
+    "rms_detected": 1.2702146976599116,
+    "n_detected": 119
+   },
+   "subsurface/trough/3px": {
+    "n_ridge_px": 21276,
+    "detection_rate_le3px": 0.003342407222356225,
+    "detection_rate_le6px": 0.007580717411529582,
+    "rms_detected": 1.7290722141222108,
+    "n_detected": 97
+   },
+   "subsurface/crest/6px": {
+    "n_ridge_px": 8119,
+    "detection_rate_le3px": 0.004100478963509183,
+    "detection_rate_le6px": 0.005788911477895317,
+    "rms_detected": 1.2702146976599116,
+    "n_detected": 119
+   },
+   "subsurface/trough/6px": {
+    "n_ridge_px": 13420,
+    "detection_rate_le3px": 0.0012060232245615244,
+    "detection_rate_le6px": 0.003480238448020399,
+    "rms_detected": 2.197401062294143,
+    "n_detected": 35
+   },
+   "geodetic/crest/1.5px": {
+    "n_ridge_px": 20848,
+    "detection_rate_le3px": 0.005995658316391579,
+    "detection_rate_le6px": 0.008959029668171324,
+    "rms_detected": 1.4142135623730951,
+    "n_detected": 174
+   },
+   "geodetic/crest/3px": {
+    "n_ridge_px": 18831,
+    "detection_rate_le3px": 0.004996381930326315,
+    "detection_rate_le6px": 0.007098308121704972,
+    "rms_detected": 1.3871329896713158,
+    "n_detected": 145
+   },
+   "geodetic/trough/3px": {
+    "n_ridge_px": 18634,
+    "detection_rate_le3px": 0.004686261672581923,
+    "detection_rate_le6px": 0.006030116122807622,
+    "rms_detected": 1.3339459376998313,
+    "n_detected": 136
+   },
+   "geodetic/crest/6px": {
+    "n_ridge_px": 18347,
+    "detection_rate_le3px": 0.005168670962406533,
+    "detection_rate_le6px": 0.007201681540953103,
+    "rms_detected": 1.346600658448277,
+    "n_detected": 150
+   },
+   "geodetic/trough/6px": {
+    "n_ridge_px": 18503,
+    "detection_rate_le3px": 0.004548430446917749,
+    "detection_rate_le6px": 0.006030116122807622,
+    "rms_detected": 1.3200091827045153,
+    "n_detected": 132
+   },
+   "seismic/crest/1.5px": {
+    "n_ridge_px": 13681,
+    "detection_rate_le3px": 0.0045828882533337926,
+    "detection_rate_le6px": 0.006340236380552014,
+    "rms_detected": 1.3544690716902374,
+    "n_detected": 133
+   },
+   "seismic/crest/3px": {
+    "n_ridge_px": 16219,
+    "detection_rate_le3px": 0.004307225802005444,
+    "detection_rate_le6px": 0.005547706832983012,
+    "rms_detected": 1.2992305415129373,
+    "n_detected": 125
+   },
+   "seismic/crest/6px": {
+    "n_ridge_px": 10782,
+    "detection_rate_le3px": 0.004031563350677096,
+    "detection_rate_le6px": 0.005306502188070708,
+    "rms_detected": 1.215990328346603,
+    "n_detected": 117
+   },
+   "_pooled": {
+    "n_ridge_px": 112925,
+    "detection_rate_le3px": 0.10488956273043658,
+    "detection_rate_le6px": 0.19410082354157335,
+    "rms_detected": 1.7149914854035195,
+    "n_detected": 3044
+   }
+  },
+  "NE": {
+   "magnetic/crest/1.5px": {
+    "n_ridge_px": 64273,
+    "detection_rate_le3px": 0.02143717382577278,
+    "detection_rate_le6px": 0.039662786029706944,
+    "rms_detected": 1.743903237531446,
+    "n_detected": 267
+   },
+   "magnetic/trough/1.5px": {
+    "n_ridge_px": 34044,
+    "detection_rate_le3px": 0.00497792051384986,
+    "detection_rate_le6px": 0.006182256122039342,
+    "rms_detected": 1.379574501957619,
+    "n_detected": 62
+   },
+   "magnetic/crest/3px": {
+    "n_ridge_px": 55073,
+    "detection_rate_le3px": 0.01637896427137696,
+    "detection_rate_le6px": 0.03131272581292654,
+    "rms_detected": 1.5904124511289146,
+    "n_detected": 204
+   },
+   "magnetic/trough/3px": {
+    "n_ridge_px": 45298,
+    "detection_rate_le3px": 0.01172219991971096,
+    "detection_rate_le6px": 0.016940987555198714,
+    "rms_detected": 1.6217697081587663,
+    "n_detected": 146
+   },
+   "magnetic/crest/6px": {
+    "n_ridge_px": 39051,
+    "detection_rate_le3px": 0.009795262946607788,
+    "detection_rate_le6px": 0.016780409474106785,
+    "rms_detected": 1.6767454815314295,
+    "n_detected": 122
+   },
+   "magnetic/trough/6px": {
+    "n_ridge_px": 32926,
+    "detection_rate_le3px": 0.0037735849056603774,
+    "detection_rate_le6px": 0.00513849859494179,
+    "rms_detected": 1.4291792020209928,
+    "n_detected": 47
+   },
+   "gravity/crest/1.5px": {
+    "n_ridge_px": 20552,
+    "detection_rate_le3px": 0.0246487354476114,
+    "detection_rate_le6px": 0.03982336411079888,
+    "rms_detected": 1.6041477183476995,
+    "n_detected": 307
+   },
+   "gravity/trough/1.5px": {
+    "n_ridge_px": 22318,
+    "detection_rate_le3px": 0.025291047771979124,
+    "detection_rate_le6px": 0.04134885588117222,
+    "rms_detected": 1.6055459438389728,
+    "n_detected": 315
+   },
+   "gravity/crest/3px": {
+    "n_ridge_px": 22758,
+    "detection_rate_le3px": 0.02609393817743878,
+    "detection_rate_le6px": 0.04985949417904456,
+    "rms_detected": 1.5884196306634224,
+    "n_detected": 325
+   },
+   "gravity/trough/3px": {
+    "n_ridge_px": 26733,
+    "detection_rate_le3px": 0.028823765556001607,
+    "detection_rate_le6px": 0.05387394620634284,
+    "rms_detected": 1.6471466000346087,
+    "n_detected": 359
+   },
+   "gravity/crest/6px": {
+    "n_ridge_px": 15759,
+    "detection_rate_le3px": 0.022641509433962263,
+    "detection_rate_le6px": 0.041589723002810115,
+    "rms_detected": 1.624283802892963,
+    "n_detected": 282
+   },
+   "gravity/trough/6px": {
+    "n_ridge_px": 27444,
+    "detection_rate_le3px": 0.03195503813729426,
+    "detection_rate_le6px": 0.0606985146527499,
+    "rms_detected": 1.637346793630801,
+    "n_detected": 398
+   },
+   "topographic/crest/1.5px": {
+    "n_ridge_px": 70507,
+    "detection_rate_le3px": 0.07290244881573665,
+    "detection_rate_le6px": 0.12637494981934966,
+    "rms_detected": 1.7475596578398265,
+    "n_detected": 908
+   },
+   "topographic/crest/3px": {
+    "n_ridge_px": 64661,
+    "detection_rate_le3px": 0.07049377759935768,
+    "detection_rate_le6px": 0.12509032517061422,
+    "rms_detected": 1.842920332807463,
+    "n_detected": 878
+   },
+   "topographic/crest/6px": {
+    "n_ridge_px": 47769,
+    "detection_rate_le3px": 0.05636290646326776,
+    "detection_rate_le6px": 0.10798875953432356,
+    "rms_detected": 1.7910826915520144,
+    "n_detected": 702
+   },
+   "subsurface/crest/1.5px": {
+    "n_ridge_px": 10084,
+    "detection_rate_le3px": 0.004014452027298274,
+    "detection_rate_le6px": 0.00586109995985548,
+    "rms_detected": 1.42828568570857,
+    "n_detected": 50
+   },
+   "subsurface/trough/1.5px": {
+    "n_ridge_px": 19251,
+    "detection_rate_le3px": 0.018225612203934163,
+    "detection_rate_le6px": 0.03002810116419109,
+    "rms_detected": 1.5608085558509799,
+    "n_detected": 227
+   },
+   "subsurface/crest/3px": {
+    "n_ridge_px": 10308,
+    "detection_rate_le3px": 0.004817342432757929,
+    "detection_rate_le6px": 0.006985146527498996,
+    "rms_detected": 1.5110702608857516,
+    "n_detected": 60
+   },
+   "subsurface/trough/3px": {
+    "n_ridge_px": 21276,
+    "detection_rate_le3px": 0.018867924528301886,
+    "detection_rate_le6px": 0.03034925732637495,
+    "rms_detected": 1.5478193308170898,
+    "n_detected": 235
+   },
+   "subsurface/crest/6px": {
+    "n_ridge_px": 8119,
+    "detection_rate_le3px": 0.00409474106784424,
+    "detection_rate_le6px": 0.005700521878763549,
+    "rms_detected": 1.475286612233465,
+    "n_detected": 51
+   },
+   "subsurface/trough/6px": {
+    "n_ridge_px": 13420,
+    "detection_rate_le3px": 0.012444801284624649,
+    "detection_rate_le6px": 0.019429947812123646,
+    "rms_detected": 1.388896057329171,
+    "n_detected": 155
+   },
+   "geodetic/crest/1.5px": {
+    "n_ridge_px": 20848,
+    "detection_rate_le3px": 0.0072260136491368926,
+    "detection_rate_le6px": 0.010036130068245684,
+    "rms_detected": 1.4337208778404378,
+    "n_detected": 90
+   },
+   "geodetic/crest/3px": {
+    "n_ridge_px": 18831,
+    "detection_rate_le3px": 0.006985146527498996,
+    "detection_rate_le6px": 0.010357286230429546,
+    "rms_detected": 1.4700066463216706,
+    "n_detected": 87
+   },
+   "geodetic/trough/3px": {
+    "n_ridge_px": 18634,
+    "detection_rate_le3px": 0.0036130068245684463,
+    "detection_rate_le6px": 0.004656764351665997,
+    "rms_detected": 1.3416407864998738,
+    "n_detected": 45
+   },
+   "geodetic/crest/6px": {
+    "n_ridge_px": 18347,
+    "detection_rate_le3px": 0.005941389000401445,
+    "detection_rate_le6px": 0.008109193095142513,
+    "rms_detected": 1.3998069364949794,
+    "n_detected": 74
+   },
+   "geodetic/trough/6px": {
+    "n_ridge_px": 18503,
+    "detection_rate_le3px": 0.0036130068245684463,
+    "detection_rate_le6px": 0.004496186270574067,
+    "rms_detected": 1.3416407864998738,
+    "n_detected": 45
+   },
+   "seismic/crest/1.5px": {
+    "n_ridge_px": 13681,
+    "detection_rate_le3px": 8.028904054596547e-05,
+    "detection_rate_le6px": 0.0011240465676435167,
+    "rms_detected": 3.0,
+    "n_detected": 1
+   },
+   "seismic/crest/3px": {
+    "n_ridge_px": 16219,
+    "detection_rate_le3px": 0.0036130068245684463,
+    "detection_rate_le6px": 0.004496186270574067,
+    "rms_detected": 1.3662601021279464,
+    "n_detected": 45
+   },
+   "seismic/crest/6px": {
+    "n_ridge_px": 10782,
+    "detection_rate_le3px": 0.0,
+    "detection_rate_le6px": 0.0,
+    "rms_detected": null,
+    "n_detected": 0
+   },
+   "_pooled": {
+    "n_ridge_px": 112925,
+    "detection_rate_le3px": 0.10004014452027299,
+    "detection_rate_le6px": 0.19076676033721396,
+    "rms_detected": 1.794409009065047,
+    "n_detected": 1246
+   }
+  },
+  "SW": {
+   "magnetic/crest/1.5px": {
+    "n_ridge_px": 64273,
+    "detection_rate_le3px": 0.08021790215765862,
+    "detection_rate_le6px": 0.11792352061525316,
+    "rms_detected": 1.3452089863823915,
+    "n_detected": 751
+   },
+   "magnetic/trough/1.5px": {
+    "n_ridge_px": 34044,
+    "detection_rate_le3px": 0.00608844264046144,
+    "detection_rate_le6px": 0.01132236701559496,
+    "rms_detected": 1.199415062114892,
+    "n_detected": 57
+   },
+   "magnetic/crest/3px": {
+    "n_ridge_px": 55073,
+    "detection_rate_le3px": 0.052232428968169195,
+    "detection_rate_le6px": 0.08427686391796625,
+    "rms_detected": 1.4428442712233516,
+    "n_detected": 489
+   },
+   "magnetic/trough/3px": {
+    "n_ridge_px": 45298,
+    "detection_rate_le3px": 0.04219183935056612,
+    "detection_rate_le6px": 0.06045716727195044,
+    "rms_detected": 1.2128009218125484,
+    "n_detected": 395
+   },
+   "magnetic/crest/6px": {
+    "n_ridge_px": 39051,
+    "detection_rate_le3px": 0.03407391582995087,
+    "detection_rate_le6px": 0.05511642811365093,
+    "rms_detected": 1.560684682155876,
+    "n_detected": 319
+   },
+   "magnetic/trough/6px": {
+    "n_ridge_px": 32926,
+    "detection_rate_le3px": 0.03653065584276864,
+    "detection_rate_le6px": 0.05896176030762658,
+    "rms_detected": 1.34316550255412,
+    "n_detected": 342
+   },
+   "gravity/crest/1.5px": {
+    "n_ridge_px": 20552,
+    "detection_rate_le3px": 0.022003845332193975,
+    "detection_rate_le6px": 0.032151249732963044,
+    "rms_detected": 1.280928061613581,
+    "n_detected": 206
+   },
+   "gravity/trough/1.5px": {
+    "n_ridge_px": 22318,
+    "detection_rate_le3px": 0.03300576799829096,
+    "detection_rate_le6px": 0.046678060243537704,
+    "rms_detected": 1.2758650850346036,
+    "n_detected": 309
+   },
+   "gravity/crest/3px": {
+    "n_ridge_px": 22758,
+    "detection_rate_le3px": 0.021897030549027984,
+    "detection_rate_le6px": 0.034180730613116855,
+    "rms_detected": 1.1518807526357417,
+    "n_detected": 205
+   },
+   "gravity/trough/3px": {
+    "n_ridge_px": 26733,
+    "detection_rate_le3px": 0.04956205938901944,
+    "detection_rate_le6px": 0.06750694296090579,
+    "rms_detected": 1.2705212071945255,
+    "n_detected": 464
+   },
+   "gravity/crest/6px": {
+    "n_ridge_px": 15759,
+    "detection_rate_le3px": 0.011215552232428969,
+    "detection_rate_le6px": 0.01794488357188635,
+    "rms_detected": 1.4209319544044392,
+    "n_detected": 105
+   },
+   "gravity/trough/6px": {
+    "n_ridge_px": 27444,
+    "detection_rate_le3px": 0.06547746208075197,
+    "detection_rate_le6px": 0.10745567186498611,
+    "rms_detected": 1.4188201334075012,
+    "n_detected": 613
+   },
+   "topographic/crest/1.5px": {
+    "n_ridge_px": 70507,
+    "detection_rate_le3px": 0.1183507797479171,
+    "detection_rate_le6px": 0.1948301644947661,
+    "rms_detected": 1.535382923580193,
+    "n_detected": 1108
+   },
+   "topographic/crest/3px": {
+    "n_ridge_px": 64661,
+    "detection_rate_le3px": 0.10916470839564196,
+    "detection_rate_le6px": 0.1882076479384747,
+    "rms_detected": 1.5234629416687382,
+    "n_detected": 1022
+   },
+   "topographic/crest/6px": {
+    "n_ridge_px": 47769,
+    "detection_rate_le3px": 0.06558427686391796,
+    "detection_rate_le6px": 0.11877803888058107,
+    "rms_detected": 1.5067708207252108,
+    "n_detected": 614
+   },
+   "subsurface/crest/1.5px": {
+    "n_ridge_px": 10084,
+    "detection_rate_le3px": 0.0,
+    "detection_rate_le6px": 0.0,
+    "rms_detected": null,
+    "n_detected": 0
+   },
+   "subsurface/trough/1.5px": {
+    "n_ridge_px": 19251,
+    "detection_rate_le3px": 0.04657124546037172,
+    "detection_rate_le6px": 0.05928220465712455,
+    "rms_detected": 1.1982402999873445,
+    "n_detected": 436
+   },
+   "subsurface/crest/3px": {
+    "n_ridge_px": 10308,
+    "detection_rate_le3px": 0.0,
+    "detection_rate_le6px": 0.0,
+    "rms_detected": null,
+    "n_detected": 0
+   },
+   "subsurface/trough/3px": {
+    "n_ridge_px": 21276,
+    "detection_rate_le3px": 0.053514206366161075,
+    "detection_rate_le6px": 0.07060457167271951,
+    "rms_detected": 1.238117172054619,
+    "n_detected": 501
+   },
+   "subsurface/crest/6px": {
+    "n_ridge_px": 8119,
+    "detection_rate_le3px": 0.0,
+    "detection_rate_le6px": 0.0,
+    "rms_detected": null,
+    "n_detected": 0
+   },
+   "subsurface/trough/6px": {
+    "n_ridge_px": 13420,
+    "detection_rate_le3px": 0.040803247169408245,
+    "detection_rate_le6px": 0.05618457594531083,
+    "rms_detected": 1.2963904783094131,
+    "n_detected": 382
+   },
+   "geodetic/crest/1.5px": {
+    "n_ridge_px": 20848,
+    "detection_rate_le3px": 0.10467848750267036,
+    "detection_rate_le6px": 0.13447981200598164,
+    "rms_detected": 1.2351154618421845,
+    "n_detected": 980
+   },
+   "geodetic/crest/3px": {
+    "n_ridge_px": 18831,
+    "detection_rate_le3px": 0.09527878658406323,
+    "detection_rate_le6px": 0.12678914761803034,
+    "rms_detected": 1.2806773712172719,
+    "n_detected": 892
+   },
+   "geodetic/trough/3px": {
+    "n_ridge_px": 18634,
+    "detection_rate_le3px": 0.08555864131595813,
+    "detection_rate_le6px": 0.11215552232428969,
+    "rms_detected": 1.283234832544566,
+    "n_detected": 801
+   },
+   "geodetic/crest/6px": {
+    "n_ridge_px": 18347,
+    "detection_rate_le3px": 0.09218115787224952,
+    "detection_rate_le6px": 0.12411877803888058,
+    "rms_detected": 1.2488697091392529,
+    "n_detected": 863
+   },
+   "geodetic/trough/6px": {
+    "n_ridge_px": 18503,
+    "detection_rate_le3px": 0.07947019867549669,
+    "detection_rate_le6px": 0.11279641102328562,
+    "rms_detected": 1.3121639354701025,
+    "n_detected": 744
+   },
+   "seismic/crest/1.5px": {
+    "n_ridge_px": 13681,
+    "detection_rate_le3px": 0.06462294381542405,
+    "detection_rate_le6px": 0.08758812219611194,
+    "rms_detected": 1.259017063801023,
+    "n_detected": 605
+   },
+   "seismic/crest/3px": {
+    "n_ridge_px": 16219,
+    "detection_rate_le3px": 0.06451612903225806,
+    "detection_rate_le6px": 0.08609271523178808,
+    "rms_detected": 1.2886411550505696,
+    "n_detected": 604
+   },
+   "seismic/crest/6px": {
+    "n_ridge_px": 10782,
+    "detection_rate_le3px": 0.06056398205511643,
+    "detection_rate_le6px": 0.08107242042298654,
+    "rms_detected": 1.2500440909331543,
+    "n_detected": 567
+   },
+   "_pooled": {
+    "n_ridge_px": 112925,
+    "detection_rate_le3px": 0.17560350352488785,
+    "detection_rate_le6px": 0.28968169194616533,
+    "rms_detected": 1.5068779861710146,
+    "n_detected": 1644
+   }
+  },
+  "SE": {
+   "magnetic/crest/1.5px": {
+    "n_ridge_px": 64273,
+    "detection_rate_le3px": 0.0713989207139892,
+    "detection_rate_le6px": 0.11021170610211706,
+    "rms_detected": 1.5893906979398345,
+    "n_detected": 688
+   },
+   "magnetic/trough/1.5px": {
+    "n_ridge_px": 34044,
+    "detection_rate_le3px": 0.003424657534246575,
+    "detection_rate_le6px": 0.0049813200498132005,
+    "rms_detected": 1.42488702369803,
+    "n_detected": 33
+   },
+   "magnetic/crest/3px": {
+    "n_ridge_px": 55073,
+    "detection_rate_le3px": 0.03227480282274803,
+    "detection_rate_le6px": 0.05790784557907846,
+    "rms_detected": 1.701143931371228,
+    "n_detected": 311
+   },
+   "magnetic/trough/3px": {
+    "n_ridge_px": 45298,
+    "detection_rate_le3px": 0.03538812785388128,
+    "detection_rate_le6px": 0.04804898298048983,
+    "rms_detected": 1.400670137057464,
+    "n_detected": 341
+   },
+   "magnetic/crest/6px": {
+    "n_ridge_px": 39051,
+    "detection_rate_le3px": 0.021170610211706103,
+    "detection_rate_le6px": 0.03933167289331673,
+    "rms_detected": 1.75873171771648,
+    "n_detected": 204
+   },
+   "magnetic/trough/6px": {
+    "n_ridge_px": 32926,
+    "detection_rate_le3px": 0.03383146533831465,
+    "detection_rate_le6px": 0.04597343295973433,
+    "rms_detected": 1.412042857237289,
+    "n_detected": 326
+   },
+   "gravity/crest/1.5px": {
+    "n_ridge_px": 20552,
+    "detection_rate_le3px": 0.0323785803237858,
+    "detection_rate_le6px": 0.04348277293482773,
+    "rms_detected": 1.3913653136029502,
+    "n_detected": 312
+   },
+   "gravity/trough/1.5px": {
+    "n_ridge_px": 22318,
+    "detection_rate_le3px": 0.033935242839352425,
+    "detection_rate_le6px": 0.0460772104607721,
+    "rms_detected": 1.4206859694715126,
+    "n_detected": 327
+   },
+   "gravity/crest/3px": {
+    "n_ridge_px": 22758,
+    "detection_rate_le3px": 0.03933167289331673,
+    "detection_rate_le6px": 0.05386052303860523,
+    "rms_detected": 1.4474069252935964,
+    "n_detected": 379
+   },
+   "gravity/trough/3px": {
+    "n_ridge_px": 26733,
+    "detection_rate_le3px": 0.037567455375674554,
+    "detection_rate_le6px": 0.05251141552511415,
+    "rms_detected": 1.4365012744868033,
+    "n_detected": 362
+   },
+   "gravity/crest/6px": {
+    "n_ridge_px": 15759,
+    "detection_rate_le3px": 0.03798256537982565,
+    "detection_rate_le6px": 0.053549190535491904,
+    "rms_detected": 1.4654490723346743,
+    "n_detected": 366
+   },
+   "gravity/trough/6px": {
+    "n_ridge_px": 27444,
+    "detection_rate_le3px": 0.035803237858032376,
+    "detection_rate_le6px": 0.0506434205064342,
+    "rms_detected": 1.4615854008774072,
+    "n_detected": 345
+   },
+   "topographic/crest/1.5px": {
+    "n_ridge_px": 70507,
+    "detection_rate_le3px": 0.07233291822332918,
+    "detection_rate_le6px": 0.11581569115815692,
+    "rms_detected": 1.6584205377579564,
+    "n_detected": 697
+   },
+   "topographic/crest/3px": {
+    "n_ridge_px": 64661,
+    "detection_rate_le3px": 0.06963470319634703,
+    "detection_rate_le6px": 0.11280614362806143,
+    "rms_detected": 1.6568513762137511,
+    "n_detected": 671
+   },
+   "topographic/crest/6px": {
+    "n_ridge_px": 47769,
+    "detection_rate_le3px": 0.05707762557077625,
+    "detection_rate_le6px": 0.09246575342465753,
+    "rms_detected": 1.6242480777830146,
+    "n_detected": 550
+   },
+   "subsurface/crest/1.5px": {
+    "n_ridge_px": 10084,
+    "detection_rate_le3px": 0.00031133250311332503,
+    "detection_rate_le6px": 0.0009339975093399751,
+    "rms_detected": 2.4494897427831783,
+    "n_detected": 3
+   },
+   "subsurface/trough/1.5px": {
+    "n_ridge_px": 19251,
+    "detection_rate_le3px": 0.033208800332088007,
+    "detection_rate_le6px": 0.0448318804483188,
+    "rms_detected": 1.4317821063276355,
+    "n_detected": 320
+   },
+   "subsurface/crest/3px": {
+    "n_ridge_px": 10308,
+    "detection_rate_le3px": 0.0,
+    "detection_rate_le6px": 0.00031133250311332503,
+    "rms_detected": null,
+    "n_detected": 0
+   },
+   "subsurface/trough/3px": {
+    "n_ridge_px": 21276,
+    "detection_rate_le3px": 0.033520132835201326,
+    "detection_rate_le6px": 0.04638854296388543,
+    "rms_detected": 1.4488171752951926,
+    "n_detected": 323
+   },
+   "subsurface/crest/6px": {
+    "n_ridge_px": 8119,
+    "detection_rate_le3px": 0.0,
+    "detection_rate_le6px": 0.0,
+    "rms_detected": null,
+    "n_detected": 0
+   },
+   "subsurface/trough/6px": {
+    "n_ridge_px": 13420,
+    "detection_rate_le3px": 0.032586135325861354,
+    "detection_rate_le6px": 0.04420921544209216,
+    "rms_detected": 1.4321157125081545,
+    "n_detected": 314
+   },
+   "geodetic/crest/1.5px": {
+    "n_ridge_px": 20848,
+    "detection_rate_le3px": 0.0323785803237858,
+    "detection_rate_le6px": 0.04514321295143213,
+    "rms_detected": 1.4153462926807447,
+    "n_detected": 312
+   },
+   "geodetic/crest/3px": {
+    "n_ridge_px": 18831,
+    "detection_rate_le3px": 0.031340805313408056,
+    "detection_rate_le6px": 0.04202988792029888,
+    "rms_detected": 1.3882191173877396,
+    "n_detected": 302
+   },
+   "geodetic/trough/3px": {
+    "n_ridge_px": 18634,
+    "detection_rate_le3px": 0.0323785803237858,
+    "detection_rate_le6px": 0.04514321295143213,
+    "rms_detected": 1.4153462926807447,
+    "n_detected": 312
+   },
+   "geodetic/crest/6px": {
+    "n_ridge_px": 18347,
+    "detection_rate_le3px": 0.031340805313408056,
+    "detection_rate_le6px": 0.04234122042341221,
+    "rms_detected": 1.3977275786454098,
+    "n_detected": 302
+   },
+   "geodetic/trough/6px": {
+    "n_ridge_px": 18503,
+    "detection_rate_le3px": 0.0323785803237858,
+    "detection_rate_le6px": 0.04514321295143213,
+    "rms_detected": 1.4153462926807447,
+    "n_detected": 312
+   },
+   "seismic/crest/1.5px": {
+    "n_ridge_px": 13681,
+    "detection_rate_le3px": 0.004462432544624325,
+    "detection_rate_le6px": 0.009858862598588626,
+    "rms_detected": 2.028861520599038,
+    "n_detected": 43
+   },
+   "seismic/crest/3px": {
+    "n_ridge_px": 16219,
+    "detection_rate_le3px": 0.03455790784557908,
+    "detection_rate_le6px": 0.05095475300954753,
+    "rms_detected": 1.4373816702831805,
+    "n_detected": 333
+   },
+   "seismic/crest/6px": {
+    "n_ridge_px": 10782,
+    "detection_rate_le3px": 0.001971772519717725,
+    "detection_rate_le6px": 0.0061228725612287255,
+    "rms_detected": 1.7621756887140216,
+    "n_detected": 19
+   },
+   "_pooled": {
+    "n_ridge_px": 112925,
+    "detection_rate_le3px": 0.11124948111249482,
+    "detection_rate_le6px": 0.1843088418430884,
+    "rms_detected": 1.6961325631099096,
+    "n_detected": 1072
+   }
+  }
+ },
+ "results": {
+  "V0_tight_all": {
+   "pooled": 0.02954903607546929,
+   "per_fold": {
+    "NW": 0.03702434412745056,
+    "NE": 0.020276012052940592,
+    "SW": 0.03644757851688552,
+    "SE": 0.020844164133018695
+   },
+   "agg": {
+    "tp": 3804.4978058217066,
+    "fp": 398519.55516255315,
+    "fn": 56554.5021941783,
+    "n_truth": 60359,
+    "n_dots": 404204
+   }
+  },
+  "V0_tight_all_thin": {
+   "pooled": 0.0,
+   "per_fold": {
+    "NW": 0.0,
+    "NE": 0.0,
+    "SW": 0.0,
+    "SE": 0.0
+   },
+   "agg": {
+    "tp": 0.0,
+    "fp": 0.0,
+    "fn": 60359.0,
+    "n_truth": 60359,
+    "n_dots": 0
+   }
+  },
+  "V0_tight_sp2": {
+   "pooled": 0.03535251787790514,
+   "per_fold": {
+    "NW": 0.03997361699324433,
+    "NE": 0.024725306235194332,
+    "SW": 0.047287024477603204,
+    "SE": 0.026733478205757128
+   },
+   "agg": {
+    "tp": 3158.32058175248,
+    "fp": 202095.30314747966,
+    "fn": 57200.67941824752,
+    "n_truth": 60359,
+    "n_dots": 204968
+   }
+  },
+  "V0_tight_sp3": {
+   "pooled": 0.03653276551747751,
+   "per_fold": {
+    "NW": 0.03906722240331802,
+    "NE": 0.02632458123180463,
+    "SW": 0.05043417742051112,
+    "SE": 0.029279657651973916
+   },
+   "agg": {
+    "tp": 2781.96041273548,
+    "fp": 136530.71455474987,
+    "fn": 57577.03958726452,
+    "n_truth": 60359,
+    "n_dots": 138485
+   }
+  },
+  "V1_ribbon3_sp1": {
+   "pooled": 0.032888013517072046,
+   "per_fold": {
+    "NW": 0.04712854763926875,
+    "NE": 0.02476905931957905,
+    "SW": 0.03329604192165904,
+    "SE": 0.021999220101472032
+   },
+   "agg": {
+    "tp": 7437.266274413672,
+    "fp": 881822.3092660509,
+    "fn": 52921.733725586324,
+    "n_truth": 60359,
+    "n_dots": 895103
+   }
+  },
+  "V1_ribbon3_sp2": {
+   "pooled": 0.04212831423559141,
+   "per_fold": {
+    "NW": 0.05593657617807078,
+    "NE": 0.032361642670632636,
+    "SW": 0.044423024294042344,
+    "SE": 0.029577791429926593
+   },
+   "agg": {
+    "tp": 6384.566136839981,
+    "fp": 509931.82114549814,
+    "fn": 53974.43386316002,
+    "n_truth": 60359,
+    "n_dots": 517598
+   }
+  },
+  "V1_ribbon3_sp3": {
+   "pooled": 0.04710435758168435,
+   "per_fold": {
+    "NW": 0.058887498716958454,
+    "NE": 0.03736346005425739,
+    "SW": 0.05115610509142154,
+    "SE": 0.03441070766738778
+   },
+   "agg": {
+    "tp": 5719.931750158419,
+    "fp": 359999.3341123897,
+    "fn": 54639.068249841584,
+    "n_truth": 60359,
+    "n_dots": 365403
+   }
+  },
+  "V2_ribbon_sig0.5": {
+   "pooled": 0.04307661912006464,
+   "per_fold": {
+    "NW": 0.057851082969898375,
+    "NE": 0.03425229651290981,
+    "SW": 0.044756136409785055,
+    "SE": 0.02869575958543609
+   },
+   "agg": {
+    "tp": 6553.048078413318,
+    "fp": 512637.9709720414,
+    "fn": 53805.95192158668,
+    "n_truth": 60359,
+    "n_dots": 520488
+   }
+  },
+  "V2_ribbon_sig1": {
+   "pooled": 0.04307661912006464,
+   "per_fold": {
+    "NW": 0.057851082969898375,
+    "NE": 0.03425229651290981,
+    "SW": 0.044756136409785055,
+    "SE": 0.02869575958543609
+   },
+   "agg": {
+    "tp": 6553.048078413318,
+    "fp": 512637.9709720414,
+    "fn": 53805.95192158668,
+    "n_truth": 60359,
+    "n_dots": 520488
+   }
+  },
+  "V2_ribbon_sig2": {
+   "pooled": 0.04307661912006464,
+   "per_fold": {
+    "NW": 0.057851082969898375,
+    "NE": 0.03425229651290981,
+    "SW": 0.044756136409785055,
+    "SE": 0.02869575958543609
+   },
+   "agg": {
+    "tp": 6553.048078413318,
+    "fp": 512637.9709720414,
+    "fn": 53805.95192158668,
+    "n_truth": 60359,
+    "n_dots": 520488
+   }
+  },
+  "V2_ribbon_sig3": {
+   "pooled": 0.04212831423559141,
+   "per_fold": {
+    "NW": 0.05593657617807078,
+    "NE": 0.032361642670632636,
+    "SW": 0.044423024294042344,
+    "SE": 0.029577791429926593
+   },
+   "agg": {
+    "tp": 6384.566136839981,
+    "fp": 509931.82114549814,
+    "fn": 53974.43386316002,
+    "n_truth": 60359,
+    "n_dots": 517598
+   }
+  }
+ },
+ "deltas_vs_tight": {
+  "V0_tight_all": {
+   "pooled_delta": 0.0,
+   "per_fold_delta": {
+    "NW": 0.0,
+    "NE": 0.0,
+    "SW": 0.0,
+    "SE": 0.0
+   },
+   "paired_bootstrap": {
+    "mean_point": 0.0,
+    "lo": 0.0,
+    "hi": 0.0,
+    "n": 4
+   }
+  },
+  "V0_tight_all_thin": {
+   "pooled_delta": -0.02954903607546929,
+   "per_fold_delta": {
+    "NW": -0.03702434412745056,
+    "NE": -0.020276012052940592,
+    "SW": -0.03644757851688552,
+    "SE": -0.020844164133018695
+   },
+   "paired_bootstrap": {
+    "mean_point": -0.02864802470757384,
+    "lo": -0.03673596132216804,
+    "hi": -0.020560088092979642,
+    "n": 4
+   }
+  },
+  "V0_tight_sp2": {
+   "pooled_delta": 0.005803481802435846,
+   "per_fold_delta": {
+    "NW": 0.002949272865793773,
+    "NE": 0.004449294182253739,
+    "SW": 0.010839445960717682,
+    "SE": 0.005889314072738433
+   },
+   "paired_bootstrap": {
+    "mean_point": 0.006031831770375907,
+    "lo": 0.003684283167529938,
+    "hi": 0.009241908016101696,
+    "n": 4
+   }
+  },
+  "V0_tight_sp3": {
+   "pooled_delta": 0.006983729442008216,
+   "per_fold_delta": {
+    "NW": 0.002042878275867459,
+    "NE": 0.006048569178864038,
+    "SW": 0.0139865989036256,
+    "SE": 0.008435493518955221
+   },
+   "paired_bootstrap": {
+    "mean_point": 0.00762838496932808,
+    "lo": 0.0036410320866393994,
+    "hi": 0.01200209147243521,
+    "n": 4
+   }
+  },
+  "V1_ribbon3_sp1": {
+   "pooled_delta": 0.0033389774416027543,
+   "per_fold_delta": {
+    "NW": 0.010104203511818191,
+    "NE": 0.004493047266638458,
+    "SW": -0.0031515365952264826,
+    "SE": 0.001155055968453337
+   },
+   "paired_bootstrap": {
+    "mean_point": 0.003150192537920876,
+    "lo": -0.0012403906297602475,
+    "hi": 0.007866916625976977,
+    "n": 4
+   }
+  },
+  "V1_ribbon3_sp2": {
+   "pooled_delta": 0.012579278160122116,
+   "per_fold_delta": {
+    "NW": 0.018912232050620224,
+    "NE": 0.012085630617692043,
+    "SW": 0.007975445777156823,
+    "SE": 0.008733627296907898
+   },
+   "paired_bootstrap": {
+    "mean_point": 0.011926733935594246,
+    "lo": 0.00835453653703236,
+    "hi": 0.016367580862192144,
+    "n": 4
+   }
+  },
+  "V1_ribbon3_sp3": {
+   "pooled_delta": 0.01755532150621506,
+   "per_fold_delta": {
+    "NW": 0.021863154589507897,
+    "NE": 0.0170874480013168,
+    "SW": 0.014708526574536016,
+    "SE": 0.013566543534369088
+   },
+   "paired_bootstrap": {
+    "mean_point": 0.01680641817493245,
+    "lo": 0.014137535054452552,
+    "hi": 0.020074497585764926,
+    "n": 4
+   }
+  },
+  "V2_ribbon_sig0.5": {
+   "pooled_delta": 0.013527583044595351,
+   "per_fold_delta": {
+    "NW": 0.020826738842447817,
+    "NE": 0.013976284459969221,
+    "SW": 0.008308557892899533,
+    "SE": 0.007851595452417395
+   },
+   "paired_bootstrap": {
+    "mean_point": 0.01274079416193349,
+    "lo": 0.008080076672658464,
+    "hi": 0.017697193605060745,
+    "n": 4
+   }
+  },
+  "V2_ribbon_sig1": {
+   "pooled_delta": 0.013527583044595351,
+   "per_fold_delta": {
+    "NW": 0.020826738842447817,
+    "NE": 0.013976284459969221,
+    "SW": 0.008308557892899533,
+    "SE": 0.007851595452417395
+   },
+   "paired_bootstrap": {
+    "mean_point": 0.01274079416193349,
+    "lo": 0.008080076672658464,
+    "hi": 0.017697193605060745,
+    "n": 4
+   }
+  },
+  "V2_ribbon_sig2": {
+   "pooled_delta": 0.013527583044595351,
+   "per_fold_delta": {
+    "NW": 0.020826738842447817,
+    "NE": 0.013976284459969221,
+    "SW": 0.008308557892899533,
+    "SE": 0.007851595452417395
+   },
+   "paired_bootstrap": {
+    "mean_point": 0.01274079416193349,
+    "lo": 0.008080076672658464,
+    "hi": 0.017697193605060745,
+    "n": 4
+   }
+  },
+  "V2_ribbon_sig3": {
+   "pooled_delta": 0.012579278160122116,
+   "per_fold_delta": {
+    "NW": 0.018912232050620224,
+    "NE": 0.012085630617692043,
+    "SW": 0.007975445777156823,
+    "SE": 0.008733627296907898
+   },
+   "paired_bootstrap": {
+    "mean_point": 0.011926733935594246,
+    "lo": 0.00835453653703236,
+    "hi": 0.016367580862192144,
+    "n": 4
+   }
+  }
+ },
+ "plans": {
+  "sp1": [
+   {
+    "size": 9,
+    "sigma": 1.6803510909189479,
+    "n_lines": 3,
+    "offsets": [
+     -3.0,
+     0.0,
+     6.0
+    ],
+    "U": -0.02286862821353322,
+    "dots_placed": 18,
+    "codes": [
+     {
+      "band": "mag_anom",
+      "scale": 1.5,
+      "sign": -1,
+      "q": 0.2143707126379013
+     }
+    ]
+   },
+   {
+    "size": 32,
+    "sigma": 1.6803510909189479,
+    "n_lines": 3,
+    "offsets": [
+     -3.0,
+     0.0,
+     6.0
+    ],
+    "U": -0.02286862821353322,
+    "dots_placed": 90,
+    "codes": [
+     {
+      "band": "det_elev_slope",
+      "scale": 1.5,
+      "sign": -1,
+      "q": 0.6498281359672546
+     }
+    ]
+   },
+   {
+    "size": 165,
+    "sigma": 1.6803510909189479,
+    "n_lines": 3,
+    "offsets": [
+     -3.0,
+     0.0,
+     6.0
+    ],
+    "U": -0.02286862821353322,
+    "dots_placed": 429,
+    "codes": [
+     {
+      "band": "iso_grav_anom_vg",
+      "scale": 6.0,
+      "sign": -1,
+      "q": 0.036460813134908676
+     }
+    ]
+   },
+   {
+    "size": 8,
+    "sigma": 1.6803510909189479,
+    "n_lines": 3,
+    "offsets": [
+     -3.0,
+     0.0,
+     6.0
+    ],
+    "U": -0.02286862821353322,
+    "dots_placed": 18,
+    "codes": [
+     {
+      "band": "det_elev_slope",
+      "scale": 3.0,
+      "sign": -1,
+      "q": 0.15856939554214478
+     }
+    ]
+   },
+   {
+    "size": 43,
+    "sigma": 1.6803510909189479,
+    "n_lines": 3,
+    "offsets": [
+     -3.0,
+     0.0,
+     6.0
+    ],
+    "U": -0.02286862821353322,
+    "dots_placed": 124,
+    "codes": [
+     {
+      "band": "det_elev_slope",
+      "scale": 3.0,
+      "sign": -1,
+      "q": 0.15856939554214478
+     }
+    ]
+   }
+  ],
+  "sp2": [
+   {
+    "size": 9,
+    "sigma": 1.6803510909189479,
+    "n_lines": 3,
+    "offsets": [
+     -3.0,
+     0.0,
+     6.0
+    ],
+    "U": -0.02286862821353322,
+    "dots_placed": 10,
+    "codes": [
+     {
+      "band": "mag_anom",
+      "scale": 1.5,
+      "sign": -1,
+      "q": 0.2143707126379013
+     }
+    ]
+   },
+   {
+    "size": 32,
+    "sigma": 1.6803510909189479,
+    "n_lines": 3,
+    "offsets": [
+     -3.0,
+     0.0,
+     6.0
+    ],
+    "U": -0.02286862821353322,
+    "dots_placed": 46,
+    "codes": [
+     {
+      "band": "det_elev_slope",
+      "scale": 1.5,
+      "sign": -1,
+      "q": 0.6498281359672546
+     }
+    ]
+   },
+   {
+    "size": 165,
+    "sigma": 1.6803510909189479,
+    "n_lines": 3,
+    "offsets": [
+     -3.0,
+     0.0,
+     6.0
+    ],
+    "U": -0.02286862821353322,
+    "dots_placed": 231,
+    "codes": [
+     {
+      "band": "iso_grav_anom_vg",
+      "scale": 6.0,
+      "sign": -1,
+      "q": 0.036460813134908676
+     }
+    ]
+   },
+   {
+    "size": 8,
+    "sigma": 1.6803510909189479,
+    "n_lines": 3,
+    "offsets": [
+     -3.0,
+     0.0,
+     6.0
+    ],
+    "U": -0.02286862821353322,
+    "dots_placed": 9,
+    "codes": [
+     {
+      "band": "det_elev_slope",
+      "scale": 3.0,
+      "sign": -1,
+      "q": 0.15856939554214478
+     }
+    ]
+   },
+   {
+    "size": 43,
+    "sigma": 1.6803510909189479,
+    "n_lines": 3,
+    "offsets": [
+     -3.0,
+     0.0,
+     6.0
+    ],
+    "U": -0.02286862821353322,
+    "dots_placed": 63,
+    "codes": [
+     {
+      "band": "det_elev_slope",
+      "scale": 3.0,
+      "sign": -1,
+      "q": 0.15856939554214478
+     }
+    ]
+   }
+  ],
+  "sp3": [
+   {
+    "size": 9,
+    "sigma": 1.6803510909189479,
+    "n_lines": 3,
+    "offsets": [
+     -3.0,
+     0.0,
+     6.0
+    ],
+    "U": -0.02286862821353322,
+    "dots_placed": 6,
+    "codes": [
+     {
+      "band": "mag_anom",
+      "scale": 1.5,
+      "sign": -1,
+      "q": 0.2143707126379013
+     }
+    ]
+   },
+   {
+    "size": 32,
+    "sigma": 1.6803510909189479,
+    "n_lines": 3,
+    "offsets": [
+     -3.0,
+     0.0,
+     6.0
+    ],
+    "U": -0.02286862821353322,
+    "dots_placed": 32,
+    "codes": [
+     {
+      "band": "det_elev_slope",
+      "scale": 1.5,
+      "sign": -1,
+      "q": 0.6498281359672546
+     }
+    ]
+   },
+   {
+    "size": 165,
+    "sigma": 1.6803510909189479,
+    "n_lines": 3,
+    "offsets": [
+     -3.0,
+     0.0,
+     6.0
+    ],
+    "U": -0.02286862821353322,
+    "dots_placed": 155,
+    "codes": [
+     {
+      "band": "iso_grav_anom_vg",
+      "scale": 6.0,
+      "sign": -1,
+      "q": 0.036460813134908676
+     }
+    ]
+   },
+   {
+    "size": 8,
+    "sigma": 1.6803510909189479,
+    "n_lines": 3,
+    "offsets": [
+     -3.0,
+     0.0,
+     6.0
+    ],
+    "U": -0.02286862821353322,
+    "dots_placed": 7,
+    "codes": [
+     {
+      "band": "det_elev_slope",
+      "scale": 3.0,
+      "sign": -1,
+      "q": 0.15856939554214478
+     }
+    ]
+   },
+   {
+    "size": 43,
+    "sigma": 1.6803510909189479,
+    "n_lines": 3,
+    "offsets": [
+     -3.0,
+     0.0,
+     6.0
+    ],
+    "U": -0.02286862821353322,
+    "dots_placed": 43,
+    "codes": [
+     {
+      "band": "det_elev_slope",
+      "scale": 3.0,
+      "sign": -1,
+      "q": 0.15856939554214478
+     }
+    ]
+   }
+  ]
+ },
+ "wall_seconds": 277.02
+}
