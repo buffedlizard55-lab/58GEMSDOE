@@ -1,0 +1,9 @@
+# registry raster cache (restorable via scripts/fetch_registry_sparse.py; pinned by sha256 in registry/)
+.cache/
+# python
+__pycache__/
+*.pyc
+.pytest_cache/
+# working artifacts
+/tmp/
+*.log
