@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session 6 — ribbon lane deliverable — 58GEMSDOE</title>
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+.s6box{border:1px solid #9ed3b3;border-left:6px solid #12703f;background:#f4fcf7;
+  border-radius:10px;padding:1rem 1.25rem;margin:1rem 0}
+.s6box.bad{border-color:#e0a3a3;border-left-color:#a11212;background:#fdf3f3}
+.s6box.warn{border-color:#e0c46a;border-left-color:#8a6d1a;background:#fffbea}
+.s6box h2{margin:.1rem 0 .5rem;font-size:1.18rem}
+.badge{display:inline-block;color:#fff;font-weight:700;border-radius:999px;
+  padding:.35rem .8rem;font-size:.8rem;letter-spacing:.4px}
+.badge.ok{background:#12703f}.badge.no{background:#a11212}.badge.warn{background:#8a6d1a}
+.big-btn{display:inline-block;background:#12703f;color:#fff;text-decoration:none;font-weight:700;
+  padding:.6rem 1.1rem;border-radius:8px;margin:.25rem .35rem .25rem 0}
+.big-btn.sec{background:#2f5f8f}
+.g-ok{color:#12703f;font-weight:700}.g-bad{color:#a11212;font-weight:700}.g-warn{color:#8a6d1a;font-weight:700}
+table{border-collapse:collapse;margin:.5rem 0;font-size:.9em}
+th,td{border:1px solid #d7dee6;padding:.3rem .55rem;text-align:left}
+th{background:#eef2f6}
+.small{font-size:.85rem;color:#41505f}
+code{background:#eef2f6;padding:0 .3em;border-radius:4px;font-size:.92em}
+</style>
+</head><body>
+<header><h1>58GEMSDOE — session 6: ribbon lane, width matched to the measured localisation error</h1>
+<p>DOE GEMS Prize Challenge (DrivenData #306) · every number below is rendered from
+<code>evidence/s6/*.json</code> at build time · <a href="../index.html">← repository status</a></p></header>
+
+<section class="s6box bad">
+  <div class="badge no">NOT CLEARED — DOWNLOAD FOR REVIEW ONLY</div>
+  <h2>gems58-s6-ribbon-sigma38000-20261011T203621Z.tif</h2>
+  <p><b>38,000 isolated dots</b> (largest 8-connected component
+  1 px), every value exactly <code>1.0</code>,
+  <b>60,988 catalogue pixels excluded</b>
+  plus a 2-px collar, single-band float32 GeoTIFF,
+  EPSG:32611, 3730 × 3292, NaN outside the footprint exactly as in the organizer's
+  <code>sample_submission.tif</code>. Local format gate:
+  <b class="g-ok">15/15 checks passed</b>.</p>
+  <div>
+    <a class="big-btn" href="../downloads/gems58-s6-ribbon-sigma38000-20261011T203621Z.tif" download>⬇ Download the submission GeoTIFF
+      (396 KiB)</a>
+    <a class="big-btn sec" href="../downloads/gems58-s6-ribbon-sigma38000-20261011T203621Z.zip" download>⬇ ZIP (one GeoTIFF)</a>
+    <a class="big-btn sec" href="../executive-summary.html">How to submit it</a>
+    <a class="big-btn sec" href="../submit.html">Portal checklist</a>
+  </div>
+  <p class="small">sha256 <code>22a0bd670a4c2013d48da7fae8640024e20cb2fb777e06b5d4b55899db6033c5</code> ·
+  submission name <code>gems58-s6-ribbon-sigma38000-20261011T203621Z</code></p>
+  <p class="small"><b>Uniqueness:</b> 692 sha256-verified witnesses screened ·
+  literal 3 px forward-overlap rule: <b class="g-bad">81 firing(s)</b>
+  (80 of them vacuous: those witnesses' own 3 px dilation already covers the whole scored footprint,
+  so they overlap every non-empty file) · informative rule-A firing(s) (overlap &gt; 0.70 with a witness
+  whose own coverage &lt; 0.70): <b class="g-bad">1</b> ·
+  chance-corrected lift rule: <b class="g-ok">0</b>
+  (worst lift 0.475634, limit 0.50) ·
+  worst rank correlation <b>0.056279</b> (limit 0.90) ·
+  worst dot-set Jaccard <b>0.031829</b> (limit 0.50) ·
+  byte-identical to a witness: <b>False</b>.
+  Verdict rendered by the protocol: <b>DUPLICATE</b>.</p>
+</section>
+
+<section>
+<h2>How to submit this file (three steps, ~2 minutes)</h2>
+<ol>
+  <li>Click <b>Download the submission GeoTIFF</b> above (or the ZIP — the portal accepts either a
+      single-band <code>.tif</code> or a <code>.zip</code> containing exactly one GeoTIFF).</li>
+  <li>Open <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/">the
+      competition's New submission page</a>, choose the file, and paste this name into the
+      <i>Note</i> field (140 characters max):<br>
+      <code>Ribbon lane: 5 dotted lines at +-3/+-6 px on multi-family Hessian ridges; 38000 isolated dots at 1.0; off-catalogue</code></li>
+  <li>Create the submission. The organizer's own requirements — one band, float32,
+      EPSG:32611, 3730 × 3292, values in [0, 1], NaN outside the study area — are all
+      checked locally before the file is written
+      (<a href="../executive-summary.html">full walkthrough with screenshots of each field</a>).</li>
+</ol>
+<p class="small">If the portal ever says <i>“Predicted values must be in range [0, 1]”</i>, the file
+carried a NaN or a value outside [0,1] <i>inside</i> the footprint. This file cannot: its
+finite support is bit-identical to the organizer's <code>sample_submission.tif</code> and every
+finite value is 0.0 or 1.0.</p>
+</section>
+
+<section>
+<h2>What the raster is, and what the lane asked for</h2>
+<p>The lane instruction is: <i>match emission width to the measured localisation error; use a single
+tight line where σ is under about 0.5 px and a ribbon about ±σ wide where it is 2–3 px; choose, per
+segment, the number and offset of parallel dotted lines (spacing near the 3-px kernel radius) that
+maximise U = (1 − 0.2·DTI₀)·TP − 0.2·DTI₀·FP, evaluated with the exact metric; emit included dots at
+exactly 1.0.</i></p>
+<p>Support: multi-family, multi-scale Hessian ridges (19 organizer bands × 3 scales, 6,531 segments
+of ≥ 6 px at threshold 0.5), read <b>only</b> from the organizer's geophysical stack, so withholding
+catalogue segments cannot change it.
+Geometry: <b>uniform_K5_s3_p3</b> — 5 parallel dotted lines at
+±3 and ±6 px across strike, one dot every
+3 px along strike, then thinned to strictly isolated pixels.</p>
+<table>
+<tr><th>Measurement</th><th>Value</th></tr>
+<tr><td>HOLDOUT-DTI of the chosen geometry (pooled, 4 buffered blocks)</td><td><b>0.058061</b></td></tr>
+<tr><td>evaluator / protocol</td><td><code>gems57.metric/shared</code> /
+  <code>gems58-pooled-hide-v1</code></td></tr>
+<tr><td>withheld positive pixels</td><td>60,869</td></tr>
+<tr><td>weighted coverage of withheld truth</td><td>0.075873</td></tr>
+<tr><td>kernel credit per emitted dot</td><td>0.030384</td></tr>
+<tr><td>uniform random control at the same budget</td><td>0.052737</td></tr>
+<tr><td>worst single-feature leakage-canary AUC (limit 0.90)</td>
+    <td><b class="g-ok">0.606374</b> — clean</td></tr>
+<tr><td>median distance of dots to the mapped catalogue</td>
+    <td>21.21 px
+        (1.17 % within 3 px)</td></tr>
+</table>
+<p class="small">Per-block holdout terms:
+NW 0.06404, NE 0.06185, SW 0.05325, SE 0.04629.
+The interval across the four spatial blocks is
+0.046286–0.064044
+(min–max over four physical blocks; a four-block bootstrap would resample repeated physical blocks
+as independent, so no bootstrap CI is claimed).</p>
+</section>
+
+<section>
+<h2>Geometry sweep — equal 38,000-dot budget per block, exact metric</h2>
+<table>
+<tr><th>pattern</th><th>lines</th><th>across-strike spacing (px)</th><th>along-strike pitch (px)</th>
+<th>HOLDOUT-DTI</th><th>weighted coverage</th><th>credit / dot</th></tr>
+<tr><td><code>K5_s3_p3</code></td><td>5</td><td>3</td><td>3</td><td class='num'>0.053488</td><td class='num'>0.0698</td><td class='num'>0.0280</td></tr><tr><td><code>K3_s3_p3</code></td><td>3</td><td>3</td><td>3</td><td class='num'>0.050722</td><td class='num'>0.0662</td><td class='num'>0.0265</td></tr><tr><td><code>K1_s1_p3</code></td><td>1</td><td>1</td><td>3</td><td class='num'>0.048101</td><td class='num'>0.0595</td><td class='num'>0.0276</td></tr><tr><td><code>K1_s1_p4</code></td><td>1</td><td>1</td><td>4</td><td class='num'>0.046149</td><td class='num'>0.0524</td><td class='num'>0.0318</td></tr><tr><td><code>K3_s3_p2</code></td><td>3</td><td>3</td><td>2</td><td class='num'>0.045410</td><td class='num'>0.0592</td><td class='num'>0.0237</td></tr><tr><td><code>K5_s3_p2</code></td><td>5</td><td>3</td><td>2</td><td class='num'>0.045383</td><td class='num'>0.0591</td><td class='num'>0.0237</td></tr><tr><td><code>K1_s1_p2</code></td><td>1</td><td>1</td><td>2</td><td class='num'>0.044208</td><td class='num'>0.0577</td><td class='num'>0.0231</td></tr><tr><td><code>K3_s2_p3</code></td><td>3</td><td>2</td><td>3</td><td class='num'>0.042564</td><td class='num'>0.0555</td><td class='num'>0.0222</td></tr><tr><td><code>K5_s2_p3</code></td><td>5</td><td>2</td><td>3</td><td class='num'>0.042514</td><td class='num'>0.0554</td><td class='num'>0.0222</td></tr><tr><td><code>K3_s2_p2</code></td><td>3</td><td>2</td><td>2</td><td class='num'>0.038604</td><td class='num'>0.0503</td><td class='num'>0.0201</td></tr><tr><td><code>K5_s2_p2</code></td><td>5</td><td>2</td><td>2</td><td class='num'>0.036468</td><td class='num'>0.0475</td><td class='num'>0.0190</td></tr><tr><td><code>K7_s2_p2</code></td><td>7</td><td>2</td><td>2</td><td class='num'>0.033802</td><td class='num'>0.0440</td><td class='num'>0.0176</td></tr><tr><td><code>K3_s1_p3</code></td><td>3</td><td>1</td><td>3</td><td class='num'>0.032174</td><td class='num'>0.0419</td><td class='num'>0.0168</td></tr><tr><td><code>K3_s1_p2</code></td><td>3</td><td>1</td><td>2</td><td class='num'>0.030411</td><td class='num'>0.0395</td><td class='num'>0.0158</td></tr>
+</table>
+<p>Two things fall out, both measured rather than assumed: the across-strike spacing that wins is
+<b>the 3-px kernel radius itself</b> (spacing 1 and 2 px are worse at every line count, because
+near-neighbour lines spend false-positive mass on truth the centre line already reaches), and
+<b>five lines beat one and three</b> at an equal dot budget, i.e. covering the top-ranked segments
+with a ±6 px ribbon beats covering eight times as many segments with a tight line.</p>
+</section>
+
+<section>
+<h2>σ table — measured localisation error, holdout only</h2>
+<p>σ is the censored RMS distance from each withheld catalogue segment's pixels to the nearest
+candidate-ridge pixel (censored at 15 px, so it is conservative, never optimistic), measured on the
+buffered hide-and-recover holdout over 1,487 matched components.
+1 px = 100 m; the scoring kernel radius is 3 px.</p>
+<table>
+<tr><th>pooled</th><th>n</th><th>median σ</th><th>mean</th><th>p25</th><th>p75</th><th>RMS</th></tr>
+<tr><td>all withheld components</td><td class='num'>1487</td>
+<td class='num'>5.74</td><td class='num'>6.36</td>
+<td class='num'>3.27</td><td class='num'>9.37</td>
+<td class='num'>7.38</td></tr>
+</table>
+<h3>by data block</h3><table><tr><th>stratum</th><th>components</th><th>median σ (px)</th><th>p25</th><th>p75</th></tr><tr><td>SW</td><td class='num'>221</td><td class='num'>4.68</td><td class='num'>2.69</td><td class='num'>7.90</td></tr><tr><td>NE</td><td class='num'>255</td><td class='num'>5.79</td><td class='num'>3.19</td><td class='num'>10.20</td></tr><tr><td>NW</td><td class='num'>866</td><td class='num'>5.83</td><td class='num'>3.46</td><td class='num'>9.19</td></tr><tr><td>SE</td><td class='num'>145</td><td class='num'>7.08</td><td class='num'>3.88</td><td class='num'>10.36</td></tr></table>
+<h3>by feature resolution (ridge scale)</h3><table><tr><th>stratum</th><th>components</th><th>median σ (px)</th><th>p25</th><th>p75</th></tr><tr><td>6px</td><td class='num'>962</td><td class='num'>5.12</td><td class='num'>2.76</td><td class='num'>8.90</td></tr><tr><td>3px</td><td class='num'>349</td><td class='num'>6.66</td><td class='num'>3.93</td><td class='num'>9.91</td></tr><tr><td>1.5px</td><td class='num'>176</td><td class='num'>7.34</td><td class='num'>4.69</td><td class='num'>10.32</td></tr></table>
+<h3>by ridge type</h3><table><tr><th>stratum</th><th>components</th><th>median σ (px)</th><th>p25</th><th>p75</th></tr><tr><td>magnetic/trough</td><td class='num'>336</td><td class='num'>4.06</td><td class='num'>1.61</td><td class='num'>7.12</td></tr><tr><td>subsurface/trough</td><td class='num'>25</td><td class='num'>5.12</td><td class='num'>3.91</td><td class='num'>9.29</td></tr><tr><td>magnetic/crest</td><td class='num'>265</td><td class='num'>6.06</td><td class='num'>3.54</td><td class='num'>10.16</td></tr><tr><td>topographic/crest</td><td class='num'>572</td><td class='num'>6.24</td><td class='num'>3.92</td><td class='num'>9.28</td></tr><tr><td>gravity/trough</td><td class='num'>233</td><td class='num'>6.24</td><td class='num'>3.67</td><td class='num'>10.53</td></tr><tr><td>gravity/crest</td><td class='num'>49</td><td class='num'>8.08</td><td class='num'>5.68</td><td class='num'>11.36</td></tr></table>
+<h3>by ridge type × resolution</h3><table><tr><th>stratum</th><th>components</th><th>median σ (px)</th><th>p25</th><th>p75</th></tr><tr><td>magnetic/trough/6px</td><td class='num'>250</td><td class='num'>3.09</td><td class='num'>1.14</td><td class='num'>5.77</td></tr><tr><td>subsurface/trough/6px</td><td class='num'>25</td><td class='num'>5.12</td><td class='num'>3.91</td><td class='num'>9.29</td></tr><tr><td>magnetic/crest/6px</td><td class='num'>165</td><td class='num'>5.39</td><td class='num'>3.14</td><td class='num'>9.31</td></tr><tr><td>topographic/crest/6px</td><td class='num'>247</td><td class='num'>5.48</td><td class='num'>3.60</td><td class='num'>8.85</td></tr><tr><td>gravity/trough/6px</td><td class='num'>228</td><td class='num'>6.16</td><td class='num'>3.61</td><td class='num'>10.27</td></tr><tr><td>topographic/crest/3px</td><td class='num'>200</td><td class='num'>6.34</td><td class='num'>3.84</td><td class='num'>9.11</td></tr><tr><td>magnetic/crest/3px</td><td class='num'>73</td><td class='num'>6.65</td><td class='num'>3.71</td><td class='num'>10.87</td></tr><tr><td>magnetic/trough/3px</td><td class='num'>64</td><td class='num'>7.09</td><td class='num'>4.25</td><td class='num'>10.32</td></tr><tr><td>topographic/crest/1.5px</td><td class='num'>125</td><td class='num'>7.10</td><td class='num'>4.93</td><td class='num'>10.32</td></tr><tr><td>magnetic/trough/1.5px</td><td class='num'>22</td><td class='num'>7.34</td><td class='num'>4.22</td><td class='num'>9.82</td></tr><tr><td>gravity/crest/6px</td><td class='num'>41</td><td class='num'>8.08</td><td class='num'>5.68</td><td class='num'>11.75</td></tr><tr><td>magnetic/crest/1.5px</td><td class='num'>27</td><td class='num'>9.06</td><td class='num'>5.14</td><td class='num'>10.76</td></tr></table>
+<p class="small">Only strata with ≥ 10 matched components are published; the emission falls back
+through type×scale → type → scale → block → pooled, and each substitution is recorded per segment in
+<code>evidence/s6/emit.json</code>.</p>
+</section>
+
+<section>
+<h2>Simulated gain per class — the exact-metric U rule, per σ stratum</h2>
+<p>For every stratum the two arms are re-emitted at a stratum-proportional dot budget over the pooled
+four-block holdout: a tight single line (K = 1) and the chosen ribbon. Reported are the exact
+ΔTP and ΔFP and the lane's utility
+<code>U = (1 − 0.2·DTI₀)·ΔTP − 0.2·DTI₀·ΔFP</code> with DTI₀ = 0.053488
+(so the marginal bar is a credit of 0.010698 per dot).</p>
+<table>
+<tr><th>stratum</th><th>segments</th><th>σ (px)</th><th>K</th><th>DTI K=1</th><th>DTI ribbon</th>
+<th>ΔTP</th><th>ΔFP</th><th>U</th><th>verdict</th></tr>
+<tr><td>NW/topographic/crest/3px</td><td class='num'>710</td><td class='num'>6.00</td><td class='num'>5</td><td class='num'>0.00568</td><td class='num'>0.00769</td><td class='num'>+116.4</td><td class='num'>+9477.8</td><td class='num'>+13.76</td><td class='g-ok'>gain</td></tr><tr><td>NE/topographic/crest/3px</td><td class='num'>457</td><td class='num'>6.00</td><td class='num'>5</td><td class='num'>0.00319</td><td class='num'>0.00519</td><td class='num'>+106.7</td><td class='num'>+6598.1</td><td class='num'>+35.01</td><td class='g-ok'>gain</td></tr><tr><td>NW/topographic/crest/1.5px</td><td class='num'>447</td><td class='num'>6.00</td><td class='num'>5</td><td class='num'>0.00274</td><td class='num'>0.00543</td><td class='num'>+142.1</td><td class='num'>+7681.0</td><td class='num'>+58.44</td><td class='g-ok'>gain</td></tr><tr><td>NW/topographic/crest/6px</td><td class='num'>401</td><td class='num'>5.48</td><td class='num'>5</td><td class='num'>0.00553</td><td class='num'>0.00698</td><td class='num'>+75.4</td><td class='num'>+1554.3</td><td class='num'>+57.99</td><td class='g-ok'>gain</td></tr><tr><td>NE/topographic/crest/6px</td><td class='num'>304</td><td class='num'>5.48</td><td class='num'>5</td><td class='num'>0.00315</td><td class='num'>0.00511</td><td class='num'>+99.2</td><td class='num'>+188.4</td><td class='num'>+96.15</td><td class='g-ok'>gain</td></tr><tr><td>NW/magnetic/crest/6px</td><td class='num'>275</td><td class='num'>5.39</td><td class='num'>5</td><td class='num'>0.00411</td><td class='num'>0.00350</td><td class='num'>-30.0</td><td class='num'>+662.0</td><td class='num'>-36.72</td><td class='g-bad'>loss</td></tr><tr><td>NE/topographic/crest/1.5px</td><td class='num'>256</td><td class='num'>6.00</td><td class='num'>5</td><td class='num'>0.00030</td><td class='num'>0.00069</td><td class='num'>+19.6</td><td class='num'>+4056.8</td><td class='num'>-23.99</td><td class='g-bad'>loss</td></tr><tr><td>NW/magnetic/crest/3px</td><td class='num'>254</td><td class='num'>6.00</td><td class='num'>5</td><td class='num'>0.00135</td><td class='num'>0.00188</td><td class='num'>+27.9</td><td class='num'>+4028.7</td><td class='num'>-15.51</td><td class='g-bad'>loss</td></tr><tr><td>SE/topographic/crest/3px</td><td class='num'>236</td><td class='num'>6.00</td><td class='num'>5</td><td class='num'>0.00117</td><td class='num'>0.00233</td><td class='num'>+59.0</td><td class='num'>+3513.7</td><td class='num'>+20.81</td><td class='g-ok'>gain</td></tr><tr><td>NW/magnetic/trough/3px</td><td class='num'>210</td><td class='num'>6.00</td><td class='num'>5</td><td class='num'>0.00259</td><td class='num'>0.00251</td><td class='num'>-2.0</td><td class='num'>+2809.8</td><td class='num'>-32.05</td><td class='g-bad'>loss</td></tr><tr><td>SW/topographic/crest/3px</td><td class='num'>209</td><td class='num'>6.00</td><td class='num'>5</td><td class='num'>0.00246</td><td class='num'>0.00514</td><td class='num'>+135.4</td><td class='num'>+3192.9</td><td class='num'>+99.84</td><td class='g-ok'>gain</td></tr><tr><td>NW/magnetic/trough/6px</td><td class='num'>202</td><td class='num'>3.09</td><td class='num'>3</td><td class='num'>0.00391</td><td class='num'>0.00208</td><td class='num'>-91.6</td><td class='num'>-600.3</td><td class='num'>-84.21</td><td class='g-bad'>loss</td></tr><tr><td>NW/gravity/trough/6px</td><td class='num'>199</td><td class='num'>6.00</td><td class='num'>5</td><td class='num'>0.00279</td><td class='num'>0.00270</td><td class='num'>-4.7</td><td class='num'>-381.2</td><td class='num'>-0.60</td><td class='g-bad'>loss</td></tr><tr><td>SE/magnetic/crest/6px</td><td class='num'>183</td><td class='num'>5.39</td><td class='num'>5</td><td class='num'>0.00317</td><td class='num'>0.00332</td><td class='num'>+7.5</td><td class='num'>-117.0</td><td class='num'>+8.63</td><td class='g-ok'>gain</td></tr><tr><td>SE/topographic/crest/1.5px</td><td class='num'>176</td><td class='num'>6.00</td><td class='num'>5</td><td class='num'>0.00112</td><td class='num'>0.00168</td><td class='num'>+28.7</td><td class='num'>+3110.0</td><td class='num'>-4.88</td><td class='g-bad'>loss</td></tr><tr><td>SE/magnetic/crest/3px</td><td class='num'>171</td><td class='num'>6.00</td><td class='num'>5</td><td class='num'>0.00077</td><td class='num'>0.00125</td><td class='num'>+24.1</td><td class='num'>+2246.5</td><td class='num'>-0.18</td><td class='g-bad'>loss</td></tr><tr><td>NE/magnetic/crest/6px</td><td class='num'>155</td><td class='num'>5.39</td><td class='num'>5</td><td class='num'>0.00116</td><td class='num'>0.00071</td><td class='num'>-22.5</td><td class='num'>-398.1</td><td class='num'>-18.00</td><td class='g-bad'>loss</td></tr><tr><td>SW/topographic/crest/1.5px</td><td class='num'>152</td><td class='num'>6.00</td><td class='num'>5</td><td class='num'>0.00270</td><td class='num'>0.00317</td><td class='num'>+24.4</td><td class='num'>+2593.7</td><td class='num'>-3.58</td><td class='g-bad'>loss</td></tr><tr><td>SE/topographic/crest/6px</td><td class='num'>135</td><td class='num'>5.48</td><td class='num'>5</td><td class='num'>0.00193</td><td class='num'>0.00409</td><td class='num'>+107.7</td><td class='num'>+838.1</td><td class='num'>+97.56</td><td class='g-ok'>gain</td></tr><tr><td>NW/magnetic/trough/1.5px</td><td class='num'>130</td><td class='num'>6.00</td><td class='num'>5</td><td class='num'>0.00109</td><td class='num'>0.00189</td><td class='num'>+40.4</td><td class='num'>+2067.6</td><td class='num'>+17.83</td><td class='g-ok'>gain</td></tr><tr><td>NE/magnetic/crest/3px</td><td class='num'>129</td><td class='num'>6.00</td><td class='num'>5</td><td class='num'>0.00090</td><td class='num'>0.00094</td><td class='num'>+2.2</td><td class='num'>+1630.1</td><td class='num'>-15.25</td><td class='g-bad'>loss</td></tr><tr><td>NW/magnetic/crest/1.5px</td><td class='num'>125</td><td class='num'>6.00</td><td class='num'>5</td><td class='num'>0.00049</td><td class='num'>0.00091</td><td class='num'>+21.0</td><td class='num'>+2231.1</td><td class='num'>-3.06</td><td class='g-bad'>loss</td></tr><tr><td>SW/topographic/crest/6px</td><td class='num'>111</td><td class='num'>5.48</td><td class='num'>5</td><td class='num'>0.00157</td><td class='num'>0.00214</td><td class='num'>+28.5</td><td class='num'>+850.0</td><td class='num'>+19.08</td><td class='g-ok'>gain</td></tr><tr><td>SW/magnetic/crest/6px</td><td class='num'>83</td><td class='num'>5.39</td><td class='num'>5</td><td class='num'>0.00109</td><td class='num'>0.00018</td><td class='num'>-44.5</td><td class='num'>-62.0</td><td class='num'>-43.38</td><td class='g-bad'>loss</td></tr><tr><td>NE/gravity/trough/6px</td><td class='num'>82</td><td class='num'>6.00</td><td class='num'>5</td><td class='num'>0.00125</td><td class='num'>0.00094</td><td class='num'>-15.5</td><td class='num'>-3.3</td><td class='num'>-15.26</td><td class='g-bad'>loss</td></tr><tr><td>SE/magnetic/crest/1.5px</td><td class='num'>71</td><td class='num'>6.00</td><td class='num'>5</td><td class='num'>0.00035</td><td class='num'>0.00058</td><td class='num'>+11.7</td><td class='num'>+1300.0</td><td class='num'>-2.37</td><td class='g-bad'>loss</td></tr><tr><td>SW/magnetic/crest/3px</td><td class='num'>71</td><td class='num'>6.00</td><td class='num'>5</td><td class='num'>0.00050</td><td class='num'>0.00118</td><td class='num'>+33.5</td><td class='num'>+1247.7</td><td class='num'>+19.76</td><td class='g-ok'>gain</td></tr><tr><td>NE/magnetic/crest/1.5px</td><td class='num'>67</td><td class='num'>6.00</td><td class='num'>5</td><td class='num'>0.00035</td><td class='num'>0.00041</td><td class='num'>+2.9</td><td class='num'>+1170.6</td><td class='num'>-9.67</td><td class='g-bad'>loss</td></tr><tr><td>SE/gravity/trough/6px</td><td class='num'>51</td><td class='num'>6.00</td><td class='num'>5</td><td class='num'>0.00042</td><td class='num'>0.00029</td><td class='num'>-6.2</td><td class='num'>-130.9</td><td class='num'>-4.76</td><td class='g-bad'>loss</td></tr><tr><td>NW/gravity/crest/6px</td><td class='num'>37</td><td class='num'>6.00</td><td class='num'>5</td><td class='num'>0.00052</td><td class='num'>0.00111</td><td class='num'>+28.8</td><td class='num'>+51.2</td><td class='num'>+27.95</td><td class='g-ok'>gain</td></tr><tr><td>SW/magnetic/trough/6px</td><td class='num'>36</td><td class='num'>3.09</td><td class='num'>3</td><td class='num'>0.00095</td><td class='num'>0.00000</td><td class='num'>-46.5</td><td class='num'>-4.1</td><td class='num'>-45.97</td><td class='g-bad'>loss</td></tr><tr><td>SW/gravity/trough/6px</td><td class='num'>34</td><td class='num'>6.00</td><td class='num'>5</td><td class='num'>0.00060</td><td class='num'>0.00114</td><td class='num'>+26.3</td><td class='num'>-122.5</td><td class='num'>+27.35</td><td class='g-ok'>gain</td></tr><tr><td>NW/gravity/crest/3px</td><td class='num'>27</td><td class='num'>6.00</td><td class='num'>5</td><td class='num'>0.00019</td><td class='num'>0.00036</td><td class='num'>+8.4</td><td class='num'>+397.9</td><td class='num'>+4.08</td><td class='g-ok'>gain</td></tr><tr><td>NE/magnetic/trough/3px</td><td class='num'>26</td><td class='num'>6.00</td><td class='num'>5</td><td class='num'>0.00011</td><td class='num'>0.00000</td><td class='num'>-5.5</td><td class='num'>+299.3</td><td class='num'>-8.65</td><td class='g-bad'>loss</td></tr><tr><td>NE/magnetic/trough/6px</td><td class='num'>26</td><td class='num'>3.09</td><td class='num'>3</td><td class='num'>0.00055</td><td class='num'>0.00081</td><td class='num'>+12.8</td><td class='num'>-209.3</td><td class='num'>+14.92</td><td class='g-ok'>gain</td></tr><tr><td>SW/magnetic/crest/1.5px</td><td class='num'>25</td><td class='num'>6.00</td><td class='num'>5</td><td class='num'>0.00023</td><td class='num'>0.00052</td><td class='num'>+13.9</td><td class='num'>+473.5</td><td class='num'>+8.65</td><td class='g-ok'>gain</td></tr><tr><td>NE/gravity/crest/6px</td><td class='num'>23</td><td class='num'>6.00</td><td class='num'>5</td><td class='num'>0.00051</td><td class='num'>0.00042</td><td class='num'>-4.6</td><td class='num'>+34.9</td><td class='num'>-4.94</td><td class='g-bad'>loss</td></tr><tr><td>NW/subsurface/trough/6px</td><td class='num'>22</td><td class='num'>5.12</td><td class='num'>5</td><td class='num'>0.00044</td><td class='num'>0.00034</td><td class='num'>-4.9</td><td class='num'>-73.3</td><td class='num'>-4.02</td><td class='g-bad'>loss</td></tr><tr><td>SE/gravity/crest/6px</td><td class='num'>21</td><td class='num'>6.00</td><td class='num'>5</td><td class='num'>0.00030</td><td class='num'>0.00024</td><td class='num'>-3.0</td><td class='num'>+180.9</td><td class='num'>-4.92</td><td class='g-bad'>loss</td></tr><tr><td>NW/topographic/trough/1.5px</td><td class='num'>20</td><td class='num'>6.00</td><td class='num'>5</td><td class='num'>0.00000</td><td class='num'>0.00000</td><td class='num'>+0.0</td><td class='num'>+484.0</td><td class='num'>-5.18</td><td class='g-bad'>loss</td></tr>
+</table>
+<p><b>17 of 40 strata post a positive U, 23 a negative one.</b>
+The split is honest and it is the interesting result: at a <i>stratum-local</i> budget the ribbon pays
+in the topographic-crest strata (σ ≈ 5.5–6.0 px) and loses in most magnetic strata, while the
+<i>global</i> equal-budget comparison (uniform_K5_s3_p3, HOLDOUT-DTI 0.058061)
+prefers the ribbon everywhere. The two disagree because the local comparison is a reallocation
+problem — five lines on a segment are five times the dots, so at a fixed budget the ribbon can only
+be bought by dropping other segments — and the global ranking says the top-ranked segments are worth
+more than the tail. Both numbers are published; the delivered file uses the global winner.</p>
+</section>
+
+<section>
+<h2>The result that matters more than the geometry</h2>
+<p>At an equal 38,000-dot budget on the pooled holdout, a <b>uniformly random</b> dot field scores
+<b>HOLDOUT-DTI 0.052737</b>. The multi-family ridge field scores
+<b>0.058061</b> with the chosen ribbon geometry — a gain of
+0.005323 absolute (10.1 %),
+and <b>0.000751</b> before dot
+isolation. Read that against the live board: the family of dotted rasters this lane belongs to
+reports 0.2376–0.2778 on the public leaderboard, and the current leader is 0.4133. The local
+instrument therefore explains almost none of the live variance, and it is not entitled to: it
+withholds <i>catalogue</i> faults while the board scores <i>new, off-catalogue</i> faults, and the
+measured sign of the catalogue-distance term is opposite in the two populations
+(<a href="LIVE_CALIBRATION.md">reverse-engineering</a>).</p>
+<p class="small"><b>What would actually move the leaderboard number</b> is the support, not the
+emission width: <a href="HYPOTHESES.md">H1</a> — 1 m lidar scarp detection from the organizer's own
+<code>1m_DEM_links.csv</code> — is the only hypothesis on the list that targets the process the
+experts used to make the labels. It is blocked here by sandbox egress (only github.com, npm and pypi
+are reachable), not by the science.</p>
+</section>
+
+<footer>58GEMSDOE · session 6 · evidence:
+<a href="../evidence.html">index</a> ·
+<code>evidence/s6/sigma.json</code>, <code>canary.json</code>, <code>geom.json</code>,
+<code>emit.json</code>, <code>uniqueness.json</code>, <code>live_calibration.json</code> ·
+every figure on this page is rendered from those files at build time.</footer>
+</body></html>

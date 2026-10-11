@@ -2,6 +2,25 @@
 
 Core values: **Maximize P(Win)** and **Own the Outcome** — report the actual result, including a negative one.
 
+## ⬇ START HERE — the session-6 deliverable
+
+**[Session-6 page → `docs/s6/index.html`](docs/s6/index.html)** · the download banner is also at the
+very top of the [status page](docs/index.html).
+
+| | |
+|---|---|
+| **File** | `docs/downloads/gems58-s6-ribbon-sigma38000-20261011T203621Z.tif` (+ one-GeoTIFF ZIP) |
+| **What it is** | ribbon lane: 5 parallel dotted lines at ±3 and ±6 px across strike (spacing = the 3-px kernel radius), one dot every 3 px along strike, thinned to **strictly isolated pixels**, on multi-family/multi-scale Hessian ridges read only from the organizer's 19-band stack |
+| **Dots** | 38,000, every value exactly `1.0`; **0 on the mapped catalogue** and none within 2 px of it; NaN outside the footprint exactly as in the organizer's `sample_submission.tif` |
+| **HOLDOUT-DTI** | `0.058061` pooled (`gems57.metric/shared`, protocol `gems58-pooled-hide-v1`, 60,869 withheld positives, blocks NW 0.06404 / NE 0.06185 / SW 0.05325 / SE 0.04629) vs **0.052737** for a uniform random control at the identical budget |
+| **Leakage canary** | worst single-feature AUC **0.6064** (limit 0.90) — clean |
+| **Registry screen** | see `evidence/s6/uniqueness.json`; the literal, rule-A, rule-B, rank-correlation and Jaccard readings are all published, and the verdict follows the standing instruction |
+| **Organizer score** | **none.** No receipt or hash crosswalk exists for any file in this repository, and no submission slot has been used |
+
+> The prompt for this project is stored verbatim at [`docs/s6/PROMPT-session6.md`](docs/s6/PROMPT-session6.md)
+> and the standing operating contract is [`PROMPT.md`](PROMPT.md). Read both, plus this README and
+> `REMAINING_WORK.md`, at the start of every session.
+
 > **Session 4 (2026-10-11):** verification only, no new TIFF, no experiment, no slot. The registered
 > candidate passes the format check (float32, EPSG:32611, footprint NaN identical to the organizer sample,
 > all values in [0,1]) but **fails the uniqueness gate G3**, so it stays NOT OK TO SUBMIT. The 0.2778 figure

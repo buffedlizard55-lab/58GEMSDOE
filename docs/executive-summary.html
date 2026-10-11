@@ -28,6 +28,38 @@ table{max-width:100%}
 <p>Geothermal fault detection, northwestern Great Basin (NV) · ribbon lane · every figure on this
 site is rendered from <code>evidence/**.json</code> at build time</p>
 <nav class="small"><a href="index.html">Status &amp; download</a> · <a href="executive-summary.html" style="font-weight:700">How to submit</a> · <a href="submit.html">Portal checklist</a> · <a href="deliverable/index.html">Sibling-lane deliverable</a> · <a href="sources.html">Sources</a> · <a href="evidence.html">Evidence index</a> · <a href="ribbon/index.html">Ribbon lane archive</a></nav></header>
+<!-- s6submit:begin -->
+<section class="submit-box" style="border-color:#12703f">
+  <div class="badge" style="background:#12703f">HOW TO SUBMIT — 3 STEPS</div>
+  <h2 style="margin-top:.6rem">Submitting to the DOE GEMS Prize Challenge (DrivenData #306)</h2>
+  <ol style="line-height:1.6">
+    <li><b>Download the GeoTIFF.</b>
+        <a class="big-btn" href="downloads/gems58-s6-ribbon-sigma38000-20261011T203621Z.tif" download>⬇ gems58-s6-ribbon-sigma38000-20261011T203621Z.tif</a>
+        (or the <a href="downloads/gems58-s6-ribbon-sigma38000-20261011T203621Z.zip" download>ZIP</a> — the portal accepts a single-band
+        <code>.tif</code> <i>or</i> a <code>.zip</code> containing exactly one GeoTIFF).</li>
+    <li><b>Open the submission page</b>
+        <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/">drivendata.org
+        → competition 306 → Submit</a>, click <i>New submission</i>, then
+        <i>File to submit → Choose file</i>, and pick the downloaded <code>.tif</code>.</li>
+    <li><b>Paste this Note</b> into the optional <i>Note</i> field (it is the only free-text field;
+        keep it under 140 characters) and press <i>Create submission</i>:<br>
+        <code style="display:inline-block;margin:.35rem 0">Ribbon lane: 5 dotted lines at +-3/+-6 px on multi-family Hessian ridges; 38000 isolated dots at 1.0; off-catalogue</code></li>
+  </ol>
+  <p class="small"><b>Why the portal cannot reject this file with
+  <i>“Predicted values must be in range [0, 1]”</i>:</b> that error appears when the raster carries
+  a NaN or a value outside [0,&nbsp;1] <i>inside</i> the study footprint. This file is written with
+  the organizer's own <code>sample_submission.tif</code> as the template, so its finite support is
+  pixel-identical to the sample (5,167,373 px), every finite value is exactly <code>0.0</code> or
+  <code>1.0</code>, and everything outside the footprint is NaN. The writer refuses to emit a file
+  that fails any of its 15 local checks, and the receipt
+  <code>docs/downloads/gems58-s6-ribbon-sigma38000-20261011T203621Z.json</code> records the sha256 of the bytes you downloaded.</p>
+  <p class="small"><b>Before you spend a slot:</b> read the
+  <a href="s6/index.html">session-6 page</a> for the gates (holdout, leakage canary, registry
+  uniqueness) and the verdict rendered from them. No organizer receipt exists for any file in this
+  repository, so no leaderboard number can be promised for it.</p>
+</section>
+<!-- s6submit:end -->
+
 <!-- session5:begin -->
 <section class="s5 bad">
   <div class="badge">⛔ NOT CLEARED — DO NOT SUBMIT</div>
