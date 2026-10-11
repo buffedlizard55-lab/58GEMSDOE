@@ -30,7 +30,7 @@ site is rendered from <code>evidence/**.json</code> at build time</p>
 <nav class="small"><a href="index.html">Status &amp; download</a> · <a href="executive-summary.html" style="font-weight:700">How to submit</a> · <a href="submit.html">Portal checklist</a> · <a href="sources.html">Sources</a> · <a href="evidence.html">Evidence index</a> · <a href="ribbon/index.html">Ribbon lane archive</a></nav></header>
 
 <section class="submit-box" style="border-color:#a11212">
-  <div class="badge" style="background:#a11212">NOT OK TO SUBMIT</div>
+  <div class="badge" style="background:#a11212">NOT OK TO SUBMIT — REVIEW ARTIFACT ONLY</div>
   <h2 style="margin-top:.7rem">How to submit this file — seven steps</h2>
   <div class="dlrow">
     <a class="big-btn" style="background:#a11212" href="downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif" download>
@@ -100,9 +100,69 @@ contain (IR-58-DATA-01).</li>
 </ul></div>
 </div>
 
-<h2>Gates</h2><div class="gates"><div class="gate pass"><h4>G1 · Portal format (local preflight) <span class="pill pass">PASS</span></h4><p>15/15 local checks pass; the sha256 recomputed from the bytes on disk matches the receipt; NaN inside footprint = 0; min=0.000 max=1.000; representation = the organizer's sample_submission (NaN outside the study footprint, nodata=nan)</p></div><div class="gate pass"><h4>G2 · Uniqueness — local witnesses (corrected instrument) <span class="pill pass">PASS</span></h4><p>27 witnesses (the registry checkout plus this repo's own earlier rasters); worst rank correlation 0.1824 &lt; 0.90; worst 3&nbsp;px forward overlap 0.6027 &lt; 0.70 (OWN:evidence/gems58-ribbon-sigma168-w3-38000-M1-CONTROL-20261011T000000Z.tif); informative firings 0; saturated witnesses 0; drift evidence: none</p></div><div class="gate fail"><h4>G3 · Uniqueness — public inventory scan <span class="pill fail">FAIL</span></h4><p><code>evidence/ribbon/uniqueness_full_inventory.json</code> is missing: the governing scan over the byte-verified public inventory has not completed. Fail closed.</p></div><div class="gate pass"><h4>G4 · Leakage canary (single-feature AUC) <span class="pill pass">PASS</span></h4><p>max AUC over 7 feature groups and all folds 0.5955 vs the 0.90 leakage limit; groups flagged as leaking: 0</p></div><div class="gate pass"><h4>G5 · Holdout evidence recorded and labelled <span class="pill pass">PASS</span></h4><p>HOLDOUT-DTI 0.043651 pooled over 60869 withheld positives (gems58-pooled-hide-v1 / gems58w.metric/v1 (exact triangular kernel, R=3 px, alpha=0.2, beta=0.8)). This measures recovery of <i>catalogue</i> truth, not the organizer's new-fault truth, and is not a leaderboard forecast.</p></div><div class="gate fail"><h4>G6 · Organizer receipt for this raster <span class="pill fail">OPEN — owner step</span></h4><p>No DrivenData submission receipt exists for this raster, so no ORGANIZER-CONFIRMED score can be quoted for it. This gate can only be closed by the owner's selector step and is never claimed here; the site verdict is computed over G1–G5.</p></div></div>
 
-<footer>Generated 2026-10-11T05:58:00Z by
+<div class="bad-box"><h3 style="margin-top:0">Why this file is NOT cleared, and the one decision
+that would change it</h3>
+<p>The protocol's literal stop rule — "more than 70&nbsp;% of my dots within 3&nbsp;px of one
+registry raster's dots" — fires against <b>81</b> of the
+702 byte-verified witnesses. By the standing instruction that means
+<b>log as duplicate and stop</b>, and that is what this site does: the banner is red and the file is
+offered for review only.</p>
+<p>It is reported with both readings because the literal rule is <b>provably unsatisfiable</b> for any
+emitter that places dots on the organizer's own feature structure:</p>
+<ul class="small">
+<li><b>54 firings are information-free.</b> Those witnesses have a
+chance-level expected overlap E ≥ 0.99 — their 3&nbsp;px dilation covers essentially the whole
+footprint, so they overlap <i>every</i> nonempty candidate, including a random dot field. Measured
+earlier: no buffer from 3 to 10&nbsp;px clears 0.70 against them
+(<code>evidence/buffer_overlap_scan.json</code>, IR-58-UNIQ-02/03).</li>
+<li><b>27 firings are against broad dot fields</b> of
+155,021–3,380,827 dots (3&nbsp;%–65&nbsp;% of the footprint), 18 of them from a single repository
+that publishes near-duplicate variants of one composite. The worst is
+0.8750 against a witness whose own chance expectation is
+E = 0.8611 — a chance-corrected lift of 0.100, i.e. barely above what random placement would show.
+The largest lift among all 81 firings is
+0.375.</li>
+<li><b>Under a lift rule this file clears; under an E-limit rule the threshold decides.</b>
+Restricting the gate to the
+626 witnesses that <i>could</i> have failed to fire (E &lt; 0.70),
+the worst observed overlap is <b>0.7777</b>
+(<code>13GEMSDOE:docs/downloads/archive/13gems-r6-ensemble-20260929T182914Z.tif</code>, E =
+0.6456) — <b>7 firings</b>. Under a lift
+rule (observed − E)/(1 − E) &gt; 0.50 there are <b>2
+firings</b>, and every one of them is this repository's own earlier ribbon file — family resemblance, not reuse of another lane (max lift anywhere
+0.543).</li>
+<li><b>Every discriminating statistic passes by a wide margin:</b> byte-unique
+True, pixel-unique True, worst
+rank correlation 0.1824 (limit 0.90) with
+0 firings, worst dot-set Jaccard
+0.1041 (limit 0.50) with
+0 firings. Against the witnesses whose own expected overlap
+is below 0.30 — the ones that can actually tell two emissions apart — the worst observed overlap is
+0.6115 (<code>GEMSDOE50:docs/downloads/gems50-h52-coincidence8-80000-20261007T032938Z.tif</code>).</li>
+</ul>
+<p><b>The decision, which only the owner can make.</b> Either</p>
+<ol class="small">
+<li><b>Ratify a chance-corrected uniqueness rule</b>, of which the lift form is the cleaner one: a
+witness fires only if (observed − E)/(1 − E) exceeds a stated threshold. At a threshold of
+<b>0.50</b> this file produces <b>2 firings, and both are this
+repository's own earlier ribbon files</b> — expected family resemblance, not reuse of another lane —
+while the highest lift against any <i>other</i> repository is
+0.490 (<code>GEMSDOE50:docs/downloads/gems50-h52-coincidence8-80000-20261007T032938Z.tif</code>). An
+E-limit form ("fire only if E &lt; limit <i>and</i> observed &gt; 0.70") needs a limit of
+<b>0.61</b> or lower to give zero firings, which is a tighter and
+more arbitrary cut; at E &lt; 0.70 there would still be 7 firings (worst overlap
+0.7777 at E = 0.6456).</li>
+<li><b>Keep the literal rule</b> — then no ridge-based or coverage-based emitter in this repository
+family can ever be submitted, because the registry already contains near-plane-filling witnesses.
+That is a protocol-level dead end, and it is the honest reading of the instruction as written.</li>
+</ol>
+<p class="small">Until the owner ratifies one of these, the file is a <b>reviewable artifact</b>: it
+is downloadable, format-validated 15/15, and it is not cleared for a slot. Nothing was uploaded and no
+slot was used.</p></div>
+<h2>Gates</h2><div class="gates"><div class="gate pass"><h4>G1 · Portal format (local preflight) <span class="pill pass">PASS</span></h4><p>15/15 local checks pass; the sha256 recomputed from the bytes on disk matches the receipt; NaN inside footprint = 0; min=0.000 max=1.000; representation = the organizer's sample_submission (NaN outside the study footprint, nodata=nan)</p></div><div class="gate pass"><h4>G2 · Uniqueness — local witnesses (corrected instrument) <span class="pill pass">PASS</span></h4><p>27 witnesses (the registry checkout plus this repo's own earlier rasters); worst rank correlation 0.1824 &lt; 0.90; worst 3&nbsp;px forward overlap 0.6027 &lt; 0.70 (OWN:evidence/gems58-ribbon-sigma168-w3-38000-M1-CONTROL-20261011T000000Z.tif); informative firings 0; saturated witnesses 0; drift evidence: none</p></div><div class="gate fail"><h4>G3 · Uniqueness — public inventory scan (literal protocol gate) <span class="pill fail">FAIL</span></h4><p>702 sha256-verified rasters from <code>registry/registry_merged.json</code>; complete accessible scan True; missing/invalid 0. <b>Literal reading:</b> worst rank correlation 0.1824 &lt; 0.90 (0 rank-correlation duplicates); worst 3&nbsp;px forward overlap <b>1.0000</b> &gt; 0.70 → <b>81 firings</b>, of which 54 are against witnesses whose 3&nbsp;px dilation covers ≥ 99&nbsp;% of the footprint (E ≥ 0.99: they overlap <i>every</i> nonempty candidate and carry no information) and 27 are against broad dot fields (155,021–3,380,827 dots, E ≥ 0.6137). Byte-unique True, pixel-unique True, worst Jaccard 0.1041 &lt; 0.50 (0 firings). Verdict negative; stop_required True.</p></div><div class="gate fail"><h4>G3i · Uniqueness — chance-corrected reading (needs owner ratification) <span class="pill fail">FAIL</span></h4><p>Worst forward overlap against a witness that <i>could</i> have failed to fire: 0.8750 (13GEMSDOE:docs/downloads/archive/13gems-composite-20260929T183221Z_allfinite.tif), whose own chance-level expectation is E = 0.8611, so the chance-corrected lift is only 0.543 against this repo's own control file and 0.375 at most among the firings. The file is unique in every discriminating sense (bytes, pixels, rank order, dot-set Jaccard) and the firings are all against near-plane-filling witnesses — but this reading is <b>not</b> the protocol as written, so it is reported as an open owner decision and never as a pass.</p></div><div class="gate pass"><h4>G4 · Leakage canary (single-feature AUC) <span class="pill pass">PASS</span></h4><p>max AUC over 7 feature groups and all folds 0.5955 vs the 0.90 leakage limit; groups flagged as leaking: 0</p></div><div class="gate pass"><h4>G5 · Holdout evidence recorded and labelled <span class="pill pass">PASS</span></h4><p>HOLDOUT-DTI 0.043651 pooled over 60869 withheld positives (gems58-pooled-hide-v1 / gems58w.metric/v1 (exact triangular kernel, R=3 px, alpha=0.2, beta=0.8)). This measures recovery of <i>catalogue</i> truth, not the organizer's new-fault truth, and is not a leaderboard forecast.</p></div><div class="gate fail"><h4>G6 · Organizer receipt for this raster <span class="pill fail">OPEN — owner step</span></h4><p>No DrivenData submission receipt exists for this raster, so no ORGANIZER-CONFIRMED score can be quoted for it. This gate can only be closed by the owner's selector step and is never claimed here; the site verdict is computed over G1–G5.</p></div></div>
+
+<footer>Generated 2026-10-11T06:04:51Z by
 <code>scripts/build_site.py</code>. No organizer receipt exists for any artifact on this site, so no
 number here is a leaderboard score unless it is labelled ORGANIZER-CONFIRMED.</footer>
 </body></html>

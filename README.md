@@ -1,11 +1,39 @@
 # 58GEMSDOE — GEMS competition (DrivenData #306)
 
-## ⚠️ Submission decision: **OK TO DOWNLOAD AND SUBMIT — format and uniqueness cleared · NO ORGANIZER RECEIPT, SO NO SCORE IS CLAIMED**
+## 🚫 Submission decision: **NOT OK TO SUBMIT — logged as a duplicate by the literal 70 % rule · downloadable for review only**
 
-The authoritative banner is generated from evidence receipts by `scripts/build_site.py` and rendered
-on the [GitHub Pages site](https://buffedlizard55-lab.github.io/58GEMSDOE/docs/index.html). It is
-green only when gates G1–G5 all pass; gate G6 (an organizer receipt for this raster) can never pass
-from this sandbox and is the owner's selector step.
+The authoritative banner is generated from evidence receipts by `scripts/build_site.py` (exit status 2
+while any gate is open) and rendered on the
+[GitHub Pages site](https://buffedlizard55-lab.github.io/58GEMSDOE/docs/index.html). It is green only
+when gates G1–G5 all pass; gate G6 (an organizer receipt for this raster) can never pass from this
+sandbox and is the owner's selector step.
+
+**Why it is red, in one paragraph.** The governing scan over **702 sha256-verified public witness
+rasters** (695/695 pinned, now complete, plus a current-default-branch delta;
+`evidence/ribbon/uniqueness_full_inventory.json`) finds the file **byte-unique, pixel-unique, with 0
+rank-correlation duplicates** (worst ρ **0.1824** vs the 0.90 limit, and that worst case is this
+repo's own control file) and **0 Jaccard duplicates** (worst 0.1041 vs 0.50). But the protocol's
+literal stop rule — ">70 % of my dots within 3 px of one registry raster's dots" — fires against
+**81** witnesses. **54** of those firings are information-free: the witness's own 3 px dilation covers
+≥ 99 % of the footprint, so it overlaps *every* nonempty candidate including a random dot field. The
+other **27** are broad dot fields of 155,021–3,380,827 dots (18 of them near-duplicate variants from a
+single repository); the worst is 0.8750 against a witness whose chance-level expectation is
+E = 0.8611, i.e. a chance-corrected lift of 0.100, and the largest lift among all firings is 0.375.
+Against the witnesses that can actually discriminate (own expected overlap E < 0.30) the worst
+observed overlap is **0.6115** (`GEMSDOE50:gems50-h52-coincidence8-80000`, E = 0.2386); at E < 0.70
+there are still 7 firings (worst 0.7777 at E = 0.6456). By the standing instruction this is logged as
+a duplicate and **stopped** — so the file is a reviewable artifact, not a cleared submission.
+
+**The one decision that would change it (owner only).** Either ratify a chance-corrected uniqueness
+rule — in its lift form, "a witness fires only if (observed − E)/(1 − E) > 0.50", under which this
+file produces **2 firings and both are this repository's own earlier ribbon files** (highest lift
+against any other repository **0.4898**); in its E-limit form the threshold has to be ≤ **0.61** to
+give zero firings, which is tighter and more arbitrary — or keep the literal rule, under which **no**
+ridge-based or coverage-based emitter in this repository family can ever be submitted, because the
+registry already contains near-plane-filling witnesses (IR-58-UNIQ-02/03, now measured over the whole
+inventory). `scripts/build_site.py` computes both readings from the scan rows at build time
+(`ratification_analysis` in `evidence/ribbon/run_card_final.json`), states them side by side, and does
+not choose.
 
 **Current candidate (session 3, 2026-10-11)**
 
@@ -19,7 +47,7 @@ from this sandbox and is the owner's selector step.
 | Submission note (135/140 chars) | `Ribbon lane: adaptive dotted ribbons 0/+-300/+-600 m on catalogue-free Hessian ridges (sigma cross-fitted); 40768 isolated dots at 1.0.` |
 | HOLDOUT-DTI of the delivered bytes | **0.043651** pooled (NW 0.046854 / NE 0.036240 / SW 0.056175 / SE 0.033176), interval 0.033176–0.056175 (min–max over the 4 blocks), 60,869 withheld positives, protocol `gems58-pooled-hide-v1`, evaluator `gems58w.metric/v1` |
 | Uniqueness — local witnesses (corrected instrument) | 27 witnesses (19 registry checkout + this repo's own 8): worst rank correlation **0.1824** < 0.90, worst 3 px forward overlap **0.6027** < 0.70 (both against this repo's own earlier ribbon file), **0 informative firings**, 0 saturated witnesses, drift `none` |
-| Uniqueness — public inventory | see `evidence/ribbon/uniqueness_full_inventory.json` (703 byte-verified rasters: 695/695 pinned + current-tree delta); gate G3 |
+| Uniqueness — public inventory (gate G3) | 702 witnesses scanned (703 byte-verified minus the candidate's own entry), complete, 0 missing/invalid: **byte-unique, pixel-unique, worst ρ 0.1824, worst Jaccard 0.1041, 0 firings on both** — but the literal 3 px forward-overlap rule fires against **81** witnesses (54 vacuous with E ≥ 0.99, 27 broad dot fields), so the verdict is **negative** and `stop_required` is true. `evidence/ribbon/uniqueness_full_inventory.json` |
 | Slots used by this session | **0** — the agent never selects or uploads |
 
 **What the numbers do and do not say.** HOLDOUT-DTI measures recovery of *catalogue* truth on a
@@ -163,7 +191,7 @@ MECE rasters (leakage-flagged, out of lane) and `…-M1-CONTROL-…tif` (instrum
 | Format/range | Recorded local validator passed for finite values in [0,1], zeros outside the local footprint, and zero on mapped catalogue | LOCAL-FORMAT-PREFLIGHT; not portal acceptance |
 | Literal final-dot overlap | 1.0 with the `GEMSDOE2` full-footprint-positive witness; strict stop limit 0.70 | REGISTRY-MEASUREMENT, frozen snapshot only; blocks candidate |
 | Spearman rank correlation | Worst recorded value 0.1896456, below 0.90 | REGISTRY-MEASUREMENT, frozen snapshot only; does not cure overlap failure |
-| Registry freshness | 695 unique rasters across 57 pinned snapshots; latest restore checked 694/695. Fetched `origin/main` tree `d8c17dd` contains 10 TIF/TIFF paths in this repository, including two out-of-lane MECE outputs; no full current inventory comparison was performed. | REGISTRY-FRESHNESS-AUDIT; incomplete/current scope false |
+| Registry freshness | *(superseded by IR-58-REG-01: the restore is now 695/695 and the merged inventory is 703 byte-verified witnesses)* 695 unique rasters across 57 pinned snapshots; latest restore checked 694/695. Fetched `origin/main` tree `d8c17dd` contains 10 TIF/TIFF paths in this repository, including two out-of-lane MECE outputs; no full current inventory comparison was performed. | REGISTRY-FRESHNESS-AUDIT; incomplete/current scope false |
 | Pre-placement current surface | Not checked for this candidate under a current literal inventory | NOT CLEARED |
 | Promotion-grade HOLDOUT-DTI | Not run with the new buffered split; legacy result is disqualified for promotion due same-cell truth selection and invalid block bootstrap | NOT MEASURED for current instrument |
 | Organizer score | No receipt | NOT AVAILABLE |
@@ -238,8 +266,21 @@ unheld-budget density sweeps, and any σ-based "tight line" branch (unreachable 
 
 ## Ranked new hypotheses
 
-`docs/research/hypotheses_new.md` records four testable, ranked ribbon-lane hypotheses, and
-`docs/research/hypotheses_session2.md` records five more built on the verified 19-band feature stack, each with layers, physical signature, an explicit non-fault mimic, novelty caveats, official sources, and verified availability limits. They are untested. The candidate with the best qualitative rationale must still clear the full holdout, leakage, uniqueness and three-experiment budget before any slot decision.
+`docs/research/hypotheses_session3.md` is the current ranking: five detection-side hypotheses with
+layers, physical signature, why each can catch a fault **missing** from the USGS/INGENIOUS catalogue,
+how it differs from this repository, a named non-fault mimic, and expected DTI gain against
+implementation cost — ranked against the constraint this session measured (coverage, not geometry).
+**H58-R4** (cross-fitted supervised detector emitting only where the calibrated per-stratum detection
+rate clears α·DTI₀ = 0.0827) is rank 1 and needs no new data; **H58-R6** (regress flight-line geometry
+out of the magnetic bands) is rank 2; **H58-R5** (a directional σ tensor) rank 3; **H58-R3**
+(aeroradiometric + 1 m lidar — physically the strongest, and the organizers' own framing) is **blocked
+on an owner download** because this sandbox cannot fetch binaries; **H58-R7** is listed only as a
+measured dead end. The lane's own hypothesis H58-R2 and the calibration hypothesis H58-R7 were both
+validated this session on the spatially-blocked holdout before any slot decision, as the prompt
+requires.
+
+Earlier rounds are kept for audit: `docs/research/hypotheses_new.md` (four ribbon-lane hypotheses) and
+`docs/research/hypotheses_session2.md` (five more on the verified 19-band stack). They are untested.
 
 ## Repository map
 

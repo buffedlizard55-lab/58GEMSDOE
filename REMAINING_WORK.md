@@ -11,16 +11,24 @@
 | Local portal preflight | **15/15 pass** (`evidence/ribbon/emission.json` → `validator`) |
 | HOLDOUT-DTI of the delivered bytes | **0.043651** pooled; NW 0.046854 / NE 0.036240 / SW 0.056175 / SE 0.033176; 60,869 withheld positives; `gems58-pooled-hide-v1`; evaluator `gems58w.metric/v1`; interval 0.033176–0.056175 (min–max over 4 blocks — no bootstrap CI is claimed, because a 4-block bootstrap resamples repeated physical blocks as independent) |
 | Uniqueness, local witnesses (corrected instrument) | 27 witnesses incl. this repo's own 8: worst ρ **0.1824**, worst 3 px forward overlap **0.6027** (both vs this repo's own earlier ribbon file), 0 informative firings, 0 saturated, drift `none` |
-| Uniqueness, public inventory (gate G3) | `PYTHONPATH=src python3 scripts/check_uniqueness_registry.py <candidate> --workers 2 --out ribbon/uniqueness_full_inventory.json` over 703 byte-verified rasters (695/695 pinned + current-tree delta). **If this receipt is missing or negative, the site banner must read NOT OK** — `scripts/build_site.py` exits 2 in that case and CI can assert it. |
+| Uniqueness, public inventory (gate G3) | **DONE and NEGATIVE.** 702 witnesses scanned (`registry/registry_merged.json`: 695/695 pinned + current-tree delta, minus the candidate's own entry), complete, 0 missing/invalid, 0 source errors. Byte-unique, pixel-unique, worst ρ **0.1824** (limit 0.90, **0** firings), worst dot-set Jaccard **0.1041** (limit 0.50, **0** firings) — but the literal 3 px forward-overlap rule fires against **81** witnesses: **54** vacuous (E ≥ 0.99, they overlap every nonempty candidate) and **27** informative, all broad dot fields of 155,021–3,380,827 dots (18 from 13GEMSDOE's near-duplicate variants). Worst informative overlap **0.8750** at E = 0.8611 (lift 0.100); max lift among the 81 firings **0.3752**; against the witnesses that can discriminate (E < 0.30) the worst observed overlap is **0.6115** (GEMSDOE50 coincidence8-80000, lift 0.4898), while at E < 0.70 there are still **7** firings (worst 0.7777 at E = 0.6456). Verdict `negative`, `stop_required` true → **logged as a duplicate and stopped**, per the standing instruction. Receipt: `evidence/ribbon/uniqueness_full_inventory.json`; final run card: `evidence/ribbon/run_card_final.json`. |
 | Site | `python3 scripts/build_site.py` → `docs/index.html` (banner + download at the top), `docs/executive-summary.html` (7-step how-to-submit), `docs/submit.html` (portal checklist + the range-error fix), `docs/RUN_CARD.json` |
 | Slots used | **0**. The agent never uploads or selects. |
 
 ## S3.1 Remaining work, in priority order
 
-1. **Close gate G3 and re-run the site builder.** The full-inventory scan is the governing uniqueness
-   clearance. After it lands: `python3 scripts/build_site.py` (expect exit 0 and a green banner), then
-   update the `Uniqueness — public inventory` row in the README banner with the worst ρ / worst
-   overlap / duplicate count from `evidence/ribbon/uniqueness_full_inventory.json`.
+1. **The owner's protocol decision is now the blocking item.** Gate G3 is measured and negative on the
+   literal rule; gates G1, G2, G4, G5 pass and G6 can never pass here. Two options, both stated on the
+   site: (a) ratify a chance-corrected uniqueness rule — in its lift form ("fire only if
+   (observed − E)/(1 − E) > 0.50") this file yields **2 firings, both this repository's own
+   earlier ribbon files**, and the highest lift against any other repository is **0.4898**; in its
+   E-limit form the threshold must be ≤ **0.61** for zero firings; or (b) keep the literal rule,
+   under which no
+   ridge-based emitter in this repository family can ever be submitted, because the registry already
+   holds near-plane-filling witnesses. If (a) is ratified, `scripts/build_site.py` needs one change:
+   pass the ratified threshold into `evaluate_gates` G3 instead of the raw `unique` flag, then the
+   banner turns green and the exit status becomes 0. Do **not** re-run the 35-minute scan to decide
+   this; the receipt already contains both readings.
 2. **The owner's selector step.** Only the owner can spend a slot. If they do, copy the score from the
    submission page into `registry/submissions_seen.csv` with the date and the file's sha256 — that is
    the first ORGANIZER-CONFIRMED number this lane will ever have, and it retroactively validates or

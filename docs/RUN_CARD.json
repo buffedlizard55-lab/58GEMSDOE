@@ -553,7 +553,40 @@
    "dense_support_fraction": 0.2,
    "definitions": "forward_overlap = fraction of MY dots within 3 px of the witness's dots (gems57.uniqueness.dot_overlap); reverse_overlap = fraction of the witness's dots within 3 px of mine; E = fraction of the footprint within 3 px of the witness's dots; lift = (observed - E) / (1 - E)."
   },
-  "full_inventory_scan": "evidence/ribbon/uniqueness_full_inventory.json",
+  "full_inventory_scan": {
+   "receipt": "evidence/ribbon/uniqueness_full_inventory.json",
+   "index": "registry/registry_merged.json",
+   "verdict": "negative",
+   "stop_required": true,
+   "rasters_checked": 702,
+   "complete_accessible_scan": true,
+   "literal": {
+    "worst_forward_overlap": 1.0,
+    "worst_overlap_submission": "GEMSDOE2:data/evidence/runs/turbo-simple-20260925T042003Z/submission.tif",
+    "firings": 81,
+    "vacuous_firings": 54,
+    "informative_firings": 27
+   },
+   "informative": {
+    "worst_forward_overlap": 0.8750245290423861,
+    "worst_submission": "13GEMSDOE:docs/downloads/archive/13gems-composite-20260929T183221Z_allfinite.tif",
+    "worst_chance_corrected_lift": 0.5428954024647943,
+    "saturated_threshold_E": 0.99
+   },
+   "rank_correlation": {
+    "worst": 0.18241822878372665,
+    "limit": 0.9,
+    "firings": 0,
+    "worst_submission": "58GEMSDOE(this-repo):evidence/gems58-ribbon-sigma168-w3-38000-M1-CONTROL-20261011T000000Z.tif"
+   },
+   "jaccard": {
+    "worst": 0.10407468146839914,
+    "limit": 0.5,
+    "worst_submission": "58GEMSDOE(this-repo):evidence/gems58-ribbon-sigma168-w3-38000-M1-CONTROL-20261011T000000Z.tif"
+   },
+   "byte_unique": true,
+   "pixel_unique": true
+  },
   "note": "the full 694/695-raster public inventory scan is run separately by scripts/check_uniqueness_registry.py; its verdict governs"
  },
  "raster_sha256": "ecf833f8ea7a6698636b48b0dcd0d03aa925d603753e60e03d9d1660922711dd",
@@ -564,8 +597,8 @@
  },
  "submission_name": "gems58-ribbon-sigma-adaptive-40768-20261011T052942Z",
  "submission_note": "Ribbon lane: adaptive dotted ribbons 0/+-300/+-600 m on catalogue-free Hessian ridges (sigma cross-fitted); 40768 isolated dots at 1.0.",
- "verdict": "promote-to-selector-only",
- "verdict_reason": "15/15 local portal checks pass and no informative witness in the local screen exceeds the 0.90 rank-correlation or 0.70 forward-overlap stop limits; the full-inventory scan is the governing clearance and no organizer receipt exists, so this is not a claim of a leaderboard score",
+ "verdict": "negative",
+ "verdict_reason": "The protocol's literal stop rule fired: 81 of 702 byte-verified inventory witnesses have more than 70 % of this file's dots within 3 px of theirs (54 of those firings are against witnesses whose chance-level expected overlap E >= 0.99 and are therefore information-free, and 27 are against broad dot fields of 155,021-3,380,827 dots). By the standing instruction the lane logs this as a duplicate and stops. Every discriminating statistic passes by a wide margin: byte-unique, pixel-unique, worst rank correlation 0.1824 (limit 0.90, 0 firings), worst dot-set Jaccard 0.1041 (limit 0.50, 0 firings), and no witness whose own expected overlap is below 0.30 exceeds 0.6115, and under a lift rule (observed - E)/(1 - E) > 0.50 the only 2 firings are this repository's own earlier ribbon files, the highest lift against any other repository being 0.4898. The file is therefore a reviewable artifact, not a cleared submission, and the open item is the owner's protocol decision recorded on the site.",
  "slots_used": 0,
  "wall_seconds": 104.76,
  "site_verdict": "NOT_OK_TO_SUBMIT",
@@ -584,9 +617,15 @@
   },
   {
    "id": "G3",
-   "name": "Uniqueness \u2014 public inventory scan",
+   "name": "Uniqueness \u2014 public inventory scan (literal protocol gate)",
    "ok": false,
-   "detail": "<code>evidence/ribbon/uniqueness_full_inventory.json</code> is missing: the governing scan over the byte-verified public inventory has not completed. Fail closed."
+   "detail": "702 sha256-verified rasters from <code>registry/registry_merged.json</code>; complete accessible scan True; missing/invalid 0. <b>Literal reading:</b> worst rank correlation 0.1824 &lt; 0.90 (0 rank-correlation duplicates); worst 3&nbsp;px forward overlap <b>1.0000</b> &gt; 0.70 \u2192 <b>81 firings</b>, of which 54 are against witnesses whose 3&nbsp;px dilation covers \u2265 99&nbsp;% of the footprint (E \u2265 0.99: they overlap <i>every</i> nonempty candidate and carry no information) and 27 are against broad dot fields (155,021\u20133,380,827 dots, E \u2265 0.6137). Byte-unique True, pixel-unique True, worst Jaccard 0.1041 &lt; 0.50 (0 firings). Verdict negative; stop_required True."
+  },
+  {
+   "id": "G3i",
+   "name": "Uniqueness \u2014 chance-corrected reading (needs owner ratification)",
+   "ok": false,
+   "detail": "Worst forward overlap against a witness that <i>could</i> have failed to fire: 0.8750 (13GEMSDOE:docs/downloads/archive/13gems-composite-20260929T183221Z_allfinite.tif), whose own chance-level expectation is E = 0.8611, so the chance-corrected lift is only 0.543 against this repo's own control file and 0.375 at most among the firings. The file is unique in every discriminating sense (bytes, pixels, rank order, dot-set Jaccard) and the firings are all against near-plane-filling witnesses \u2014 but this reading is <b>not</b> the protocol as written, so it is reported as an open owner decision and never as a pass."
   },
   {
    "id": "G4",
@@ -607,7 +646,7 @@
    "detail": "No DrivenData submission receipt exists for this raster, so no ORGANIZER-CONFIRMED score can be quoted for it. This gate can only be closed by the owner's selector step and is never claimed here; the site verdict is computed over G1\u2013G5."
   }
  ],
- "site_generated_utc": "2026-10-11T05:58:00Z",
+ "site_generated_utc": "2026-10-11T06:04:51Z",
  "site_note": "G6 (organizer receipt) can never pass from this sandbox; the site verdict is computed over G1-G5 and the missing receipt is stated on every page.",
  "equal_budget_deltas": {
   "W3": {
@@ -2177,14 +2216,14 @@
   }
  },
  "inventory_scan": {
-  "index": null,
-  "verdict": null,
-  "n_compared": null,
-  "complete_accessible_scan": null,
-  "worst_spearman": null,
-  "worst_overlap": null,
-  "worst_overlap_submission": null,
-  "duplicate_count": null
+  "index": "registry/registry_merged.json",
+  "verdict": "negative",
+  "n_compared": 702,
+  "complete_accessible_scan": true,
+  "worst_spearman": 0.18241822878372665,
+  "worst_overlap": 1.0,
+  "worst_overlap_submission": "GEMSDOE2:data/evidence/runs/turbo-simple-20260925T042003Z/submission.tif",
+  "duplicate_count": 81
  },
  "irregularities": [
   {
@@ -2232,5 +2271,38 @@
    "severity": "warn",
    "text": "<b>The pinned inventory was one raster short, and is now complete.</b> The 695-raster public inventory could not be fully restored earlier because one file (sha256 <code>927dc17f\u2026</code>) only existed in a deleted pull-request head. It was recovered by fetching the exact commit <code>d92606c28dc5e93ee1bce5148b92ccbb5225d023</code> of <code>55GEMSDOE</code> over the git protocol and verifying the blob's sha256, so the scan now covers 695/695 pinned rasters plus a freshness delta from the current default branches."
   }
- ]
+ ],
+ "supersedes": "evidence/ribbon/run_card_v2.json (whose verdict was computed before the governing inventory scan existed)",
+ "ratification_analysis": {
+  "e_limit": 0.7,
+  "lift_limit": 0.5,
+  "n_witnesses": 702,
+  "n_discriminating": 626,
+  "worst_overlap_discriminating": 0.7776932888540031,
+  "worst_overlap_discriminating_submission": "13GEMSDOE:docs/downloads/archive/13gems-r6-ensemble-20260929T182914Z.tif",
+  "worst_overlap_discriminating_E": 0.6455732922705599,
+  "rule_a_firings": 7,
+  "rule_a_submissions": [
+   "GEMSDOE3:docs/downloads/coverage-v3-wide-20260925T054019Z-0ac095a7ed.tif",
+   "GEMSDOE50:docs/downloads/gemsdoe50-h59-topo-lineament-scatter-180k-20261007T170212Z-nan.tif",
+   "13GEMSDOE:docs/downloads/archive/13gems-r6-ensemble-20260929T182914Z.tif",
+   "13GEMSDOE:docs/downloads/archive/13gems-toporef-holdoutref_allfinite.tif",
+   "13GEMSDOE:docs/downloads/archive/13gems-r6-ensemble-20260929T182914Z_allfinite.tif",
+   "13GEMSDOE:docs/downloads/archive/13gems-toporef-holdoutref.tif",
+   "GEMSDOE50:docs/downloads/gemsdoe50-h59-topo-lineament-scatter-180k-20261007T170212Z-allfinite.tif"
+  ],
+  "rule_b_firings": 2,
+  "rule_b_submissions": [
+   "58GEMSDOE(this-repo):docs/ribbon/downloads/gems58-adaptive-ribbon-38000-20261011T000000Z.tif",
+   "58GEMSDOE(this-repo):evidence/gems58-ribbon-sigma168-w3-38000-M1-CONTROL-20261011T000000Z.tif"
+  ],
+  "rule_b_self_only": true,
+  "max_lift": 0.5428954024647943,
+  "max_lift_other_repo": 0.4897870460037426,
+  "max_lift_other_repo_submission": "GEMSDOE50:docs/downloads/gems50-h52-coincidence8-80000-20261007T032938Z.tif",
+  "worst_overlap_sparse": 0.6115090266875981,
+  "worst_overlap_sparse_submission": "GEMSDOE50:docs/downloads/gems50-h52-coincidence8-80000-20261007T032938Z.tif",
+  "max_lift_firings": 0.37519476127386675,
+  "e_limit_with_zero_firings": 0.61
+ }
 }
