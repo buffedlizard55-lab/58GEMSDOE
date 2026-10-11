@@ -112,8 +112,15 @@ def main() -> int:
 
     banner = f"""<div class="card ok">
 <h2 style="margin-top:0;border:0">Download — and what it is for</h2>
-<p><strong>Download: OK &nbsp;·&nbsp; Submit to the competition: YOUR DECISION</strong>
+<p><strong>Download: OK &nbsp;·&nbsp; Submit to the competition: NOT CLEARED YET</strong>
 (this project never clicks Submit and never spends a slot).</p>
+<p class="small"><strong>Why not cleared.</strong> The uniqueness screen behind this lane ran against the
+<strong>{usum['n_checked']}</strong> earlier rasters present in this checkout (worst rank correlation
+{usum['worst_rho']:.4f}, worst 3&nbsp;px forward overlap {usum['worst_forward_overlap']:.4f} — below the
+0.90 / 0.70 stop limits). The sibling lane maintains a <strong>695-raster frozen inventory</strong> and
+found one of <em>its</em> candidates at <strong>100&nbsp;%</strong> 3&nbsp;px overlap, so the same scan must be
+run against this raster before anyone submits it. Until then the file is a
+<strong>reviewable artifact, not a cleared submission</strong>.</p>
 <a class="dl" href="{dl_tif}">⬇ Download the submission GeoTIFF &nbsp;·&nbsp; {name}.tif &nbsp;·&nbsp; {card['raster_bytes']:,} bytes</a>
 <a class="dl" href="{dl_zip}">⬇ Download the single-GeoTIFF ZIP (portal accepts this too)</a>
 <p class="small">sha256 <code>{sha}</code> &nbsp;·&nbsp; {n_dots:,} dots, every value exactly
@@ -196,7 +203,12 @@ a JSON receipt, a PDF, or a ZIP of the repository.</p>
 <p>Optional, but it keeps submissions apart later. Use (or edit) the validated 140-character note:</p>
 <pre>{html.escape(note)}</pre>
 
-<h2>5. Submit, then record the receipt</h2>
+<h2>5. Clear it first, then submit, then record the receipt</h2>
+<p><strong>Clearance step (required).</strong> Run the repository's full-registry uniqueness scan
+(<code>scripts/check_uniqueness_registry.py</code>) against
+<code>{name}.tif</code> and confirm the 0.90 rank-correlation / 0.70 3&nbsp;px-overlap stop limits
+hold against the <em>695-raster frozen inventory</em>, not only the {usum['n_checked']} rasters shipped
+in this checkout. If either limit is exceeded, the file is a duplicate: log it and stop.</p>
 <p>The moment the page returns a score, copy it into <code>registry/ribbon/receipts.json</code> with the
 file hash. Until that exists, the score is <strong>OWNER-REPORTED</strong> and must not be quoted
 as ORGANIZER-CONFIRMED. Promotion into a real slot is a separate selector step, inside the weekly
