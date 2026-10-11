@@ -255,6 +255,10 @@ def build_run_card() -> dict:
         "overlap_limit": uniq.get("overlap_limit", 0.70),
         "witness": uniq.get("worst_overlap_submission"),
     })
+    current_self_tree = next((
+        item for item in freshness.get("changed_or_unrepresented_public_repositories", [])
+        if item.get("repository") == "58GEMSDOE"
+    ), None)
     card = {
         "run_card_version": "2.0",
         "generated_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
@@ -290,7 +294,23 @@ def build_run_card() -> dict:
             "snapshot_generated_utc": freshness.get("frozen_snapshot_generated_utc"),
             "repositories_in_frozen_snapshot": freshness.get("frozen_repositories_scanned"),
             "rasters_in_frozen_snapshot": freshness.get("frozen_unique_raster_count"),
+            "latest_pinned_snapshot_scan": {
+                "expected": uniq.get("registry_rasters_expected"),
+                "checked": uniq.get("registry_rasters_checked"),
+                "complete_accessible_scan": uniq.get("complete_accessible_scan"),
+                "missing_or_invalid": uniq.get("missing_or_invalid"),
+                "source_errors": uniq.get("source_errors", []),
+                "evidence_class": "REGISTRY-MEASUREMENT (pinned inventory only)",
+            },
             "current_inventory_complete": freshness.get("fresh_current_inventory", False),
+            "current_self_repository_tree": ({
+                "repository": current_self_tree.get("repository"),
+                "tree_sha": current_self_tree.get("current_tree_sha"),
+                "tif_tiff_paths": current_self_tree.get("current_tif_tiff_count"),
+                "docs_download_tif_tiff_paths": current_self_tree.get("current_docs_download_tif_count"),
+                "example_unscanned_rasters": current_self_tree.get("example_unscanned_rasters", []),
+                "inventory_only_not_registry_cleared": True,
+            } if current_self_tree else None),
             "freshness_audit": "evidence/registry_freshness_audit.json",
             "rho_limit": uniq.get("rho_limit", 0.90),
             "worst_spearman_full_footprint": uniq.get("worst_spearman_full_footprint"),
@@ -341,6 +361,25 @@ def build_site(card: dict) -> None:
     status_color = "#a11212" if card["submission_status"] != "OK_TO_SUBMIT" else "#0a7d33"
     local_validation = "PASS under the internal local format/range policy" if validator_ok else "NOT PASSED"
     current_scope = "NOT CURRENT / INCOMPLETE" if not freshness.get("fresh_current_inventory") else "current inventory recorded"
+    self_tree = (card.get("correlation_overlap_vs_registry", {}).get("current_self_repository_tree") or {})
+    self_tree_sha = html.escape(str(self_tree.get("tree_sha", "not recorded")))
+    self_tree_count = self_tree.get("tif_tiff_paths", "not recorded")
+    self_tree_download_count = self_tree.get("docs_download_tif_tiff_paths", "not recorded")
+    self_tree_examples = self_tree.get("example_unscanned_rasters", [])
+    self_tree_summary = (
+        f"Fetched <code>origin/main</code> tree <code>{self_tree_sha}</code>: "
+        f"{self_tree_count} TIF/TIFF paths ({self_tree_download_count} under docs/downloads); "
+        f"{len(self_tree_examples)} examples recorded, not cleared against a complete registry."
+        if self_tree else "Current self-repository tree inventory not recorded."
+    )
+    scan_expected = uniq.get("registry_rasters_expected")
+    scan_checked = uniq.get("registry_rasters_checked")
+    scan_missing = uniq.get("missing_or_invalid")
+    latest_scan = (f"latest pinned scan {scan_checked}/{scan_expected} checked, {scan_missing} missing/invalid; "
+                   f"complete={uniq.get('complete_accessible_scan')}") if scan_expected is not None else "latest pinned scan not recorded"
+    final_interpretation = ("REGISTRY-MEASUREMENT, pinned inventory only; literal stop failure; scan incomplete."
+                            if uniq.get("complete_accessible_scan") is not True
+                            else "REGISTRY-MEASUREMENT, pinned inventory; literal stop failure.")
     withheld = e2.get("withheld_positive_pixels")
     legacy_n = "recorded, but invalid for promotion" if withheld is not None else "no buffered result yet"
     note_chars = card.get("submission_note_chars", 0)
@@ -378,8 +417,9 @@ def build_site(card: dict) -> None:
 <section>
 <h2>Gate evidence</h2>
 <table><tr><th>Gate</th><th>Recorded result</th><th>Interpretation</th></tr>
-<tr><td>Frozen registry scope</td><td>{freshness.get('frozen_unique_raster_count','not recorded')} rasters / {freshness.get('frozen_repositories_scanned','not recorded')} pinned repositories; {current_scope}</td><td>Historical snapshot only; see <code>evidence/registry_freshness_audit.json</code>.</td></tr>
-<tr><td>Final-dot overlap</td><td>{fmt(overlap,3)} (limit {fmt(uniq.get('overlap_limit',0.70),2)}); witness {witness}</td><td>REGISTRY-MEASUREMENT, frozen scan; literal stop failure.</td></tr>
+<tr><td>Registry scope</td><td>{freshness.get('frozen_unique_raster_count','not recorded')} frozen rasters / {freshness.get('frozen_repositories_scanned','not recorded')} pinned repositories; {latest_scan}; {current_scope}</td><td>Frozen/pinned evidence only; not a current or organizer-complete inventory. See <code>evidence/registry_freshness_audit.json</code> and <code>evidence/registry_fetch_report.json</code>.</td></tr>
+<tr><td>Additional self-repository TIFFs</td><td>{self_tree_summary}</td><td>Tree listing only; not compared against the complete current registry and not uniqueness clearance.</td></tr>
+<tr><td>Final-dot overlap</td><td>{fmt(overlap,3)} (limit {fmt(uniq.get('overlap_limit',0.70),2)}); witness {witness}</td><td>{final_interpretation}</td></tr>
 <tr><td>Worst Spearman ρ</td><td>{fmt(rho,3)} (limit {fmt(uniq.get('rho_limit',0.90),2)})</td><td>Below the correlation limit, but does not override the overlap failure.</td></tr>
 <tr><td>Pre-placement surface</td><td>NOT CLEARED for this TIFF/current inventory</td><td>The existing historical surface report is for another build and is not reusable.</td></tr>
 <tr><td>Buffered outer holdout</td><td>NOT MEASURED for the current instrument</td><td>The {legacy_n} old E2 output is not promotion-grade; no DTI is shown here.</td></tr>
@@ -422,7 +462,7 @@ def build_site(card: dict) -> None:
     evidence_summary = (
         "Recorded promotion-grade holdout and registry gates are clear in the local evidence, but this page does not select a slot, upload, or confirm organizer acceptance."
         if ready else
-        "The only registered final-dot comparison is the frozen 695-raster result, which fails the literal overlap gate. Current registry coverage and the candidate-specific pre-placement surface phase are not cleared. No current promotion-grade HOLDOUT-DTI is measured."
+        f"The ribbon candidate's registered final-dot comparison fails the literal overlap gate. The latest pinned scan checked {scan_checked}/{scan_expected} rasters with {scan_missing} missing/invalid; current registry coverage and candidate-specific pre-placement surface status are not cleared. No current promotion-grade HOLDOUT-DTI is measured."
     )
     evidence_page = f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Evidence status</title><link rel="stylesheet" href="assets/site.css"></head><body>
 <header><h1>Evidence status</h1></header><section class="submit-box" style="border-color:{status_color}"><div class="badge" style="background:{status_color}">{status}</div><p>{html.escape(evidence_summary)}</p><p>Run card: <a href="RUN_CARD.json">download the JSON run card</a>. Details: <a href="IRREGULARITIES.md">IRREGULARITIES.md</a>.</p></section><footer>Generated {generated}.</footer></body></html>"""

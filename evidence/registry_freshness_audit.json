@@ -1,6 +1,6 @@
 {
   "evidence_class": "REGISTRY-FRESHNESS-AUDIT",
-  "checked_utc": "2026-10-11T01:48:32Z",
+  "checked_utc": "2026-10-11T02:22:20Z",
   "frozen_registry_manifest": "registry/registry_refreshed.json",
   "frozen_snapshot_generated_utc": "2026-10-10T19:58:45.875405+00:00",
   "frozen_unique_raster_count": 695,
@@ -9,16 +9,20 @@
   "changed_or_unrepresented_public_repositories": [
     {
       "repository": "58GEMSDOE",
-      "pushed_at_utc": "2026-10-11T01:27:06Z",
+      "pushed_at_utc": "2026-10-11T02:17:27Z",
       "in_frozen_manifest": false,
-      "current_tree_sha": "ee5f8dfbf27d5c19f8dc5a5e3b7b2c8efb67e32f",
+      "current_tree_sha": "d8c17dd9043304175d6bcc3deec5308b79966ca4",
       "recursive_tree_truncated": false,
-      "current_tif_tiff_count": 8,
-      "current_docs_download_tif_count": 2,
+      "current_tif_tiff_count": 10,
+      "current_docs_download_tif_count": 4,
       "example_unscanned_rasters": [
         "docs/downloads/archive/58GEMSDOE-ribbon-lane-v1-20261011.tif",
-        "docs/downloads/gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.tif"
-      ]
+        "docs/downloads/gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.tif",
+        "docs/downloads/gems58-mece-sgmc-catkernel-20261011T015429Z-b324aa01-zeros.tif",
+        "docs/downloads/gems58-mece-hybrid-20261011T015838Z-513210e2-zeros.tif"
+      ],
+      "note": "Updated from fetched origin/main commit d8c17dd9043304175d6bcc3deec5308b79966ca4; two new MECE TIFFs are present but have not been compared against the full registry and are outside the current ribbon-only scope.",
+      "current_tree_commit_utc": "2026-10-11T02:08:41Z"
     },
     {
       "repository": "59GEMSDOE",
@@ -84,5 +88,5 @@
   ],
   "fresh_current_inventory": false,
   "decision": "BLOCKED_NOT_EXHAUSTIVE",
-  "method_note": "Public GitHub repository metadata and recursive default-branch trees were queried with gh on 2026-10-11. TIF counts are raw paths, not deduplicated content hashes; no new rasters were downloaded or compared in this audit. The frozen uniqueness report's thresholds/results remain valid only for its recorded 695 pinned raster blobs."
+  "method_note": "Public GitHub repository metadata and recursive default-branch trees were queried with gh on 2026-10-11. TIF counts are raw paths, not deduplicated content hashes; no new rasters were downloaded or compared in this audit. The frozen uniqueness report's thresholds/results remain valid only for its recorded 695 pinned raster blobs. After the initial tree audit, origin/main advanced to 58GEMSDOE commit d8c17dd9043304175d6bcc3deec5308b79966ca4; its full local tree contains 10 TIF/TIFF paths, including two new MECE candidates. This self-repository update was recorded, but those candidates were not compared with the full current public inventory. The 694/695 pinned-raster restore remains incomplete, and no current/exhaustive registry clearance exists."
 }

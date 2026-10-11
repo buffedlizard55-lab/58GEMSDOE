@@ -1,6 +1,6 @@
 {
   "run_card_version": "2.0",
-  "generated_utc": "2026-10-11T02:16:54Z",
+  "generated_utc": "2026-10-11T02:25:11Z",
   "lane": "ribbon only \u2014 emission width matched to measured localization error",
   "submission_status": "NOT_OK_TO_SUBMIT",
   "human_readable_status": "NOT OK TO SUBMIT \u2014 DO NOT SUBMIT",
@@ -45,7 +45,28 @@
     "snapshot_generated_utc": "2026-10-10T19:58:45.875405+00:00",
     "repositories_in_frozen_snapshot": 57,
     "rasters_in_frozen_snapshot": 695,
+    "latest_pinned_snapshot_scan": {
+      "expected": 695,
+      "checked": 694,
+      "complete_accessible_scan": false,
+      "missing_or_invalid": 1,
+      "source_errors": [],
+      "evidence_class": "REGISTRY-MEASUREMENT (pinned inventory only)"
+    },
     "current_inventory_complete": false,
+    "current_self_repository_tree": {
+      "repository": "58GEMSDOE",
+      "tree_sha": "d8c17dd9043304175d6bcc3deec5308b79966ca4",
+      "tif_tiff_paths": 10,
+      "docs_download_tif_tiff_paths": 4,
+      "example_unscanned_rasters": [
+        "docs/downloads/archive/58GEMSDOE-ribbon-lane-v1-20261011.tif",
+        "docs/downloads/gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.tif",
+        "docs/downloads/gems58-mece-sgmc-catkernel-20261011T015429Z-b324aa01-zeros.tif",
+        "docs/downloads/gems58-mece-hybrid-20261011T015838Z-513210e2-zeros.tif"
+      ],
+      "inventory_only_not_registry_cleared": true
+    },
     "freshness_audit": "evidence/registry_freshness_audit.json",
     "rho_limit": 0.9,
     "worst_spearman_full_footprint": 0.18964557053051112,

@@ -9,12 +9,14 @@ The current TIFF is retained for research/audit only; **it is not a unique, prom
 ### Why it is blocked
 
 - The recorded frozen-registry report finds **100%** of the candidate’s dots within 3 px of one prior full-footprint-positive raster. The literal stop limit is **>70%**. The candidate’s lower rank correlation does not override that independent stop rule. Evidence: `evidence/ribbon_uniqueness.json`.
-- The frozen scan is **695 rasters from 57 pinned repository snapshots**, generated at `2026-10-10T19:58:45.875405Z`; it is not a current/exhaustive public inventory. Newer default-branch trees contain TIFs in 58/59/60/61GEMSDOE, and GEMSDOE52 has 88 TIFF paths added since its pinned tree. No complete scan of those artifacts was made. Evidence: `evidence/registry_freshness_audit.json`.
+- The frozen inventory is **695 rasters from 57 pinned repository snapshots**, generated at `2026-10-10T19:58:45.875405Z`; it is not a current/exhaustive public inventory. Newer default-branch trees contain TIFs in 58/59/60/61GEMSDOE, and GEMSDOE52 has 88 TIFF paths added since its pinned tree. A later restore checked only **694/695** pinned rasters; one raster remains unavailable, so even that scan is incomplete. Evidence: `evidence/registry_freshness_audit.json`, `evidence/registry_fetch_report.json`, `evidence/ribbon_uniqueness.json`.
 - A literal pre-placement surface comparison for this candidate against a current inventory is not available. The old pre-placement report is a different candidate and excluded dense priors; it cannot be used as clearance.
 - The old holdout output is not promotion-grade: per-segment acceptance saw the same cell’s withheld truth, σ was fit on scored folds, the earlier bootstrap resampled repeated physical blocks as independent, and the split had no new buffer. A buffered shared holdout constructor and toy tests were added, but **no experiment was rerun**.
 - The TIFF has a recorded **local format/range preflight** only; that is not a registry clearance, portal acceptance, or organizer score. The local all-finite/zero-outside export policy also differs from the sample’s NaN footprint behavior; see `docs/IRREGULARITIES.md`.
 
 All of these are stop conditions. No old holdout score is presented here as a validated result.
+
+The repository also contains MECE/multi-evidence artifacts inherited from a separate main-branch change. That approach is outside this session's ribbon-only scope; its reported holdout used full-catalogue proximity and is leakage-flagged, and its pairwise comparison to the ribbon file is not a full-registry clearance. The fetched `origin/main` tree `d8c17dd` contains 10 TIF/TIFF paths in this repository, including those two MECE outputs; they were not compared against a complete current registry. Those files are retained as diagnostics, marked NOT OK TO SUBMIT, and must not be used as the current candidate.
 
 ---
 
@@ -104,7 +106,7 @@ All of these are stop conditions. No old holdout score is presented here as a va
 | Format/range | Recorded local validator passed for finite values in [0,1], zeros outside the local footprint, and zero on mapped catalogue | LOCAL-FORMAT-PREFLIGHT; not portal acceptance |
 | Literal final-dot overlap | 1.0 with the `GEMSDOE2` full-footprint-positive witness; strict stop limit 0.70 | REGISTRY-MEASUREMENT, frozen snapshot only; blocks candidate |
 | Spearman rank correlation | Worst recorded value 0.1896456, below 0.90 | REGISTRY-MEASUREMENT, frozen snapshot only; does not cure overlap failure |
-| Registry freshness | 695 unique rasters across 57 pinned snapshots, but current default branches contain unscanned/changed TIFs | REGISTRY-FRESHNESS-AUDIT; incomplete/current scope false |
+| Registry freshness | 695 unique rasters across 57 pinned snapshots; latest restore checked 694/695. Fetched `origin/main` tree `d8c17dd` contains 10 TIF/TIFF paths in this repository, including two out-of-lane MECE outputs; no full current inventory comparison was performed. | REGISTRY-FRESHNESS-AUDIT; incomplete/current scope false |
 | Pre-placement current surface | Not checked for this candidate under a current literal inventory | NOT CLEARED |
 | Promotion-grade HOLDOUT-DTI | Not run with the new buffered split; legacy result is disqualified for promotion due same-cell truth selection and invalid block bootstrap | NOT MEASURED for current instrument |
 | Organizer score | No receipt | NOT AVAILABLE |
@@ -124,7 +126,7 @@ The number of positive raster pixels is a raster fact, not a score. No current l
 - `scripts/build_ribbon_emission.py` — gated E3 emitter; it currently refuses to write because there is no reviewed `evidence/ribbon_qualification.json` or promotion-grade E1/E2. It verifies both registry-phase receipts and the exact prediction fingerprint before writing.
 - `scripts/check_uniqueness_registry.py` — shared literal registry check; only as current as the supplied/indexed inventory.
 - `scripts/build_site.py` — regenerates the explicit status, site, and run card from recorded evidence.
-- `scripts/run_ribbon_lane.py`, `scripts/uniqueness_check.py`, `scripts/check_data.py`, `scripts/make_submission.py`, `src/gems58/`, and `gems/` — legacy/private implementations, deprecated or disabled for new promotion work.
+- `scripts/run_ribbon_lane.py`, `scripts/uniqueness_check.py`, `scripts/check_data.py`, `scripts/make_submission.py`, `scripts/multi_evidence_emission.py`, `src/gems58/`, and `gems/` — legacy/private or out-of-lane implementations; do not use for new promotion work (`multi_evidence_emission.py` exits with NO-GO).
 - `docs/SUBMISSION_GUIDE.md`, `docs/SOURCES.md`, `docs/IRREGULARITIES.md`, and `docs/research/hypotheses_new.md` — user-facing status, official source register, audit log, and hypotheses.
 
 ## Safe verification

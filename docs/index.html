@@ -13,8 +13,9 @@
 <section>
 <h2>Gate evidence</h2>
 <table><tr><th>Gate</th><th>Recorded result</th><th>Interpretation</th></tr>
-<tr><td>Frozen registry scope</td><td>695 rasters / 57 pinned repositories; NOT CURRENT / INCOMPLETE</td><td>Historical snapshot only; see <code>evidence/registry_freshness_audit.json</code>.</td></tr>
-<tr><td>Final-dot overlap</td><td>1.000 (limit 0.70); witness GEMSDOE2:data/evidence/runs/turbo-simple-20260925T042003Z/submission.tif</td><td>REGISTRY-MEASUREMENT, frozen scan; literal stop failure.</td></tr>
+<tr><td>Registry scope</td><td>695 frozen rasters / 57 pinned repositories; latest pinned scan 694/695 checked, 1 missing/invalid; complete=False; NOT CURRENT / INCOMPLETE</td><td>Frozen/pinned evidence only; not a current or organizer-complete inventory. See <code>evidence/registry_freshness_audit.json</code> and <code>evidence/registry_fetch_report.json</code>.</td></tr>
+<tr><td>Additional self-repository TIFFs</td><td>Fetched <code>origin/main</code> tree <code>d8c17dd9043304175d6bcc3deec5308b79966ca4</code>: 10 TIF/TIFF paths (4 under docs/downloads); 4 examples recorded, not cleared against a complete registry.</td><td>Tree listing only; not compared against the complete current registry and not uniqueness clearance.</td></tr>
+<tr><td>Final-dot overlap</td><td>1.000 (limit 0.70); witness GEMSDOE2:data/evidence/runs/turbo-simple-20260925T042003Z/submission.tif</td><td>REGISTRY-MEASUREMENT, pinned inventory only; literal stop failure; scan incomplete.</td></tr>
 <tr><td>Worst Spearman ρ</td><td>0.190 (limit 0.90)</td><td>Below the correlation limit, but does not override the overlap failure.</td></tr>
 <tr><td>Pre-placement surface</td><td>NOT CLEARED for this TIFF/current inventory</td><td>The existing historical surface report is for another build and is not reusable.</td></tr>
 <tr><td>Buffered outer holdout</td><td>NOT MEASURED for the current instrument</td><td>The recorded, but invalid for promotion old E2 output is not promotion-grade; no DTI is shown here.</td></tr>
@@ -38,5 +39,5 @@
 <li><a href="evidence.html">Evidence status</a></li><li><a href="sources.html">Short source register</a></li>
 <li><a href="AI_USAGE.md">Generative-AI use log (rules disclosure reference)</a></li>
 </ul></section>
-<footer>Generated 2026-10-11T02:16:54Z. This is a local evidence status page. The builder never selects a slot or uploads, and cannot create an organizer receipt.</footer>
+<footer>Generated 2026-10-11T02:25:11Z. This is a local evidence status page. The builder never selects a slot or uploads, and cannot create an organizer receipt.</footer>
 </body></html>
