@@ -1,0 +1,236 @@
+{
+ "candidate": "docs/ribbon/downloads/gems58-adaptive-ribbon-38000-20261011T000000Z.tif",
+ "candidate_sha256": "d631b4af205bd6e0961f4bad3f4d12bc27b651a020dcd38666e4c5f5246720f7",
+ "rho_max": 0.9,
+ "overlap_max": 0.7,
+ "radius_px": 3.0,
+ "n_rasters": 25,
+ "n_flagged": 2,
+ "worst_rho": 0.8955476644026387,
+ "worst_rho_path": "evidence/gems58-ribbon-sigma168-w3-38000-M1-CONTROL-20261011T000000Z.tif",
+ "max_overlap": 0.9590526315789474,
+ "verdict": "DUPLICATE_OR_DRIFT",
+ "scope_note": "Local rasters only. The 695-raster frozen registry is NOT in this checkout (evidence/registry_cache_restore.json: restored 0).",
+ "rows": [
+  {
+   "rho": 0.0046180496121934565,
+   "frac_dots_within_3px_of_other": 0.2800526315789474,
+   "jaccard": 0.007611004191657791,
+   "n_other_positives": 123779,
+   "path": "data/registry/rasters/19GEMSDOE__h19-4-multiline-corroborated.tif",
+   "sha256": "ad52f4c2704f2a8721f74b736dc139b6b9e11cbf6130c3b971b91cfb3661ac84",
+   "flagged": false
+  },
+  {
+   "rho": 0.0042100255159923244,
+   "frac_dots_within_3px_of_other": 0.26513157894736844,
+   "jaccard": 0.007419646870390418,
+   "n_other_positives": 121131,
+   "path": "data/registry/rasters/19GEMSDOE__h19-5-powerlaw-budget-multiline.tif",
+   "sha256": "ef2ae808eb7179861b9f1ff753fd3ded625ace7b7c158e29cec45bbd8fa3cfaa",
+   "flagged": false
+  },
+  {
+   "rho": 0.002151747091282725,
+   "frac_dots_within_3px_of_other": 0.13157894736842105,
+   "jaccard": 0.005571688026514258,
+   "n_other_positives": 60000,
+   "path": "data/registry/rasters/57GEMSDOE__faultzone-anatomy-60000px-prev.tif",
+   "sha256": "a08650cadb9a1baf36f00a87bbbd80e789ba01f45c9d57936865a94174cc9cd8",
+   "flagged": false
+  },
+  {
+   "rho": -0.0007390640132107114,
+   "frac_dots_within_3px_of_other": 0.030131578947368422,
+   "jaccard": 0.0031870657110029,
+   "n_other_positives": 35341,
+   "path": "data/registry/rasters/57GEMSDOE__h57-anatomy-enechelon-zeros.tif",
+   "sha256": "8ba5a9822d87eb7b1e159ae2bfee8ced429ecb9752761041309fe5629df0e482",
+   "flagged": false
+  },
+  {
+   "rho": -0.0012444996813613396,
+   "frac_dots_within_3px_of_other": 0.04168421052631579,
+   "jaccard": 0.0031638243691642872,
+   "n_other_positives": 40000,
+   "path": "data/registry/rasters/57GEMSDOE__h57r2-shipped8-all-flank0-20261009T180433Z-90e532947353-zeros.tif",
+   "sha256": "9afe74ab2b2fa631e9276cd8e8685fc76086d96d01181101998309b0c0d06a47",
+   "flagged": false
+  },
+  {
+   "rho": 0.0002237094556304958,
+   "frac_dots_within_3px_of_other": 0.018657894736842106,
+   "jaccard": 0.0018634660468471356,
+   "n_other_positives": 12000,
+   "path": "data/registry/rasters/57GEMSDOE__parallel-12000dots-zeros.tif",
+   "sha256": "3bddb4b66750aadf9fb5a9be25a89088844f4235d605f136fc1243893bfe6dbb",
+   "flagged": false
+  },
+  {
+   "rho": 0.0022031968318345398,
+   "frac_dots_within_3px_of_other": 0.24226315789473685,
+   "jaccard": 0.005598679285912041,
+   "n_other_positives": 60069,
+   "path": "data/registry/rasters/GEMSDOE24__h25-1-dotted-h19-5-d1-5.tif",
+   "sha256": "3e0730e8d4f7db095dd80246a98cba3bc0fc9a28f436b91db27ca34df4d0d1ce",
+   "flagged": false
+  },
+  {
+   "rho": 0.0020383178714206934,
+   "frac_dots_within_3px_of_other": 0.23060526315789473,
+   "jaccard": 0.004982676934000955,
+   "n_other_positives": 44090,
+   "path": "data/registry/rasters/GEMSDOE25__dotted-h19-5-d2-8.tif",
+   "sha256": "3e78737f0da8dd2ca66cc6caac0ce8eeefcd6715707f8d1bd3091845cd9bcc30",
+   "flagged": false
+  },
+  {
+   "rho": 0.002196243246443955,
+   "frac_dots_within_3px_of_other": 0.24557894736842106,
+   "jaccard": 0.005629125663143401,
+   "n_other_positives": 61328,
+   "path": "data/registry/rasters/GEMSDOE27__topo-gap-closure-t-v2-on-d1-5.tif",
+   "sha256": "a9bf76b57453a5b3af74c8eef837df53c29a0931162aa540b8763220b36ba3bb",
+   "flagged": false
+  },
+  {
+   "rho": 0.002871568064547512,
+   "frac_dots_within_3px_of_other": 0.2262894736842105,
+   "jaccard": 0.005231900452488687,
+   "n_other_positives": 40199,
+   "path": "data/registry/rasters/GEMSDOE28__h27-4-r1-solo-d2-8.tif",
+   "sha256": "2fc94a38d77f74d4f4ed1a97a83e7bb71a1ceea090515ec641e6681cc47c44c8",
+   "flagged": false
+  },
+  {
+   "rho": 0.0024379501847170268,
+   "frac_dots_within_3px_of_other": 0.22976315789473684,
+   "jaccard": 0.005107277870966127,
+   "n_other_positives": 42294,
+   "path": "data/registry/rasters/GEMSDOE28__h32-1-prethin-tip-euler-d2-8.tif",
+   "sha256": "26748e4b4721277b093c776f7ca72920023d0ee6e9514ee38e677c8010f4068e",
+   "flagged": false
+  },
+  {
+   "rho": 0.00271763993686437,
+   "frac_dots_within_3px_of_other": 0.22336842105263158,
+   "jaccard": 0.005034470849218263,
+   "n_other_positives": 37660,
+   "path": "data/registry/rasters/GEMSDOE28__h36-1-rung30-blind-r1.tif",
+   "sha256": "7c74270ad48fa0b865163853046a6d3815967c5bf37bbda5b74ca7fa22583a32",
+   "flagged": false
+  },
+  {
+   "rho": 0.002777679944106874,
+   "frac_dots_within_3px_of_other": 0.22407894736842104,
+   "jaccard": 0.005074393523854949,
+   "n_other_positives": 37860,
+   "path": "data/registry/rasters/GEMSDOE28__h38-1-hf-euler-r30-r1.tif",
+   "sha256": "529d9e1bd80b54957ca16398e47bfc51b1e32eaee8fc89d6dfbddbd7036c5ffc",
+   "flagged": false
+  },
+  {
+   "rho": 0.0016783089366602033,
+   "frac_dots_within_3px_of_other": 0.22692105263157894,
+   "jaccard": 0.00468544220443724,
+   "n_other_positives": 41338,
+   "path": "data/registry/rasters/GEMSDOE29__wormrank-d28.tif",
+   "sha256": "3ea61e719af4c0d0df9f8d279560ae4a6b5063cca0a43991c8f66a56cb63c51f",
+   "flagged": false
+  },
+  {
+   "rho": 0.0020383178714206934,
+   "frac_dots_within_3px_of_other": 0.23060526315789473,
+   "jaccard": 0.004982676934000955,
+   "n_other_positives": 44090,
+   "path": "data/registry/rasters/GEMSDOE30__d28-poisson300m-offcat-44090.tif",
+   "sha256": "8cf893ead5667df21d3288a9968c35fd5385c425b029d82ee71d311715b129fd",
+   "flagged": false
+  },
+  {
+   "rho": 0.0034647083063271897,
+   "frac_dots_within_3px_of_other": 0.22023684210526315,
+   "jaccard": 0.005408853509109998,
+   "n_other_positives": 37654,
+   "path": "data/registry/rasters/GEMSDOE32__h33-2-b2-zeros.tif",
+   "sha256": "c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9",
+   "flagged": false
+  },
+  {
+   "rho": 0.002302616716807971,
+   "frac_dots_within_3px_of_other": 0.2296315789473684,
+   "jaccard": 0.0050210152769738,
+   "n_other_positives": 41865,
+   "path": "data/registry/rasters/GEMSDOE33__h33d-analog-tip-stepover-r30.tif",
+   "sha256": "87f857d505e23247e991ccfab2cbe9f49a04df4f9c8028dce7ea261554690757",
+   "flagged": false
+  },
+  {
+   "rho": 0.003913962417961185,
+   "frac_dots_within_3px_of_other": 0.23371052631578948,
+   "jaccard": 0.005692301652730342,
+   "n_other_positives": 38854,
+   "path": "data/registry/rasters/GEMSDOE36__anderson-geothermal-pinn-38854.tif",
+   "sha256": "e15891020b9c57056ac7fa874a5e506fbd6ed9314a4ea8e73af0753887a3708a",
+   "flagged": false
+  },
+  {
+   "rho": 0.013745320203253279,
+   "frac_dots_within_3px_of_other": 0.41121052631578947,
+   "jaccard": 0.010703086531733486,
+   "n_other_positives": 40000,
+   "path": "data/registry/rasters/GEMSDOE49__gate_ortho_w0.25-40k.tif",
+   "sha256": "3722e26fbf9129874be1fb8c687825803952c57ef1154ed0a21029596bc412f1",
+   "flagged": false
+  },
+  {
+   "rho": 0.0016954330595664914,
+   "frac_dots_within_3px_of_other": 0.19765789473684212,
+   "jaccard": 0.006300107069177135,
+   "n_other_positives": 116137,
+   "path": "docs/downloads/gems58-mece-hybrid-20261011T015838Z-513210e2-zeros.tif",
+   "sha256": "9b48fd661a9b7834730d5c8824688a1eff0ea680298a502cd59cf9229c8ba165",
+   "flagged": false
+  },
+  {
+   "rho": -0.005257551977276949,
+   "frac_dots_within_3px_of_other": 0.05197368421052632,
+   "jaccard": 0.0009186513649513938,
+   "n_other_positives": 35000,
+   "path": "docs/downloads/gems58-mece-sgmc-catkernel-20261011T015429Z-b324aa01-zeros.tif",
+   "sha256": "6a5f3695b566b5dabbad655c301247c93b739056e7de85caa0142f5f9b11cdbc",
+   "flagged": false
+  },
+  {
+   "rho": 0.01295656510157275,
+   "frac_dots_within_3px_of_other": 0.12360526315789473,
+   "jaccard": 0.010129263523788833,
+   "n_other_positives": 36394,
+   "path": "docs/downloads/gems58-prox-dot36k-20261011T030218Z-e7bbfea83853-zeros.tif",
+   "sha256": "aac8aa8a021ee309c91c5084f17ff2d64623163faa382cfd76ca781352d945b8",
+   "flagged": false
+  },
+  {
+   "rho": 0.0020267059207536957,
+   "frac_dots_within_3px_of_other": 0.15452631578947368,
+   "jaccard": 0.005697543471206887,
+   "n_other_positives": 67379,
+   "path": "docs/downloads/gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.tif",
+   "sha256": "8b196e6eea06fef0d6cf2c9109091d1e2677a77d6e48d8b04f334a879551687f",
+   "flagged": false
+  },
+  {
+   "path": "docs/ribbon/downloads/gems58-adaptive-ribbon-38000-20261011T000000Z.tif",
+   "status": "IDENTICAL_BYTES_TO_CANDIDATE"
+  },
+  {
+   "rho": 0.8955476644026387,
+   "frac_dots_within_3px_of_other": 0.9590526315789474,
+   "jaccard": 0.8121125417262757,
+   "n_other_positives": 38000,
+   "path": "evidence/gems58-ribbon-sigma168-w3-38000-M1-CONTROL-20261011T000000Z.tif",
+   "sha256": "53496109b49a8f0b758f0d41998b388d7b3afdbdb584be1c32fa2294def98032",
+   "flagged": true
+  }
+ ]
+}

@@ -212,7 +212,9 @@ The earlier geophysical-ridge v1 TIFF remains under `docs/downloads/archive/` wi
 
 > ## ⬇ Download — and what it is for
 >
-> **Download: OK. Submit to the competition: YOUR DECISION (this project never spends a slot).**
+> **Download: format-check copy only. Submit to the competition: DO NOT SUBMIT.** (Updated 2026-10-11 after a check against our own rasters.)
+>
+> Why: (1) against our own M1-CONTROL raster this file has Spearman ρ **0.8955** (limit 0.90) and **95.9 %** of its dots within 3 px of the control's dots (limit 70 %), verdict **DUPLICATE_OR_DRIFT** — [`evidence/own_raster_duplicate_check_ribbon.json`](evidence/own_raster_duplicate_check_ribbon.json), produced by [`scripts/check_own_rasters.py`](scripts/check_own_rasters.py); (2) its own holdout gives HOLDOUT-DTI **0.0** ([`evidence/ribbon/run_card.json`](evidence/ribbon/run_card.json)); (3) the 695-raster frozen registry is not in this checkout, so the full uniqueness scan cannot be run here. The earlier "0 duplicates" line below covered only the 19 registry rasters.
 >
 > **[↓ `gems58-adaptive-ribbon-38000-20261011T000000Z.tif`](docs/ribbon/downloads/gems58-adaptive-ribbon-38000-20261011T000000Z.tif)** (417 KiB)
 > · **[single-GeoTIFF ZIP](docs/ribbon/downloads/gems58-adaptive-ribbon-38000-20261011T000000Z.zip)** (one `.tif` inside)

@@ -134,3 +134,54 @@ This file records observed issues, not assumptions. **Current submit decision: N
     place mass *beside* the catalogue. Action: CTX is reported as a negative result (it is still in the
     evidence as an arm), the PROX family is used instead, and the collapse is flagged so that a future
     lane does not re-derive it.
+
+---
+
+## Session 3 review (2026-10-11) — added during the ribbon-lane status check
+
+19. **IR-58-S3-01 — the ribbon candidate is a near-duplicate of our own control; the "download OK / submit your decision" banner was wrong.**
+    `docs/ribbon/downloads/gems58-adaptive-ribbon-38000-20261011T000000Z.tif` (sha256 `d631b4af…720f7`) against
+    `evidence/gems58-ribbon-sigma168-w3-38000-M1-CONTROL-20261011T000000Z.tif`: Spearman ρ **0.8955** (limit 0.90),
+    **95.9 %** of dots within 3 px of the control's dots (limit 70 %), Jaccard 0.812. Verdict `DUPLICATE_OR_DRIFT`
+    (`evidence/own_raster_duplicate_check_ribbon.json`, produced by `scripts/check_own_rasters.py`). The earlier
+    "0 duplicates" line scanned only the 19 registry rasters and never compared against our own outputs. Action taken:
+    README banner, ribbon site banner (`scripts/ribbon_build_site.py`) and its QA check (`scripts/ribbon_check_site.py`)
+    now say **DO NOT SUBMIT**. The run card file itself is unchanged (it is a pipeline receipt).
+
+20. **IR-58-S3-02 — holdout numbers disagree and the 0.0 is not yet explained.**
+    `evidence/ribbon/run_card.json` reports HOLDOUT-DTI 0.0 on **60,869** withheld positives. `holdout_eval.json` and
+    `final_sweep.json` report **60,474**; `equal_budget.json` reports **60,988**. In `final_sweep.json` the off-catalogue
+    variant gives TP = 0 for the tight single line (`offcat.agg.tp = 0`) while the all-pixel variant gives 0.034. The
+    off-catalogue variant is the one that matches the official rule (dots on existing faults count as false positives),
+    so the 0.0 is what the protocol-consistent variant measures. Action: needs an owner review of which variant the card
+    should cite. No CI is reported (4 block-level pairs). Label: HOLDOUT-DTI, not ORGANIZER-CONFIRMED.
+
+21. **IR-58-S3-03 — `data/official/labels.tif` is byte-identical to `existing_faults.tif`.** Both have sha256
+    `7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093`, int8, nodata −1, 60,988 positive cells. So the
+    local "labels" file is the public catalogue, not the hidden expert labels that score the competition. Any analysis that
+    treats `labels.tif` as ground truth for the competition is measuring the catalogue. Flagged for review; the hidden
+    labels are not available to this project.
+
+22. **IR-58-S3-04 — the 695-raster registry is not in this checkout, so "unique against every earlier raster" is not met.**
+    `evidence/registry_cache_restore.json` reports `restored: 0, already_cached: 0` (GitHub API rate limit). Only 25 local
+    rasters were compared this session (19 registry + 4 downloads + 2 evidence). The 695-raster audit file
+    `registry/uniqueness_final_58GEMSDOE-ribbon-lane-v1-20261011_summary.json` (from an earlier sandbox) records
+    `verdict: DUPLICATE_OR_DRIFT` for that lane's v1 raster (max dot overlap 0.9949 against a GEMSDOE40 raster). That file's
+    cache path (`/home/user/.cache/gems-src/...`) does not exist here, so it cannot be re-run in this session.
+
+23. **IR-58-S3-05 — our own rasters overlap each other.** `gems58-prox-dot36k` (36,394 dots) has 79 % of its dots within
+    3 px of `gems58-mece-hybrid` (`evidence/own_raster_duplicate_check_*`, computed ad hoc this session). It is not a
+    registry duplicate by the 0.90/0.70 rule measured here, but it is above the 70 % line against our own file. No
+    current repo raster is clean against every other repo raster.
+
+24. **IR-58-S3-06 — the user-reported rejection text "Predicted values must be in range [0, 1]" is not reproduced here.**
+    The official problem page (`https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/`) says
+    predictions are float32 with values between 0 and 1, and that data outside the bounds "is null or nan". So NaN outside
+    the footprint is allowed by the rule as written. The cause of the user's specific rejection is therefore unknown (a
+    value outside [0, 1] or NaN inside the scored footprint are the two candidates). The candidate file has 0 NaN inside the
+    footprint and all values in {0, 1}; the local sample has the same footprint (5,167,373 finite cells). Flagged, not
+    resolved; the organiser's exact validator is not public in the sources we could reach.
+
+25. **IR-58-S3-07 — DrivenData data tab still needs login; the Dropbox mirrors failed TLS.** `data/fetch_log.json` records
+    four failed Dropbox fetches. The 19-band `training_features.tif` is available only through the owner's git bridge
+    (`data/bridge/feature_stack_pins.json`), not the organiser. Not re-attempted this session.

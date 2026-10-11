@@ -5,25 +5,27 @@
 <nav><a href="index.html">Overview</a><a href="executive-summary.html">How to submit</a>
 <a href="hypotheses.html">Hypotheses</a><a href="research.html">Research</a>
 <a href="sources.html">Sources</a><a href="irregularities.html">Irregularities</a></nav>
-<div class="card ok">
+<div class="card" style="border-left:6px solid #b00020">
 <h2 style="margin-top:0;border:0">Download — and what it is for</h2>
-<p><strong>Download: OK &nbsp;·&nbsp; Submit to the competition: NOT CLEARED YET</strong>
+<p><strong>Download: format-check copy only &nbsp;·&nbsp; Submit to the competition: DO NOT SUBMIT</strong>
 (this project never clicks Submit and never spends a slot).</p>
-<p class="small"><strong>Why not cleared.</strong> The uniqueness screen behind this lane ran against the
-<strong>19</strong> earlier rasters present in this checkout (worst rank correlation
-0.0137, worst 3&nbsp;px forward overlap 0.3600 — below the
-0.90 / 0.70 stop limits). The sibling lane maintains a <strong>695-raster frozen inventory</strong> and
-found one of <em>its</em> candidates at <strong>100&nbsp;%</strong> 3&nbsp;px overlap, so the same scan must be
-run against this raster before anyone submits it. Until then the file is a
-<strong>reviewable artifact, not a cleared submission</strong>.</p>
-<a class="dl" href="downloads/gems58-adaptive-ribbon-38000-20261011T000000Z.tif">⬇ Download the submission GeoTIFF &nbsp;·&nbsp; gems58-adaptive-ribbon-38000-20261011T000000Z.tif &nbsp;·&nbsp; 426,559 bytes</a>
-<a class="dl" href="downloads/gems58-adaptive-ribbon-38000-20261011T000000Z.zip">⬇ Download the single-GeoTIFF ZIP (portal accepts this too)</a>
+<p class="small"><strong>Why DO NOT SUBMIT.</strong>
+(1) <strong>Duplicate of our own control.</strong> Against the M1-CONTROL raster in
+<code>evidence/</code> this file has Spearman rho <strong>0.8955</strong> (limit 0.90) and
+<strong>95.9&nbsp;%</strong> of its dots within 3&nbsp;px of the
+control's dots (limit 70&nbsp;%); verdict <strong>DUPLICATE_OR_DRIFT</strong>
+(<code>evidence/own_raster_duplicate_check_ribbon.json</code>, <code>scripts/check_own_rasters.py</code>).
+The earlier "0 duplicates" claim covered only the 19 registry rasters, not our own outputs.
+(2) <strong>Own holdout gives 0.0.</strong> The emission's HOLDOUT-DTI is <strong>0.0000</strong>
+(evaluator gems58w.metric/v1 (exact triangular kernel, R=3 px, alpha=0.2, beta=0.8), 60,869 withheld positives,
+95&nbsp;% CI not reported). The repo's own rule is not to spend a slot on a candidate that has not beaten the holdout best.
+(3) The 695-raster frozen registry is not in this checkout, so the full-registry uniqueness scan cannot be run here.</p>
+<a class="dl" href="downloads/gems58-adaptive-ribbon-38000-20261011T000000Z.tif">⬇ Download the GeoTIFF (format-check copy) &nbsp;·&nbsp; gems58-adaptive-ribbon-38000-20261011T000000Z.tif &nbsp;·&nbsp; 426,559 bytes</a>
+<a class="dl" href="downloads/gems58-adaptive-ribbon-38000-20261011T000000Z.zip">⬇ Download the single-GeoTIFF ZIP (same file)</a>
 <p class="small">sha256 <code>d631b4af205bd6e0961f4bad3f4d12bc27b651a020dcd38666e4c5f5246720f7</code> &nbsp;·&nbsp; 38,000 dots, every value exactly
-<code>1.0</code> &nbsp;·&nbsp; <strong>15/15 local acceptance checks pass</strong>
-&nbsp;·&nbsp; worst registry rank correlation <strong>0.0137</strong>
-&nbsp;·&nbsp; worst 3&nbsp;px forward overlap <strong>0.3600</strong>
-&nbsp;·&nbsp; <strong>0 duplicates</strong></p>
-<p><strong>Suggested submission note (126 / 140 characters):</strong><br>
+<code>1.0</code> &nbsp;·&nbsp; <strong>15/15 local format checks pass</strong>
+&nbsp;·&nbsp; <strong>DUPLICATE_OR_DRIFT</strong> against our own control.</p>
+<p class="small">Suggested note for the record only (126 / 140 characters):<br>
 <code>Ribbon lane: per-segment dotted ribbons (5 lines at 0, +-300 m, +-600 m) on off-catalogue ridge detections; 38k isolated dots.</code></p>
 <p class="small">Do not upload this page, a JSON receipt, or a ZIP of the repository:
 the portal takes the <code>.tif</code>, or a ZIP containing exactly one GeoTIFF.</p>
