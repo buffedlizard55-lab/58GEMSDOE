@@ -57,12 +57,26 @@ arms (R0 incumbent / C1 / C2), EXP-3 emission + both uniqueness phases.
    `docs/index.html` / `executive-summary.html` / `submit.html`; `docs/RUN_CARD.json` verdict
    `negative`, `slots_used: 0`. Session-3 receipts archived verbatim in
    `evidence/ribbon/archive-s3/`.
+5. **The other session-5 candidate, re-read under the ratified rule.** The gems60 convergence
+   file `docs/downloads/gems60-convergence-ribbon6-20261011T155420Z.tif` (sha256 `c1ba5b06…e2b1`,
+   40,000 dots, 12/12 format checks, 0 on the catalogue, HOLDOUT-DTI 0.037208) had been screened
+   with the gems60 instruments over 668 byte-verified witnesses and cleared on the two resolutions
+   the owner had proposed (0 lift firings, 0 firings at E ≤ 0.61). Read under **RATIFIED-UNIQ-v1**
+   it is **also a duplicate**: rule A fires 4× against the same `13GEMSDOE` archive pair —
+   `13gems-r6-ensemble-20260929T182914Z(_allfinite).tif` (E = 0.6456, forward overlap 0.7463) and
+   `13gems-toporef-holdoutref(_allfinite).tif` (E = 0.6798, overlap 0.7191) — while rule B (max
+   lift 0.4552), ρ (worst 0.3499), Jaccard (worst 0.0248) and byte/pixel identity all stay at zero
+   firings. Its page and front-door box were turned red, its run card now says STOP, and both
+   readings stay published in `evidence/gems60/uniqueness_readings.json`. Every nonempty emitter
+   this repository has screened under rule A is stopped by it — this file (4 firings), the
+   concordance candidate (9), the session-3 ribbon (7) — which is exactly the trade-off S5.1
+   item 1 puts to the owner.
 
 ## S5.1 Next work, in priority order
 
 1. **The structural problem is now measured, not speculative:** the registry contains broad
    coverage-ensemble witnesses whose 3-px dilation covers 53–68 % of the footprint
-   (13GEMSDOE r6-ensemble, GEMSDOE3 coverage-v3-wide, GEMSDOE22 h23-b, GEMSDOE50 h59). ANY
+   (13GEMSDOE r6-ensemble and 13gems-toporef-holdoutref at E 0.646–0.680, GEMSDOE3 coverage-v3-wide, GEMSDOE22 h23-b, GEMSDOE50 h59). ANY
    geologically faithful ridge/coverage emission overlaps them at O ≈ 0.70–0.85 and trips rule A,
    even though its lift vs them is below 0.50 (0.48 at worst — i.e. barely above chance). The
    next session should present the owner with this exact trade-off: either (a) accept that

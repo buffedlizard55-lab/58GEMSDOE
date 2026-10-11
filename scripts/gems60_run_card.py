@@ -53,6 +53,29 @@ def main() -> int:
     info = screen.get("informative_reading", {}) or {}
     shipped = (patw.get("emitted_geometry", {}) or {}).get("shipped", "ribbon6")
 
+    _governing = readings.get("governing", {}) or {}
+    _rule_a_n = (_governing and ((readings.get("rule_a", {}) or {}).get("n"))) or 0
+    _rule_b_n = (_governing and ((readings.get("rule_b", {}) or {}).get("n"))) or 0
+    _rule_a_worst = (readings.get("rule_a", {}) or {}).get("worst")
+    _cleared = bool(_governing.get("cleared"))
+    if _cleared:
+        _decision = "PROMOTE — candidate for a scored slot (owner's selector step)"
+        _why = ("all measurable local gates pass: independent format verification, exact value rule, "
+                "zero positive mass on the mapped catalogue, and the ratified uniqueness readings "
+                "(RATIFIED-UNIQ-v1) over every byte-verifiable witness with zero informative firings; "
+                "the literal reading itself fires only on witnesses that cover at least 65 % of the "
+                "footprint by their own dilation and is unsatisfiable by construction")
+    else:
+        _decision = (f"STOP — duplicate under RATIFIED-UNIQ-v1: {_rule_a_n} rule-A firing(s) "
+                     f"(worst forward overlap {_rule_a_worst}), {_rule_b_n} rule-B firing(s); "
+                     "download for review only, do not submit")
+        _why = ("the file fails the ratified uniqueness gate (RATIFIED-UNIQ-v1, PROMPT.md item 1): rule A "
+                f"fires against {_rule_a_n} witness raster(s) whose own 3 px dilation covers less than 70 % "
+                f"of the scored footprint (worst forward overlap {_rule_a_worst}), while rule B "
+                "(chance-corrected lift), rank correlation and dot-set Jaccard all have zero firings and "
+                "the pre-ratification E <= 0.61 variant has zero firings too. By the standing instruction "
+                "the file is logged as a duplicate and stopped; it stays downloadable for the owner's "
+                "review and no slot may be used for it")
     card = {
         "name": name,
         "raster": dict(file=f"docs/downloads/{tif.name}", bytes=tif.stat().st_size,
@@ -137,10 +160,18 @@ def main() -> int:
             "discriminating_reading": info,
             "scope": screen.get("scope"),
             "governing_rule": readings.get("governing", {}).get("rule"),
+            "governing_rule_id": readings.get("rule_id"),
             "governing_cleared": readings.get("governing", {}).get("cleared"),
+            "governing_verdict": readings.get("governing", {}).get("verdict"),
             "literal_firings_note": readings.get("literal", {}).get("note"),
-            "lift_firings": (readings.get("lift", {}) or {}).get("n"),
-            "e_threshold_firings": (readings.get("e_threshold", {}) or {}).get("n"),
+            "rule_a_firings": (readings.get("rule_a", {}) or {}).get("n"),
+            "rule_a_worst_overlap": (readings.get("rule_a", {}) or {}).get("worst"),
+            "rule_a_witnesses": [f.get("source") or f.get("witness")
+                                 for f in ((readings.get("rule_a", {}) or {}).get("firings") or [])],
+            "rule_a_note": (readings.get("rule_a", {}) or {}).get("rule"),
+            "rule_b_firings": (readings.get("rule_b", {}) or {}).get("n"),
+            "rule_b_note": (readings.get("rule_b", {}) or {}).get("rule"),
+            "e_strict_variant_firings": (readings.get("e_strict_variant", {}) or {}).get("n"),
             "max_chance_corrected_lift": readings.get("max_chance_corrected_lift"),
             "worst_rank_correlation_all": (readings.get("rho", {}) or {}).get("worst"),
             "worst_jaccard_all": (readings.get("jaccard", {}) or {}).get("worst"),
@@ -166,13 +197,8 @@ def main() -> int:
                        "cell finite so no value can fail the portal's [0, 1] rule"),
         },
         "verdict": {
-            "decision": "PROMOTE — candidate for a scored slot (owner's selector step)",
-            "why": ("all measurable local gates pass: independent format verification, exact value rule, "
-                    "zero positive mass on the mapped catalogue, and the uniqueness screen over every "
-                    "byte-verifiable witness under both resolutions the owner proposed for the literal "
-                    "rule (chance-corrected lift and a witness-coverage threshold), each with zero "
-                    "firings; the literal reading itself fires only on witnesses that cover at least 65 % "
-                    "of the footprint by their own dilation and is unsatisfiable by construction"),
+            "decision": _decision,
+            "why": _why,
             "what_is_not_verified": (
                 "its leaderboard value. No organizer receipt exists; the local holdout is structurally blind "
                 "to off-catalogue files (lane measurement: Spearman -0.037 between that proxy and live "

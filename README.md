@@ -11,19 +11,23 @@ Core values: **Maximize P(Win)** and **Own the Outcome** — report the actual r
 
 ## Submission decision — session 5
 
-**Current candidate: `docs/downloads/gems60-convergence-ribbon6-20261011T155420Z.tif`** —
-[CLEARED ON EVERY MEASURABLE LOCAL GATE (download & submit)](docs/gems60.html). It is a new,
-unique raster: lineaments from a four-family (magnetic, gravity, topographic, subsurface)
-structural field, ranked with a cross-family agreement bonus and emitted as dotted multi-line
-ribbons at the measured localization error, **0 dots on the mapped catalogue**, every value
-exactly `1.0`, independent format verification 12/12, and **0 discriminating uniqueness
-firings** over the byte-verifiable registry inventory. What is *not* verified is its
-leaderboard value: no organizer receipt exists and the local holdout is structurally blind to
-off-catalogue files (measured Spearman −0.037 against live scores over 34 rasters). The
-authoritative, evidence-generated banner for the *previous* lane's artifacts is rendered by
-`scripts/build_site.py` on the
-[public site](https://buffedlizard55-lab.github.io/58GEMSDOE/docs/index.html); the session-5
-deliverable has its own receipt-driven page, [docs/gems60.html](docs/gems60.html).
+**Current candidate: `docs/downloads/gems60-convergence-ribbon6-20261011T155420Z.tif` —
+NOT CLEARED under the ratified protocol (RATIFIED-UNIQ-v1); [downloadable for review only](docs/gems60.html).**
+It is a new, independently derived raster — lineaments from a four-family (magnetic, gravity,
+topographic, subsurface) structural field, ranked with a cross-family agreement bonus and emitted
+as dotted multi-line ribbons at the measured localization error, **0 dots on the mapped catalogue**,
+every value exactly `1.0`, independent format verification 12/12 — but its uniqueness verdict is
+**DUPLICATE: rule A fires on 4 witness rasters**, two distinct `13GEMSDOE` archive files published
+twice each (`13gems-r6-ensemble-20260929T182914Z(_allfinite).tif`, E = 0.6456, forward 3 px overlap
+0.7463; `13gems-toporef-holdoutref(_allfinite).tif`, E = 0.6798, overlap 0.7191). Rule B
+(chance-corrected lift), rank correlation, dot-set Jaccard and byte/pixel identity all have zero
+firings, and the pre-ratification variant the owner had proposed (E ≤ 0.61) has zero firings too —
+but the ratified rule decides, so by the standing instruction the file is logged as a duplicate and
+stopped. What is also *not* verified is any leaderboard value: no organizer receipt exists and the
+local holdout is structurally blind to off-catalogue files (measured Spearman −0.037 against live
+scores over 34 rasters). Banner, both readings and the σ/pattern receipts:
+[docs/gems60.html](docs/gems60.html) · governing receipt:
+[evidence/gems60/uniqueness_readings.json](evidence/gems60/uniqueness_readings.json).
 
 Session-5 facts, one line each: hypothesis → [`evidence/gems60/run_card.json`](evidence/gems60/run_card.json);
 σ table → [`evidence/gems60/sigma.json`](evidence/gems60/sigma.json); exact-metric pattern
@@ -32,12 +36,16 @@ holdout number (labelled, with its limits) → [`evidence/gems60/holdout.json`](
 uniqueness screen → [`evidence/gems60/uniqueness_full.json`](evidence/gems60/uniqueness_full.json);
 independent verification → [`docs/downloads/gems60-convergence-ribbon6-20261011T155420Z.checks.json`](docs/downloads/gems60-convergence-ribbon6-20261011T155420Z.checks.json).
 
-> **Cross-lane note (concordance lane, this branch):** the convergence deliverable above was screened
-> with the gems60 instruments (0 firings at E ≤ 0.61, max lift 0.4552 ≤ 0.50) over 668 witnesses.
-> This lane's ratified rule **RATIFIED-UNIQ-v1** additionally blocks on any literal firing against a
-> witness with **E < 0.70** (rule A); witnesses in the E 0.61–0.70 band have not been adjudicated for
-> the gems60 file, and the two scans used different witness snapshots that each predate the other
-> lane's file. Reconciling the two rule sets is an owner step (see `REMAINING_WORK.md` S5.1).
+> **Cross-lane note (reconciled this session):** the E 0.61–0.70 band the concordance lane flagged as
+> unadjudicated is exactly where the gems60 file's rule-A firings live (E = 0.6456 and 0.6798), so the
+> ratified **RATIFIED-UNIQ-v1** stops it as well: this file (4 rule-A firings), the concordance candidate
+> (9) and the session-3 file (7) all fail rule A, while all three clear rule B and the discriminating
+> statistics (rank correlation, Jaccard, bytes/pixels). The two scans use different witness snapshots
+> (gems60: 668 byte-verified witnesses of a 670-witness cache; concordance: 703), and extra witnesses can
+> only add firings, so no re-scan can turn either verdict green. The owner decision that remains is
+> whether rule A's `E < 0.70` threshold is the intended reading of the uniqueness stop — under it no
+> nonempty emitter in this repository is cleared; under the pre-ratification `E ≤ 0.61` variant every one
+> of them is. That decision, not another experiment, is what blocks a scored slot.
 
 ### gems58-lane artifacts — all NOT CLEARED
 
