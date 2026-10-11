@@ -1,0 +1,15 @@
+{
+  "label": "final_58GEMSDOE-ribbon-lane-v1-20261011",
+  "n_registry_compared": 731,
+  "n_flagged": 25,
+  "max_rho": 0.22750946926042828,
+  "max_dot_overlap": 0.9948726132684002,
+  "n_dense_registry_excluded_from_overlap": 43,
+  "argmax_rho_file": "/home/user/.cache/gems-src/GEMSDOE40/docs/downloads/gemsdoe40-h8-asa-spi-depthkde-20261006T035031Z-b845d3ad449e-zeros.tif",
+  "thresholds": {
+    "rho_max": 0.9,
+    "dot_overlap_max": 0.7,
+    "radius_px": 3.0
+  },
+  "verdict": "DUPLICATE_OR_DRIFT"
+}

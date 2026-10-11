@@ -1,0 +1,64 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How to submit — 58GEMSDOE</title><style>
+:root{--ink:#1c2430;--mut:#5b6675;--line:#e3e7ee;--ok:#1b7f4b;--warn:#b26a00;--bad:#b3261e;--acc:#0b5fa5;--bg:#f7f9fc}
+*{box-sizing:border-box}body{margin:0;font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--ink);background:var(--bg)}
+header{background:#0f2238;color:#fff;padding:14px 24px}header a{color:#cfe3ff;margin-right:16px;text-decoration:none}
+header .brand{font-weight:700;font-size:18px;margin-right:24px;color:#fff}
+main{max-width:1040px;margin:0 auto;padding:24px}
+section{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px 24px;margin:18px 0}
+h1{font-size:28px;margin:6px 0 10px}h2{font-size:21px;margin:4px 0 12px}h3{font-size:17px;margin:14px 0 6px}
+.hero{border:2px solid var(--acc)}
+.btn{display:inline-block;background:var(--acc);color:#fff!important;padding:14px 22px;border-radius:10px;font-weight:700;text-decoration:none;font-size:18px}
+.btn.alt{background:#fff;color:var(--acc)!important;border:2px solid var(--acc);font-size:15px;padding:10px 16px}
+.chip{display:inline-block;padding:3px 10px;border-radius:999px;font-size:13px;font-weight:700;margin-right:6px;color:#fff}
+.ok{background:var(--ok)}.warn{background:var(--warn)}.bad{background:var(--bad)}.info{background:#56607a}
+table{width:100%;border-collapse:collapse;font-size:14px;margin:8px 0}th,td{border-bottom:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}
+th{background:#f0f4fa}code,pre{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px}pre{background:#0f2238;color:#e7eefb;padding:14px;border-radius:10px;overflow:auto}
+.mut{color:var(--mut);font-size:14px}.yes{color:var(--ok);font-weight:700}.no{color:var(--bad);font-weight:700}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}@media(max-width:760px){.grid{grid-template-columns:1fr}}
+.box{border:1px solid var(--line);border-radius:10px;padding:14px}
+footer{max-width:1040px;margin:0 auto;padding:10px 24px 40px;color:var(--mut);font-size:13px}
+</style></head><body>
+<header><span class="brand">58GEMSDOE · GEMS Prize</span><a href="index.html">Summary</a><a href="submit.html" style="font-weight:700">How to submit</a><a href="evidence.html">Evidence</a><a href="sources.html">Sources & irregularities</a><a href="https://github.com/buffedlizard55-lab/58GEMSDOE">Repo</a></header>
+<main>
+<section class="hero">
+<h1>How to submit (step by step)</h1>
+<p class="mut">Based on the official rules and the competition's submission page wording. Verified 2026-10-11 from the <a href="https://docs.nlr.gov/docs/fy26osti/96647.pdf">rules PDF</a> and <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">problem page</a>.</p>
+<p><a class="btn" href="downloads/58GEMSDOE-ribbon-lane-v1-20261011.tif">⬇ Download the GeoTIFF</a></p>
+</section>
+<section>
+<h2>Steps</h2>
+<ol>
+<li><b>Eligibility and registration.</b> Create a DrivenData profile and register for the challenge (rules §3.1). Individuals must be U.S. citizens or permanent residents; the registered person must certify eligibility (rules §1.3, §A.1). Only the registered person can do this.</li>
+<li><b>Download</b> <code>58GEMSDOE-ribbon-lane-v1-20261011.tif</code> from this site.</li>
+<li><b>Check it</b> (optional, local): from the repository root run <code>PYTHONPATH=src python -m gems58.validate 58GEMSDOE-ribbon-lane-v1-20261011.tif --reference sample_submission.tif</code> (the reference is your local copy of the official sample). Every check must read <code>true</code>.</li>
+<li><b>Open the submission form</b> on the competition's submission page and click <i>File to submit → choose file</i>. Upload <code>58GEMSDOE-ribbon-lane-v1-20261011.tif</code> as a single-band GeoTIFF (.tif). It must match the submission format's CRS, shape and geotransform.</li>
+<li><b>Name it.</b> Use the unique name <code>58GEMSDOE-ribbon-lane-v1-20261011</code>.</li>
+<li><b>Add the note</b> (≤140 characters): <code>Ribbon lane v1: geophysical ridges, class-wise dotted lines; holdout DTI 0.037 (CI 0.006-0.068). Format-valid. Not promoted.</code></li>
+<li><b>Submit.</b> The limit is three submissions per week (rules §3.2, §3.4). Do not exceed the weekly cap shown on the page.</li>
+<li><b>Final selection (team decision).</b> Before the deadline you must choose exactly one submission for both prize rounds (rules §3.4, §3.5). Do not choose on the basis of this site alone.</li>
+</ol>
+</section>
+<section>
+<h2>If you see “Predicted values must be in range [0, 1]”</h2>
+<p>That error means a value inside the scored area is outside 0–1 or is not a number. The GEMSDOE32 owner documents two causes: a large negative nodata sentinel (−3.4028234663852886e+38) left inside the footprint, and NaN inside the scored region (<a href="https://buffedlizard55-lab.github.io/GEMSDOE32/docs/index.html">source</a>). This file has values exactly 0 or 1 inside the footprint and NaN outside it. The validator checks both. If the error still appears, the problem is in the file that was uploaded, not in this one: re-download and compare the sha256 above.</p>
+</section>
+<section>
+<h2>What the validator checks (live, on this file)</h2>
+<table><thead><tr><th>check</th><th>result</th></tr></thead><tbody>
+<tr><td>single_band</td><td><span class='yes'>true</span></td></tr>
+<tr><td>dtype_float32</td><td><span class='yes'>true</span></td></tr>
+<tr><td>crs_epsg_32611</td><td><span class='yes'>true</span></td></tr>
+<tr><td>resolution_100m</td><td><span class='yes'>true</span></td></tr>
+<tr><td>shape_matches_reference</td><td><span class='yes'>true</span></td></tr>
+<tr><td>transform_matches_reference</td><td><span class='yes'>true</span></td></tr>
+<tr><td>bounds_match_reference</td><td><span class='yes'>true</span></td></tr>
+<tr><td>no_nan_inside_footprint</td><td><span class='yes'>true</span></td></tr>
+<tr><td>values_in_0_1_inside_footprint</td><td><span class='yes'>true</span></td></tr>
+<tr><td>nan_or_nodata_outside_footprint</td><td><span class='yes'>true</span></td></tr>
+</tbody></table>
+<p class="mut">Footprint pixels: 5167373. Inside the footprint: min 0.0, max 1.0, ones 194,251, zeros 4,973,122, other 0.</p>
+</section>
+</main>
+<footer>Generated by <code>scripts/build_site.py</code> from <code>registry/</code>. Competition: <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">DrivenData #306</a> · Rules: <a href="https://docs.nlr.gov/docs/fy26osti/96647.pdf">NLR PDF 96647</a>. Not affiliated with DOE or DrivenData.</footer>
+</body></html>
