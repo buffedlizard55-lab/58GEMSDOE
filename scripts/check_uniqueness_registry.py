@@ -32,13 +32,21 @@ from scipy.stats import rankdata
 _CAND = {}
 _FP = {}
 _RANK = {}
+_EXPECTED_GRID = None
 
 
 def _init(candidate_path: str):
-    with rasterio.open(candidate_path) as src:
-        mine = src.read(1).astype(np.float32)
+    global _EXPECTED_GRID
     from gems57.grid import load_grid
     grid = load_grid(ROOT / "data" / "bridge")
+    with rasterio.open(ROOT / "data" / "official" / "sample_submission.tif") as ref:
+        _EXPECTED_GRID = (ref.shape, ref.crs, ref.transform)
+    with rasterio.open(candidate_path) as src:
+        if src.count != 1 or (src.shape, src.crs, src.transform) != _EXPECTED_GRID:
+            raise ValueError("candidate CRS/shape/transform differs from sample submission")
+        mine = src.read(1).astype(np.float32)
+    if not np.isfinite(mine).all() or (mine < 0).any() or (mine > 1).any():
+        raise ValueError("candidate must be finite and in [0,1] before registry comparison")
     _CAND["a"] = mine
     _FP["a"] = grid.footprint
     values = mine[grid.footprint]
@@ -65,10 +73,8 @@ def _scan_chunk(records: list[dict]) -> list[dict]:
             if digest != rec["sha256"]:
                 raise ValueError("registry sha256 pin mismatch")
             with rasterio.open(p) as src:
-                if src.count != 1 or src.shape != mine.shape:
-                    raise ValueError("registry grid or band-count mismatch")
-                if src.crs is None or src.crs.to_epsg() != 32611:
-                    raise ValueError("registry CRS mismatch")
+                if src.count != 1 or (src.shape, src.crs, src.transform) != _EXPECTED_GRID:
+                    raise ValueError("registry CRS/shape/transform or band-count mismatch")
                 theirs = src.read(1).astype(np.float32)
             theirs = np.where(np.isfinite(theirs), theirs, 0.0)
             theirs[~fp] = 0

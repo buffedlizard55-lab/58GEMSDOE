@@ -115,7 +115,7 @@ def write_submission(path, prediction, sample, footprint, *, note, name,
             approved_for_weekly_slot=False,
             promoted=False,
             submission_slots_used=0,
-            status='locally validated within separately recorded inventory scope; not organizer acceptance or slot approval',
+            status='local format/range preflight only; registry scope, organizer acceptance, and slot approval are separate and may fail',
             metadata=metadata or {},
         )
         tmp_receipt.write_text(json.dumps(receipt, indent=2, allow_nan=False) + '\n', encoding='utf-8')

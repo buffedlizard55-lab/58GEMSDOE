@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "gems58-ribbon-lane"
 version = "0.1.0"
 requires-python = ">=3.10"
-dependencies = ["numpy", "scipy", "rasterio"]
+dependencies = ["numpy", "scipy", "rasterio", "scikit-image>=0.22"]
 
 [tool.setuptools]
 package-dir = {"" = "src"}

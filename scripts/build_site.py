@@ -1,13 +1,17 @@
 #!/usr/bin/env python3
-"""Assemble the run card and build the GitHub Pages site from evidence files.
+"""Build a fail-closed status card and GitHub Pages UX from recorded evidence.
 
-Every number rendered on the site or card is read from an evidence JSON produced
-by the pipeline (E1 sigma/canary, E2 arms, E3 submission receipt, uniqueness
-scan, registry fetch report).  Nothing is hand-typed.
+A local validator pass is never treated as uniqueness clearance, a score, or
+organizer acceptance. Status can become OK_TO_SUBMIT only when current buffered
+holdout evidence, both literal registry phases, a current inventory, and the
+local format preflight all pass. The selector/weekly-slot step is always separate.
 """
 from __future__ import annotations
 
+import hashlib
+import html
 import json
+import math
 import sys
 import time
 from pathlib import Path
@@ -15,317 +19,461 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 EV = ROOT / "evidence"
 DL = ROOT / "docs" / "downloads"
+TIF_REL = "docs/downloads/gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.tif"
 
 
-def load(name: str) -> dict:
-    p = EV / name
-    return json.loads(p.read_text()) if p.exists() else {}
-
-
-def fmt(x, nd=4):
-    if x is None:
-        return "n/a"
+def load_json(path: Path) -> dict:
     try:
-        return f"{float(x):.{nd}f}"
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    return data if isinstance(data, dict) else {}
+
+
+def fmt(value, digits=4):
+    if value is None:
+        return "not measured"
+    try:
+        return f"{float(value):.{digits}f}"
     except (TypeError, ValueError):
-        return str(x)
+        return str(value)
+
+
+def _receipt_for(uniq: dict) -> dict:
+    candidate = uniq.get("my_file")
+    if candidate:
+        p = ROOT / candidate
+        if p.suffix.lower() == ".tif":
+            receipt = load_json(p.with_suffix(".json"))
+            if receipt:
+                return receipt
+    receipts = sorted(DL.glob("*.json"))
+    for p in receipts:
+        d = load_json(p)
+        if d.get("file", "").endswith(".tif") and "ribbon" in d.get("file", ""):
+            return d
+    return {}
+
+
+def receipt_file_matches(receipt: dict) -> bool:
+    name = receipt.get("file")
+    expected_sha = receipt.get("sha256")
+    if not name or not expected_sha:
+        return False
+    path = DL / Path(name).name
+    try:
+        return path.is_file() and hashlib.sha256(path.read_bytes()).hexdigest() == expected_sha
+    except OSError:
+        return False
+
+
+def validated_holdout_result(e2: dict) -> dict:
+    """Return only a promotion-labelled score with the full reporting contract."""
+    result = e2.get("promotion_grade_result", {})
+    if not isinstance(result, dict):
+        return {}
+    ci95 = result.get("ci95")
+    valid = (
+        e2.get("promotion_grade") is True
+        and result.get("evidence_class") == "HOLDOUT-DTI"
+        and result.get("evaluator_version") == "gems57-pooled-hide-v2"
+        and isinstance(result.get("ci_method"), str) and bool(result.get("ci_method"))
+        and isinstance(result.get("withheld_positive_pixels"), int)
+        and result.get("withheld_positive_pixels", 0) > 0
+        and isinstance(result.get("dti"), (int, float))
+        and math.isfinite(float(result.get("dti", float("nan"))))
+        and 0 <= float(result.get("dti", -1)) <= 1
+        and isinstance(ci95, (list, tuple)) and len(ci95) == 2
+        and all(isinstance(v, (int, float)) and math.isfinite(float(v)) for v in ci95)
+        and 0 <= float(ci95[0]) <= float(ci95[1]) <= 1
+    )
+    return result if valid else {}
+
+
+def validated_sigma_table(e1: dict) -> list[dict]:
+    """Return only a current buffered holdout sigma table with finite values."""
+    rows = e1.get("promotion_grade_sigma_table")
+    if (e1.get("promotion_grade") is not True
+            or e1.get("buffered_whole_component_context_used") is not True
+            or not isinstance(rows, list) or not rows):
+        return []
+    if any(not isinstance(row, dict) for row in rows):
+        return []
+    for row in rows:
+        sigma = row.get("sigma_px")
+        n_matched = row.get("n_matched")
+        if (row.get("evidence_class") != "HOLDOUT-STRUCTURE"
+                or not row.get("block") or not row.get("ridge_type")
+                or not isinstance(sigma, (int, float)) or not math.isfinite(float(sigma)) or float(sigma) < 0
+                or not isinstance(n_matched, int) or n_matched < 0):
+            return []
+    return rows
+
+
+def validated_per_class_gains(e2: dict) -> dict:
+    """Return per-class gains only with an exact evaluator, positive count and valid CI."""
+    result = validated_holdout_result(e2)
+    gains = result.get("per_class_gains", {})
+    if not isinstance(gains, dict) or not gains or any(not isinstance(v, dict) for v in gains.values()):
+        return {}
+    for item in gains.values():
+        ci95 = item.get("ci95")
+        gain = item.get("gain")
+        if (item.get("evidence_class") != "HOLDOUT-DTI"
+                or item.get("evaluator_version") != "gems57-pooled-hide-v2"
+                or not isinstance(item.get("ci_method"), str) or not item.get("ci_method")
+                or not isinstance(item.get("withheld_positive_pixels"), int)
+                or item.get("withheld_positive_pixels", 0) <= 0
+                or not isinstance(gain, (int, float)) or not math.isfinite(float(gain)) or not -1 <= float(gain) <= 1
+                or not isinstance(ci95, (list, tuple)) or len(ci95) != 2
+                or not all(isinstance(v, (int, float)) and math.isfinite(float(v)) for v in ci95)
+                or not -1 <= float(ci95[0]) <= float(ci95[1]) <= 1):
+            return {}
+    return gains
+
+
+def qualification_gaps(e1: dict, e2: dict, uniq: dict,
+                       freshness: dict, receipt: dict) -> list[str]:
+    """Return explicit unmet gates; fail closed when evidence is absent/stale."""
+    gaps = []
+    holdout = validated_holdout_result(e2)
+    if not holdout:
+        gaps.append("No current promotion-grade outer-block HOLDOUT-DTI with the required evaluator version, withheld-positive count, and valid 95% CI; legacy E2 is an oracle/selection diagnostic.")
+    if e1.get("promotion_grade") is True and not validated_sigma_table(e1):
+        gaps.append("A current training-only, buffered HOLDOUT-STRUCTURE sigma table is not complete.")
+    if holdout and not validated_per_class_gains(e2):
+        gaps.append("Per-class HOLDOUT-DTI gains with evaluator, withheld-positive count, and valid 95% CIs are not recorded.")
+    canary = e1.get("leakage_canary", {})
+    if not isinstance(canary, dict):
+        canary = {}
+    canary_aucs = canary.get("max_auc_by_type", {})
+    canary_values_valid = (
+        isinstance(canary_aucs, dict) and bool(canary_aucs)
+        and all(isinstance(v, (int, float)) and math.isfinite(float(v)) and 0 <= float(v) <= 1
+                for v in canary_aucs.values())
+    )
+    if not canary_values_valid:
+        gaps.append("The current feature-alone leakage canary is missing, non-finite, or lacks per-feature AUC values.")
+    elif any(float(v) > 0.90 for v in canary_aucs.values()):
+        gaps.append("At least one feature-alone leakage canary exceeds AUC 0.90; treat it as leakage until disproven.")
+    if (e1.get("promotion_grade") is not True
+            or e1.get("buffered_whole_component_context_used") is not True
+            or not canary_values_valid):
+        gaps.append("No current buffered-fold feature-alone leakage-canary record is marked promotion-grade.")
+    if not freshness.get("fresh_current_inventory", False):
+        gaps.append("Registry inventory is stale/incomplete for current public repository trees.")
+    rho_limit = float(uniq.get("rho_limit", 0.90))
+    overlap_limit = float(uniq.get("overlap_limit", 0.70))
+    surface = uniq.get("preplacement_surface_gate", {})
+    if not isinstance(surface, dict):
+        surface = {}
+    if surface.get("passed") is not True:
+        gaps.append("The candidate-specific pre-placement surface gate has not passed on a current inventory.")
+    final = uniq.get("final_dot_gate", {})
+    if not isinstance(final, dict):
+        final = {}
+    phase_results = (("pre-placement surface", surface), ("final dots", final))
+    for phase_name, phase in phase_results:
+        rho = phase.get("worst_spearman_full_footprint", phase.get("worst_rho"))
+        if rho is None and phase_name == "final dots":
+            rho = uniq.get("worst_spearman_full_footprint")
+        limit = float(phase.get("rho_limit", rho_limit))
+        if rho is not None and float(rho) > limit:
+            gaps.append(f"The {phase_name} rank-correlation gate fails literally: rho {float(rho):.3f} > {limit:.2f}.")
+        overlap = phase.get("worst_dot_overlap", phase.get("worst_overlap"))
+        if overlap is None and phase_name == "final dots":
+            overlap = uniq.get("worst_dot_overlap")
+        limit = float(phase.get("overlap_limit", overlap_limit))
+        if overlap is not None and float(overlap) > limit:
+            gaps.append(f"The {phase_name} literal-dot gate fails: overlap {float(overlap):.3f} > {limit:.2f}.")
+    overlap = final.get("worst_dot_overlap", uniq.get("worst_dot_overlap"))
+    limit = float(final.get("overlap_limit", overlap_limit))
+    if final.get("passed") is not True and (overlap is None or float(overlap) <= limit):
+        gaps.append("The final-dot gate has not passed on a current inventory.")
+    if uniq.get("unique") is not True:
+        gaps.append("The frozen registry audit is negative; a byte/pixel-unique file is not sufficient to clear the literal lane gates.")
+    if receipt.get("promotion_grade") is not True:
+        gaps.append("The current raster receipt is marked diagnostic/non-promotion-grade.")
+    if not receipt_file_matches(receipt):
+        gaps.append("The raster file is missing or its bytes do not match the recorded receipt SHA256.")
+    submission_name = receipt.get("submission_name", "")
+    if not submission_name or len(submission_name) > 140:
+        gaps.append("A non-empty submission name within the 140-character limit is not recorded.")
+    note = receipt.get("note", "")
+    if not note or len(note) > 140:
+        gaps.append("The saved submission note is missing or exceeds the 140-character platform limit.")
+    validator = receipt.get("validator", {})
+    if validator.get("all_checks_passed") is not True:
+        gaps.append("The recorded local format/range preflight is missing or failed.")
+    return gaps
 
 
 def build_run_card() -> dict:
-    e1 = load("ribbon_e1_sigma.json")
-    e2 = load("ribbon_e2_arms.json")
-    uniq = load("ribbon_uniqueness.json")
-    fetch = load("registry_fetch_report.json")
-    receipts = sorted(DL.glob("*.json"))
-    receipt = {}
-    for cand in receipts:
-        d = json.loads(cand.read_text())
-        if d.get("file", "").endswith(".tif") and "ribbon" in d.get("file", ""):
-            receipt = d
-    arms = e2.get("arms", {})
-    ribbon = arms.get("ribbon", {})
-    tight = arms.get("tight", {})
-    paired = e2.get("paired_bootstrap", {}).get("ribbon_minus_tight", {})
-    card = {
-        "hypothesis": (
-            "Ribbon lane: emission width should match the MEASURED localization "
-            "error of the ridge source. Candidate ridge axes are skeletonized "
-            "visible-catalogue continuations (cat-axis) and an independent public "
-            "mapping, SGMC-minus-catalogue (sgmc-axis); on the hide-and-recover "
-            "holdout the across-strike distance from each candidate ridge to the "
-            "nearest withheld segment is ~2.5-3.5 px, i.e. the regime where the "
-            "lane's simulations say parallel dotted lines about +/-sigma wide pay "
-            "and a single tight line does not."),
-        "mechanism": (
-            "Per segment: dots at stride 3 px (= 300 m kernel radius) along the "
-            "axis, with parallel lines offset +/-clip(round(sigma(block,type)),1,3) "
-            "px across strike; the holdout arm selects per-segment patterns by the "
-            "lane's U = (1-0.2*DTI0)*TP - 0.2*DTI0*FP ordering with an EXACT "
-            "marginal DTI acceptance test (both sides recomputed); the live "
-            "emission applies the fitted sigma->pattern rule. Dots emitted at "
-            "exactly 1.0 (scaling down only scales the net gain down)."),
-        "named_non_fault_process_that_could_mimic_it": (
-            "Map digitising noise and SGMC's ~1:250k generalisation (both inflate "
-            "sigma without any real strand structure); alluvial-fill graben "
-            "lineaments and lithological contacts in the SGMC compilation produce "
-            "ridge axes that are not faults; dotted-line placement along skeleton "
-            "axes of the catalogue itself can score against mapping-style "
-            "regularities rather than real secondary strands."),
-        "holdout": {
-            "instrument": "hide-and-recover, whole <=12 px catalogue segments withheld per quadrant, 2 seeds, pooled exact DTI (alpha=0.2, beta=0.8, 300 m triangular kernel)",
-            "evaluator": "gems57.holdout score_cell (shared template evaluator, exact)",
-            "withheld_positive_pixels": e2.get("withheld_positive_pixels"),
-            "tight_baseline_dti": tight.get("pooled_dti"),
-            "ribbon_dti": ribbon.get("pooled_dti"),
-            "ribbon_pool_sigma_dti": arms.get("ribbon-pool", {}).get("pooled_dti"),
-            "ribbon_minus_tight_delta": paired.get("delta"),
-            "ribbon_minus_tight_ci95": paired.get("ci95"),
+    e1 = load_json(EV / "ribbon_e1_sigma.json")
+    e2 = load_json(EV / "ribbon_e2_arms.json")
+    uniq = load_json(EV / "ribbon_uniqueness.json")
+    freshness = load_json(EV / "registry_freshness_audit.json")
+    receipt = _receipt_for(uniq)
+    validator = receipt.get("validator", {})
+    note = receipt.get("note", "")
+    gaps = qualification_gaps(e1, e2, uniq, freshness, receipt)
+    ok = not gaps
+    current_dots = uniq.get("my_dots")
+    holdout_result = validated_holdout_result(e2)
+    if holdout_result:
+        holdout = {
+            "status": "MEASURED",
             "evidence_class": "HOLDOUT-DTI",
-            "per_class_gains": e2.get("per_class_gains"),
-        },
-        "leakage_canary": e1.get("leakage_canary"),
-        "sigma_table": {
-            "pooled_by_type": e1.get("sigma_pooled_by_type"),
-            "live_per_block": receipt.get("metadata", {}).get("evidence", {}).get("sigma_table"),
-            "match_cap_px": e1.get("match_cap_px"),
+            "evaluator_version": holdout_result["evaluator_version"],
+            "withheld_positive_pixels": holdout_result["withheld_positive_pixels"],
+            "dti": holdout_result["dti"],
+            "ci95": holdout_result["ci95"],
+            "ci_method": holdout_result.get("ci_method"),
+        }
+    else:
+        holdout = {
+            "status": "NOT MEASURED for the current buffered/nested instrument",
+            "evidence_class": "NOT A HOLDOUT-DTI CLAIM",
+            "evaluator_version_required": "gems57-pooled-hide-v2",
+            "withheld_positive_pixels": None,
+            "dti": None,
+            "ci95": None,
+            "legacy_evidence_files": ["evidence/ribbon_e1_sigma.json", "evidence/ribbon_e2_arms.json"],
+            "legacy_caveat": "Prior E2 is same-cell truth-selected, unbuffered and has an invalid repeated-block bootstrap; do not report it as promotion-grade evidence.",
+        }
+    sigma_table = validated_sigma_table(e1)
+    per_class_gains = validated_per_class_gains(e2)
+    surface_gate = uniq.get("preplacement_surface_gate", {
+        "status": "NOT_RUN_FOR_THIS_CANDIDATE",
+        "passed": False,
+        "legacy_surface_report_not_reusable": "registry/uniqueness_surface_pre-placement_summary.json",
+    })
+    final_gate = uniq.get("final_dot_gate", {
+        "status": "FROZEN_SCAN_FAILURE_AND_CURRENT_SCOPE_INCOMPLETE",
+        "passed": False,
+        "worst_dot_overlap": uniq.get("worst_dot_overlap"),
+        "overlap_limit": uniq.get("overlap_limit", 0.70),
+        "witness": uniq.get("worst_overlap_submission"),
+    })
+    current_self_tree = next((
+        item for item in freshness.get("changed_or_unrepresented_public_repositories", [])
+        if item.get("repository") == "58GEMSDOE"
+    ), None)
+    card = {
+        "run_card_version": "2.0",
+        "generated_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        "lane": "ribbon only — emission width matched to measured localization error",
+        "submission_status": "OK_TO_SUBMIT" if ok else "NOT_OK_TO_SUBMIT",
+        "human_readable_status": "OK TO SUBMIT — SELECTOR STILL SEPARATE" if ok else "NOT OK TO SUBMIT — DO NOT SUBMIT",
+        "hypothesis": "Visible-only catalogue and independent mapped-fault ridge axes may locate uncatalogued faults with a measurable across-strike localization error; ribbon width is tied to that error.",
+        "mechanism": "Fit sigma by source/block on training-only spatial blocks, then emit 1.0-valued dots in a parallel ribbon at 3-pixel along-axis stride; score with exact pooled DTI and promote only after nested outer-block validation.",
+        "named_non_fault_process_that_could_mimic_it": "Digitizing error and map generalization; lithologic contacts and alluvial/graben edges; roads, drainage lineaments, or survey striping aligned with candidate ridges.",
+        "holdout": holdout,
+        "localization_sigma_table": {
             "evidence_class": "HOLDOUT-STRUCTURE",
+            "status": "MEASURED on current buffered training blocks" if sigma_table else "NOT MEASURED for the current promotion-grade buffered/nested instrument",
+            "rows": sigma_table or None,
+            "legacy_evidence_file": "evidence/ribbon_e1_sigma.json",
+            "legacy_values_reportable": False,
+        },
+        "per_class_holdout_gains": {
+            "evidence_class": "HOLDOUT-DTI" if per_class_gains else "NOT A REPORTABLE HOLDOUT-DTI CLAIM",
+            "status": "MEASURED" if per_class_gains else "NOT MEASURED for current promotion-grade nested outer blocks",
+            "rows": per_class_gains or None,
+            "legacy_evidence_file": "evidence/ribbon_e2_arms.json",
+            "legacy_values_reportable": False,
+        },
+        "leakage_canary": {
+            "status": "NOT CLEARED FOR CURRENT BUFFERED INSTRUMENT",
+            "threshold_auc": 0.90,
+            "current_evidence": None,
+            "legacy_record": "evidence/ribbon_e1_sigma.json (not promotion-grade for the revised split)",
         },
         "correlation_overlap_vs_registry": {
-            "registry_rasters": fetch.get("pinned_rasters"),
-            "restored": fetch.get("restored"),
-            "complete_accessible_scan": fetch.get("complete_accessible_scan"),
-            "rho_limit": uniq.get("rho_limit"),
-            "overlap_limit": uniq.get("overlap_limit"),
+            "evidence_class": "REGISTRY-MEASUREMENT (frozen snapshot only)",
+            "snapshot_generated_utc": freshness.get("frozen_snapshot_generated_utc"),
+            "repositories_in_frozen_snapshot": freshness.get("frozen_repositories_scanned"),
+            "rasters_in_frozen_snapshot": freshness.get("frozen_unique_raster_count"),
+            "latest_pinned_snapshot_scan": {
+                "expected": uniq.get("registry_rasters_expected"),
+                "checked": uniq.get("registry_rasters_checked"),
+                "complete_accessible_scan": uniq.get("complete_accessible_scan"),
+                "missing_or_invalid": uniq.get("missing_or_invalid"),
+                "source_errors": uniq.get("source_errors", []),
+                "evidence_class": "REGISTRY-MEASUREMENT (pinned inventory only)",
+            },
+            "current_inventory_complete": freshness.get("fresh_current_inventory", False),
+            "current_self_repository_tree": ({
+                "repository": current_self_tree.get("repository"),
+                "tree_sha": current_self_tree.get("current_tree_sha"),
+                "tif_tiff_paths": current_self_tree.get("current_tif_tiff_count"),
+                "docs_download_tif_tiff_paths": current_self_tree.get("current_docs_download_tif_count"),
+                "example_unscanned_rasters": current_self_tree.get("example_unscanned_rasters", []),
+                "inventory_only_not_registry_cleared": True,
+            } if current_self_tree else None),
+            "freshness_audit": "evidence/registry_freshness_audit.json",
+            "rho_limit": uniq.get("rho_limit", 0.90),
             "worst_spearman_full_footprint": uniq.get("worst_spearman_full_footprint"),
-            "worst_rho_submission": uniq.get("worst_rho_submission"),
-            "worst_dot_overlap": uniq.get("worst_dot_overlap"),
-            "worst_overlap_submission": uniq.get("worst_overlap_submission"),
-            "byte_unique_among_checked": uniq.get("byte_unique_among_checked"),
-            "pixel_unique_among_checked": uniq.get("pixel_unique_among_checked"),
-            "duplicate_count": uniq.get("duplicate_count"),
-            "verdict": uniq.get("verdict"),
-            "evidence_class": "REGISTRY-MEASUREMENT",
+            "literal_overlap_limit": uniq.get("overlap_limit", 0.70),
+            "candidate_dots": current_dots,
+            "frozen_worst_dot_overlap": uniq.get("worst_dot_overlap"),
+            "frozen_overlap_witness": uniq.get("worst_overlap_submission"),
+            "preplacement_surface_gate": surface_gate,
+            "final_dot_gate": final_gate,
         },
-        "validator_output": receipt.get("validator"),
-        "raster_sha256": receipt.get("sha256"),
+        "raster_sha256": receipt.get("sha256", uniq.get("candidate_file_sha256")),
+        "validator_output": {
+            "evidence_class": "LOCAL-FORMAT-PREFLIGHT; NOT ORGANIZER-CONFIRMED",
+            "all_checks_passed": validator.get("all_checks_passed"),
+            "checks": validator.get("checks"),
+            "meta": validator.get("meta"),
+            "caveat": "Internal all-finite/zero-outside policy is not organizer acceptance; template nodata semantics remain an open issue.",
+        },
         "submission_name": receipt.get("submission_name"),
-        "submission_note": receipt.get("note"),
-        "verdict": None,
-        "generated_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        "submission_note": note,
+        "submission_note_chars": len(note),
+        "selector_action": "NOT RUN; no weekly slot selected",
+        "qualification_gaps": gaps,
+        "verdict": "promote" if ok else "negative",
+        "verdict_note": "Qualified candidates still require the separate selector step; slots are never selected by this build script." if ok else "Negative: one or more explicit holdout, registry, or format gates is not cleared. Do not upload or select a slot.",
     }
-    reg_ = card["correlation_overlap_vs_registry"]
-    # Literal parallel-run gates (rule 1): rho > 0.90 or >70% of dots within 3 px
-    # of ONE registry raster blocks. Dense soft priors trip the overlap gate for
-    # any fault-adjacent lane; the verdict below is the literal one, and the
-    # lane-drift forensic (lineage overlaps, rho) travels alongside it.
-    ok = bool(
-        reg_["duplicate_count"] == 0
-        and reg_["complete_accessible_scan"]
-        and receipt.get("validator", {}).get("all_checks_passed")
-        and (e1.get("leakage_canary", {}).get("verdict", "").startswith("PASS"))
-    )
-    card["verdict"] = "promote" if ok else "negative"
-    card["verdict_note"] = (
-        "Negative on the LITERAL overlap gate: every flagging raster is either a "
-        "dense soft surface (>=200k dots, universal blocker) or another lane's "
-        "near-catalogue carpet; max Spearman rho 0.19 and <=0.474 vs the dotted-ridge "
-        "lineage show no lane drift. Selector decides; slots are not picked here.")
-    (EV / "run_card.json").write_text(json.dumps(card, indent=1, default=float) + "\n")
+    (EV / "run_card.json").write_text(json.dumps(card, indent=2, allow_nan=False) + "\n", encoding="utf-8")
+    (ROOT / "docs" / "RUN_CARD.json").write_text(json.dumps(card, indent=2, allow_nan=False) + "\n", encoding="utf-8")
     return card
 
 
 def build_site(card: dict) -> None:
-    e1 = load("ribbon_e1_sigma.json")
-    e2 = load("ribbon_e2_arms.json")
-    uniq = load("ribbon_uniqueness.json")
-    receipt = {}
-    for cand in sorted(DL.glob("*.json")):
-        d = json.loads(cand.read_text())
-        if d.get("file", "").endswith(".tif") and "ribbon" in d.get("file", ""):
-            receipt = d
-    tif = receipt.get("file", "MISSING")
-    zipf = tif.replace(".tif", ".zip") if tif else "MISSING"
-    arms = e2.get("arms", {})
-    reg = card.get("correlation_overlap_vs_registry", {})
-    ok = card.get("verdict") == "promote"
-
-    # precomputed render values (no expressions with braces inside the template)
-    arms_tight = fmt(arms.get("tight", {}).get("pooled_dti"))
-    arms_ribbon = fmt(arms.get("ribbon", {}).get("pooled_dti"))
-    arms_pool = fmt(arms.get("ribbon-pool", {}).get("pooled_dti"))
-    pb = e2.get("paired_bootstrap", {}).get("ribbon_minus_tight", {})
-    pb_delta = fmt(pb.get("delta"))
-    ci = pb.get("ci95") or [float("nan"), float("nan")]
-    pb_ci = f"[{ci[0]:.4f}, {ci[1]:.4f}]"
-    sig_cat = fmt(e1.get("sigma_pooled_by_type", {}).get("cat-axis", {}).get("sigma_raw_px"), 2)
-    sig_sgmc = fmt(e1.get("sigma_pooled_by_type", {}).get("sgmc-axis", {}).get("sigma_raw_px"), 2)
-    auc_cat = fmt(e1.get("leakage_canary", {}).get("max_auc_by_type", {}).get("cat-axis"), 3)
-    auc_sgmc = fmt(e1.get("leakage_canary", {}).get("max_auc_by_type", {}).get("sgmc-axis"), 3)
-    canary_verdict = str(e1.get("leakage_canary", {}).get("verdict"))
+    uniq = load_json(EV / "ribbon_uniqueness.json")
+    freshness = load_json(EV / "registry_freshness_audit.json")
+    receipt = _receipt_for(uniq)
+    e1 = load_json(EV / "ribbon_e1_sigma.json")
+    e2 = load_json(EV / "ribbon_e2_arms.json")
+    tif = Path(receipt.get("file", TIF_REL)).name
+    zip_name = Path(receipt.get("zip_file", tif.replace(".tif", ".zip"))).name
+    status = html.escape(card["human_readable_status"])
+    reasons = "".join(f"<li>{html.escape(x)}</li>" for x in card["qualification_gaps"])
+    note = html.escape(card.get("submission_note", ""))
+    sha = html.escape(card.get("raster_sha256") or "not recorded")
+    overlap = uniq.get("worst_dot_overlap")
+    rho = uniq.get("worst_spearman_full_footprint")
+    witness = html.escape(str(uniq.get("worst_overlap_submission", "not identified")))
+    validator_ok = bool(receipt.get("validator", {}).get("all_checks_passed"))
+    status_color = "#a11212" if card["submission_status"] != "OK_TO_SUBMIT" else "#0a7d33"
+    local_validation = "PASS under the internal local format/range policy" if validator_ok else "NOT PASSED"
+    current_scope = "NOT CURRENT / INCOMPLETE" if not freshness.get("fresh_current_inventory") else "current inventory recorded"
+    self_tree = (card.get("correlation_overlap_vs_registry", {}).get("current_self_repository_tree") or {})
+    self_tree_sha = html.escape(str(self_tree.get("tree_sha", "not recorded")))
+    self_tree_count = self_tree.get("tif_tiff_paths", "not recorded")
+    self_tree_download_count = self_tree.get("docs_download_tif_tiff_paths", "not recorded")
+    self_tree_examples = self_tree.get("example_unscanned_rasters", [])
+    self_tree_summary = (
+        f"Fetched <code>origin/main</code> tree <code>{self_tree_sha}</code>: "
+        f"{self_tree_count} TIF/TIFF paths ({self_tree_download_count} under docs/downloads); "
+        f"{len(self_tree_examples)} examples recorded, not cleared against a complete registry."
+        if self_tree else "Current self-repository tree inventory not recorded."
+    )
+    scan_expected = uniq.get("registry_rasters_expected")
+    scan_checked = uniq.get("registry_rasters_checked")
+    scan_missing = uniq.get("missing_or_invalid")
+    latest_scan = (f"latest pinned scan {scan_checked}/{scan_expected} checked, {scan_missing} missing/invalid; "
+                   f"complete={uniq.get('complete_accessible_scan')}") if scan_expected is not None else "latest pinned scan not recorded"
+    final_interpretation = ("REGISTRY-MEASUREMENT, pinned inventory only; literal stop failure; scan incomplete."
+                            if uniq.get("complete_accessible_scan") is not True
+                            else "REGISTRY-MEASUREMENT, pinned inventory; literal stop failure.")
     withheld = e2.get("withheld_positive_pixels")
+    legacy_n = "recorded, but invalid for promotion" if withheld is not None else "no buffered result yet"
+    note_chars = card.get("submission_note_chars", 0)
+    generated = html.escape(card["generated_utc"])
+    ready = card["submission_status"] == "OK_TO_SUBMIT"
+    artifact_heading = ("Qualified candidate — local gates clear; final selector remains separate"
+                        if ready else "Research artifact — not a cleared submission")
+    download_label = ("Download qualified GeoTIFF — final selection remains separate"
+                      if ready else "Download diagnostic TIFF (NOT CLEARED — DO NOT SUBMIT)")
+    zip_warning = ("The ZIP is an optional audit copy; the submission-page instructions control the upload format."
+                   if ready else "Do not upload either file or use a scored slot.")
+    instruction_title = ("Next steps — final selector remains separate"
+                         if ready else "Submission instructions — do not execute while red")
+    first_step = ("Local qualification is recorded; a registered competitor must review the rules and live portal before acting."
+                  if ready else "Wait until this page explicitly says <b>OK TO SUBMIT</b>; right now it says DO NOT SUBMIT.")
+    note_label = ("Recorded submission note" if ready else "Suggested diagnostic note")
+    summary_warning = (
+        "<b>Local qualification is recorded, but this page never selects a weekly slot or establishes organizer acceptance.</b> Review the full evidence and rules before deciding."
+        if ready else
+        "<b>Do not upload or use a weekly slot.</b> The available TIFF is a diagnostic artifact. Its final-dot overlap exceeds the literal stop threshold in the frozen registry scan, that scan is stale, the current pre-placement phase is not cleared, and no promotion-grade buffered outer holdout was run."
+    )
 
-    sigma_rows = "".join(
-        f"<tr><td>{r['block']}</td><td>{r['ridge_type']}</td><td>{fmt(r['sigma_px'], 2)}</td>"
-        f"<td>{r['n_matched']}</td></tr>"
-        for r in receipt.get("metadata", {}).get("evidence", {}).get("sigma_table", []))
-    class_rows = "".join(
-        f"<tr><td>{k}</td><td>{fmt(v['tight_only_dti'])}</td><td>{fmt(v['ribbon_only_dti'])}</td>"
-        f"<td>{fmt(v['gain'])}</td><td>{v['n_dots_tight']} / {v['n_dots_ribbon']}</td></tr>"
-        for k, v in e2.get("per_class_gains", {}).items())
-
-    rows = uniq.get("rows", [])
-    flags = [r for r in rows if r.get("duplicate_by_overlap") or r.get("duplicate_by_rho")]
-    sparse_flags = [r for r in flags if r.get("their_dots", 10**9) < 200000]
-    dense_flags = [r for r in flags if r.get("their_dots", 0) >= 200000]
-    lineage = {}
-    for key in ("h27-4", "h36-1-rung30", "d28-poisson", "dotted-h19-5", "h19-5", "h32", "anderson"):
-        m = [r for r in rows if key in r.get("submission", "").lower()]
-        if m:
-            lineage[key] = max(r.get("my_dots_within_3px_of_theirs", 0) for r in m)
-    lineage_rows = "".join(f"<tr><td>{k}</td><td>{fmt(v, 3)}</td></tr>" for k, v in sorted(lineage.items()))
-
-    badge = ("CLEARED FOR SUBMISSION (project-owner sign-off recorded)" if ok else
-             "NOT CLEARED - DO NOT SUBMIT AS A UNIQUE SUBMISSION (uniqueness gate negative). File is for review only.")
-    badge_color = "#0a7d33" if ok else "#a11212"
-    cc_path = ROOT / "evidence" / "ribbon_uniqueness_chance_corrected.json"
-    cc = json.loads(cc_path.read_text())["summary"] if cc_path.exists() else {}
-
-    html = f"""<!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>58GEMSDOE - GEMS competition submission</title>
-<link rel="stylesheet" href="assets/site.css">
-</head><body>
-<header><h1>58GEMSDOE &mdash; GEMS competition (DrivenData #306)</h1>
-<p>Ribbon lane: emission width matched to the measured localization error.</p></header>
-<section class="submit-box">
-  <div class="badge" style="background:{badge_color}">{badge}</div>
-  <h2>Candidate file (single-band GeoTIFF, EPSG:32611, 3730x3292, values in [0,1])</h2>
-  <p><b>Status: NOT cleared for submission.</b> The file is downloadable for review only. Do not upload it as a
-  unique submission until the uniqueness question below is resolved by the project owner.</p>
-  <p><a class="big-btn" href="downloads/{tif}" download>&#11015; DOWNLOAD (review only): {tif}</a></p>
-  <p>Competition submission page (login): <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/">submissions</a>.
-  Suggested note if the owner clears it: <code>{receipt.get('note','')}</code></p>
-  <ul>
-    <li>Values: dots at exactly <b>1.0</b>, zeros elsewhere &mdash; no NaN anywhere, all in [0,1]. (Whether this resolves the portal error <i>"Predicted values must be in range [0, 1]"</i> is not confirmed.)</li>
-    <li>sha256: <code>{receipt.get('sha256','')}</code></li>
-    <li>Dots: {receipt.get('validator', {}).get('emitted_positive_pixels', 'n/a')} positive pixels, all off the mapped catalogue.</li>
-    <li>Local validator: all_checks_passed = {receipt.get('validator', {}).get('all_checks_passed')} &middot; CRS/shape/transform match the official sample submission.</li>
-    <li>Uniqueness scan: all {reg.get('registry_rasters')} registry rasters (57 sibling repos, hash-verified).
-        Max Spearman rho {fmt(reg.get('worst_spearman_full_footprint'), 3)} (limit {reg.get('rho_limit')}) &mdash; <b>no surface correlation with any prior raster</b>.
-        Literal 3-px overlap gate: <b>{reg.get('verdict')}</b> &mdash; {len(flags)} rasters flagged:
-        <b>{len(dense_flags)}</b> dense soft surfaces (&ge;200k dots; these overlap 1.00 with ANY near-catalogue emission &mdash;
-        the sibling h58 audit hit the identical wall) and <b>{len(sparse_flags)}</b> broad near-catalogue carpets from other lanes.
-        Vs the proven dotted-ridge lineage: {lineage_rows if lineage_rows else 'n/a'} &mdash; all far under the 0.70 limit.
-        Full rows: <code>evidence/ribbon_uniqueness.json</code>; see IR-58-UNIQ-01.</li>
-        <li><b>Chance-corrected diagnostic</b> (literal gate unchanged; <code>evidence/ribbon_uniqueness_chance_corrected.json</code>):
-        {cc.get('literal_flagged_and_informative', 'n/a')} flagged rasters have expected chance overlap E &lt; 0.99 and show real
-        co-location (max lift {fmt(cc.get('max_lift_informative'), 3)}); {cc.get('literal_flagged_and_saturated', 'n/a')} flagged
-        rasters are saturated (E &ge; 0.99), where no non-empty candidate can pass the literal rule.
-        Conclusion: the candidate is not clearable under either statistic.</li>
-  </ul>
-</section>
-<section>
-<h2>Submission steps (executive summary)</h2>
-<ol>
-  <li><b>Do not submit yet.</b> The uniqueness gate is negative (see above). The file is for review.</li>
-  <li>Once the project owner clears it, download the <code>.tif</code> (or the same-name <code>.zip</code>).</li>
-  <li>Log in to <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">DrivenData competition 306</a>, open <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/">Submissions</a>, upload, and add the note.</li>
-  <li>Details and caveats: <a href="executive-summary.html">Executive summary</a>.</li>
-</ol>
-</section>
-<section>
-<h2>Evidence (labels per protocol)</h2>
-<h3>1. Sigma table &mdash; across-strike localization error of candidate ridges vs withheld segments (HOLDOUT-STRUCTURE)</h3>
-<table><tr><th>Block</th><th>Ridge type</th><th>sigma (px)</th><th>n matched ridges</th></tr>{sigma_rows}</table>
-<p>Pooled: cat-axis sigma = {sig_cat} px, sgmc-axis sigma = {sig_sgmc} px
-(the 2-3 px regime where the lane says to emit a ribbon about &plusmn;sigma wide).</p>
-<h3>2. Leakage canary (rule 4) &mdash; {canary_verdict}</h3>
-<p>Max single-feature AUC: cat-axis {auc_cat}, sgmc-axis {auc_sgmc} (threshold 0.90).</p>
-<h3>3. Holdout arms (HOLDOUT-DTI, exact shared evaluator, {withheld} withheld positive px)</h3>
-<table><tr><th>Arm</th><th>Pooled DTI</th></tr>
-<tr><td>Single tight dotted line everywhere (baseline)</td><td>{arms_tight}</td></tr>
-<tr><td><b>Ribbon (sigma-fitted, per-segment exact-U selection)</b></td><td><b>{arms_ribbon}</b></td></tr>
-<tr><td>Ribbon at pooled sigma (ignores block/type fit)</td><td>{arms_pool}</td></tr></table>
-<p>Paired delta ribbon &minus; tight: {pb_delta} (CI95 {pb_ci}; paired 20 km-block percentile bootstrap;
-conditional on the instrument &mdash; not a leaderboard interval).</p>
-<h3>4. Simulated gain per ridge class (HOLDOUT-DTI, class-restricted emissions)</h3>
-<table><tr><th>Ridge class</th><th>Tight-only DTI</th><th>Ribbon-only DTI</th><th>Gain</th><th>Dots tight/ribbon</th></tr>{class_rows}</table>
-<h3>5. The live rule actually shipped (validated without an oracle)</h3>
-<p>The 0.3583 arm used per-segment acceptance that needs truth. The live rule (no truth available)
-was scored on the same holdout cells: blanket both types <b>0.1252</b>
-(<code>evidence/ribbon_e2b_liverule.json</code>); the shipped concordant rule
-(cat-axis ribbons + sgmc-axis ribbons within the 8 px sigma-match cap of the catalogue)
-<b>0.1309</b> (<code>evidence/ribbon_e2c_liverule_variants.json</code>). HOLDOUT-DTI labels; projections are not scores.</p>
-</section>
-<section>
-<h2>Files &amp; provenance</h2>
-<ul>
-  <li>Run card: <code>evidence/run_card.json</code> &middot; E1: <code>evidence/ribbon_e1_sigma.json</code> &middot;
-      E2: <code>evidence/ribbon_e2_arms.json</code> &middot; Uniqueness: <code>evidence/ribbon_uniqueness.json</code> &middot;
-      Registry restore: <code>evidence/registry_fetch_report.json</code></li>
-  <li>New hypotheses for future lanes: <code>docs/research/hypotheses_new.md</code></li>
-  <li>Official sources: <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">competition page</a> &middot;
-      <a href="https://github.com/drivendataorg/gems-prize-reference-solution">reference solution</a> &middot;
-      <a href="https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and">GeoDAWN survey</a> &middot;
-      <a href="https://gbcge.org/current-projects/ingenious/">INGENIOUS</a> &middot;
-      <a href="https://epsg.io/32611">EPSG:32611</a> &middot;
-      <a href="https://en.wikipedia.org/wiki/Tversky_index">Tversky index</a> &middot;
-      <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">leaderboard</a></li>
-  <li>Data bridge pins: existing_faults/labels <code>7ba308cc...</code>, sample_submission <code>2176d08e...</code> (verified at clone time).</li>
-</ul>
-</section>
-<footer>Local validation and uniqueness are necessary, not sufficient: organizer acceptance and slot promotion are separate steps
-within the weekly cap shown on the submission page. Generated {time.strftime('%Y-%m-%d %H:%M UTC', time.gmtime())}.</footer>
-</body></html>
-"""
-    (ROOT / "docs" / "index.html").write_text(html)
-
-    exec_html = """<!DOCTYPE html>
+    index = f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Executive summary - how to submit</title><link rel="stylesheet" href="assets/site.css"></head><body>
-<header><h1>Executive summary: submitting to GEMS (DrivenData #306)</h1></header>
-<section>
-<h2>Status first</h2>
-<p style="background:#fde8e8;padding:8px"><b>NOT CLEARED FOR SUBMISSION.</b> The candidate GeoTIFF is downloadable for review only. Its uniqueness gate is negative (see the main page and <code>evidence/ribbon_uniqueness*.json</code>). Do not upload it as a unique submission until the project owner resolves that gate.</p>
-<h2>Submission steps once cleared</h2>
-<ol>
-<li><b>Download</b> the GeoTIFF from the <a href="index.html">main page</a> (single-band, float32, EPSG:32611, 3730&times;3292, transform (100, 0, 243350, 0, -100, 4508550), values in [0,1]; off-footprint cells are 0, see the note on NaN convention in the README).</li>
-<li>Open <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/">the submission page</a> (login required).</li>
-<li>Upload the <code>.tif</code> (or the single-TIFF <code>.zip</code>). Add the suggested note from the main page.</li>
-<li>Scored metric: pooled Distance-Weighted Tversky Index, alpha=0.2, beta=0.8, 300 m triangular kernel
-(see <a href="https://en.wikipedia.org/wiki/Tversky_index">Tversky index</a> and the
-<a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">problem description</a>).</li>
-</ol>
-<h2>The portal error and the value convention</h2>
-<p>The portal error <i>"Predicted values must be in range [0, 1]"</i> was reported by the user; its exact cause is not confirmed here. This file keeps every value in [0,1] (dots at exactly 1.0, zeros elsewhere, no NaN). The organizer sample_submission uses NaN outside its 5,167,373-cell footprint, so the two conventions differ. Both NaN-outside and zeros-outside variants appear among previously scored registry files, but that is not an organizer statement. The fail-closed writer re-opens the written
-file and checks CRS, shape, transform, dtype, range, finiteness, zero-outside-footprint and zero-on-catalogue
-before the file is released (<code>src/gems57/submission_writer.py</code>).</p>
-<h2>What this submission is (method, one paragraph)</h2>
-<p>Candidate fault ridge axes are extracted from (a) the visible USGS/INGENIOUS catalogue skeleton and
-(b) the independent SGMC public fault compilation where it runs within the measured 8 px localization
-cap of the catalogue. On a hide-and-recover holdout (whole catalogue segments withheld per spatial block
-with buffered context), the across-strike distance between each candidate ridge and the nearest withheld
-segment was measured and an error scale sigma(block, type) fitted (~2.5-3.5 px). Per the lane, emission
-uses parallel dotted lines about &plusmn;sigma wide (spacing near the 3-px kernel radius), each dot at
-exactly 1.0, off the mapped catalogue. Holdout evidence: ribbon &gt;&gt; tight line (+0.201 pooled with an
-oracle accept test); the truth-free live rule itself was holdout-scored at 0.1309 (HOLDOUT-DTI).</p>
-<h2>What this submission is NOT</h2>
-<ul>
-<li>It is not an organizer-accepted score: leaderboard points come only from a real submission receipt (ORGANIZER-CONFIRMED).</li>
-<li>Holdout numbers are HOLDOUT-DTI evidence, not leaderboard projections.</li>
-<li>Slot promotion is a separate selector step within the weekly cap shown on the submission page.</li>
-</ul>
+<title>58GEMSDOE — submission status</title><link rel="stylesheet" href="assets/site.css"></head><body>
+<header><h1>58GEMSDOE — GEMS competition #306</h1><p>Ribbon lane only · rigorous qualification status</p></header>
+<section class="submit-box" style="border-color:{status_color}">
+  <div class="badge" style="background:{status_color}">{status}</div>
+  <h2>{html.escape(artifact_heading)}</h2>
+  <p><a class="big-btn" style="background:{status_color}" href="downloads/{html.escape(tif)}" download>{html.escape(download_label)}</a></p>
+  <p>Optional one-TIFF ZIP: <a href="downloads/{html.escape(zip_name)}">{html.escape(zip_name)}</a>. {html.escape(zip_warning)}</p>
+  <p><b>Raster SHA256:</b> <code>{sha}</code><br><b>Internal local format check:</b> {local_validation}. This does not establish uniqueness or organizer acceptance.</p>
+  <h3>Blocking reasons</h3><ol>{reasons}</ol>
 </section>
-<footer>Generated """ + time.strftime("%Y-%m-%d %H:%M UTC", time.gmtime()) + """</footer></body></html>"""
-    (ROOT / "docs" / "executive-summary.html").write_text(exec_html)
+<section>
+<h2>Gate evidence</h2>
+<table><tr><th>Gate</th><th>Recorded result</th><th>Interpretation</th></tr>
+<tr><td>Registry scope</td><td>{freshness.get('frozen_unique_raster_count','not recorded')} frozen rasters / {freshness.get('frozen_repositories_scanned','not recorded')} pinned repositories; {latest_scan}; {current_scope}</td><td>Frozen/pinned evidence only; not a current or organizer-complete inventory. See <code>evidence/registry_freshness_audit.json</code> and <code>evidence/registry_fetch_report.json</code>.</td></tr>
+<tr><td>Additional self-repository TIFFs</td><td>{self_tree_summary}</td><td>Tree listing only; not compared against the complete current registry and not uniqueness clearance.</td></tr>
+<tr><td>Final-dot overlap</td><td>{fmt(overlap,3)} (limit {fmt(uniq.get('overlap_limit',0.70),2)}); witness {witness}</td><td>{final_interpretation}</td></tr>
+<tr><td>Worst Spearman ρ</td><td>{fmt(rho,3)} (limit {fmt(uniq.get('rho_limit',0.90),2)})</td><td>Below the correlation limit, but does not override the overlap failure.</td></tr>
+<tr><td>Pre-placement surface</td><td>NOT CLEARED for this TIFF/current inventory</td><td>The existing historical surface report is for another build and is not reusable.</td></tr>
+<tr><td>Buffered outer holdout</td><td>NOT MEASURED for the current instrument</td><td>The {legacy_n} old E2 output is not promotion-grade; no DTI is shown here.</td></tr>
+<tr><td>Local format/range</td><td>{local_validation}</td><td>Internal check only; sample nodata semantics and portal acceptance remain unconfirmed.</td></tr>
+<tr><td>Organizer receipt</td><td>None</td><td>No organizer score exists.</td></tr></table>
+</section>
+<section>
+<h2>{html.escape(instruction_title)}</h2>
+<ol>
+<li>{first_step}</li>
+<li>A registered competitor can review the <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/">DrivenData submission page</a> and live instructions. {"Upload only after independent review of the recorded gates." if ready else "Do not upload this file while the status is red."}</li>
+<li>The official rules allow up to three feedback submissions per week, but require choosing one final submission for both prize rounds. This build never runs the separate selector or spends a slot.</li>
+<li>Record any submission receipt. Only its score is <b>ORGANIZER-CONFIRMED</b>. Disclose any generative-AI use in the solution narrative as required by the official rules.</li>
+</ol>
+<p><b>Deadline discrepancy:</b> the public homepage says Dec. 3, 2026, 11:59 p.m. UTC; the Sept. 2026 rules say 5:00 p.m. ET. Use the earlier cutoff until the organizer clarifies.</p>
+<p>{note_label} ({note_chars} characters; verify against the live portal): <code>{note}</code></p>
+</section>
+<section><h2>Review links</h2><ul>
+<li><a href="SUBMISSION_GUIDE.md">Full submission guide</a></li><li><a href="SOURCES.md">Official sources and availability checks</a></li>
+<li><a href="IRREGULARITIES.md">Irregularities / review flags</a></li><li><a href="research/hypotheses_new.md">Ranked untested hypotheses</a></li>
+<li><a href="evidence.html">Evidence status</a></li><li><a href="sources.html">Short source register</a></li>
+<li><a href="AI_USAGE.md">Generative-AI use log (rules disclosure reference)</a></li>
+</ul></section>
+<footer>Generated {generated}. This is a local evidence status page. The builder never selects a slot or uploads, and cannot create an organizer receipt.</footer>
+</body></html>"""
+    (ROOT / "docs" / "index.html").write_text(index, encoding="utf-8")
+
+    summary = f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Executive summary — current GEMS decision</title><link rel="stylesheet" href="assets/site.css"></head><body>
+<header><h1>Executive summary — current GEMS decision</h1></header>
+<section class="submit-box" style="border-color:{status_color}"><div class="badge" style="background:{status_color}">{status}</div>
+<p>{summary_warning}</p>
+<p><a href="index.html">Return to status page</a> · <a href="SUBMISSION_GUIDE.md">Full guide</a></p></section>
+<h2>What the number labels mean</h2><ul><li><b>HOLDOUT-DTI</b> requires a named shared evaluator/version, withheld-positive count and defensible 95% CI. No such result exists for the revised instrument.</li>
+<li><b>ORGANIZER-CONFIRMED</b> requires a DrivenData receipt. None exists.</li><li>Local format/uniqueness evidence is not a performance score.</li></ul>
+<h2>Submission steps when—and only when—the status changes</h2><ol><li>Confirm a complete current accessible-raster inventory.</li><li>Pass the pre-placement surface and final-dot literal gates.</li><li>Pass the buffered, nested outer-block holdout and feature-alone canaries.</li><li>Read the official rules and disclose generative-AI use if applicable.</li><li>Use the platform separately; select only one final submission across prize rounds. Save the receipt.</li></ol>
+<footer>Generated {generated}. No leaderboard claim or organizer receipt.</footer></body></html>"""
+    (ROOT / "docs" / "executive-summary.html").write_text(summary, encoding="utf-8")
+    (ROOT / "docs" / "submit.html").write_text(summary.replace("Executive summary — current GEMS decision", "Submission guide — current GEMS decision"), encoding="utf-8")
+    evidence_summary = (
+        "Recorded promotion-grade holdout and registry gates are clear in the local evidence, but this page does not select a slot, upload, or confirm organizer acceptance."
+        if ready else
+        f"The ribbon candidate's registered final-dot comparison fails the literal overlap gate. The latest pinned scan checked {scan_checked}/{scan_expected} rasters with {scan_missing} missing/invalid; current registry coverage and candidate-specific pre-placement surface status are not cleared. No current promotion-grade HOLDOUT-DTI is measured."
+    )
+    evidence_page = f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Evidence status</title><link rel="stylesheet" href="assets/site.css"></head><body>
+<header><h1>Evidence status</h1></header><section class="submit-box" style="border-color:{status_color}"><div class="badge" style="background:{status_color}">{status}</div><p>{html.escape(evidence_summary)}</p><p>Run card: <a href="RUN_CARD.json">download the JSON run card</a>. Details: <a href="IRREGULARITIES.md">IRREGULARITIES.md</a>.</p></section><footer>Generated {generated}.</footer></body></html>"""
+    (ROOT / "docs" / "evidence.html").write_text(evidence_page, encoding="utf-8")
 
 
 def main() -> int:
     card = build_run_card()
     build_site(card)
-    print("run card verdict:", card["verdict"])
-    print("site written: docs/index.html, docs/executive-summary.html")
+    print(card["human_readable_status"])
+    print("run card: evidence/run_card.json; site: docs/index.html")
     return 0
 
 

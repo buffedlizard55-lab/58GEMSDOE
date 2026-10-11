@@ -1,39 +1,10 @@
-<!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Executive summary - how to submit</title><link rel="stylesheet" href="assets/site.css"></head><body>
-<header><h1>Executive summary: submitting to GEMS (DrivenData #306)</h1></header>
-<section>
-<h2>The 60-second version</h2>
-<ol>
-<li><b>Download</b> the current submission GeoTIFF from the <a href="index.html">main page download button</a>
-(single-band, float32, EPSG:32611, 3730&times;3292, transform (100, 0, 243350, 0, -100, 4508550), all values in [0,1], no NaN).</li>
-<li>Open <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/">the submission page</a> (login required).</li>
-<li>Upload the <code>.tif</code> (or the single-TIFF <code>.zip</code>). Add the suggested note from the main page.</li>
-<li>Scored metric: pooled Distance-Weighted Tversky Index, alpha=0.2, beta=0.8, 300 m triangular kernel
-(see <a href="https://en.wikipedia.org/wiki/Tversky_index">Tversky index</a> and the
-<a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">problem description</a>).</li>
-</ol>
-<h2>Why the earlier portal error happened and why this file is safe</h2>
-<p>The portal error <i>"Predicted values must be in range [0, 1]"</i> is triggered by out-of-range or non-finite cells.
-This file uses the all-finite export policy: dots at exactly 1.0, zeros everywhere else including outside the
-scored footprint &mdash; nothing can violate [0,1] and no NaN exists.</p>
-<h2>What this submission is (method, one paragraph)</h2>
-<p>This submission uses <b>Multi-Evidence Concordance Emission (MECE)</b> in a hybrid configuration.
-All 78,433 SGMC (State Geologic Map Compilation) fault pixels that are off the USGS/INGENIOUS catalogue
-and within the scored footprint are emitted at 1.0, providing independent evidence for unmapped faults.
-Additionally, 37,704 dots are greedily allocated at positions maximizing the DTI metric's acceptance
-criterion using a catalogue-proximity probability surface, with a 3&times;3 px tile grid matching the
-300m kernel radius. Total: 116,137 dots at exactly 1.0.</p>
-<h2>What this submission is NOT</h2>
-<ul>
-<li>It is not an organizer-accepted score: leaderboard points come only from a real submission receipt (ORGANIZER-CONFIRMED).</li>
-<li>Holdout numbers are HOLDOUT-DTI evidence, not leaderboard projections.</li>
-<li>Slot promotion is a separate selector step within the weekly cap shown on the submission page.</li>
-</ul>
-<h2>Why this matters for the Final Prize Round ($250K)</h2>
-<p>The Final Prize Round rescores all submissions against an expanded label set that includes faults
-discovered by experts reviewing submissions. Dense emission in fault-probable areas means predictions
-that are initially scored as false positives may become true positives when experts verify them.
-This submission maximizes coverage of fault-probable areas using two independent evidence sources.</p>
-</section>
-<footer>Generated 2026-10-11</footer></body></html>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Executive summary — current GEMS decision</title><link rel="stylesheet" href="assets/site.css"></head><body>
+<header><h1>Executive summary — current GEMS decision</h1></header>
+<section class="submit-box" style="border-color:#a11212"><div class="badge" style="background:#a11212">NOT OK TO SUBMIT — DO NOT SUBMIT</div>
+<p><b>Do not upload or use a weekly slot.</b> The available TIFF is a diagnostic artifact. Its final-dot overlap exceeds the literal stop threshold in the frozen registry scan, that scan is stale, the current pre-placement phase is not cleared, and no promotion-grade buffered outer holdout was run.</p>
+<p><a href="index.html">Return to status page</a> · <a href="SUBMISSION_GUIDE.md">Full guide</a></p></section>
+<h2>What the number labels mean</h2><ul><li><b>HOLDOUT-DTI</b> requires a named shared evaluator/version, withheld-positive count and defensible 95% CI. No such result exists for the revised instrument.</li>
+<li><b>ORGANIZER-CONFIRMED</b> requires a DrivenData receipt. None exists.</li><li>Local format/uniqueness evidence is not a performance score.</li></ul>
+<h2>Submission steps when—and only when—the status changes</h2><ol><li>Confirm a complete current accessible-raster inventory.</li><li>Pass the pre-placement surface and final-dot literal gates.</li><li>Pass the buffered, nested outer-block holdout and feature-alone canaries.</li><li>Read the official rules and disclose generative-AI use if applicable.</li><li>Use the platform separately; select only one final submission across prize rounds. Save the receipt.</li></ol>
+<footer>Generated 2026-10-11T02:25:11Z. No leaderboard claim or organizer receipt.</footer></body></html>

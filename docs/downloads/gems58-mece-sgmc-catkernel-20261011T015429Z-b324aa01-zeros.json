@@ -3,11 +3,10 @@
   "sha256": "6a5f3695b566b5dabbad655c301247c93b739056e7de85caa0142f5f9b11cdbc",
   "bytes": 819002,
   "name": "gems58-mece-sgmc-catkernel-20261011T015429Z-b324aa01-zeros",
-  "note": "MECE: multi-evidence concordance emission; SGMC prior + catalogue kernel; greedy-allocated 35k dots; off-cat; all-finite zeros.",
+  "note": "MECE diagnostic; outside ribbon-only scope; holdout and full-registry gates not cleared; DO NOT SUBMIT.",
   "n_dots": 35000,
-  "holdout_dti": 0.3811,
-  "holdout_dti_evidence_class": "HOLDOUT-DTI (with leakage from full-catalogue proximity; see analysis)",
-  "holdout_dti_note": "Withheld truth leakage: full-catalogue proximity used for probability surface. Visible-only DTI ~0.01. Competition performance depends on unmapped fault coverage via SGMC.",
+  "holdout_dti_evidence_class": "NOT A REPORTABLE HOLDOUT-DTI CLAIM",
+  "holdout_dti_note": "The recorded full-catalogue proximity experiment leaks withheld labels and has no valid promotion-grade 95% CI. Do not quote its raw value as a score.",
   "method": "MECE (Multi-Evidence Concordance Emission)",
   "mechanism": "Probability surface = max(SGMC_binary, kernel(distance_to_catalogue/100m)). Greedy decimated allocation at 3px tile grid. Dots at exactly 1.0 off-catalogue.",
   "validator": {
@@ -60,11 +59,34 @@
       "outside_footprint_zero": true,
       "zero_dots_on_mapped_catalogue": true
     },
-    "all_checks_passed": true,
-    "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+    "validation_class": "local format/range preflight only; not uniqueness clearance or organizer acceptance",
     "on_catalogue_positive_pixels": 0,
     "in_footprint_positive_pixels": 35000,
-    "footprint_fraction": 0.006773267577161548
+    "footprint_fraction": 0.006773267577161548,
+    "local_format_preflight_passed": true
   },
-  "generated_utc": "2026-10-11T01:54:29Z"
+  "generated_utc": "2026-10-11T01:54:29Z",
+  "holdout_dti": null,
+  "status": "OUT_OF_LANE_DIAGNOSTIC_NOT_SUBMISSION_READY",
+  "submission_status": "NOT_OK_TO_SUBMIT",
+  "promotion_grade": false,
+  "diagnostic_only": true,
+  "approved_for_weekly_slot": false,
+  "promoted": false,
+  "submission_slots_used": 0,
+  "note_chars": 103,
+  "approval_blockers": [
+    "MECE/multi-evidence is outside the current ribbon-only scope",
+    "full-catalogue proximity holdout is leakage-flagged and has no valid CI",
+    "pairwise comparison against a ribbon candidate is not full-registry uniqueness clearance",
+    "current public registry scan is incomplete"
+  ],
+  "leakage_canary": {
+    "status": "NOT MEASURED FOR MECE",
+    "current_evidence": null,
+    "note": "The prior ribbon canary is not transferable to this MECE design."
+  },
+  "overall_uniqueness_gate_passed": false,
+  "full_registry_clearance": false,
+  "submission_ready": false
 }

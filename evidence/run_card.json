@@ -1,226 +1,147 @@
 {
- "hypothesis": "Ribbon lane: emission width should match the MEASURED localization error of the ridge source. Candidate ridge axes are skeletonized visible-catalogue continuations (cat-axis) and an independent public mapping, SGMC-minus-catalogue (sgmc-axis); on the hide-and-recover holdout the across-strike distance from each candidate ridge to the nearest withheld segment is ~2.5-3.5 px, i.e. the regime where the lane's simulations say parallel dotted lines about +/-sigma wide pay and a single tight line does not.",
- "mechanism": "Per segment: dots at stride 3 px (= 300 m kernel radius) along the axis, with parallel lines offset +/-clip(round(sigma(block,type)),1,3) px across strike; the holdout arm selects per-segment patterns by the lane's U = (1-0.2*DTI0)*TP - 0.2*DTI0*FP ordering with an EXACT marginal DTI acceptance test (both sides recomputed); the live emission applies the fitted sigma->pattern rule. Dots emitted at exactly 1.0 (scaling down only scales the net gain down).",
- "named_non_fault_process_that_could_mimic_it": "Map digitising noise and SGMC's ~1:250k generalisation (both inflate sigma without any real strand structure); alluvial-fill graben lineaments and lithological contacts in the SGMC compilation produce ridge axes that are not faults; dotted-line placement along skeleton axes of the catalogue itself can score against mapping-style regularities rather than real secondary strands.",
- "holdout": {
-  "instrument": "hide-and-recover, whole <=12 px catalogue segments withheld per quadrant, 2 seeds, pooled exact DTI (alpha=0.2, beta=0.8, 300 m triangular kernel)",
-  "evaluator": "gems57.holdout score_cell (shared template evaluator, exact)",
-  "withheld_positive_pixels": 22641,
-  "tight_baseline_dti": 0.15729798989964808,
-  "ribbon_dti": 0.35832971058014196,
-  "ribbon_pool_sigma_dti": 0.35832971058014196,
-  "ribbon_minus_tight_delta": 0.20103172068049388,
-  "ribbon_minus_tight_ci95": [
-   0.19101762328792596,
-   0.21077503344939316
-  ],
-  "evidence_class": "HOLDOUT-DTI",
-  "per_class_gains": {
-   "cat-axis": {
-    "ribbon_only_dti": 0.17850385942602237,
-    "tight_only_dti": 0.0,
-    "gain": 0.17850385942602237,
-    "n_dots_ribbon": 11184,
-    "n_dots_tight": 0,
-    "evidence_class": "HOLDOUT-DTI (class-restricted emission)"
-   },
-   "sgmc-axis": {
-    "ribbon_only_dti": 0.2555989729686658,
-    "tight_only_dti": 0.15729798989964808,
-    "gain": 0.09830098306901772,
-    "n_dots_ribbon": 13782,
-    "n_dots_tight": 4118,
-    "evidence_class": "HOLDOUT-DTI (class-restricted emission)"
-   }
-  }
- },
- "leakage_canary": {
-  "rule": "feature alone on the holdout; AUC > 0.90 means leakage until proven otherwise",
-  "per_cell": [
-   {
-    "cell": "draw20_foldNW_all",
-    "kind": "cat-axis",
-    "auc_distance_to_ridge": 0.6048929021645022
-   },
-   {
-    "cell": "draw20_foldNW_all",
-    "kind": "sgmc-axis",
-    "auc_distance_to_ridge": 0.6834809489177489
-   },
-   {
-    "cell": "draw20_foldNE_all",
-    "kind": "cat-axis",
-    "auc_distance_to_ridge": 0.5824845254237289
-   },
-   {
-    "cell": "draw20_foldNE_all",
-    "kind": "sgmc-axis",
-    "auc_distance_to_ridge": 0.6668795607344633
-   },
-   {
-    "cell": "draw20_foldSW_all",
-    "kind": "cat-axis",
-    "auc_distance_to_ridge": 0.6108730758377425
-   },
-   {
-    "cell": "draw20_foldSW_all",
-    "kind": "sgmc-axis",
-    "auc_distance_to_ridge": 0.5359727583774251
-   },
-   {
-    "cell": "draw20_foldSE_all",
-    "kind": "cat-axis",
-    "auc_distance_to_ridge": 0.6247791607746696
-   },
-   {
-    "cell": "draw20_foldSE_all",
-    "kind": "sgmc-axis",
-    "auc_distance_to_ridge": 0.6013975694230966
-   },
-   {
-    "cell": "draw21_foldNW_all",
-    "kind": "cat-axis",
-    "auc_distance_to_ridge": 0.5997155080771235
-   },
-   {
-    "cell": "draw21_foldNW_all",
-    "kind": "sgmc-axis",
-    "auc_distance_to_ridge": 0.67100268021539
-   },
-   {
-    "cell": "draw21_foldNE_all",
-    "kind": "cat-axis",
-    "auc_distance_to_ridge": 0.5925545214940099
-   },
-   {
-    "cell": "draw21_foldNE_all",
-    "kind": "sgmc-axis",
-    "auc_distance_to_ridge": 0.6758000817477097
-   },
-   {
-    "cell": "draw21_foldSW_all",
-    "kind": "cat-axis",
-    "auc_distance_to_ridge": 0.6088826298644128
-   },
-   {
-    "cell": "draw21_foldSW_all",
-    "kind": "sgmc-axis",
-    "auc_distance_to_ridge": 0.5307358777953866
-   },
-   {
-    "cell": "draw21_foldSE_all",
-    "kind": "cat-axis",
-    "auc_distance_to_ridge": 0.6300254421559586
-   },
-   {
-    "cell": "draw21_foldSE_all",
-    "kind": "sgmc-axis",
-    "auc_distance_to_ridge": 0.5846982764627523
-   }
-  ],
-  "max_auc_by_type": {
-   "cat-axis": 0.6300254421559586,
-   "sgmc-axis": 0.6834809489177489
+  "run_card_version": "2.0",
+  "generated_utc": "2026-10-11T02:25:11Z",
+  "lane": "ribbon only \u2014 emission width matched to measured localization error",
+  "submission_status": "NOT_OK_TO_SUBMIT",
+  "human_readable_status": "NOT OK TO SUBMIT \u2014 DO NOT SUBMIT",
+  "hypothesis": "Visible-only catalogue and independent mapped-fault ridge axes may locate uncatalogued faults with a measurable across-strike localization error; ribbon width is tied to that error.",
+  "mechanism": "Fit sigma by source/block on training-only spatial blocks, then emit 1.0-valued dots in a parallel ribbon at 3-pixel along-axis stride; score with exact pooled DTI and promote only after nested outer-block validation.",
+  "named_non_fault_process_that_could_mimic_it": "Digitizing error and map generalization; lithologic contacts and alluvial/graben edges; roads, drainage lineaments, or survey striping aligned with candidate ridges.",
+  "holdout": {
+    "status": "NOT MEASURED for the current buffered/nested instrument",
+    "evidence_class": "NOT A HOLDOUT-DTI CLAIM",
+    "evaluator_version_required": "gems57-pooled-hide-v2",
+    "withheld_positive_pixels": null,
+    "dti": null,
+    "ci95": null,
+    "legacy_evidence_files": [
+      "evidence/ribbon_e1_sigma.json",
+      "evidence/ribbon_e2_arms.json"
+    ],
+    "legacy_caveat": "Prior E2 is same-cell truth-selected, unbuffered and has an invalid repeated-block bootstrap; do not report it as promotion-grade evidence."
   },
-  "verdict": "PASS - no ridge type exceeds AUC 0.90"
- },
- "sigma_table": {
-  "pooled_by_type": {
-   "cat-axis": {
-    "n_segments": 12145,
-    "n_matched": 4893,
-    "sigma_raw_px": 2.9903566217276722,
-    "matched_fraction": 0.4028818443804035,
-    "evidence_class": "HOLDOUT-STRUCTURE"
-   },
-   "sgmc-axis": {
-    "n_segments": 17674,
-    "n_matched": 2734,
-    "sigma_raw_px": 3.22618592510739,
-    "matched_fraction": 0.1546905058277696,
-    "evidence_class": "HOLDOUT-STRUCTURE"
-   }
+  "localization_sigma_table": {
+    "evidence_class": "HOLDOUT-STRUCTURE",
+    "status": "NOT MEASURED for the current promotion-grade buffered/nested instrument",
+    "rows": null,
+    "legacy_evidence_file": "evidence/ribbon_e1_sigma.json",
+    "legacy_values_reportable": false
   },
-  "live_per_block": null,
-  "match_cap_px": 8.0,
-  "evidence_class": "HOLDOUT-STRUCTURE"
- },
- "correlation_overlap_vs_registry": {
-  "registry_rasters": 695,
-  "restored": 694,
-  "complete_accessible_scan": false,
-  "rho_limit": 0.9,
-  "overlap_limit": 0.7,
-  "worst_spearman_full_footprint": 0.18964557053051112,
-  "worst_rho_submission": "7GEMSDOE:downloads/gems7-halo15-gbt-v1-90fb7dc0fc1f.tif",
-  "worst_dot_overlap": 1.0,
-  "worst_overlap_submission": "GEMSDOE2:data/evidence/runs/turbo-simple-20260925T042003Z/submission.tif",
-  "byte_unique_among_checked": true,
-  "pixel_unique_among_checked": true,
-  "duplicate_count": 123,
+  "per_class_holdout_gains": {
+    "evidence_class": "NOT A REPORTABLE HOLDOUT-DTI CLAIM",
+    "status": "NOT MEASURED for current promotion-grade nested outer blocks",
+    "rows": null,
+    "legacy_evidence_file": "evidence/ribbon_e2_arms.json",
+    "legacy_values_reportable": false
+  },
+  "leakage_canary": {
+    "status": "NOT CLEARED FOR CURRENT BUFFERED INSTRUMENT",
+    "threshold_auc": 0.9,
+    "current_evidence": null,
+    "legacy_record": "evidence/ribbon_e1_sigma.json (not promotion-grade for the revised split)"
+  },
+  "correlation_overlap_vs_registry": {
+    "evidence_class": "REGISTRY-MEASUREMENT (frozen snapshot only)",
+    "snapshot_generated_utc": "2026-10-10T19:58:45.875405+00:00",
+    "repositories_in_frozen_snapshot": 57,
+    "rasters_in_frozen_snapshot": 695,
+    "latest_pinned_snapshot_scan": {
+      "expected": 695,
+      "checked": 694,
+      "complete_accessible_scan": false,
+      "missing_or_invalid": 1,
+      "source_errors": [],
+      "evidence_class": "REGISTRY-MEASUREMENT (pinned inventory only)"
+    },
+    "current_inventory_complete": false,
+    "current_self_repository_tree": {
+      "repository": "58GEMSDOE",
+      "tree_sha": "d8c17dd9043304175d6bcc3deec5308b79966ca4",
+      "tif_tiff_paths": 10,
+      "docs_download_tif_tiff_paths": 4,
+      "example_unscanned_rasters": [
+        "docs/downloads/archive/58GEMSDOE-ribbon-lane-v1-20261011.tif",
+        "docs/downloads/gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.tif",
+        "docs/downloads/gems58-mece-sgmc-catkernel-20261011T015429Z-b324aa01-zeros.tif",
+        "docs/downloads/gems58-mece-hybrid-20261011T015838Z-513210e2-zeros.tif"
+      ],
+      "inventory_only_not_registry_cleared": true
+    },
+    "freshness_audit": "evidence/registry_freshness_audit.json",
+    "rho_limit": 0.9,
+    "worst_spearman_full_footprint": 0.18964557053051112,
+    "literal_overlap_limit": 0.7,
+    "candidate_dots": 67379,
+    "frozen_worst_dot_overlap": 1.0,
+    "frozen_overlap_witness": "GEMSDOE2:data/evidence/runs/turbo-simple-20260925T042003Z/submission.tif",
+    "preplacement_surface_gate": {
+      "status": "NOT_RUN_FOR_THIS_CANDIDATE",
+      "passed": false,
+      "legacy_surface_report_not_reusable": "registry/uniqueness_surface_pre-placement_summary.json"
+    },
+    "final_dot_gate": {
+      "status": "FROZEN_SCAN_FAILURE_AND_CURRENT_SCOPE_INCOMPLETE",
+      "passed": false,
+      "worst_dot_overlap": 1.0,
+      "overlap_limit": 0.7,
+      "witness": "GEMSDOE2:data/evidence/runs/turbo-simple-20260925T042003Z/submission.tif"
+    }
+  },
+  "raster_sha256": "8b196e6eea06fef0d6cf2c9109091d1e2677a77d6e48d8b04f334a879551687f",
+  "validator_output": {
+    "evidence_class": "LOCAL-FORMAT-PREFLIGHT; NOT ORGANIZER-CONFIRMED",
+    "all_checks_passed": true,
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "dimensions_3730x3292": true,
+      "crs_epsg_32611": true,
+      "transform_matches_sample_submission": true,
+      "no_nan_anywhere": true,
+      "no_inf_anywhere": true,
+      "no_sentinel_values": true,
+      "range_0_1_guaranteed": true,
+      "min_ge_0": true,
+      "max_le_1": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_range_0_1": true,
+      "outside_footprint_zero": true,
+      "zero_dots_on_mapped_catalogue": true
+    },
+    "meta": {
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "count": 1,
+      "nodata": null,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "profile_compress": "deflate"
+    },
+    "caveat": "Internal all-finite/zero-outside policy is not organizer acceptance; template nodata semantics remain an open issue."
+  },
+  "submission_name": "gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros",
+  "submission_note": "H58b ribbon diagnostic; dots at 1.0; format preflight only; uniqueness and promotion-grade holdout not cleared; DO NOT SUBMIT.",
+  "submission_note_chars": 126,
+  "selector_action": "NOT RUN; no weekly slot selected",
+  "qualification_gaps": [
+    "No current promotion-grade outer-block HOLDOUT-DTI with the required evaluator version, withheld-positive count, and valid 95% CI; legacy E2 is an oracle/selection diagnostic.",
+    "No current buffered-fold feature-alone leakage-canary record is marked promotion-grade.",
+    "Registry inventory is stale/incomplete for current public repository trees.",
+    "The candidate-specific pre-placement surface gate has not passed on a current inventory.",
+    "The final dots literal-dot gate fails: overlap 1.000 > 0.70.",
+    "The frozen registry audit is negative; a byte/pixel-unique file is not sufficient to clear the literal lane gates.",
+    "The current raster receipt is marked diagnostic/non-promotion-grade."
+  ],
   "verdict": "negative",
-  "evidence_class": "REGISTRY-MEASUREMENT"
- },
- "validator_output": {
-  "file": "docs/downloads/gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.tif",
-  "bytes": 184413,
-  "sha256": "8b196e6eea06fef0d6cf2c9109091d1e2677a77d6e48d8b04f334a879551687f",
-  "meta": {
-   "crs": "EPSG:32611",
-   "shape": [
-    3730,
-    3292
-   ],
-   "dtype": "float32",
-   "count": 1,
-   "nodata": null,
-   "transform": [
-    100.0,
-    0.0,
-    243350.0,
-    0.0,
-    -100.0,
-    4508550.0
-   ],
-   "profile_compress": "deflate"
-  },
-  "band_description": [
-   null
-  ],
-  "n_finite": 12279160,
-  "n_nan": 0,
-  "n_infinite": 0,
-  "min": 0.0,
-  "max": 1.0,
-  "mean": 0.005487264599651098,
-  "emitted_positive_pixels": 67379,
-  "checks": {
-   "single_band": true,
-   "dtype_float32": true,
-   "dimensions_3730x3292": true,
-   "crs_epsg_32611": true,
-   "transform_matches_sample_submission": true,
-   "no_nan_anywhere": true,
-   "no_inf_anywhere": true,
-   "no_sentinel_values": true,
-   "range_0_1_guaranteed": true,
-   "min_ge_0": true,
-   "max_le_1": true,
-   "in_footprint_all_finite": true,
-   "in_footprint_range_0_1": true,
-   "outside_footprint_zero": true,
-   "zero_dots_on_mapped_catalogue": true
-  },
-  "all_checks_passed": true,
-  "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
-  "on_catalogue_positive_pixels": 0,
-  "in_footprint_positive_pixels": 67379,
-  "footprint_fraction": 0.013039314173759085
- },
- "raster_sha256": "8b196e6eea06fef0d6cf2c9109091d1e2677a77d6e48d8b04f334a879551687f",
- "submission_name": "gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros",
- "submission_note": "H58b ribbon lane: +/-sigma (3 px) parallel dotted lines; concordant sgmc+cat axes; dots 1.0; holdout-validated rule.",
- "verdict": "negative",
- "generated_utc": "2026-10-11T01:54:11Z",
- "verdict_note": "Negative on the LITERAL overlap gate: every flagging raster is either a dense soft surface (>=200k dots, universal blocker) or another lane's near-catalogue carpet; max Spearman rho 0.19 and <=0.474 vs the dotted-ridge lineage show no lane drift. Selector decides; slots are not picked here."
+  "verdict_note": "Negative: one or more explicit holdout, registry, or format gates is not cleared. Do not upload or select a slot."
 }

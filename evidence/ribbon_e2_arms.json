@@ -1,6 +1,6 @@
 {
  "experiment": "E2-ribbon-arms",
- "evidence_class": "HOLDOUT-DTI",
+ "evidence_class": "LEGACY HOLDOUT-DTI DIAGNOSTIC \u2014 INVALID/NOT REPORTABLE",
  "instrument": {
   "kind": "hide-and-recover",
   "seeds": [
@@ -16,7 +16,11 @@
  "dti0_reference": {
   "value": 0.15729798989964808,
   "arm": "tight",
-  "evidence_class": "HOLDOUT-DTI"
+  "evidence_class": "LEGACY HOLDOUT-DTI DIAGNOSTIC \u2014 INVALID/NOT REPORTABLE",
+  "evaluator_version": "legacy-unversioned-gems57.holdout.score_cell",
+  "withheld_positive_pixels": 22641,
+  "ci95": null,
+  "ci95_reportable": false
  },
  "dti0_assumed_for_ordering": 0.28,
  "arms": {
@@ -25,115 +29,250 @@
    "per_cell": {
     "draw20_foldNW_all": {
      "dti": 0.24546291954767824,
-     "dots": 520
+     "dots": 520,
+     "evidence_class": "LEGACY HOLDOUT-DTI DIAGNOSTIC \u2014 INVALID/NOT REPORTABLE",
+     "evaluator_version": "legacy-unversioned-gems57.holdout.score_cell",
+     "withheld_positive_pixels": 22641,
+     "ci95": null,
+     "ci95_reportable": false
     },
     "draw20_foldNE_all": {
      "dti": 0.2548962564408034,
-     "dots": 634
+     "dots": 634,
+     "evidence_class": "LEGACY HOLDOUT-DTI DIAGNOSTIC \u2014 INVALID/NOT REPORTABLE",
+     "evaluator_version": "legacy-unversioned-gems57.holdout.score_cell",
+     "withheld_positive_pixels": 22641,
+     "ci95": null,
+     "ci95_reportable": false
     },
     "draw20_foldSW_all": {
      "dti": 0.059378094436977384,
-     "dots": 277
+     "dots": 277,
+     "evidence_class": "LEGACY HOLDOUT-DTI DIAGNOSTIC \u2014 INVALID/NOT REPORTABLE",
+     "evaluator_version": "legacy-unversioned-gems57.holdout.score_cell",
+     "withheld_positive_pixels": 22641,
+     "ci95": null,
+     "ci95_reportable": false
     },
     "draw20_foldSE_all": {
      "dti": 0.15397860343158667,
-     "dots": 632
+     "dots": 632,
+     "evidence_class": "LEGACY HOLDOUT-DTI DIAGNOSTIC \u2014 INVALID/NOT REPORTABLE",
+     "evaluator_version": "legacy-unversioned-gems57.holdout.score_cell",
+     "withheld_positive_pixels": 22641,
+     "ci95": null,
+     "ci95_reportable": false
     },
     "draw21_foldNW_all": {
      "dti": 0.22994469500405454,
-     "dots": 481
+     "dots": 481,
+     "evidence_class": "LEGACY HOLDOUT-DTI DIAGNOSTIC \u2014 INVALID/NOT REPORTABLE",
+     "evaluator_version": "legacy-unversioned-gems57.holdout.score_cell",
+     "withheld_positive_pixels": 22641,
+     "ci95": null,
+     "ci95_reportable": false
     },
     "draw21_foldNE_all": {
      "dti": 0.2525201079222835,
-     "dots": 656
+     "dots": 656,
+     "evidence_class": "LEGACY HOLDOUT-DTI DIAGNOSTIC \u2014 INVALID/NOT REPORTABLE",
+     "evaluator_version": "legacy-unversioned-gems57.holdout.score_cell",
+     "withheld_positive_pixels": 22641,
+     "ci95": null,
+     "ci95_reportable": false
     },
     "draw21_foldSW_all": {
      "dti": 0.05558480490540706,
-     "dots": 323
+     "dots": 323,
+     "evidence_class": "LEGACY HOLDOUT-DTI DIAGNOSTIC \u2014 INVALID/NOT REPORTABLE",
+     "evaluator_version": "legacy-unversioned-gems57.holdout.score_cell",
+     "withheld_positive_pixels": 22641,
+     "ci95": null,
+     "ci95_reportable": false
     },
     "draw21_foldSE_all": {
      "dti": 0.14265440028794865,
-     "dots": 595
+     "dots": 595,
+     "evidence_class": "LEGACY HOLDOUT-DTI DIAGNOSTIC \u2014 INVALID/NOT REPORTABLE",
+     "evaluator_version": "legacy-unversioned-gems57.holdout.score_cell",
+     "withheld_positive_pixels": 22641,
+     "ci95": null,
+     "ci95_reportable": false
     }
-   }
+   },
+   "evidence_class": "LEGACY HOLDOUT-DTI DIAGNOSTIC \u2014 INVALID/NOT REPORTABLE",
+   "evaluator_version": "legacy-unversioned-gems57.holdout.score_cell",
+   "withheld_positive_pixels": 22641,
+   "ci95": null,
+   "ci95_reportable": false
   },
   "ribbon": {
    "pooled_dti": 0.35832971058014196,
    "per_cell": {
     "draw20_foldNW_all": {
      "dti": 0.40773284297008505,
-     "dots": 2294
+     "dots": 2294,
+     "evidence_class": "LEGACY HOLDOUT-DTI DIAGNOSTIC \u2014 INVALID/NOT REPORTABLE",
+     "evaluator_version": "legacy-unversioned-gems57.holdout.score_cell",
+     "withheld_positive_pixels": 22641,
+     "ci95": null,
+     "ci95_reportable": false
     },
     "draw20_foldNE_all": {
      "dti": 0.40384195914092813,
-     "dots": 2750
+     "dots": 2750,
+     "evidence_class": "LEGACY HOLDOUT-DTI DIAGNOSTIC \u2014 INVALID/NOT REPORTABLE",
+     "evaluator_version": "legacy-unversioned-gems57.holdout.score_cell",
+     "withheld_positive_pixels": 22641,
+     "ci95": null,
+     "ci95_reportable": false
     },
     "draw20_foldSW_all": {
      "dti": 0.30560645764409183,
-     "dots": 3455
+     "dots": 3455,
+     "evidence_class": "LEGACY HOLDOUT-DTI DIAGNOSTIC \u2014 INVALID/NOT REPORTABLE",
+     "evaluator_version": "legacy-unversioned-gems57.holdout.score_cell",
+     "withheld_positive_pixels": 22641,
+     "ci95": null,
+     "ci95_reportable": false
     },
     "draw20_foldSE_all": {
      "dti": 0.3661615660448261,
-     "dots": 4075
+     "dots": 4075,
+     "evidence_class": "LEGACY HOLDOUT-DTI DIAGNOSTIC \u2014 INVALID/NOT REPORTABLE",
+     "evaluator_version": "legacy-unversioned-gems57.holdout.score_cell",
+     "withheld_positive_pixels": 22641,
+     "ci95": null,
+     "ci95_reportable": false
     },
     "draw21_foldNW_all": {
      "dti": 0.39961349614487873,
-     "dots": 2272
+     "dots": 2272,
+     "evidence_class": "LEGACY HOLDOUT-DTI DIAGNOSTIC \u2014 INVALID/NOT REPORTABLE",
+     "evaluator_version": "legacy-unversioned-gems57.holdout.score_cell",
+     "withheld_positive_pixels": 22641,
+     "ci95": null,
+     "ci95_reportable": false
     },
     "draw21_foldNE_all": {
      "dti": 0.41128573889069964,
-     "dots": 2892
+     "dots": 2892,
+     "evidence_class": "LEGACY HOLDOUT-DTI DIAGNOSTIC \u2014 INVALID/NOT REPORTABLE",
+     "evaluator_version": "legacy-unversioned-gems57.holdout.score_cell",
+     "withheld_positive_pixels": 22641,
+     "ci95": null,
+     "ci95_reportable": false
     },
     "draw21_foldSW_all": {
      "dti": 0.3010988501877121,
-     "dots": 3316
+     "dots": 3316,
+     "evidence_class": "LEGACY HOLDOUT-DTI DIAGNOSTIC \u2014 INVALID/NOT REPORTABLE",
+     "evaluator_version": "legacy-unversioned-gems57.holdout.score_cell",
+     "withheld_positive_pixels": 22641,
+     "ci95": null,
+     "ci95_reportable": false
     },
     "draw21_foldSE_all": {
      "dti": 0.34658849119824575,
-     "dots": 3912
+     "dots": 3912,
+     "evidence_class": "LEGACY HOLDOUT-DTI DIAGNOSTIC \u2014 INVALID/NOT REPORTABLE",
+     "evaluator_version": "legacy-unversioned-gems57.holdout.score_cell",
+     "withheld_positive_pixels": 22641,
+     "ci95": null,
+     "ci95_reportable": false
     }
-   }
+   },
+   "evidence_class": "LEGACY HOLDOUT-DTI DIAGNOSTIC \u2014 INVALID/NOT REPORTABLE",
+   "evaluator_version": "legacy-unversioned-gems57.holdout.score_cell",
+   "withheld_positive_pixels": 22641,
+   "ci95": null,
+   "ci95_reportable": false
   },
   "ribbon-pool": {
    "pooled_dti": 0.35832971058014196,
    "per_cell": {
     "draw20_foldNW_all": {
      "dti": 0.40773284297008505,
-     "dots": 2294
+     "dots": 2294,
+     "evidence_class": "LEGACY HOLDOUT-DTI DIAGNOSTIC \u2014 INVALID/NOT REPORTABLE",
+     "evaluator_version": "legacy-unversioned-gems57.holdout.score_cell",
+     "withheld_positive_pixels": 22641,
+     "ci95": null,
+     "ci95_reportable": false
     },
     "draw20_foldNE_all": {
      "dti": 0.40384195914092813,
-     "dots": 2750
+     "dots": 2750,
+     "evidence_class": "LEGACY HOLDOUT-DTI DIAGNOSTIC \u2014 INVALID/NOT REPORTABLE",
+     "evaluator_version": "legacy-unversioned-gems57.holdout.score_cell",
+     "withheld_positive_pixels": 22641,
+     "ci95": null,
+     "ci95_reportable": false
     },
     "draw20_foldSW_all": {
      "dti": 0.30560645764409183,
-     "dots": 3455
+     "dots": 3455,
+     "evidence_class": "LEGACY HOLDOUT-DTI DIAGNOSTIC \u2014 INVALID/NOT REPORTABLE",
+     "evaluator_version": "legacy-unversioned-gems57.holdout.score_cell",
+     "withheld_positive_pixels": 22641,
+     "ci95": null,
+     "ci95_reportable": false
     },
     "draw20_foldSE_all": {
      "dti": 0.3661615660448261,
-     "dots": 4075
+     "dots": 4075,
+     "evidence_class": "LEGACY HOLDOUT-DTI DIAGNOSTIC \u2014 INVALID/NOT REPORTABLE",
+     "evaluator_version": "legacy-unversioned-gems57.holdout.score_cell",
+     "withheld_positive_pixels": 22641,
+     "ci95": null,
+     "ci95_reportable": false
     },
     "draw21_foldNW_all": {
      "dti": 0.39961349614487873,
-     "dots": 2272
+     "dots": 2272,
+     "evidence_class": "LEGACY HOLDOUT-DTI DIAGNOSTIC \u2014 INVALID/NOT REPORTABLE",
+     "evaluator_version": "legacy-unversioned-gems57.holdout.score_cell",
+     "withheld_positive_pixels": 22641,
+     "ci95": null,
+     "ci95_reportable": false
     },
     "draw21_foldNE_all": {
      "dti": 0.41128573889069964,
-     "dots": 2892
+     "dots": 2892,
+     "evidence_class": "LEGACY HOLDOUT-DTI DIAGNOSTIC \u2014 INVALID/NOT REPORTABLE",
+     "evaluator_version": "legacy-unversioned-gems57.holdout.score_cell",
+     "withheld_positive_pixels": 22641,
+     "ci95": null,
+     "ci95_reportable": false
     },
     "draw21_foldSW_all": {
      "dti": 0.3010988501877121,
-     "dots": 3316
+     "dots": 3316,
+     "evidence_class": "LEGACY HOLDOUT-DTI DIAGNOSTIC \u2014 INVALID/NOT REPORTABLE",
+     "evaluator_version": "legacy-unversioned-gems57.holdout.score_cell",
+     "withheld_positive_pixels": 22641,
+     "ci95": null,
+     "ci95_reportable": false
     },
     "draw21_foldSE_all": {
      "dti": 0.34658849119824575,
-     "dots": 3912
+     "dots": 3912,
+     "evidence_class": "LEGACY HOLDOUT-DTI DIAGNOSTIC \u2014 INVALID/NOT REPORTABLE",
+     "evaluator_version": "legacy-unversioned-gems57.holdout.score_cell",
+     "withheld_positive_pixels": 22641,
+     "ci95": null,
+     "ci95_reportable": false
     }
-   }
+   },
+   "evidence_class": "LEGACY HOLDOUT-DTI DIAGNOSTIC \u2014 INVALID/NOT REPORTABLE",
+   "evaluator_version": "legacy-unversioned-gems57.holdout.score_cell",
+   "withheld_positive_pixels": 22641,
+   "ci95": null,
+   "ci95_reportable": false
   }
  },
  "paired_bootstrap": {
-  "evidence_class": "HOLDOUT-DTI",
+  "evidence_class": "LEGACY HOLDOUT-DTI CI \u2014 INVALID/NOT REPORTABLE",
   "method": "paired percentile bootstrap over physical 20 km blocks (pooled terms)",
   "blocks": 335,
   "draws": 1000,
@@ -152,7 +291,9 @@
     0.0
    ]
   },
-  "caveat": "Conditional on fitted folds, catalogue labels and fixed patterns; not a leaderboard interval."
+  "caveat": "Conditional on fitted folds, catalogue labels and fixed patterns; not a leaderboard interval.",
+  "ci95_reportable": false,
+  "status": "LEGACY_ORACLE_DIAGNOSTIC_CI_INVALID_FOR_PROMOTION"
  },
  "per_class_gains": {
   "cat-axis": {
@@ -161,7 +302,11 @@
    "gain": 0.17850385942602237,
    "n_dots_ribbon": 11184,
    "n_dots_tight": 0,
-   "evidence_class": "HOLDOUT-DTI (class-restricted emission)"
+   "evidence_class": "LEGACY HOLDOUT-DTI DIAGNOSTIC \u2014 INVALID/NOT REPORTABLE",
+   "evaluator_version": "legacy-unversioned-gems57.holdout.score_cell",
+   "withheld_positive_pixels": 22641,
+   "ci95": null,
+   "ci95_reportable": false
   },
   "sgmc-axis": {
    "ribbon_only_dti": 0.2555989729686658,
@@ -169,7 +314,11 @@
    "gain": 0.09830098306901772,
    "n_dots_ribbon": 13782,
    "n_dots_tight": 4118,
-   "evidence_class": "HOLDOUT-DTI (class-restricted emission)"
+   "evidence_class": "LEGACY HOLDOUT-DTI DIAGNOSTIC \u2014 INVALID/NOT REPORTABLE",
+   "evaluator_version": "legacy-unversioned-gems57.holdout.score_cell",
+   "withheld_positive_pixels": 22641,
+   "ci95": null,
+   "ci95_reportable": false
   }
  },
  "config_mix_ribbon": {
@@ -186,5 +335,25 @@
   "note": "along-line stride = 3 px (kernel radius); parallel lines spaced 2*|offset| px"
  },
  "withheld_positive_pixels": 22641,
- "elapsed_s": 429.5397310256958
+ "elapsed_s": 429.5397310256958,
+ "promotion_grade": false,
+ "audit_status": "LEGACY_ORACLE_DIAGNOSTIC_NOT_PROMOTION_GRADE",
+ "same_cell_truth_used_for_pattern_acceptance": true,
+ "sigma_fit_on_scored_folds": true,
+ "buffered_whole_component_context_used": false,
+ "paired_bootstrap_ci95_reportable": false,
+ "ci95_limitation": "Legacy code concatenated repeated seed/fold contributions for the same physical blocks and resampled those rows as independent clusters. The printed interval is not a valid physical-block 95% CI.",
+ "reporting_note": "Do not present stored DTI values or their legacy interval as promotion-grade performance. New buffered/nested outer-block experiment has not been run.",
+ "evaluator_version": "legacy-unversioned-gems57.holdout.score_cell",
+ "absolute_arm_ci95_reportable": false,
+ "reporting_contract": {
+  "score_claim_allowed": false,
+  "required_claim_label": "HOLDOUT-DTI",
+  "evaluator_version": "legacy-unversioned-gems57.holdout.score_cell",
+  "withheld_positive_pixels": 22641,
+  "absolute_arm_ci95": null,
+  "absolute_arm_ci95_reportable": false,
+  "paired_ci95_reportable": false,
+  "reason": "Same-cell withheld truth selected each cell emission; sigma was fit on scored folds; the legacy repeated-block CI is invalid for promotion. Do not quote these values as a performance score."
+ }
 }

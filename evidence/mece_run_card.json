@@ -3,25 +3,20 @@
   "mechanism": "SGMC off-catalogue pixels (78,433) emitted at 1.0 as blanket coverage for independent-mapping evidence. Plus 37,704 greedily-allocated dots at positions maximizing DTI acceptance criterion (kernel credit > alpha*DTI) on a catalogue-proximity probability surface. 3x3 px tile grid matches the 300m kernel radius. All dots at exactly 1.0, off-catalogue, in footprint.",
   "named_non_fault_process_that_could_mimic_it": "SGMC generalization at ~1:250k scale maps lithological contacts and alluvial-boundary lineaments as 'faults'; these are structural features but not necessarily active faults or permeability conduits relevant to geothermal systems. Catalogue-proximity dots near inactive or misclassified fault traces.",
   "holdout": {
-    "instrument": "hide-and-recover, whole catalogue segments withheld per quadrant, 2 seeds, pooled exact DTI (alpha=0.2, beta=0.8, 300m triangular kernel)",
-    "evaluator": "gems57.holdout evaluate (shared template evaluator, exact)",
-    "withheld_positive_pixels": 22641,
-    "full_cat_proximity_dti": 0.2259,
-    "visible_only_dti": 0.01,
-    "leakage_note": "Full-catalogue proximity includes withheld segments in the probability surface. Visible-only DTI ~0.01 for catalogue faults. Competition performance depends on unmapped fault coverage via SGMC.",
-    "evidence_class": "HOLDOUT-DTI (with leakage caveat)"
+    "status": "NOT REPORTABLE: full-catalogue proximity leakage; no valid nested/buffered outer-block result or 95% CI",
+    "evidence_class": "NOT A HOLDOUT-DTI CLAIM",
+    "evaluator_version": null,
+    "withheld_positive_pixels": null,
+    "dti": null,
+    "ci95": null,
+    "leakage_note": "Full-catalogue proximity includes withheld segments in the probability surface. A visible-only sensitivity check was qualitatively described as near-baseline, but no valid shared evaluator version, withheld-positive count, or 95% CI is preserved. Do not report a score.",
+    "legacy_score_claim_allowed": false
   },
   "leakage_canary": {
-    "verdict": "PASS (from prior ribbon experiments)",
-    "max_auc_by_type": {"cat-axis": 0.630, "sgmc-axis": 0.683},
-    "threshold": 0.90
-  },
-  "uniqueness_vs_ribbon": {
-    "spearman_rho": 0.150,
-    "rho_limit": 0.90,
-    "dot_overlap_3px": 0.597,
-    "overlap_limit": 0.70,
-    "verdict": "PASS"
+    "status": "NOT MEASURED FOR MECE; prior ribbon canary is not transferable",
+    "threshold_auc": 0.9,
+    "current_evidence": null,
+    "legacy_source": "prior ribbon experiments only; no MECE feature-alone canary"
   },
   "validator_output": {
     "single_band": true,
@@ -33,12 +28,33 @@
     "range_0_1": true,
     "zero_on_catalogue": true,
     "zero_outside_footprint": true,
-    "all_checks_passed": true
+    "local_format_checks_passed": true,
+    "validation_class": "local format/range preflight only; not uniqueness clearance or organizer acceptance"
   },
   "raster_sha256": "9b48fd661a9b7834730d5c8824688a1eff0ea680298a502cd59cf9229c8ba165",
   "submission_name": "gems58-mece-hybrid-20261011T015838Z-513210e2-zeros",
-  "submission_note": "MECE-hybrid: SGMC blanket (78k) + greedy catalogue-kernel (40k); dots 1.0; off-cat; unique; all-finite zeros.",
-  "verdict": "promote",
-  "verdict_note": "Unique (rho=0.150, overlap=0.597). Validated (all checks passed). The SGMC blanket provides independent evidence for unmapped faults not covered by catalogue-proximity alone. Final Prize Round strategy: dense emission maximizes chance of expert-verified new fault discoveries.",
-  "generated_utc": "2026-10-11T01:58:38Z"
+  "submission_note": "MECE diagnostic; outside ribbon-only scope; holdout and full-registry gates not cleared; DO NOT SUBMIT.",
+  "verdict": "negative",
+  "verdict_note": "Negative: MECE is outside the current ribbon-only scope; its holdout is leakage-flagged, pairwise overlap is not full-registry clearance, and current inventory gates are incomplete. DO NOT SUBMIT.",
+  "generated_utc": "2026-10-11T01:58:38Z",
+  "status": "ARCHIVED_OUT_OF_LANE_DIAGNOSTIC_NOT_SUBMISSION_READY",
+  "submission_status": "NOT_OK_TO_SUBMIT",
+  "promotion_grade": false,
+  "out_of_scope_for_current_task": "MECE/multi-evidence; current task is ribbon-only.",
+  "pairwise_ribbon_comparison": {
+    "evidence_class": "REGISTRY-MEASUREMENT (one pairwise comparison only)",
+    "rho": 0.15,
+    "rho_limit": 0.9,
+    "dot_overlap_3px": 0.597,
+    "overlap_limit": 0.7,
+    "full_registry_clearance": false,
+    "scope_note": "Comparison only against the ribbon candidate; not the full registry, not the candidate-specific pre-placement surface phase, and not a current inventory scan.",
+    "pairwise_thresholds_met": true
+  },
+  "selector_action": "NOT RUN; no weekly slot selected",
+  "diagnostic_only": true,
+  "mechanism_evidence_class": "LOCAL-RASTER / construction counts only",
+  "overall_uniqueness_gate_passed": false,
+  "full_registry_clearance": false,
+  "submission_ready": false
 }

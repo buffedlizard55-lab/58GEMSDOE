@@ -1,19 +1,10 @@
 #!/usr/bin/env python3
-"""Multi-Evidence Concordance Emission (MECE) — experiment for 58GEMSDOE.
+"""Archived MECE/multi-evidence experiment; command-line execution disabled.
 
-Strategy: Build a fault-probability surface from multiple evidence sources
-(SGMC independent mapping + catalogue proximity + fault tip continuation zones),
-then use the greedy allocator from gems57.emit to optimally place dots.
-
-This differs from the ribbon-lane approach (sparse dotted lines along skeleton
-axes) by using a CONTINUOUS probability surface and an OPTIMAL allocation
-algorithm that maximizes DTI directly.
-
-Hypothesis: The ribbon approach under-covers fault-probable area because it
-restricts emission to 1-pixel-wide skeleton lines. By using the full SGMC mask
-and a kernel-smoothed catalogue proximity surface as probability inputs, the
-greedy allocator can discover emission patterns that cover more of the
-tolerance zone (300m kernel) and thus achieve higher DTI.
+This method is outside the current user's ribbon-only scope. Its historical
+holdout used full-catalogue proximity and leaked withheld labels, and its
+candidate was not cleared against a current complete registry. Retained for
+forensic review only; do not run, cite as performance evidence, or submit.
 """
 from __future__ import annotations
 
@@ -48,24 +39,24 @@ def build_probability_surface(grid, sgmc_off_cat: np.ndarray,
                                visible: np.ndarray = None,
                                mode: str = "max") -> np.ndarray:
     """Build a fault probability surface from evidence sources.
-    
+
     Evidence sources:
     1. Catalogue proximity: kernel(distance to visible catalogue)
     2. SGMC proximity: kernel(distance to SGMC off-catalogue)
     3. SGMC mask itself: 1.0 on SGMC pixels (strong direct evidence)
-    
+
     Combined by taking the max (or weighted sum).
     """
     cat = visible if visible is not None else grid.catalogue
-    
+
     # Distance to visible catalogue
     dist_cat = ndi.distance_transform_edt(~cat & grid.footprint, sampling=100.0)
     k_cat = kernel(dist_cat / 100.0)  # kernel in pixel units
-    
+
     # Distance to SGMC (off-catalogue)
     dist_sgmc = ndi.distance_transform_edt(~sgmc_off_cat & grid.footprint, sampling=100.0)
     k_sgmc = kernel(dist_sgmc / 100.0)
-    
+
     if mode == "max":
         p = np.maximum(k_cat, k_sgmc)
     elif mode == "sum":
@@ -79,7 +70,7 @@ def build_probability_surface(grid, sgmc_off_cat: np.ndarray,
         p = k_cat
     else:
         raise ValueError(f"Unknown mode: {mode}")
-    
+
     # Ensure footprint and off-catalogue
     p = np.where(grid.footprint & ~grid.catalogue, p, 0.0).astype(np.float32)
     return p
@@ -89,40 +80,40 @@ def run_experiment(grid, ctx, sgmc_off_cat, mode="max", k_truth_factor=1.0,
                    max_dots=100_000, verbose=True):
     """Run one experiment: build surface, allocate dots, score on holdout."""
     t0 = time.time()
-    
+
     # Build probability surface using FULL catalogue (for emission)
     # The holdout evaluation will mask visible faults appropriately
     p = build_probability_surface(grid, sgmc_off_cat, visible=grid.catalogue, mode=mode)
-    
+
     allowed = grid.footprint & ~grid.catalogue
-    
+
     # Estimate k_truth from the holdout
     total_truth = sum(c.n_truth for c in ctx.cells) / len(ctx.cells) * 4  # approximate total
     k_truth = int(total_truth * k_truth_factor)
-    
+
     if verbose:
         print(f"  Mode: {mode}, k_truth={k_truth}, max_dots={max_dots}")
         print(f"  p range: [{p.min():.4f}, {p.max():.4f}], nonzero: {(p > 0).sum()}")
-    
+
     # Use the patient allocator (doesn't stop at first rejection)
     alloc = allocate_patient(p, allowed, k_truth=k_truth,
                              max_dots=max_dots, patience=50_000)
-    
+
     if verbose:
         print(f"  Allocated {alloc.n_dots} dots in {alloc.rounds} rounds, "
               f"surrogate DTI={alloc.surrogate_dti:.4f}")
-    
+
     # Score on holdout
     emitted = alloc.emitted & grid.footprint & ~grid.catalogue
     result = evaluate(emitted, ctx, cell_mode="all")
-    
+
     elapsed = time.time() - t0
     if verbose:
         print(f"  HOLDOUT-DTI: {result['pooled_dti']:.4f} "
               f"(coverage={result['pooled_coverage']:.4f}, "
               f"emitted={result['emitted_pixels']}, "
               f"elapsed={elapsed:.0f}s)")
-    
+
     return {
         "mode": mode,
         "k_truth_factor": k_truth_factor,
@@ -144,21 +135,21 @@ def main():
     t_start = time.time()
     grid = load_grid(ROOT / "data" / "bridge")
     sgmc = load_sgmc(ROOT, grid)
-    
+
     print("Building holdout context...")
     ctx = build_holdout(grid, hide_frac=0.20, seeds=(20, 21), modes=("all",))
     print(f"Holdout: {len(ctx.cells)} cells, "
           f"total withheld={sum(c.n_truth for c in ctx.cells)} px")
-    
+
     # Experiment grid: modes × k_truth_factors × max_dots
     modes = ["max", "sgmc_prior", "cat_only", "sgmc_only", "sum"]
     k_truth_factors = [0.5, 1.0, 2.0]
     max_dots_list = [50_000, 100_000]
-    
+
     results = []
     best_dti = -1
     best_config = None
-    
+
     for mode in modes:
         for ktf in k_truth_factors:
             for md in max_dots_list:
@@ -172,7 +163,7 @@ def main():
                         best_config = r
                 except Exception as e:
                     print(f"  ERROR: {e}")
-    
+
     # Print summary
     print("\n" + "="*80)
     print("SUMMARY")
@@ -183,11 +174,11 @@ def main():
         print(f"{r['mode']:<15} {r['k_truth_factor']:>5.1f} {r['max_dots']:>8d} "
               f"{r['n_dots']:>8d} {r['pooled_dti']:>8.4f} {r['coverage']:>8.4f} "
               f"{r['tp']:>8.1f} {r['fp']:>8.1f} {r['fn']:>8.1f}")
-    
+
     if best_config:
         print(f"\nBest: mode={best_config['mode']}, ktf={best_config['k_truth_factor']}, "
               f"DTI={best_config['pooled_dti']:.4f}, dots={best_config['n_dots']}")
-    
+
     # Save results
     evidence = {
         "experiments": results,
@@ -202,4 +193,8 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(
+        "DEPRECATED/NO-GO: MECE is outside the current ribbon-only scope; its "
+        "holdout is leakage-flagged and registry clearance is incomplete. "
+        "Do not run or submit these artifacts."
+    )

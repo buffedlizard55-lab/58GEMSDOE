@@ -1,88 +1,43 @@
-<!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>58GEMSDOE - GEMS competition submission</title>
-<link rel="stylesheet" href="assets/site.css">
-</head><body>
-<header><h1>58GEMSDOE &mdash; GEMS competition (DrivenData #306)</h1>
-<p>Multi-Evidence Concordance Emission (MECE): SGMC blanket + catalogue-kernel greedy allocation.</p></header>
-<section class="submit-box">
-  <div class="badge" style="background:#0a7">READY TO SUBMIT &mdash; validated, unique, all values in [0,1]</div>
-  <h2>&#11015; DOWNLOAD the submission file and upload it to DrivenData</h2>
-  <p style="font-size:1.2em;margin:1em 0">
-    <a class="big-btn" href="downloads/gems58-mece-hybrid-20261011T015838Z-513210e2-zeros.tif" download
-       style="display:inline-block;padding:1em 2em;background:#0a7;color:#fff;text-decoration:none;font-weight:bold;border-radius:8px;font-size:1.2em">
-       &#11015; DOWNLOAD: gems58-mece-hybrid-20261011T015838Z-513210e2-zeros.tif
-    </a>
-  </p>
-  <p>Or download the <a href="downloads/gems58-mece-hybrid-20261011T015838Z-513210e2-zeros.zip">ZIP version</a> (same TIFF inside).</p>
-  <h3>How to submit (3 steps)</h3>
-  <ol>
-    <li><b>Click the green DOWNLOAD button above.</b> Save the <code>.tif</code> file.</li>
-    <li>Go to <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/">the DrivenData submission page</a> (login required).</li>
-    <li>Upload the file. In the optional comment box, paste:<br>
-      <code>MECE-hybrid: SGMC blanket (78k) + greedy catalogue-kernel (40k); dots 1.0; off-cat; unique; all-finite zeros.</code></li>
-  </ol>
-  <p><b>Why this file works:</b> All values are in [0,1] with dots at exactly 1.0 and zeros everywhere else. There are NO NaN values anywhere in the file, which fixes the portal error <i>"Predicted values must be in range [0, 1]"</i>.</p>
-  <table style="margin-top:1em">
-    <tr><td><b>Format</b></td><td>Single-band GeoTIFF, float32, EPSG:32611, 3730&times;3292, 100m</td></tr>
-    <tr><td><b>Values</b></td><td>Dots at exactly 1.0, zeros elsewhere &mdash; no NaN anywhere</td></tr>
-    <tr><td><b>Dots</b></td><td>116,137 positive pixels (78,433 SGMC + 37,704 catalogue-kernel)</td></tr>
-    <tr><td><b>sha256</b></td><td><code>9b48fd661a9b7834730d5c8824688a1eff0ea680298a502cd59cf9229c8ba165</code></td></tr>
-    <tr><td><b>Validation</b></td><td>All 9 checks passed (CRS, shape, transform, range, finiteness, off-catalogue)</td></tr>
-    <tr><td><b>Uniqueness</b></td><td>Spearman &rho;=0.150 vs ribbon (limit 0.90); dot overlap=0.597 (limit 0.70) &mdash; PASS</td></tr>
-  </table>
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>58GEMSDOE — submission status</title><link rel="stylesheet" href="assets/site.css"></head><body>
+<header><h1>58GEMSDOE — GEMS competition #306</h1><p>Ribbon lane only · rigorous qualification status</p></header>
+<section class="submit-box" style="border-color:#a11212">
+  <div class="badge" style="background:#a11212">NOT OK TO SUBMIT — DO NOT SUBMIT</div>
+  <h2>Research artifact — not a cleared submission</h2>
+  <p><a class="big-btn" style="background:#a11212" href="downloads/gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.tif" download>Download diagnostic TIFF (NOT CLEARED — DO NOT SUBMIT)</a></p>
+  <p>Optional one-TIFF ZIP: <a href="downloads/gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.zip">gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.zip</a>. Do not upload either file or use a scored slot.</p>
+  <p><b>Raster SHA256:</b> <code>8b196e6eea06fef0d6cf2c9109091d1e2677a77d6e48d8b04f334a879551687f</code><br><b>Internal local format check:</b> PASS under the internal local format/range policy. This does not establish uniqueness or organizer acceptance.</p>
+  <h3>Blocking reasons</h3><ol><li>No current promotion-grade outer-block HOLDOUT-DTI with the required evaluator version, withheld-positive count, and valid 95% CI; legacy E2 is an oracle/selection diagnostic.</li><li>No current buffered-fold feature-alone leakage-canary record is marked promotion-grade.</li><li>Registry inventory is stale/incomplete for current public repository trees.</li><li>The candidate-specific pre-placement surface gate has not passed on a current inventory.</li><li>The final dots literal-dot gate fails: overlap 1.000 &gt; 0.70.</li><li>The frozen registry audit is negative; a byte/pixel-unique file is not sufficient to clear the literal lane gates.</li><li>The current raster receipt is marked diagnostic/non-promotion-grade.</li></ol>
 </section>
 <section>
-<h2>Method (one paragraph)</h2>
-<p>This submission uses <b>Multi-Evidence Concordance Emission (MECE)</b> in a hybrid configuration.
-The emission is built from two independent evidence sources: (1) all SGMC (State Geologic Map Compilation) fault
-pixels that are off the USGS/INGENIOUS catalogue and within the scored footprint &mdash; 78,433 pixels at
-value 1.0, providing independent evidence for unmapped faults; and (2) 37,704 greedily-allocated dots placed
-at positions that maximize the DTI metric's acceptance criterion (kernel credit &gt; &alpha;&middot;DTI),
-using a catalogue-proximity probability surface. The greedy allocator uses a 3&times;3 px tile grid
-(matching the 300m kernel radius) to avoid redundant placements. The combined emission has 116,137 dots,
-all at exactly 1.0, off the mapped catalogue, within the valid footprint, and all-finite (no NaN).</p>
-
-<h2>Why this approach</h2>
-<p>The competition metric (DTI, &alpha;=0.2, &beta;=0.8, 300m triangular kernel) heavily penalizes
-false negatives (&beta;/&alpha; = 4:1). SGMC provides an independent mapping of faults at ~1:250k scale
-that covers faults not in the USGS catalogue. The <b>Final Prize Round</b> ($250K) rescores against
-expanded labels where faults flagged by submissions and verified by experts become truth &mdash;
-so dense emission in fault-probable areas can pay off even if some dots are initially scored as FP.</p>
-
-<h2>Evidence (labeled per protocol)</h2>
-<table>
-<tr><th>Item</th><th>Value</th><th>Label</th></tr>
-<tr><td>Holdout DTI (full-cat proximity, leakage present)</td><td>0.2259</td><td>HOLDOUT-DTI (22,641 withheld px; full-catalogue leakage for catalogue faults; visible-only ~0.01)</td></tr>
-<tr><td>Uniqueness: Spearman &rho;</td><td>0.150</td><td>REGISTRY-MEASUREMENT (vs ribbon submission; limit 0.90)</td></tr>
-<tr><td>Uniqueness: dot overlap</td><td>0.597</td><td>REGISTRY-MEASUREMENT (vs ribbon submission; limit 0.70)</td></tr>
-<tr><td>Leakage canary</td><td>PASS (max AUC 0.683)</td><td>holdout instrument (from prior ribbon experiments)</td></tr>
-</table>
-<p><b>Important caveat:</b> The holdout DTI uses the full catalogue for the probability surface, which
-includes withheld segments &mdash; this is leakage for catalogue faults. The visible-only holdout DTI
-is ~0.01. However, the competition test set includes unmapped faults NOT in the catalogue, and the
-SGMC component addresses these. The holdout score is NOT a projection of the competition score.</p>
+<h2>Gate evidence</h2>
+<table><tr><th>Gate</th><th>Recorded result</th><th>Interpretation</th></tr>
+<tr><td>Registry scope</td><td>695 frozen rasters / 57 pinned repositories; latest pinned scan 694/695 checked, 1 missing/invalid; complete=False; NOT CURRENT / INCOMPLETE</td><td>Frozen/pinned evidence only; not a current or organizer-complete inventory. See <code>evidence/registry_freshness_audit.json</code> and <code>evidence/registry_fetch_report.json</code>.</td></tr>
+<tr><td>Additional self-repository TIFFs</td><td>Fetched <code>origin/main</code> tree <code>d8c17dd9043304175d6bcc3deec5308b79966ca4</code>: 10 TIF/TIFF paths (4 under docs/downloads); 4 examples recorded, not cleared against a complete registry.</td><td>Tree listing only; not compared against the complete current registry and not uniqueness clearance.</td></tr>
+<tr><td>Final-dot overlap</td><td>1.000 (limit 0.70); witness GEMSDOE2:data/evidence/runs/turbo-simple-20260925T042003Z/submission.tif</td><td>REGISTRY-MEASUREMENT, pinned inventory only; literal stop failure; scan incomplete.</td></tr>
+<tr><td>Worst Spearman ρ</td><td>0.190 (limit 0.90)</td><td>Below the correlation limit, but does not override the overlap failure.</td></tr>
+<tr><td>Pre-placement surface</td><td>NOT CLEARED for this TIFF/current inventory</td><td>The existing historical surface report is for another build and is not reusable.</td></tr>
+<tr><td>Buffered outer holdout</td><td>NOT MEASURED for the current instrument</td><td>The recorded, but invalid for promotion old E2 output is not promotion-grade; no DTI is shown here.</td></tr>
+<tr><td>Local format/range</td><td>PASS under the internal local format/range policy</td><td>Internal check only; sample nodata semantics and portal acceptance remain unconfirmed.</td></tr>
+<tr><td>Organizer receipt</td><td>None</td><td>No organizer score exists.</td></tr></table>
 </section>
 <section>
-<h2>Files &amp; provenance</h2>
-<ul>
-  <li><a href="downloads/gems58-mece-hybrid-20261011T015838Z-513210e2-zeros.json">Receipt JSON</a></li>
-  <li><a href="downloads/gems58-mece-hybrid-20261011T015838Z-513210e2-zeros.zip">ZIP (same TIFF)</a></li>
-  <li>Previous submission: <a href="downloads/gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.tif">ribbon-concordant</a></li>
-</ul>
-<h2>Official sources</h2>
-<ul>
-  <li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">Competition page</a></li>
-  <li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">Problem description &amp; metric</a></li>
-  <li><a href="https://github.com/drivendataorg/gems-prize-reference-solution">Reference solution</a></li>
-  <li><a href="https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and">GeoDAWN survey (USGS)</a></li>
-  <li><a href="https://gbcge.org/current-projects/ingenious/">INGENIOUS (GBCGE)</a></li>
-  <li><a href="https://epsg.io/32611">EPSG:32611</a></li>
-  <li><a href="https://en.wikipedia.org/wiki/Tversky_index">Tversky index</a></li>
-  <li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">Leaderboard</a></li>
-</ul>
+<h2>Submission instructions — do not execute while red</h2>
+<ol>
+<li>Wait until this page explicitly says <b>OK TO SUBMIT</b>; right now it says DO NOT SUBMIT.</li>
+<li>A registered competitor can review the <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/">DrivenData submission page</a> and live instructions. Do not upload this file while the status is red.</li>
+<li>The official rules allow up to three feedback submissions per week, but require choosing one final submission for both prize rounds. This build never runs the separate selector or spends a slot.</li>
+<li>Record any submission receipt. Only its score is <b>ORGANIZER-CONFIRMED</b>. Disclose any generative-AI use in the solution narrative as required by the official rules.</li>
+</ol>
+<p><b>Deadline discrepancy:</b> the public homepage says Dec. 3, 2026, 11:59 p.m. UTC; the Sept. 2026 rules say 5:00 p.m. ET. Use the earlier cutoff until the organizer clarifies.</p>
+<p>Suggested diagnostic note (126 characters; verify against the live portal): <code>H58b ribbon diagnostic; dots at 1.0; format preflight only; uniqueness and promotion-grade holdout not cleared; DO NOT SUBMIT.</code></p>
 </section>
-<footer>Local validation and uniqueness are necessary, not sufficient: organizer acceptance and slot promotion are separate steps
-within the weekly cap shown on the submission page. Generated 2026-10-11. The Final Prize Round ($250K) rescores with expanded labels.</footer>
+<section><h2>Review links</h2><ul>
+<li><a href="SUBMISSION_GUIDE.md">Full submission guide</a></li><li><a href="SOURCES.md">Official sources and availability checks</a></li>
+<li><a href="IRREGULARITIES.md">Irregularities / review flags</a></li><li><a href="research/hypotheses_new.md">Ranked untested hypotheses</a></li>
+<li><a href="evidence.html">Evidence status</a></li><li><a href="sources.html">Short source register</a></li>
+<li><a href="AI_USAGE.md">Generative-AI use log (rules disclosure reference)</a></li>
+</ul></section>
+<footer>Generated 2026-10-11T02:25:11Z. This is a local evidence status page. The builder never selects a slot or uploads, and cannot create an organizer receipt.</footer>
 </body></html>
