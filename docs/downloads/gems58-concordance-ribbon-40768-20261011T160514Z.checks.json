@@ -115,13 +115,13 @@
     "id": "G3",
     "name": "Uniqueness \u2014 public inventory scan (ratified chance-corrected gate RATIFIED-UNIQ-v1)",
     "ok": false,
-    "detail": "703 sha256-verified rasters from <code>registry/registry_merged.json</code>; complete accessible scan True; missing/invalid 0. Byte-unique True, pixel-unique True; worst rank correlation 0.2823 (limit 0.90, 0 firings); worst Jaccard 0.1682 (limit 0.50, 0 firings). <b>Ratified overlap rule:</b> rule A (literal &gt; 0.70 vs witnesses with E &lt; 0.70): <b>9</b> firings; rule B (chance-corrected lift &gt; 0.50 vs any witness): <b>3</b> firings (max lift 0.574; max vs another repository 0.562). The literal pre-ratification reading is reported unchanged in G3L below and in the run card."
+    "detail": "703 sha256-verified rasters from <code>registry/registry_merged.json</code>; complete accessible scan True; missing/invalid 0. Byte-unique True, pixel-unique True; worst rank correlation 0.2823 (limit 0.90, 0 firings); worst Jaccard 0.1682 (limit 0.50, 0 firings). <b>Ratified overlap rule:</b> rule A (literal &gt; 0.70 vs witnesses with E &lt; 0.70): <b>9</b> firings; rule B (chance-corrected lift &gt; 0.50 vs any witness): <b>3</b> firings (max lift 0.574; max vs another repository 0.562). The literal pre-ratification reading is reported unchanged in mandatory G3L below and in the run card."
    },
    {
     "id": "G3L",
-    "name": "Uniqueness \u2014 literal pre-ratification reading (reported, not governing)",
+    "name": "Uniqueness \u2014 literal >70% reading (hard stop under current brief)",
     "ok": false,
-    "detail": "<b>Literal reading:</b> worst 3&nbsp;px forward overlap <b>1.0000</b> vs the 0.70 limit \u2192 <b>83 firings</b>, of which 54 are against witnesses whose 3&nbsp;px dilation covers \u2265 99&nbsp;% of the footprint (E \u2265 0.99: they overlap <i>every</i> nonempty candidate and carry no information) and 29 are against broader dot fields (smallest E among non-saturated firings 0.5343). Scan verdict as recorded: negative; stop_required True. The literal rule fires for every nonempty candidate against a witness whose dilation covers the footprint, so it cannot discriminate lane drift; RATIFIED-UNIQ-v1 (G3) governs since 2026-10-11 and this reading stays published beside it."
+    "detail": "<b>Literal reading:</b> worst 3&nbsp;px forward overlap <b>1.0000</b> vs the 0.70 limit \u2192 <b>83 firings</b>, of which 54 are against witnesses whose 3&nbsp;px dilation covers \u2265 99&nbsp;% of the footprint (E \u2265 0.99: they overlap <i>every</i> nonempty candidate and carry no information) and 29 are against broader dot fields (smallest E among non-saturated firings 0.5343). Scan verdict as recorded: negative; stop_required True. The literal rule fires for every nonempty candidate against a witness whose dilation covers the footprint, so it cannot discriminate lane drift; RATIFIED-UNIQ-v1 (G3) governs since 2026-10-11 and this reading is also a mandatory hard stop under the current brief."
    },
    {
     "id": "G4",
@@ -145,10 +145,17 @@
     "id": "G6",
     "name": "Organizer receipt for this raster",
     "ok": false,
-    "detail": "No DrivenData submission receipt exists for this raster, so no ORGANIZER-CONFIRMED score can be quoted for it. This gate can only be closed by the owner's selector step and is never claimed here; the site verdict is computed over G1\u2013G5."
+    "detail": "No DrivenData submission receipt exists for this raster, so no ORGANIZER-CONFIRMED score can be quoted for it. This gate can only be closed by the owner's selector step and is never claimed here; the site verdict requires G3L and G7 as well as G1\u2013G5."
+   },
+   {
+    "id": "G7",
+    "name": "Current shared-evaluator qualification and fresh inventory",
+    "ok": false,
+    "informational": false,
+    "detail": "NOT QUALIFIED: evidence/ribbon_qualification.json is absent; submission_status is not OK_TO_SUBMIT; candidate file/pixel hashes are missing or invalid. Historical HOLDOUT-DTI is diagnostic, not a 95% CI."
    }
   ],
-  "site_generated_utc": "2026-10-11T17:53:40Z",
+  "site_generated_utc": "2026-10-11T18:26:04Z",
   "site_note": "G6 (organizer receipt) can never pass from this sandbox; the site verdict is computed over G1-G5 and the missing receipt is stated on every page.",
   "equal_budget_arms": {
    "R0": {
@@ -2089,13 +2096,13 @@
    "id": "G3",
    "name": "Uniqueness \u2014 public inventory scan (ratified chance-corrected gate RATIFIED-UNIQ-v1)",
    "ok": false,
-   "detail": "703 sha256-verified rasters from <code>registry/registry_merged.json</code>; complete accessible scan True; missing/invalid 0. Byte-unique True, pixel-unique True; worst rank correlation 0.2823 (limit 0.90, 0 firings); worst Jaccard 0.1682 (limit 0.50, 0 firings). <b>Ratified overlap rule:</b> rule A (literal &gt; 0.70 vs witnesses with E &lt; 0.70): <b>9</b> firings; rule B (chance-corrected lift &gt; 0.50 vs any witness): <b>3</b> firings (max lift 0.574; max vs another repository 0.562). The literal pre-ratification reading is reported unchanged in G3L below and in the run card."
+   "detail": "703 sha256-verified rasters from <code>registry/registry_merged.json</code>; complete accessible scan True; missing/invalid 0. Byte-unique True, pixel-unique True; worst rank correlation 0.2823 (limit 0.90, 0 firings); worst Jaccard 0.1682 (limit 0.50, 0 firings). <b>Ratified overlap rule:</b> rule A (literal &gt; 0.70 vs witnesses with E &lt; 0.70): <b>9</b> firings; rule B (chance-corrected lift &gt; 0.50 vs any witness): <b>3</b> firings (max lift 0.574; max vs another repository 0.562). The literal pre-ratification reading is reported unchanged in mandatory G3L below and in the run card."
   },
   {
    "id": "G3L",
-   "name": "Uniqueness \u2014 literal pre-ratification reading (reported, not governing)",
+   "name": "Uniqueness \u2014 literal >70% reading (hard stop under current brief)",
    "ok": false,
-   "detail": "<b>Literal reading:</b> worst 3&nbsp;px forward overlap <b>1.0000</b> vs the 0.70 limit \u2192 <b>83 firings</b>, of which 54 are against witnesses whose 3&nbsp;px dilation covers \u2265 99&nbsp;% of the footprint (E \u2265 0.99: they overlap <i>every</i> nonempty candidate and carry no information) and 29 are against broader dot fields (smallest E among non-saturated firings 0.5343). Scan verdict as recorded: negative; stop_required True. The literal rule fires for every nonempty candidate against a witness whose dilation covers the footprint, so it cannot discriminate lane drift; RATIFIED-UNIQ-v1 (G3) governs since 2026-10-11 and this reading stays published beside it."
+   "detail": "<b>Literal reading:</b> worst 3&nbsp;px forward overlap <b>1.0000</b> vs the 0.70 limit \u2192 <b>83 firings</b>, of which 54 are against witnesses whose 3&nbsp;px dilation covers \u2265 99&nbsp;% of the footprint (E \u2265 0.99: they overlap <i>every</i> nonempty candidate and carry no information) and 29 are against broader dot fields (smallest E among non-saturated firings 0.5343). Scan verdict as recorded: negative; stop_required True. The literal rule fires for every nonempty candidate against a witness whose dilation covers the footprint, so it cannot discriminate lane drift; RATIFIED-UNIQ-v1 (G3) governs since 2026-10-11 and this reading is also a mandatory hard stop under the current brief."
   },
   {
    "id": "G4",
@@ -2119,7 +2126,14 @@
    "id": "G6",
    "name": "Organizer receipt for this raster",
    "ok": false,
-   "detail": "No DrivenData submission receipt exists for this raster, so no ORGANIZER-CONFIRMED score can be quoted for it. This gate can only be closed by the owner's selector step and is never claimed here; the site verdict is computed over G1\u2013G5."
+   "detail": "No DrivenData submission receipt exists for this raster, so no ORGANIZER-CONFIRMED score can be quoted for it. This gate can only be closed by the owner's selector step and is never claimed here; the site verdict requires G3L and G7 as well as G1\u2013G5."
+  },
+  {
+   "id": "G7",
+   "name": "Current shared-evaluator qualification and fresh inventory",
+   "ok": false,
+   "informational": false,
+   "detail": "NOT QUALIFIED: evidence/ribbon_qualification.json is absent; submission_status is not OK_TO_SUBMIT; candidate file/pixel hashes are missing or invalid. Historical HOLDOUT-DTI is diagnostic, not a 95% CI."
   }
  ],
  "site_verdict": "NOT_OK_TO_SUBMIT"

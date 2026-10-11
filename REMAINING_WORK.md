@@ -1,3 +1,16 @@
+# Current review addendum — 2026-10-11 UTC
+
+The user's latest literal >70%/3 px rule is a mandatory hard stop again; the historical
+RATIFIED-UNIQ-v1 cannot waive it. The current TIFF has 83 literal firings on the saved 703-raster
+snapshot. The inventory is stale/incomplete and no shared-evaluator qualification/95% CI exists.
+No new TIFF or slot in this review. The primary file and archived gems60 file remain **NOT OK TO
+SUBMIT**. See `docs/research/session7_review_20261011.md` and `docs/RUN_CARD_REVIEW.json`.
+
+Next: refresh the inventory and independently resolve the plane-filling witness conflict
+*before* attempting H58-U1, or explicitly retain the hard stop and report a negative result.
+Do not make a cosmetically different TIFF to satisfy an output request. All old passages below
+are historical records under earlier interpretations of the gate.
+
 # Session 6 (2026-10-11 UTC) — merge reconciliation: verification tooling, no new candidate
 
 This section records what the session-6 review branch added on top of session 5. **No experiment,

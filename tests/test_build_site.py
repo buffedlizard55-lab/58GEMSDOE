@@ -230,3 +230,20 @@ def test_shared_metric_crosscheck_is_required_and_must_agree(evidence):
     gs, ok = gates(evidence, xcheck=disagree)
     assert by_id(gs)["G5i"]["ok"] is False
     assert ok is False
+
+
+def test_live_site_requires_current_qualification_not_legacy_green():
+    """A previous positive legacy diagnostic cannot override the new hard stops."""
+    import json
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    card = json.loads((root / "docs/RUN_CARD.json").read_text())
+    gates = {g["id"]: g for g in card["site_gates"]}
+    assert gates["G7"]["ok"] is False
+    assert gates["G3L"]["ok"] is False
+    assert card["site_verdict"] == "NOT_OK_TO_SUBMIT"
+    assert card["verdict"] == "negative"
+    page = (root / "docs/index.html").read_text()
+    assert page.index('<section class="submit-box"') < page.index("<!-- session5:begin -->")
+    assert 'PUBLIC-LEADERBOARD-SNAPSHOT' in page
+    assert 'NOT OK TO SUBMIT' in page
