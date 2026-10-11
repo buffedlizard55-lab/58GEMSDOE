@@ -7,7 +7,8 @@ delivered raster's sha256 is recomputed from the bytes on disk, never trusted
 from the receipt).  Nothing is presented as a score unless it carries one of the
 labels the protocol allows:
 
-    ORGANIZER-CONFIRMED   copied from a DrivenData page or submission receipt
+    ORGANIZER-CONFIRMED   hash-bound submission receipt only
+    PUBLIC-LEADERBOARD-SNAPSHOT   dated participant row, no artifact attribution
     HOLDOUT-DTI           measured here with the named evaluator and protocol,
                           the withheld-positive count and an honest interval
     USER-REPORTED-SCORE   an owner-quoted sibling page; no receipt exists
@@ -37,7 +38,7 @@ DL = DOCS / "downloads"
 RHO_LIMIT = 0.90
 OVERLAP_LIMIT = 0.70
 CANARY_LIMIT = 0.90
-LEADER_DTI = 0.4133       # ORGANIZER-CONFIRMED: public leaderboard #1, fetched 2026-10-11
+LEADER_DTI = 0.4133       # PUBLIC-LEADERBOARD-SNAPSHOT: participant row, no artifact receipt
 LEADER_WHO = "xiaofanhu (public leaderboard #1, fetched 2026-10-11)"
 OWNER_TARGET = 0.3195     # the owner-reported target; see IR-58-TARGET-01
 
@@ -122,7 +123,8 @@ def table(head: list[str], rows: list[list], cls: str = "num") -> str:
 
 def label(kind: str) -> str:
     cls = {"ORGANIZER-CONFIRMED": "pass", "HOLDOUT-DTI": "info",
-           "USER-REPORTED-SCORE": "warn", "PROJECTION": "warn"}.get(kind, "info")
+           "USER-REPORTED-SCORE": "warn", "PROJECTION": "warn",
+           "PUBLIC-LEADERBOARD-SNAPSHOT": "info", "LOCAL-MEASUREMENT": "info"}.get(kind, "info")
     return f'<span class="pill {cls}">{html.escape(kind)}</span>'
 
 
@@ -173,7 +175,7 @@ def evaluate_gates(emi: dict, sig: dict, inv: dict, tif: Path,
                    and worst_rho is not None and float(worst_rho) <= RHO_LIMIT
                    and count_flag(inv, "duplicate_by_rho") == 0
                    and count_flag(inv, "duplicate_by_jaccard") == 0)
-        # RATIFIED-UNIQ-v1 (ratified 2026-10-11, session 5; docs/research/irregularities.md
+        # RATIFIED-UNIQ-v1 (historical session 5 reading; G3L now also mandatory; docs/research/irregularities.md
         # IR-58-UNIQ-07): an overlap firing blocks iff the witness could have failed to fire —
         # literal O > 0.70 against a witness with chance expectation E < 0.70 (rule A), or
         # chance-corrected lift (O − E)/(1 − E) > 0.50 against any witness (rule B).
@@ -202,10 +204,10 @@ def evaluate_gates(emi: dict, sig: dict, inv: dict, tif: Path,
             f"any witness): <b>{ra.get('rule_b_firings')}</b> firings "
             f"(max lift {fmt(ra.get('max_lift'), 3)}; max vs another repository "
             f"{fmt(ra.get('max_lift_other_repo'), 3)}). The literal pre-ratification reading is "
-            f"reported unchanged in G3L below and in the run card.")
+            f"reported unchanged in mandatory G3L below and in the run card.")
         literal_ok = (base_ok and inv.get("unique") is True
                       and worst_ov is not None and float(worst_ov) <= OVERLAP_LIMIT)
-        add("G3L", "Uniqueness — literal pre-ratification reading (reported, not governing)",
+        add("G3L", "Uniqueness — literal >70% reading (hard stop under current brief)",
             literal_ok,
             f"<b>Literal reading:</b> worst 3&nbsp;px forward overlap <b>{fmt(worst_ov)}</b> vs the "
             f"0.70 limit → <b>{info.get('overlap_firings')} firings</b>, of which "
@@ -217,7 +219,7 @@ def evaluate_gates(emi: dict, sig: dict, inv: dict, tif: Path,
             f"stop_required {inv.get('stop_required')}. The literal rule fires for every nonempty "
             f"candidate against a witness whose dilation covers the footprint, so it cannot "
             f"discriminate lane drift; RATIFIED-UNIQ-v1 (G3) governs since 2026-10-11 and this "
-            f"reading stays published beside it.")
+            f"reading is also a mandatory hard stop under the current brief.")
 
     can = sig.get("leakage_canary", {}) or {}
     aucs = [v.get("auc_max") for v in can.values() if isinstance(v, dict) and v.get("auc_max") is not None]
@@ -257,9 +259,9 @@ def evaluate_gates(emi: dict, sig: dict, inv: dict, tif: Path,
     add("G6", "Organizer receipt for this raster", False,
         "No DrivenData submission receipt exists for this raster, so no ORGANIZER-CONFIRMED score can "
         "be quoted for it. This gate can only be closed by the owner's selector step and is never "
-        "claimed here; the site verdict is computed over G1–G5.")
+        "claimed here; the site verdict requires G3L and G7 as well as G1–G5.")
 
-    passing = all(g["ok"] for g in gates if g["id"] not in ("G6", "G3i", "G3L"))
+    passing = all(g["ok"] for g in gates if g["id"] not in ("G6", "G3i"))
     return gates, passing
 
 
@@ -330,11 +332,10 @@ def arms_table_html(arms: dict) -> str:
     note = (f"<p class='small'>Equal budget {arms.get('budget')} isolated dots per fold "
             f"(min separation {arms.get('min_sep')}, lattice step 3&nbsp;px = the kernel radius), "
             f"ranking = {esc(arms.get('ranking'))}, screen = {esc(arms.get('screen'))}, "
-            f"dti0 = {arms.get('dti0')} {label('ORGANIZER-CONFIRMED')}, "
+            f"dti0 = {arms.get('dti0')} {label('PUBLIC-LEADERBOARD-SNAPSHOT')}, "
             f"{arms.get('n_withheld_positives')} withheld positives, evaluator "
-            f"<code>{esc(arms.get('evaluator'))}</code>. The paired bootstrap resamples the four "
-            f"spatial blocks, so its interval is wide by construction and is reported as an "
-            f"honest interval, not a tight one.</p>")
+            f"<code>{esc(arms.get('evaluator'))}</code>. Historical diagnostic only: four "
+            f"quadrants do not establish a defensible 95% confidence interval.</p>")
     return table(head, rows) + note
 
 
@@ -398,7 +399,7 @@ def calibration_html(emi: dict) -> str:
             f"ridge pixel of that stratum earns against withheld truth, cross-fitted over the four "
             f"blocks ({(emi.get('credit_calibration') or {}).get('n_ridge_px')} ridge pixels at "
             f"τ = {emi.get('design', {}).get('threshold')}). q0 is the weakest decile, q9 the "
-            f"strongest. The marginal-inclusion bar at the organizer-confirmed leader score is "
+            f"strongest. The marginal-inclusion bar using the dated public-board leader row (not a TIFF score) is "
             f"α·DTI₀ = <b>{fmt(bar)}</b>; every stratum sits below it, which is the coverage "
             f"problem in per-pixel form.</p>")
     return table(["family"] + [f"q{q}" for q in range(10)] + ["range"], rows) + note
@@ -410,8 +411,10 @@ def live_family_html(fit: dict, floor: float = 0.24) -> str:
         if r.get("status") != "ok":
             continue
         in_fam = float(r.get("score", 0)) >= floor
+        disputed = "h33-h33-2-b2" in str(r.get("label", ""))
         rows.append([(f"<b>{esc(r.get('label'))}</b>" if in_fam else esc(r.get("label"))),
-                     f"<b>{fmt(r.get('score'), 4)}</b>" if in_fam else fmt(r.get("score"), 4),
+                     ("DISPUTED — no receipt" if disputed else
+                      (f"<b>{fmt(r.get('score'), 4)}</b>" if in_fam else fmt(r.get("score"), 4))),
                      f"{int(r.get('dots', 0)):,}", f"{int(r.get('dots_on_catalogue', 0)):,}",
                      fmt(r.get("median_off_d_px"), 1), fmt(r.get("frac_off_d_le_3"), 3),
                      fmt(r.get("mean_credit_off_catalogue"), 3),
@@ -428,7 +431,10 @@ def live_family_html(fit: dict, floor: float = 0.24) -> str:
             f"≥ {floor} family. Verdict of the calibration attempt: "
             f"<b>{esc(fit.get('verdict'))}</b> — {esc(fit.get('verdict_note'))} Best covariates by "
             f"|Spearman| vs score: {cov_txt}. All of these are "
-            f"{label('USER-REPORTED-SCORE')}: no receipt exists for any of them.</p>")
+            f"{label('USER-REPORTED-SCORE')}: no receipt exists for any of them. "
+            f"The H33=0.2778 quote is disputed and was nevertheless included in this "
+            f"historical fit; its correlations and family threshold are diagnostic only. "
+            f"See <a href='LEADERBOARD.md'>the attribution audit</a>.</p>")
     head = ["owner-reported file", "score", "dots", "dots on catalogue",
             "median catalogue distance (px)", "frac ≤3 px", "mean kernel credit", "site"]
     return table(head, rows[:26]) + note
@@ -717,7 +723,7 @@ site is rendered from <code>evidence/**.json</code> at build time</p>
 {body}
 <footer>Generated {datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')} by
 <code>scripts/build_site.py</code>. No organizer receipt exists for any artifact on this site, so no
-number here is a leaderboard score unless it is labelled ORGANIZER-CONFIRMED.</footer>
+No public participant row establishes a score for a TIFF; only a hash-bound submission receipt does.</footer>
 </body></html>"""
 
 
@@ -855,8 +861,8 @@ def build_index(emi, card, arms, sig, inv, fit, sib_dir, sib_inv, gates, ok) -> 
     hist = (emi.get("design", {}) or {}).get("lines_per_segment_histogram", {}) or {}
     colour = "#1d7a45" if ok else "#a11212"
     if ok:
-        badge = ("OK TO DOWNLOAD AND SUBMIT — FORMAT AND UNIQUENESS CLEARED "
-                 "(RATIFIED-UNIQ-v1; literal reading published beside it)")
+        badge = ("OK TO DOWNLOAD AND SUBMIT — shared qualification, current registry, "
+                 "literal and chance-corrected uniqueness cleared; portal acceptance unverified")
     elif inv:
         ra_b = ratification_analysis(inv)
         badge = ("NOT OK TO SUBMIT — DO NOT SUBMIT: NOT CLEARED. Logged as a duplicate by "
@@ -872,10 +878,11 @@ def build_index(emi, card, arms, sig, inv, fit, sib_dir, sib_inv, gates, ok) -> 
 
     lead = ("Every format and uniqueness gate below passes, and the sha256 recomputed from the "
             "bytes on disk matches the recorded receipt." if ok else
-            "<b>Do not upload this file to a scored slot.</b> The format and holdout gates pass and "
-            "the sha256 recomputed from the bytes on disk matches the receipt, but the ratified "
+            "<b>Do not upload this file to a scored slot.</b> The local format check passes "
+            "and the sha256 recomputed from the bytes matches the receipt, but the old holdout "
+            "has no reportable 95% CI, the registry is stale, and the ratified "
             "uniqueness gate (RATIFIED-UNIQ-v1) fires — including against another repository's "
-            "raster — so by the standing instruction this file is logged as a duplicate and "
+            "raster — while the literal 70% rule also fires. This file is logged as a duplicate and "
             "stopped. The download is offered so the owner can review the artifact; the full "
             "firing table is in the run card and the inventory receipt.")
     head = f"""
@@ -894,7 +901,8 @@ def build_index(emi, card, arms, sig, inv, fit, sib_dir, sib_inv, gates, ok) -> 
   <p class="small">sha256 <code>{esc(emi['sha256'])}</code> · {emi['validator']['n_positives']:,}
   dots, every emitted value exactly <code>1.0</code> · EPSG:32611, 3730×3292, 100&nbsp;m · NaN
   outside the study footprint exactly as in the organizer's <code>sample_submission.tif</code> ·
-  <b>0 dots on the mapped catalogue</b> · lines per segment: {esc(hist)}.</p>
+  <b>0 dots on the mapped catalogue</b> · lines per segment: {esc(hist)}.
+  This is an existing review-only raster, <b>not a newly qualified unique submission</b>.</p>
   <p class="small"><b>Submission name:</b> <code>{esc(name)}</code><br>
   <b>Submission note ({len(card['submission_note'])}/140 characters):</b>
   <code>{esc(card['submission_note'])}</code></p>
@@ -922,7 +930,7 @@ is the <i>catalogue</i>), {label('USER-REPORTED-SCORE')} (owner-quoted sibling p
         ["best equal-budget arm (τ=0.45 adaptive ribbon)",
          f"{esc(best_arm[0])} → {fmt(best_arm[1], 6)}", label("HOLDOUT-DTI")],
         ["public leaderboard #1", f"<b>{LEADER_DTI}</b> — {esc(LEADER_WHO)}",
-         label("ORGANIZER-CONFIRMED")],
+         label("PUBLIC-LEADERBOARD-SNAPSHOT")],
         ["owner-reported target", f"{OWNER_TARGET} (DARD — #8 on that same live board, see "
          "IR-58-TARGET-01)", label("USER-REPORTED-SCORE")],
         ["weighted coverage the leader's score implies", "≈ 0.36 with near-zero wasted mass",
@@ -931,7 +939,7 @@ is the <i>catalogue</i>), {label('USER-REPORTED-SCORE')} (owner-quoted sibling p
         ["emission budget", f"{budget.get('budget', 0):,} dots — {esc(budget.get('rule'))} "
          f"(n={budget.get('n_files')})", label("USER-REPORTED-SCORE")],
         ["dots on the mapped catalogue", f"{prof.get('on_catalogue', 0):,} — the organizer masks "
-         "those pixels out of evaluation, so they are inert", label("ORGANIZER-CONFIRMED")],
+         "those pixels out of evaluation, so they are inert", label("LOCAL-MEASUREMENT")],
         ["dot-to-catalogue distance", f"median {fmt(prof.get('median_px'), 1)} px; "
          f"{fmt(prof.get('frac_le_3px'), 3)} within 3 px; {fmt(prof.get('frac_le_10px'), 3)} "
          f"within 10 px", label("HOLDOUT-DTI")],
@@ -951,10 +959,9 @@ is the <i>catalogue</i>), {label('USER-REPORTED-SCORE')} (owner-quoted sibling p
 <h2>Headline numbers</h2>{headline}
 <p class="small"><b>The honest gap.</b> The leader's {LEADER_DTI} implies ≈0.36 weighted coverage of
 the organizer's new-fault truth {label('PROJECTION')}; this surface reaches
-{fmt(ho.get('coverage'), 4)} on catalogue truth {label('HOLDOUT-DTI')}. The binding constraint is
-<b>coverage</b>, not ribbon geometry: no choice of width, offset, threshold or budget inside this
-lane closes a factor of ~6. That is the negative result this lane reports, and it is why the banner
-never claims a score.</p>
+{fmt(ho.get('coverage'), 4)} on catalogue truth (legacy diagnostic). This is <b>not a calibrated
+comparison</b>: catalogue recovery does not bound coverage of expert-added unmapped faults. The
+registry and CI gates, not any forecast, determine the red banner.</p>
 
 <h2>Experiment 2 — equal-budget geometry contest {label('HOLDOUT-DTI')}</h2>
 {arms_table_html(arms)}
@@ -981,7 +988,7 @@ confirmed in direction, with the caveat in IR-58-SIGMA-01: no measured stratum h
 <p class="small">Design: threshold τ = {emi['design'].get('threshold')} (the better of the two
 thresholds measured at equal budget); per-segment line count and offsets from the cross-fitted σ via
 <code>gems58w.allocation.plan</code> at dti0 = {emi['design'].get('dti0')}
-{label('ORGANIZER-CONFIRMED')}; ranking by calibrated k̂(family, decile) with a 1e-6·magnitude
+{label('PUBLIC-LEADERBOARD-SNAPSHOT')}; ranking by calibrated k̂(family, decile) with a 1e-6·magnitude
 tie-break; dots on the catalogue dropped; no two 8-adjacent dots; budget
 {budget.get('budget', 0):,} from {esc(budget.get('rule'))}. Receipts:
 <code>evidence/ribbon/emission.json</code>, <code>evidence/ribbon/run_card_v2.json</code>.</p>
@@ -1046,7 +1053,7 @@ def build_executive_summary(emi, card, arms, sig, inv, gates, ok) -> str:
         ("Record the receipt",
          "Copy the score the submission page shows into <code>registry/submissions_seen.csv</code> "
          "with the date and the file's sha256. Only then does an ORGANIZER-CONFIRMED number exist "
-         "for this lane; until then every number here is HOLDOUT-DTI, USER-REPORTED-SCORE or "
+         "for this lane; until then every number here is diagnostic HOLDOUT-DTI, a dated board snapshot, USER-REPORTED-SCORE or "
          "PROJECTION."),
         ("Decide the round selection deliberately",
          "One submission must be selected for both the initial round (top 5 × $10k on a fixed "
@@ -1329,7 +1336,43 @@ def main(argv: list[str] | None = None) -> int:
         return 1
 
     tif = ROOT / emi["file"]
-    gates, ok = evaluate_gates(emi, sig, inv, tif, xcheck)
+    gates, legacy_ok = evaluate_gates(emi, sig, inv, tif, xcheck)
+    # The historical G1-G5 measurements are diagnostic. Never green-light a
+    # raster solely because the old unbuffered evaluator and a pinned-but-stale
+    # inventory happened to pass. The writer and site share the same contract.
+    sys.path.insert(0, str(ROOT / "scripts"))
+    import qualification_gates as qualification
+    q = qualification.load(EV / "ribbon_qualification.json")
+    freshness_file = EV / "registry_freshness_audit.json"
+    index_file = ROOT / "registry" / "registry_merged.json"
+    inventory_file = RIB / "uniqueness_full_inventory.json"
+    failures = qualification.preemission_qualification_failures(
+        q, inv, qualification.load(freshness_file),
+        inventory_index_sha256=sha256(index_file) if index_file.is_file() else None,
+        inventory_receipt_sha256=sha256(inventory_file) if inventory_file.is_file() else None,
+        freshness_receipt_sha256=sha256(freshness_file) if freshness_file.is_file() else None,
+    )
+    if not q:
+        failures.insert(0, "evidence/ribbon_qualification.json is absent")
+    # Reuse the shared site/writer evaluator too: a forged or mismatched
+    # candidate receipt cannot pass merely by claiming qualification.
+    fresh = qualification.load(freshness_file)
+    current_gates, current_ok = qualification.evaluate_gates(
+        emi, sig, inv, tif, xcheck, qualification=q, freshness=fresh,
+        inventory_index_sha256=sha256(index_file) if index_file.is_file() else None,
+        inventory_receipt_sha256=sha256(inventory_file) if inventory_file.is_file() else None,
+        freshness_receipt_sha256=sha256(freshness_file) if freshness_file.is_file() else None,
+    )
+    if not current_ok:
+        failures.append("current shared evaluator gates failed: " + ", ".join(
+            g["id"] for g in current_gates if not g["ok"] and not g["informational"]))
+    gates.append(dict(id="G7", name="Current shared-evaluator qualification and fresh inventory",
+                      ok=not failures, informational=False,
+                      detail=("Hash-bound shared evaluator, canary, exact candidate and current "
+                              "inventory verified" if not failures else
+                              "NOT QUALIFIED: " + esc("; ".join(failures[:3])) +
+                              ". Historical HOLDOUT-DTI is diagnostic, not a 95% CI.")))
+    ok = legacy_ok and not failures
     print(f"site verdict: {'OK TO DOWNLOAD AND SUBMIT' if ok else 'NOT OK TO SUBMIT'}")
     for g in gates:
         print(f"  {g['id']} {'PASS' if g['ok'] else 'FAIL'} — {g['name']}")
@@ -1391,7 +1434,7 @@ def main(argv: list[str] | None = None) -> int:
                    "whose 3 px dilation covers the footprint (observed = E = 1), so it has zero "
                    "discriminating power for lane drift; the lift form preserves the 70 % intent "
                    "exactly when E = 0. Recorded as IR-58-UNIQ-07 in docs/research/irregularities.md."))
-    if inv and ratified_fired:
+    if inv and (ratified_fired or not any(g["id"] == "G3L" and g["ok"] for g in gates)):
         run_card["verdict"] = "negative"
         run_card["verdict_reason"] = (
             "RATIFIED-UNIQ-v1 fired: rule A (literal > 0.70 overlap vs a witness with E < 0.70) "
@@ -1408,7 +1451,7 @@ def main(argv: list[str] | None = None) -> int:
                count_flag(inv, "duplicate_by_rho"), count_flag(inv, "duplicate_by_jaccard")))
         run_card["supersedes"] = "evidence/ribbon/run_card_v2.json (whose verdict was computed " \
                                  "before the governing inventory scan existed)"
-    elif inv:
+    elif inv and ok:
         run_card["verdict"] = "promote"
         run_card["verdict_reason"] = (
             "RATIFIED-UNIQ-v1 passed over %s byte-verified witnesses: rule A firings 0, rule B "
@@ -1421,6 +1464,9 @@ def main(argv: list[str] | None = None) -> int:
             % (inv.get("registry_rasters_checked"), fmt(ra_card.get("max_lift"), 4),
                fmt(inv.get("worst_spearman_full_footprint"), 4),
                fmt(inv.get("worst_jaccard_dot_sets"), 4)))
+    if inv and not ok and not ratified_fired:
+        run_card["verdict"] = "negative"
+        run_card["verdict_reason"] = "Current shared-evaluator qualification is missing or failed."
     if inv:
         run_card.setdefault("registry", {})
         run_card["registry"]["full_inventory_scan"] = dict(

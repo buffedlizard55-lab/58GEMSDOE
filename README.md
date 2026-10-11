@@ -2,6 +2,27 @@
 
 Core values: **Maximize P(Win)** and **Own the Outcome** — report the actual result, including a negative one.
 
+> **Read first on every session:** [PROMPT.md](PROMPT.md) is the standing task/parallel-run protocol;
+> [REMAINING_WORK.md](REMAINING_WORK.md) is the ordered queue. Do not treat a downloadable
+> file or a public leaderboard participant row as permission to submit or as an artifact score.
+>
+> **Current decision (2026-10-11, this review): NOT OK TO SUBMIT — DO NOT USE A SLOT.**
+> The primary review-only download is
+> [gems58-concordance-ribbon-40768-20261011T160514Z.tif](docs/downloads/gems58-concordance-ribbon-40768-20261011T160514Z.tif),
+> SHA-256 `f709b6f12d5188e34aa3aed3b83d785b97a232224692dcdfffedaa009dee9d0d`.
+> Its format passes the independent local preflight, **but it is a duplicate under the stated
+> 70%/3 px gate** (83 literal firings over the saved 703-witness scan), the registry is not
+> current/exhaustive, and a shared buffered, 95%-CI qualification receipt is absent. The
+> archived [gems60 candidate](docs/gems60.html) also fails its uniqueness gate and is *not*
+> the primary file. Neither artifact has a hash-bound organizer score or verified portal acceptance.
+> [Start at the site status](docs/index.html) · [submission guide](docs/executive-summary.html) ·
+> [negative run card](docs/RUN_CARD_REVIEW.json) ·
+> [review/limitations](docs/research/session7_review_20261011.md).
+
+The sections below are **historical session records**. They must not override this current red
+status. The complete standing project request, evidence-label rules, ribbon lane and stop conditions
+are maintained in `PROMPT.md`; read it before changing a candidate or a banner.
+
 > **Session 4 (2026-10-11):** verification only, no new TIFF, no experiment, no slot. The registered
 > candidate passes the format check (float32, EPSG:32611, footprint NaN identical to the organizer sample,
 > all values in [0,1]) but **fails the uniqueness gate G3**, so it stays NOT OK TO SUBMIT. The 0.2778 figure
@@ -342,3 +363,48 @@ These commands test and render evidence only; they do not create an experimental
 > **Budget:** at most three experiments and two hours; stop on a uniqueness trigger, stale/incomplete inventory, leakage, or a nonpositive/uncertain preregistered result. Never choose or use a competition slot. End with the required JSON run card and an unmistakable promote/negative decision. Keep a unique downloadable TIFF only when it genuinely passes; otherwise preserve the negative result and do not submit.
 >
 > **Official links:** [problem / metric](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/), [public leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/), [rules](https://docs.nlr.gov/docs/fy26osti/96647.pdf). See `docs/SOURCES.md` for the dated verification log.
+
+## Standing user brief (read before each session; full enforceable protocol in `PROMPT.md`)
+
+> **Highest urgency:** generate a *genuinely unique* single-band GeoTIFF, and make it unmistakable
+> whether it is OK to download **and submit**. A downloadable file is **not** an authorization to
+> submit. If the pre-placement surface or final dots exceed rank correlation 0.90 or forward
+> 3-pixel dot overlap 70% against any earlier registry raster, log a duplicate **and stop**.
+> Never copy an earlier submission except to learn. Do not spend a weekly slot on an idea that
+> has not beaten the comparable blocked holdout incumbent.
+>
+> **Ribbon lane:** measure across-strike candidate-ridge vs withheld-segment error σ(x) by spatial
+> block, resolution and ridge type; fit σ only on visible/training blocks. Compare a single line
+> at σ below ~0.5 px to parallel dotted ribbons ~±σ for 2–3 px uncertainty (spacing near the
+> 300 m/3 px scoring-kernel radius), and select offsets/lines from the **exact** pooled DTI
+> marginal gain. Emit active dots at 1.0. Mask visible catalogue faults pixel-exactly; withhold
+> whole segments with buffers; derive catalogue features only from visible faults. Use the shared
+> cached feature stack, holdout evaluator and writer, not private forks.
+>
+> **Evidence:** run each individual-feature AUC leakage canary (>0.90 is suspect); report every
+> model number as `HOLDOUT-DTI` with evaluator version, withheld positives and a defensible 95% CI,
+> or every scored-artifact number as `ORGANIZER-CONFIRMED` tied to a hash-bound receipt. Public
+> participant rows are dated snapshots, never an artifact score. Check both the pre-placement
+> surface and final dots against the *current* registry. End each run with a machine-readable
+> JSON card: hypothesis, mechanism, named non-fault mimic, holdout/CI, overlap/correlation,
+> file hash, validator, name and ≤140-character note, `promote` or `negative`. Three experiments
+> or two hours maximum. A negative result is a deliverable; submission selection is separate.
+>
+> **Research before implementation:** rank 3–5 untried within-lane geological hypotheses, naming
+> layer(s), physical signature, why a missing fault could be detected, non-fault mimic, difference
+> from existing code, implementation cost and test. Check any new official free data's access
+> and permissible license. Verify claims against official source links; flag uncertainty rather
+> than hallucinating. Test on spatially blocked holdout and do not claim a private test score.
+>
+> **Product:** GitHub Pages should put an explicit submit verdict and a one-click TIFF/ZIP at
+> the very beginning, an executive-summary how-to-submit page, local [0,1]/CRS/shape/transform
+> preflight, and a uniquely named submission note. No site may imply portal acceptance from a
+> local validator. Maintain an auditable source/receipt register and a dated feed, never conflate
+> a score with a projection. Keep **Maximize P(Win)** and **Own the Outcome** visible in decisions.
+> Review in three passes: implement and verify; find and fix gaps; re-check the original brief.
+
+This consolidated brief reflects the user's active requests; `PROMPT.md` records the precise
+machine-enforced gates and their historical changes. The long list of owner-quoted sibling scores
+is registered in `registry/live_scores_owner_reported.csv` and **is not organizer-confirmed**;
+official review links are in `docs/SOURCES.md`. The current review reports a negative result rather
+than bypassing these constraints to manufacture a “unique” submission.

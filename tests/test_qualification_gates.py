@@ -455,3 +455,15 @@ def test_current_repository_candidate_is_not_qualified():
     assert gate["G5"]["ok"] is False
     firings = (inv.get("informative_reading", {}) or {}).get("overlap_firings")
     assert firings and str(firings) in gate["G3"]["detail"]
+
+
+def test_minmax_of_four_blocks_is_not_a_95_percent_ci():
+    record = {"ci95": [0.02, 0.07], "ci95_reportable": True,
+              "ci95_method": "min-max over four spatial blocks",
+              "bootstrap": {"clusters": 4, "draws": 0, "confidence": 0.95}}
+    assert build_site._ci95(record)[0] is False
+    record["ci95_method"] = "paired physical spatial-cluster percentile bootstrap"
+    record["bootstrap"]["draws"] = 1000
+    assert build_site._ci95(record)[0] is False, "four repeated quadrants are not independent clusters"
+    record["bootstrap"]["clusters"] = 12
+    assert build_site._ci95(record)[0] is True
