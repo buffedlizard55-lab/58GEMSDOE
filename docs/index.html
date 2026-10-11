@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>58GEMSDOE — GEMS Prize submission workspace</title>
+<style>
+  :root { --ink:#1d2430; --muted:#5b6575; --line:#d9dee7; --bg:#f7f8fa; --accent:#0b5cad; --warn:#8a5a00; --warnbg:#fff6e0; }
+  * { box-sizing: border-box; }
+  body { margin:0; font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif; color:var(--ink); background:#fff; }
+  header { background:var(--bg); border-bottom:1px solid var(--line); padding:28px 20px; }
+  main { max-width:960px; margin:0 auto; padding:0 20px 60px; }
+  h1 { margin:0 0 6px; font-size:28px; }
+  h2 { margin-top:40px; border-bottom:1px solid var(--line); padding-bottom:6px; font-size:21px; }
+  p.lead { margin:0; color:var(--muted); }
+  .status { border:1px solid #e6c46d; background:var(--warnbg); color:var(--warn); padding:16px 18px; border-radius:8px; margin-top:20px; }
+  .status strong { display:block; font-size:17px; margin-bottom:4px; }
+  .card { border:1px solid var(--line); border-radius:8px; padding:16px 18px; margin:14px 0; }
+  ol li, ul li { margin:6px 0; }
+  code, pre { font-family: ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:14px; }
+  pre { background:var(--bg); border:1px solid var(--line); padding:12px 14px; border-radius:6px; overflow-x:auto; }
+  table { border-collapse:collapse; width:100%; font-size:14px; margin:10px 0; }
+  th, td { text-align:left; border-bottom:1px solid var(--line); padding:7px 8px; vertical-align:top; }
+  th { background:var(--bg); }
+  .tag { display:inline-block; font-size:12px; padding:1px 7px; border-radius:10px; border:1px solid var(--line); color:var(--muted); white-space:nowrap; }
+  .tag.v { color:#1b6b33; border-color:#9fd3ad; background:#effaf2; }
+  .tag.u { color:var(--warn); border-color:#e6c46d; background:var(--warnbg); }
+  a { color:var(--accent); }
+  nav a { margin-right:14px; }
+</style>
+</head>
+<body>
+<header>
+  <main style="padding-bottom:0">
+    <h1>58GEMSDOE — GEMS Prize submission workspace</h1>
+    <p class="lead">DOE Geothermal GEMS Prize Challenge (DrivenData). Fault-probability GeoTIFF: how to submit, what is verified, and what is not.</p>
+    <nav style="margin-top:12px">
+      <a href="#summary">Executive summary</a>
+      <a href="#submit">How to submit</a>
+      <a href="#sources">Sources</a>
+      <a href="#flags">Flags</a>
+      <a href="#hypotheses">Hypotheses</a>
+    </nav>
+  </main>
+</header>
+
+<main>
+<section id="summary">
+  <h2>Executive summary</h2>
+  <div class="status">
+    <strong>No submission file has been generated yet.</strong>
+    The competition data (feature rasters, fault labels, example submission) is behind a DrivenData login, and this sandbox cannot reach it. Without that data we cannot build a real fault map, run the holdout, or run the leakage canary. A file made without the data would not be a prediction, so none was produced.
+    The writer and validator are ready. Once the data is in <code>data/</code> and a probability map exists, one command writes and validates the GeoTIFF.
+  </div>
+  <div class="card">
+    <strong>What the file must be</strong>
+    <ul>
+      <li>One band, <b>float32</b>, GeoTIFF (.tif), or a .zip holding one GeoTIFF.</li>
+      <li><b>CRS EPSG:32611</b>, 100 m pixels, same width, height, and transform as the sample submission.</li>
+      <li>Values in <b>[0, 1]</b> inside the scored footprint; <b>NaN</b> outside it.</li>
+      <li>A unique <b>name</b> and a note of 140 characters or fewer.</li>
+    </ul>
+  </div>
+  <p>Full step-by-step guide: <a href="https://github.com/buffedlizard55-lab/58GEMSDOE/blob/main/docs/SUBMISSION_GUIDE.md">SUBMISSION_GUIDE.md</a>.</p>
+</section>
+
+<section id="submit">
+  <h2>How to submit</h2>
+  <ol>
+    <li><b>Get the data.</b> Register on DrivenData and download the files into <code>data/</code>. We do not bypass the login.</li>
+    <li><b>Check the data.</b> <pre>python scripts/check_data.py</pre> Writes <code>data/inventory.json</code> with grid alignment, label counts, and a per-band leakage canary (AUC above 0.90 is a leakage suspect).</li>
+    <li><b>Make a probability map.</b> Model work is not built yet. Save a <code>(3730, 3292)</code> float array in [0,1].</li>
+    <li><b>Write and validate.</b> <pre>python scripts/make_submission.py prob.npy submissions/NAME.tif --reference data/example_submission.tif</pre> The command exits 0 only when every check passes.</li>
+    <li><b>Check the rules</b> (eligibility, deadline, AI disclosure). The rules could not be read from this sandbox.</li>
+    <li><b>Upload</b> the .tif with its name and note, then copy the receipt score.</li>
+  </ol>
+</section>
+
+<section id="sources">
+  <h2>Sources and verification</h2>
+  <p>Every link and its status from this sandbox is in <a href="https://github.com/buffedlizard55-lab/58GEMSDOE/blob/main/docs/SOURCES.md">SOURCES.md</a>. Summary:</p>
+  <table>
+    <tr><th>Source</th><th>Status</th></tr>
+    <tr><td><a href="https://github.com/drivendataorg/gems-prize-reference-solution">Official reference solution (GitHub)</a></td><td><span class="tag v">verified, read directly</span></td></tr>
+    <tr><td><a href="https://github.com/Aayushk333/gems-prize-challenge">Third-party project guide (metric, validator)</a></td><td><span class="tag u">third-party, unverified</span></td></tr>
+    <tr><td><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">DrivenData competition page</a></td><td><span class="tag u">unreachable from sandbox</span></td></tr>
+    <tr><td><a href="https://docs.nlr.gov/docs/fy26osti/96647.pdf">Official rules (NLR)</a></td><td><span class="tag u">unreachable from sandbox</span></td></tr>
+    <tr><td><a href="https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and">USGS GeoDAWN data release</a></td><td><span class="tag u">unreachable from sandbox</span></td></tr>
+  </table>
+</section>
+
+<section id="flags">
+  <h2>Flags for manual review</h2>
+  <p>The full list is in <a href="https://github.com/buffedlizard55-lab/58GEMSDOE/blob/main/docs/IRREGULARITIES.md">IRREGULARITIES.md</a>. The most important:</p>
+  <ul>
+    <li>No competition raster in the sandbox, so no holdout score and no TIF.</li>
+    <li>Deadline conflict: 3 Dec 2026 11:59 p.m. UTC (homepage, per third party) versus 5 p.m. ET (rules). Plan to the earlier one.</li>
+    <li>Leaderboard numbers in the brief conflict (0.3774 vs 0.3195 as "highest"). All are user-supplied and unverified.</li>
+    <li>The DTI metric is a third-party formula; the official scorer was not available.</li>
+    <li>Uniqueness against earlier GEMSDOE rasters has not been checked (those sites are unreachable).</li>
+  </ul>
+</section>
+
+<section id="hypotheses">
+  <h2>Candidate hypotheses (not validated)</h2>
+  <ol>
+    <li><b>Tilt-ridge lineament</b> with strike coherence (magnetic tilt-angle band). Lowest cost; top candidate.</li>
+    <li><b>Gravity-gradient contact detector</b> (isostatic gravity slope band).</li>
+    <li><b>Geodetic strain-localization lineaments</b> (strain-rate bands). High mimic risk.</li>
+    <li><b>Positive-unlabelled label treatment</b> (a method, combinable with the above).</li>
+    <li><b>Earthquake-lineation prior</b> (needs new catalogue data; not verified obtainable).</li>
+  </ol>
+  <p>Details, mimics, and costs: <a href="https://github.com/buffedlizard55-lab/58GEMSDOE/blob/main/docs/HYPOTHESES.md">HYPOTHESES.md</a>.</p>
+</section>
+
+<section>
+  <h2>Run card</h2>
+  <p>Current status: <span class="tag u">negative (not evaluated; not promoted)</span>. See <a href="https://github.com/buffedlizard55-lab/58GEMSDOE/blob/main/docs/RUN_CARD.json">RUN_CARD.json</a>.</p>
+</section>
+</main>
+</body>
+</html>

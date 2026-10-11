@@ -1,0 +1,42 @@
+{
+  "run_card_version": "1.0",
+  "date_utc": "2026-10-11",
+  "repo_branch": "arena/494667c7-58gemsdoe",
+  "lane": "ribbon (single method paragraph from brief)",
+  "status": "NO SUBMISSION GENERATED. Competition rasters unavailable in sandbox.",
+  "hypothesis": "H1: a strike-coherent tilt-angle ridge (band 6) finds fault traces missing from the catalogue. Not tested.",
+  "mechanism": "Magnetic contrast across fault zones gives a continuous tilt-angle ridge that is independent of the USGS trace compilation.",
+  "named_non_fault_mimic": "Dikes, lithologic contacts, basalt-flow edges, and flight-line striping parallel to survey lines.",
+  "holdout_dti": {
+    "value": null,
+    "ci95": null,
+    "evaluator_version": "gems/metric.py (approximate, unverified against official scorer)",
+    "n_withheld_positives": null,
+    "label": "HOLDOUT-DTI: NOT MEASURED. No holdout run was possible without the feature and label rasters."
+  },
+  "leakage_canary": {
+    "status": "NOT RUN on real bands",
+    "threshold_auc": 0.90,
+    "synthetic_self_test": "scripts/check_data.py flagged a planted leaky band on synthetic data (see tests). This is a code test only, not a result."
+  },
+  "correlation_overlap_vs_registry": {
+    "status": "NOT RUN",
+    "reason": "Registry rasters (GEMSDOE sites) are unreachable from the sandbox."
+  },
+  "raster_sha256": null,
+  "validator_output": {
+    "status": "NO RASTER VALIDATED",
+    "code_tests": "pytest: 21 passed (tests/test_metric.py, tests/test_submission.py, tests/test_holdout.py), run 2026-10-11, synthetic data only",
+    "checks_implemented": ["one band", "float32", "CRS EPSG:32611", "transform equals reference", "shape equals reference", "finite inside footprint", "NaN outside footprint", "values in [0,1]", "not constant"]
+  },
+  "submission_name": null,
+  "submission_note": null,
+  "budget": {
+    "experiments_used": 0,
+    "experiments_allowed": 3,
+    "hours_used_approx": "under 1",
+    "hours_allowed": 2
+  },
+  "verdict": "negative",
+  "verdict_reason": "Not evaluated. A negative here means not promoted, not that the hypothesis is false. No submission slot was spent."
+}

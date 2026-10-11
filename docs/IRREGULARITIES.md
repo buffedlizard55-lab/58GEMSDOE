@@ -1,0 +1,18 @@
+# Irregularities and flags for manual review
+
+Each item is something we found, not something we assumed. Items are ordered by impact.
+
+1. **No competition raster is available in this sandbox.** Features, labels, and the example submission sit behind DrivenData login (S5) or on Dropbox/OpenEI (S13, S14), which are unreachable here. Consequence: no holdout DTI, no leakage canary on real bands, and **no competition TIF has been generated.** See `RUN_CARD.json`.
+2. **The repository was nearly empty.** At the start it held only `README.md` (`# 58GEMSDOE`) and one commit. Earlier notes named `scripts/download_competition_data.sh`, `scripts/prepare_data.py`, a "template" feature stack, `evaluate_holdout.py`, and `submission_writer.py`. None of them exist in this repo or in its history (`git log` shows one commit). They were rebuilt here as `gems/` and `scripts/`. Anyone holding the earlier template should diff it against ours.
+3. **Filename mismatch.** The official notebook reads `data/numeric_features.tif` and `data/labels.tif`. The brief and S8 use `gems-geodawn-numerical-features.tif` and `existing_faults.tif`. `scripts/check_data.py` uses the second pair. The notebook's two path variables would need changing.
+4. **Deadline conflict (unverified).** S8 reports the homepage says 3 Dec 2026 11:59 p.m. UTC, while the rules' Appendix A says 5 p.m. ET on the deadline date. Plan to the earlier cutoff until the organizers answer (gemsprize@nlr.gov, per S8).
+5. **Leaderboard conflict.** The brief gives a "GEMSDOE high score" of 0.3774, then says "0.3195 is the highest score right now", and separately lists 0.2778 for GEMSDOE32. These cannot all be the current top score. None are verified (S6 unreachable). They are user-supplied.
+6. **Metric not verified.** The DTI formula comes from a third-party guide (S8). The official worked example and scorer are not available. `gems/metric.py` documents the tolerance interpretation as an assumption. Do not report any DTI as an organizer score.
+7. **"Predicted values must be in range [0, 1]" error (user-reported).** Likely causes, not confirmed: NaN or the -1 label nodata written into the output, or values outside the footprint. `gems/submission.py` rejects non-finite values inside the footprint, values outside [0,1], wrong CRS or transform, and non-NaN cells outside the footprint. Confirm against the exact error text on the submission page.
+8. **Reference solution has no LICENSE file** (S1). We read it and copied no code. Confirm reuse terms before copying anything.
+9. **Uniqueness checks cannot be run.** The registry of GEMSDOE rasters (S20) is unreachable, so the rank-correlation and 3-px dot-overlap checks against registry rasters have not been done.
+10. **The h33 (0.2778) explanation is unverified.** The GEMSDOE32 raster and scoring breakdown are unreachable. The analysis in README.md is a hypothesis, not a finding.
+11. **Eligibility, the one-selection rule, and the weekly cap** (up to three scored submissions per week, per S8) are unverified against the rules (S7).
+12. **Generative-AI disclosure** is required by the rules (per S8). See `AI_USAGE.md`.
+13. **Merge into main.** The brief asks for a PR and a merge. Work was done on `arena/494667c7-58gemsdoe` only. See the PR link in the final report.
+14. **Downloading and submitting a generated TIF.** Whether a file produced from the competition data may be downloaded and submitted is governed by the rules (S7, unreachable). It is not verified here. Our own rule: a TIF is only written after the validator passes, and it is only uploaded by a registered participant who has checked the rules.
