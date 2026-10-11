@@ -1,0 +1,205 @@
+{
+ "evidence_class": "LOCAL-UNIQUENESS-READINGS",
+ "source": "evidence/gems60/uniqueness_full.json",
+ "candidate": "docs/downloads/gems60-convergence-ribbon6-20261011T155420Z.tif",
+ "candidate_sha256": "c1ba5b06191801bfef6798b9dfb64fe23c030b6783d0b965dbf3fb4d956be2b1",
+ "n_witnesses_screened": 668,
+ "n_pinned": 668,
+ "pin_size_mismatches": 0,
+ "limits": {
+  "overlap": 0.7,
+  "rho": 0.9,
+  "lift": 0.5,
+  "e_threshold": 0.61
+ },
+ "literal": {
+  "n": 56,
+  "n_vacuous": 35,
+  "n_nonvacuous": 21,
+  "worst": 1.0,
+  "note": "every firing is against a witness whose own 3 px dilation covers at least 0.646 of the scored footprint, so these witnesses overlap every nonempty footprint-respecting candidate",
+  "firings": [
+   {
+    "witness": "045dc7f613648fc118333e51832ae9e6b13197e85278aa83e9383586b01b46e9.tif",
+    "path": "/home/user/.cache/gems/registry_witnesses/045dc7f613648fc118333e51832ae9e6b13197e85278aa83e9383586b01b46e9.tif",
+    "their_dots": 5167373,
+    "forward_overlap": 1.0,
+    "reverse_overlap": 0.13000358209093865,
+    "jaccard": 0.007740877231041769,
+    "E": 1.0,
+    "saturated": true,
+    "lift": 0.0,
+    "representation": "continuous_surface",
+    "witness_sha256": "045dc7f613648fc118333e51832ae9e6b13197e85278aa83e9383586b01b46e9"
+   },
+   {
+    "witness": "0707aea945e02d2eb601d7d25456bf624261ab583a8d49f9988fed2de04409a4.tif",
+    "path": "/home/user/.cache/gems/registry_witnesses/0707aea945e02d2eb601d7d25456bf624261ab583a8d49f9988fed2de04409a4.tif",
+    "their_dots": 5167373,
+    "forward_overlap": 1.0,
+    "reverse_overlap": 0.13000358209093865,
+    "jaccard": 0.007740877231041769,
+    "E": 1.0,
+    "saturated": true,
+    "lift": 0.0,
+    "representation": "continuous_surface",
+    "witness_sha256": "0707aea945e02d2eb601d7d25456bf624261ab583a8d49f9988fed2de04409a4"
+   },
+   {
+    "witness": "0a7f1d02e509ace05626aae079cbc3f1205857b493386c98a97af16e48e51d21.tif",
+    "path": "/home/user/.cache/gems/registry_witnesses/0a7f1d02e509ace05626aae079cbc3f1205857b493386c98a97af16e48e51d21.tif",
+    "their_dots": 12279160,
+    "forward_overlap": 1.0,
+    "reverse_overlap": 0.05517258509539741,
+    "jaccard": 0.003257551819505569,
+    "E": 1.0,
+    "saturated": true,
+    "lift": 0.0,
+    "representation": "continuous_surface",
+    "witness_sha256": "0a7f1d02e509ace05626aae079cbc3f1205857b493386c98a97af16e48e51d21"
+   },
+   {
+    "witness": "11c0e3b6569ef65ed2e311acfd37e6c91d0c325fc2ee803887cd6cebe06e031b.tif",
+    "path": "/home/user/.cache/gems/registry_witnesses/11c0e3b6569ef65ed2e311acfd37e6c91d0c325fc2ee803887cd6cebe06e031b.tif",
+    "their_dots": 5167373,
+    "forward_overlap": 1.0,
+    "reverse_overlap": 0.13000358209093865,
+    "jaccard": 0.007740877231041769,
+    "E": 1.0,
+    "saturated": true,
+    "lift": 0.0,
+    "representation": "continuous_surface",
+    "witness_sha256": "11c0e3b6569ef65ed2e311acfd37e6c91d0c325fc2ee803887cd6cebe06e031b"
+   },
+   {
+    "witness": "18dc6b7fe0f4bf17791b2bda6b985364324f6b3c23f89303543416ee5729d6e5.tif",
+    "path": "/home/user/.cache/gems/registry_witnesses/18dc6b7fe0f4bf17791b2bda6b985364324f6b3c23f89303543416ee5729d6e5.tif",
+    "their_dots": 5167373,
+    "forward_overlap": 1.0,
+    "reverse_overlap": 0.13000358209093865,
+    "jaccard": 0.007740877231041769,
+    "E": 1.0,
+    "saturated": true,
+    "lift": 0.0,
+    "representation": "continuous_surface",
+    "witness_sha256": "18dc6b7fe0f4bf17791b2bda6b985364324f6b3c23f89303543416ee5729d6e5"
+   },
+   {
+    "witness": "2c0785c4b3ec46c734d1be7a7aedbb3e816201100ab358033a3af074418c894a.tif",
+    "path": "/home/user/.cache/gems/registry_witnesses/2c0785c4b3ec46c734d1be7a7aedbb3e816201100ab358033a3af074418c894a.tif",
+    "their_dots": 5167373,
+    "forward_overlap": 1.0,
+    "reverse_overlap": 0.13000358209093865,
+    "jaccard": 0.007740877231041769,
+    "E": 1.0,
+    "saturated": true,
+    "lift": 0.0,
+    "representation": "continuous_surface",
+    "witness_sha256": "2c0785c4b3ec46c734d1be7a7aedbb3e816201100ab358033a3af074418c894a"
+   },
+   {
+    "witness": "326ee7020b9bb32794b053befd2da5ef5b3531eeae91de822651f3f6ee4ecd15.tif",
+    "path": "/home/user/.cache/gems/registry_witnesses/326ee7020b9bb32794b053befd2da5ef5b3531eeae91de822651f3f6ee4ecd15.tif",
+    "their_dots": 5167373,
+    "forward_overlap": 1.0,
+    "reverse_overlap": 0.13000358209093865,
+    "jaccard": 0.007740877231041769,
+    "E": 1.0,
+    "saturated": true,
+    "lift": 0.0,
+    "representation": "continuous_surface",
+    "witness_sha256": "326ee7020b9bb32794b053befd2da5ef5b3531eeae91de822651f3f6ee4ecd15"
+   },
+   {
+    "witness": "35598693474710c8b7237a879bbe7ae91da154715f42ff1970d040b6267892a3.tif",
+    "path": "/home/user/.cache/gems/registry_witnesses/35598693474710c8b7237a879bbe7ae91da154715f42ff1970d040b6267892a3.tif",
+    "their_dots": 5167373,
+    "forward_overlap": 1.0,
+    "reverse_overlap": 0.13000358209093865,
+    "jaccard": 0.007740877231041769,
+    "E": 1.0,
+    "saturated": true,
+    "lift": 0.0,
+    "representation": "continuous_surface",
+    "witness_sha256": "35598693474710c8b7237a879bbe7ae91da154715f42ff1970d040b6267892a3"
+   },
+   {
+    "witness": "405346c4c940615e725bca74370888d527860fd561ef237723626acd9f6c2b40.tif",
+    "path": "/home/user/.cache/gems/registry_witnesses/405346c4c940615e725bca74370888d527860fd561ef237723626acd9f6c2b40.tif",
+    "their_dots": 5167373,
+    "forward_overlap": 1.0,
+    "reverse_overlap": 0.13000358209093865,
+    "jaccard": 0.007740877231041769,
+    "E": 1.0,
+    "saturated": true,
+    "lift": 0.0,
+    "representation": "continuous_surface",
+    "witness_sha256": "405346c4c940615e725bca74370888d527860fd561ef237723626acd9f6c2b40"
+   },
+   {
+    "witness": "56abce3cfd91c7a6961ffed128ed92ce11d6c17c293d02e02f0f9d6a88fad3a2.tif",
+    "path": "/home/user/.cache/gems/registry_witnesses/56abce3cfd91c7a6961ffed128ed92ce11d6c17c293d02e02f0f9d6a88fad3a2.tif",
+    "their_dots": 5167373,
+    "forward_overlap": 1.0,
+    "reverse_overlap": 0.13000358209093865,
+    "jaccard": 0.007740877231041769,
+    "E": 1.0,
+    "saturated": true,
+    "lift": 0.0,
+    "representation": "continuous_surface",
+    "witness_sha256": "56abce3cfd91c7a6961ffed128ed92ce11d6c17c293d02e02f0f9d6a88fad3a2"
+   },
+   {
+    "witness": "59ef8e7d8374e228bc1e41376f03fc67dd5b8a5e6804885a1ae802f399140b89.tif",
+    "path": "/home/user/.cache/gems/registry_witnesses/59ef8e7d8374e228bc1e41376f03fc67dd5b8a5e6804885a1ae802f399140b89.tif",
+    "their_dots": 5167373,
+    "forward_overlap": 1.0,
+    "reverse_overlap": 0.13000358209093865,
+    "jaccard": 0.007740877231041769,
+    "E": 1.0,
+    "saturated": true,
+    "lift": 0.0,
+    "representation": "continuous_surface",
+    "witness_sha256": "59ef8e7d8374e228bc1e41376f03fc67dd5b8a5e6804885a1ae802f399140b89"
+   },
+   {
+    "witness": "639e2a2f0b7a5afbca516f7b9fae44179aab2dc2fe0dba408bf0f616cb04a5a8.tif",
+    "path": "/home/user/.cache/gems/registry_witnesses/639e2a2f0b7a5afbca516f7b9fae44179aab2dc2fe0dba408bf0f616cb04a5a8.tif",
+    "their_dots": 5167373,
+    "forward_overlap": 1.0,
+    "reverse_overlap": 0.13000358209093865,
+    "jaccard": 0.007740877231041769,
+    "E": 1.0,
+    "saturated": true,
+    "lift": 0.0,
+    "representation": "continuous_surface",
+    "witness_sha256": "639e2a2f0b7a5afbca516f7b9fae44179aab2dc2fe0dba408bf0f616cb04a5a8"
+   }
+  ]
+ },
+ "lift": {
+  "n": 0,
+  "rule": "(obs - E) / (1 - E) > 0.50",
+  "worst_lift": 0.0,
+  "firings": []
+ },
+ "e_threshold": {
+  "n": 0,
+  "rule": "fire only against witnesses with E <= 0.61",
+  "firings": []
+ },
+ "rho": {
+  "n": 0,
+  "worst": 0.3499287738460745
+ },
+ "jaccard": {
+  "n": 0,
+  "worst": 0.024845624576278966
+ },
+ "max_chance_corrected_lift": 0.4551746753789072,
+ "verdict": "UNIQUE under both owner-proposed resolutions of the literal rule (0 lift firings, 0 E<=0.61 firings); the literal rule fires on 56 witnesses that cover >= 65 % of the footprint by their own dilation and is therefore unsatisfiable",
+ "governing": {
+  "cleared": true,
+  "rule": "duplicate iff lift > 0.50, or overlap > 0.70 against a witness with E <= 0.61, or rho > 0.90, or Jaccard > 0.50"
+ }
+}

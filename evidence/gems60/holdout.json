@@ -1,0 +1,67 @@
+{
+ "evidence_class": "HOLDOUT-DTI",
+ "label": "HOLDOUT-DTI (catalogue recovery only; not a leaderboard forecast)",
+ "file": "gems60-convergence-ribbon6-20261011T155420Z.tif",
+ "sha256": null,
+ "generated_utc": "2026-10-11T16:06:51Z",
+ "evaluator": "gems57-pooled-buffered-hide-v1 (holdout.build_buffered_holdout_context + holdout.evaluate)",
+ "protocol": "buffered hide-and-recover, whole components, 3 px context collar",
+ "seed": 20,
+ "hide_frac": 0.2,
+ "alpha": 0.2,
+ "beta": 0.8,
+ "kernel_radius_px": 3.0,
+ "withheld_positive_pixels": 11321,
+ "pooled_dti": 0.037208223139029835,
+ "pooled_coverage": 0.05399980909212514,
+ "pooled_tp": 611.3318387319487,
+ "pooled_fp": 36254.7666015625,
+ "pooled_fn": 10709.668161268051,
+ "emitted_pixels": 40000,
+ "on_visible_catalogue": 0,
+ "per_fold": {
+  "buffered20_foldNW_all": {
+   "dti": 0.04705794874889988,
+   "tp": 148.9005608310551,
+   "fp": 7980.078125,
+   "fn": 1774.0994391689449,
+   "n_truth": 1923,
+   "n_emitted": 8052
+  },
+  "buffered20_foldNE_all": {
+   "dti": 0.020715761511807713,
+   "tp": 79.30652153860007,
+   "fp": 9594.283203125,
+   "fn": 2287.6934784614,
+   "n_truth": 2367,
+   "n_emitted": 9632
+  },
+  "buffered20_foldSW_all": {
+   "dti": 0.04457141392588047,
+   "tp": 218.27053206697198,
+   "fp": 9143.2138671875,
+   "fn": 3562.729467933028,
+   "n_truth": 3781,
+   "n_emitted": 9253
+  },
+  "buffered20_foldSE_all": {
+   "dti": 0.03630823120043245,
+   "tp": 164.85422429532144,
+   "fp": 9537.19140625,
+   "fn": 3085.1457757046787,
+   "n_truth": 3250,
+   "n_emitted": 9617
+  }
+ },
+ "fold_dti_min": 0.020715761511807713,
+ "fold_dti_max": 0.04705794874889988,
+ "fold_dti_mean": 0.03716333884675513,
+ "fold_dti_sd": 0.010296078024780289,
+ "coverage_wilson_95": [
+  0.04998566006351682,
+  0.05831653036855307
+ ],
+ "ci_note": "a DTI is a ratio of kernel-weighted masses, not a binomial proportion, so no defensible binomial CI exists for it; the four fold-level DTIs (this split contains one withhold per quadrant) and the Wilson interval on the pooled coverage are reported instead",
+ "caveat": "withheld truth is the mapped catalogue, while the competition scores the faults that are absent from the catalogue; this instrument is structurally blind to off-catalogue files (lane measurement: Spearman \u22120.037 between this proxy and live scores over 34 rasters)",
+ "runtime_s": 9.6
+}

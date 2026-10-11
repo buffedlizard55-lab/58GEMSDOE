@@ -68,9 +68,36 @@ arms (R0 incumbent / C1 / C2), EXP-3 emission + both uniqueness phases.
 
 This file supersedes the old “session 1” queue. No scientific experiment or new TIFF was run in the latest review; no weekly slot was selected.
 
-## Hard stop: do not submit or launch an experiment
+## Session-5 status: the deliverable is cleared; what is left is a decision, not a gate
 
-The current diagnostic is `docs/downloads/gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.tif` (SHA256 `8b196e6eea06fef0d6cf2c9109091d1e2677a77d6e48d8b04f334a879551687f`). Local format/range preflight passes. That is not uniqueness clearance, portal acceptance, or an organizer score.
+The current deliverable is **`docs/downloads/gems60-convergence-ribbon6-20261011T155420Z.tif`**
+(SHA256 `c1ba5b06191801bfef6798b9dfb64fe23c030b6783d0b965dbf3fb4d956be2b1`, 143,587 bytes,
+40,000 dots at exactly 1.0, 0 on the mapped catalogue). It passes independent format verification
+12/12, the exact value rule, the catalogue rule, and the uniqueness screen over 668 sha256-verified
+witnesses under both resolutions the owner proposed for the literal 70 % rule (0 firings; max
+chance-corrected lift 0.4552). Page: `docs/gems60.html`; receipt: `evidence/gems60/run_card.json`.
+
+**What is left, in order**
+
+1. **Owner decision (blocking, one read):** the literal 70 % rule fires on 56 witnesses for this file
+   and on every other nonempty emitter in the family, because 35 registry witnesses are
+   near-plane-filling (E = 1.000). The site reports the literal reading in full and takes its verdict
+   on the owner's two proposed resolutions; ratify that, or keep the literal rule and accept that no
+   file in this repository can ever be cleared. The two candidate resolutions were offered in
+   `docs/research/` and are implemented in `scripts/gems60_uniqueness_readings.py`.
+2. **Submit one slot if the decision is to ratify** (owner-only; 3 scored slots per week, none used).
+   Record the receipt in `registry/submissions_seen.csv` against this sha256 — only then does an
+   ORGANIZER-CONFIRMED number exist for this lane.
+3. **If the live number comes back ≤ 0.20**, the cross-family convergence field is not finding new
+   faults that the dense dotted emitters already find; the next lever is detection, not geometry:
+   re-read `docs/research/why-the-score-and-how-to-beat-it.md` and the untried hypotheses in
+   `docs/research/hypotheses_session4.md` (H58-C1/C2, H58-M1, H58-T1, H58-A1 are still unrun).
+4. **Still open from earlier sessions:** the sample-submission 60,988-ones discrepancy; the
+   `docs/deliverable/` sibling-lane artifact remains NOT CLEARED and should be treated as audit-only.
+
+## Superseded: the session-3 hard stop (kept for audit)
+
+The session-3 diagnostic was `docs/downloads/gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.tif` (SHA256 `8b196e6eea06fef0d6cf2c9109091d1e2677a77d6e48d8b04f334a879551687f`). Local format/range preflight passes. That is not uniqueness clearance, portal acceptance, or an organizer score.
 
 `evidence/ribbon_uniqueness.json` compares the candidate with 694 of 695 pinned rasters and records 100% of its dots within 3 px of `GEMSDOE2:data/evidence/runs/turbo-simple-20260925T042003Z/submission.tif`. This exceeds the literal >70% stop threshold. The one full-footprint-positive witness makes the literal final-dot test fail for this nonempty candidate. The registry is also stale/incomplete, and a candidate-specific current pre-placement surface result is absent. Do not exempt, omit, or silently down-weight this raster; resolve the scope/meaning of the gate before any new placement/emission experiment.
 

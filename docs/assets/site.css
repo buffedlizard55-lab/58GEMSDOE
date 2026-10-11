@@ -16,3 +16,18 @@ th { background: #eef2f6; }
 .big-btn:hover { filter: brightness(1.1); }
 footer { margin-top: 2.5rem; color: #5b6b7a; font-size: .9em; border-top: 1px solid var(--line); padding-top: .8rem; }
 a { color: var(--accent); }
+
+
+.s5{border:1px solid #9ed3b3;border-left:6px solid #12703f;background:#f4fcf7;border-radius:10px;
+    padding:14px 16px;margin:16px 0}
+.s5.bad{border-color:#e0a3a3;border-left-color:#a11212;background:#fdf3f3}
+.s5 h2{margin:.1rem 0 .4rem;font-size:1.16rem}
+.s5 .badge{display:inline-block;background:#12703f;color:#fff;font-weight:700;border-radius:999px;
+    padding:.22em .8em;font-size:.9rem;margin-bottom:.5rem}
+.s5.bad .badge{background:#a11212}
+.big-btn{display:inline-block;background:#12703f;color:#fff;text-decoration:none;font-weight:700;
+    padding:13px 20px;border-radius:9px;font-size:1.02rem;margin:6px 10px 6px 0}
+.big-btn.sec{background:#2f5f8f}
+.g-ok{color:#12703f;font-weight:700}.g-bad{color:#a11212;font-weight:700}.g-warn{color:#8a6d1a;font-weight:700}
+table.kv td:first-child{width:38%}
+.small{font-size:.85rem;color:#41505f}
