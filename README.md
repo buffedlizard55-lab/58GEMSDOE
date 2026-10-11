@@ -2,6 +2,13 @@
 
 Core values: **Maximize P(Win)** and **Own the Outcome** — report the actual result, including a negative one.
 
+> **Session 4 (2026-10-11):** verification only, no new TIFF, no experiment, no slot. The registered
+> candidate passes the format check (float32, EPSG:32611, footprint NaN identical to the organizer sample,
+> all values in [0,1]) but **fails the uniqueness gate G3**, so it stays NOT OK TO SUBMIT. The 0.2778 figure
+> belongs to `extradr19` on the official board, not to the GEMSDOE32 H33 file. See
+> [`docs/research/session4_verification_20261011.md`](docs/research/session4_verification_20261011.md) and
+> [`docs/IRREGULARITIES.md`](docs/IRREGULARITIES.md) (IR-58-S4-01 to 04).
+
 ## Submission decision — session 5
 
 **Current candidate: `docs/downloads/gems60-convergence-ribbon6-20261011T155420Z.tif`** —
@@ -240,7 +247,7 @@ The earlier ranked, untried ribbon-width proposals are in
 Run tests in an environment with `requirements.txt` installed:
 
 ```bash
-PYTHONPATH=src python -m pytest -q          # 118 tests, all pass
+PYTHONPATH=src python -m pytest -q          # 123 tests, all pass (session 4 count)
 python scripts/build_site.py                # renders docs/ from the receipts (exit 0)
 python scripts/build_site.py --strict       # exits 2 while any gate G1-G5 is open
 PYTHONPATH=src python scripts/crosscheck_shared_metric.py  # re-derive the DTI with gems57 (21 s)

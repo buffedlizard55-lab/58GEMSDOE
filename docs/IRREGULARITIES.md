@@ -161,3 +161,25 @@ Numbering continues the historical list that this page replaced; each item carri
     the owner's decision: this lane's reading is unchanged by the sibling file joining the inventory,
     but any ratified chance-corrected threshold must be applied to **both** files at the same value, or
     the two lanes will keep publishing opposite verdicts from the same registry.
+
+---
+
+## Session 4 (2026-10-11 UTC) — verification irregularities
+
+Logged while re-checking the registered candidate and the public record. Nothing here changes the
+NOT OK TO SUBMIT verdict. Evidence: [`evidence/session4_verification_20261011.json`](../evidence/session4_verification_20261011.json).
+
+- **IR-58-S4-01 — "0.3774" is not on the official board.** The requester's list gives 0.3774 as the
+  GEMSDOE leaderboard high. The official [DrivenData leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/),
+  fetched 2026-10-11, shows ranks 1–49 with no 0.3774 row; rank 1 is xiaofanhu at 0.4133. Not verified
+  from any official source. Owner to review the page where 0.3774 came from.
+- **IR-58-S4-02 — DARD rank.** The repo records DARD at rank 8 (0.3195). The 2026-10-11 fetch shows
+  rank **9**, with kinghorton42 at 0.3261 in rank 8. Board ranks are dynamic; the dated record in
+  `evidence/official_leaderboard_observation_20261011.json` is not overwritten.
+- **IR-58-S4-03 — rules section for the submission limit.** `docs/SOURCES.md` cites "§3.4" for the
+  three-submissions-per-week limit. In the fetched PDF (<https://docs.nlr.gov/docs/fy26osti/96647.pdf>)
+  the text sits in §3.2 (Process Overview). Same limit, different section number. Owner to correct the register.
+- **IR-58-S4-04 — the 0.2778 attribution.** The request ties 0.2778 to the GEMSDOE32 H33 file. The
+  official board ties 0.2778 to `extradr19` (rank 23). The GEMSDOE32 owner page says that H33 file has
+  "NO ORGANISER SCORE" and calls 0.2747 a projection. No receipt or hash ties 0.2778 to H33. The
+  attribution is unsupported and must not be repeated as fact.
