@@ -51,6 +51,13 @@ def collect() -> list[dict]:
     current_zip = (ROOT / str(emission["zip"])).resolve() if emission.get("zip") else None
     site_verdict = run_card.get("site_verdict", "NOT_OK_TO_SUBMIT")
     current_hashes = {current_tif, current_zip} - {None}
+    # session-7 candidate carries its own run-card verdict (evidence/gems61)
+    s7 = load(ROOT / "evidence" / "gems61" / "run_card.json")
+    s7_paths: set = set()
+    s7_ok = s7.get("verdict") == "promote"
+    if s7.get("raster", {}).get("path"):
+        s7_tif = (ROOT / str(s7["raster"]["path"])).resolve()
+        s7_paths = {s7_tif, s7_tif.with_suffix(".zip")}
 
     rows: list[dict] = []
     for base, prefix, archived in ((DOWNLOADS, "", False), (LEGACY_DOWNLOADS, "legacy/", True)):
@@ -61,8 +68,15 @@ def collect() -> list[dict]:
                 continue
             relative = path.relative_to(base).as_posix()
             is_current = path.resolve() in current_hashes
+            is_s7 = path.resolve() in s7_paths
             is_archived = archived or "archive" in path.relative_to(base).parts
-            if is_current and site_verdict == "OK_TO_DOWNLOAD_AND_SUBMIT":
+            if is_s7 and s7_ok:
+                label = "Current session-7 candidate — local gates pass; no organizer receipt exists"
+                kind = "Current candidate"
+            elif is_s7:
+                label = REVIEW_ONLY + " (session-7 candidate; run-card verdict " + esc(s7.get("verdict", "")) + ")"
+                kind = "Current candidate"
+            elif is_current and site_verdict == "OK_TO_DOWNLOAD_AND_SUBMIT":
                 label = "Current candidate — local gates pass; no organizer receipt exists"
                 kind = "Current candidate"
             elif is_current:

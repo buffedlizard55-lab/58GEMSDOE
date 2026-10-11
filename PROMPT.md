@@ -27,7 +27,19 @@ A unique, downloadable GeoTIFF is the goal, but **uniqueness and validation are 
 7. **Run card.** End the work with one JSON card containing the hypothesis, mechanism, named non-fault mimic, HOLDOUT-DTI/evaluator/count/95% CI or explicit NOT MEASURED, surface and final registry results, raster SHA256, local validator output, submission name and note of at most 140 characters, and an unmistakable `promote` or `negative` verdict. Negative results are deliverables.
 8. **No slot selection.** Qualification and a real competition submission are separate decisions. Never choose or use a competition slot in this workflow.
 
-## Current status (session 5, 2026-10-11)
+## Current status (session 7, 2026-10-11)
+
+The current front-door candidate is the **session-7 H7-A deep-edge sigma-ribbon**
+`gems61-deepedge-sigribbon-40000-20261011T201101Z` (run card `evidence/gems61/run_card.json`,
+deliverable page `docs/gems61.html`). It is unique under **RATIFIED-UNIQ-v1** (rule A 0, rule B 0,
+rank-correlation 0 firings over 694 byte-verified witnesses; the literal reading fires on 74 —
+54 saturated — and is published beside the governing verdict), canary CLEAN, and its HOLDOUT-DTI
+rule (σ-ribbons, `gems61-buffered-hide-v1`, 22,893 withheld positives) beats both the
+single-line control and the same-instrument reference (0.04496 vs 0.02943 / 0.03016; paired Δ
++0.0155, 95 % CI [+0.0120, +0.0191]). **No organizer receipt exists for anything; no slot has been
+used.** All numbers above are HOLDOUT-DTI or local measurements, never scores.
+
+## Previous status (session 5, 2026-10-11)
 
 The long-standing blocker — the unresolved scope of the literal 70 % overlap stop — was resolved by ratifying **RATIFIED-UNIQ-v1** (protocol item 1 above; IR-58-UNIQ-07 in `docs/research/irregularities.md`). The current candidate is `gems58-concordance-ribbon-40768-20261011T160514Z` (H58-X1 cross-family concordance gate; EXP-2 winner at equal budget, pooled HOLDOUT-DTI 0.043575 cross-fitted vs incumbent 0.040105). Its governing verdict — OK or NOT OK, rendered as the banner on `docs/index.html` — is computed by `scripts/build_site.py` from the complete 703-witness inventory scan receipt and is never hand-written. The literal reading is published beside it (gate G3L). No weekly slot has been used; slot selection stays a separate human decision.
 

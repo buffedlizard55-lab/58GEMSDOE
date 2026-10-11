@@ -1,3 +1,57 @@
+# Session 7 (2026-10-11 UTC) — H7-A deep-edge sigma-ribbon candidate (ribbon lane)
+
+Three experiments, one run card, one unique GeoTIFF. The deliverable page is
+[`docs/gems61.html`](gems61.html) (one-click download + submit steps at the top); the governing
+receipt is [`evidence/gems61/run_card.json`](../evidence/gems61/run_card.json).
+
+**What shipped.** Hypothesis **H7-A**: faults buried under basin fill appear as *step edges*
+(first-derivative maxima) on the organizer's subsurface/magnetic-structure surfaces
+(`depth_to_base_surf`, `cond_surf`, `tc`) rather than Hessian ridges of the raw bands — a detector
+surface and emission geometry no registered raster uses. Ribbon width is the measured
+localization error (**H7-B**, relief-conditioned σ per block × resolution × ridge type), and the
+number/offset of parallel dotted lines per segment is chosen by the exact-metric utility rule
+**U = (1 − 0.2·DTI₀)·TP − 0.2·DTI₀·FP** with setwise max-credit interactions. All dots are
+exactly 1.0, none on the mapped catalogue.
+
+**What was measured (labels exact).**
+* Leakage canary: **CLEAN** — combined edge strength AUC 0.501, per-band 0.499–0.503, relief 0.544
+  (8 holdout cells). The deep surfaces carry no catalogue signal: no leakage, and consistent with
+  the discovery premise.
+* HOLDOUT-DTI (`gems61-buffered-hide-v1`, 22,893 withheld positives; catalogue-recovery proxy,
+  structurally blind to off-catalogue faults): **A1 σ-ribbon 0.04496** vs **A0 single-line 0.02943**,
+  paired Δ **+0.01553**, 95 % CI **[+0.01195, +0.01913]** (quadrant-cluster bootstrap; 4/4 quadrants
+  positive). Whole-rule contrast, not matched-mass (IR-58-S7-03). Same-instrument reference
+  (session-5 concordance file re-scored): **0.03016** — the candidate rule beats it by +0.0148.
+* Uniqueness vs 694 byte-verified witnesses (pre-placement surface *and* final dots): governing
+  **RATIFIED-UNIQ-v1** clear (rule A 0, rule B 0, ρ 0); the literal 70 % reading fires on 74
+  witnesses (54 saturated, E ≥ 0.99 whole-footprint surfaces) and is published beside the
+  governing verdict, never deleted.
+* Format gates: all-finite float32, [0, 1], no nodata tag (the measured portal-error fix).
+
+**What remains / limitations (session 8+).**
+1. **No organizer receipt exists for anything.** The live effect of H7-A is unmeasurable locally
+   (holdout truth is the catalogue; holdout↔live rank correlation −0.037). Promotion to a weekly
+   slot is a separate selector step and is not taken here (`slots_used = 0`).
+2. **Registry inventory is 694/695.** One pinned witness (repository `57GEMSDOE-PR6`, GitHub 404)
+   cannot be restored or screened; a strict reading of “incomplete scan is not clearance” treats
+   this as residual uncertainty (IR-58-S7-04).
+3. **The literal 70 % uniqueness rule is degenerate on saturated witnesses.** The governing
+   RATIFIED-UNIQ-v1 reading is applied; the literal reading is published beside it. An owner
+   decision on the threshold remains open for any future literal-first policy.
+4. **The H7-C tie-break (gap-complement preference) is only partially exercised** — with zero
+   informative firings the gap pass correctly did nothing; the preference only matters when
+   rule A/B actually fires (IR-58-S7-05 documents the over-aggressive first implementation and
+   its degenerate 0-dot raster, retained as a labelled historical diagnostic).
+5. **Site integration.** `docs/gems61.html` is the session-7 front door; `scripts/build_site.py`
+   does not ingest `evidence/gems61` and regenerates the older receipts-based pages (the
+   session-7 block is injected into `docs/index.html` by `scripts/gems61_build_page.py`, which
+   must run after `build_site.py`). Executive-summary page is the shared
+   [`docs/executive-summary.html`](executive-summary.html); the session-7 page carries its own
+   copy of the submit steps. IR-58-S7-01 (band-description mismatch) stays open: whether one of
+   the 19 bands is a source-depth estimate under another name is unresolved.
+6. **Cross-instrument numbers must not be compared.** The 0.043575 “prior best” is a different
+   withhold instrument (IR-58-S7-02); same-instrument comparisons only.
+
 # Session 6 (2026-10-11 UTC) — merge reconciliation: verification tooling, no new candidate
 
 This section records what the session-6 review branch added on top of session 5. **No experiment,

@@ -218,3 +218,22 @@ verdict; each one removes a claim that the evidence did not support.
   writing a TIFF. The pre-emission contract it enforces is
   [`scripts/qualification_gates.py`](../scripts/qualification_gates.py), documented in
   [`docs/research/qualification_gates.md`](research/qualification_gates.md).
+
+## Session 7 (2026-10-11) — logged while running the H7-A deep-edge sigma-ribbon lane
+
+- **IR-58-S7-01 — the problem page's "top-of-crustal magnetic source depth estimate" band is not present under that name in the pinned stack.** The 19-band `training_features.tif` (sha256 `4371c82e…3bc5`) band descriptions name band 6 `tc` as *"Tilt angle or total curvature — magnetic field derivative for edge detection"*. The session-7 hypothesis H7-A was amended before any measurement to use `tc` as described by the file itself (a magnetic edge-detection derivative), not as a source-depth surface. The problem-description wording (https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/) and the file's own descriptions disagree; the file's descriptions govern. Whether one of the remaining bands is the source-depth estimate under a different name is unresolved.
+- **IR-58-S7-02 — the "current holdout best 0.043575" is not comparable to session-7 HOLDOUT-DTI numbers.** That value was measured with `gems58-pooled-hide-v1` (evaluator `gems58w.metric/v1`, 60,988 withheld positives, quadrant-block withholding); session 7 uses `gems61-buffered-hide-v1` (`gems57.holdout.build_buffered_holdout_context`, seeds (20,21), 22,893 withheld positives). Cross-instrument absolute DTIs are not like-for-like. The preregistered promote bar "A1 > 0.043575" was therefore **amended before EXP-3** to the same-instrument comparison (A1 vs the published session-5 concordance file re-scored on the session-7 instrument). Both readings stay published.
+- **IR-58-S7-03 — the EXP-2 "budget-matched" A0 control label was wrong.** The matching loop could not reach the ribbon arm's mass (single 3-px-spaced lines across all 5,234 segments yield 20,530 dots per fold mask; the U-selected ribbon arm emitted ≈59,700). The arms differ in mass as well as geometry; the paired contrast is therefore a **whole-rule** comparison (include rule + ribbon patterns vs single-line-all), not a matched-mass one. The A1−A0 delta (+0.01553, 95% CI [0.01195, 0.01913], 4/4 quadrants) is labelled accordingly in the run card and on the site.
+- **IR-58-S7-04 — the registry witness cache is complete except one unreachable raster.** 694 of 695 pinned witnesses restored byte-verified (0 hash mismatches); 1 pinned raster lives in repository `57GEMSDOE-PR6`, which returns 404 on GitHub and cannot be restored or screened. The uniqueness scan is reported as covering every *reachable* earlier raster, with the unreachable one named. A strict reading of "incomplete scan is not clearance" treats this as residual uncertainty; it cannot be resolved by re-scanning because the bytes are not published anywhere reachable.
+- **IR-58-S7-05 — the first EXP-3 emission was degenerate and its clearance vacuous.** The
+  implemented H7-C gap pass trimmed the lowest-strength dots inside *every* witness whose forward
+  overlap exceeded 0.68 — including saturated witnesses (E ≥ 0.99 whole-footprint surfaces) that
+  fire on any nonempty candidate. 76 witnesses × per-witness trims removed all 40,000 dots; the
+  writer emitted a 0-dot (all-zero) raster, the screen returned UNIQUE trivially, and the run card
+  initially read `promote`. Both facts are logged; that raster is retained in `docs/downloads/` as
+  a labelled historical diagnostic and is not a candidate. Fixes applied before the final emission:
+  the gap pass now targets only INFORMATIVE RATIFIED-UNIQ-v1 firings (rule A: O>0.70 with E<0.70;
+  rule B: lift>0.50 with E<0.99), and the promote rule requires ≥ 1000 dots so a vacuous
+  clearance on a degenerate raster can never read as a candidate. The preregistered H7-C text
+  (tie-break preference for gap-complement dots) is narrower than the first implementation;
+  the tie-break preference is what the final code enforces.
