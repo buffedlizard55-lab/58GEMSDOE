@@ -40,10 +40,10 @@ The disputed statement conflates a public participant row with a separate owner-
 4. The public board observed during review contains other participants at 0.2747 (ranks 30–32), so
    that rounded value is not a unique artifact identifier either.
 
-**Conclusion:** no verified evidence shows that H33 scored 0.2778. The most defensible account is a
-misattribution of the `extradr19` public row to H33; the exact origin of that attribution is unknown.
-Do not report 0.2778 or the owner's 0.2747 projection as an H33 organizer score. An
-`ORGANIZER-CONFIRMED` score would require a receipt/hash crosswalk from DrivenData.
+**Conclusion:** no verified evidence shows that H33 scored 0.2778. A participant-row mix-up is one
+possible explanation, but the available evidence does not establish how the attribution arose or why
+`extradr19` received 0.2778. Do not report 0.2778 or the owner's 0.2747 projection as an H33 organizer
+score. An `ORGANIZER-CONFIRMED` score would require a receipt/hash crosswalk from DrivenData.
 
 ## Attribution register
 

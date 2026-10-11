@@ -1,62 +1,64 @@
-# Session 7 review (2026-10-11 UTC) — fail-closed site wiring and research plan
+# Session 7 (2026-10-11 UTC) — current status: literal uniqueness stop, no experiment or slot
 
-**Current disposition: NOT OK TO SUBMIT — DO NOT SUBMIT.** No experiment, new TIFF, promotion-grade
-holdout, upload, or slot selection occurred. The reviewed artifact remains
-`gems58-concordance-ribbon-40768-20261011T160514Z.tif` (40,768 positive pixels; SHA-256
-`f709b6f12d5188e34aa3aed3b83d785b97a232224692dcdfffedaa009dee9d0d`). Its local format preflight
-is not portal acceptance.
+This section is the authoritative current queue. The previous sparse artifact is downloadable only as
+`docs/downloads/58GEMSDOE-ribbon-sparse-review-only-20261011T182511Z.tif`; it was renamed without
+changing raster pixels because the former `unique` filename was unsupported. The independent local
+audit passes 19/19 format/range checks, but a direct final-dot comparison measures **1.0000 overlap
+within 3 px** against a hash-pinned full-footprint prior raster. This exceeds the user's explicit
+literal **0.70** stop and is a duplicate/drift protocol failure, not a byte/pixel-copying claim.
+Pre-placement surface is NOT MEASURED; current registry freshness is `BLOCKED_NOT_EXHAUSTIVE`;
+HOLDOUT-DTI, σ table, simulated gain by class, and leakage canary were not measured. **Do not submit,
+run another experiment, generate a replacement candidate, or use a slot.** Zero experiments and zero
+slots were used. The artifact-specific run card and audit are in
+`evidence/58gemsdoe_unique_ribbon/`; current full review is
+`docs/research/session7_review_20261011.md`; current hypothesis ranking is
+`docs/research/hypotheses_new.md`.
 
-## S7.0 Review corrections
+The chance-corrected `RATIFIED-UNIQ-v1` interpretation from session 5 is historical and must not
+waive the user's current literal rule. A directly observed overlap stop is already decisive; the
+inventory is not claimed to be currently exhaustive, and no uniqueness clearance is made. The
+reported portal `[0,1]` error's cause remains unknown absent a hash-bound portal receipt. The
+0.2778 public row belongs to `extradr19` in a dated board snapshot; no evidence ties it to H33.
 
-- `scripts/build_site.py` now delegates every eligibility decision to
-  `scripts/qualification_gates.py`; it no longer computes its own legacy RATIFIED-UNIQ-v1 pass/fail.
-  The shared evaluator shows G1 local-format PASS, G2P/G3/G4/G5 FAIL, with G2/G5i/G6 explicitly
-  informational. `--strict` exits 2 while any required gate is open.
-- The public pages no longer present the legacy holdout value, four-block min–max range, or legacy
-  canary AUC as promotion evidence. Current promotion-grade HOLDOUT-DTI, withheld-positive count,
-  and defensible 95% CI are **NOT MEASURED**. The reported portal `[0,1]` rejection remains
-  unresolved; local checks do not identify its cause.
-- The saved final-dot scan records **83 literal >70% overlap triggers** over its 703-raster snapshot.
-  This is a stop even though the inventory-freshness audit is
-  `BLOCKED_NOT_EXHAUSTIVE`; the saved scan is not current clearance. The separate pre-placement gate
-  has no current hash-bound receipt. No threshold is waived by chance-correction or saturated-witness
-  arguments.
-- Public leaderboard attribution was rechecked: xiaofanhu rank 1 / 0.4133, DARD rank 9 / 0.3195,
-  and extradr19 rank 23 / 0.2778 in the dated snapshot. Those are participant rows, not local artifact
-  scores. The H33/0.2778 crosswalk is absent; the owner-maintained H33 page says unscored and calls
-  0.2747 a projection. No score-level explanation is supportable without the exact scored artifact
-  and organizer receipt.
-- Four untried width hypotheses are documented in `docs/research/hypotheses_new.md`; H58-U1 is
-  ranked first. The experiment budget remains **0/3**. The feature stack is not present locally, but
-  no experiment or stack download was attempted while uniqueness/freshness is blocked.
+A later update to the inherited base branch added `gems58-ml-binary-ridge-20261012T000000Z.tif`,
+a ZIP, and generation scripts. They were not created, evaluated, or qualified in this session-7
+review and are outside the ribbon-width scope. The per-file index keeps them review-only; do not run
+their generators or treat their metadata as current HOLDOUT-DTI or organizer evidence.
 
-## S7.1 Remaining work — in order
+> **Historical sections below:** the S6/S5 and earlier queues preserve past decisions and measurements only. Their candidate status, chance-corrected exceptions, and proposed actions are superseded; do not execute them. The current prompt and S7 section above govern.
 
-1. Refresh and audit the current public raster inventory. A stale, incomplete, or errored inventory
-   stops all candidate work.
-2. Before placement or emission, screen the frozen candidate surface against that fresh inventory
-   with the literal `rho > 0.90 OR overlap > 0.70 within 3 px` rule. Any trigger stops; never waive it.
-3. Only after surface clearance, restore the hash-pinned official feature stack and preregister H58-U1
-   with one primary feature definition, fixed ridge surface, comparator, and spatial analysis.
-4. Run individual feature-alone leakage checks and the shared buffered spatial holdout with exact
-   marginal DTI. Any reportable number must include evaluator/version, protocol, withheld-positive
-   count, and a defensible 95% CI. The holdout remains a proxy for catalogue-localization, not a
-   test against hidden competition faults.
-5. Only after all gates pass may the shared writer emit; then run final-dot uniqueness against the
-   same fresh inventory. No slot selection is part of this workflow.
+## S7.0 Work completed and evidence limits
 
-See [`docs/research/session7_review_20261011.md`](docs/research/session7_review_20261011.md),
-[`docs/RUN_CARD.json`](docs/RUN_CARD.json), and the earlier session-6 history below.
+| Item | Status |
+|---|---|
+| [`scripts/audit_sparse_candidate.py`](scripts/audit_sparse_candidate.py) → [`evidence/58gemsdoe_unique_ribbon/audit.json`](evidence/58gemsdoe_unique_ribbon/audit.json) | Read-only current-file audit: 19/19 local format checks; recomputed candidate TIFF SHA-256 and decoded-pixel hash; directly verifies the witness pin and footprint saturation; measures the candidate's final dots at 1.0000 overlap within 3 px; records `verdict: negative`, a missing pre-placement result, and no holdout score. It does not scan or certify the whole current registry. |
+| [`evidence/58gemsdoe_unique_ribbon/run_card.json`](evidence/58gemsdoe_unique_ribbon/run_card.json) | Artifact-specific JSON card with proposal-only top hypothesis, explicit unmeasured results, hashes, local validation limits, stop condition, and zero experiment/slot counts. |
+| `docs/downloads/58GEMSDOE-ribbon-sparse-review-only-*` | The existing raster was renamed review-only, not re-emitted or modified. Its direct ZIP and JSON metadata are rebuilt; no candidate was generated. |
+| [`docs/research/session7_review_20261011.md`](docs/research/session7_review_20261011.md) | Reconciles current status, explains what 0.2778 can and cannot establish, and ranks three untried within-lane width hypotheses. |
+| `PROMPT.md` and `README.md` | Updated to use the explicit current literal rule, not the old chance-corrected resolution. README includes the complete current prompt verbatim. |
+| `docs/SUBMISSION_GUIDE.md`, root status pages, executive summary, download index | Current review-only wording is generated from the session-7 card/audit; the 23-file index labels every TIFF/ZIP. `build_session7_pages.py --check`, `ribbon_check_site.py`, and the repository tests pass. Historical session-5/deliverable pages are isolated and labeled as archives. |
+| [`.github/workflows/ribbon-ci.yml`](.github/workflows/ribbon-ci.yml) | CI now runs pytest, current-page/index generation and checks, plus archived-link/current-status QA. GitHub Actions was not triggered in this local review; its equivalent checks passed locally. |
+| [`evidence/feature_stack_restore_20261011.json`](evidence/feature_stack_restore_20261011.json) | Records part and whole-file hashes and grid header for the restored cache; integrity relative to an owner-maintained bridge pin only, not organizer provenance. |
+
+## S7.1 Hard stops and future-work queue
+
+1. **Do not run a replacement experiment/candidate under the current rule.** The hash-pinned witness's dilation covers the entire allowed footprint, and the current raster's final-dot measurement is 1.0000. The user expressly forbids waiving this trigger. Do not use a slot.
+2. The pre-placement surface gate for this raster is **NOT MEASURED**. Its generating lineage/surface artifact is absent. Do not report the gate as passed.
+3. Current inventory freshness is `BLOCKED_NOT_EXHAUSTIVE`. The older 703-raster scan is complete only for its frozen scope. This does not undo the single-witness stop and does not establish current uniqueness clearance.
+4. No current `HOLDOUT-DTI` exists for this TIFF: evaluator result, withheld-positive count and defensible 95% CI are not measured. No σ table, class-gain analysis, or feature-alone leakage result exists for it.
+5. The raw cached stack was restored and hash-verified against an owner-maintained GitHub mirror. If it is absent in a later session, `bash scripts/fetch_feature_stack.sh` restores it outside Git; a mirror pin is not independent organizer provenance. Do not evaluate/model while the literal stop is active.
+6. The official data tab remains the primary provenance source and is login-gated in local records. This session did not freshly fetch DrivenData/USGS/PDF pages; sources are linked in `docs/SOURCES.md` for manual verification.
+7. Current root/executive/submit pages and the download index have been regenerated from session-7 status. `build_session7_pages.py --check`, the archived-link/current-status `ribbon_check_site.py`, Python compilation, and the full repository pytest suite pass. Re-run the read-only checks after any later edits; do not change the negative status.
 
 ---
 
-# Historical session 6 (2026-10-11 UTC) — merge reconciliation: verification tooling, no new candidate
+# Session 6 (historical, 2026-10-11 UTC) — merge reconciliation: verification tooling, no new candidate
 
 This section records what the session-6 review branch added on top of session 5. **No experiment,
-holdout, emission, slot, or upload occurred**, and no verdict changed: the current candidate is still
-`gems58-concordance-ribbon-40768-20261011T160514Z.tif`, still **negative** (83 literal overlap
-triggers over 703 indexed rasters, `unique: false`, `stop_required: true`), and
-`evidence/ribbon_qualification.json` is still absent.
+holdout, emission, slot, or upload occurred** in that historical review. Its current-candidate statements
+are superseded by session 7 below. The session-6 candidate was
+`gems58-concordance-ribbon-40768-20261011T160514Z.tif`, negative under that session's retained
+chance-corrected protocol, and `evidence/ribbon_qualification.json` was absent.
 
 ## S6.0 Added, and what each item does *not* establish
 
@@ -81,11 +83,11 @@ triggers over 703 indexed rasters, `unique: false`, `stop_required: true`), and
 4. H58-U1 (relief-conditioned ribbon width) remains the top-ranked untried within-lane hypothesis and
    is **NOT VALIDATED** — see [`docs/research/hypotheses_new.md`](docs/research/hypotheses_new.md).
 
-# Session 5 (2026-10-11 UTC) — current status: NEGATIVE verdict, gate ratified, candidate blocked
+# Session 5 (historical, 2026-10-11 UTC) — then-current negative verdict, later superseded
 
-This section supersedes everything below it as the current status. Three experiments were run
-(the full budget): EXP-1 σ-fit + leakage canary on the concordance surface, EXP-2 cross-fitted
-arms (R0 incumbent / C1 / C2), EXP-3 emission + both uniqueness phases.
+At the time, this section superseded pre-session-5 records. It is itself superseded by session 6 and
+session 7 above. Three experiments were reported for that historical review; their candidate status,
+protocol interpretation, and recommendations are not current instructions.
 
 ## S5.0 What happened
 
@@ -242,11 +244,11 @@ Official links and dated checks are in `docs/SOURCES.md`; the full protocol is i
 
 ---
 
-# Session 3 (2026-10-11 UTC) — an experiment WAS run: three, inside the budget
+# Session 3 (historical, 2026-10-11 UTC) — three experiments were run within that session's budget
 
-The review above states that no experiment was run and no new TIFF exists. That was true when it was
-written. Session 3 then ran the three mandated experiments and emitted a new candidate, so this section
-is the current queue. Nothing was uploaded and no slot was used.
+The entries below preserve session-3 measurements and recommendations as historical records only.
+Their current-candidate statements and next-step queue are superseded by session 5, session 6, and
+session 7 above. Nothing was uploaded and no slot was used in that historical review.
 
 ## S3.0 State
 

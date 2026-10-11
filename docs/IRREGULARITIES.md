@@ -1,32 +1,49 @@
 # Current irregularities, evidence and stop decision
 
-**Last reviewed: 2026-10-11 UTC. Current decision: NOT OK TO SUBMIT — DO NOT SUBMIT.** This page and [`docs/RUN_CARD.json`](RUN_CARD.json) are the current status. No experiment, new TIFF, holdout, submission, or competition-slot selection was performed in this review. Historical ribbon records are not current evidence.
+**Last reviewed: 2026-10-11 UTC (session 7). Current decision: NOT OK TO SUBMIT — DO NOT SUBMIT.** The current artifact-specific run card is [`evidence/58gemsdoe_unique_ribbon/run_card.json`](../evidence/58gemsdoe_unique_ribbon/run_card.json); the previous site-wide card [`evidence/run_card.json`](../evidence/run_card.json) describes an earlier candidate and does not qualify the latest TIFF. No experiment, new prediction raster, competition-slot selection, or upload was made in this review. The previously existing sparse TIFF was renamed review-only without changing its raster bytes.
 
-## Current blockers — reviewed 2026-10-11 UTC
+## Session-7 verified blockers and corrections
 
-1. **Literal final-dot stop.** The current review artifact `gems58-concordance-ribbon-40768-20261011T160514Z.tif` has a saved scan with **83 literal >70% forward-overlap triggers** among **703 indexed rasters**; the worst overlap is 1.0000. This is a stop under the current literal protocol. The saved scan is a snapshot, not current inventory clearance. Evidence: [`evidence/ribbon/uniqueness_full_inventory.json`](../evidence/ribbon/uniqueness_full_inventory.json) and [`docs/RUN_CARD.json`](RUN_CARD.json).
-2. **Inventory freshness is blocked.** [`evidence/registry_freshness_audit.json`](../evidence/registry_freshness_audit.json) says `BLOCKED_NOT_EXHAUSTIVE`; changed/unrepresented public trees and incomplete restore mean no current exhaustive registry clearance can be inferred.
-3. **No candidate-specific pre-placement clearance.** A current hash-bound pre-placement surface receipt against the fresh inventory is absent. No new placement or emission should be attempted before this gate passes.
-4. **No current leakage or holdout qualification.** The feature-alone canary and buffered spatial HOLDOUT-DTI receipt are absent. Current reportable HOLDOUT-DTI, evaluator/version, withheld-positive count, and defensible 95% CI are **NOT MEASURED**. Historical evaluator/split outputs remain archived diagnostics and are not repeated as current scores.
-5. **Local format pass is not portal acceptance.** The exact TIFF passes its recorded local format checks, but the reported portal `[0,1]` rejection is unresolved: no response body, submission ID, or artifact-bound organizer receipt exists. Do not infer the rejection's cause from the local min/max or NoData representation.
-6. **Attribution remains strict.** The 2026-10-11 `PUBLIC-LEADERBOARD-SNAPSHOT` shows xiaofanhu rank 1 / 0.4133, DARD rank 9 / 0.3195, and `extradr19` rank 23 / 0.2778. These participant rows do not identify a TIFF. The H33 owner page says that artifact is unscored and describes 0.2747 as a projection; no submission receipt/hash crosswalk connects H33 to 0.2778. See [`docs/LEADERBOARD.md`](LEADERBOARD.md) and [`docs/ANALYSIS_H33.md`](ANALYSIS_H33.md).
-7. **Site gating was reconciled.** `scripts/build_site.py` now delegates to `scripts/qualification_gates.py`; public pages show G1 local-format PASS only and G2P/G3/G4/G5 failures. Legacy HOLDOUT-DTI/canary values and the old RATIFIED-UNIQ-v1 pass/fail are not used to clear the current site. The literal threshold cannot be waived by a chance-adjusted interpretation.
+1. **IR-58-S7-01 — literal 3-px overlap hard stop.** The review-only TIFF's final dots were directly compared with one hash-pinned prior registry raster. **REGISTRY-MEASUREMENT:** overlap **1.0000**, above the user's **0.70** stop threshold; the witness covers every cell in the bridged footprint. Logged as a duplicate/drift stop, not as a claim of byte/pixel copying. The current public-inventory freshness remains `BLOCKED_NOT_EXHAUSTIVE`, so no complete current-registry clearance is claimed. Evidence: [`evidence/58gemsdoe_unique_ribbon/audit.json`](../evidence/58gemsdoe_unique_ribbon/audit.json).
+2. **IR-58-S7-02 — missing pre-placement lineage.** No candidate-specific placement-surface raster, emitter script, or pre-placement comparison receipt exists for the sparse TIFF. The required pre-placement surface gate is **NOT MEASURED**; the final-dot stop is already decisive.
+3. **IR-58-S7-03 — no current holdout evidence.** The sparse TIFF has no buffered whole-segment `gems57.evaluate_holdout` receipt, withheld-positive count, defensible 95% interval, σ table, simulated gain by class, or feature-alone canary. All are `NOT MEASURED` / `NOT RUN`; no score is projected.
+4. **IR-58-S7-04 — undocumented/overstated artifact identity.** The prior filename included `unique`, the old run card explicitly said the uniqueness scan had not run, and root docs nevertheless claimed uniqueness-filtered and expected a pass. The file has been renamed to `review-only`; inaccurate readiness claims are superseded. Its grid/value audit passes locally, but nodata metadata differs from the sample and organizer acceptance is unknown.
+5. **IR-58-S7-05 — false portal-error diagnosis.** An earlier status-page paragraph asserted that the portal's `[0,1]` rejection was caused by nonfinite/out-of-range values inside the footprint. The repository has no hash-bound portal response establishing that cause. The statement is corrected: the cause is unknown; local range validation is a precaution, not proof of portal acceptance.
+6. **IR-58-S7-06 — current download index had not yet been regenerated.** This review regenerated `docs/downloads/index.html`; it now lists each of the 21 public TIFF/ZIP files separately and labels the latest raster/ZIP with the measured 1.0000 literal-overlap stop. The session-7 page builder also records the negative status in `docs/RUN_CARD.json`.
+7. **Feature-stack cache restored, provenance limited.** All five stack chunks and whole-file hash match the owner-maintained GitHub bridge pin; Rasterio read a 19-band header. This is byte integrity relative to the mirror, not independent proof of organizer provenance. The cache is outside Git. See [`evidence/feature_stack_restore_20261011.json`](../evidence/feature_stack_restore_20261011.json).
+8. **Post-review base update added an unreviewed raster.** The inherited base branch now includes `docs/downloads/gems58-ml-binary-ridge-20261012T000000Z.tif`, its ZIP, and generator scripts from a separate merge. Session 7 did not generate, evaluate, or qualify that artifact; it is outside the fixed ribbon-width scope. The per-file index marks it review-only. Do not run those generators or treat their metadata as a current HOLDOUT-DTI or organizer result.
+
+The detailed review and ranked within-lane hypotheses are in [`research/session7_review_20261011.md`](research/session7_review_20261011.md). **Do not submit the downloadable diagnostic.**
+
+## Historical verified blockers
+
+1. **Literal final-dot overlap stop — REGISTRY-MEASUREMENT (frozen inventory).** The existing diagnostic `docs/downloads/gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.tif` has 67,379 positive pixels. The pinned scan records **1.000** of its candidate dots within 3 px of `GEMSDOE2:data/evidence/runs/turbo-simple-20260925T042003Z/submission.tif`, above the mandated **0.70** limit. Its worst Spearman correlation, about **0.190**, is below 0.90; that does not override the independent overlap failure. Evidence: [`evidence/run_card.json`](../evidence/run_card.json) and [`evidence/ribbon_uniqueness.json`](../evidence/ribbon_uniqueness.json).
+2. **Inventory is incomplete and stale.** The latest pinned scan checked **694/695** rasters; one is missing or invalid. The pinned snapshot is not a complete current inventory of accessible public repository trees. Therefore no uniqueness clearance can be inferred from the scan. Evidence: [`evidence/registry_fetch_report.json`](../evidence/registry_fetch_report.json) and [`evidence/registry_freshness_audit.json`](../evidence/registry_freshness_audit.json).
+3. **Candidate-specific pre-placement surface gate is not cleared.** The older pre-placement summary describes another build and is not reusable. No current complete-inventory comparison exists for this candidate's placement surface. Do not emit a different candidate until the required gate is run and passes.
+4. **No promotion-grade holdout exists for the current instrument.** The current buffered/nested outer-block HOLDOUT-DTI, withheld-positive count, and valid 95% CI are all **NOT MEASURED**. Historical E1/E2 outputs used truth-informed selection and/or an obsolete split/bootstrap; they are not promotion-grade and must not be reported as current model scores. See [`evidence/run_card.json`](../evidence/run_card.json) and [`docs/research/irregularities.md`](research/irregularities.md), whose banner marks it historical.
+5. **No current leakage clearance.** A promotion-grade, buffered-fold feature-alone canary is not recorded. The required AUC >0.90 rule remains active; no legacy canary is a current clearance.
+6. **Local file validation is not organizer acceptance.** The diagnostic passes the internal single-band, float32, grid, finite/range, outside-footprint-zero, and mapped-catalogue checks. That is only a local format/range preflight. Nodata interpretation, portal acceptance, uniqueness, and an organizer receipt remain unconfirmed.
+7. **The cached feature-stack provenance is limited.** The local stack's bytes match the SHA256 pins in the owner-maintained GitHub bridge. This establishes integrity against those pins, not independent organizer provenance. No new external data was required or downloaded for the width-only review.
+8. **Public score attribution was corrected.** The dated **PUBLIC-LEADERBOARD-SNAPSHOT** observed on 2026-10-11 showed xiaofanhu at rank 1 / 0.4133, DARD at rank 8 / 0.3195, and extradr19 at rank 23 / 0.2778. These dynamic board rows are not scores for this TIFF. The GEMSDOE32 owner-maintained H33 page says that file has no organizer score and labels 0.2747 a model projection; no receipt/hash crosswalk ties 0.2778 to H33. See [`docs/LEADERBOARD.md`](LEADERBOARD.md), [`evidence/official_leaderboard_observation_20261011.json`](../evidence/official_leaderboard_observation_20261011.json), and [`registry/submissions_seen.csv`](../registry/submissions_seen.csv).
+9. **Legacy publication paths were unsafe.** The old ribbon site/feed and private submission/experiment CLIs could publish stale permission wording or non-promotion-grade values. Their downloadable artifacts are archived under `evidence/ribbon/archive-downloads/`; the old feed workflow and unsafe CLI paths are disabled. Current pages make no clearance claim.
+10. **Official deadline sources disagree.** The competition homepage and September 2026 rules PDF display different cutoff times. Until the organizer clarifies, follow the earlier cutoff. Source checks are recorded in [`docs/SOURCES.md`](SOURCES.md); this is a planning precaution, not legal advice.
 
 ## Scope and next action
 
-Stay in the ribbon-width lane. Keep the detected ridge surface fixed and test only whether a measured localization-error regime justifies different ribbon width around an already-detected ridge. Width tuning cannot find a fault where that surface emits nothing. Four untried hypotheses are ranked in [`docs/research/hypotheses_new.md`](research/hypotheses_new.md); H58-U1 is top-ranked but **not implemented or validated**.
+Stay in the ribbon-width lane: keep the placement surface fixed and test only how calibrated localization error changes ribbon support/width around already-detected ridges. A width change cannot detect a structure absent from that surface. The ranked proposals and preregistered failure/stopping criteria are in [`docs/research/hypotheses_new.md`](research/hypotheses_new.md).
 
-Do **not** start the holdout or emit a new TIFF while inventory freshness or pre-placement uniqueness is blocked. First refresh and audit the public raster inventory; then test the frozen surface against that inventory with the literal `rank correlation >0.90 OR >70% overlap within 3 px of any one witness` stop. If and only if it clears, restore the pinned feature stack, preregister H58-U1, run the individual-feature canary, and use the shared buffered whole-segment holdout with exact marginal DTI. Numeric HOLDOUT-DTI requires evaluator/version, protocol, withheld-positive count, and a defensible 95% CI. No slot selection or upload is part of this work.
+Do **not** start an experiment while the inventory is stale/incomplete or a literal uniqueness stop remains. First resolve the inventory/gate issue without exempting dense rasters. If and only if the pre-placement gate clears, use the shared cached stack, buffered whole-segment holdout, `gems57.evaluate_holdout`, and `gems57.submission_writer`. Never select or use a weekly slot. The diagnostic download remains available only with an unmistakable NOT CLEARED warning; do not submit it.
 
-The official task defines DTI with α=0.2, β=0.8 and a 300 m triangular kernel at the 100 m raster scale. See [`docs/research/metric.md`](research/metric.md), the [DrivenData problem page](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/), the [USGS GeoDAWN release](https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and), and the [source register](SOURCES.md).
+For current metric algebra and the official DTI definition (α=0.2, β=0.8; 300 m triangular support at 100 m resolution), see [`docs/research/metric.md`](research/metric.md) and the official [competition problem/metric page](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/).
 
 ---
 
-## Historical irregularity log
+> **Historical log warning:** the session-3 entries below preserve earlier interpretations, proposed
+> chance-corrected exceptions, and candidate-specific inventory counts. They are not current policy or
+> current-candidate evidence. The session-7 literal stop and artifact-specific run card at the top of
+> this document govern this review; do not follow older exemption or submission recommendations.
 
-Items below preserve prior-session measurements and decisions. They are archival context, not current gate outcomes. Their numeric DTI or canary values are not promotion-grade unless a current run card explicitly supplies the required evaluator/version, protocol, withheld-positive count, and defensible 95% CI.
-
-# Session 3 (2026-10-11 UTC) — additional irregularities, and two closures
+# Session 3 (historical, 2026-10-11 UTC) — additional irregularities and two closures
 
 Numbering continues the historical list that this page replaced; each item carries its own ID.
 
@@ -219,3 +236,15 @@ verdict; each one removes a claim that the evidence did not support.
   writing a TIFF. The pre-emission contract it enforces is
   [`scripts/qualification_gates.py`](../scripts/qualification_gates.py), documented in
   [`docs/research/qualification_gates.md`](research/qualification_gates.md).
+- **IR-58-S6-06 — `main`'s front door advertised an unscanned ML candidate as "Submission ready".**
+  PR #30 (merged into `main` as `089d4b2`) rewrote `README.md` to say *"**Submission ready:** …
+  Download and submit"* for `docs/downloads/gems58-ml-binary-ridge-20261012T000000Z.tif`
+  (sha256 `40c2518802a9a220fa362be0b152f2c4c7ca753c3919624eed22a556c5769366`, 45,355 pixels at 1.0,
+  RandomForest on 20 gradient features). That artifact has a **format-only** receipt
+  (`docs/downloads/gems58-ml-binary-ridge-20261012T000000Z.evidence.json`): no RATIFIED-UNIQ-v1
+  screen against the 703-raster registry, no holdout receipt, no organizer receipt, and a validation
+  AUC 0.7152 measured against the *catalogue* on a non-spatial split. Under the standing contract
+  (gates, not labels) it is **NOT OK TO SUBMIT — REVIEW ONLY**, which is how
+  [`docs/downloads/index.html`](downloads/index.html) lists it. The artifact is kept for review; the
+  README and both front doors are restored to the fail-closed banner. Anyone reviewing this
+  repository should read the banner and the per-file table, not a prose claim.

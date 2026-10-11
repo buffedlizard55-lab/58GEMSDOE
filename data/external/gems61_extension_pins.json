@@ -1,0 +1,72 @@
+{
+  "evidence_class": "PROVENANCE-PIN",
+  "purpose": "sha256 pins for the extended evidence mirrors used by the gems61 ribbon lane. The organizer's 19-band stack carries no radioelement channel and no 1 m lidar derivative (docs/IRREGULARITIES.md IR-58-DATA-01); these mirrors supply them on the study grid.",
+  "restore": "bash scripts/gems61_fetch_extended.sh",
+  "mirror_repository": "https://github.com/buffedlizard55-lab/60GEMSDOE",
+  "mirror_restore_receipt": "https://github.com/buffedlizard55-lab/60GEMSDOE/blob/main/data/restore_receipt.json",
+  "mirror_data_page": "https://buffedlizard55-lab.github.io/60GEMSDOE/docs/lane1/data.html",
+  "pins_source": "sha256 values for the four external mirrors are copied from the 60GEMSDOE restore receipt (verified locally after restore); the DEM mirror pin was computed locally from the restored file and is labelled as such.",
+  "grid": {
+    "crs": "EPSG:32611",
+    "shape": [3730, 3292],
+    "transform": [100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0],
+    "note": "identical to the organizer's sample_submission grid; the DEM mirror carries a 0.03 m x-origin offset (243349.965575182)"
+  },
+  "files": {
+    "geodawn_rad_u8.tif": {
+      "mirror_path": "data/external/geodawn_rad_u8.tif",
+      "bytes": 26612970,
+      "sha256": "c22420f75999030d7cc65c9e31e50d232ea6158423bca051613a18a8b20ba682",
+      "bands": ["K", "Th", "U", "TC"],
+      "upstream": "USGS GeoDAWN airborne radiometric release (public domain), as described on the competition about page (page 968) and the USGS GeoDAWN data release",
+      "pin_origin": "60GEMSDOE data/restore_receipt.json",
+      "usage": "ordinal-only (8-bit reduced; physical scaling not published in this checkout)"
+    },
+    "geodawn_extensions_u8.tif": {
+      "mirror_path": "data/external/geodawn_extensions_u8.tif",
+      "bytes": 27132925,
+      "sha256": "a35a9c6d2a14786f4dab85481ee59769213072f5dab5b2535ea82ae4d9bb7d9b",
+      "bands": ["ThK", "UK", "UTh", "TMI_up150"],
+      "upstream": "USGS GeoDAWN release: Th/K, U/K, U/Th ratios and a 150 m upward-continued TMI extension",
+      "pin_origin": "60GEMSDOE data/restore_receipt.json",
+      "usage": "ordinal-only"
+    },
+    "lidar_scarp_features_u8.tif": {
+      "mirror_path": "data/external/lidar_scarp_features_u8.tif",
+      "bytes": 36943606,
+      "sha256": "d580bb8bdcdb941e32fefb8b38044bc5bf04e199bf2e83498c3576e6fc465568",
+      "bands": ["ex_max", "ex_mean", "step_max", "lapneg_max", "lappos_max", "downface_max", "upface_max", "cross_max", "relief", "coh100", "strike", "valid"],
+      "upstream": "scarp-morphology features derived from 706 of 716 USGS 3DEP 1 m DEM tiles covering the area (public domain)",
+      "pin_origin": "60GEMSDOE data/restore_receipt.json",
+      "usage": "ordinal-only; the 'strike' band is a published orientation helper and is not used as a location channel"
+    },
+    "dem10_chi_100m_u8.tif": {
+      "mirror_path": "data/external/dem10_chi_100m_u8.tif",
+      "bytes": 2061484,
+      "sha256": "e8830ba6f0bb99f525266b1b3a483b0722d25cd4758c2bbccc6e7f54eb6b1b6a",
+      "bands": ["chan_n", "knick_n", "raised_n", "valid_n"],
+      "upstream": "channel-network, knickpoint and raised-channel counts derived from the USGS 3DEP 1/3 arc-second DEM; per-tile sha256 pins in 60GEMSDOE data/external/dem10_chi_100m.manifest.json",
+      "pin_origin": "computed locally from the restored mirror; the same file also appears in 60GEMSDOE data/restore_receipt.json",
+      "usage": "ordinal-only"
+    },
+    "geodawn_dem_a2_100m.tif": {
+      "mirror_path": "data/geodawn_dem_a2_100m.tif",
+      "bytes": 49531304,
+      "sha256": "d32762a38222764389e948da423ebc6cadd00ac617ad3938d3dd79c6cfe14431",
+      "bands": ["elevation"],
+      "upstream": "GeoDAWN-area elevation reduced to the competition's 100 m grid (USGS product family)",
+      "pin_origin": "computed locally from the restored mirror copy (the pin is a transport pin, not an organizer signature)",
+      "usage": "raw physical units (float32, nodata -999999); used as a ridge channel through the same Hessian detector as every other layer"
+    }
+  },
+  "not_used_by_this_lane": {
+    "gdr_wellspring_in_footprint.csv": "USGS GDR 1391 well/spring locations (CC BY 4.0) - listed for completeness, not read by gems61",
+    "gdr_qfaults_traces.csv": "INGENIOUS quaternary fault traces (1,391 features) - catalogue-relative, therefore excluded from a catalogue-free emission",
+    "derived_sgmc_faults_100m_u8.tif": "USGS SGMC quaternary structures rasterised at 100 m - catalogue-relative, excluded"
+  },
+  "limits": [
+    "These are owner-published mirrors. Their hashes authenticate transport, not organizer provenance.",
+    "The 8-bit mirrors are used ordinal-only; no physical radioelement concentration is claimed or reported anywhere in this lane.",
+    "The competition allows additional data sources under the rules, provided the participant holds a licence permitting use and sharing with the sponsor; USGS products are public domain."
+  ]
+}

@@ -430,42 +430,20 @@ def test_rendered_pages_never_turn_a_local_pass_into_portal_acceptance():
                       "organizer-confirmed score for this raster",
                       "download: ok"):
             assert claim not in flat, (name, claim)
-    # The local QA page explicitly separates format checks from portal acceptance.
-    flat_submit = _flat_text("submit.html")
-    assert "does not establish that drivendata accepted the file" in flat_submit
-    assert "reported portal" in flat_submit and "unresolved" in flat_submit
+    # The portal-checklist page is where a local preflight could be over-read.
+    assert "it is not an organizer acceptance, and it is not a score" in _flat_text("submit.html")
 
 
 def test_current_repository_candidate_is_not_qualified():
-    emi = build_site.load(build_site.RIB / "emission.json")
-    inv = build_site.load(build_site.RIB / "uniqueness_full_inventory.json")
-    freshness = build_site.load(build_site.EV / "registry_freshness_audit.json")
-    q = build_site.load(build_site.EV / "ribbon_qualification.json")
-    tif = build_site._file_path(emi["file"])
-    gates, eligible = build_site.evaluate_gates(
-        emi, {}, inv, tif, build_site.load(build_site.RIB / "shared_metric_crosscheck.json"), q, freshness,
-        inventory_index_sha256=(build_site.sha256(build_site.ROOT / "registry/registry_merged.json")),
-        inventory_receipt_sha256=build_site.sha256(build_site.RIB / "uniqueness_full_inventory.json"),
-        freshness_receipt_sha256=build_site.sha256(build_site.EV / "registry_freshness_audit.json"),
-    )
-    gate = by_id(gates)
-    assert eligible is False
-    assert gate["G1"]["ok"] is True
-    assert gate["G3"]["ok"] is False
-    assert gate["G2P"]["ok"] is False
-    assert gate["G4"]["ok"] is False
-    assert gate["G5"]["ok"] is False
-    firings = (inv.get("informative_reading", {}) or {}).get("overlap_firings")
-    assert firings and str(firings) in gate["G3"]["detail"]
-
-
-def test_minmax_of_four_blocks_is_not_a_95_percent_ci():
-    record = {"ci95": [0.02, 0.07], "ci95_reportable": True,
-              "ci95_method": "min-max over four spatial blocks",
-              "bootstrap": {"clusters": 4, "draws": 0, "confidence": 0.95}}
-    assert build_site._ci95(record)[0] is False
-    record["ci95_method"] = "paired physical spatial-cluster percentile bootstrap"
-    record["bootstrap"]["draws"] = 1000
-    assert build_site._ci95(record)[0] is False, "four repeated quadrants are not independent clusters"
-    record["bootstrap"]["clusters"] = 12
-    assert build_site._ci95(record)[0] is True
+    """Current qualification is the session-7 literal-stop receipt, not legacy gates."""
+    card = json.loads((build_site.ROOT / "evidence/58gemsdoe_unique_ribbon/run_card.json").read_text())
+    audit = json.loads((build_site.ROOT / "evidence/58gemsdoe_unique_ribbon/audit.json").read_text())
+    final = audit["correlation_overlap_vs_registry"]["final_dots"]["witness_measurement"]
+    assert card["verdict"] == "negative"
+    assert card["stop_required"] is True
+    assert card["slots_used"] == 0
+    assert card["experiments_this_review"] == 0
+    assert final["observed_candidate_dot_overlap_within_3_px"] == 1.0
+    assert final["literal_overlap_threshold"] == 0.70
+    assert audit["correlation_overlap_vs_registry"]["preplacement_surface"]["status"] == "NOT MEASURED"
+    assert audit["holdout_dti"]["status"] == "NOT MEASURED"

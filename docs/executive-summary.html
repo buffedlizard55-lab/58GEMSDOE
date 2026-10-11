@@ -1,103 +1,72 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Research review and qualification status — 58GEMSDOE (GEMS competition #306)</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Executive review — not a submission approval — 58GEMSDOE</title>
 <link rel="stylesheet" href="assets/site.css">
 <style>
-.gates{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:.6rem;margin:.8rem 0}
-.gate{border:1px solid #d7dee6;border-left:5px solid #999;border-radius:8px;padding:.55rem .7rem;background:#fbfcfd}
-.gate.pass{border-left-color:#1d7a45;background:#f2fbf5}
-.gate.fail{border-left-color:#a11212;background:#fdf3f3}
-.gate.info{border-left-color:#2f5f8f;background:#f5f9fc}
-.gate h4{margin:0 0 .25rem;font-size:.95rem}
-.gate p{margin:0;font-size:.83rem;color:#41505f}
-.pill{display:inline-block;padding:.1em .55em;border-radius:999px;font-size:.76rem;font-weight:700;color:#fff}
-.pill.pass{background:#1d7a45}.pill.fail{background:#a11212}.pill.info{background:#2f5f8f}.pill.warn{background:#8a6d1a}
-.warn-box{border:1px solid #e0c46a;border-left:5px solid #8a6d1a;background:#fffbea;border-radius:8px;padding:.7rem .9rem;margin:.8rem 0}
-.bad-box{border:1px solid #e0a3a3;border-left:5px solid #a11212;background:#fff6f6;border-radius:8px;padding:.7rem .9rem;margin:.8rem 0}
-.ok-box{border:1px solid #9ed3b3;border-left:5px solid #1d7a45;background:#f4fcf7;border-radius:8px;padding:.7rem .9rem;margin:.8rem 0}
-.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1rem}
-.small{font-size:.85rem;color:#41505f}
-.dlrow{display:flex;flex-wrap:wrap;gap:.6rem;margin:.8rem 0}
-.num{font-variant-numeric:tabular-nums}
-nav a{margin-right:.9rem}
-footer{margin-top:2rem;border-top:1px solid #d7dee6;padding-top:.6rem;font-size:.82rem;color:#41505f}
-table{max-width:100%}
-</style>
-</head><body>
-<header><h1>58GEMSDOE — DOE GEMS competition #306</h1>
-<p>Geothermal fault detection, northwestern Great Basin (NV) · ribbon lane · every figure on this
-site is rendered from <code>evidence/**.json</code> at build time</p>
-<nav class="small"><a href="index.html">Status &amp; review</a> · <a href="executive-summary.html" style="font-weight:700">Research review</a> · <a href="submit.html">Local file QA</a> · <a href="deliverable/index.html">Sibling-lane deliverable</a> · <a href="sources.html">Sources</a> · <a href="evidence.html">Evidence index</a> · <a href="ribbon/index.html">Ribbon lane archive</a></nav></header>
-
-<section class="banner" role="alert"><h2>NOT OK TO SUBMIT — DO NOT SUBMIT</h2>
-<p>The exact current TIFF is a local review artifact, not a submission recommendation.
-No new TIFF, holdout experiment, submission, or slot selection was made in this review.</p></section>
-<section><h2>Decision in brief</h2><ul>
-<li><b>Candidate:</b> <code>gems58-concordance-ribbon-40768-20261011T160514Z.tif</code>, SHA-256 <code>f709b6f12d5188e34aa3aed3b83d785b97a232224692dcdfffedaa009dee9d0d</code>,
-40768 positive pixels.</li>
-<li><b>Local format:</b> PASS (15/15 emission-receipt checks).
-This does not establish portal acceptance; the reported portal [0, 1] rejection is unresolved.</li>
-<li><b>Final-dot scan:</b> 83 literal &gt;70% overlap triggers in the saved
-703-raster snapshot. The literal trigger is a stop; this count is not a clearance scan.</li>
-<li><b>Registry freshness:</b> BLOCKED_NOT_EXHAUSTIVE — BLOCKED_NOT_EXHAUSTIVE. A stale/incomplete
-inventory cannot clear either surface placement or emitted dots.</li>
-<li><b>Promotion-grade HOLDOUT-DTI:</b> <b>NOT MEASURED</b> as a promotion-grade HOLDOUT-DTI. No shared-evaluator, candidate- and inventory-bound reportable receipt with defensible 95% CI exists.</li>
-<li><b>Qualification receipt:</b> MISSING;
-G2P/G3/G4/G5 remain failed until fresh, hash-bound receipts exist.</li>
-</ul></section>
-<section>
-<h2>H33 / 0.2778 attribution finding</h2>
-<p>The 0.2778 <span class="pill warn">PUBLIC-LEADERBOARD-SNAPSHOT</span> participant row belongs to
-<code>extradr19</code> (rank 23 in the 2026-10-11 observation). It is not an
-<code>ORGANIZER-CONFIRMED</code> artifact score for the GEMSDOE32 H33 TIFF. The GEMSDOE32
-owner-maintained page identifies H33-2-B2 as unscored and describes 0.2747 as a projection; no
-submission receipt or hash crosswalk links either value to H33. The current same-day public snapshot
-records rank 1 xiaofanhu: 0.4133; rank 9 DARD: 0.3195; rank 23 extradr19: 0.2778 (<span class="pill warn">PUBLIC-LEADERBOARD-SNAPSHOT</span>, dated 2026-10-11); the board is dynamic.</p>
-<p>Accordingly, the repository can resolve the <b>attribution</b> (the participant row is not H33),
-but cannot scientifically explain why that participant obtained 0.2778. Without the scored artifact,
-submission ID, hidden public subset and an organizer receipt, claims about that score's geology,
-width, features, or metric components would be speculation. See
-<a href="ANALYSIS_H33.md">the H33 evidence review</a>,
-<a href="LEADERBOARD.md">dated board record</a>, and the
-<a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">official live board</a>.</p>
+.s7-alert{border:2px solid #9d1515;border-left-width:9px;background:#fff4f4;border-radius:10px;padding:18px 20px;margin:18px 0}
+.s7-alert h2{margin:.15rem 0 .55rem;color:#811010}
+.s7-badge{display:inline-block;background:#a11212;color:white;font-weight:800;padding:.35rem .8rem;border-radius:999px}
+.s7-btn{display:inline-block;background:#a11212;color:white;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:8px;margin:5px 8px 5px 0}
+.s7-btn.secondary{background:#41505f}
+.s7-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.s7-card{border:1px solid #d4dce3;border-radius:9px;padding:14px;background:white}
+.s7-fail{color:#a11212;font-weight:700} .s7-pass{color:#12703f;font-weight:700}
+.s7-small{font-size:.9rem;color:#465360}
+table{border-collapse:collapse;width:100%;margin:1rem 0} th,td{border:1px solid #d7dee5;padding:8px;vertical-align:top;text-align:left}
+th{background:#eef2f6}
+</style></head><body><main class="wrap">
+<header><p><a href="index.html">58GEMSDOE current status</a> ·
+<a href="downloads/index.html">all downloads</a> ·
+<a href="IRREGULARITIES.md">irregularities</a> · <a href="SOURCES.md">sources</a></p>
+<h1>Executive review — not a submission approval</h1></header>
+<section class="s7-alert" role="alert" aria-labelledby="stop-title">
+<span class="s7-badge">⛔ NOT OK TO SUBMIT — DO NOT SUBMIT</span>
+<h2 id="stop-title">Review-only TIFF; literal uniqueness stop recorded</h2>
+<p><code>58GEMSDOE-ribbon-sparse-review-only-20261011T182511Z.tif</code> is available for local audit only. It is not a qualified or authorized
+competition submission. Its final-dot overlap is <b>1.0000</b> within 3 px, above the active
+literal 0.70 threshold. The pre-placement surface and current inventory clearance are not measured/
+not cleared, and there is no HOLDOUT-DTI result for this artifact.</p>
+<div>
+<a class="s7-btn" href="downloads/58GEMSDOE-ribbon-sparse-review-only-20261011T182511Z.tif" download>Download TIFF for audit only — DO NOT SUBMIT</a>
+<a class="s7-btn secondary" href="downloads/58GEMSDOE-ribbon-sparse-review-only-20261011T182511Z.zip" download>Download one-TIFF ZIP — audit only</a>
+<a class="s7-btn secondary" href="../evidence/58gemsdoe_unique_ribbon/audit.json">Audit receipt</a>
+<a class="s7-btn secondary" href="../evidence/58gemsdoe_unique_ribbon/run_card.json">JSON run card</a>
+</div>
+<p class="s7-small">Raster SHA-256 <code>b4cd208015892a19bb2de36585a6f5ff8203dd78b95d49d6b88c8d4c927c1448</code> · 49,139,380 bytes ·
+15000 positive pixels · 19/19 local checks pass only.</p>
+</section><section class="s7-alert" role="alert">
+<span class="s7-badge">⛔ UNREVIEWED ARTIFACT — NOT OK TO SUBMIT</span>
+<p>A separate file, <code>gems58-ml-binary-ridge-20261012T000000Z.tif</code>, was added to the base branch after the session-7 review.
+It was not generated, evaluated, or qualified in that review and is outside the fixed-surface ribbon-width
+scope. Do not submit it or run its generation scripts. See the
+<a href="downloads/index.html">per-file review-only index</a>.</p>
 </section>
-<section>
-<h2>Scientific scope and next hypothesis</h2>
-<p>This repository's lane adjusts ribbon width around an already-detected structure; width tuning
-cannot recover a fault whose ridge surface entirely misses it. The ranked review documents four
-specific, currently untried width-conditioning hypotheses. The top one is
-<b>H58-U1: relief-conditioned width</b> using <code>det_elev</code> and
-<code>det_elev_slope</code> around the fixed existing topographic ridge surface. It is not implemented
-or validated. Expected benefit is qualitative and uncertain; there is no score forecast.</p>
-<p>Named geological alternatives are not facts about a candidate: erosion, drainage, alluvial-fan
-fronts, terrace margins, conductivity/lithology boundaries, and curved non-tectonic contacts can mimic
-the target signatures. The proposed falsifiers and implementation differences from existing code are in
-<a href="research/hypotheses_new.md">the ranked hypothesis register</a>.</p>
-<p><b>Do not start the holdout yet.</b> First establish a fresh, exhaustive public raster inventory,
-restore the pinned 19-band feature stack, and pass the candidate-specific pre-placement surface gate.
-Only then may the top hypothesis enter a preregistered individual-feature canary and the shared
-buffered spatial holdout. Use the exact marginal metric and report any number only with evaluator and
-version, protocol, withheld-positive count, and a defensible 95% CI. Final dots require a separate
-uniqueness scan. Maximum budget remains three experiments or two hours; no slot selection.</p>
-<p><a href="research/session7_review_20261011.md">Full session review and evidence register</a> ·
-<a href="research/hypotheses_new.md">Four ranked hypotheses</a> ·
-<a href="IRREGULARITIES.md">Current blockers</a> ·
-<a href="RUN_CARD.json">Machine-readable run card</a>.</p>
-</section>
-<section><h2>Required gates</h2><div class="gates"><div class="gate pass"><h4>G1 · Local format preflight (not portal acceptance) <span class="pill pass">PASS</span></h4><p>15/15 receipt checks pass; on-disk SHA-256 matches the emission receipt. This is only a local format/range result; the reported portal [0,1] rejection is unresolved.</p></div><div class="gate info"><h4>G2 · Local witness subset (diagnostic only) <span class="pill info">INFO — NOT AN ELIGIBILITY GATE</span></h4><p>31 local witnesses checked; pass/fail here is not a full registry clearance and is not used as a substitute for the pre-placement or final-dot gates.</p></div><div class="gate fail"><h4>G2P · Pre-placement surface gate <span class="pill fail">FAIL — REQUIRED</span></h4><p>A separate hash-bound pre-placement surface receipt is required against the fresh inventory. The qualification receipt is missing or does not bind this candidate/inventory.</p></div><div class="gate fail"><h4>G3 · Final-dot uniqueness and inventory gate (literal protocol) <span class="pill fail">FAIL — REQUIRED</span></h4><p>Recorded scan checked 703 indexed rasters at 2026-10-11T05:34:05Z; complete for that accessible snapshot=True, missing/invalid=0, source errors=0. Literal forward-overlap firings=83 (29 informative, 54 saturated/vacuous); worst overlap=1.0000, worst rank correlation=0.2823. unique=False, stop_required=True. The scan covers its saved public-inventory snapshot only, not an organizer-wide inventory; freshness clearance=False. A literal trigger is never waived by chance correction.</p></div><div class="gate fail"><h4>G4 · Promotion-grade feature-alone leakage canary <span class="pill fail">FAIL — REQUIRED</span></h4><p>feature-alone canary receipt is missing Feature-level results must use the current split and be bound to this candidate and inventory.</p></div><div class="gate fail"><h4>G5 · Buffered spatial HOLDOUT-DTI with defensible 95% CI <span class="pill fail">FAIL — REQUIRED</span></h4><p>No hash-bound, reportable shared-evaluator qualification is present. qualification receipt does not mark the holdout passed. Saved candidate measurement uses legacy gems58-pooled-hide-v1 / gems58w.metric/v1 (exact triangular kernel, R=3 px, alpha=0.2, beta=0.8); it is not a promotion-grade shared-evaluator result.</p></div><div class="gate info"><h4>G5i · Legacy diagnostic arithmetic cross-check (not promotion evidence) <span class="pill info">INFO — NOT AN ELIGIBILITY GATE</span></h4><p>Legacy metric arithmetic verdict=AGREE. This checks arithmetic only; its numerical diagnostic is withheld from the public gate panel because it does not carry the current promotion-grade protocol and defensible 95% CI. It does not upgrade the old evaluator, split, or selection process.</p></div><div class="gate info"><h4>G6 · Organizer receipt (post-upload only) <span class="pill info">INFO — NOT AN ELIGIBILITY GATE</span></h4><p>No organizer submission receipt is present. This is not a pre-upload eligibility gate and cannot be inferred from a local format check; no score is attributed to this TIFF.</p></div></div></section>
-<section><h2>Trusted sources</h2><ul>
-<li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">DrivenData problem statement, DTI, and submission format</a></li>
-<li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/968/">DrivenData data and fault-mapping context</a></li>
-<li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">DrivenData dynamic public leaderboard</a></li>
-<li><a href="https://docs.nlr.gov/docs/fy26osti/96647.pdf">DOE GEMS Official Rules (September 2026)</a></li>
-<li><a href="https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and">USGS GeoDAWN survey release</a></li>
-<li><a href="https://github.com/drivendataorg/gems-prize-reference-solution">DrivenData reference-solution repository</a></li>
-</ul></section>
+<h2>Executive decision</h2>
+<p><b>Do not submit this TIFF.</b> The active literal rule stops it because more than 70% of its
+positive pixels fall within 3 px of one prior registry raster. The observed current-file overlap is
+1.0000. No chance-corrected exemption is used.</p>
+<h2>What the 19/19 local format result means</h2>
+<p>The local audit verified that the bytes on disk match the documented single-band float32 grid and
+sample CRS/shape/transform, values are finite and in [0,1], positive values are exactly 1.0, and the
+single-TIFF ZIP round trip succeeds. It did not check the portal. In particular the raster nodata
+metadata is null while the sample metadata is NaN; organizer interpretation is unconfirmed.</p>
+<h2>What is not known</h2>
+<ul><li>Pre-placement surface uniqueness is NOT MEASURED.</li>
+<li>Current registry freshness is BLOCKED_NOT_EXHAUSTIVE.</li>
+<li><b>G4 — Promotion-grade feature-alone leakage canary:</b> FAIL / NOT RUN; no candidate-bound receipt exists.</li>
+<li><b>G5 — Buffered spatial HOLDOUT-DTI with defensible 95% CI:</b> FAIL / NOT MEASURED; no evaluator, withheld-positive count, protocol, or reportable interval is bound to this raster.</li>
+<li>σ and simulated class gain are NOT MEASURED.</li>
+<li>No organizer score or portal acceptance receipt exists.</li></ul>
+<h2>Before any future submission</h2>
+<p>See the <a href="SUBMISSION_GUIDE.md">full submission guide</a>. The current literal stop means no
+experiment or replacement candidate is authorized under this review. No slot has been selected.</p>
+<h2>Attribution of 0.2778</h2>
+<p><b>PUBLIC-LEADERBOARD-SNAPSHOT:</b> the dated participant-row observation ties 0.2778 to
+<code>extradr19</code>. It is not an organizer-confirmed artifact score. No artifact hash or receipt
+connects it to H33; the cause of the participant's result is unknown. See
+<a href="research/why-02778.md">the attribution review</a>.</p>
 
-<footer>Generated 2026-10-11T19:44:24Z by
-<code>scripts/build_site.py</code>. No artifact-specific organizer receipt/hash crosswalk exists for
-the current candidate. Public participant rows are labelled PUBLIC-LEADERBOARD-SNAPSHOT; model
-results require HOLDOUT-DTI with evaluator/version, protocol, withheld-positive count, and a defensible
-95% CI.</footer>
-</body></html>
+<footer><hr><p class="s7-small">Rendered from the session-7 artifact audit and run card by
+<code>scripts/build_session7_pages.py</code>. This page is a local project record, not an organizer decision.</p></footer>
+</main></body></html>

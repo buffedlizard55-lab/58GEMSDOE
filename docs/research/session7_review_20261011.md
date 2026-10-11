@@ -1,151 +1,92 @@
-# Session-7 DOE GEMS review — 2026-10-11 UTC
+# Session 7 review — sparse raster audit, literal stop, and next hypotheses
 
-**Decision: NOT OK TO SUBMIT — DO NOT SUBMIT.** This is a research/code review in the existing ribbon-width/localization-error lane. No new TIFF, width experiment, promotion-grade holdout, competition submission, or slot selection was performed. The candidate reviewed here is
-[`gems58-concordance-ribbon-40768-20261011T160514Z.tif`](../downloads/gems58-concordance-ribbon-40768-20261011T160514Z.tif), SHA-256
-`f709b6f12d5188e34aa3aed3b83d785b97a232224692dcdfffedaa009dee9d0d` (40,768 positive pixels).
+**Review date:** 2026-10-11 UTC. **Verdict:** `negative`. **No experiment, new prediction raster, weekly slot, or upload was made in this review.** The prior session's raster was renamed `review-only` (pixel bytes unchanged), independently audited, and stopped under the literal overlap rule in the user's current protocol.
 
-The separate Session-4 R5_d3 artifact and its session-specific measurements remain archived; this
-review neither repeats nor transfers that artifact's results to H58-X1. See the explicitly
-session-scoped record at [`docs/session4.html`](../session4.html).
+## 1. Front-door decision
 
-The existing file passes local format checks. That is not portal acceptance. Its recorded final-dot
-scan has **83 literal >70% overlap triggers** over the saved **703-raster** public-inventory snapshot;
-the separate freshness audit remains **`BLOCKED_NOT_EXHAUSTIVE`**. The exact-candidate qualification
-receipt `evidence/ribbon_qualification.json` is absent. Current reportable HOLDOUT-DTI, its
-withheld-positive count, and a defensible 95% CI are **NOT MEASURED**.
+**Do not submit:** [`58GEMSDOE-ribbon-sparse-review-only-20261011T182511Z.tif`](../downloads/58GEMSDOE-ribbon-sparse-review-only-20261011T182511Z.tif) · [single-TIFF ZIP](../downloads/58GEMSDOE-ribbon-sparse-review-only-20261011T182511Z.zip).
 
-## Three review passes completed
+The filename previously contained `unique`; that was not supported by a registry scan. The file is now labeled **REVIEW ONLY — NOT OK TO SUBMIT**. The name change did not alter its pixel bytes.
 
-### Pass 1 — attribution and source review
+### Local format audit — not a score and not portal acceptance
 
-- Reviewed the source facts and claims recorded in [`docs/SOURCES.md`](../SOURCES.md),
-  [`evidence/organizer_confirmed.json`](../../evidence/organizer_confirmed.json), and
-  [`registry/sources.csv`](../../registry/sources.csv). Those records distinguish directly fetched
-  pages/PDF excerpts from citations, owner-maintained statements, and sources not fetched; this
-  report does not claim every linked source was independently fetched in full.
-- Confirmed the task is geothermal-indicative fault mapping, not vent detection. The official task
-  page describes incomplete and potentially misaligned public fault truth, a pooled distance-weighted
-  Tversky index, and an expert-labeled set of new faults. The metric's asymmetric penalties
-  (α=0.2, β=0.8) and 300 m triangular support imply a general preference for nearby coverage, but
-  they do **not** explain any specific participant's public score.
-- Rechecked the public board at approximately `2026-10-11T18:33:10Z` (UTC clock sampled immediately
-  after fetching the page text; not a server timestamp). The saved
-  [`PUBLIC-LEADERBOARD-SNAPSHOT`](../../evidence/official_leaderboard_observation_20261011_review.json)
-  records xiaofanhu rank 1 / 0.4133, DARD rank 9 / 0.3195, and extradr19 rank 23 / 0.2778. The
-  dynamic board supplies participant rows, not TIFF hashes or organizer score receipts.
-- The requested H33 attribution is not supported: the 0.2778 row belongs to `extradr19`; the
-  [GEMSDOE32 owner page](https://buffedlizard55-lab.github.io/GEMSDOE32/docs/index.html) says
-  H33-2-B2 is unscored and labels 0.2747 a projection. No organizer receipt/hash crosswalk links
-  H33 to the 0.2778 participant row. We can correct the attribution, but cannot scientifically
-  explain why `extradr19` obtained that result without its scored artifact, submission record,
-  hidden public subset, and organizer evidence. The exact origin of the H33 misattribution is unknown.
+The shared `gems57.validate` checks, an independent sample-grid comparison, and a one-TIFF ZIP round trip pass **19/19 LOCAL-FILE-AUDIT checks**. The on-disk file is one-band float32, EPSG:32611, 3730 × 3292, with the sample's CRS, shape and affine transform; values are finite and in [0,1], every positive is exactly 1.0, all values outside the footprint are zero, and no positive pixel overlaps the bridged mapped-fault catalogue. Raster SHA-256 is `b4cd208015892a19bb2de36585a6f5ff8203dd78b95d49d6b88c8d4c927c1448`; decoded-pixel SHA-256 is `21178ff6da8eef1bc286826deb963224a7909c0ee4f318dc4feac7a9e1ff5b15`.
 
-### Pass 2 — protocol and code-path audit
+**IR-58-S7-01 — nodata metadata is not identical to the sample.** The TIFF has `nodata=null`; the bridged sample has `nodata=NaN`. Candidate data itself is all finite, including outside the footprint. The competition format text in the supplied brief specifies a single-band GeoTIFF and matching CRS, shape and geotransform; the local audit does not establish the portal's handling of nodata metadata. No candidate-specific portal response or organizer receipt is present. Do not claim this file will be accepted or that it resolves a prior `[0,1]` rejection.
 
-- Found the critical builder defect: `scripts/build_site.py` had an independent legacy `evaluate_gates`
-  path. It could display G4/G5 as passing from an old feature AUC and a legacy holdout result, despite
-  the current fail-closed `scripts/qualification_gates.py` requiring hash-bound current receipts,
-  fresh inventory, pre-placement clearance, a promotion-grade feature-alone canary, and a shared
-  buffered holdout with a reportable 95% interval.
-- Replaced the builder's gate implementation with a delegation to
-  `scripts/qualification_gates.py`. The public pages now show G1 local-format PASS only; G2P/G3/G4/G5
-  fail. G2/G5i/G6 are explicitly informational and do not look like required failures or passes.
-  `--strict` retains exit 2 while a required gate is open.
-- Removed legacy holdout values, block min–max ranges, and legacy canary AUC from the current status
-  pages. These results remain in their original evidence receipts for audit, but the site does not
-  promote them or quote a numeric candidate HOLDOUT-DTI without the required evaluator/version,
-  protocol, withheld-positive count, and defensible 95% CI.
-- Corrected the public-board evidence class: leaderboard rows are
-  `PUBLIC-LEADERBOARD-SNAPSHOT`, never `ORGANIZER-CONFIRMED` for a local artifact.
-- Removed the unsupported assurance that local format checks prove the reported portal `[0,1]`
-  rejection cannot occur. The rejection remains unresolved; the repo has no exact portal response
-  payload or receipt bound to the candidate hash.
-- Updated the active project protocol. The user-specified literal rule supersedes archived
-  RATIFIED-UNIQ-v1 reasoning: stop for rank correlation `>0.90` **or** `>70%` of a candidate's dots
-  within 3 px of any one witness. Chance correction, saturated witnesses, or alternate statistics do
-  not waive a literal trigger. Stale/incomplete inventory is also a stop.
+### Literal uniqueness stop — one hash-verified witness is sufficient to stop
 
-### Pass 3 — research review, status rebuild, and consistency checks
+A direct current-file measurement used one public-registry witness:
 
-- Re-ranked four genuinely untried **width-conditioning** hypotheses; H58-U1 remains first. The detailed
-  register names input layers, physical signatures, possible unmapped-fault route, existing-code
-  differences, non-fault mimics, expected uncertainty, cost estimates, data-source requirements, and
-  falsifiers. No hypothesis was fitted or scored.
-- Regenerated `docs/index.html`, `docs/executive-summary.html`, `docs/submit.html`,
-  `docs/evidence.html`, `docs/RUN_CARD.json`, `evidence/ribbon/run_card_final.json`,
-  `evidence/session7_review_run_card.json`, and the candidate checks sidecar from the shared evaluator.
-- The per-file downloads index remains review-only. No file is approved, no artifact inherits clearance,
-  and the only download named “current” is still explicitly **DO NOT SUBMIT**.
-- The feature raster is absent locally. No feature-stack download or registry rescan was attempted:
-  the known literal candidate stop and stale inventory already prevent a useful experiment, and no
-  width candidate is to be emitted before the pre-placement gate.
+- Witness: `GEMSDOE2:data/evidence/runs/turbo-simple-20260925T042003Z/submission.tif`.
+- **REGISTRY-MEASUREMENT:** SHA-256 `03d619fa75689b48bd3eb4f74c3fa529a9b04c19bd716e15640d910baf3d5a90` matches the pinned registry record and the bytes restored from its public GitHub blob.
+- Its positive support covers all **5,167,373** cells in the bridged footprint; the 3-px dilation leaves **0** footprint cells uncovered.
+- **REGISTRY-MEASUREMENT:** **1.0000** of this candidate's positive dots fall within 3 px of that witness, exceeding the user's literal **0.70** stop threshold. The candidate is therefore logged as a duplicate/drift stop under the protocol. This is **not** a claim of byte or pixel copying.
+- The witness is constant over the footprint, so rank correlation is undefined; the independent overlap trigger is decisive.
 
-## Current gate results and evidence
+This is a direct failing measurement against a prior raster, so the protocol says stop; scanning more rasters cannot reverse the stop. Separately, the current registry freshness record is `BLOCKED_NOT_EXHAUSTIVE`; the older 703-raster scan is complete only for its frozen scope and is not a current-inventory clearance. No complete-current-registry uniqueness claim is made.
 
-| Gate / evidence | Current result | Interpretation |
-|---|---|---|
-| G1 — local format preflight | **PASS** for the exact on-disk candidate; emission receipt and separate local audit available | Format/file check only. Not portal acceptance, a score, or submit clearance. |
-| G2 — local witness subset | Informational only | Not a substitute for fresh, exhaustive pre-placement and final-dot scans. |
-| G2P — pre-placement surface | **FAIL / not cleared** | No current, hash-bound pre-placement receipt exists against a fresh exhaustive inventory. |
-| G3 — final-dot uniqueness | **FAIL / literal stop** | Saved scan: 83 triggers, worst literal overlap 1.0000, worst rank correlation 0.2823. The overlap threshold alone stops this file. The saved scan is snapshot-scoped. |
-| G4 — feature-alone leakage canary | **FAIL / missing** | No candidate-, feature-, split-, and inventory-bound current canary receipt. No legacy AUC is a clearance. |
-| G5 — buffered spatial HOLDOUT-DTI with defensible 95% CI | **FAIL / NOT MEASURED** | No current candidate-bound shared-evaluator result, withheld-positive count, protocol, and reportable physical-cluster interval. |
-| Registry freshness | **`BLOCKED_NOT_EXHAUSTIVE`** | Current public trees changed/unrepresented; pinned restoration/inventory is not a complete current audit. |
-| Organizer-confirmed score | **None** | No submission receipt/hash crosswalk for any artifact in this repository. |
-| Experiments / slots | **0 / 3; 0 slots** | No holdout, candidate emission, upload, or selection in this review. |
+**Pre-placement surface:** `NOT MEASURED`. The artifact has no saved pre-placement scalar surface, generating script, or candidate-specific surface receipt. Final-dot failure already stops this artifact; the absence of the surface prevents claiming that the two-phase protocol was completed.
 
-The authoritative generated gate list is in [`docs/RUN_CARD.json`](../RUN_CARD.json); the original
-scan and audit receipts remain at
-[`evidence/ribbon/uniqueness_full_inventory.json`](../../evidence/ribbon/uniqueness_full_inventory.json),
-[`evidence/registry_freshness_audit.json`](../../evidence/registry_freshness_audit.json),
-and [`evidence/ribbon/file_audit.json`](../../evidence/ribbon/file_audit.json). Do not interpret the
-703 scanned paths as the count of a current exhaustive inventory.
+## 2. Holdout, σ and leakage are not results for this artifact
 
-## Ranked width hypotheses — brief research summary
+- **HOLDOUT-DTI:** `NOT MEASURED`; evaluator run, withheld-positive count and 95% CI are all absent for this TIFF. No zero score or projection is substituted.
+- **σ table:** `NOT MEASURED` for this raster.
+- **Simulated gain by class:** `NOT MEASURED`.
+- **Feature-alone leakage canary:** `NOT RUN` for this raster.
+- **ORGANIZER-CONFIRMED score:** none; no receipt/hash crosswalk exists.
 
-These are proposals, not results. “Expected benefit” is qualitative; there are no gain forecasts. The
-existing ridge/placement surface stays fixed. A wider ribbon can help only if an existing ridge is
-already within the official scoring kernel of an unmapped or mislocated trace. It cannot discover a
-fault absent from the ridge surface. Because the local holdout is built from known catalogue faults,
-its result would remain a proxy for localization, not direct validation against the competition's
-hidden new-fault truth.
+No holdout was run because the literal uniqueness criterion produced a hard stop before any candidate qualification. No experiment slot was touched. Existing holdout tables for earlier rasters are not transferable to this sparse file.
 
-| Rank | Hypothesis and layers | Physical mechanism / why it could help nearby unmapped structure | Difference from implemented code | Main uncertainty and named mimics | Cost / data |
-|---:|---|---|---|---|---|
-| 1 | **H58-U1: relief-conditioned width** — `det_elev`, `det_elev_slope`, fixed topographic ridges | Relief/scarp preservation may change axis localization error; widening only high-error regimes could cover a nearby missed/misaligned trace. | Existing calibration stratifies by family, scale/sign, blocks, and magnitude, not local relief; centerline is unchanged. | High uncertainty and uncertain transfer from mapped to unmapped faults. Drainage, fan fronts, terraces, road cuts, erosional scarps. | ~1–2 engineering hours after prerequisites; existing 19-band stack, no new external data. |
-| 2 | **H58-U4: cross-strike profile-shape width** — `tmi_hg`, `iso_grav_anom_slope`, `det_elev_slope` profiles | Broad/asymmetric/multi-lobed response may identify a poorly localized existing axis; width could cover a nearby trace. | Profile FWHM/asymmetry/secondary lobes are not current within-ridge width predictors; no new detector. | High uncertainty: source depth and lithology may mimic the signal. Mafic dikes, contacts, remanent magnetization, drainage edges. | ~2–3 hours; same stack. Verify metadata before preregistration. |
-| 3 | **H58-U2: basin-cover context width** — `depth_to_base_surf`, `cond_surf` | Cover thickness/conductivity may attenuate or broaden fault expression; conditional width could cover a nearby concealed/misaligned trace. | Uses context only for width around already-detected ridges, not a new basement/conductivity edge detector. | High uncertainty: regional geology, salinity, alteration, and lithology may be non-fault controls. | ~2–3 hours; same stack. |
-| 4 | **H58-U3: centerline-curvature width** — fixed ridge centerline/tangent geometry | Bends, kinks, relays, and intersections may have larger localization error; extra support could reach a nearby omitted segment. | Along-strike centerline curvature is not the Hessian's across-strike curvature and is not used in current width assignment. | Low expected value, high uncertainty. Meandering drainage, curved contacts, road bends, overlapping lineaments. | ~1–2 hours; derived from current ridge field. |
+## 3. Highest-score attribution: what can and cannot be answered
 
-Full hypotheses, prior-art exclusions, sources, and falsifiers:
-[`docs/research/hypotheses_new.md`](hypotheses_new.md).
+The `0.2778` entry in the dated local **PUBLIC-LEADERBOARD-SNAPSHOT** is attached to participant `extradr19` (rank 23 in one saved observation). The owner-maintained GEMSDOE32 page and audit record summarized in this repository label H33-2-B2 **UNSCORED** and label `0.2747` as a projection. No organizer receipt, submission ID, or hash crosswalk connects H33-2-B2 to the `extradr19` row. Therefore the claim that the H33 TIFF scored `0.2778` is **unsubstantiated**; its cause cannot be inferred from the public participant score.
 
-## Preregistered path if blockers clear
+The repository's 2026-10-11 public-board observations recorded a higher row at **0.4133** and a `0.3195` row below it. The board is dynamic and same-day rank observations differ. This session did not retrieve a fresh DrivenData page, so those figures are dated snapshots, not a claim about today's live board and not scores for any TIFF here. See [`LEADERBOARD.md`](../LEADERBOARD.md), [`why-02778.md`](why-02778.md), and the dated records under `evidence/` in the repository.
 
-1. Refresh the public registry and require `fresh_current_inventory: true` with a hash-bound audit.
-2. Freeze one H58-U1 feature definition, relief scale/bins, comparator, budget, and decision rule before
-   reading outer-block results. Keep the current ridge surface fixed.
-3. Pass the candidate-specific pre-placement surface uniqueness scan under the literal stop rule.
-   Stop on any trigger or incomplete inventory.
-4. Test every feature alone using the current buffered spatial folds; AUC above 0.90 is a leakage
-   warning requiring stop/review. Do not use a combined canary to hide a leaking feature.
-5. Use `gems57.evaluate_holdout`, buffered whole-fault segments, visible-only catalogue features,
-   pixel-exact visible-fault masking, pooled DTI with α=0.2/β=0.8 and a 300 m triangular kernel.
-   Report any result with the evaluator/version, protocol, withheld-positive count, and a defensible
-   two-sided 95% interval supported by physical spatial clusters.
-6. Only if preregistered results are supportable and all holdout/uniqueness gates pass, emit through
-   `gems57.submission_writer`; bind file and decoded-pixel hashes and run final-dot uniqueness.
-7. Preserve a negative result. Do not select a slot or upload.
+**Why did the actual `extradr19` submission score 0.2778? Unknown from the available records.** A score alone does not identify its TIFF, number/placement of predictions, feature pipeline, or validation path. The DTI form in the competition materials weights false negatives more heavily than false positives (β=0.8 versus α=0.2), with spatial credit from the kernel; this explains why broad coverage can matter in principle, not what `extradr19` did. The hidden evaluation faults, exact submitted file, and hash-bound organizer receipt are needed for a causal account.
 
-## Trusted sources
+**Can this repo claim a score above 0.2778 or 0.3195? No.** There is no organizer score for this artifact and no valid holdout result for it. Neither a raster format pass nor a high-scoring public leaderboard row predicts its score. No score projection is reported.
 
-- [DrivenData competition problem, metric, and format](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/)
-- [DrivenData data / GeoDAWN context](https://www.drivendata.org/competitions/306/competition-doe-gems/page/968/)
-- [Official public leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/)
-- [DOE GEMS Official Rules, September 2026](https://docs.nlr.gov/docs/fy26osti/96647.pdf)
-- [USGS GeoDAWN airborne magnetic/radiometric release](https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and)
-- [DrivenData reference-solution repository](https://github.com/drivendataorg/gems-prize-reference-solution)
+## 4. Three within-lane hypotheses ranked before further implementation
 
-See [`docs/SOURCES.md`](../SOURCES.md) for the evidence/source register. Public board rows, owner
-projections, local file properties, and historical run cards are not organizer-confirmed artifact
-scores.
+These are proposals for ribbon-width calibration only. They keep an existing ridge surface fixed; none can discover a fault that the ridge detector entirely missed. Their rationale for an uncatalogued fault is conditional: a missing catalogue trace may still have a nearby existing topographic or geophysical ridge, and the hypothesis tests whether the location error around such ridges is condition-dependent. Catalogue holdout estimates localization on known segments; its transfer to genuinely uncatalogued faults remains uncertain.
+
+| Rank | Hypothesis and layers | Physical signature / why it might help on an uncatalogued fault | Difference from implemented work | Relative expected DTI benefit (qualitative, not a projection) | Cost | New external data? |
+|---:|---|---|---|---|---|---|
+| 1 | **H58-U1 relief-conditioned σ:** `det_elev`, `det_elev_slope`, local relief around already-detected topographic ridge centerlines | Bedrock scarps may be sharply located while erosion, colluvium and low-relief basin fill broaden or displace the surface expression. If a not-yet-catalogued fault already produces a ridge, a relief-conditioned offset distribution could place dots nearer its trace. | Existing calibration stratifies by block, feature resolution/ridge type and magnitude; no tested rule conditions ribbon width on local relief. Ridge detection and centerline stay fixed. | Highest of these three, but only low-to-moderate potential with high uncertainty; no numeric DTI estimate. | Low–medium, roughly 1–2 engineering hours after gates clear. | No. The required bands are in the pinned 19-band stack. |
+| 2 | **H58-U2 basin-cover-conditioned σ:** `depth_to_base_surf`, `cond_surf` as width context around fixed existing ridges | Thick sedimentary cover or conductive basin fill may attenuate or broaden a fault's surface expression. This could widen the ribbon for an uncatalogued fault only where an existing ridge is already present. | Prior basement/conductivity detector ideas change the detection surface and are not this test. This proposal only conditions width, which current ribbon calibration does not test. | Low-to-moderate potential; high uncertainty and risk of learning regional geology rather than localization error. | Medium, roughly 2–3 engineering hours after gates clear. | No new third-party layer. The context bands are in the pinned stack. |
+| 3 | **H58-U3 along-strike-curvature σ:** centerline geometry/tangents from the existing Hessian ridge field | Bends, relay-like kinks and intersections may have larger cross-strike localization error. A hidden fault can benefit only if its ridge is already in the fixed field. | Hessian transverse curvature is used in ridge detection; the untried variable is along-strike centerline curvature used only after extraction. No centerline pixels are added or removed. | Low potential, high uncertainty; inexpensive falsification. | Low–medium, roughly 1–2 engineering hours after gates clear. | No; derived from the cached stack and existing ridge geometry. |
+
+Prior-art audit and falsifiers are in [`hypotheses_new.md`](hypotheses_new.md). Ranking is qualitative and is not a score forecast. These hypotheses are not implemented or validated. No experiment should start under the active hard stop.
+
+### Can the top proposal be validated now?
+
+Not under the current protocol. The feature stack is locally available and its five bridge parts plus whole-file SHA-256 match the owner-maintained GitHub manifest (`evidence/feature_stack_restore_20261011.json`). That proves mirror integrity, not organizer provenance. There is no need for new external geology data for H58-U1. However, the current raw overlap rule has an observed universal prior blocker for every nonempty in-footprint emission, so the stopping rule prevents using holdout experiments to qualify a submission. The official competition data tab remains the authoritative manual source if independent organizer provenance is required; it is login-gated in the local project record.
+
+## 5. Repository review findings and actions
+
+1. **The existing 15k TIFF was not actually uniqueness-filtered.** Its own prior run card said `NOT SCREENED`, but several top-level docs claimed “unique,” “uniqueness-filtered,” or expected a PASS. Those claims have been removed or marked superseded.
+2. **The downloaded TIFF was not generated by a reproducible in-repo emitter.** No source script or pre-placement surface was found. Do not attribute it to a measured adaptive-σ pipeline.
+3. **The download index was not yet regenerated for the renamed artifact.** `scripts/build_downloads_index.py` now renders every TIFF/ZIP separately; at the session-7 review it listed 21 files and labeled the sparse TIFF/ZIP review-only with the measured 1.0000 literal-overlap failure. A later base-branch update added a separate ML-named TIFF/ZIP; the current index lists 23 files and labels those additional files review-only because they were not evaluated or qualified in this review.
+4. **The score explanation had overclaimed cause.** The status-page generator previously said the portal's `[0,1]` error was caused by nonfinite/out-of-range values inside the footprint. No hash-bound portal response proved that cause. The generated submission instructions now state the cause is unknown and treat the local all-finite policy as a precaution only.
+5. **The previous RATIFIED-UNIQ-v1 resolution is historical for this prompt.** This review follows the current user's unqualified literal rule: rank correlation >0.90 or >70% of candidate dots within 3 px is a stop. The chance-corrected interpretation is not used to clear a file here.
+6. **The current status pages present the latest TIFF with a red banner and direct review-only downloads.** `scripts/build_session7_pages.py` replaced stale front-page prose; the download index labels each artifact. A filename or download button is not permission to upload it.
+
+## 6. Official sources for manual review
+
+The links below are the official/primary sources registered in [`SOURCES.md`](../SOURCES.md). The sandbox did not refresh DrivenData, USGS or PDF pages during this review; do not interpret a listed link as a fresh fetch.
+
+- [DrivenData competition problem and metric](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/)
+- [DrivenData competition About page](https://www.drivendata.org/competitions/306/competition-doe-gems/page/968/)
+- [DrivenData official data tab](https://www.drivendata.org/competitions/306/competition-doe-gems/data/) — login may be required.
+- [Official competition rules PDF](https://docs.nlr.gov/docs/fy26osti/96647.pdf)
+- [Official reference-solution repository](https://github.com/drivendataorg/gems-prize-reference-solution)
+- [Official public leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/) — dynamic; check directly before relying on ranks.
+- [USGS GeoDAWN magnetic and radiometric survey data](https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and)
+- [USGS 3DEP program](https://www.usgs.gov/3d-elevation-program/about-3dep-products-services)
+- [EPSG:32611](https://epsg.io/32611)
+
+## Run card
+
+The machine-readable run card is [`evidence/58gemsdoe_unique_ribbon/run_card.json`](../../evidence/58gemsdoe_unique_ribbon/run_card.json); the artifact audit is [`evidence/58gemsdoe_unique_ribbon/audit.json`](../../evidence/58gemsdoe_unique_ribbon/audit.json). Both preserve `verdict: negative`, `slots_used: 0`, the directly measured overlap stop, and `HOLDOUT-DTI: NOT MEASURED`.

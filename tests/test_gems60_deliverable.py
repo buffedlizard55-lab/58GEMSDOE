@@ -149,22 +149,21 @@ def test_run_card_verdict_matches_the_gates_and_the_note_fits_the_portal() -> No
         "the card must state that the leaderboard value is unverified"
 
 
-def test_published_pages_carry_the_same_banner_as_the_gates() -> None:
+def test_published_pages_keep_session5_historical_and_session7_current() -> None:
     page = ROOT / "docs" / "gems60.html"
     index = ROOT / "docs" / "index.html"
     if not page.exists():
-        pytest.skip("page not built in this checkout")
+        pytest.skip("historical session-5 page not built in this checkout")
     text = page.read_text()
     readings = json.loads((EV / "uniqueness_readings.json").read_text())
-    cleared = readings["governing"]["cleared"]
-    assert ("OK TO DOWNLOAD AND SUBMIT" in text) is cleared, \
-        "the rendered banner must agree with the governing readings"
-    assert ("NOT CLEARED" in text) is not cleared
-    assert re.search(r"big-btn[^>]*downloads/gems60-convergence-ribbon6-.*\.tif", text), \
-        "the one-click download button must point at the pinned raster"
+    assert readings["governing"]["cleared"] is False
+    assert "ARCHIVED SESSION-5 ARTIFACT — NOT OK TO SUBMIT" in text
+    assert "OK TO DOWNLOAD AND SUBMIT" not in text
+    assert re.search(r'href="downloads/gems60-convergence-ribbon6-.*\.tif"', text), \
+        "the historical audit link must point at the session-5 TIFF"
     if index.exists():
-        # Historical session-5 status must not be injected into the current front door.
-        current = index.read_text()
-        assert "<!-- session5:begin -->" not in current
-        assert "NOT OK TO SUBMIT" in current
-        assert "DO NOT SUBMIT" in current
+        front = index.read_text()
+        assert "session5:begin" not in front, "the old candidate must not occupy the current front page"
+        assert "NOT OK TO SUBMIT — DO NOT SUBMIT" in front
+        assert "58GEMSDOE-ribbon-sparse-review-only-20261011T182511Z.tif" in front
+        assert "RATIFIED-UNIQ-v1" not in front
