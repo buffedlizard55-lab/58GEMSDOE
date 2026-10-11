@@ -1,29 +1,41 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Official sources and availability checks — 58GEMSDOE</title><link rel="stylesheet" href="assets/site.css"></head><body>
-<div style="border:1px solid #e0c46a;border-left:5px solid #8a6d1a;background:#fffbea;border-radius:8px;padding:.7rem .9rem;margin:.8rem 0">
-<b>Session 3 update (2026-10-11):</b> this page was written before the live competition pages could be
-read. The public leaderboard and three staff threads have since been fetched and are recorded verbatim,
-with URLs, in <a href="../evidence/organizer_confirmed.json"><code>evidence/organizer_confirmed.json</code></a>
-and as rows S17&ndash;S24 of <a href="../registry/sources.csv"><code>registry/sources.csv</code></a>; the
-session-3 verification log is in <a href="SOURCES.md"><code>docs/SOURCES.md</code></a>. Two statements
-below are corrected there: the leaderboard <i>is</i> reachable (via <code>fetch_page</code>, not
-<code>bash</code>), and the live leader is <b>0.4133</b>, not the 0.3774/0.3195 the brief quoted.
-The current decision page is <a href="index.html"><code>index.html</code></a>.</div>
-
-<header><h1>Official sources and availability checks</h1><p>Checked 2026-10-11 UTC; catalogue presence is not the same as downloaded data.</p></header>
-<section><h2>Competition pages</h2><ul>
-<li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">DrivenData homepage</a> — end date displayed as Dec. 3, 2026, 11:59 p.m. UTC. Its data and submission tabs redirect to login.</li>
-<li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">Problem description</a> — metric, task, and output format; DTI uses α=0.2, β=0.8, 300 m triangular support.</li>
-<li><a href="https://docs.nlr.gov/docs/fy26osti/96647.pdf">Official rules (September 2026)</a> — up to three weekly feedback submissions, one final selected submission, AI-use narrative requirement, and 5:00 p.m. ET deadline statement.</li>
-</ul><p><b>Deadline discrepancy:</b> the homepage's 11:59 p.m. UTC display conflicts with the official rules' 5:00 p.m. ET. Use the earlier cutoff until clarified.</p></section>
-<section><h2>Official public data</h2><ul>
-<li><a href="https://data.usgs.gov/datacatalog/data/USGS:657e1d85d34e23d3533209f7">USGS GeoDAWN release</a> — public data listing and GeoTIFF deliverables confirmed; raw grids not downloaded in this review.</li>
-<li><a href="https://earthquake.usgs.gov/fdsnws/event/1/">USGS ComCat API</a> — docs and a constrained study-area query were reachable. M≥2.5 since 1970 returned 15,169 events; broader queries exceed the 20,000-event limit without partitioning.</li>
-<li><a href="https://www.usgs.gov/3d-elevation-program/about-3dep-products-services">USGS 3DEP</a> / <a href="https://tnmaccess.nationalmap.gov/api/v1/products?datasets=Digital%20Elevation%20Model%20(DEM)%201%20meter&amp;bbox=-120.037,37.331,-116.140,40.728&amp;prodFormats=GeoTIFF&amp;outputFormat=JSON&amp;max=1">TNM 1 m DEM AOI query</a> — 1,856 catalog records returned; no DEM tile was downloaded.</li>
-<li><a href="https://www.usgs.gov/data/state-geologic-map-compilation-sgmc-geodatabase-conterminous-united-states">USGS SGMC release</a> / <a href="https://ngmdb.usgs.gov/Prodesc/proddesc_119417.htm">2026 GeMS product</a> — updated release and GIS link listed, but direct GIS fetch returned HTTP 500.</li>
-<li><a href="https://gdr.openei.org/submissions/1704">DOE Geothermal Data Repository, submission 1704</a> — page identifies a public Nevada-containing well/heat-flow collection (21.6 GB); archive not downloaded.</li>
+<title>Official sources and evidence classes — 58GEMSDOE</title><link rel="stylesheet" href="assets/site.css"></head><body>
+<div class="wrap">
+<header><h1>Official sources and evidence classes</h1>
+<p>Session-7 review · 2026-10-11 UTC · manual links for independent review</p>
+<p><a href="index.html">Current negative status</a> · <a href="REVIEW_20261011.md">Session-7 review</a> ·
+<a href="SOURCES.md">Source register and retrieval notes</a></p></header>
+<section class="banner" role="alert"><b>NOT OK TO SUBMIT — DO NOT SUBMIT.</b>
+<p>No organizer receipt/hash crosswalk exists for the retained diagnostic. Public participant rows,
+owner-maintained pages, local metrics, format checks, and projections are not scores for a local TIFF.</p></section>
+<section class="card"><h2>Official competition references</h2><ul>
+<li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">DrivenData competition overview</a>
+— competition description and official-rules link.</li>
+<li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">Problem page 967</a>
+— target is geological faults indicative of geothermal resources, not geothermal vents; publishes the
+pooled DTI with α=0.2, β=0.8 and the 300 m triangular kernel, and the required GeoTIFF format.</li>
+<li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">Public leaderboard</a>
+— dynamic participant standings only. The dated observation is separately labeled
+<code>PUBLIC-LEADERBOARD-SNAPSHOT</code> in <a href="LEADERBOARD.md">the attribution record</a>;
+no row is tied to a local artifact without an exact organizer receipt/hash crosswalk.</li>
+<li><a href="https://docs.nlr.gov/docs/fy26osti/96647.pdf">Official competition rules (September 2026 PDF)</a>
+— competition rules. A deadline discrepancy against the homepage remains unresolved; see
+<a href="IRREGULARITIES.md">the current irregularity log</a>.</li>
+<li><a href="https://github.com/drivendataorg/gems-prize-reference-solution">Official reference-solution repository</a>
+— writer and sample-format context. Local conformance is not portal acceptance.</li>
 </ul></section>
-<section><h2>Current project status</h2><p><b>NOT OK TO SUBMIT — DO NOT SUBMIT.</b> See <a href="index.html">main status page</a>, <a href="SUBMISSION_GUIDE.md">submission guide</a>, <a href="SOURCES.md">full source register</a>, and <a href="IRREGULARITIES.md">irregularities log</a>.</p></section>
-<footer>Evidence is in <code>docs/SOURCES.md</code>, <code>evidence/registry_freshness_audit.json</code> and <code>evidence/run_card.json</code>. No organizer score or upload receipt exists.</footer>
-</body></html>
+<section class="card"><h2>Official data source</h2><p><a href="https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and">USGS GeoDAWN airborne magnetic and radiometric survey release</a>, DOI
+<a href="https://doi.org/10.5066/P93LGLVQ">10.5066/P93LGLVQ</a>. The feature-stack cache was absent in
+session 7; no new stack bytes were fetched. The owner-maintained bridge pin checks mirror integrity,
+not independent organizer provenance.</p></section>
+<section class="card"><h2>Current artifact and evidence limits</h2><p>The retained session-7 TIFF is a catalogue-boundary diagnostic, not a ribbon-width experiment.
+HOLDOUT-DTI is NOT MEASURED; pre-placement and final-dot registry comparisons are NOT MEASURED;
+the leakage canary is NOT RUN; and shared official-sample format validation fails. The hash-bound
+negative run card is <a href="../evidence/58gemsdoe_unique_ribbon/run_card.json">here</a>.</p>
+<p>Current irregularities and source-retrieval notes are in <a href="IRREGULARITIES.md">IRREGULARITIES.md</a>
+and <a href="SOURCES.md">SOURCES.md</a>.</p></section>
+<footer>Evidence classes: HOLDOUT-DTI requires shared evaluator, protocol, withheld-positive count,
+physical cluster unit, named CI method and defensible 95% CI. ORGANIZER-CONFIRMED requires an exact
+artifact-bound organizer receipt. PUBLIC-LEADERBOARD-SNAPSHOT is context only.</footer>
+</div></body></html>

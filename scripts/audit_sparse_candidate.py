@@ -3,7 +3,9 @@
 
 This script only re-reads the existing bytes. It does not emit or rewrite a TIFF,
 run a holdout, fit sigma, choose ribbon geometry, use a slot, or upload anything.
-A local format pass and a measured overlap trigger are reported separately.
+A local format pass and a measured overlap trigger are reported separately. A
+cache-missing rerun will not replace an existing hash-bound direct witness
+receipt for unchanged candidate bytes with an inference-only report.
 
 Run from the repository root:
     PYTHONPATH=src python scripts/audit_sparse_candidate.py
@@ -277,6 +279,38 @@ def audit_candidate(tif: Path, sample: Path, witness: Path | None) -> dict:
     }
 
 
+def should_preserve_direct_witness_receipt(existing: dict, replacement: dict) -> bool:
+    """Prevent a cache-missing rerun from downgrading a hash-bound direct receipt.
+
+    A direct measurement of the same candidate bytes against the pinned witness is
+    stronger than a later inference-only report. Preserve the prior receipt unless
+    this run repeats the direct witness measurement or the candidate bytes changed.
+    """
+    if not isinstance(existing, dict) or not isinstance(replacement, dict):
+        return False
+    if not existing.get("artifact_sha256") or existing.get("artifact_sha256") != replacement.get("artifact_sha256"):
+        return False
+    old_final = ((existing.get("correlation_overlap_vs_registry") or {}).get("final_dots") or {})
+    old_measurement = old_final.get("witness_measurement", {}) or {}
+    new_final = ((replacement.get("correlation_overlap_vs_registry") or {}).get("final_dots") or {})
+    new_measurement = new_final.get("witness_measurement", {}) or {}
+    if new_measurement.get("direct_current_file_measurement") is True:
+        return False
+    try:
+        old_overlap = float(old_measurement.get("observed_candidate_dot_overlap_within_3_px"))
+        witnesses_checked = int(old_final.get("witnesses_directly_checked", 0))
+    except (TypeError, ValueError):
+        return False
+    return (
+        witnesses_checked > 0
+        and old_measurement.get("direct_current_file_measurement") is True
+        and old_measurement.get("expected_sha256") == WITNESS_SHA256
+        and old_measurement.get("sha256_verified") is True
+        and old_measurement.get("literal_overlap_trigger") is True
+        and old_overlap > OVERLAP_LIMIT
+    )
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--tif", type=Path, default=None,
@@ -301,10 +335,27 @@ def main(argv: list[str] | None = None) -> int:
     except (OSError, ValueError, KeyError, zipfile.BadZipFile, rasterio.errors.RasterioError) as exc:
         print(f"AUDIT FAILED: {exc}", file=sys.stderr)
         return 1
+    public_record = report.get("public_review_record")
+    protected_targets = [args.output]
+    if public_record:
+        protected_targets.append(ROOT / public_record)
+    for target in dict.fromkeys(protected_targets):
+        if target.is_file():
+            try:
+                previous = read_json(target)
+            except (OSError, json.JSONDecodeError):
+                previous = {}
+            if should_preserve_direct_witness_receipt(previous, report):
+                print(
+                    "AUDIT NOT WRITTEN: candidate bytes are unchanged, but this run lacks the "
+                    "pinned witness; preserving the existing hash-bound direct-overlap receipt "
+                    f"at {target.relative_to(ROOT) if target.is_relative_to(ROOT) else target}.",
+                    file=sys.stderr,
+                )
+                return 2
     args.output.parent.mkdir(parents=True, exist_ok=True)
     serialized = json.dumps(report, indent=2, allow_nan=False) + "\n"
     args.output.write_text(serialized, encoding="utf-8")
-    public_record = report.get("public_review_record")
     if public_record:
         (ROOT / public_record).write_text(serialized, encoding="utf-8")
     print(json.dumps({

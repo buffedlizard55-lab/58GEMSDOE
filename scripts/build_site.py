@@ -28,6 +28,7 @@ from __future__ import annotations
 import hashlib
 import html
 import json
+import math
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -170,58 +171,32 @@ def evaluate_gates(emi: dict, sig: dict, inv: dict, tif: Path,
         worst_rho = inv.get("worst_spearman_full_footprint")
         worst_ov = inv.get("worst_dot_overlap")
         info = inv.get("informative_reading", {}) or {}
-        ra = ratification_analysis(inv)
         base_ok = (inv.get("complete_accessible_scan") is True
                    and inv.get("byte_unique_among_checked") is True
                    and inv.get("pixel_unique_among_checked") is True
                    and worst_rho is not None and float(worst_rho) <= RHO_LIMIT
                    and count_flag(inv, "duplicate_by_rho") == 0
                    and count_flag(inv, "duplicate_by_jaccard") == 0)
-        # RATIFIED-UNIQ-v1 (ratified 2026-10-11, session 5; docs/research/irregularities.md
-        # IR-58-UNIQ-07): an overlap firing blocks iff the witness could have failed to fire —
-        # literal O > 0.70 against a witness with chance expectation E < 0.70 (rule A), or
-        # chance-corrected lift (O − E)/(1 − E) > 0.50 against any witness (rule B).
-        # Fail closed: a literal firing that cannot be classified (no per-row chance
-        # measurement in the receipt) blocks exactly as it did before ratification.
-        literal_fired = worst_ov is not None and float(worst_ov) > OVERLAP_LIMIT
-        firing_rows = [r for r in inv.get("rows", []) or []
-                       if (r.get("my_dots_within_3px_of_theirs") or 0.0) > OVERLAP_LIMIT]
-        firings_classified = bool(firing_rows) and all(
-            r.get("chance_expected_overlap") is not None for r in firing_rows)
-        ratified_ok = (base_ok and ra.get("rule_a_firings") == 0
-                       and ra.get("rule_b_firings") == 0
-                       and (not literal_fired or firings_classified))
-        add("G3", "Uniqueness — public inventory scan (ratified chance-corrected gate "
-            "RATIFIED-UNIQ-v1)", ratified_ok,
+        # The literal raw-overlap instruction is the governing stop. Historical
+        # RATIFIED-UNIQ-v1/chance-corrected readings may remain in archived receipts,
+        # but they never exempt a witness or clear this gate.
+        literal_ok = (base_ok and inv.get("unique") is True
+                      and worst_ov is not None and float(worst_ov) <= OVERLAP_LIMIT)
+        literal_count = info.get("overlap_firings")
+        add("G3", "Uniqueness — public inventory scan (literal raw-overlap stop)", literal_ok,
             f"{inv.get('registry_rasters_checked', inv.get('n_compared'))} sha256-verified rasters "
             f"from <code>{esc(inv.get('index'))}</code>; complete accessible scan "
             f"{inv.get('complete_accessible_scan')}; missing/invalid "
             f"{inv.get('missing_or_invalid')}. Byte-unique {inv.get('byte_unique_among_checked')}, "
             f"pixel-unique {inv.get('pixel_unique_among_checked')}; worst rank correlation "
-            f"{fmt(worst_rho)} (limit 0.90, {count_flag(inv, 'duplicate_by_rho')} firings); worst "
-            f"Jaccard {fmt(inv.get('worst_jaccard_dot_sets'))} (limit 0.50, "
-            f"{count_flag(inv, 'duplicate_by_jaccard')} firings). <b>Ratified overlap rule:</b> "
-            f"rule A (literal &gt; 0.70 vs witnesses with E &lt; 0.70): "
-            f"<b>{ra.get('rule_a_firings')}</b> firings; rule B (chance-corrected lift &gt; 0.50 vs "
-            f"any witness): <b>{ra.get('rule_b_firings')}</b> firings "
-            f"(max lift {fmt(ra.get('max_lift'), 3)}; max vs another repository "
-            f"{fmt(ra.get('max_lift_other_repo'), 3)}). The literal pre-ratification reading is "
-            f"reported unchanged in G3L below and in the run card.")
-        literal_ok = (base_ok and inv.get("unique") is True
-                      and worst_ov is not None and float(worst_ov) <= OVERLAP_LIMIT)
-        add("G3L", "Uniqueness — literal pre-ratification reading (reported, not governing)",
-            literal_ok,
-            f"<b>Literal reading:</b> worst 3&nbsp;px forward overlap <b>{fmt(worst_ov)}</b> vs the "
-            f"0.70 limit → <b>{info.get('overlap_firings')} firings</b>, of which "
-            f"{info.get('overlap_firings_vacuous')} are against witnesses whose 3&nbsp;px dilation "
-            f"covers ≥ 99&nbsp;% of the footprint (E ≥ 0.99: they overlap <i>every</i> nonempty "
-            f"candidate and carry no information) and {info.get('overlap_firings_informative')} are "
-            f"against broader dot fields (smallest E among non-saturated firings "
-            f"{fmt(min_e_of_firings(inv))}). Scan verdict as recorded: {esc(inv.get('verdict'))}; "
-            f"stop_required {inv.get('stop_required')}. The literal rule fires for every nonempty "
-            f"candidate against a witness whose dilation covers the footprint, so it cannot "
-            f"discriminate lane drift; RATIFIED-UNIQ-v1 (G3) governs since 2026-10-11 and this "
-            f"reading stays published beside it.")
+            f"{fmt(worst_rho)} (limit 0.90); worst raw candidate-forward overlap within 3 px "
+            f"{fmt(worst_ov)} (strict stop above 0.70; {literal_count} reported firings). "
+            f"Any firing is a hard stop, including against saturated witnesses; no chance-corrected "
+            f"exception or RATIFIED-UNIQ-v1 interpretation overrides this rule.")
+        add("G3L", "Uniqueness — literal raw 3 px overlap (same governing stop)", literal_ok,
+            f"Literal raw overlap {fmt(worst_ov)} vs strict 0.70 stop; "
+            f"reported firings {literal_count}. Saturated witnesses receive no exemption. "
+            f"Registry must be complete, current, and byte-verified.")
 
     can = sig.get("leakage_canary", {}) or {}
     aucs = [v.get("auc_max") for v in can.values() if isinstance(v, dict) and v.get("auc_max") is not None]
@@ -233,12 +208,43 @@ def evaluate_gates(emi: dict, sig: dict, inv: dict, tif: Path,
         f"{sum(1 for v in can.values() if isinstance(v, dict) and v.get('leaks'))}")
 
     ho = emi.get("holdout_dti", {}) or {}
-    add("G5", "Holdout evidence recorded and labelled",
-        ho.get("pooled") is not None and bool(ho.get("per_fold")),
-        f"HOLDOUT-DTI {fmt(ho.get('pooled'), 6)} pooled over {ho.get('n_withheld_positives')} "
-        f"withheld positives ({esc(ho.get('protocol'))} / {esc(ho.get('evaluator'))}). This measures "
-        f"recovery of <i>catalogue</i> truth, not the organizer's new-fault truth, and is not a "
-        f"leaderboard forecast.")
+    ci95 = ho.get("ci95", {}) or {}
+    pooled = ho.get("pooled")
+    withheld = ho.get("n_withheld_positives")
+    ci_lo, ci_hi = ci95.get("lo"), ci95.get("hi")
+    cluster_unit = str(ci95.get("cluster_unit") or "").strip()
+    cluster_label = cluster_unit.lower()
+    physical_cluster = any(token in cluster_label for token in ("fault", "segment", "physical", "geologic"))
+
+    def is_probability(value):
+        return (isinstance(value, (int, float)) and not isinstance(value, bool)
+                and math.isfinite(float(value)) and 0.0 <= float(value) <= 1.0)
+
+    ci_ok = (isinstance(ci95, dict)
+             and ci95.get("confidence_level") == 0.95
+             and is_probability(ci_lo) and is_probability(ci_hi)
+             and float(ci_lo) <= float(ci_hi)
+             and bool(str(ci95.get("method") or "").strip())
+             and physical_cluster)
+    holdout_ok = (is_probability(pooled)
+                  and isinstance(ho.get("per_fold"), dict) and bool(ho.get("per_fold"))
+                  and isinstance(withheld, int) and not isinstance(withheld, bool) and withheld > 0
+                  and bool(str(ho.get("protocol") or "").strip())
+                  and bool(str(ho.get("evaluator") or "").strip())
+                  and ci_ok)
+    if holdout_ok:
+        holdout_detail = (
+            f"HOLDOUT-DTI {fmt(pooled, 6)} over {withheld:,} withheld positives "
+            f"({esc(ho.get('protocol'))} / {esc(ho.get('evaluator'))}); defensible physical-cluster "
+            f"95% CI [{fmt(ci_lo, 6)}, {fmt(ci_hi, 6)}] by {esc(ci95.get('method'))} "
+            f"({esc(cluster_unit)}). This is not an organizer score or leaderboard forecast.")
+    else:
+        holdout_detail = (
+            "NOT REPORTABLE — HOLDOUT-DTI requires the shared evaluator and protocol, a positive "
+            "withheld-positive count, pooled/per-fold results, and a defensible physical-cluster "
+            "95% CI with interval, method, and cluster unit.")
+    add("G5", "Promotion-grade HOLDOUT-DTI with physical-cluster 95% CI", holdout_ok,
+        holdout_detail)
 
     if xcheck is None:
         add("G5i", "HOLDOUT-DTI re-derived with the shared gems57 metric", False,
