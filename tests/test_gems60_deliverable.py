@@ -69,18 +69,43 @@ def test_zero_positive_mass_on_the_mapped_catalogue(tif: Path) -> None:
     assert not (a > 0)[cat].any(), "the organiser masks catalogue pixels; emitting on them is inert"
 
 
-def test_uniqueness_governing_readings_have_no_firing() -> None:
+def test_uniqueness_readings_recompute_under_the_ratified_rule() -> None:
+    """RATIFIED-UNIQ-v1 must be applied to the screen, not asserted in prose.
+
+    The counts in ``uniqueness_readings.json`` are recomputed here from the raw
+    ``uniqueness_full.json`` rows, so a receipt that drifts from the ratified
+    thresholds fails the build.  The pre-ratification readings are required to be
+    present as well: hidden or deleted literals fail the build too.
+    """
     screen = json.loads((EV / "uniqueness_full.json").read_text())
     readings = json.loads((EV / "uniqueness_readings.json").read_text())
     assert screen["pin_size_mismatches"] == 0, "a witness that does not match its pin must fail the build"
     assert readings["n_pinned"] >= 600, "the governing screen must cover the restored inventory"
-    assert readings["governing"]["cleared"] is True, readings["governing"]
-    assert readings["lift"]["n"] == 0 and readings["e_threshold"]["n"] == 0
-    assert readings["rho"]["n"] == 0 and readings["jaccard"]["n"] == 0
-    assert readings["max_chance_corrected_lift"] <= 0.50
-    # the literal reading is reported in full and must be explainable, never hidden
+    assert readings["rule_id"] == "RATIFIED-UNIQ-v1", readings["rule_id"]
+
+    rows = [r for r in screen["rows"] if r.get("forward_overlap") is not None]
+    fwd = lambda r: r.get("forward_overlap") or 0.0
+    E = lambda r: r.get("their_dilated_frac_of_footprint") or 0.0
+    lift = lambda r: r.get("chance_corrected_lift") or 0.0
+    rule_a = [r for r in rows if fwd(r) > 0.70 and E(r) < 0.70]
+    rule_b = [r for r in rows if lift(r) > 0.50 and E(r) < 0.99]
+    rho = [r for r in rows if (r.get("rho_full_footprint") or 0.0) > 0.90]
+    jac = [r for r in rows if (r.get("jaccard") or 0.0) > 0.50]
+    assert readings["rule_a"]["n"] == len(rule_a), "rule A count must equal the screen"
+    assert readings["rule_b"]["n"] == len(rule_b), "rule B count must equal the screen"
+    assert readings["rho"]["n"] == len(rho) and readings["jaccard"]["n"] == len(jac)
+    expected_cleared = not (rule_a or rule_b or rho or jac)
+    assert readings["governing"]["cleared"] is expected_cleared, readings["governing"]
+    assert ("UNIQUE" in readings["governing"]["verdict"]) is expected_cleared
+
+    # the pre-ratification readings stay published, exactly and with their scope
     assert readings["literal"]["n"] == screen["n_forward_firings"] > 0
     assert readings["literal"]["n_vacuous"] > 0
+    assert readings["e_strict_variant"]["n"] == len(
+        [r for r in rows if fwd(r) > 0.70 and E(r) <= 0.61])
+    assert readings["max_chance_corrected_lift"] <= 0.50
+    for firing in readings["rule_a"]["firings"]:
+        assert firing.get("witness") and firing.get("E") is not None
 
 
 def test_holdout_number_is_labelled_and_carries_its_caveat() -> None:
@@ -101,14 +126,24 @@ def test_sigma_table_supports_the_emitted_ribbon_width() -> None:
 
 def test_run_card_verdict_matches_the_gates_and_the_note_fits_the_portal() -> None:
     card = json.loads((EV / "run_card.json").read_text())
-    assert card["registry_overlap"]["governing_cleared"] is True
-    assert card["registry_overlap"]["lift_firings"] == 0
-    assert card["registry_overlap"]["e_threshold_firings"] == 0
+    readings = json.loads((EV / "uniqueness_readings.json").read_text())
+    overlap = card["registry_overlap"]
+    cleared = readings["governing"]["cleared"]
+    assert overlap["governing_rule_id"] == "RATIFIED-UNIQ-v1"
+    assert overlap["governing_cleared"] is cleared, "the card must repeat the governing verdict"
+    assert overlap["rule_a_firings"] == readings["rule_a"]["n"]
+    assert overlap["rule_b_firings"] == readings["rule_b"]["n"] == 0
+    assert overlap["e_strict_variant_firings"] == readings["e_strict_variant"]["n"]
+    assert overlap["worst_rank_correlation_all"] < 0.90
     assert card["validator"]["verify_passed"] == card["validator"]["verify_total"]
     assert card["validator"]["on_catalogue_positive_pixels"] == 0
     note = card["submission"]["note"]
     assert 0 < len(note) <= 140
-    assert "PROMOTE" in card["verdict"]["decision"]
+    decision = card["verdict"]["decision"]
+    if cleared:
+        assert decision.startswith("PROMOTE")
+    else:
+        assert decision.startswith("STOP") and "RATIFIED-UNIQ-v1" in decision, decision
     unverified = card["verdict"]["what_is_not_verified"].lower()
     assert "no organizer receipt" in unverified and "holdout" in unverified, \
         "the card must state that the leaderboard value is unverified"
@@ -116,12 +151,21 @@ def test_run_card_verdict_matches_the_gates_and_the_note_fits_the_portal() -> No
 
 def test_published_pages_carry_the_same_banner_as_the_gates() -> None:
     page = ROOT / "docs" / "gems60.html"
+    index = ROOT / "docs" / "index.html"
     if not page.exists():
         pytest.skip("page not built in this checkout")
     text = page.read_text()
-    card = json.loads((EV / "run_card.json").read_text())
-    cleared = "OK TO DOWNLOAD AND SUBMIT" in text
-    assert cleared == ("PROMOTE" in card["verdict"]["decision"]), \
-        "the rendered banner must not disagree with the run card"
+    readings = json.loads((EV / "uniqueness_readings.json").read_text())
+    cleared = readings["governing"]["cleared"]
+    assert ("OK TO DOWNLOAD AND SUBMIT" in text) is cleared, \
+        "the rendered banner must agree with the governing readings"
+    assert ("NOT CLEARED" in text) is not cleared
     assert re.search(r"big-btn[^>]*downloads/gems60-convergence-ribbon6-.*\.tif", text), \
         "the one-click download button must point at the pinned raster"
+    if index.exists():
+        m = re.search(r"<!-- session5:begin -->(.*?)<!-- session5:end -->", index.read_text(), re.S)
+        assert m, "the front door must carry the session-5 box"
+        box = m.group(1)
+        assert ("OK TO DOWNLOAD AND SUBMIT" in box) is cleared, \
+            "the front-door box must agree with the governing readings"
+        assert ("NOT CLEARED" in box) is not cleared
