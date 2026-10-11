@@ -453,11 +453,23 @@
    "max_chance_corrected_lift": 0.4551746753789072
   },
   "scope": "every byte-verified raster available in this sandbox: the 19 witnesses committed under data/registry/rasters plus the restored public inventory in ~/.cache/gems/registry_witnesses (sha256 pinned in evidence/registry_scan_index.json). The recorded inventory lists 703 rasters; blobs above 6 MB and the 8 rows without a git blob are out of scope and are reported as such, never counted as clearance.",
-  "governing_rule": "duplicate iff lift > 0.50, or overlap > 0.70 against a witness with E <= 0.61, or rho > 0.90, or Jaccard > 0.50",
-  "governing_cleared": true,
-  "literal_firings_note": "every firing is against a witness whose own 3 px dilation covers at least 0.646 of the scored footprint, so these witnesses overlap every nonempty footprint-respecting candidate",
-  "lift_firings": 0,
-  "e_threshold_firings": 0,
+  "governing_rule": "duplicate iff rule A (forward overlap > 0.70 vs a witness with E < 0.70), or rule B (lift > 0.50 vs a witness with E < 0.99), or rho > 0.90, or Jaccard > 0.50, or bytes/pixels identical",
+  "governing_rule_id": "RATIFIED-UNIQ-v1",
+  "governing_cleared": false,
+  "governing_verdict": "DUPLICATE under RATIFIED-UNIQ-v1: 4 rule-A firing(s), 0 rule-B firing(s) \u2014 stop and log, download for review only",
+  "literal_firings_note": "every literal firing is against a witness whose own 3 px dilation covers at least 0.646 of the scored footprint, so those witnesses overlap every nonempty footprint-respecting candidate",
+  "rule_a_firings": 4,
+  "rule_a_worst_overlap": 0.7463,
+  "rule_a_witnesses": [
+   "13GEMSDOE:docs/downloads/archive/13gems-r6-ensemble-20260929T182914Z_allfinite.tif",
+   "13GEMSDOE:docs/downloads/archive/13gems-r6-ensemble-20260929T182914Z.tif",
+   "13GEMSDOE:docs/downloads/archive/13gems-toporef-holdoutref.tif",
+   "13GEMSDOE:docs/downloads/archive/13gems-toporef-holdoutref_allfinite.tif"
+  ],
+  "rule_a_note": "forward 3 px overlap > 0.70 and witness E < 0.70",
+  "rule_b_firings": 0,
+  "rule_b_note": "(obs - E) / (1 - E) > 0.50 against witnesses with E < 0.99",
+  "e_strict_variant_firings": 0,
   "max_chance_corrected_lift": 0.4551746753789072,
   "worst_rank_correlation_all": 0.3499287738460745,
   "worst_jaccard_all": 0.024845624576278966,
@@ -520,8 +532,8 @@
   "format": "single-band float32 GeoTIFF, EPSG:32611, 3730x3292, 100 m, transform and bounds identical to the organiser's sample_submission; values exactly {0.0, 1.0}; every cell finite so no value can fail the portal's [0, 1] rule"
  },
  "verdict": {
-  "decision": "PROMOTE \u2014 candidate for a scored slot (owner's selector step)",
-  "why": "all measurable local gates pass: independent format verification, exact value rule, zero positive mass on the mapped catalogue, and the uniqueness screen over every byte-verifiable witness under both resolutions the owner proposed for the literal rule (chance-corrected lift and a witness-coverage threshold), each with zero firings; the literal reading itself fires only on witnesses that cover at least 65 % of the footprint by their own dilation and is unsatisfiable by construction",
+  "decision": "STOP \u2014 duplicate under RATIFIED-UNIQ-v1: 4 rule-A firing(s) (worst forward overlap 0.7463), 0 rule-B firing(s); download for review only, do not submit",
+  "why": "the file fails the ratified uniqueness gate (RATIFIED-UNIQ-v1, PROMPT.md item 1): rule A fires against 4 witness raster(s) whose own 3 px dilation covers less than 70 % of the scored footprint (worst forward overlap 0.7463), while rule B (chance-corrected lift), rank correlation and dot-set Jaccard all have zero firings and the pre-ratification E <= 0.61 variant has zero firings too. By the standing instruction the file is logged as a duplicate and stopped; it stays downloadable for the owner's review and no slot may be used for it",
   "what_is_not_verified": "its leaderboard value. No organizer receipt exists; the local holdout is structurally blind to off-catalogue files (lane measurement: Spearman -0.037 between that proxy and live scores over 34 rasters); the only live evidence for this emission format is the family's own USER-REPORTED scores for sibling dotted files (0.2600-0.2778).",
   "negative_result_this_session": "the >=2-family convergence count did not beat a single family (topographic) as a ranking statistic at an equal 40k-dot budget on the holdout; it is kept only as the allocator's ranking weight, and that is recorded, not hidden."
  },
