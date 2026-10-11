@@ -32,13 +32,23 @@ holdout number (labelled, with its limits) → [`evidence/gems60/holdout.json`](
 uniqueness screen → [`evidence/gems60/uniqueness_full.json`](evidence/gems60/uniqueness_full.json);
 independent verification → [`docs/downloads/gems60-convergence-ribbon6-20261011T155420Z.checks.json`](docs/downloads/gems60-convergence-ribbon6-20261011T155420Z.checks.json).
 
-### Earlier artifacts — still NOT CLEARED
+> **Cross-lane note (concordance lane, this branch):** the convergence deliverable above was screened
+> with the gems60 instruments (0 firings at E ≤ 0.61, max lift 0.4552 ≤ 0.50) over 668 witnesses.
+> This lane's ratified rule **RATIFIED-UNIQ-v1** additionally blocks on any literal firing against a
+> witness with **E < 0.70** (rule A); witnesses in the E 0.61–0.70 band have not been adjudicated for
+> the gems60 file, and the two scans used different witness snapshots that each predate the other
+> lane's file. Reconciling the two rule sets is an owner step (see `REMAINING_WORK.md` S5.1).
 
-Two artifacts remain downloadable and **neither is cleared**.
+### gems58-lane artifacts — all NOT CLEARED
+
+The gems58-lane artifacts below remain downloadable and **none is cleared**. Their authoritative,
+evidence-generated banner is rendered by `scripts/build_site.py` on the
+[public site](https://buffedlizard55-lab.github.io/58GEMSDOE/docs/index.html).
 
 | Artifact | Status | Decision basis |
 |---|---|---|
-| **`gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif`** (session 3, current candidate) — [TIF](docs/downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif) · [ZIP](docs/downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.zip) | **NOT CLEARED — download for review only** | Format gate 15/15 and holdout measured, but the **literal** 3 px forward-overlap stop fires against 81 of 702 inventory witnesses. Logged as a duplicate and stopped, as the standing prompt requires. [`evidence/ribbon/uniqueness_full_inventory.json`](evidence/ribbon/uniqueness_full_inventory.json), [`evidence/ribbon/run_card_final.json`](evidence/ribbon/run_card_final.json) |
+| **`gems58-concordance-ribbon-40768-20261011T160514Z.tif`** (session 5, concordance lane) — [TIF](docs/downloads/gems58-concordance-ribbon-40768-20261011T160514Z.tif) · [ZIP](docs/downloads/gems58-concordance-ribbon-40768-20261011T160514Z.zip) | **NOT CLEARED — download for review only** | Format gate 15/15, cross-fitted HOLDOUT-DTI 0.043575 (arm C2 vs incumbent 0.040105), surface gate passed (worst ρ 0.2414/703), leakage canary clean — but the **ratified chance-corrected uniqueness gate (RATIFIED-UNIQ-v1)** fires on the final dots: rule A 9×, rule B 3× incl. another repository's raster (`GEMSDOE50:h52-coincidence8`, lift 0.5624). The literal 70 % rule also fires (83/703). Logged as a duplicate and stopped. [`evidence/ribbon/uniqueness_full_inventory.json`](evidence/ribbon/uniqueness_full_inventory.json), [`docs/RUN_CARD.json`](docs/RUN_CARD.json) |
+| **`gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif`** (session 3) — [TIF](docs/downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif) · [ZIP](docs/downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.zip) | **NOT CLEARED — download for review only** | Format gate 15/15 and holdout measured, but the **literal** 3 px forward-overlap stop fires against 81 of 702 inventory witnesses. Logged as a duplicate and stopped, as the standing prompt requires. [`evidence/ribbon/archive-s3/uniqueness_full_inventory.json`](evidence/ribbon/archive-s3/uniqueness_full_inventory.json), [`evidence/ribbon/run_card_final.json`](evidence/ribbon/run_card_final.json) |
 | **`gems58-novel-scatter-44090-20261011T0630Z.tif`** (sibling-lane deliverable under `docs/deliverable/`) | **NOT CLEARED under the protocol as written — IR-58-UNIQ-06** | Its published screen reports "worst 3 px forward overlap **0.3160**, 0 triggers" over 473 rasters — the **reverse** statistic (the witness's dots near the candidate's). Re-screened with the corrected instrument over all 703 witnesses: verdict **negative**, **79 firings** (54 vacuous, 25 informative), while byte-unique / pixel-unique / worst ρ **0.0900** / worst Jaccard **0.0509** all pass. Cross-screened against this lane's file the overlap is asymmetric: this file clears it (0.2998, lift 0.267) and it fires on this file (0.7513, lift 0.714) — geometry, not copying (3,542 shared pixels, Jaccard 0.0436). [`evidence/ribbon/sibling_full_inventory.json`](evidence/ribbon/sibling_full_inventory.json), [`cross_lane_screen.json`](evidence/ribbon/cross_lane_screen.json) |
 | `gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.tif` (session 1/2 diagnostic) — [TIF](docs/downloads/gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.tif) | **NOT CLEARED — audit only** | 100% of its dots lie within 3 px of one full-footprint-positive prior raster, and its recorded scan was 694/695. [`evidence/run_card.json`](evidence/run_card.json), [`evidence/ribbon_uniqueness.json`](evidence/ribbon_uniqueness.json) |
 
@@ -90,6 +100,25 @@ before deciding whether to submit.
 > be applied to **both** files at the same value —
 > [`evidence/ribbon/cross_lane_screen.json`](evidence/ribbon/cross_lane_screen.json).
 
+### Session-5 candidate — the facts
+
+| | |
+|---|---|
+| sha256 | `f709b6f12d5188e34aa3aed3b83d785b97a232224692dcdfffedaa009dee9d0d` (`gems58-concordance-ribbon-40768-20261011T160514Z.tif`) |
+| Contents | 40,768 isolated dots, every emitted value **exactly 1.0**; EPSG:32611, 3730×3292, 100 m; NaN outside the footprint exactly as in `sample_submission.tif`; **0 dots on the mapped catalogue** (12,315 on-catalogue px dropped at emit) |
+| Hypothesis | H58-X1 **multi-family concordance gate**: keep ridge support only where ≥ 2 independent geophysical feature families (τ_family = 0.30) agree at τ = 0.35, 1-px dilation |
+| HOLDOUT-DTI (promotion-grade, cross-fitted) | arm **C2 0.043575** vs incumbent R0 0.040105 (Δ +0.003470, beats R0 in 3/4 blocks); evaluator `gems58w.metric/v1` = `gems57` shared metric (crosscheck delta exactly 0.0) |
+| Leakage canary | worst single-feature AUC **0.5666** (limit 0.90) — clean |
+| Surface gate (pre-placement) | **passed**: worst ρ 0.2414 over 703 witnesses |
+| Final-dot gate — discriminating statistics | byte-unique, pixel-unique, worst ρ **0.2823**, worst Jaccard **0.1682** — all pass |
+| Final-dot gate — **RATIFIED-UNIQ-v1** | **FIRES → negative**: rule A (literal O > 0.70 vs witness with E < 0.70) 9×, worst `13GEMSDOE:r6-ensemble` O 0.8154 at E 0.6456; rule B (chance-corrected lift > 0.50, E < 0.99) 3×, incl. **another repository's** `GEMSDOE50:h52-coincidence8-80000` (O 0.6668, E 0.2386, lift **0.5624**) and this repo's own session-3 file (lift 0.5741) |
+| Verdict | **negative — logged as a duplicate and stopped.** Under every defensible reading (literal, ratified, rule-A-only) the file is not clearable. No slot used, no upload, no organizer receipt |
+
+The uniqueness rule was **ratified in session 5** (RATIFIED-UNIQ-v1, `PROMPT.md` protocol item 1,
+IR-58-UNIQ-07): chance-corrected rules A/B govern, the literal reading is always published beside
+them (gate G3L). The session-5 candidate fails **both** readings, so no definitional choice is doing
+any work in this verdict.
+
 ### Session-3 candidate — the facts
 
 | | |
@@ -101,7 +130,8 @@ before deciding whether to submit.
 | Uniqueness — discriminating statistics | byte-unique and pixel-unique among 702 verified witnesses; worst rank correlation **0.1824** (limit 0.90, **0** firings); worst dot-set Jaccard **0.1041** (limit 0.50, **0** firings); worst overlap against witnesses whose own expected overlap is < 0.30: **0.6115** |
 | Uniqueness — literal stop | **fires**: 81 witnesses > 0.70 forward overlap; 54 are information-free (their 3 px dilation covers ≥ 99% of the footprint, so they overlap *every* nonempty candidate) and 27 are broad dot fields of 155,021–3,380,827 dots. Worst informative overlap 0.8750 at E = 0.8611 (chance-corrected lift 0.100); largest lift among all firings 0.3752 |
 
-**The one decision that would change it (owner only).** Under a chance-corrected *lift* rule — a witness
+**The decision below was taken in session 5 (RATIFIED-UNIQ-v1); the paragraph is kept as the
+session-3 record.** Under a chance-corrected *lift* rule — a witness
 fires only if `(observed − E)/(1 − E) > 0.50` — this file yields **2 firings, both against this
 repository's own earlier ribbon files** (family resemblance, not reuse of another lane), and the highest
 lift against any other repository is **0.4898**. An E-limit rule needs a threshold ≤ **0.61** for zero
