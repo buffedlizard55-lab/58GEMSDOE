@@ -77,6 +77,17 @@ The current deliverable is **`docs/downloads/gems60-convergence-ribbon6-20261011
 witnesses under both resolutions the owner proposed for the literal 70 % rule (0 firings; max
 chance-corrected lift 0.4552). Page: `docs/gems60.html`; receipt: `evidence/gems60/run_card.json`.
 
+**Merged and published.** PR #21 brought this work onto `main` (`f09a85b`); the follow-up commit
+that accompanies this file publishes the session-5 front-door box into the two generated pages
+(`docs/index.html`, `docs/executive-summary.html`) so the live site puts this deliverable first
+instead of the superseded session-3 block. The pages stay identical to what the CI rebuilds —
+`scripts/build_site.py` (previous lane's receipts) must run before `scripts/gems60_build_page.py`
+(session-5 box), and the workflow re-derives both and asserts the banner against the session-5
+gates, so a stale or hand-edited page fails closed. The shared-metric crosscheck was also
+re-derived locally this session: the archived `gems58w` path and the live `gems57` metric both
+give pooled DTI `0.043651086` for the session-3 file (Δ = 0.000000), recorded in
+`evidence/ribbon/shared_metric_crosscheck.json`.
+
 **What is left, in order**
 
 1. **Owner decision (blocking, one read):** the literal 70 % rule fires on 56 witnesses for this file
