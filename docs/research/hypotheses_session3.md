@@ -1,188 +1,120 @@
-# Session 3 hypotheses — ranked by expected DTI gain against implementation cost
+# Session 3 — five ranked hypotheses that are new to this repository
 
-Required by the standing prompt *before* implementing: new geological hypotheses, each with the layers
-it uses, the physical signature it looks for, why it can catch a fault **missing** from the
-USGS/INGENIOUS catalogue, how it differs from what this repository already does, and a named
-non-fault process that mimics it. Availability of any external data was verified before ranking —
-a hypothesis whose data cannot be obtained is ranked on that fact, not on its geology.
+*2026-10-11, branch `arena/2427c4f5-58gemsdoe`.* Each entry names the layer(s), the physical
+signature, why it should catch a fault the USGS/INGENIOUS catalogue omits, and how it differs
+from everything already implemented here. Ranked by **expected leaderboard gain per unit of
+implementation cost**. Hypotheses that cannot be tested with data already on this machine name
+the free official source and record whether that source has been checked from this sandbox.
 
-Ranking criterion: **expected DTI gain per hour of implementation**, where the gain is measured
-against the binding constraint this session established. That constraint is *coverage*: the
-organizer-confirmed leader score 0.4133 implies ≈0.36 weighted coverage of the new-fault truth, the
-delivered ribbon surface reaches 0.0561 weighted coverage of catalogue truth on the local holdout
-(HOLDOUT-DTI 0.043651), and the calibrated per-stratum credit k̂ spans 0.000–0.035 against a
-marginal-inclusion bar of α·0.4133 = **0.0827**. Emission geometry inside this lane is worth
-+0.005 HOLDOUT-DTI at equal budget; detection is worth roughly six times that. So every hypothesis
-below is a *detection* hypothesis unless stated otherwise.
-
-| Rank | ID | Expected DTI gain | Implementation cost | Data available here? |
-|---|---|---|---|---|
-| 1 | H58-R4 | high (coverage) | medium (2–4 h) | **yes** — the 19-band stack |
-| 2 | H58-R6 | medium-high (removes false ridges, frees budget) | low-medium (1–2 h) | **yes** |
-| 3 | H58-R5 | low-medium (geometry, not coverage) | medium (2–3 h) | **yes** |
-| 4 | H58-R3 | potentially the highest of all | high, and **blocked** | **no** — owner download required |
-| 5 | H58-R7 | low (already measured as a dead end for calibration) | low | yes, but do not re-run |
+Prior art that these must not duplicate: `docs/HYPOTHESES.md`, `docs/research/hypotheses_new.md`,
+`docs/research/hypotheses_session2.md`, and the sibling repositories' H19/H23/H25/H28/H33/H34/
+H53/H60 families (which the registry now holds as 1,393 measured TIFF paths).
 
 ---
 
-## 1. H58-R4 — cross-fitted supervised detector with a per-stratum detection rate
+## H58-S1 — Signed (asymmetric) ribbon offsets
+**Status this session: implemented and measured.** `scripts/ribbon_run_signed_sigma.py`,
+`scripts/ribbon_build_submission.py --shift-json`.
 
-**Layers.** All 19 delivered bands (`cond_surf`, `depth_to_base_surf`, `det_elev`, `det_elev_slope`,
-`geod_dilaterate`, `geod_shearrate`, `geod_2ndinv`, `iso_grav_anom` + slope/hg/vg, `deq_n100a15`,
-`ieq_n100a15`, `rtp`, `tmi` + hg/vg, `tc`, `mag_anom`, earthquake density and distance) plus the
-multi-scale Hessian ridge field already cached in `.cache/gems58/ridge_field_v2.npz`, plus derived
-across-strike and along-strike profile statistics of each ridge.
+* **Layers.** The whole 19-band stack, through the existing Hessian ridge operator (`tc`,
+  `tmi_hg`, `iso_grav_anom_hg`, `det_elev` and `det_elev_slope` dominate the winning codes).
+* **Signature.** The *signed* across-strike offset μ of a withheld catalogue component from its
+  nearest ridge pixel, expressed in the emitter's own across-strike convention
+  (`rr = r + o·ay`, `cc = c + o·ax`). A non-zero stratum mean means the detector is **biased**,
+  not merely noisy.
+* **Why it should catch a missing fault.** The offset is a *property of the detector*, not of
+  which faults are in the catalogue. If the DEM scarp crest sits systematically on the upthrown
+  side of the mapped trace, or a magnetic lineament sits dip-shifted from the fault plane, then
+  every detection is displaced the same way, and correcting the displacement raises the kernel
+  credit of every emitted dot without changing which structures are targeted.
+* **Differs from prior work.** Every previous emission in this portfolio is symmetric about the
+  detected ridge (`0, ±R, ±2R`). No earlier session measured the sign of the error; the shared
+  `gems58w.sigma` quantity is a Euclidean distance and is sign-blind by construction.
+* **Cost.** Low (one measurement pass + a translation of the existing geometry).
 
-**Physical signature.** Not a single anomaly but a *combination*: a linear curvature/dilatation
-feature in the detrended DEM coincident with a magnetic-gradient or gravity-gradient lineament and a
-dilatational strain axis from the geodetic bands. Hidden faults in the Walker Lane express as exactly
-this coincidence, because the fault is a rheological boundary that perturbs the near-surface strain
-field and the basement topography even where no scarp survives.
+## H58-S2 — Along-strike dot spacing under the max-over-predictions rule
+**Status this session: implemented as `--along-spacing`.**
 
-**Why it catches a fault missing from the catalogue.** The catalogue is compiled from *mapped
-surface expression*. A fault buried under young alluvium has no mapped trace but still perturbs the
-potential fields and the shallow strain field, which is what the organizer's own About page says:
-"most faults in the GeoDAWN region of Nevada are more subtle, and many are hidden below the surface,
-requiring geophysical data to detect". A supervised detector trained on the *visible* catalogue learns
-the multiband coincidence pattern, and that pattern generalises to buried segments because the
-physics does not stop at the map boundary.
+* **Layers.** Same ridge field.
+* **Signature.** The metric credits each truth pixel with the **maximum** kernel value over all
+  predictions, so two adjacent dots on the same centreline are redundant: the second buys
+  `max(k₁,k₂) − k₁`, which is ~0 for 1-px spacing. The kernel is triangular with R = 3 px, so
+  the credit a dotted line preserves falls roughly linearly in the spacing until it reaches
+  `2R`.
+* **Why it matters for catalogue-missing faults.** Nothing about the *target*; it is a pure
+  budget reallocation. If spacing 1 is wasteful, the freed mass can pay for a second across-strike
+  line, i.e. it buys accuracy about *where* the hidden fault is at the cost of resolution *along*
+  it — and the hidden truth is scattered perpendicular to the structures (sibling H34/H28).
+* **Differs from prior work.** The shipped emitters take every ridge pixel; `ALONG_SPACINGS` is
+  defined in `allocation.py` but the shipped build never varies it.
+* **Cost.** Very low (one parameter).
 
-**How it differs from this repository.** Session 2 already fitted boosted trees
-(`evidence/model_e1e2.json`, `model_e3.json`) but scored them on a *detached* contest and used the
-model's probability field directly as the emission surface. The new element is the **per-stratum
-detection rate**: instead of emitting where p is high, estimate `P(truth within 300 m | stratum)` by
-block cross-fitting, and emit only in strata where that probability times the kernel credit exceeds
-α·DTI₀ = 0.0827. That converts a ranking into a *calibrated* decision rule, which is the thing the
-ribbon lane has never had.
+## H58-S3 — Kernel-matched scale selection instead of magnitude-max selection
+**Status: not yet run.**
 
-**Named non-fault mimic.** Volcanic–alluvial contacts and caldera ring fractures produce the same
-DEM-curvature + magnetic-gradient coincidence without being faults; so do dikes.
+* **Layers.** Same stack, same ridge operator, all three scales (1.5 / 3 / 6 px).
+* **Signature.** Today a pixel is assigned the (band, scale) with the largest *normalised
+  magnitude*. The scoring kernel, however, is fixed at R = 3 px, so the *useful* scale is the one
+  whose ridge half-width best matches 3 px. A matched-filter criterion would pick the scale that
+  maximises expected kernel credit, not the scale with the biggest response.
+* **Why it should catch a missing fault.** Wide (6 px) responses from thick sedimentary basins
+  currently win the pixel and then pay the 0.2-per-pixel tax to cover a 600-m-wide band, while
+  the actual scarp is 1 px wide. Re-ranking by kernel match sharpens the emission at fixed mass.
+* **Differs from prior work.** The scale is chosen by argmax(magnitude) everywhere in
+  `gems58w.extract`; no session has tested an alternative selection rule.
+* **Cost.** Low–medium (re-rank the cached field, re-measure σ).
 
-**Cost / risk.** 2–4 h. Risk: the visible catalogue is itself partly misaligned ("portions of the
-existing fault data may be misaligned from the true location of the surface fault", page 967), so the
-labels are noisy; block cross-fitting is mandatory, and the leakage canary must be re-run (session 2
-found distance-to-catalogue at AUC 0.856, under the 0.90 line but close).
+## H58-S4 — Spectral whitening of the magnetic grids against survey fabric
+**Status: not run; needs the survey-line geometry.**
 
-## 2. H58-R6 — regress flight-line geometry out of the magnetic bands before ridge detection
+* **Layers.** `mag_anom`, `rtp`, `tmi`, `tmi_hg`, `tmi_vg`, `tc`.
+* **Signature.** The GeoDAWN aeromagnetic grids carry flight-line levelling and draped-sensor
+  residuals whose dominant direction is the survey azimuth. They appear as ridges parallel to
+  the flight lines, which no fault occupies — the named non-fault mimic in every run card here.
+* **Why it should catch a missing fault.** Not by finding one; by *stopping the emission* from
+  spending its 0.2-per-pixel tax on lineaments that are guaranteed false. Precision at the top
+  of the ranking is what the metric pays for.
+* **Differs from prior work.** Measured negatives here include belief-field blurring and
+  catalogue-band screens, but no session has regressed out the acquisition geometry.
+* **Cost.** Medium. **Free official source named:** USGS GeoDAWN airborne magnetic and
+  radiometric survey release
+  <https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and>
+  (DOI 10.5066/P93LGLVQ, cited in the rules PDF as the feature source). **Availability check from
+  this sandbox: NOT verified this session** — `usgs.gov` and `doi.org` are not on this
+  environment's reachable-host list, so obtainability is *unconfirmed* and the hypothesis is
+  ranked below the two that need no new data.
 
-**Layers.** `tmi`, `tmi_hg`, `tmi_vg`, `rtp`, `tc`, `mag_anom`, and the *derived* flight-line
-direction field estimated from the anisotropy of high-frequency residual power in `tmi`.
+## H58-S5 — Thermal-anomaly gate using the DOE GDR Nevada heat-flow collection
+**Status: not run; needs an external download.**
 
-**Physical signature.** Aeromagnetic surveys are flown along parallel lines with a fixed spacing; the
-draped sensor and the tie-line levelling leave a periodic residual whose wavelength equals the line
-spacing and whose strike equals the flight direction. That residual is *not* geology, but it produces
-long, straight, ridge-like curvature features that a Hessian detector cannot distinguish from a fault
-without a directional prior.
-
-**Why it catches a fault missing from the catalogue.** Indirectly but decisively: it *removes false
-positives*, which frees emission budget for real ones. At a fixed budget of ~40,000 dots every dot
-spent on a flight-line artifact is a dot not spent on a buried fault, and the metric charges α = 0.2
-for each wasted pixel while the β = 0.8 term only rewards coverage. The delivered file's k̂ table
-shows the magnetic family's credit is flat across magnitude deciles (0.0107 → 0.0122), which is what
-you expect when a large share of high-magnitude ridges are artifacts rather than faults.
-
-**How it differs from this repository.** Nothing in `src/gems58w/ridges.py` or `extract.py` is
-directionally aware; the ridge field is a plain multi-scale Hessian. No prior session has estimated
-or removed survey geometry.
-
-**Named non-fault mimic.** The mimic *is* the target here: flight-line levelling artifacts and
-draped-sensor terrain-following residuals. Secondary: cultural noise (power lines, pipelines) which
-is also linear and directional.
-
-**Cost / risk.** 1–2 h (a directional Fourier/wavelet filter per block, then re-detect). Risk: if the
-survey geometry cannot be estimated from the data alone, the filter removes real short-wavelength
-geology too — measure the held-out detection rate before and after, and keep the filter only if the
-rate rises.
-
-## 3. H58-R5 — directional σ: an error tensor instead of a scalar
-
-**Layers.** The cached ridge field, the visible catalogue, and the withheld segments of the
-`gems58-pooled-hide-v1` holdout.
-
-**Physical signature.** Localisation error is not isotropic. A ridge detected from a dipping fault
-trace is displaced mainly *across* strike and down-dip, and the displacement grows with dip angle and
-with the depth of the buried segment; along-strike error is dominated by where the detector's
-segmentation splits the trace. A single scalar σ (pooled median 6.88 px) averages two very different
-error modes.
-
-**Why it catches a fault missing from the catalogue.** It does not, directly — this is a geometry
-hypothesis, and the honest expectation is small: the measured value of adaptivity beyond a uniform
-5-line ribbon was **exactly 0.000000** (`AD_vs_W3` pooled delta in
-`evidence/ribbon/adaptive_arms.json`). Its value is that it places the same budget where the error
-actually is, which is worth something only once coverage improves.
-
-**How it differs from this repository.** `src/gems58w/sigma.py` fits a scalar per stratum and
-`src/gems58w/allocation.py` plans symmetric offsets. A 2×2 covariance per stratum would let `plan`
-place asymmetric, rotated offsets.
-
-**Named non-fault mimic.** Curved range-front faults and transfer zones, where the across-strike
-direction rotates along the trace faster than a per-segment constant can follow.
-
-**Cost / risk.** 2–3 h. Ranked third precisely because the expected gain is bounded by the coverage
-problem: perfect geometry on 5.6 % coverage cannot reach 0.4133.
-
-## 4. H58-R3 — aeroradiometric and 1 m lidar evidence (**blocked**: owner download required)
-
-**Layers.** eK, eU, eTh, total count and the ratios K/Th and K/(Th+U) from the GeoDAWN
-aeroradiometric survey; 1 m lidar derivatives (slope, aspect, multi-scale curvature, local relief,
-and a hillshade difference-of-Gaussians) from 3DEP.
-
-**Physical signature.** Hydrothermal alteration produces **potassium metasomatism** (K-feldspar and
-sericite), **silicification** (quartz veining and sinter), and **Fe-oxide staining** (hematite/goethite
-bleaching and enrichment). Each has a distinct radiometric expression: elevated eK and K/Th for
-potassic alteration, depressed eTh and total count for silicification, and a characteristic eU
-enrichment at the oxidised–reduced boundary. Buried faults are the conduits for exactly this
-alteration, so the radiometric halo is a *direct* marker of a fault that has no surface expression at
-all. Independently, a 1 m DEM resolves scarps of ~0.5 m throw that the 10 m/30 m products in the
-delivered stack smooth away.
-
-**Why it catches a fault missing from the catalogue.** This is the strongest of the five, and it is
-the organizers' own framing: page 968 states that GeoDAWN combines USGS EarthMRI and DOE Office of
-Geothermal **aeromagnetic and aeroradiometric** surveys with coordinated **3DEP lidar**, and that most
-faults in the region are hidden below the surface. An alteration halo maps a fault whose trace is
-invisible in every other channel.
-
-**How it differs from this repository.** The delivered 19-band stack contains **no** radiometric
-channel and **no** lidar derivative (verified locally; see IR-58-DATA-01). Nothing in this repository
-has ever used either.
-
-**Named non-fault mimic.** Granitic outcrops and felsic tuffs are naturally high in K and Th without
-any alteration; alluvial fans concentrate heavy minerals and produce spurious eTh highs; colluvial
-wedges at range fronts mimic scarps in 1 m lidar.
-
-**Availability — verified, and it is the blocker.** The releases exist:
-<https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and>,
-<https://data.usgs.gov/datacatalog/data/USGS:657e1d85d34e23d3533209f7>,
-<https://www.usgs.gov/3d-elevation-program/about-3dep-products-services> (session 1 counted 1,856
-1 m DEM tiles over the study bounding box via the TNM Access API). But this sandbox cannot fetch
-binaries: `bash` egress is limited to github.com / codeload / api.github.com / pypi, and `fetch_page`
-returns text only. **Action for the owner:** download the radiometric GeoTIFFs (or the combined
-GeoDAWN product) and 1 m DEM tiles for the study bounding box into `data/external/`, then this
-hypothesis becomes testable inside one session. Until then no number in this repository is derived
-from it, and it is recorded as an idea with verified links — never as a validated candidate.
-
-## 5. H58-R7 — calibrating the emission budget from live scores (**measured dead end**)
-
-Listed only so that it is not re-proposed. Hypothesis: owner-quoted live scores are predictable from
-dot-field geometry, so the budget and the catalogue offset could be calibrated instead of guessed.
-Measured over 66 sha256-verified sibling rasters (`evidence/live_evidence_fit.json`): R² = −1.27 for
-the two-parameter model `s = κM′/(0.2n′ + 0.8G)`, G pinned at its search bound, and **no covariate
-above |Spearman| 0.258**. The organizers will not disclose public-subset membership (thread 11550),
-so each owner-quoted score carries unmodellable chunk luck and the calibration is unfixable locally.
-What survives is the family separation at the extremes, which is why the delivered file keeps 0
-on-catalogue dots and 40,768 dots (the median of the owner-reported ≥ 0.24 family) — labelled
-USER-REPORTED-SCORE, never as a calibrated optimum.
+* **Layers.** All bands; the gate is applied to the *emission*, not the detector.
+* **Signature.** Heat-flow / temperature-gradient well locations and their values: a genuine
+  hidden geothermal system should sit in a positive thermal anomaly of the regional field.
+* **Why it should catch a missing fault.** It is the one variable in the problem that is
+  *causally* related to the target (a geothermal system) rather than to fault geometry, so it
+  can discriminate a real unmapped fault from a scarp-shaped alluvial contact.
+* **Differs from prior work.** Prior "thermal-pop" work used population/habitat proxies
+  (`h19-4-…-thermal-pop`, `h30-arrangement-matched-habitat`), not measured heat flow.
+* **Cost.** High. **Free official source named:** DOE Geothermal Data Repository submission 1704
+  (nationwide heat-flow / well collection) <https://gdr.openei.org/submissions/1704>. **Availability
+  check: recorded in this repository as reachable (a public 21.6 GB bundle exists) and *not*
+  downloaded** — see `docs/IRREGULARITIES.md` item 12. It is viable but not obtainable inside
+  this session's budget.
 
 ---
 
-## Validation status of each hypothesis
+## Ranking, and what was actually validated
 
-| ID | Validated on the spatially-blocked holdout? | Result |
-|---|---|---|
-| H58-R2 (adaptive ribbon from measured σ — the lane's own hypothesis) | **yes**, this session | Direction confirmed: +0.005194 HOLDOUT-DTI at equal budget (τ=0.45) with paired bootstrap 0.004482–0.006365 over four blocks; gain concentrated in σ ≥ 1.5 px, **negative** below it; per-segment adaptivity beyond a uniform ribbon measured at exactly 0.000000 |
-| H58-R7 (live-score calibration) | **yes**, this session | **NEGATIVE** (R² = −1.27); kept as a deliverable |
-| H58-R4, R5, R6 | no | ranked above; none has touched a slot |
-| H58-R3 | no — data not obtainable here | blocked on an owner download |
+| rank | hypothesis | expected gain | cost | data already local | decision |
+|---|---|---|---|---|---|
+| 1 | **S1 signed ribbon offsets** | medium — raises mean credit per dot without new data | low | yes | **tested this session** |
+| 2 | S2 along-strike spacing | medium — pure budget reallocation | very low | yes | **tested this session** |
+| 3 | S3 kernel-matched scale | medium — sharper emission | low | yes | not run (budget) |
+| 4 | S4 magnetic whitening | medium–high — removes guaranteed-false mass | medium | needs USGS survey geometry (unverified reachability) | not run |
+| 5 | S5 thermal gate | high but unverifiable locally | high | needs 21.6 GB external download | not run |
 
-No submission slot was used to validate any of these, and none will be: promotion is a separate owner
-selector step within the weekly cap.
+The lane rule "validate the top candidate on the spatially blocked holdout before touching a
+submission slot" was applied to S1 and S2 together, because S1 is a *shift* of the S2 geometry
+and they were measured in the same build. The measurement that matters — the exact-metric
+holdout read-out at equal budget, and the uniqueness screen against the current 1,393-path
+inventory — is recorded in `evidence/ribbon_v2/` and summarised in the run card.

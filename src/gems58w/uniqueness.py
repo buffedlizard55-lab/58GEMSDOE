@@ -130,8 +130,21 @@ def _lift(observed: float, e: float) -> float:
 
 
 def screen_paths(dots: np.ndarray, paths, fp: np.ndarray | None = None, shape=None,
-                 names: list[str] | None = None) -> tuple[list[Screen], dict]:
-    """Screen a dot set against an explicit list of raster paths."""
+                 names: list[str] | None = None, rho_subsample: int | None = None,
+                 dot_index: np.ndarray | None = None) -> tuple[list[Screen], dict]:
+    """Screen a dot set against an explicit list of raster paths.
+
+    ``rho_subsample`` imposes a deterministic stride over the footprint cells before
+    the rank correlation is computed.  ``None`` (the default) keeps the exact
+    full-field Spearman.  A subsampled rank correlation is a **weaker** statistic
+    than the exact one, so the value actually used is recorded in the summary
+    (``rho_subsample`` / ``rho_statistic``) and a subsampled pass must never be
+    reported as an exact pass.
+
+    ``dot_index`` is accepted for call compatibility with the sibling lane's
+    emitters; this implementation works from the boolean dot field and the distance
+    transform, so it does not need the index array.
+    """
     fp = grid.footprint() if fp is None else fp
     shape = fp.shape if shape is None else shape
     dots = np.asarray(dots, bool) & fp
@@ -164,7 +177,14 @@ def screen_paths(dots: np.ndarray, paths, fp: np.ndarray | None = None, shape=No
         e = chance_expected_overlap(other, fp, BUFFER_PX)
         vx = np.where(fin, mine_vals, 0.0)
         vy = np.where(fin, a, 0.0)
-        rho = spearman(vx[fp], vy[fp]) if n_fp > 100 else 0.0
+        if rho_subsample is not None:
+            idx = np.flatnonzero(fp)
+            if idx.size > rho_subsample:
+                idx = idx[:: max(1, idx.size // rho_subsample)]
+            sx, sy = vx.flat[idx], vy.flat[idx]
+        else:
+            sx, sy = vx[fp], vy[fp]
+        rho = spearman(sx, sy) if sx.size > 100 else 0.0
         triggers = []
         if rho > RHO_MAX:
             triggers.append("rho")
@@ -178,17 +198,20 @@ def screen_paths(dots: np.ndarray, paths, fp: np.ndarray | None = None, shape=No
                           chance_corrected_lift=_lift(fwd, e),
                           saturated=bool(e >= SATURATED_E),
                           sha256=""))
-    return out, summarise(out, skipped, n_fp)
+    return out, summarise(out, skipped, n_fp, rho_subsample=rho_subsample)
 
 
 def screen_against(dots: np.ndarray, registry_dir: Path, fp: np.ndarray | None = None,
-                   shape=None) -> tuple[list[Screen], dict]:
+                   shape=None, rho_subsample: int | None = None,
+                   dot_index: np.ndarray | None = None) -> tuple[list[Screen], dict]:
     """Screen a dot set against every ``*.tif`` in ``registry_dir``."""
     paths = sorted(Path(registry_dir).glob("*.tif"))
-    return screen_paths(dots, paths, fp=fp, shape=shape)
+    return screen_paths(dots, paths, fp=fp, shape=shape, rho_subsample=rho_subsample,
+                        dot_index=dot_index)
 
 
-def summarise(out: list[Screen], skipped: list[dict], n_fp: int) -> dict:
+def summarise(out: list[Screen], skipped: list[dict], n_fp: int,
+              rho_subsample: int | None = None) -> dict:
     informative = [s for s in out if not s.saturated]
     ov_fire = [s for s in out if s.forward_overlap > OVERLAP_MAX]
     ov_fire_inf = [s for s in ov_fire if not s.saturated]
@@ -226,6 +249,10 @@ def summarise(out: list[Screen], skipped: list[dict], n_fp: int) -> dict:
         lane_drift_evidence=drift,
         cleared=bool(not rho_fire and not ov_fire_inf),
         rho_max=RHO_MAX, overlap_max=OVERLAP_MAX, buffer_px=BUFFER_PX,
+        rho_subsample=rho_subsample,
+        rho_statistic=("exact full-footprint Spearman" if rho_subsample is None else
+                       f"SUBSAMPLED Spearman (stride to ~{rho_subsample} cells): weaker than "
+                       "exact, so this screen is not an exact rank-correlation pass"),
         saturated_threshold_E=SATURATED_E, dense_support_fraction=DENSE_FRACTION,
         definitions=("forward_overlap = fraction of MY dots within 3 px of the witness's dots "
                      "(gems57.uniqueness.dot_overlap); reverse_overlap = fraction of the "

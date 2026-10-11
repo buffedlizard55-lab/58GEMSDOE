@@ -652,7 +652,7 @@
    "detail": "No DrivenData submission receipt exists for this raster, so no ORGANIZER-CONFIRMED score can be quoted for it. This gate can only be closed by the owner's selector step and is never claimed here; the site verdict is computed over G1\u2013G5."
   }
  ],
- "site_generated_utc": "2026-10-11T06:24:02Z",
+ "site_generated_utc": "2026-10-11T06:42:18Z",
  "site_note": "G6 (organizer receipt) can never pass from this sandbox; the site verdict is computed over G1-G5 and the missing receipt is stated on every page.",
  "equal_budget_deltas": {
   "W3": {
@@ -2271,6 +2271,11 @@
    "id": "IR-58-SIGMA-01",
    "severity": "warn",
    "text": "The lane's 'single tight line where \u03c3 &lt; 0.5&nbsp;px' branch is <b>unreachable</b>: <code>gems58w.sigma</code> floors \u03c3 at 0.5&nbsp;px and every measured stratum sits far above it (pooled median \u03c3 \u2248 6.88&nbsp;px, block medians 5.79\u20138.54&nbsp;px). The adaptive planner consequently returns 5 lines for most segments; the ribbon is never chosen because \u03c3 is small anywhere. The measured adaptivity is therefore 'ribbon vs tight line' more than 'per-segment line count'."
+  },
+  {
+   "id": "IR-58-UNIQ-06",
+   "severity": "bad",
+   "text": "<b>The sibling lane's published clearance is the reverse statistic.</b> <code>docs/deliverable/downloads/gems58-novel-scatter-44090-20261011T0630Z.tif</code> is offered with a green banner on the strength of &ldquo;worst 3&nbsp;px forward overlap 0.3160 \u00b7 0 triggers&rdquo; over 473 rasters. Re-measured in the protocol direction against the same byte-verified inventory it has <b>78 firings</b> (worst 1.0000 against a plane-filling witness) and <b>0</b> in the reverse direction \u2014 the signature of the exchanged-directions bug (IR-58-UNIQ-04) that this session fixed in the shared tool. Not an accusation of duplication: the same degeneracy fires 81 times on this session's candidate. The irregularity is that the two lanes report opposite verdicts from the same registry because they measured different statistics, and that the two inventories are not the same set (473 live-fetched vs 703 pinned+delta). <code>evidence/ribbon/sibling_direction_check.json</code>"
   },
   {
    "id": "IR-58-REG-01",

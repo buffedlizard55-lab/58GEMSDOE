@@ -11,9 +11,46 @@ is rendered by `scripts/build_site.py` on the
 | Artifact | Status | Decision basis |
 |---|---|---|
 | **`gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif`** (session 3, current candidate) — [TIF](docs/downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif) · [ZIP](docs/downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.zip) | **NOT CLEARED — download for review only** | Format gate 15/15 and holdout measured, but the **literal** 3 px forward-overlap stop fires against 81 of 702 inventory witnesses. Logged as a duplicate and stopped, as the standing prompt requires. [`evidence/ribbon/uniqueness_full_inventory.json`](evidence/ribbon/uniqueness_full_inventory.json), [`evidence/ribbon/run_card_final.json`](evidence/ribbon/run_card_final.json) |
+| **`gems58-novel-scatter-44090-20261011T0630Z.tif`** (sibling-lane deliverable under `docs/deliverable/`) | **NOT CLEARED under the protocol as written — IR-58-UNIQ-06** | Its published screen reports "worst 3 px forward overlap **0.3160**, 0 triggers" over 473 rasters. That is the **reverse** statistic (the witness's dots near the candidate's). Re-measured in the protocol direction against the same byte-verified inventory, **78 witnesses exceed 0.70** (worst 1.0000 against the plane-filling `GEMSDOE2:turbo-simple`) while **0** fire in the reverse direction — the signature of the exchanged-directions bug. [`evidence/ribbon/sibling_direction_check.json`](evidence/ribbon/sibling_direction_check.json) |
 | `gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.tif` (session 1/2 diagnostic) — [TIF](docs/downloads/gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.tif) | **NOT CLEARED — audit only** | 100% of its dots lie within 3 px of one full-footprint-positive prior raster, and its recorded scan was 694/695. [`evidence/run_card.json`](evidence/run_card.json), [`evidence/ribbon_uniqueness.json`](evidence/ribbon_uniqueness.json) |
 
-No organizer receipt links a score to either file, no slot was used, and nothing was uploaded.
+No organizer receipt links a score to any of these files, no slot was used, and nothing was uploaded.
+
+### Sibling-lane deliverable — a new, separately screened TIFF
+
+This review also produced one **new** raster in the ribbon lane, screened against the live registry
+(not the stale 695-raster snapshot) and delivered for the owner's decision. It does not override the
+status above: the repository's fail-closed gate still applies to the earlier diagnostic file, and no
+slot has been used, no organizer receipt exists, and nothing here is a score.
+
+| check | result |
+|---|---|
+| File | [`docs/deliverable/downloads/gems58-novel-scatter-44090-20261011T0630Z.tif`](docs/deliverable/downloads/gems58-novel-scatter-44090-20261011T0630Z.tif) (+ single-GeoTIFF ZIP) |
+| Raster SHA256 | `5f64b6dc44a3d6639691b679337ec64c1b4bb1b3f1ce63dfe17258ad6fdbf1e0` (347876 bytes) |
+| Dots | 44,090, every value exactly `1.0`; 0 on the mapped catalogue |
+| Local portal checks | **15/15 pass** |
+| Uniqueness screen (live inventory, fetched this session) | **473** rasters · worst rank correlation **0.0557** (limit 0.90) · worst 3 px forward overlap **0.3160** (limit 0.70) · **0 triggers** |
+| HOLDOUT-DTI | `0.000000` — zero *by construction* for an off-catalogue emission (IR-58-02); no promotion-grade holdout is claimed |
+| Organizer score | none — no receipt |
+
+Download it, verify the hash, and read the caveats on
+[`docs/deliverable/executive-summary.html`](docs/deliverable/executive-summary.html) and
+[`docs/research/why-the-score-and-how-to-beat-it.md`](docs/research/why-the-score-and-how-to-beat-it.md)
+before deciding whether to submit.
+
+> **Correction measured during the merge (IR-58-UNIQ-06).** The "worst 3 px forward overlap 0.3160 ·
+> 0 triggers" row above is the **reverse** statistic: the fraction of each *witness's* dots within 3 px
+> of the candidate's, which is what the archived `gems58w.screen_against` triggered on before the
+> direction bug was fixed. The protocol's statistic is the fraction of the *candidate's* dots within
+> 3 px of one witness's dots. Re-measured that way against the same byte-verified inventory
+> (702 witnesses), this file has **78 firings** (worst **1.0000**, against the plane-filling
+> `GEMSDOE2:turbo-simple`) and **0** in the reverse direction —
+> [`evidence/ribbon/sibling_direction_check.json`](evidence/ribbon/sibling_direction_check.json). This
+> does **not** mean the file copies anything: the same degeneracy fires on the session-3 candidate
+> (81 firings) because those witnesses overlap every nonempty candidate. It does mean the published
+> "0 triggers / download OK" clearance is not the protocol statistic, and that a corrected full screen
+> with both readings is outstanding:
+> `PYTHONPATH=src python3 scripts/check_uniqueness_registry.py docs/deliverable/downloads/gems58-novel-scatter-44090-20261011T0630Z.tif --workers 2 --out ribbon/sibling_full_inventory.json`.
 
 ### Session-3 candidate — the facts
 
@@ -129,8 +166,11 @@ The GEMSDOE32 H33 file named `gemsdoe32-h33-h33-2-b2-20261004T220000Z-e5eb6e7e-z
 
 ## Ranked hypotheses — proposals only
 
-[`docs/research/hypotheses_session3.md`](docs/research/hypotheses_session3.md) is the current ranking:
-five **detection-side** hypotheses with layers, physical signature, why each can catch a fault missing
+[`docs/research/hypotheses_session3_adaptive_ribbon.md`](docs/research/hypotheses_session3_adaptive_ribbon.md)
+is this session's ranking (a sibling session published its own
+[`hypotheses_session3.md`](docs/research/hypotheses_session3.md) and
+[`hypotheses_session4.md`](docs/research/hypotheses_session4.md) for the scatter-cover lane): five
+**detection-side** hypotheses with layers, physical signature, why each can catch a fault missing
 from the USGS/INGENIOUS catalogue, how it differs from this repository, a named non-fault mimic, and
 expected DTI gain per implementation hour — ranked against the constraint session 3 measured (coverage,
 not geometry). **H58-R4** (cross-fitted supervised detector that emits only where the calibrated

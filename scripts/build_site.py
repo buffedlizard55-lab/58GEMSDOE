@@ -586,6 +586,18 @@ def irregularities() -> list[tuple[str, str, str]]:
          "planner consequently returns 5 lines for most segments; the ribbon is never chosen "
          "because σ is small anywhere. The measured adaptivity is therefore 'ribbon vs tight line' "
          "more than 'per-segment line count'."),
+        ("IR-58-UNIQ-06", "bad",
+         "<b>The sibling lane's published clearance is the reverse statistic.</b> "
+         "<code>docs/deliverable/downloads/gems58-novel-scatter-44090-20261011T0630Z.tif</code> is "
+         "offered with a green banner on the strength of &ldquo;worst 3&nbsp;px forward overlap 0.3160 · "
+         "0 triggers&rdquo; over 473 rasters. Re-measured in the protocol direction against the same "
+         "byte-verified inventory it has <b>78 firings</b> (worst 1.0000 against a plane-filling "
+         "witness) and <b>0</b> in the reverse direction — the signature of the exchanged-directions "
+         "bug (IR-58-UNIQ-04) that this session fixed in the shared tool. Not an accusation of "
+         "duplication: the same degeneracy fires 81 times on this session's candidate. The irregularity "
+         "is that the two lanes report opposite verdicts from the same registry because they measured "
+         "different statistics, and that the two inventories are not the same set (473 live-fetched vs "
+         "703 pinned+delta). <code>evidence/ribbon/sibling_direction_check.json</code>"),
         ("IR-58-REG-01", "warn",
          "<b>The pinned inventory was one raster short, and is now complete.</b> The 695-raster "
          "public inventory could not be fully restored earlier because one file "
@@ -640,8 +652,9 @@ def sources_table() -> str:
 # ------------------------------------------------------------------------ pages
 def page(title: str, body: str, nav_active: str = "") -> str:
     nav = [("index.html", "Status &amp; download"), ("executive-summary.html", "How to submit"),
-           ("submit.html", "Portal checklist"), ("sources.html", "Sources"),
-           ("evidence.html", "Evidence index"), ("ribbon/index.html", "Ribbon lane archive")]
+           ("submit.html", "Portal checklist"), ("deliverable/index.html", "Sibling-lane deliverable"),
+           ("sources.html", "Sources"), ("evidence.html", "Evidence index"),
+           ("ribbon/index.html", "Ribbon lane archive")]
     parts = []
     for href, name in nav:
         style = ' style="font-weight:700"' if href == nav_active else ""
@@ -700,7 +713,46 @@ def gates_html(gates: list[dict]) -> str:
     return "".join(out)
 
 
-def build_index(emi, card, arms, sig, inv, fit, gates, ok) -> str:
+def two_lanes_html(sib: dict, inv: dict) -> str:
+    """Both lanes' deliverables, with the statistic each clearance was measured in."""
+    d = (ROOT / "docs/deliverable/downloads")
+    files = sorted(d.glob("*.tif")) if d.is_dir() else []
+    if not files:
+        return ""
+    rows = []
+    for f in files:
+        rows.append([f"<code>{esc(f.name)}</code>", f"{f.stat().st_size:,} B",
+                     f"<a href='deliverable/index.html'>sibling-lane page</a>"])
+    proto = sib.get("sibling_firings_protocol_direction")
+    rev = sib.get("sibling_firings_reverse_direction")
+    measured = ""
+    if proto is not None:
+        measured = (f"<p class='small'><b>Direction check (IR-58-UNIQ-06).</b> The sibling screen "
+                    f"published &ldquo;worst 3&nbsp;px forward overlap "
+                    f"{fmt(0.3160)} · 0 triggers&rdquo;. That is the <i>reverse</i> statistic — the "
+                    f"fraction of each <i>witness's</i> dots near the candidate's. Re-measured in the "
+                    f"protocol direction (the fraction of the <i>candidate's</i> dots within 3&nbsp;px "
+                    f"of one witness's dots) against the same byte-verified inventory, this file has "
+                    f"<b>{proto} firings</b> (worst {fmt(sib.get('sibling_worst_protocol_overlap'))} "
+                    f"against the plane-filling <code>{esc(sib.get('sibling_worst_protocol_witness'))}"
+                    f"</code>) and <b>{rev}</b> in the reverse direction "
+                    f"(<code>evidence/ribbon/sibling_direction_check.json</code>). This is <b>not</b> a "
+                    f"claim that the file copies anything: the identical degeneracy fires "
+                    f"{(inv.get('informative_reading') or {}).get('overlap_firings')} times on this "
+                    f"session's candidate, because those witnesses' 3&nbsp;px dilations cover 61–100&nbsp;% "
+                    f"of the footprint and overlap every nonempty candidate. It is a claim that a "
+                    f"clearance measured in the wrong direction cannot support a green download banner, "
+                    f"and that both lanes need the same chance-corrected reading.</p>")
+    return ("""<div class="warn-box"><h3 style="margin-top:0">Two lanes published a candidate today —
+this page decides only the one it measured</h3>""" + measured +
+            table(["sibling-lane file", "size", "where it is described"], rows, "kv") +
+            """<p class="small">The sibling scatter-cover lane keeps its own page, executive summary and
+receipts under <code>docs/deliverable/</code>; nothing on this page overrides them, and nothing there
+overrides this page. Both lanes agree that <b>no organizer receipt exists</b> and that no slot has been
+used.</p></div>""")
+
+
+def build_index(emi, card, arms, sig, inv, fit, sib, gates, ok) -> str:
     name = emi["name"]
     ho = emi.get("holdout_dti", {}) or {}
     prof = emi.get("catalogue_distance_profile", {}) or {}
@@ -792,7 +844,8 @@ is the <i>catalogue</i>), {label('USER-REPORTED-SCORE')} (owner-quoted sibling p
     ])
 
     body = head + f"""
-<h2>The download / submit decision — six explicit gates</h2>{gates_html(gates)}
+{two_lanes_html(sib, inv)}
+<h2>The download / submit decision — explicit gates</h2>{gates_html(gates)}
 
 {owner_decision_html(inv)}
 <h2>Headline numbers</h2>{headline}
@@ -1159,6 +1212,7 @@ def main(argv: list[str] | None = None) -> int:
     inv = load(RIB / "uniqueness_full_inventory.json")
     fit = load(EV / "live_evidence_fit.json")
     xcheck = load(RIB / "shared_metric_crosscheck.json")
+    sib = load(RIB / "sibling_direction_check.json")
     if not emi or not card:
         print("evidence/ribbon/emission.json or run_card_v2.json is missing — run "
               "scripts/ribbon_emit_adaptive.py first", file=sys.stderr)
@@ -1171,7 +1225,7 @@ def main(argv: list[str] | None = None) -> int:
         print(f"  {g['id']} {'PASS' if g['ok'] else 'FAIL'} — {g['name']}")
 
     DOCS.mkdir(parents=True, exist_ok=True)
-    (DOCS / "index.html").write_text(build_index(emi, card, arms, sig, inv, fit, gates, ok),
+    (DOCS / "index.html").write_text(build_index(emi, card, arms, sig, inv, fit, sib, gates, ok),
                                      encoding="utf-8")
     (DOCS / "executive-summary.html").write_text(
         build_executive_summary(emi, card, arms, sig, inv, gates, ok), encoding="utf-8")

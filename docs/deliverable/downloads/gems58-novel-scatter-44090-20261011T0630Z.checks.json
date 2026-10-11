@@ -1,0 +1,164 @@
+{
+ "validator": {
+  "passed": true,
+  "checks": {
+   "exists": {
+    "ok": true,
+    "detail": "/home/user/58GEMSDOE/docs/ribbon/downloads/gems58-novel-scatter-44090-20261011T0630Z.tif"
+   },
+   "single_band": {
+    "ok": true,
+    "detail": "count=1"
+   },
+   "dtype_float32": {
+    "ok": true,
+    "detail": "float32"
+   },
+   "crs_match": {
+    "ok": true,
+    "detail": "EPSG:32611"
+   },
+   "shape_match": {
+    "ok": true,
+    "detail": "3730x3292"
+   },
+   "transform_match": {
+    "ok": true,
+    "detail": "(100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0)"
+   },
+   "nan_outside_footprint": {
+    "ok": true,
+    "detail": "finite pixels outside the footprint = 0"
+   },
+   "finite_inside_footprint": {
+    "ok": true,
+    "detail": "NaN inside footprint = 0"
+   },
+   "values_in_unit_interval": {
+    "ok": true,
+    "detail": "min=0.000 max=1.000"
+   },
+   "positive_is_exactly_one": {
+    "ok": true,
+    "detail": "unique positives = [1.0]"
+   },
+   "positives_inside_footprint": {
+    "ok": true,
+    "detail": "outside = 0"
+   },
+   "footprint_mask_identical": {
+    "ok": true,
+    "detail": "finite=5167373 footprint=5167373"
+   },
+   "no_positive_on_catalogue": {
+    "ok": true,
+    "detail": "on-catalogue dots = 0"
+   },
+   "positive_count_in_range": {
+    "ok": true,
+    "detail": "n_positives = 44090"
+   },
+   "byte_size_reasonable": {
+    "ok": true,
+    "detail": "0.332 MB"
+   }
+  },
+  "sha256": "5f64b6dc44a3d6639691b679337ec64c1b4bb1b3f1ce63dfe17258ad6fdbf1e0",
+  "bytes": 347876,
+  "n_positives": 44090
+ },
+ "uniqueness_summary": {
+  "n_checked": 473,
+  "n_skipped": 3,
+  "skipped": [
+   {
+    "name": "5GEMSDOE__fixture_labels.tif",
+    "reason": "grid mismatch"
+   },
+   {
+    "name": "5GEMSDOE__proxy_window.tif",
+    "reason": "grid mismatch"
+   },
+   {
+    "name": "GEMSDOE36__GEMS36_FORMAT_TEST_NOT_SUBMISSION.tif",
+    "reason": "grid mismatch"
+   }
+  ],
+  "worst_rho": 0.05573140794018742,
+  "worst_rho_name": "18GEMSDOE__18GEMSDOE_H19-C_20260930T212401Z_c11e495e.tif",
+  "worst_forward_overlap": 0.31603548095819833,
+  "worst_forward_overlap_name": "56GEMSDOE__h56-persist-step-r300-20261009-20261009T185416Z.tif",
+  "n_triggers": 0,
+  "n_dense_priors": 7,
+  "rho_max": 0.9,
+  "overlap_max": 0.7,
+  "buffer_px": 3,
+  "rho_subsample": 200000,
+  "dense_priors": [
+   {
+    "name": "5GEMSDOE__gems-density-probe-20260925T184215Z-9cdae9b4.tif",
+    "positives": 5106385,
+    "forward_overlap": 0.045476398665592194
+   },
+   {
+    "name": "GEMSDOE24__acquisition_block_id_100m.tif",
+    "positives": 5167373,
+    "forward_overlap": 0.04502616706786988
+   },
+   {
+    "name": "GEMSDOE48__GEMSDOE48-unassigned-mass-20261006.tif",
+    "positives": 5167373,
+    "forward_overlap": 0.04502616706786988
+   },
+   {
+    "name": "GEMSDOE48__footprint-mask.tif",
+    "positives": 5167373,
+    "forward_overlap": 0.04502616706786988
+   },
+   {
+    "name": "GEMSDOE48__gemsdoe48-ds-plausibility-20261006T201749Z-95897e3f8125.tif",
+    "positives": 5167373,
+    "forward_overlap": 0.04502616706786988
+   },
+   {
+    "name": "GEMSDOE48__gemsdoe48-ds-unassigned-mass-20261006T201749Z-95897e3f8125.tif",
+    "positives": 5167373,
+    "forward_overlap": 0.04502616706786988
+   },
+   {
+    "name": "GEMSDOE48__gemsdoe48-h48-ds-yager-conflict-20261006-unassigned-diagnostic.tif",
+    "positives": 5167373,
+    "forward_overlap": 0.04502616706786988
+   }
+  ]
+ },
+ "holdout": {
+  "pooled": 0.0,
+  "per_fold": {
+   "NW": 0.0,
+   "NE": 0.0,
+   "SW": 0.0,
+   "SE": 0.0
+  }
+ },
+ "novelty": {
+  "exclude": [
+   {
+    "path": "docs/ribbon/downloads/gems58-adaptive-ribbon-38000-20261011T000000Z.tif",
+    "name": "gems58-adaptive-ribbon-38000-20261011T000000Z.tif",
+    "dots": 38000,
+    "excluded_px": 680037
+   }
+  ],
+  "margin_px": 3.0,
+  "candidates": 48811,
+  "scatter_support": 232415
+ },
+ "catalogue_distance_profile": {
+  "median_px": 25.179357528686523,
+  "mean_px": 32.72700881958008,
+  "frac_le3px": 0.010138353368110684,
+  "frac_le10px": 0.21383533681106828,
+  "on_catalogue": 0
+ }
+}

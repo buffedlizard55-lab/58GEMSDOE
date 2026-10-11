@@ -115,3 +115,31 @@ Numbering continues the historical list that this page replaced; each item carri
     *choice* of line count per segment is a legacy design rule, while every *reported* DTI was computed
     with the exact metric on isolated dots (min separation 1, 3 px lattice), where the `k > αs` shortcut
     is valid. Re-deriving the plan with exact marginal utilities is open work.
+28. **IR-58-UNIQ-06 — the sibling lane's published uniqueness clearance is the reverse statistic, and
+    its deliverable is offered as "DOWNLOAD OK" on that basis.** The scatter-cover lane delivered
+    `docs/deliverable/downloads/gems58-novel-scatter-44090-20261011T0630Z.tif` (sha256
+    `5f64b6dc44a3d6639691b679337ec64c1b4bb1b3f1ce63dfe17258ad6fdbf1e0`, 44,090 dots, 15/15 local
+    checks) with a screen published as "**473** rasters · worst rank correlation 0.0557 · worst 3 px
+    forward overlap **0.3160** · **0 triggers**", and `docs/index.html` on main carries a green
+    "✅ NEW CANDIDATE — DOWNLOAD OK" banner for it. That overlap figure is the fraction of each
+    **witness's** dots within 3 px of the candidate's — the *reverse* statistic that the archived
+    `gems58w.screen_against` triggered on before IR-58-UNIQ-04 was fixed. The protocol's statistic is
+    the fraction of the **candidate's** dots within 3 px of one witness's dots. Re-measured that way
+    against the same byte-verified inventory (702 witnesses, `.cache/registry` restored and
+    sha256-checked), the file has **78 firings** — worst **1.0000** against the plane-filling
+    `GEMSDOE2:data/evidence/runs/turbo-simple-20260925T042003Z/submission.tif` — and **0** firings in
+    the reverse direction, which is the exact signature of the exchanged directions
+    ([`evidence/ribbon/sibling_direction_check.json`](../evidence/ribbon/sibling_direction_check.json)).
+    **This is not an accusation of duplication.** The same degeneracy fires on the session-3 candidate
+    (81 firings) because those witnesses' 3 px dilations cover 61–100 % of the footprint and therefore
+    overlap *every* nonempty candidate; the honest reading is that neither file is cleared by the
+    literal rule and both need the same chance-corrected reading. What the irregularity is: a clearance
+    published in the wrong direction cannot support a green "download OK" banner, and the two lanes are
+    now reporting opposite verdicts from the same registry because they measured different statistics.
+    Outstanding: a corrected full screen of the sibling deliverable with both readings —
+    `PYTHONPATH=src python3 scripts/check_uniqueness_registry.py
+    docs/deliverable/downloads/gems58-novel-scatter-44090-20261011T0630Z.tif --workers 2
+    --out ribbon/sibling_full_inventory.json` (~35 min). Note also that the sibling screen ran over
+    **473** live-fetched rasters while the pinned+delta inventory holds **703**; the inventories are not
+    the same set, and `rho_subsample` (a subsampled Spearman) is now recorded explicitly in the summary
+    so a subsampled pass can never be reported as an exact one.

@@ -59,9 +59,41 @@ is the current queue. Nothing was uploaded and no slot was used.
 | Shared-metric cross-check | **AGREE, delta exactly 0.0.** `scripts/crosscheck_shared_metric.py` re-derives the delivered bytes with the shared `gems57.metric` (main has archived `gems58w`): per-fold NW 0.046853622 / NE 0.036240014 / SW 0.056175312 / SE 0.033175652 and pooled **0.043651086** are identical under both implementations and equal the recorded receipt; the literal brute-force oracle matches the shared fast path to ~1e-17 on a bounded tile. Runs in CI (`evidence/ribbon/shared_metric_crosscheck.json`, gate G5i) |
 | Slots used | **0** |
 
+## S3.0b Two lanes published a candidate on 2026-10-11, and they disagree
+
+A sibling session (PRs #17/#18, scatter-cover lane) delivered
+`docs/deliverable/downloads/gems58-novel-scatter-44090-20261011T0630Z.tif` (sha256 `5f64b6dc…`,
+44,090 dots, 15/15 local checks) with a green "✅ NEW CANDIDATE — DOWNLOAD OK" banner, on the strength
+of a screen published as "473 rasters · worst rank correlation 0.0557 · worst 3 px forward overlap
+**0.3160** · **0 triggers**".
+
+That overlap is the **reverse** statistic — the fraction of each *witness's* dots within 3 px of the
+candidate's — which is what the archived `gems58w.screen_against` triggered on before IR-58-UNIQ-04 was
+fixed. Re-measured in the protocol direction (the fraction of the *candidate's* dots within 3 px of one
+witness's dots) against the same byte-verified inventory, that file has **78 firings** (worst **1.0000**
+against the plane-filling `GEMSDOE2:turbo-simple`) and **0** in the reverse direction:
+`evidence/ribbon/sibling_direction_check.json` (IR-58-UNIQ-06).
+
+This is **not** a duplication claim. The identical degeneracy fires **81** times on the session-3
+candidate, because those witnesses' 3 px dilations cover 61–100 % of the footprint and overlap every
+nonempty candidate. Both files are in the same position under the literal rule; the two lanes report
+opposite verdicts only because they measured different statistics over different inventories (473
+live-fetched vs 703 pinned+delta). The immediate follow-up is a corrected full screen of the sibling
+deliverable with both readings:
+
+```bash
+PYTHONPATH=src python3 scripts/check_uniqueness_registry.py \
+    docs/deliverable/downloads/gems58-novel-scatter-44090-20261011T0630Z.tif \
+    --workers 2 --out ribbon/sibling_full_inventory.json     # ~35 min; started this session
+```
+
+Also note `rho_subsample`: the sibling emitters pass a subsampled Spearman to `screen_against`. The
+merged implementation accepts it (so their callers keep working) but now records `rho_subsample` and
+`rho_statistic` in the summary, so a subsampled pass can never be reported as an exact one.
+
 ## S3.1 Remaining work, in priority order
 
-1. **The owner's protocol decision is the blocking item.** Ratify a chance-corrected uniqueness rule —
+1. **The owner's protocol decision is the blocking item — and it now decides two files, not one.** Ratify a chance-corrected uniqueness rule —
    in its lift form ("fire only if (observed − E)/(1 − E) > 0.50") this file yields **2 firings, both
    against this repository's own earlier ribbon files**, and the highest lift against any other
    repository is **0.4898**; in its E-limit form the threshold must be ≤ **0.61** for zero firings — or
