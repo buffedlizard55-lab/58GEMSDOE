@@ -60,3 +60,27 @@ jobs:
         run: PYTHONPATH=src python scripts/crosscheck_shared_metric.py
       - name: Check archived ribbon pages and current negative gates
         run: python scripts/ribbon_check_site.py
+      - name: Render the session-5 deliverable page and inject the front-door box
+        run: python scripts/gems60_build_page.py
+      - name: The session-5 banner must match the session-5 gates
+        run: |
+          # gems60_build_page.py writes docs/gems60.html from evidence/gems60/*.json and injects the
+          # current-deliverable box into docs/index.html and docs/executive-summary.html (it must run
+          # after build_site.py, which rewrites those two pages from the previous lane's receipts).
+          set +e
+          python scripts/gems60_build_page.py --strict
+          code=$?
+          set -e
+          if [ "$code" -eq 0 ]; then
+            grep -q "OK TO DOWNLOAD AND SUBMIT" docs/gems60.html
+          elif [ "$code" -eq 2 ]; then
+            grep -q "NOT CLEARED" docs/gems60.html
+          else
+            echo "gems60_build_page.py failed to render from the receipts"; exit 1
+          fi
+          grep -q "big-btn" docs/gems60.html
+          grep -q "gems60-convergence-ribbon6" docs/gems60.html
+          grep -q "session5:begin" docs/index.html
+          grep -q "session5:begin" docs/executive-summary.html
+      - name: Fail-closed checks on the session-5 deliverable itself
+        run: PYTHONPATH=src python -m pytest -q tests/test_gems60_deliverable.py

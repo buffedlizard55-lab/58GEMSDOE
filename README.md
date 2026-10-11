@@ -2,11 +2,32 @@
 
 Core values: **Maximize P(Win)** and **Own the Outcome** — report the actual result, including a negative one.
 
-## Submission decision: **NOT OK TO SUBMIT — DO NOT SUBMIT**
+## Submission decision — session 5
 
-Two artifacts are downloadable and **neither is cleared**. The authoritative, evidence-generated banner
-is rendered by `scripts/build_site.py` on the
-[public site](https://buffedlizard55-lab.github.io/58GEMSDOE/docs/index.html).
+**Current candidate: `docs/downloads/gems60-convergence-ribbon6-20261011T155420Z.tif`** —
+[CLEARED ON EVERY MEASURABLE LOCAL GATE (download & submit)](docs/gems60.html). It is a new,
+unique raster: lineaments from a four-family (magnetic, gravity, topographic, subsurface)
+structural field, ranked with a cross-family agreement bonus and emitted as dotted multi-line
+ribbons at the measured localization error, **0 dots on the mapped catalogue**, every value
+exactly `1.0`, independent format verification 12/12, and **0 discriminating uniqueness
+firings** over the byte-verifiable registry inventory. What is *not* verified is its
+leaderboard value: no organizer receipt exists and the local holdout is structurally blind to
+off-catalogue files (measured Spearman −0.037 against live scores over 34 rasters). The
+authoritative, evidence-generated banner for the *previous* lane's artifacts is rendered by
+`scripts/build_site.py` on the
+[public site](https://buffedlizard55-lab.github.io/58GEMSDOE/docs/index.html); the session-5
+deliverable has its own receipt-driven page, [docs/gems60.html](docs/gems60.html).
+
+Session-5 facts, one line each: hypothesis → [`evidence/gems60/run_card.json`](evidence/gems60/run_card.json);
+σ table → [`evidence/gems60/sigma.json`](evidence/gems60/sigma.json); exact-metric pattern
+selection → [`evidence/gems60/pattern_weighted.json`](evidence/gems60/pattern_weighted.json);
+holdout number (labelled, with its limits) → [`evidence/gems60/holdout.json`](evidence/gems60/holdout.json);
+uniqueness screen → [`evidence/gems60/uniqueness_full.json`](evidence/gems60/uniqueness_full.json);
+independent verification → [`docs/downloads/gems60-convergence-ribbon6-20261011T155420Z.checks.json`](docs/downloads/gems60-convergence-ribbon6-20261011T155420Z.checks.json).
+
+### Earlier artifacts — still NOT CLEARED
+
+Two artifacts remain downloadable and **neither is cleared**.
 
 | Artifact | Status | Decision basis |
 |---|---|---|
@@ -101,6 +122,23 @@ a witness: that would trade the hypothesis being tested for a number that means 
 - **Pre-placement surface gate:** not cleared for that candidate against a current inventory.
 - **Format evidence:** its local preflight passed, but it is published in the all-finite `*-zeros.tif`
   representation, which is *not* the organizer's `sample_submission.tif` representation (IR-58-UNIQ-05).
+
+## Session 5 — cross-family convergence, three experiments as the budget requires
+
+| # | Question | Result | Receipt |
+|---|---|---|---|
+| EXP-1 | Can independent physical families be made to corroborate the same lineament? | A 4-family × 2-scale structure-tensor field over the pinned 19-band stack: **72,191 cells (1.40 % of the footprint) have ≥ 2 families agreeing** on a consistent strike; 27,626 have ≥ 3 | `evidence/gems60/gems60_convergence.json` (cache outside git) |
+| EXP-2 | Does the agreement count rank better than one family, and what is the localization error? | **Negative on the ranking claim**: equal 40k-dot budget mean exact kernel credit — all-family ranking 0.0107 vs topographic alone 0.0202 (≤3 px: 0.023 vs 0.040), so agreement survives only as a *ranking weight*. Leakage canary max AUC **0.6846** < 0.90 (no leakage). Measured across-strike σ of associated candidates: **median 2.0–4.1 px** by family/scale — the same order as the 3 px kernel radius | `evidence/gems60/sigma.json` |
+| EXP-3 | Which emission geometry is optimal, and can a unique portal-legal file be emitted and screened? (the shipped file is **not** restricted to agreeing cells — measured mean agreeing families 1.05 with 10.9 % of dots on ≥ 2-family cells — because EXP-2 rejected agreement as a gate; it enters only as a ranking bonus) | Exact-metric sweep (390 patterns) weighted by the measured σ: 5 parallel dotted lines at the kernel-radius spacing is the robust optimum; emitted **40,000 dots, all exactly 1.0, 0 on the catalogue**, independent verification **12/12**, HOLDOUT-DTI **0.037208**, uniqueness screen over **668 sha256-verified witnesses**: literal firings 56 (all against witnesses covering ≥ 65 % of the footprint by their own dilation), **governing firings 0** (max chance-corrected lift 0.4552 ≤ 0.50; 0 firings at E ≤ 0.61; worst ρ 0.3499 < 0.90; worst Jaccard 0.0248 < 0.50) | `evidence/gems60/{pattern_weighted,holdout,uniqueness_readings}.json` |
+
+**The decision.** The session-5 candidate is the first file in this repository cleared on every
+measurable local gate; the literal 70 % rule is reported in full and shown to be unsatisfiable by
+any nonempty file (35 witnesses cover 100 % of the scored footprint by their own 3 px dilation),
+so the verdict is taken on the two resolutions the owner proposed for that rule, both of which
+give zero firings. What remains unverified is the leaderboard value — the local holdout cannot
+rank this class of file (ρ = −0.037 against live scores over 34 rasters), and the only live
+evidence for the emission format is the family's own USER-REPORTED 0.2600–0.2778 for sibling
+dotted files. Download and submit at [docs/gems60.html](docs/gems60.html).
 
 ## Session 3 — three experiments, as the budget requires
 
