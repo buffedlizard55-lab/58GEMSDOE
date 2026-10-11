@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
-"""Instrument control: why the delivered file reads HOLDOUT-DTI 0, and proof the
-geometry is sound.
+"""ARCHIVED/NO-GO legacy instrument-control experiment; CLI disabled.
+
+The historical notes below use the private gems58w holdout/metric, which is not
+a promotion-grade instrument. They do not prove that the geometry is sound.
+
+Historical description: the old control explored why a catalogue-buffered file
+read HOLDOUT-DTI 0 under the unbuffered local holdout.
 
 The delivered file keeps every dot at least 3 px from *any* catalogue pixel.  The
 hide-and-recover holdout scores only on catalogue pixels (its withheld truth *is*
@@ -15,6 +20,12 @@ with that read-out removed, to show the difference is the screen alone.
     PYTHONPATH=src GEMS_FEATURE_STACK=... python3 scripts/ribbon_run_instrument_control.py
 """
 from __future__ import annotations
+
+if __name__ == "__main__":
+    raise SystemExit(
+        "DEPRECATED/NO-GO: legacy instrument control uses the private gems58w holdout; "
+        "do not run or report it as current HOLDOUT-DTI."
+    )
 
 import json
 import sys
@@ -99,4 +110,7 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    raise SystemExit(
+        "DEPRECATED/NO-GO: legacy instrument control uses the private gems58w holdout; "
+        "do not run or report it as current HOLDOUT-DTI."
+    )

@@ -1,19 +1,11 @@
 #!/usr/bin/env python3
-"""Refresh ``docs/data/feed.json`` — the always-current status feed.
+"""ARCHIVED legacy feed generator — command-line execution is disabled.
 
-Solves the "we have to check everything by hand" problem: one file, machine
-readable, regenerated on a schedule by ``.github/workflows/feed.yml`` and on every
-build.  It carries
-
-* the current deliverable's identity (name, sha256, bytes, dot count),
-* the validator verdict for those exact bytes,
-* the uniqueness verdict against the registry,
-* the label of every score in the repository (ORGANIZER-CONFIRMED vs
-  OWNER-REPORTED vs HOLDOUT-DTI vs projection — a projection is never a score),
-* source health for every link in ``registry/sources.json`` (HTTP status when the
-  network allows it, ``unreachable-from-sandbox`` when it does not).
-
-    PYTHONPATH=src python3 scripts/ribbon_refresh_feed.py [--check-sources]
+This renderer imports the private ``gems58w`` writer, asserts an old download
+permission, and emits stale leaderboard/holdout labels. It must not overwrite
+any current public feed. The current public-board observation is stored in
+``evidence/official_leaderboard_observation_20261011.json``; the root status is
+built by ``scripts/build_site.py``.
 """
 from __future__ import annotations
 
@@ -114,4 +106,7 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    raise SystemExit(
+        "DEPRECATED/NO-GO: legacy ribbon feed generation is disabled; it emits stale "
+        "metrics/score labels and download permission. Use scripts/build_site.py for current status."
+    )

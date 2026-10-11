@@ -90,7 +90,11 @@ def evidence(tmp_path):
             "simulated_gain_per_sigma_class": {
                 "sigma-3-6px": {"W1": {"dti": 0.0, "n_truth": 6492}, "W3": {"dti": 0.004451},
                                 "AD": {"dti": 0.004451}, "AD2": {"dti": 0.006469}}}}
-    return dict(tif=tif, emi=emi, card=card, sig=sig, inv=inv, arms=arms)
+    xcheck = {"verdict": "AGREE",
+              "pooled": {"abs_delta_lane_vs_shared": 0.0, "shared_gems57_binary": 0.043651086,
+                         "recorded_in_emission_json": 0.043651086,
+                         "abs_delta_shared_vs_recorded": 0.0}}
+    return dict(tif=tif, emi=emi, card=card, sig=sig, inv=inv, arms=arms, xcheck=xcheck)
 
 
 def gates(evidence, **over):
@@ -105,8 +109,13 @@ def gates(evidence, **over):
         emi = over["emi"]
     if "sig" in over:
         sig = over["sig"]
+    xcheck = evidence["xcheck"]
+    if over.get("xcheck") is False:
+        xcheck = None
+    elif "xcheck" in over:
+        xcheck = over["xcheck"]
     tif = Path(over.get("tif", evidence["tif"]))
-    return build_site.evaluate_gates(emi, sig, inv, tif)
+    return build_site.evaluate_gates(emi, sig, inv, tif, xcheck)
 
 
 def by_id(gs):
@@ -117,7 +126,7 @@ def test_complete_evidence_turns_the_banner_green_except_the_receipt(evidence):
     gs, ok = gates(evidence)
     g = by_id(gs)
     assert ok is True, [x["id"] for x in gs if not x["ok"]]
-    assert all(g[i]["ok"] for i in ("G1", "G2", "G3", "G4", "G5"))
+    assert all(g[i]["ok"] for i in ("G1", "G2", "G3", "G4", "G5", "G5i"))
     # an organizer receipt can never exist here, and must never be claimed
     assert g["G6"]["ok"] is False
 
@@ -199,4 +208,18 @@ def test_any_failed_local_format_check_fails_closed(evidence):
     emi["validator"]["checks"]["values_in_unit_interval"] = {"ok": False, "detail": "max=1.5"}
     gs, ok = gates(evidence, emi=emi)
     assert by_id(gs)["G1"]["ok"] is False
+    assert ok is False
+
+
+def test_shared_metric_crosscheck_is_required_and_must_agree(evidence):
+    """main archived the gems58w path, so the number must be re-derived with gems57."""
+    gs, ok = gates(evidence, xcheck=False)
+    assert by_id(gs)["G5i"]["ok"] is False
+    assert ok is False
+
+    disagree = {"verdict": "DISAGREE",
+                "pooled": {"abs_delta_lane_vs_shared": 0.01,
+                           "shared_gems57_binary": 0.05}}
+    gs, ok = gates(evidence, xcheck=disagree)
+    assert by_id(gs)["G5i"]["ok"] is False
     assert ok is False

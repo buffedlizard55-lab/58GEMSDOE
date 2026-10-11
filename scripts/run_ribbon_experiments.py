@@ -1,15 +1,12 @@
 #!/usr/bin/env python3
-"""E1+E2: sigma fit, leakage canary, and ribbon-vs-baseline holdout comparison.
+"""ARCHIVED/NO-GO experiment runner; command-line execution is disabled.
 
-Experiments (lane budget: 3 total, E3 is the emission build)
-  E1  sigma table + leakage canary on the shared hide-and-recover holdout.
-  E2  oracle/diagnostic arms on buffered whole-component cells. The legacy
-      per-segment selector consults the same cell's withheld truth, so its DTI
-      is not promotion-grade; a future nested outer-block run is required.
-      Scoring delegates to gems57.evaluate_holdout (shared exact evaluator).
-
-Run:  python3 scripts/run_ribbon_experiments.py
-Writes: evidence/ribbon_e1_sigma.json, evidence/ribbon_e2_arms.json
+Historical E1/E2 code remains below for audit only. E2's per-segment selector
+consults the same cell's withheld truth; it is not promotion-grade, even where
+scoring delegates to ``gems57.evaluate_holdout``. The old split and outputs must
+not be used as current evidence. A proper experiment is not permitted until the
+literal pre-placement registry gate is resolved; then preregister a new nested
+outer-block run under the shared buffered protocol.
 """
 from __future__ import annotations
 
@@ -452,4 +449,7 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    raise SystemExit(
+        "DEPRECATED/NO-GO: legacy E1/E2 runner contains same-cell truth selection and "
+        "is not promotion-grade. Do not run it for current claims."
+    )

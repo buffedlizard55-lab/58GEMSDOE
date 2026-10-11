@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
-"""Render the GitHub Pages site from the evidence receipts.
+"""ARCHIVED legacy ribbon-site renderer — command-line execution is disabled.
 
-Every number on every page is read out of ``evidence/*.json`` or
-``registry/*.json`` at render time, so a page can never advertise something the
-receipts do not contain.  ``scripts/ribbon_check_site.py`` re-derives the hashes and the
-dot counts and fails closed.
-
-    python3 scripts/ribbon_build_site.py
+The old renderer reads legacy ``gems58w`` cards and can publish misleading
+“Download: OK” wording and non-promotion-grade width numbers. The existing
+``docs/ribbon/`` pages are now a red research-only archive; this script is kept
+only to document the historical generator. Do not regenerate the site with it.
+The active fail-closed site generator is ``scripts/build_site.py``.
 """
 from __future__ import annotations
 
@@ -110,18 +109,7 @@ def main() -> int:
     dl_tif = f"downloads/{name}.tif"
     dl_zip = f"downloads/{name}.zip"
 
-    banner = f"""<div class="card warn">
-<h2 style="margin-top:0;border:0">This is the v1 lane archive — the current candidate is on the main site</h2>
-<p><strong>Do not download from this page.</strong> The file described below was built in the first
-ribbon-lane session, was screened with a uniqueness instrument whose two overlap directions were
-exchanged (<code>IR-58-UNIQ-04</code>, fixed 2026-10-11), and keeps a 3&nbsp;px catalogue margin,
-which makes its HOLDOUT-DTI exactly 0 by construction (<code>IR-58-02</code>). The current candidate,
-its corrected uniqueness screen, its cross-fitted &sigma; table and the download decision live on
-<a href="../index.html"><strong>the main status page</strong></a>
-(&nbsp;<a href="../executive-summary.html">how to submit</a>&nbsp;). This page is retained so the v1
-measurements stay reviewable.</p>
-</div>
-<div class="card ok">
+    banner = f"""<div class="card ok">
 <h2 style="margin-top:0;border:0">Download — and what it is for</h2>
 <p><strong>Download: OK &nbsp;·&nbsp; Submit to the competition: NOT CLEARED YET</strong>
 (this project never clicks Submit and never spends a slot).</p>
@@ -432,4 +420,8 @@ data tab redirects to login and was unreachable from this sandbox.</p></div>
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    raise SystemExit(
+        "DEPRECATED/NO-GO: legacy ribbon site generation is disabled because it "
+        "publishes stale metrics and unsafe download wording. Use scripts/build_site.py "
+        "for the current status site."
+    )

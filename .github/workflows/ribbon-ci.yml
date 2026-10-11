@@ -1,10 +1,24 @@
-name: Ribbon lane CI
+name: Fail-closed repository checks
 on:
   push:
-    paths: ["src/**", "scripts/**", "tests/**", "evidence/**", "registry/**", "docs/**",
-            "pyproject.toml", "requirements.txt", ".github/workflows/ribbon-ci.yml"]
+    paths:
+      - "src/**"
+      - "scripts/**"
+      - "tests/**"
+      - "docs/**"
+      - "evidence/**"
+      - "registry/**"
+      - "pyproject.toml"
+      - "requirements.txt"
+      - ".github/workflows/ribbon-ci.yml"
   pull_request:
-    paths: ["src/**", "scripts/**", "tests/**", "evidence/**", "registry/**", "docs/**"]
+    paths:
+      - "src/**"
+      - "scripts/**"
+      - "tests/**"
+      - "docs/**"
+      - "evidence/**"
+      - "registry/**"
 jobs:
   verify:
     runs-on: ubuntu-latest
@@ -13,38 +27,36 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: Install
+      - name: Install test dependencies
         run: pip install -r requirements.txt
-      - name: Metric theorems (no feature stack needed)
-        run: PYTHONPATH=src python scripts/ribbon_verify_theorems.py
-      - name: Ribbon-lane tests
-        run: PYTHONPATH=src:. python -m pytest tests/test_ribbon_*.py -q
-      - name: Uniqueness instrument tests (corrected directions, chance correction, saturation)
-        run: PYTHONPATH=src:. python -m pytest tests/test_uniqueness_informative.py -q
-      - name: Site gate tests (the banner can only turn green on complete evidence)
-        run: PYTHONPATH=src:. python -m pytest tests/test_build_site.py -q
-      - name: Lane subsite renders from the receipts
-        run: PYTHONPATH=src python scripts/ribbon_build_site.py
-      - name: Lane subsite QA
-        run: PYTHONPATH=src python scripts/ribbon_check_site.py
-      - name: Main site renders from the receipts, and the banner matches the evidence
+      - name: Run unit and repository-hygiene tests
+        run: PYTHONPATH=src python -m pytest -q
+      - name: Build current fail-closed status site
+        run: python scripts/build_site.py
+      - name: The rendered banner must match the gates in the receipts
         run: |
+          # build_site.py exits 0 when it could render from complete receipts and 2 under
+          # --strict when a gate is open. Assert the two agree with the rendered copy, so a
+          # green banner can never be published over an open gate.
           set +e
-          PYTHONPATH=src python scripts/build_site.py
+          python scripts/build_site.py --strict
           code=$?
           set -e
-          echo "build_site.py exit code: $code"
-          # 0 = every gate G1-G5 passed (banner green); 2 = at least one gate is open (banner red).
-          # Anything else is a real failure.
-          if [ "$code" -ne 0 ] && [ "$code" -ne 2 ]; then exit 1; fi
+          echo "strict exit code: $code"
           if [ "$code" -eq 0 ]; then
             grep -q "OK TO DOWNLOAD AND SUBMIT" docs/index.html
             grep -q "OK TO DOWNLOAD AND SUBMIT" docs/executive-summary.html
-          else
+          elif [ "$code" -eq 2 ]; then
             grep -q "NOT OK TO SUBMIT" docs/index.html
+            grep -q "DO NOT SUBMIT" docs/index.html
             grep -q "NOT OK TO SUBMIT" docs/executive-summary.html
+          else
+            echo "build_site.py failed to render from the receipts"; exit 1
           fi
-          # the download button, the sha256 and the submission note must be on the first screen
+          # the deliverable and its hash must be reachable from the first screen
           grep -q "big-btn" docs/index.html
-          grep -q "ecf833f8ea7a6698636b48b0dcd0d03aa925d603753e60e03d9d1660922711dd" docs/index.html
-          grep -q "15/15" docs/submit.html || grep -q "PASS" docs/submit.html
+          grep -q "gems58-ribbon-sigma-adaptive" docs/index.html
+      - name: Re-derive the delivered HOLDOUT-DTI with the shared gems57 metric
+        run: PYTHONPATH=src python scripts/crosscheck_shared_metric.py
+      - name: Check archived ribbon pages and current negative gates
+        run: python scripts/ribbon_check_site.py

@@ -1,630 +1,200 @@
-# 58GEMSDOE — GEMS competition (DrivenData #306)
+# 58GEMSDOE — DOE GEMS Prize Challenge
 
-## 🚫 Submission decision: **NOT OK TO SUBMIT — logged as a duplicate by the literal 70 % rule · downloadable for review only**
+Core values: **Maximize P(Win)** and **Own the Outcome** — report the actual result, including a negative one.
 
-The authoritative banner is generated from evidence receipts by `scripts/build_site.py` (exit status 2
-while any gate is open) and rendered on the
-[GitHub Pages site](https://buffedlizard55-lab.github.io/58GEMSDOE/docs/index.html). It is green only
-when gates G1–G5 all pass; gate G6 (an organizer receipt for this raster) can never pass from this
-sandbox and is the owner's selector step.
+## Submission decision: **NOT OK TO SUBMIT — DO NOT SUBMIT**
 
-**Why it is red, in one paragraph.** The governing scan over **702 sha256-verified public witness
-rasters** (695/695 pinned, now complete, plus a current-default-branch delta;
-`evidence/ribbon/uniqueness_full_inventory.json`) finds the file **byte-unique, pixel-unique, with 0
-rank-correlation duplicates** (worst ρ **0.1824** vs the 0.90 limit, and that worst case is this
-repo's own control file) and **0 Jaccard duplicates** (worst 0.1041 vs 0.50). But the protocol's
-literal stop rule — ">70 % of my dots within 3 px of one registry raster's dots" — fires against
-**81** witnesses. **54** of those firings are information-free: the witness's own 3 px dilation covers
-≥ 99 % of the footprint, so it overlaps *every* nonempty candidate including a random dot field. The
-other **27** are broad dot fields of 155,021–3,380,827 dots (18 of them near-duplicate variants from a
-single repository); the worst is 0.8750 against a witness whose chance-level expectation is
-E = 0.8611, i.e. a chance-corrected lift of 0.100, and the largest lift among all firings is 0.375.
-Against the witnesses that can actually discriminate (own expected overlap E < 0.30) the worst
-observed overlap is **0.6115** (`GEMSDOE50:gems50-h52-coincidence8-80000`, E = 0.2386); at E < 0.70
-there are still 7 firings (worst 0.7777 at E = 0.6456). By the standing instruction this is logged as
-a duplicate and **stopped** — so the file is a reviewable artifact, not a cleared submission.
+Two artifacts are downloadable and **neither is cleared**. The authoritative, evidence-generated banner
+is rendered by `scripts/build_site.py` on the
+[public site](https://buffedlizard55-lab.github.io/58GEMSDOE/docs/index.html).
 
-**The one decision that would change it (owner only).** Either ratify a chance-corrected uniqueness
-rule — in its lift form, "a witness fires only if (observed − E)/(1 − E) > 0.50", under which this
-file produces **2 firings and both are this repository's own earlier ribbon files** (highest lift
-against any other repository **0.4898**); in its E-limit form the threshold has to be ≤ **0.61** to
-give zero firings, which is tighter and more arbitrary — or keep the literal rule, under which **no**
-ridge-based or coverage-based emitter in this repository family can ever be submitted, because the
-registry already contains near-plane-filling witnesses (IR-58-UNIQ-02/03, now measured over the whole
-inventory). `scripts/build_site.py` computes both readings from the scan rows at build time
-(`ratification_analysis` in `evidence/ribbon/run_card_final.json`), states them side by side, and does
-not choose.
+| Artifact | Status | Decision basis |
+|---|---|---|
+| **`gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif`** (session 3, current candidate) — [TIF](docs/downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif) · [ZIP](docs/downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.zip) | **NOT CLEARED — download for review only** | Format gate 15/15 and holdout measured, but the **literal** 3 px forward-overlap stop fires against 81 of 702 inventory witnesses. Logged as a duplicate and stopped, as the standing prompt requires. [`evidence/ribbon/uniqueness_full_inventory.json`](evidence/ribbon/uniqueness_full_inventory.json), [`evidence/ribbon/run_card_final.json`](evidence/ribbon/run_card_final.json) |
+| `gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.tif` (session 1/2 diagnostic) — [TIF](docs/downloads/gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.tif) | **NOT CLEARED — audit only** | 100% of its dots lie within 3 px of one full-footprint-positive prior raster, and its recorded scan was 694/695. [`evidence/run_card.json`](evidence/run_card.json), [`evidence/ribbon_uniqueness.json`](evidence/ribbon_uniqueness.json) |
 
-**Current candidate (session 3, 2026-10-11)**
+No organizer receipt links a score to either file, no slot was used, and nothing was uploaded.
+
+### Session-3 candidate — the facts
 
 | | |
 |---|---|
-| File | [`docs/downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif`](docs/downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif) (+ one-GeoTIFF `.zip`) |
 | sha256 | `ecf833f8ea7a6698636b48b0dcd0d03aa925d603753e60e03d9d1660922711dd` (433,419 B) |
-| Contents | 40,768 isolated dots, every emitted value **exactly 1.0**; EPSG:32611, 3730×3292, 100 m; NaN outside the study footprint exactly as in `sample_submission.tif` (7,111,787 NaN, `nodata=nan`); **0 dots on the mapped catalogue** |
-| Local portal preflight | **15/15 checks pass** — including `finite_inside_footprint` (NaN inside = 0) and `values_in_unit_interval`, the two that cause `Predicted values must be in range [0, 1]` |
-| Submission name | `gems58-ribbon-sigma-adaptive-40768-20261011T052942Z` |
-| Submission note (135/140 chars) | `Ribbon lane: adaptive dotted ribbons 0/+-300/+-600 m on catalogue-free Hessian ridges (sigma cross-fitted); 40768 isolated dots at 1.0.` |
-| HOLDOUT-DTI of the delivered bytes | **0.043651** pooled (NW 0.046854 / NE 0.036240 / SW 0.056175 / SE 0.033176), interval 0.033176–0.056175 (min–max over the 4 blocks), 60,869 withheld positives, protocol `gems58-pooled-hide-v1`, evaluator `gems58w.metric/v1` |
-| Uniqueness — local witnesses (corrected instrument) | 27 witnesses (19 registry checkout + this repo's own 8): worst rank correlation **0.1824** < 0.90, worst 3 px forward overlap **0.6027** < 0.70 (both against this repo's own earlier ribbon file), **0 informative firings**, 0 saturated witnesses, drift `none` |
-| Uniqueness — public inventory (gate G3) | 702 witnesses scanned (703 byte-verified minus the candidate's own entry), complete, 0 missing/invalid: **byte-unique, pixel-unique, worst ρ 0.1824, worst Jaccard 0.1041, 0 firings on both** — but the literal 3 px forward-overlap rule fires against **81** witnesses (54 vacuous with E ≥ 0.99, 27 broad dot fields), so the verdict is **negative** and `stop_required` is true. `evidence/ribbon/uniqueness_full_inventory.json` |
-| Slots used by this session | **0** — the agent never selects or uploads |
+| Contents | 40,768 isolated dots, every emitted value **exactly 1.0**; EPSG:32611, 3730×3292, 100 m; **NaN outside the study footprint exactly as in the organizer's `sample_submission.tif`** (7,111,787 NaN, `nodata=nan`) and finite everywhere inside it — which is what makes the portal rejection `Predicted values must be in range [0, 1]` impossible for this file; **0 dots on the mapped catalogue** |
+| Submission name / note | `gems58-ribbon-sigma-adaptive-40768-20261011T052942Z` / `Ribbon lane: adaptive dotted ribbons 0/+-300/+-600 m on catalogue-free Hessian ridges (sigma cross-fitted); 40768 isolated dots at 1.0.` (135/140 chars) |
+| HOLDOUT-DTI of the exact bytes | **0.043651** pooled (NW 0.046854 / NE 0.036240 / SW 0.056175 / SE 0.033176), 60,869 withheld positives, protocol `gems58-pooled-hide-v1`, evaluator `gems58w.metric/v1`, interval 0.033176–0.056175 (min–max over the four blocks; a 4-block bootstrap would resample repeated physical blocks as independent, so no bootstrap CI is claimed) |
+| Uniqueness — discriminating statistics | byte-unique and pixel-unique among 702 verified witnesses; worst rank correlation **0.1824** (limit 0.90, **0** firings); worst dot-set Jaccard **0.1041** (limit 0.50, **0** firings); worst overlap against witnesses whose own expected overlap is < 0.30: **0.6115** |
+| Uniqueness — literal stop | **fires**: 81 witnesses > 0.70 forward overlap; 54 are information-free (their 3 px dilation covers ≥ 99% of the footprint, so they overlap *every* nonempty candidate) and 27 are broad dot fields of 155,021–3,380,827 dots. Worst informative overlap 0.8750 at E = 0.8611 (chance-corrected lift 0.100); largest lift among all firings 0.3752 |
 
-**What the numbers do and do not say.** HOLDOUT-DTI measures recovery of *catalogue* truth on a
-buffered hide-and-recover holdout; the competition scores *new* faults whose provenance the
-organizers will not disclose. The live public leaderboard (ORGANIZER-CONFIRMED, fetched 2026-10-11)
-has **0.4133 (xiaofanhu)** at #1 and the owner's target **0.3195 (DARD) at #8** — see
-`IR-58-TARGET-01`. 0.4133 implies ≈0.36 weighted coverage; this surface reaches 0.0561 on the
-holdout. **The binding constraint is coverage, not ribbon geometry**, and that is the negative result
-this lane reports: no width, offset, threshold or budget choice inside the ribbon lane closes a
-factor of ~6. Nothing here is a forecast, and no file in this repository has an organizer receipt.
+**The one decision that would change it (owner only).** Under a chance-corrected *lift* rule — a witness
+fires only if `(observed − E)/(1 − E) > 0.50` — this file yields **2 firings, both against this
+repository's own earlier ribbon files** (family resemblance, not reuse of another lane), and the highest
+lift against any other repository is **0.4898**. An E-limit rule needs a threshold ≤ **0.61** for zero
+firings. Keeping the literal rule means no ridge-based or coverage-based emitter in this repository
+family can ever be submitted, because the registry already contains near-plane-filling witnesses
+(IR-58-UNIQ-02/03, now measured over the whole inventory). `scripts/build_site.py` computes both
+readings from the scan rows at build time and does not choose between them.
 
-**Equal-budget geometry contest (HOLDOUT-DTI, 38,000 isolated dots per fold, `evidence/ribbon/adaptive_arms.json`)**
+Do not evade the duplicate stop by omitting dense registry rasters, emitting an empty TIFF, or treating
+an incomplete inventory as exhaustive — and do not route around it by placing dots off-geology to dodge
+a witness: that would trade the hypothesis being tested for a number that means nothing.
 
-| Arm | Geometry | Pooled DTI | Δ vs W1 (paired bootstrap over 4 blocks) |
+### Why the older diagnostic is still blocked
+
+- **Literal final-dot duplicate stop:** 67,379 candidate dots; **100%** lie within 3 px of the prior
+  full-footprint-positive raster `GEMSDOE2:data/evidence/runs/turbo-simple-20260925T042003Z/submission.tif`.
+- **Its recorded scan was incomplete:** 694/695 pinned rasters. *(Session 3 closed that gap for the new
+  scan: the missing pin `927dc17f…` was recovered from `55GEMSDOE` commit `d92606c2…` and re-hashed, so
+  the merged inventory is 695/695 pinned + a current-default-branch delta = 703 byte-verified
+  witnesses — IR-58-REG-01.)*
+- **Its overlap numbers were measured with a defective instrument:** `src/gems58w/uniqueness.py`
+  exchanged the two overlap directions until 2026-10-11 (IR-58-UNIQ-04), so every overlap figure this
+  lane published before today — including "worst forward overlap 0.3600" for the earlier 38,000-dot
+  ribbon file — is superseded.
+- **Pre-placement surface gate:** not cleared for that candidate against a current inventory.
+- **Format evidence:** its local preflight passed, but it is published in the all-finite `*-zeros.tif`
+  representation, which is *not* the organizer's `sample_submission.tif` representation (IR-58-UNIQ-05).
+
+## Session 3 — three experiments, as the budget requires
+
+| # | Question | Result (HOLDOUT-DTI unless labelled) | Receipt |
 |---|---|---|---|
-| W1 | single tight dotted line | 0.042462 | — |
-| W3 | uniform ribbon, 5 lines at 0/±3/±6 px | 0.044336 | +0.001874 (0.001528–0.002383) |
-| AD | adaptive from cross-fitted σ, τ=0.60 | 0.044336 | +0.001874 (identical to W3) |
-| **AD2** | **adaptive from cross-fitted σ, τ=0.45** | **0.047655** | **+0.005194 (0.004482–0.006365)** |
+| EXP-1 | Can σ(x) be measured without fitting on the folds it scores, and does any single feature leak? | Leave-one-block-out cross-fitted pooled median σ **6.88 px** (rms 8.01, 994 components); calibrated credit k̂(family, decile) spans **0.000–0.035**, entirely below the marginal bar α·0.4133 = **0.0827**; worst single-feature AUC **0.5955** < 0.90 → no leakage | `evidence/ribbon/adaptive_sigma.json` |
+| EXP-2 | Does an adaptive ribbon beat a tight line and a uniform ribbon at an equal budget? | 38,000 isolated dots per fold: W1 tight **0.042462**, W3 uniform **0.044336**, AD adaptive **0.044336** (*identical* to W3), **AD2 adaptive τ=0.45 → 0.047655** (paired bootstrap over four blocks 0.004482–0.006365). Per σ class: ribbon wins at σ ≥ 1.5 px (+0.0065 in σ ∈ [3,6] px, where the tight line scores exactly 0) and **loses** below it (−0.0014) | `evidence/ribbon/adaptive_arms.json` |
+| EXP-3 | Can a unique, portal-legal file be emitted, validated and screened? | 40,768 dots, 15/15 format checks, HOLDOUT-DTI 0.043651, local screen cleared (27 witnesses), full-inventory scan **negative on the literal gate** | `evidence/ribbon/emission.json`, `run_card_final.json` |
 
-Per σ class (AD2 − W1): σ<0.5 px **−0.003**; 0.5–1.5 px **−0.005**; 1.5–2.5 px **+0.000**;
-2.5–3 px **+0.001**; 3–6 px **+0.006** (where the tight line scores exactly 0.000000). The ribbon
-pays where the localisation error is large and loses where it is small — the lane's hypothesis,
-confirmed in direction. Leakage canary: worst single-feature AUC **0.5955** < 0.90, no leaking band.
+**The binding constraint is coverage, not geometry.** The leader's 0.4133 implies ≈0.36 weighted
+coverage (PROJECTION from the official metric); this surface reaches **0.0561** weighted coverage of
+catalogue truth on the holdout. Ribbon geometry is worth +0.005; coverage is worth ~6×. No width,
+offset, threshold or budget choice inside this lane closes that gap, and that negative result is the
+main deliverable of the session.
 
-**Instrument fixes made this session (shared tools, fixed once, no private forks)**
+**Instrument fixes, made once in the shared tools (no private forks).**
 
-1. `src/gems58w/uniqueness.py` measured **both overlap directions backwards** (`IR-58-UNIQ-04`).
-   Definitions now live once in `src/gems57/uniqueness.py` and the lane imports them. Every overlap
-   number this lane published before 2026-10-11 — including "worst forward overlap 0.3600" for the
-   earlier 38,000-dot file — was measured with the directions exchanged and has been re-measured.
-2. The literal 0.70 gate fires on blanket/lattice witnesses whose chance-level expected overlap
-   `E ≥ 0.99`, so it can never be cleared and carries no information (`IR-58-UNIQ-03`). The
-   summariser now reports `E`, the chance-corrected lift `(observed − E)/(1 − E)`, a `saturated`
-   flag, a representation class, and literal **and** informative readings; `lane_drift_evidence`
-   distinguishes `none` / `vacuous-only` / `informative`, and clearance never rests on a vacuous
-   firing.
+1. `src/gems58w/uniqueness.py` measured **both overlap directions backwards**; the definitions now live
+   once in `src/gems57/uniqueness.py` and the lane imports them (IR-58-UNIQ-04).
+2. The literal 0.70 gate fires on saturated blanket/lattice witnesses. The shared summariser now reports
+   `E`, the chance-corrected lift, a `saturated` flag, a representation class, and **literal and
+   informative readings side by side**; clearance never rests on a vacuous firing (IR-58-UNIQ-03).
 3. `scripts/check_uniqueness_registry.py` rejected the organizer's own NaN-outside-footprint
-   representation, which is why earlier artifacts were shipped as `*-zeros.tif`
-   (`IR-58-UNIQ-05`). Non-finite **inside** the footprint is still a hard error.
-4. σ is now **leave-one-block-out cross-fitted** (previously fitted on the folds it scored, on
-   `n_pairs = 14`) — `IR-58-SIGMA-01`.
-5. The registry inventory is complete: the missing pin `927dc17f…` was recovered from `55GEMSDOE`
-   commit `d92606c2…` and re-hashed, and a current-tree delta scan of all 56 reachable clones found
-   no new grid-format raster (`IR-58-REG-01`, `registry/registry_merged.json`, 703 witnesses).
-6. The live-score matcher no longer matches ISO dates as sha256 tokens; it is repository-scoped and
-   fail-closed (`IR-58-LIVE-01`). The two-parameter catalogue-proximity calibration is a **measured
-   dead end** (R² = −1.27 over 66 verified rasters) and must not be re-proposed.
+   representation, which is why earlier artifacts were shipped as `*-zeros.tif`; non-finite **inside**
+   the footprint remains a hard error (IR-58-UNIQ-05).
+4. σ is now **leave-one-block-out cross-fitted** (it was previously fitted on the folds it scored, on
+   `n_pairs = 14`), and the lane's "tight line where σ < 0.5 px" branch is documented as unreachable
+   because σ is floored at 0.5 px (IR-58-SIGMA-01).
+5. The live-score matcher no longer matches ISO dates as sha256 tokens and is fail-closed
+   (IR-58-LIVE-01).
 
-**Earlier candidates in this repository are NOT cleared** and are retained for audit only:
-`gems58-ribbon-concordant-…-b8d1faa5-zeros.tif` (final-dot overlap 1.0 against a GEMSDOE2 witness),
-`gems58-prox-dot36k-…-e7bbfea83853-zeros.tif` (overlap gate negative), `gems58-adaptive-ribbon-38000-…`
-(screened with the swapped directions; HOLDOUT-DTI exactly 0 by construction — `IR-58-02`), the two
-MECE rasters (leakage-flagged, out of lane) and `…-M1-CONTROL-…tif` (instrument control).
+**Measured negatives kept as deliverables.**
 
----
+- **Live-score calibration is NEGATIVE:** over 66 sha256-verified sibling rasters the two-parameter
+  catalogue-proximity model fits with R² = −1.27 and **no covariate reaches |Spearman| 0.258**. The
+  earlier n=20 `Spearman(dots, score) = −0.831` is an artifact and must not be reused. The 40,768-dot
+  budget is the median dot count of the owner-reported ≥ 0.24 family — labelled USER-REPORTED-SCORE,
+  never as a calibrated optimum. What survives is a family separation: every ≥ 0.2449 file has 0
+  on-catalogue dots, 37,654–61,328 dots and a median catalogue distance of 14–20 px, while
+  catalogue-hugging files score 0.004–0.03.
+- **Per-segment adaptivity beyond a uniform ribbon measured exactly 0.000000** (`AD` vs `W3`), and the
+  planner returned 5 lines for 5,794 of 6,286 segments. The measured gain is "ribbon vs tight line".
+- **The HOLDOUT-DTI is not an artifact of the archived path.** `scripts/crosscheck_shared_metric.py`
+  re-derives the delivered bytes' score with the shared `gems57.metric` (`dti_binary`, `dti_exact`) and
+  with the literal brute-force transcription of the published equations on a bounded tile: per-fold and
+  pooled deltas are **exactly 0.0** and the pooled value equals the recorded receipt
+  (**0.043651086**), so the number is a property of the official metric, not of the copy that computed
+  it (`evidence/ribbon/shared_metric_crosscheck.json`, gate G5i, run in CI).
+- **`gems58w.allocation` is a legacy design rule.** Its `_marginal_pair` false-positive term does not
+  reproduce the official per-prediction `FP_w` for interacting lines, so the *choice* of line count is
+  not an exact-metric decision. The *evaluation* of every pattern emitted here used the exact metric on
+  isolated dots (min separation 1, 3 px lattice), where the shortcut `k > αs` is valid; the exact
+  marginal form is `U = (1 − αs)ΔTP − αsΔFP`.
+- **Aeroradiometric and 1 m lidar evidence is absent from the delivered stack** although page 968 says
+  GeoDAWN acquired both (IR-58-DATA-01). Sources are verified and linked; this sandbox cannot fetch
+  binaries, so it is an owner-download hypothesis, never a validated candidate.
 
-## Standing master prompt (re-read at the start of every session)
+## Correct score and leaderboard record
 
-> Review the repo.
->
-> THE FOLLOWING IS THE HIGHEST URGENCY AND MUST BE FOLLOWED!
->
-> MUST GENERATE A UNIQUE TIF SUBMISSION FOR THE COMPETITION. DO NOT COPY A
-> PREVIOUS SUBMISSION UNLESS IT'S FOR LEARNING AND EDUCATION. BUT WE MUST
-> GENERATE A UNIQUE TIF SUBMISSION. IT MUST BE OBVIOUS WHETHER IT IS OK TO
-> DOWNLOAD AND SUBMIT THE GENERATED TIF SUBMISSION.
->
-> There should be an easy to download submission tif file as described by the
-> prompt. Read the entire prompt.
->
-> Ribbon lane: match emission width to the measured localization error. The
-> simulations say placement within about one pixel is what pays, and that
-> parallel dotted lines pay when location is uncertain. On the hide-and-recover
-> holdout, measure the across-strike distance between each candidate ridge and
-> the nearest withheld segment, and fit an error scale σ(x) by data block,
-> feature resolution and ridge type. Then choose, per segment, the number and
-> offset of parallel dotted lines (spacing near the 3-px kernel radius) that
-> maximize U = (1 − 0.2·DTI₀)·TP − 0.2·DTI₀·FP, evaluated with the exact
-> metric. Use a single tight line where σ is under about 0.5 px and a ribbon
-> about ±σ wide where it is 2–3 px. Emit included dots at exactly 1.0, since
-> scaling values down only scales the net gain down. Report the σ table and the
-> simulated gain per class. Output the standard validated GeoTIFF,
-> uniqueness-checked against every earlier raster.
->
-> PARALLEL-RUN PROTOCOL — read first. This session is one of several running
-> from this same prompt.
-> 1. LANE. Your lane is the single method paragraph above. Stay inside it. If
->    your raster's rank-correlation with any registry raster exceeds [0.90], or
->    more than [70%] of your dots fall within 3 px of one registry raster's
->    dots, you have drifted into another lane: log it as a duplicate and stop.
->    Check this on the surface before placement AND on the final dots.
-> 2. REUSE, DON'T REBUILD. Use the template's cached feature stack,
->    evaluate_holdout.py and submission_writer.py. Holdout = hide-and-recover:
->    withhold whole fault segments with a buffer, derive every catalogue-based
->    feature only from the visible faults, mask visible faults pixel-exactly,
->    score pooled DTI (alpha 0.2, beta 0.8, 300 m triangular kernel). If a
->    shared tool is wrong, fix it once in the template and report it; never
->    keep a private fork.
-> 3. LABEL EVERY NUMBER as HOLDOUT-DTI (evaluator version, number of withheld
->    positives, 95% CI) or ORGANIZER-CONFIRMED (copied from a submission-page
->    receipt). A projection is never written as a score.
-> 4. LEAKAGE CANARY. Test each feature alone on the holdout before trusting any
->    result. AUC above [0.90] means leakage until proven otherwise.
-> 5. RUN CARD. End with one JSON card: hypothesis; mechanism; the named
->    non-fault process that could mimic it; holdout DTI + CI;
->    correlation/overlap vs registry; raster sha256; validator output (no NaN
->    inside the footprint, values in [0,1], CRS/shape/transform match);
->    submission name + note of at most 140 characters; verdict promote /
->    negative. Negative results are deliverables.
-> 6. BUDGET. Stop after [3] experiments or [2] hours. Do not pick submissions:
->    promotion to a real slot is a separate selector step, within the weekly
->    cap shown on the submission page.
->
-> Before implementing, generate 3–5 candidate geological hypotheses we haven't
-> tried yet, each naming: the specific layer(s), the physical signature being
-> targeted, why it should catch a fault missing from the USGS/INGENIOUS
-> catalogue rather than one already in it, and how it differs from anything
-> already implemented. Rank them by expected DTI improvement and implementation
-> cost. Validate the top candidate on the spatially-blocked holdout before
-> touching a weekly submission slot. If a candidate can't be validated without
-> new external data, name the specific free, official source and check it's
-> obtainable before proposing the idea as viable.
->
-> Work line by line verifying from official verified trusted sources, provide
-> links for manual review. No manual input. Flag any irregularities for
-> review. No hallucinations. Verify line by line.
->
-> Core values: **Maximize P(Win)** and **Own the Outcome** — weigh tradeoffs,
-> pick the path that maximizes the probability of winning; own results end to
-> end.
+The official public leaderboard was directly checked on 2026-10-11 UTC. It showed:
 
----
+| Public rank | Participant | Public DTI | Evidence label |
+|---:|---|---:|---|
+| 1 | xiaofanhu | 0.4133 | PUBLIC-LEADERBOARD SNAPSHOT |
+| 8 | DARD | 0.3195 | PUBLIC-LEADERBOARD SNAPSHOT |
+| 23 | extradr19 | 0.2778 | PUBLIC-LEADERBOARD SNAPSHOT |
 
-## Current review card (2026-10-11 UTC)
+Source: [official DrivenData leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/); a dated observation is stored in `evidence/official_leaderboard_observation_20261011.json`. The board is dynamic. The earlier `0.3195` reference is a real public row, but it is **not the current leader**.
 
-| Check | Finding | Label / artifact |
-|---|---|---|
-| Diagnostic raster | `docs/downloads/gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.tif`; SHA256 `8b196e6eea06fef0d6cf2c9109091d1e2677a77d6e48d8b04f334a879551687f` | LOCAL-RASTER / local preflight only |
-| Grid | One float32 band, EPSG:32611, 3730×3292, 100 m, transform `(100,0,243350,0,-100,4508550)` | LOCAL-GRID check against the bridged sample; official origin not independently authenticated here |
-| Format/range | Recorded local validator passed for finite values in [0,1], zeros outside the local footprint, and zero on mapped catalogue | LOCAL-FORMAT-PREFLIGHT; not portal acceptance |
-| Literal final-dot overlap | 1.0 with the `GEMSDOE2` full-footprint-positive witness; strict stop limit 0.70 | REGISTRY-MEASUREMENT, frozen snapshot only; blocks candidate |
-| Spearman rank correlation | Worst recorded value 0.1896456, below 0.90 | REGISTRY-MEASUREMENT, frozen snapshot only; does not cure overlap failure |
-| Registry freshness | *(superseded by IR-58-REG-01: the restore is now 695/695 and the merged inventory is 703 byte-verified witnesses)* 695 unique rasters across 57 pinned snapshots; latest restore checked 694/695. Fetched `origin/main` tree `d8c17dd` contains 10 TIF/TIFF paths in this repository, including two out-of-lane MECE outputs; no full current inventory comparison was performed. | REGISTRY-FRESHNESS-AUDIT; incomplete/current scope false |
-| Pre-placement current surface | Not checked for this candidate under a current literal inventory | NOT CLEARED |
-| Promotion-grade HOLDOUT-DTI | Not run with the new buffered split; legacy result is disqualified for promotion due same-cell truth selection and invalid block bootstrap | NOT MEASURED for current instrument |
-| Organizer score | No receipt | NOT AVAILABLE |
-| Final status | **NOT OK TO SUBMIT — DO NOT SUBMIT** | `evidence/run_card.json` |
+The GEMSDOE32 H33 file named `gemsdoe32-h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros.tif` is **not** established to have scored 0.2778. Its owner-maintained [artifact page](https://buffedlizard55-lab.github.io/GEMSDOE32/docs/index.html) says **“NO ORGANISER SCORE EXISTS”** for that artifact and labels **0.2747** a model projection. The official public board associates 0.2778 with participant `extradr19`; neither the public row nor the owner page provides a receipt/hash crosswalk from that score to the H33 TIFF. Do not attribute 0.2778 to that file or explain why it “scored.” See [the attribution review](docs/research/why-02778.md), [`docs/LEADERBOARD.md`](docs/LEADERBOARD.md), and `registry/submissions_seen.csv`.
 
-The number of positive raster pixels is a raster fact, not a score. No current leaderboard point or performance claim is reported.
+**The only numeric performance claims allowed for this repository's model are:** (a) HOLDOUT-DTI with the shared evaluator version, withheld-positive count, protocol, and valid 95% CI; or (b) ORGANIZER-CONFIRMED from a submission receipt tied to the exact file. The public leaderboard values above are contextual page observations, not scores for this artifact.
 
-## Session 2 review card — supervised ranking + metric-derived dot budget (2026-10-11 UTC)
+## Ranked hypotheses — proposals only
 
-This session added a second, independent candidate and an equal-budget measurement
-instrument. It does **not** override the shared decision above: nothing here is cleared, and no
-weekly slot has been used.
+[`docs/research/hypotheses_session3.md`](docs/research/hypotheses_session3.md) is the current ranking:
+five **detection-side** hypotheses with layers, physical signature, why each can catch a fault missing
+from the USGS/INGENIOUS catalogue, how it differs from this repository, a named non-fault mimic, and
+expected DTI gain per implementation hour — ranked against the constraint session 3 measured (coverage,
+not geometry). **H58-R4** (cross-fitted supervised detector that emits only where the calibrated
+per-stratum detection rate clears α·DTI₀ = 0.0827) is rank 1 and needs no new data; **H58-R6** (regress
+flight-line geometry out of the magnetic bands) rank 2; **H58-R5** (a directional σ tensor) rank 3;
+**H58-R3** (aeroradiometric + 1 m lidar — physically the strongest, and the organizers' own framing) is
+**blocked on an owner download**; **H58-R7** is listed only as a measured dead end.
 
-| Check | Finding | Label |
-|---|---|---|
-| New candidate | `docs/downloads/gems58-prox-dot36k-20261011T030218Z-e7bbfea83853-zeros.tif`; SHA256 `aac8aa8a021ee309c91c5084f17ff2d64623163faa382cfd76ca781352d945b8` | LOCAL-RASTER / local preflight + registry scan |
-| Positive pixels | 36,394, all at exactly 1.0, all >3 px off the mapped catalogue, zeros elsewhere | LOCAL-FORMAT-PREFLIGHT |
-| Canary (`all` / `detached`) | Max single-feature AUC 0.856 / 0.844 (distance to visible catalogue); best geophysical band 0.559 / 0.584 | HOLDOUT instrument, under the 0.90 line |
-| Equal-budget ranking contest (detached) | PROX **0.2147** ≫ GF 0.0689 ~ CTX 0.0036 (CTX collapses onto the catalogue: off-catalogue probabilities exactly zero) | HOLDOUT-DTI (`gems57.holdout.score_cell`, 22,619 withheld px, seeds 20/21) |
-| Ribbon lane's live rule (baseline it must beat) | 0.1309 vs its own tight baseline 0.1573 | HOLDOUT-DTI |
-| Dot budget | 20 sha256-verified owner rasters: ≤44,090 positive pixels out-scores every raster >50,000; Spearman(dots, score) = −0.831 | USER-REPORTED-SCORE + REGISTRY-MEASUREMENT |
-| Worst Spearman ρ | 0.140 (limit 0.90) | REGISTRY-MEASUREMENT, 695/695 complete |
-| Worst Jaccard dot sets | 0.061 (limit 0.50); byte-unique and pixel-unique | REGISTRY-MEASUREMENT |
-| Literal 3-px forward overlap | **NEGATIVE** — 104 rasters flagged. The binding ones are a plane-filling 5-px lattice whose own 3-px dilation covers 99.9 % of the study area (overlap 0.999 at every buffer from 3 to 10 px) and broad near-catalogue bands at 0.71–0.88. Against every proven high scorer: 0.17–0.35. | REGISTRY-MEASUREMENT; see `evidence/buffer_overlap_scan.json`, IR-58-UNIQ-02 |
-| Full session run card | `evidence/model_run_card.json` (the shared `evidence/run_card.json` is regenerated by `scripts/build_site.py`) | HOLDOUT-DTI + REGISTRY-MEASUREMENT |
-| Session status | **NOT OK TO SUBMIT — research artifact**, same as the rest | run card |
+The earlier ranked, untried ribbon-width proposals are in
+[`docs/research/hypotheses_new.md`](docs/research/hypotheses_new.md). They keep the existing ridge surfaces fixed and vary only error calibration / ribbon width and offsets. They do not claim to detect a fault for which the existing ridge field has no candidate. None has been implemented or holdout-validated. The registry stop must be resolved before any experiment.
 
-### Why the earlier "0.2778 is the top score" reading needed correcting
+## Repository status and reproduction
 
-1. That 0.2778 is probably not that file's score: the GEMSDOE32 page says NO ORGANISER SCORE EXISTS for
-   `h33-h33-2-b2-…-e5eb6e7e-zeros`, and the public leaderboard's 0.2778 belongs to a different team
-   (recorded in `registry/submissions_seen.csv`). Best undisputed number in the owner's record: 0.2750.
-2. The dot budget dominates, not the dot values (`evidence/sibling_record.json`, 20 verified rasters).
-3. Within that budget, ranking is the remaining lever — which is what this session measured.
+- Current fail-closed status generator: `scripts/build_site.py` → `docs/index.html`, `evidence/run_card.json`, and `docs/RUN_CARD.json`.
+- Shared template: `src/gems57/`; use `gems57.evaluate_holdout` and `gems57.submission_writer` only for any future qualified experiment.
+- The cached 19-band feature raster is hash-pinned in `data/bridge/feature_stack_pins.json` and stored outside Git at `~/.cache/gems/training_features.tif`. Its SHA256 verifies against the owner-maintained GitHub bridge; that establishes byte integrity, not independent organizer provenance.
+- Old `gems58w` ribbon experiment, feed, site, and submission CLIs are archival and disabled because they use private/unbuffered legacy paths and can publish non-promotion-grade numbers or misleading download language.
 
-Beating 0.3195 cannot be established from this sandbox: the scored truth raster is organizer-private and
-there is no submission receipt here. What is established is that the session-2 candidate is the holdout
-optimum of the ranking family that the public record says scores highest, at the budget the record says is
-optimal.
-
-## Session 3 review card — ribbon lane, adaptive σ, corrected uniqueness instrument (2026-10-11 UTC)
-
-Three passes were run, as the standing prompt requires: implement, then review for bugs and edge
-cases, then re-check against the original request. Pass 2 found four defects in the repository's own
-tools and one in this session's new code; all are listed above under "Instrument fixes" and in
-`docs/IRREGULARITIES.md` items 19–26.
-
-**Budget: three experiments, as mandated.** No fourth was started.
-
-| # | Experiment | Question | Result | Receipt |
-|---|---|---|---|---|
-| EXP-1 | σ(x), credit calibration, leakage canary | Can σ be measured without fitting on the folds it scores, and does any single feature leak? | Cross-fitted pooled median σ **6.88 px** (rms 8.01, 994 components); k̂(family, decile) spans **0.000–0.035**, all below the marginal bar α·0.4133 = **0.0827**; worst single-feature AUC **0.5955** < 0.90 → no leakage | `evidence/ribbon/adaptive_sigma.json` |
-| EXP-2 | Equal-budget geometry contest | Does an adaptive ribbon beat a tight line and a uniform ribbon at the same budget? | W1 0.042462 · W3 0.044336 · AD 0.044336 (**identical to W3**) · **AD2 0.047655** (τ=0.45); gain is concentrated in σ ≥ 1.5 px and is **negative** below it | `evidence/ribbon/adaptive_arms.json` |
-| EXP-3 | Emission, validation, screening | Can a unique, portal-legal file be emitted and cleared? | **40,768 dots**, 15/15 checks, HOLDOUT-DTI **0.043651**, worst local ρ 0.1824 / overlap 0.6027, 0 informative firings | `evidence/ribbon/emission.json`, `run_card_v2.json` |
-
-**New hypothesis tested this session (live-evidence calibration).** Hypothesis: the owner-quoted live
-scores are predictable from dot-field geometry, so the budget and the catalogue offset could be
-calibrated rather than guessed. Mechanism: the metric rewards weighted coverage at α = 0.2 per
-wasted pixel, so a file's score should rise with off-catalogue mass placed near truth. **Measured
-NEGATIVE** over 66 sha256-verified rasters: R² = −1.27, no covariate above |Spearman| 0.258. What
-survives is a *family* separation at the extremes (every ≥0.2449 file has 0 on-catalogue dots,
-37,654–61,328 dots, median catalogue distance 14–20 px; catalogue-hugging files score 0.004–0.03),
-which is consistent with the organizers' masking answer but is **not** a predictive model. Named
-non-fault mimics for the retained hypothesis: aeromagnetic flight-line levelling and draped-sensor
-artifacts; volcanic–alluvial contacts in the detrended DEM; depositional pinch-outs and fan margins
-truncating young units.
-
-**What the next session should not redo:** the two-parameter catalogue-proximity calibration, the
-SGMC-differential-as-truth idea (`gemsdoe29-sgmc-off-catalogue-44k` scored 0.0512 ≈ random),
-unheld-budget density sweeps, and any σ-based "tight line" branch (unreachable — σ is floored at
-0.5 px and no measured stratum is near it).
-
-## Ranked new hypotheses
-
-`docs/research/hypotheses_session3.md` is the current ranking: five detection-side hypotheses with
-layers, physical signature, why each can catch a fault **missing** from the USGS/INGENIOUS catalogue,
-how it differs from this repository, a named non-fault mimic, and expected DTI gain against
-implementation cost — ranked against the constraint this session measured (coverage, not geometry).
-**H58-R4** (cross-fitted supervised detector emitting only where the calibrated per-stratum detection
-rate clears α·DTI₀ = 0.0827) is rank 1 and needs no new data; **H58-R6** (regress flight-line geometry
-out of the magnetic bands) is rank 2; **H58-R5** (a directional σ tensor) rank 3; **H58-R3**
-(aeroradiometric + 1 m lidar — physically the strongest, and the organizers' own framing) is **blocked
-on an owner download** because this sandbox cannot fetch binaries; **H58-R7** is listed only as a
-measured dead end. The lane's own hypothesis H58-R2 and the calibration hypothesis H58-R7 were both
-validated this session on the spatially-blocked holdout before any slot decision, as the prompt
-requires.
-
-Earlier rounds are kept for audit: `docs/research/hypotheses_new.md` (four ribbon-lane hypotheses) and
-`docs/research/hypotheses_session2.md` (five more on the verified 19-band stack). They are untested.
-
-## Repository map
-
-- `src/gems57/` — shared metric, buffered holdout, exact shared evaluator, fail-closed writer/validator, and literal uniqueness gate.
-- `data/bridge/`, `data/official/`, `data/external/` — local input bridge and pinned derivative layers; check `evidence/verify_grid.json`/hashes for scope. Do not describe the official origin as independently authenticated solely from local hashes.
-- `scripts/run_ribbon_experiments.py` — E1/E2 diagnostic implementation; shared evaluator and buffered holdout are wired in. Its current per-segment selector remains same-cell truth-dependent and is explicitly not promotion-grade.
-- `scripts/build_ribbon_emission.py` — gated E3 emitter; it currently refuses to write because there is no reviewed `evidence/ribbon_qualification.json` or promotion-grade E1/E2. It verifies both registry-phase receipts and the exact prediction fingerprint before writing.
-- `scripts/check_uniqueness_registry.py` — shared literal registry check; only as current as the supplied/indexed inventory.
-- `scripts/build_site.py` — regenerates the explicit status, site, and run card from recorded evidence.
-- `scripts/run_ribbon_lane.py`, `scripts/uniqueness_check.py`, `scripts/check_data.py`, `scripts/make_submission.py`, `scripts/multi_evidence_emission.py`, `src/gems58/`, and `gems/` — legacy/private or out-of-lane implementations; do not use for new promotion work (`multi_evidence_emission.py` exits with NO-GO).
-- `docs/SUBMISSION_GUIDE.md`, `docs/SOURCES.md`, `docs/IRREGULARITIES.md`, and `docs/research/hypotheses_new.md` — user-facing status, official source register, audit log, and hypotheses.
-- `src/gems59/` — session-2 NaN-aware feature stack over the official 19-band `training_features.tif` (`features.py`), with regression tests in `tests/test_gems59.py`.
-- `scripts/fetch_feature_stack.sh` — reproduces and sha256-verifies the official 19-band feature stack from the owner's pinned git bridge (`data/bridge/feature_stack_pins.json`), outside git.
-- `scripts/run_model_experiments.py` (E1 canary + E2 arms), `scripts/analyse_sibling_record.py` (owner-raster record), `scripts/build_model_emission.py` (E3 equal-budget contest + emission), `scripts/check_buffer_overlap.py` (objective carrier test for the overlap gate).
-- `docs/research/hypotheses_session2.md` — five ranked session-2 hypotheses with verified layer names, falsifiers, and named free official sources.
-
-## Safe verification
-
-Install declared dependencies and run tests:
+Run tests in an environment with `requirements.txt` installed:
 
 ```bash
-python -m pip install -r requirements.txt
-PYTHONPATH=src python -m pytest -q
+PYTHONPATH=src python -m pytest -q          # 118 tests, all pass
+python scripts/build_site.py                # renders docs/ from the receipts (exit 0)
+python scripts/build_site.py --strict       # exits 2 while any gate G1-G5 is open
+PYTHONPATH=src python scripts/crosscheck_shared_metric.py  # re-derive the DTI with gems57 (21 s)
+python scripts/ribbon_check_site.py         # QA: archived ribbon pages + current negative gates
 ```
 
-Tests use synthetic grids and local code. **They do not validate competition performance, clear registry uniqueness, or constitute a submission receipt.** No E1/E2/E3 experiment was rerun in this review; the updated buffered-context tests are not an experiment.
-
-For any future run, follow the run card, exact experiment/time budget, current inventory refresh, pre-placement surface check, final-dot check, shared evaluator, and separate selector process. Read the [official source register](docs/SOURCES.md) first.
-
-## Official review links
-
-- [Competition homepage](https://www.drivendata.org/competitions/306/competition-doe-gems/)
-- [Problem description, metric and format](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/)
-- [Official rules, September 2026](https://docs.nlr.gov/docs/fy26osti/96647.pdf)
-- [Official data tab (login required)](https://www.drivendata.org/competitions/306/competition-doe-gems/data/)
-- [DrivenData reference solution](https://github.com/drivendataorg/gems-prize-reference-solution)
-- [USGS GeoDAWN data release](https://data.usgs.gov/datacatalog/data/USGS:657e1d85d34e23d3533209f7)
-- [USGS ComCat API](https://earthquake.usgs.gov/fdsnws/event/1/)
-- [USGS 3DEP products](https://www.usgs.gov/3d-elevation-program/about-3dep-products-services)
-- [2026 SGMC GeMS product](https://ngmdb.usgs.gov/Prodesc/proddesc_119417.htm)
-- [DOE GDR nationwide heat-flow / well collection](https://gdr.openei.org/submissions/1704)
-
-## Archived sibling work
-
-The earlier geophysical-ridge v1 TIFF remains under `docs/downloads/archive/` with its archived run card in `registry/RUN_CARD.json`. It is historical research only. Neither that artifact nor the current diagnostic TIFF is a cleared competition submission.
-
----
-
-# Ribbon-width lane (branch `arena/852ac339-58gemsdoe`, package `gems58w`)
-
-> Namespaced addition: this lane's code lives in `src/gems58w/`, its scripts in
-> `scripts/ribbon_*.py`, its receipts in `evidence/ribbon/` and its site in `docs/ribbon/`, so it
-> sits beside the existing lanes instead of replacing them.
-
-**Competition:** [DOE GEMS Prize — Geothermal Exploration at Hidden Systems, DrivenData #306](https://www.drivendata.org/competitions/306/competition-doe-gems/)
-· **Problem description:** [page 967](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/)
-· **Leaderboard:** [leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/)
-· **This lane's site:** <https://buffedlizard55-lab.github.io/58GEMSDOE/>
-
-> ## ⬇ Download — and what it is for
->
-> **Download: OK. Submit to the competition: YOUR DECISION (this project never spends a slot).**
->
-> **[↓ `gems58-adaptive-ribbon-38000-20261011T000000Z.tif`](docs/ribbon/downloads/gems58-adaptive-ribbon-38000-20261011T000000Z.tif)** (417 KiB)
-> · **[single-GeoTIFF ZIP](docs/ribbon/downloads/gems58-adaptive-ribbon-38000-20261011T000000Z.zip)** (one `.tif` inside)
-> · [machine-readable run card](evidence/ribbon/run_card.json) · [how to submit](docs/ribbon/executive-summary.html)
->
-> * `sha256` **d631b4af205bd6e0961f4bad3f4d12bc27b651a020dcd38666e4c5f5246720f7**, 426,559 bytes
-> * 1 band `float32`, `EPSG:32611`, 3730 × 3292, geotransform `(100, 0, 243350, 0, -100, 4508550)`
-> * **38,000 dots, every one exactly `1.0`; `NaN` outside the footprint and nowhere inside it**
->   — this is the format the portal accepts; the *"Predicted values must be in range [0, 1]"*
->   rejection comes from `NaN` (or a value outside `[0, 1]`) landing **inside** the scored
->   footprint, and the 15 local checks in `src/gems58w/submission.py` fail closed on it.
-> * 0 dots on the mapped catalogue and 0 within 300 m of it; median catalogue distance 21.9 px
-> * **15/15 local acceptance checks pass**; uniqueness screen: worst rank correlation **0.0137**
->   and worst 3 px forward overlap **0.3600** against every accessible earlier raster
->   → **0 duplicates, 0 dense priors**
-> * Suggested submission note (≤ 140 characters):
->   > Ribbon lane: per-segment dotted ribbons (5 lines at 0, +-300 m, +-600 m) on off-catalogue ridge detections; 38k isolated dots.
->
-> **Do not upload** this README, an HTML page, a JSON receipt, or a ZIP of the repository — the
-> portal takes the `.tif` or a ZIP holding exactly one GeoTIFF.
-
----
-
-## What this lane is (and what it is not)
-
-This repository is one lane of a parallel run. The lane is fixed by the standing prompt
-([`PROMPT.md`](PROMPT.md), reproduced in full below): **match the emission width to the
-measured localisation error.**
-
-1. Detect candidate ridges on the organizer's own geophysical stack (19 bands, 3 scales) with a
-   Hessian ridge operator, using **no catalogue information at all**.
-2. Measure the localisation error `σ(x)` of those detections on a buffered *hide-and-recover*
-   holdout of whole catalogue segments, stratified by **data block**, **feature resolution**
-   (ridge scale) and **ridge type** (band family × ridge sign).
-3. Choose, per segment, the number and offset of **parallel dotted lines** — spacing at the
-   kernel radius `R = 3 px = 300 m` — that maximise
-   `U = (1 − 0.2·DTI₀)·ΔTP − 0.2·DTI₀·ΔFP`, evaluated with the **exact** metric.
-4. Emit the accepted dots at exactly `1.0`, write the standard GeoTIFF, and check it for
-   uniqueness against every accessible earlier raster.
-
-This lane is **not** a catalogue-anatomy lane (that is `57GEMSDOE`'s lane), **not** a
-belief-field blur lane (that is `GEMSDOE32`'s H34), and **not** a model-fitting lane. It is the
-emission-geometry lane: given a placement surface, how **wide** should the emission be.
-
----
-
-## Executive answer — why the 0.2778 file scored high, and what beats it
-
-Full derivation and receipts: [`docs/research/why-02778.md`](docs/research/why-02778.md),
-[`docs/research/ribbon-algebra.md`](docs/research/ribbon-algebra.md),
-[`evidence/ribbon/theorems.json`](evidence/ribbon/theorems.json).
-
-**1. The metric is a coverage-per-cost problem, not a precision problem.** With
-`R = 300 m = 3 px`, `α = 0.2`, `β = 0.8` and `FN_w = |G| − TP_w`, the official equation
-
-```
-DTI = TP_w / (TP_w + α·FP_w + β·FN_w)        becomes        DTI = TP / (0.2·(TP+FP) + 0.8·|G|)
-```
-
-So **one emitted pixel of unit mass moves `TP+FP` by exactly 1** and costs exactly `0.2` of the
-denominator, wherever it lands. Two exact consequences follow, and both are verified by machine
-in `scripts/ribbon_verify_theorems.py`:
-
-* **binary beats graded.** `DTI(λ) = λT / (0.2λ(T+F) + 0.8G)` is strictly increasing in `λ` on
-  `(0, 1]`, so a soft raster is strictly dominated by its own thresholded support. Emit `1.0`.
-* **the marginal-inclusion rule.** One more dot with kernel credit `k` pays iff
-  `k ≥ 0.2·DTI₀`. At the current leader `0.3195` that is `k ≥ 0.0639`, i.e. **within 281 m of a
-  scored truth pixel**. The metric is a *distance* filter.
-
-| DTI₀ | required credit `k` | implied maximum distance |
-| ---: | ---: | ---: |
-| 0.10 | 0.0200 | 294.0 m |
-| 0.20 | 0.0400 | 288.0 m |
-| 0.2778 | 0.0556 | 283.3 m |
-| **0.3195** | **0.0639** | **280.8 m** |
-| 0.40 | 0.0800 | 276.0 m |
-
-**2. Therefore `0.2778` is not a better model — it is a better-shaped emission.** The named
-artifact behind the group's top score is a *binary, sparse, off-catalogue* dot field: 37,654 dots,
-0 on the catalogue, 0 within 200 m of it. Every one of those properties is what the algebra
-prices: dense chains and on-catalogue dots spend the fixed `0.2` and buy back ~0 credit.
-Reproducing the group's own measured ordering (GEMSDOE32 `docs/research/why-d28-scored-026.md`,
-local proxy on identical bytes): `d1.5 = 0.17193 > h19-5 = 0.16635 > d2.8 = 0.16177`, the exact
-*opposite* of the live order — because the proxy keeps the catalogue in scoring and the
-competition deletes it. The catalogue-adjacent arms of the 30-arm factorial failed for the same
-reason.
-
-**3. The arithmetic of beating 0.3195.** At `s = 0.3195` a dot pays iff its credit exceeds
-`0.0639`. With the group's hidden-mass model estimate `Ĝ ≈ 12,691 px`, a 38,000-dot file needs
-`TP > 0.3195 × (0.2 × 38,000 + 0.8 × 12,691) = 5,672` — i.e. **weighted coverage of ≈ 45 % of the
-hidden truth**. Nothing in this lane's measurements is within a factor of two of that on the
-*catalogue* target, and the catalogue target is the easy one. **This is the honest gap, and it is
-a coverage gap, not an emission gap** — exactly the conclusion GEMSDOE32's ceiling analysis
-reached independently. No emission geometry can manufacture coverage it does not have.
-
-**4. What this lane actually measured** ([`evidence/`](evidence/ribbon/)):
-
-| measurement | result |
-| --- | --- |
-| pooled ridge-field detection of withheld truth at ≤ 300 m | **13.6 %** (thr 0.6, 138,576 ridge px) |
-| RMS localisation error of the detected pixels (`σ_detect`) | **1.70 px = 170 m** |
-| per-component censored localisation error `σ(x)` (the plan input) | median **6.88 px**, rms 8.01 over 994 matched withheld components; by block NW 7.08 / NE 6.79 / SW 5.79 / SE 8.54 px |
-| equal-budget holdout test, 38,000 isolated dots, four widths | **width 1 → 0.039363, width 2 → 0.039633, width 3 → 0.039929, width 4 → 0.040008** |
-| simulated gain per measured-`σ` class (tight line → ribbon) | σ<1.5 px: **−0.0014** (tight wins); 1.5–2.5 px: **+0.0003**; 2.5–3 px: **+0.0003**; 3–6 px: **0.000000 → +0.0016** |
-| catalogue-distance profile of the delivered dots | median **21.9 px**, 0 on the catalogue, 1.9 % within 300 m |
-
-The measured `σ(x)` is *inside* the kernel but one to two pixels wide, so the lane's rule selects a
-**ribbon**, not a tight line. `gems58.allocation.plan` places lines on the kernel-radius lattice
-`0, ±3, ±6 …` px and keeps adding a ±pair while its marginal credit beats `α·DTI₀`; on this σ table
-every one of the 3,024 segments lands on **5 lines at `0, ±300 m, ±600 m`**. The exact-metric
-equal-budget test ranks that ribbon above the tight single line, and the per-σ-class table shows
-where the gain comes from: the ribbon only pays where the localisation error exceeds ~1.5 px, and
-it is the *only* geometry that reaches the σ ∈ [3, 6] px class at all (the tight line scores exactly
-0 there). The delivered file is screened to zero on-catalogue dots and capped at the 38,000-dot
-budget that the three best *measured* live files used (37,654 / 38,000 / 38,854 ↔ 0.2778 / 0.2750 / 0.2376).
-
-**5. Verdict: a candidate, not a claim, and no projection is written as a score.** No organizer
-receipt attributes any leaderboard number to any file hash in this portfolio; every live score
-quoted here is **OWNER-REPORTED**. See [Limitations](#limitations-and-flagged-irregularities).
-
----
-
-## The standing prompt (read at the start of every session)
-
-> ### PARALLEL-RUN PROTOCOL — read first. This session is one of several running from this same prompt.
->
-> 1. **LANE.** Your lane is the single method paragraph below. Stay inside it. If your raster's
->    rank-correlation with any registry raster exceeds **[0.90]**, or more than **[70 %]** of your
->    dots fall within 3 px of one registry raster's dots, you have drifted into another lane: log
->    it as a duplicate and stop. Check this on the surface before placement AND on the final dots.
-> 2. **REUSE, DON'T REBUILD.** Use the template's cached feature stack, `evaluate_holdout.py` and
->    `submission_writer.py`. Holdout = hide-and-recover: withhold whole fault segments with a
->    buffer, derive every catalogue-based feature only from the visible faults, mask visible
->    faults pixel-exactly, score pooled DTI (alpha 0.2, beta 0.8, 300 m triangular kernel). If a
->    shared tool is wrong, fix it once in the template and report it; never keep a private fork.
-> 3. **LABEL EVERY NUMBER** as HOLDOUT-DTI (evaluator version, number of withheld positives,
->    95 % CI) or ORGANIZER-CONFIRMED (copied from a submission-page receipt). **A projection is
->    never written as a score.**
-> 4. **LEAKAGE CANARY.** Test each feature alone on the holdout before trusting any result. AUC
->    above **[0.90]** means leakage until proven otherwise.
-> 5. **RUN CARD.** End with one JSON card: hypothesis; mechanism; the named non-fault process
->    that could mimic it; holdout DTI + CI; correlation/overlap vs registry; raster sha256;
->    validator output (no NaN inside the footprint, values in [0, 1], CRS/shape/transform match);
->    submission name + note of at most 140 characters; verdict **promote / negative**. Negative
->    results are deliverables.
-> 6. **BUDGET.** Stop after **[3] experiments or [2] hours**. Do not pick submissions: promotion
->    to a real slot is a separate selector step, within the weekly cap shown on the submission
->    page.
->
-> ### The lane
->
-> **Ribbon lane: match emission width to the measured localization error.** The simulations say
-> placement within about one pixel is what pays, and that parallel dotted lines pay when location
-> is uncertain. On the hide-and-recover holdout, measure the across-strike distance between each
-> candidate ridge and the nearest withheld segment, and fit an error scale σ(x) by data block,
-> feature resolution and ridge type. Then choose, per segment, the number and offset of parallel
-> dotted lines (spacing near the 3-px kernel radius) that maximize
-> **U = (1 − 0.2·DTI₀)·TP − 0.2·DTI₀·FP**, evaluated with the exact metric. Use a single tight line
-> where σ is under about 0.5 px and a ribbon about ±σ wide where it is 2–3 px. Emit included dots
-> at exactly 1.0, since scaling values down only scales the net gain down. Report the σ table and
-> the simulated gain per class. Output the standard validated GeoTIFF, uniqueness-checked against
-> every earlier raster.
-
-### Standing owner requirements
-
-* **MUST GENERATE A UNIQUE TIF SUBMISSION.** Do not copy a previous submission except for
-  learning. It must be **obvious whether it is OK to download and submit** the generated TIF
-  (hence the banner, the ZIP, the run card and `docs/executive-summary.html`).
-* **The goal is to place top of the leaderboard.** Current target to beat: **0.3195** (owner-stated
-  competition high score; the group's own best measured file is the `h33-h33-2-b2-…-zeros`
-  candidate recorded by the sibling lane at **0.2778**, with a **0.3774** figure also quoted on the
-  owner's `GEMSDOE` snapshot page — those two owner-reported numbers are inconsistent with each
-  other and neither has an organizer receipt; flagged as **IR-58-01**).
-* **No hallucinations.** Every number in this repository is either measured in-repo and
-  reproducible by a named script, or copied from a cited official source. Links for manual review
-  are in [`registry/sources.json`](registry/sources.json) and `docs/sources.html`.
-* **No manual input.** `scripts/ribbon_build_submission.py` runs the whole pipeline unattended.
-* **Flag irregularities for review.** [`docs/irregularities.html`](docs/irregularities.html).
-* **A site that makes submitting obvious**, with the download and the submit guide at the very top.
-* **Core values.** *Maximize P(Win)* — choose the path that maximises the probability of winning,
-  setting aside attachment to any one hypothesis. *Own the Outcome* — the result is the
-  leaderboard placement, not the code; report negatives as deliverables.
-
----
-
-## Reproduce it
+Reproducing the session-3 measurements themselves needs the pinned feature stack and the witness cache:
 
 ```bash
-pip install --break-system-packages -r requirements.txt      # numpy, scipy, rasterio, pytest
-pip install --break-system-packages scikit-learn             # roc_auc_score for the leakage canary
-bash scripts/fetch_feature_stack.sh                          # 419 MB stack, sha256-pinned
-export GEMS_FEATURE_STACK=~/.cache/gems/training_features.tif  # gems58w.paths cannot see it otherwise
-python3 scripts/fetch_registry_sparse.py                     # restore the 695 pinned witness rasters
-python3 scripts/registry_delta_inventory.py --clones /tmp/reg  # freshness delta -> registry_merged.json
-
-PYTHONPATH=src python3 scripts/live_evidence_calibration.py  # 66 owner-quoted files vs verified bytes
-PYTHONPATH=src python3 scripts/ribbon_run_adaptive.py        # EXP-1 sigma/canary + EXP-2 equal-budget arms
-PYTHONPATH=src:scripts python3 scripts/ribbon_emit_adaptive.py  # EXP-3 emit + validate + local screen
+bash scripts/fetch_feature_stack.sh                                   # 419 MB, sha256-pinned
+export GEMS_FEATURE_STACK=~/.cache/gems/training_features.tif          # gems58w.paths cannot see it otherwise
+python3 scripts/fetch_registry_sparse.py                              # restore the 695 pinned witnesses
+python3 scripts/registry_delta_inventory.py --clones /tmp/reg          # freshness delta -> registry_merged.json
+PYTHONPATH=src python3 scripts/live_evidence_calibration.py            # 66 owner-quoted scores vs verified bytes
+PYTHONPATH=src python3 scripts/ribbon_run_adaptive.py                  # EXP-1 + EXP-2 (~4 min)
+PYTHONPATH=src:scripts python3 scripts/ribbon_emit_adaptive.py         # EXP-3: emit, validate, local screen (~2 min)
 PYTHONPATH=src python3 scripts/check_uniqueness_registry.py \
     docs/downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif \
-    --workers 2 --out ribbon/uniqueness_full_inventory.json  # governing 703-raster scan
-PYTHONPATH=src:. python3 -m pytest tests -q                  # 21 test files
-python3 scripts/build_site.py                                # regenerate docs/ (exit 2 = banner NOT OK)
+    --workers 2 --out ribbon/uniqueness_full_inventory.json            # gate G3 (~35 min on 2 CPUs)
 ```
 
-`GEMS_FEATURE_STACK` may point at any copy of the organizer's stack; the build refuses to run without
-one whose sha256 is `4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5`. The registry
-scan needs ~3 GB of cache under `.cache/registry/` and about 20 minutes on 2 CPUs with `--workers 2`.
+`scripts/ribbon_run_adaptive.py` and `scripts/ribbon_emit_adaptive.py` evaluate with the exact metric on
+isolated dots, but they build geometry with the now-archived `gems58w` path (`extract`, `sigma`,
+`allocation`, `submission`). Any future qualified experiment must route scoring through
+`gems57.evaluate_holdout` and writing through `gems57.submission_writer`, per the standing prompt.
 
-## Layout
+These commands test and render evidence only; they do not create an experimental TIFF, run a holdout, select a slot, or upload anything. See [`REMAINING_WORK.md`](REMAINING_WORK.md), [`docs/IRREGULARITIES.md`](docs/IRREGULARITIES.md), and [`docs/SOURCES.md`](docs/SOURCES.md).
 
-| path | what it holds |
-| --- | --- |
-| `src/gems58w/metric.py` | literal transcription of the official metric + fast exact paths |
-| `src/gems58w/grid.py` | grid, footprint (5,167,373 px), catalogue mask (60,988 px) |
-| `src/gems58w/features.py` | the 19-band organizer stack, band tags read from the file |
-| `src/gems58w/ridges.py` | Hessian ridge operator + across-strike geometry |
-| `src/gems58w/extract.py` | cached multi-family / multi-scale ridge field |
-| `src/gems58w/holdout.py` | `gems58-pooled-hide-v1` buffered hide-and-recover holdout |
-| `src/gems58w/sigma.py` | the σ(x) estimator by block / resolution / ridge type |
-| `src/gems58w/allocation.py` | ribbon plan (number + offsets of parallel dotted lines) |
-| `src/gems58w/uniqueness.py` | rank-correlation and 3 px forward-overlap screen |
-| `src/gems58w/submission.py` | writer + the 15 portal checks |
-| `evidence/` | every receipt: theorems, σ table, sweeps, run card, instrument control |
-| `registry/` | source pins, protocol pins, registry raster index |
-| `docs/` | the GitHub Pages site (index, executive summary, hypotheses, sources) |
+---
 
-## Limitations and flagged irregularities
+## Standing prompt (embedded summary; the full operating contract is in `PROMPT.md`)
 
-> **Session 3 additions (2026-10-11):** items 19–26 of `docs/IRREGULARITIES.md` — the stale owner
-> target (live leader 0.4133), the missing aeroradiometric/lidar evidence, the two uniqueness
-> instrument bugs (swapped overlap directions; a literal gate that fires on saturated witnesses), the
-> scanner rejecting the organizer's NaN representation, the negative live-score calibration, the
-> unreachable tight-line branch and non-cross-fitted σ, and the closed 694/695 inventory gap. The
-> items below are retained as written, including those they correct.
-
-1. **IR-58-01 — the two owner-reported ceilings disagree.** The brief quotes **0.3774** as the
-   "current GEMSDOE high score" and **0.3195** as "the highest score right now", and the
-   group's own best artifact at **0.2778**. All three are OWNER-REPORTED. **No organizer receipt
-   in this checkout ties any leaderboard number to any file hash.** Needs an owner ruling.
-2. **IR-58-02 — the mandated holdout cannot score an off-catalogue file.** The holdout's withheld
-   truth *is* catalogue, so a catalogue-margin screen (the property every good live file has)
-   makes HOLDOUT-DTI read exactly `0` *by construction*. Proof and control experiment:
-   `evidence/ribbon/instrument_control.json`. Consequence: this lane's *geometric* findings transfer, its
-   holdout DTIs are **not** live-score forecasts, and the standing rule "validate on the holdout
-   before touching a slot" is **not sufficient** for this family of files. The sibling lane
-   measured the same obstruction from the other side (`IR-57-INSTR-01`, Spearman(live, proxy-DTI)
-   = −0.928).
-3. **IR-58-03 — the live-evidence correlations are n = 15 and confounded.** dot-count (log)
-   ρ = −0.810, 0–5° relative strike ρ = −0.810, 25–30° ρ = +0.864, dots ≤ 2 px from a mapped
-   fault ρ = −0.544, median catalogue distance ρ = +0.766. These are **OWNER-REPORTED** scores
-   from one portfolio, with heavy collinearity. They justify the *design* (a 38,000-dot,
-   off-catalogue file with a median distance in the 19–22 px band) but they do not calibrate it.
-4. **No organizer-confirmed score exists for any artifact in this repository.** Download and
-   submission are separate decisions and the slot decision belongs to the owner's selector step.
-5. **Coverage is the binding constraint, not emission.** Measured detection of withheld truth is
-   11.6 %; a top-of-leaderboard file needs ≈ 45 % weighted coverage of the hidden faults. Nothing
-   in this lane moves that number by more than ~1 point of DTI.
-6. **Third-party data provenance.** The 419 MB feature stack was obtained through a
-   community-maintained GitHub bridge (`5GEMSDOE/data/bridge/manifest.json`) that pins the
-   sha256 and names the organizer data tab and Dropbox mirrors. That authenticates *transport*,
-   not official origin. The DrivenData data tab itself redirects to login and was not reachable
-   from this sandbox.
-7. **Non-fault processes that can mimic the signal** (named in the run card): aeromagnetic
-   flight-line levelling and draped-sensor artefacts produce lineaments parallel to survey lines;
-   dense volcanic and alluvial contacts in the detrended DEM produce scarp-shaped curvature that
-   is not tectonic; both are indistinguishable from a fault in this lane's feature set alone.
-
-## Negative results kept on purpose
-
-* **Catalogue-distance screens cannot be evaluated on this holdout.** Removing dots near the
-  catalogue drives the holdout DTI to 0.009 (≥ 6 px) and exactly 0 (≥ 12 px)
-  (`evidence/geometry_sweep.json`) — a property of the instrument, not of the filings.
-* **Global density sweeps at unheld budgets are misleading.** The first geometry run appeared to
-  show ribbons beating chains by +0.025 DTI; at an *equal* budget the honest margin for the
-  delivered ribbon is **+0.0006** pooled (0.039929 vs 0.039363) — small, and concentrated in the
-  badly-localised strata. The larger number was mass, not geometry.
-* **Ribbons are not universally better.** Per measured-σ class, the tight single line still wins
-  where the detection error is under ~1.5 px (−0.0014 on that class), so a fully adaptive emitter
-  would switch back to one line there. This repository reports the boundary rather than hiding it;
-  the delivered file uses the ribbon everywhere because the pooled budget test ranks it first.
-* **The 90° direction bug (fixed, kept as a lesson).** The first ridge release returned the
-  *along-strike* eigenvector as "across-strike", so the ribbons were offset along the ridge and
-  the geometry test measured mass rather than width. Both the sign convention and the
-  non-maximum-suppression plateau rule were fixed in `ridges.py`; the field cache was rebuilt.
+> **Mission:** maximize the probability of winning the DOE GEMS Prize and own the outcome. The target is faults indicative of geothermal resources, not geothermal vents. Stay exclusively in the **ribbon-width/localization-error lane**. Current artifact status is **NOT OK TO SUBMIT — DO NOT SUBMIT**.
+>
+> **Scope:** review prior-session status; before implementation rank 3–5 genuinely untried within-lane hypotheses by relative benefit, uncertainty and cost; define tests and stop criteria. Reuse the cached feature stack and shared `gems57.evaluate_holdout` / `gems57.submission_writer`. Do not create private metric/evaluator/writer forks. Hold out buffered whole fault segments, derive catalogue features only from visible faults, mask visible faults pixel-exactly, and score pooled DTI with α=0.2, β=0.8, 300 m triangular kernel.
+>
+> **Uniqueness:** compare the placement surface before emission and final dots against every accessible registry raster. Stop if rank correlation is >0.90 or >70% of candidate dots fall within 3 px of any one raster. An incomplete/stale registry is not clearance. A known literal stop is never waived to force a TIFF into existence.
+>
+> **Metric:** for a change in a prediction pattern, use exact marginal `ΔTP` and `ΔFP`, including maximum-credit interactions: `U = (1−αs)ΔTP − αsΔFP`. The shortcut `k > αs` applies only to one added, non-redundant dot with fresh truth credit. Test each feature alone; AUC >0.90 is leakage until explained.
+>
+> **Evidence:** label model numbers HOLDOUT-DTI with evaluator version, withheld-positive count, protocol, and defensible 95% CI; only label an artifact score ORGANIZER-CONFIRMED from a receipt/hash crosswalk. A projection, local proxy, public-board row, raster property, or format check is not the score of this TIFF.
+>
+> **Budget:** at most three experiments and two hours; stop on a uniqueness trigger, stale/incomplete inventory, leakage, or a nonpositive/uncertain preregistered result. Never choose or use a competition slot. End with the required JSON run card and an unmistakable promote/negative decision. Keep a unique downloadable TIFF only when it genuinely passes; otherwise preserve the negative result and do not submit.
+>
+> **Official links:** [problem / metric](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/), [public leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/), [rules](https://docs.nlr.gov/docs/fy26osti/96647.pdf). See `docs/SOURCES.md` for the dated verification log.

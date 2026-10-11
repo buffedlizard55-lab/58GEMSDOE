@@ -1,32 +1,14 @@
-"""Ribbon allocation: how many parallel dotted lines, and at what offsets.
+"""ARCHIVED legacy ribbon allocator — not an exact metric decision rule.
 
-Given a candidate ridge segment and a localisation-error scale ``sigma`` (pixels,
-from ``sigma.py``), the emitter places ``n`` dotted lines parallel to the ridge
-at perpendicular offsets ``o_1 .. o_n``.  The lane protocol fixes the two
-decision rules:
+This module is retained for audit only and must not be used for current holdout,
+submission, or performance claims. Its Normal-model approximation and
+``_marginal_pair`` false-positive calculation do not reproduce the official
+per-prediction ``FP_w`` term for interacting lines: it masks cost at locations
+where old lines already have truth credit. The active shared implementation is
+``gems57``; evaluate entire candidate patterns with ``gems57.evaluate_holdout``
+and exact ``DeltaTP``/``DeltaFP`` as documented in ``docs/research/metric.md``.
 
-**Offsets.**  Line spacing is the kernel radius ``R = 3`` px, because two
-parallel lines closer than ``R`` compete for the same truth pixels: the metric
-credits a truth pixel with the *maximum* kernel value over predictions, so two
-dots 1 px apart covering one truth pixel buy ``max(k1, k2) ~ 1`` for a cost of
-``0.4`` instead of ``0.2``.  Offsets are therefore drawn from the lattice
-``{0, +-R, +-2R, ...}`` and the ribbon is symmetric about the ridge.
-
-**How many.**  Exactly the number that maximises
-
-    U(sigma) = (1 - alpha * DTI0) * dTP - alpha * DTI0 * dFP
-
-evaluated with the exact metric.  For one extra line at offset ``o`` the
-expected per-dot contributions under a Normal(0, sigma^2) across-strike offset
-model are
-
-    dTP_o = E[ max(0, 1 - |delta - o| / R) ] - E[ max(0, 1 - |delta| / R) ]_already
-    dFP_o = 1 - dTP_o / (credit of that line alone if it were the only line)
-
-and both are evaluated **exactly on the holdout** in
-``scripts/ribbon_run_holdout_eval.py``, which is the arbiter.  This module supplies the
-deterministic geometry and the closed-form Normal expectation used for the
-pre-registered decision rule.
+The historical allocation notes below are not an approved protocol.
 """
 
 from __future__ import annotations
