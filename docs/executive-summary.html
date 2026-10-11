@@ -1,50 +1,10 @@
-<!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Executive summary &mdash; how to submit</title><link rel="stylesheet" href="assets/site.css"></head><body>
-<header><h1>Executive summary: how to submit this file</h1></header>
-<section>
-<h2>The 60-second version</h2>
-<ol>
-<li><b>Download</b> <code>gems58-prox-dot36k-20261011T030218Z-e7bbfea83853-zeros.tif</code> from the green button on the
-<a href="index.html">main page</a>.</li>
-<li>Open <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/">the
-submission page</a> and sign in.</li>
-<li>Choose the <code>.tif</code> (or the single-TIFF <code>.zip</code>) under <i>File to submit</i>.</li>
-<li>Paste the note below into <i>Note (optional)</i> &mdash; it is what tells your future self which
-submission this was.</li>
-<li>Click submit. The score that comes back is the only ORGANIZER-CONFIRMED number; nothing on this site
-is a score.</li>
-</ol>
-<p><b>Note to paste</b> (128 characters):<br><code>58GEMSDOE: dots by distance to the mapped catalogue; 3px-thinned, value 1.0; budget 36394; &gt;3px off-catalogue; holdout-validated</code></p>
-
-<h2>What the portal requires, and how this file satisfies it</h2>
-<table><thead><tr><th>Requirement (submission dialog)</th><th>This file</th></tr></thead><tbody><tr><td>Single-band GeoTIFF (.tif), or a .zip with one GeoTIFF</td><td>single band, float32; a one-TIFF <code>.zip</code> is provided beside it</td></tr><tr><td>Matches the submission format's CRS</td><td>EPSG:32611</td></tr><tr><td>Matches the shape</td><td>[3730, 3292]</td></tr><tr><td>Matches the geotransform</td><td>[100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0]</td></tr><tr><td>Predicted values in [0, 1]</td><td>min 0.000, max 1.000, 0 NaN cells</td></tr></tbody></table>
-
-<h2>Why the earlier "Predicted values must be in range [0, 1]" error happened</h2>
-<p>That message is raised when any cell is outside [0,1] or is not finite (NaN/inf). Files that write NaN
-outside the study-area footprint trip it. This file uses the all-finite policy: dots at exactly 1.0,
-explicit zeros everywhere else including outside the footprint. The writer
-(<code>src/gems57/submission_writer.py</code>) validates in memory, writes to a private temporary path,
-re-opens the file on disk and re-validates it, and only then atomically publishes
-<code>.tif</code> + <code>.zip</code> + a JSON receipt. If any check fails nothing is published.</p>
-
-<h2>What the numbers on the main page are, and are not</h2>
-<ul>
-<li><b>HOLDOUT-DTI</b> &mdash; measured on the hide-and-recover instrument with the shared exact
-evaluator. Evidence about the method, never a leaderboard projection.</li>
-<li><b>USER-REPORTED-SCORE</b> &mdash; a score quoted on an owner page. Not an organizer receipt.</li>
-<li><b>ORGANIZER-CONFIRMED</b> &mdash; copied from a submission-page receipt. None exists for this file
-yet.</li>
-<li><b>ESTIMATE</b> &mdash; derived (here, the implied truth-set size). Never a score.</li>
-</ul>
-
-<h2>Limits of this sandbox</h2>
-<ul>
-<li>No DrivenData login, so no upload, no leaderboard read, and no organizer receipt. Submitting is a
-human step.</li>
-<li>The competition data tab is login-gated; the feature stack arrives through the owner's sha256-pinned
-git bridge (<code>scripts/fetch_feature_stack.sh</code>) and is verified before use.</li>
-<li>CPU only (2 vCPU), so a U-Net ensemble is out of reach; the shipped ranking is gradient-boosted trees.</li>
-</ul>
-</section>
-<footer>Generated 2026-10-11 03:12 UTC</footer></body></html>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Executive summary — current GEMS decision</title><link rel="stylesheet" href="assets/site.css"></head><body>
+<header><h1>Executive summary — current GEMS decision</h1></header>
+<section class="submit-box" style="border-color:#a11212"><div class="badge" style="background:#a11212">NOT OK TO SUBMIT — DO NOT SUBMIT</div>
+<p><b>Do not upload or use a weekly slot.</b> The available TIFF is a diagnostic artifact. Its final-dot overlap exceeds the literal stop threshold in the frozen registry scan, that scan is stale, the current pre-placement phase is not cleared, and no promotion-grade buffered outer holdout was run.</p>
+<p><a href="index.html">Return to status page</a> · <a href="SUBMISSION_GUIDE.md">Full guide</a></p></section>
+<h2>What the number labels mean</h2><ul><li><b>HOLDOUT-DTI</b> requires a named shared evaluator/version, withheld-positive count and defensible 95% CI. No such result exists for the revised instrument.</li>
+<li><b>ORGANIZER-CONFIRMED</b> requires a DrivenData receipt. None exists.</li><li>Local format/uniqueness evidence is not a performance score.</li></ul>
+<h2>Submission steps when—and only when—the status changes</h2><ol><li>Confirm a complete current accessible-raster inventory.</li><li>Pass the pre-placement surface and final-dot literal gates.</li><li>Pass the buffered, nested outer-block holdout and feature-alone canaries.</li><li>Read the official rules and disclose generative-AI use if applicable.</li><li>Use the platform separately; select only one final submission across prize rounds. Save the receipt.</li></ol>
+<footer>Generated 2026-10-11T03:14:54Z. No leaderboard claim or organizer receipt.</footer></body></html>

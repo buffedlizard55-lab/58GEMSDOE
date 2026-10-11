@@ -11,9 +11,13 @@
       0.06786902937326941
     ],
     "tcrit_df3": 3.1824463052837078,
-    "note": "4 spatial blocks; CI is wide and low-power"
+    "note": "4 spatial blocks; CI is wide and low-power",
+    "evidence_class": "LEGACY HOLDOUT-DTI DIAGNOSTIC \u2014 INVALID/NOT REPORTABLE",
+    "evaluator_version": "unversioned legacy gems.metric",
+    "score_claim_allowed": false,
+    "ci95_reportable": false,
+    "ci95_limitation": "Historical jackknife interval does not satisfy the current promotion-grade protocol and is not reportable as a validated 95% CI."
   },
-  "baseline_L1_union_frac0p005_pooled_dti": 0.026547119243593154,
   "per_block": [
     {
       "block": 0,
@@ -66,7 +70,12 @@
           "sigma_other_blocks": 4.166476169499205,
           "n_dots": 21446
         }
-      }
+      },
+      "evidence_class": "LEGACY HOLDOUT-DTI BLOCK DIAGNOSTIC \u2014 INVALID/NOT REPORTABLE",
+      "evaluator_version": "unversioned legacy gems.metric",
+      "score_claim_allowed": false,
+      "ci95": null,
+      "ci95_reportable": false
     },
     {
       "block": 1,
@@ -119,7 +128,12 @@
           "sigma_other_blocks": 3.8767546569423845,
           "n_dots": 21636
         }
-      }
+      },
+      "evidence_class": "LEGACY HOLDOUT-DTI BLOCK DIAGNOSTIC \u2014 INVALID/NOT REPORTABLE",
+      "evaluator_version": "unversioned legacy gems.metric",
+      "score_claim_allowed": false,
+      "ci95": null,
+      "ci95_reportable": false
     },
     {
       "block": 2,
@@ -172,7 +186,12 @@
           "sigma_other_blocks": 4.244611947411474,
           "n_dots": 21636
         }
-      }
+      },
+      "evidence_class": "LEGACY HOLDOUT-DTI BLOCK DIAGNOSTIC \u2014 INVALID/NOT REPORTABLE",
+      "evaluator_version": "unversioned legacy gems.metric",
+      "score_claim_allowed": false,
+      "ci95": null,
+      "ci95_reportable": false
     },
     {
       "block": 3,
@@ -225,8 +244,20 @@
           "sigma_other_blocks": 4.244611947411474,
           "n_dots": 21636
         }
-      }
+      },
+      "evidence_class": "LEGACY HOLDOUT-DTI BLOCK DIAGNOSTIC \u2014 INVALID/NOT REPORTABLE",
+      "evaluator_version": "unversioned legacy gems.metric",
+      "score_claim_allowed": false,
+      "ci95": null,
+      "ci95_reportable": false
     }
   ],
-  "seconds": 480.4
+  "seconds": 480.4,
+  "audit_status": "LEGACY_DIAGNOSTIC_INVALID_FOR_CURRENT_REPORTING",
+  "promotion_grade": false,
+  "evidence_class": "LEGACY HOLDOUT-DTI DIAGNOSTIC \u2014 INVALID/NOT REPORTABLE",
+  "evaluator_version": "unversioned legacy gems.metric",
+  "score_claim_allowed": false,
+  "ci95_reportable": false,
+  "reporting_limitation": "Historical private metric and unbuffered protocol; do not cite as current promotion-grade evidence or an organizer score."
 }

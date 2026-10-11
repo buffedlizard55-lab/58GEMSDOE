@@ -1,0 +1,92 @@
+{
+  "evidence_class": "REGISTRY-FRESHNESS-AUDIT",
+  "checked_utc": "2026-10-11T02:22:20Z",
+  "frozen_registry_manifest": "registry/registry_refreshed.json",
+  "frozen_snapshot_generated_utc": "2026-10-10T19:58:45.875405+00:00",
+  "frozen_unique_raster_count": 695,
+  "frozen_repositories_scanned": 57,
+  "scope_note": "695/695 means complete only for the pinned tree snapshots in registry/registry_refreshed.json; it is not a current or organizer-complete registry scan.",
+  "changed_or_unrepresented_public_repositories": [
+    {
+      "repository": "58GEMSDOE",
+      "pushed_at_utc": "2026-10-11T02:17:27Z",
+      "in_frozen_manifest": false,
+      "current_tree_sha": "d8c17dd9043304175d6bcc3deec5308b79966ca4",
+      "recursive_tree_truncated": false,
+      "current_tif_tiff_count": 10,
+      "current_docs_download_tif_count": 4,
+      "example_unscanned_rasters": [
+        "docs/downloads/archive/58GEMSDOE-ribbon-lane-v1-20261011.tif",
+        "docs/downloads/gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.tif",
+        "docs/downloads/gems58-mece-sgmc-catkernel-20261011T015429Z-b324aa01-zeros.tif",
+        "docs/downloads/gems58-mece-hybrid-20261011T015838Z-513210e2-zeros.tif"
+      ],
+      "note": "Updated from fetched origin/main commit d8c17dd9043304175d6bcc3deec5308b79966ca4; two new MECE TIFFs are present but have not been compared against the full registry and are outside the current ribbon-only scope.",
+      "current_tree_commit_utc": "2026-10-11T02:08:41Z"
+    },
+    {
+      "repository": "59GEMSDOE",
+      "pushed_at_utc": "2026-10-11T01:36:08Z",
+      "in_frozen_manifest": false,
+      "current_tree_sha": "96947e6ebcead93018b08e51e295bff96e35809e",
+      "recursive_tree_truncated": false,
+      "current_tif_tiff_count": 35,
+      "current_docs_download_tif_count": 2,
+      "current_root_downloads_tif_count": 1,
+      "example_unscanned_rasters": [
+        "docs/downloads/59gemsdoe-intensity-lane-50651dots-s3-t33333-20261011T005447Z-b25dd620-zeros.tif",
+        "downloads/gems59-h59i-intensity-lattice-20261011T000000Z.tif"
+      ]
+    },
+    {
+      "repository": "60GEMSDOE",
+      "pushed_at_utc": "2026-10-11T01:44:15Z",
+      "in_frozen_manifest": false,
+      "current_tree_sha": "ddd0ede9ae208c398bb714839a8c76ad376a3ff7",
+      "recursive_tree_truncated": false,
+      "current_tif_tiff_count": 75,
+      "current_docs_download_tif_count": 27,
+      "example_unscanned_rasters": [
+        "docs/downloads/gems60-knickpoint-lane-c7653-20261011T000000Z.tif",
+        "submission/gems60-chi-ksn-knick-coherent-3770px-20261011T010511Z-nan.tif"
+      ]
+    },
+    {
+      "repository": "61GEMSDOE",
+      "pushed_at_utc": "2026-10-11T01:24:18Z",
+      "in_frozen_manifest": false,
+      "current_tree_sha": "e05eeaf1ede3d9568a5f4cfa21a72311d47bd576",
+      "recursive_tree_truncated": false,
+      "current_tif_tiff_count": 8,
+      "current_docs_download_tif_count": 3,
+      "example_unscanned_rasters": [
+        "docs/downloads/gems61-buried-basement-step-r3-rib2-k40k-2pxprune-zeros.tif",
+        "docs/downloads/gems61-h61a-basement-step-20000dots-20261011T012029Z-eb2ae4bb024b-zeros.tif"
+      ]
+    },
+    {
+      "repository": "GEMSDOE52",
+      "pushed_at_utc": "2026-10-11T01:40:37Z",
+      "in_frozen_manifest": true,
+      "frozen_commit": "22091610117447c174b65d074d0df73d2a8b2e27",
+      "current_tree_sha": "7a2b93c19b85a33891fcbedd80295eea4e736c2f",
+      "recursive_tree_truncated": false,
+      "frozen_commit_tif_tiff_count": 121,
+      "current_tif_tiff_count": 208,
+      "tif_tiffs_added_since_frozen_commit": 88,
+      "tif_tiffs_removed_since_frozen_commit": 1,
+      "example_new_raster": "docs/downloads/gems52-h101-fallline-veto-dva2-37654px-20261011T003404Z-zeros.tif"
+    },
+    {
+      "repository": "62GEMSDOE",
+      "in_frozen_manifest": false,
+      "current_tree_sha": "97305e3c8b843fe875324a98f886efe7e2758137",
+      "recursive_tree_truncated": false,
+      "current_tif_tiff_count": 0,
+      "note": "No TIFFs found in the current public recursive tree at check time."
+    }
+  ],
+  "fresh_current_inventory": false,
+  "decision": "BLOCKED_NOT_EXHAUSTIVE",
+  "method_note": "Public GitHub repository metadata and recursive default-branch trees were queried with gh on 2026-10-11. TIF counts are raw paths, not deduplicated content hashes; no new rasters were downloaded or compared in this audit. The frozen uniqueness report's thresholds/results remain valid only for its recorded 695 pinned raster blobs. After the initial tree audit, origin/main advanced to 58GEMSDOE commit d8c17dd9043304175d6bcc3deec5308b79966ca4; its full local tree contains 10 TIF/TIFF paths, including two new MECE candidates. This self-repository update was recorded, but those candidates were not compared with the full current public inventory. The 694/695 pinned-raster restore remains incomplete, and no current/exhaustive registry clearance exists."
+}

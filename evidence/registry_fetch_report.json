@@ -9,39 +9,39 @@
  "repos": {
   "11GEMSDOE": {
    "ok": true,
-   "seconds": 0.8
+   "seconds": 0.9
   },
   "15GEMSDOE": {
    "ok": true,
-   "seconds": 0.9
+   "seconds": 1.1
   },
   "12GEMSDOE": {
    "ok": true,
-   "seconds": 1.0
-  },
-  "16GEMSDOE": {
-   "ok": true,
-   "seconds": 1.2
-  },
-  "18GEMSDOE": {
-   "ok": true,
-   "seconds": 1.2
+   "seconds": 1.1
   },
   "13GEMSDOE": {
    "ok": true,
-   "seconds": 2.4
+   "seconds": 2.6
+  },
+  "16GEMSDOE": {
+   "ok": true,
+   "seconds": 1.6
+  },
+  "18GEMSDOE": {
+   "ok": true,
+   "seconds": 1.7
   },
   "17GEMSDOE": {
    "ok": true,
-   "seconds": 1.9
+   "seconds": 2.6
   },
   "19GEMSDOE": {
    "ok": true,
-   "seconds": 1.2
+   "seconds": 2.1
   },
   "20GEMSDOE": {
    "ok": true,
-   "seconds": 1.1
+   "seconds": 2.2
   },
   "57GEMSDOE-PR6": {
    "ok": false,
@@ -49,131 +49,131 @@
   },
   "56GEMSDOE": {
    "ok": true,
-   "seconds": 0.9
-  },
-  "6GEMSDOE": {
-   "ok": true,
-   "seconds": 0.9
+   "seconds": 1.4
   },
   "55GEMSDOE": {
    "ok": true,
-   "seconds": 2.6
+   "seconds": 3.2
   },
-  "5GEMSDOE": {
+  "6GEMSDOE": {
    "ok": true,
-   "seconds": 2.5
+   "seconds": 1.0
   },
   "8GEMSDOE": {
    "ok": true,
-   "seconds": 1.1
+   "seconds": 1.4
   },
   "7GEMSDOE": {
    "ok": true,
    "seconds": 1.7
   },
-  "57GEMSDOE": {
+  "5GEMSDOE": {
    "ok": true,
-   "seconds": 3.1
+   "seconds": 3.6
   },
   "GEMSDOE": {
    "ok": true,
-   "seconds": 1.0
+   "seconds": 1.4
   },
-  "GEMSDOE21": {
+  "57GEMSDOE": {
    "ok": true,
-   "seconds": 0.7
+   "seconds": 4.3
   },
   "GEMSDOE10": {
    "ok": true,
-   "seconds": 1.1
+   "seconds": 1.5
+  },
+  "GEMSDOE21": {
+   "ok": true,
+   "seconds": 0.9
   },
   "GEMSDOE23": {
    "ok": true,
-   "seconds": 1.1
+   "seconds": 1.2
   },
   "GEMSDOE25": {
    "ok": true,
    "seconds": 1.0
   },
-  "GEMSDOE24": {
-   "ok": true,
-   "seconds": 2.0
-  },
   "GEMSDOE22": {
    "ok": true,
-   "seconds": 2.3
+   "seconds": 2.7
   },
-  "GEMSDOE2": {
-   "ok": true,
-   "seconds": 3.6
-  },
-  "GEMSDOE26": {
-   "ok": true,
-   "seconds": 1.5
-  },
-  "GEMSDOE27": {
-   "ok": true,
-   "seconds": 1.7
-  },
-  "GEMSDOE28": {
-   "ok": true,
-   "seconds": 1.8
-  },
-  "GEMSDOE29": {
-   "ok": true,
-   "seconds": 1.5
-  },
-  "GEMSDOE30": {
-   "ok": true,
-   "seconds": 2.1
-  },
-  "GEMSDOE31": {
+  "GEMSDOE24": {
    "ok": true,
    "seconds": 2.2
   },
-  "GEMSDOE32": {
+  "GEMSDOE26": {
    "ok": true,
-   "seconds": 2.0
+   "seconds": 1.3
+  },
+  "GEMSDOE2": {
+   "ok": true,
+   "seconds": 4.4
+  },
+  "GEMSDOE27": {
+   "ok": true,
+   "seconds": 1.5
+  },
+  "GEMSDOE28": {
+   "ok": true,
+   "seconds": 1.6
+  },
+  "GEMSDOE29": {
+   "ok": true,
+   "seconds": 1.9
+  },
+  "GEMSDOE30": {
+   "ok": true,
+   "seconds": 1.5
+  },
+  "GEMSDOE31": {
+   "ok": true,
+   "seconds": 1.2
   },
   "GEMSDOE3": {
    "ok": true,
-   "seconds": 2.9
+   "seconds": 2.4
   },
-  "GEMSDOE33": {
+  "GEMSDOE32": {
    "ok": true,
-   "seconds": 1.0
-  },
-  "GEMSDOE35": {
-   "ok": true,
-   "seconds": 0.7
+   "seconds": 1.4
   },
   "GEMSDOE34": {
    "ok": true,
-   "seconds": 0.9
+   "seconds": 1.2
+  },
+  "GEMSDOE33": {
+   "ok": true,
+   "seconds": 1.4
+  },
+  "GEMSDOE35": {
+   "ok": true,
+   "seconds": 1.0
   },
   "GEMSDOE36": {
    "ok": true,
-   "seconds": 0.8
+   "seconds": 0.9
   },
   "GEMSDOE37": {
    "ok": true,
-   "seconds": 0.8
+   "seconds": 0.9
+  },
+  "GEMSDOE38": {
+   "ok": true,
+   "seconds": 1.1
   },
   "GEMSDOE39": {
    "ok": true,
    "seconds": 0.8
   },
-  "GEMSDOE38": {
-   "ok": true,
-   "seconds": 0.9
-  },
   "GEMSDOE42": {
    "ok": true,
-   "seconds": 0.7
+   "seconds": 0.8
   },
   "GEMSDOE41": {
    "ok": true,
-   "seconds": 1.2
+   "seconds": 1.4
   },
   "GEMSDOE43": {
    "ok": true,
@@ -181,23 +181,23 @@
   },
   "GEMSDOE44": {
    "ok": true,
-   "seconds": 0.9
+   "seconds": 1.0
   },
   "GEMSDOE40": {
    "ok": true,
-   "seconds": 2.6
+   "seconds": 2.9
   },
   "GEMSDOE45": {
    "ok": true,
-   "seconds": 0.9
+   "seconds": 1.0
   },
   "GEMSDOE46": {
    "ok": true,
-   "seconds": 1.2
+   "seconds": 1.4
   },
   "GEMSDOE47": {
    "ok": true,
-   "seconds": 1.2
+   "seconds": 1.7
   },
   "GEMSDOE49": {
    "ok": true,
@@ -205,38 +205,38 @@
   },
   "GEMSDOE50": {
    "ok": true,
-   "seconds": 1.8
+   "seconds": 2.5
   },
   "GEMSDOE51": {
    "ok": true,
-   "seconds": 1.5
-  },
-  "GEMSDOE53": {
-   "ok": true,
-   "seconds": 1.4
+   "seconds": 2.3
   },
   "GEMSDOE52": {
    "ok": true,
-   "seconds": 1.9
+   "seconds": 3.3
   },
   "GEMSDOE4": {
    "ok": true,
-   "seconds": 9.6
+   "seconds": 13.3
+  },
+  "GEMSDOE53": {
+   "ok": true,
+   "seconds": 5.8
   },
   "GEMSDOE9": {
    "ok": true,
-   "seconds": 1.8
-  },
-  "GEMSDOE54": {
-   "ok": true,
-   "seconds": 2.0
+   "seconds": 1.6
   },
   "GEMSDOE48": {
    "ok": true,
-   "seconds": 7.9
+   "seconds": 12.0
+  },
+  "GEMSDOE54": {
+   "ok": true,
+   "seconds": 4.8
   }
  },
  "complete_accessible_scan": false,
  "cache_dir": "/home/user/58GEMSDOE/.cache/registry",
- "generated_utc": "2026-10-11T01:42:55Z"
+ "generated_utc": "2026-10-11T01:36:29Z"
 }

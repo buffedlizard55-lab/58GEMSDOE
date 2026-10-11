@@ -1,155 +1,147 @@
 {
- "run": "58GEMSDOE session 2 - supervised geophysical ranking + metric-derived dot budget",
- "hypothesis": "The ribbon lane measured the localization error correctly but had no ranking: its truth-free live rule emitted on every candidate ridge and scored BELOW its own tight baseline on the holdout. The first-order lever is not emission width but WHICH pixels get the (fixed) dot budget. A per-pixel fault ranking learned from the official 19-band GeoDAWN stack, with leave-one-quadrant-out spatial blocking, should beat ridge geometry at equal budget.",
- "mechanism": "HistGradientBoosting on 19 published GeoDAWN bands + 16 NaN-aware local operators (structure-tensor coherence at sigma 1 and 3 px, 3 px and 7 px local sigma, Laplacian), trained on the mapped catalogue with one spatial quadrant held out; probability field thinned by 3-px non-maximum suppression (the 300 m kernel radius) and truncated to a dot budget; dots emitted at exactly 1.0, off the mapped catalogue, zeros outside the footprint.",
- "named_non_fault_process_that_could_mimic_it": "Lithological contacts and dyke/swarm margins in the reduced-to-pole and total-field magnetics; alluvial-fan and graben-margin scarps in the detrended elevation; the geodetic strain-rate layers are smoothed GPS/InSAR fields whose high-gradient zones mark the edges of the velocity model, not faults. Any of these produces a high, spatially coherent ranking that is not a fault.",
- "holdout": {
-  "evidence_class": "HOLDOUT-DTI",
-  "instrument": "gems57.holdout.score_cell (shared, exact)",
-  "modes": [
-   "all",
-   "detached"
+  "run_card_version": "2.0",
+  "generated_utc": "2026-10-11T03:14:54Z",
+  "lane": "ribbon only \u2014 emission width matched to measured localization error",
+  "submission_status": "NOT_OK_TO_SUBMIT",
+  "human_readable_status": "NOT OK TO SUBMIT \u2014 DO NOT SUBMIT",
+  "hypothesis": "Visible-only catalogue and independent mapped-fault ridge axes may locate uncatalogued faults with a measurable across-strike localization error; ribbon width is tied to that error.",
+  "mechanism": "Fit sigma by source/block on training-only spatial blocks, then emit 1.0-valued dots in a parallel ribbon at 3-pixel along-axis stride; score with exact pooled DTI and promote only after nested outer-block validation.",
+  "named_non_fault_process_that_could_mimic_it": "Digitizing error and map generalization; lithologic contacts and alluvial/graben edges; roads, drainage lineaments, or survey striping aligned with candidate ridges.",
+  "holdout": {
+    "status": "NOT MEASURED for the current buffered/nested instrument",
+    "evidence_class": "NOT A HOLDOUT-DTI CLAIM",
+    "evaluator_version_required": "gems57-pooled-hide-v2",
+    "withheld_positive_pixels": null,
+    "dti": null,
+    "ci95": null,
+    "legacy_evidence_files": [
+      "evidence/ribbon_e1_sigma.json",
+      "evidence/ribbon_e2_arms.json"
+    ],
+    "legacy_caveat": "Prior E2 is same-cell truth-selected, unbuffered and has an invalid repeated-block bootstrap; do not report it as promotion-grade evidence."
+  },
+  "localization_sigma_table": {
+    "evidence_class": "HOLDOUT-STRUCTURE",
+    "status": "NOT MEASURED for the current promotion-grade buffered/nested instrument",
+    "rows": null,
+    "legacy_evidence_file": "evidence/ribbon_e1_sigma.json",
+    "legacy_values_reportable": false
+  },
+  "per_class_holdout_gains": {
+    "evidence_class": "NOT A REPORTABLE HOLDOUT-DTI CLAIM",
+    "status": "NOT MEASURED for current promotion-grade nested outer blocks",
+    "rows": null,
+    "legacy_evidence_file": "evidence/ribbon_e2_arms.json",
+    "legacy_values_reportable": false
+  },
+  "leakage_canary": {
+    "status": "NOT CLEARED FOR CURRENT BUFFERED INSTRUMENT",
+    "threshold_auc": 0.9,
+    "current_evidence": null,
+    "legacy_record": "evidence/ribbon_e1_sigma.json (not promotion-grade for the revised split)"
+  },
+  "correlation_overlap_vs_registry": {
+    "evidence_class": "REGISTRY-MEASUREMENT (frozen snapshot only)",
+    "snapshot_generated_utc": "2026-10-10T19:58:45.875405+00:00",
+    "repositories_in_frozen_snapshot": 57,
+    "rasters_in_frozen_snapshot": 695,
+    "latest_pinned_snapshot_scan": {
+      "expected": 695,
+      "checked": 694,
+      "complete_accessible_scan": false,
+      "missing_or_invalid": 1,
+      "source_errors": [],
+      "evidence_class": "REGISTRY-MEASUREMENT (pinned inventory only)"
+    },
+    "current_inventory_complete": false,
+    "current_self_repository_tree": {
+      "repository": "58GEMSDOE",
+      "tree_sha": "d8c17dd9043304175d6bcc3deec5308b79966ca4",
+      "tif_tiff_paths": 10,
+      "docs_download_tif_tiff_paths": 4,
+      "example_unscanned_rasters": [
+        "docs/downloads/archive/58GEMSDOE-ribbon-lane-v1-20261011.tif",
+        "docs/downloads/gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.tif",
+        "docs/downloads/gems58-mece-sgmc-catkernel-20261011T015429Z-b324aa01-zeros.tif",
+        "docs/downloads/gems58-mece-hybrid-20261011T015838Z-513210e2-zeros.tif"
+      ],
+      "inventory_only_not_registry_cleared": true
+    },
+    "freshness_audit": "evidence/registry_freshness_audit.json",
+    "rho_limit": 0.9,
+    "worst_spearman_full_footprint": 0.18964557053051112,
+    "literal_overlap_limit": 0.7,
+    "candidate_dots": 67379,
+    "frozen_worst_dot_overlap": 1.0,
+    "frozen_overlap_witness": "GEMSDOE2:data/evidence/runs/turbo-simple-20260925T042003Z/submission.tif",
+    "preplacement_surface_gate": {
+      "status": "NOT_RUN_FOR_THIS_CANDIDATE",
+      "passed": false,
+      "legacy_surface_report_not_reusable": "registry/uniqueness_surface_pre-placement_summary.json"
+    },
+    "final_dot_gate": {
+      "status": "FROZEN_SCAN_FAILURE_AND_CURRENT_SCOPE_INCOMPLETE",
+      "passed": false,
+      "worst_dot_overlap": 1.0,
+      "overlap_limit": 0.7,
+      "witness": "GEMSDOE2:data/evidence/runs/turbo-simple-20260925T042003Z/submission.tif"
+    }
+  },
+  "raster_sha256": "8b196e6eea06fef0d6cf2c9109091d1e2677a77d6e48d8b04f334a879551687f",
+  "validator_output": {
+    "evidence_class": "LOCAL-FORMAT-PREFLIGHT; NOT ORGANIZER-CONFIRMED",
+    "all_checks_passed": true,
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "dimensions_3730x3292": true,
+      "crs_epsg_32611": true,
+      "transform_matches_sample_submission": true,
+      "no_nan_anywhere": true,
+      "no_inf_anywhere": true,
+      "no_sentinel_values": true,
+      "range_0_1_guaranteed": true,
+      "min_ge_0": true,
+      "max_le_1": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_range_0_1": true,
+      "outside_footprint_zero": true,
+      "zero_dots_on_mapped_catalogue": true
+    },
+    "meta": {
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "count": 1,
+      "nodata": null,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "profile_compress": "deflate"
+    },
+    "caveat": "Internal all-finite/zero-outside policy is not organizer acceptance; template nodata semantics remain an open issue."
+  },
+  "submission_name": "gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros",
+  "submission_note": "H58b ribbon diagnostic; dots at 1.0; format preflight only; uniqueness and promotion-grade holdout not cleared; DO NOT SUBMIT.",
+  "submission_note_chars": 126,
+  "selector_action": "NOT RUN; no weekly slot selected",
+  "qualification_gaps": [
+    "No current promotion-grade outer-block HOLDOUT-DTI with the required evaluator version, withheld-positive count, and valid 95% CI; legacy E2 is an oracle/selection diagnostic.",
+    "No current buffered-fold feature-alone leakage-canary record is marked promotion-grade.",
+    "Registry inventory is stale/incomplete for current public repository trees.",
+    "The candidate-specific pre-placement surface gate has not passed on a current inventory.",
+    "The final dots literal-dot gate fails: overlap 1.000 > 0.70.",
+    "The frozen registry audit is negative; a byte/pixel-unique file is not sufficient to clear the literal lane gates.",
+    "The current raster receipt is marked diagnostic/non-promotion-grade."
   ],
-  "seeds": [
-   20,
-   21
-  ],
-  "withheld_positive_pixels": {
-   "all": 22641,
-   "detached": 22619
-  },
-  "nu_star_detached": 3.0,
-  "best_detached_dti": 0.21472456171846044,
-  "best_detached_coverage": 0.29605135127576493,
-  "best_detached_dots": 62798,
-  "e2_best_arm": {
-   "arm": "GF|solid|detached",
-   "threshold": 0.5,
-   "pooled_dti": 0.03689539952376566,
-   "pooled_coverage": 0.0461734312347926,
-   "pooled_tp": 1044.3968410997738,
-   "pooled_fp": 50014.43603515625,
-   "pooled_fn": 21574.60315890023,
-   "dots": 52098,
-   "n_truth": 22619
-  }
- },
- "leakage_canary": {
-  "all": {
-   "max_auc": 0.8557990024181793,
-   "max_auc_feature": "CTX/distance_to_visible_catalogue",
-   "leakage_flag": false,
-   "n_truth": 22641,
-   "rule": "single feature alone vs withheld truth; AUC > 0.90 = leakage until proven otherwise"
-  },
-  "detached": {
-   "max_auc": 0.8444435717759406,
-   "max_auc_feature": "CTX/distance_to_visible_catalogue",
-   "leakage_flag": false,
-   "n_truth": 22619,
-   "rule": "single feature alone vs withheld truth; AUC > 0.90 = leakage until proven otherwise"
-  }
- },
- "budget": {
-  "shipped_dots": 36394,
-  "source": "evidence/sibling_record.json (20 sha256-verified owner rasters; <=44,090 dots out-score every raster >50,000; Spearman -0.83)",
-  "sibling_record_summary": {
-   "small_budget": {
-    "n_rasters": 13,
-    "dots_range": [
-     37654,
-     44090
-    ],
-    "score_range": [
-     0.2376,
-     0.2778
-    ],
-    "median_score": 0.2632
-   },
-   "large_budget": {
-    "n_rasters": 7,
-    "dots_range": [
-     60069,
-     227507
-    ],
-    "score_range": [
-     0.1294,
-     0.2477
-    ],
-    "median_score": 0.1894
-   },
-   "spearman_dots_vs_score": -0.8306300100579143,
-   "note": "All rasters at or below ~44k positive pixels out-score every raster above 50k; the metric's alpha*n term makes the dot budget, not the dot values, the first-order lever."
-  },
-  "implied_truth_pixels_estimate": {
-   "value": 13333.333333333334,
-   "label": "ESTIMATE",
-   "derivation": "sibling-record budget / holdout nu*"
-  }
- },
- "uniqueness": {
-  "registry_rasters_expected": 695,
-  "registry_rasters_checked": 695,
-  "complete_accessible_scan": true,
-  "worst_spearman_full_footprint": 0.13994796135271848,
-  "worst_rho_submission": "7GEMSDOE:downloads/gems7-halo15-gbt-v1-90fb7dc0fc1f.tif",
-  "worst_dot_overlap": 1.0,
-  "worst_overlap_submission": "GEMSDOE2:data/evidence/runs/turbo-simple-20260925T042003Z/submission.tif",
-  "duplicate_count": 104,
-  "unique": false,
-  "byte_unique_among_checked": true,
-  "pixel_unique_among_checked": true,
-  "note": "All hash-verified accessible entries of the indexed public owner-repository inventory (57 sibling repos, 695 rasters); not a complete organizer registry."
- },
- "raster": {
-  "file": "gems58-prox-dot36k-20261011T030218Z-e7bbfea83853-zeros.tif",
-  "sha256": "aac8aa8a021ee309c91c5084f17ff2d64623163faa382cfd76ca781352d945b8",
-  "bytes": 139852,
-  "validator_all_checks_passed": true,
-  "validator_checks": {
-   "single_band": true,
-   "dtype_float32": true,
-   "dimensions_3730x3292": true,
-   "crs_epsg_32611": true,
-   "transform_matches_sample_submission": true,
-   "no_nan_anywhere": true,
-   "no_inf_anywhere": true,
-   "no_sentinel_values": true,
-   "range_0_1_guaranteed": true,
-   "min_ge_0": true,
-   "max_le_1": true,
-   "in_footprint_all_finite": true,
-   "in_footprint_range_0_1": true,
-   "outside_footprint_zero": true,
-   "zero_dots_on_mapped_catalogue": true
-  },
-  "crs": "EPSG:32611",
-  "shape": [
-   3730,
-   3292
-  ],
-  "transform": [
-   100.0,
-   0.0,
-   243350.0,
-   0.0,
-   -100.0,
-   4508550.0
-  ]
- },
- "submission_name": "gems58-prox-dot36k-20261011T030218Z-e7bbfea83853-zeros",
- "submission_note": "58GEMSDOE: dots by distance to the mapped catalogue; 3px-thinned, value 1.0; budget 36394; >3px off-catalogue; holdout-validated",
- "note_chars": 128,
- "verdict": "negative on the literal 3-px forward-overlap gate (104 registry rasters flagged; the binding ones are plane-filling carriers and broad near-catalogue bands, see evidence/buffer_overlap_scan.json and IR-58-UNIQ-02) -- but PROMOTE-CANDIDATE on every gate that can discriminate: locally validated format/range, canary clean, holdout-positive (DTI 0.2147), worst rank-correlation 0.140 (limit 0.90), worst Jaccard 0.061 (limit 0.50), byte- and pixel-unique among all 695 registry rasters. Promotion to a weekly slot remains a separate selector step. This is a NEGATIVE run card with a positive candidate attached; the owner decides whether to spend a slot.",
- "generated_utc": "2026-10-11T03:12:51Z",
- "gates": {
-  "local_format_range_validator": true,
-  "leakage_canary_below_0.90": true,
-  "holdout_positive": true,
-  "rank_correlation_below_0.90": true,
-  "jaccard_dot_sets_below_0.50": true,
-  "literal_3px_forward_overlap_below_0.70": false,
-  "byte_and_pixel_unique": true,
-  "complete_registry_scan": true
- }
+  "verdict": "negative",
+  "verdict_note": "Negative: one or more explicit holdout, registry, or format gates is not cleared. Do not upload or select a slot."
 }

@@ -1,13 +1,11 @@
 #!/usr/bin/env python3
-"""Ribbon-lane pipeline: three experiments (protocol budget = 3), one submission.
+"""DEPRECATED historical pipeline; command-line execution is disabled.
 
-E1  leakage canary + ridge candidates + per-block sigma table + surface uniqueness check
-E2  nested leave-one-block-out selection of per-class emission + HOLDOUT-DTI with jackknife CI
-E3  final emission at 1.0, official-format validation, full-registry uniqueness check
-
-Inputs (not committed; see scripts/fetch_inputs.sh): GEMS_DATA dir with
-  gems-geodawn-numerical-features.tif (19 bands), labels.tif, sample_submission.tif
-Registry (not committed): GEMS_REGISTRY dir containing clones of the user's GEMSDOE* repos.
+This copy uses an unbuffered component split, a local gems58 metric/uniqueness
+implementation and a private submission path. It does not satisfy the current
+shared-template protocol. Kept only for audit/history; do not use for a
+submission or performance claim. Use the gems57 shared pipeline after all
+current holdout and literal-registry gates clear.
 """
 from __future__ import annotations
 
@@ -360,4 +358,8 @@ def write_csv(path, rows):
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(
+        "DEPRECATED/NO-GO: this legacy gems58 pipeline has an unbuffered split, "
+        "a private metric/uniqueness path, and does not use the shared evaluator/writer. "
+        "Do not run it for a submission; use the reviewed gems57 pipeline only after its gates clear."
+    )

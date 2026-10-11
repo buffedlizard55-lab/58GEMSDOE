@@ -1,0 +1,33 @@
+{
+ "evidence_class": "REGISTRY-MEASUREMENT (geometry only, no holdout labels)",
+ "sha256": "c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9",
+ "sources": [
+  "57GEMSDOE:registry/rasters/GEMSDOE32__h33-2-b2-zeros.tif",
+  "GEMSDOE32:docs/downloads/gemsdoe32-h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros.tif",
+  "GEMSDOE48:data/families/dotted_b2_prune_02778.tif",
+  "GEMSDOE48:data/raw/dotted_h33_2_b2_zeros.tif",
+  "GEMSDOE51:data/prior/g32_h33b2_prior.tif",
+  "GEMSDOE54:registry/registry_rasters/dotted_b2_prune_02778.tif"
+ ],
+ "crs": "EPSG:32611",
+ "shape": [
+  3730,
+  3292
+ ],
+ "values_in_footprint": [
+  0.0,
+  1.0
+ ],
+ "n_values": 2,
+ "footprint_cells": 5167373,
+ "nan_inside_footprint": 0,
+ "nonzero_outside_footprint": 0,
+ "positive_dots_in_footprint": 37654,
+ "footprint_coverage_by_dots": 0.007286874781441169,
+ "positive_dots_on_catalogue": 0,
+ "dist_to_catalogue_m": {
+  "median": 1964.68827043885,
+  "p90": 6800.735254367722,
+  "frac_within_300m": 0.057656557072289796
+ }
+}

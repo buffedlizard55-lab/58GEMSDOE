@@ -1,8 +1,8 @@
 # Archived README: sibling ribbon session (arena/0124041b & 494667c7), merged 2026-10-11
 
-Preserved verbatim from origin/main before the merge. Its deliverable
-(`58GEMSDOE-ribbon-lane-v1-20261011.tif`, holdout DTI 0.0368, uniqueness HOLD) is archived at
-`docs/downloads/archive/`. The current submission and run card live in the README below.
+> **ARCHIVE ONLY — NOT CURRENT INSTRUCTIONS OR CLEARANCE. Do not download/upload or cite any score from this file as promotion evidence.** Its deliverable (`58GEMSDOE-ribbon-lane-v1-20261011.tif`) failed the literal uniqueness gate. Its historical HOLDOUT-DTI values used an unversioned `gems58.metric` evaluator and are invalid for current reporting; the current audit also did not re-check the public leaderboard. Old format, leaderboard, novelty, and “download yes” statements below are superseded. See the repository-root `README.md`, `docs/SUBMISSION_GUIDE.md`, `evidence/run_card.json`, and `docs/IRREGULARITIES.md` for current status.
+
+The remainder preserves the earlier session record for provenance. Its claims must be checked against current evidence before reuse.
 
 ---
 

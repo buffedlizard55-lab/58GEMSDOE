@@ -1,21 +1,18 @@
-"""Hide-and-recover spatially-blocked holdout.
+"""Shared hide-and-recover holdout instruments.
 
-Design (parallel-run protocol rule 2)
--------------------------------------
-* The mapped catalogue is split into **whole segments** (branches between
-  intersections, cut into <= 12 px chunks -- see :func:`gems57.network.segments`).
-* The footprint is split into four spatial quadrants (NW, NE, SW, SE) at the
-  median footprint row/col.  Fold *k* withholds segments inside quadrant *k*,
-  and ``DOMAIN_ERODE`` (12 px = 1.2 km) keeps the scored domain away from the
-  fold boundary, which is what provides the spatial separation between the
-  withheld strands and the catalogue context used to build the features.
-* Only segments lying wholly inside the scored domain are eligible for
-  withholding, so truth is never clipped by the domain edge.
-* Every catalogue-derived feature is computed from the **visible** mask only.
-* Visible fault pixels are masked out of scoring pixel-exactly (``known``),
-  matching the organiser's statement that a dot near a known trace but far from
-  any new-fault pixel is fully penalised (forum thread 11516).
-* Score: pooled DTI, alpha = 0.2, beta = 0.8, 300 m (3 px) triangular kernel.
+Use :func:`build_buffered_holdout_context` for new/promotion work. It withholds
+whole original 8-connected catalogue components inside label-blind eroded
+quadrants, removes a real feature-context collar around withheld truth, exposes
+that buffered visible mask through ``HoldoutContext.visible()``, and keeps every
+still-known catalogue pixel masked exactly from scoring. Each seed shares one
+global hidden draw across its outer folds. Final scoring belongs to
+``gems57.evaluate_holdout`` (pooled exact DTI, alpha 0.2, beta 0.8, 300 m
+triangular kernel); model selection must be nested so no scored fold's truth
+chooses its own emission pattern.
+
+``build_holdout`` is retained for legacy tests/reproduction only. It cuts
+short network segments and does not implement the current whole-component
+feature-context buffering contract; do not use it to clear a submission.
 """
 
 from __future__ import annotations
@@ -59,9 +56,17 @@ class HoldoutContext:
     quad: np.ndarray
     cells: list[Cell]
     hidden_by_cell: dict                # key -> full-grid bool mask of withheld pixels
+    visible_by_cell: dict | None = None # optional feature-context mask with a buffer removed
 
     def visible(self, key: str) -> np.ndarray:
-        """Visible catalogue for a cell: everything mapped except what is withheld."""
+        """Return the feature-visible catalogue for a cell.
+
+        Legacy draws expose every mapped pixel except the withheld segments.
+        Buffered draws may additionally remove a context collar around withheld
+        components; that exclusion is kept distinct from the true withheld mask.
+        """
+        if self.visible_by_cell is not None and key in self.visible_by_cell:
+            return self.visible_by_cell[key]
         return self.grid.catalogue & ~self.hidden_by_cell[key]
 
     def cell(self, key: str) -> Cell:
@@ -314,3 +319,77 @@ def buffered_component_draw(grid, seed=20, hide_frac=0.20, buffer_px=3,
                            'split_version': 'buffered-whole-components-loqo-v2',
                            'evaluation_region_label_blind': True}) for i in range(4)]
     return folds, quad
+
+
+def build_buffered_holdout_context(grid: Grid, hide_frac: float = HIDE_FRAC,
+                                   seeds: tuple[int, ...] = (20, 21),
+                                   buffer_px: int = 3,
+                                   boundary_px: int = DOMAIN_ERODE) -> HoldoutContext:
+    """Return the shared ``Cell``-based instrument with whole-component buffers.
+
+    This is the promotion-grade *split constructor* for new work. Each seed
+    withholds whole original 8-connected catalogue components, never short
+    chunks; withheld components must lie wholly within a label-blind eroded
+    quadrant. A ``buffer_px`` collar is removed from feature-visible context,
+    while all still-known catalogue pixels remain pixel-exactly masked from
+    scoring. The returned context preserves actual hidden masks separately from
+    buffered feature-visible masks.
+
+    This constructor does not itself make model-selection leakage impossible:
+    callers must fit tuning parameters on training blocks and score only the
+    untouched outer block. In particular, do not use the same cell's truth to
+    choose that cell's emission pattern and then report the result as a
+    promotion-grade holdout score.
+    """
+    if not seeds:
+        raise ValueError('at least one seed is required')
+    if not 0 < hide_frac < 1:
+        raise ValueError('hide_frac must be between zero and one')
+    quad = quadrant_ids(grid.footprint)
+    cells: list[Cell] = []
+    hidden_by_cell: dict[str, np.ndarray] = {}
+    visible_by_cell: dict[str, np.ndarray] = {}
+
+    for seed in seeds:
+        folds, draw_quad = buffered_component_draw(
+            grid, seed=seed, hide_frac=hide_frac,
+            buffer_px=buffer_px, boundary_px=boundary_px)
+        if not np.array_equal(draw_quad, quad):
+            raise AssertionError('buffered holdout quadrant assignment drifted')
+        hidden_global = folds[0]['hidden_all']
+        visible_global = folds[0]['visible']
+        if any(not np.array_equal(f['hidden_all'], hidden_global)
+               or not np.array_equal(f['visible'], visible_global) for f in folds):
+            raise AssertionError('folds for one seed do not share the same globally hidden draw')
+
+        for f in folds:
+            region = np.asarray(f['region'], bool)
+            truth_full = np.asarray(f['truth'], bool) & region & grid.footprint
+            active_full = region & grid.footprint & ~np.asarray(f['masked_known'], bool)
+            truth_full &= active_full
+            if not truth_full.any():
+                raise ValueError(f"buffered holdout has no positives in {f['name']} seed {seed}")
+            rows = np.flatnonzero(region.any(axis=1))
+            cols = np.flatnonzero(region.any(axis=0))
+            if rows.size == 0 or cols.size == 0:
+                raise ValueError(f"empty evaluation region in {f['name']} seed {seed}")
+            # Six padding pixels preserve the entire 3-pixel scoring kernel and
+            # leave room for the feature-context buffer at the crop boundary.
+            bbox = (slice(max(0, int(rows[0]) - 6), min(grid.height, int(rows[-1]) + 7)),
+                    slice(max(0, int(cols[0]) - 6), min(grid.width, int(cols[-1]) + 7)))
+            active_sub = active_full[bbox].copy()
+            truth_sub = truth_full[bbox]
+            truth_yx = np.nonzero(truth_sub)
+            k_full = kernel(ndi.distance_transform_edt(~truth_full))
+            k_sub = k_full[bbox].astype(np.float32, copy=True)
+            key = f"buffered{seed}_fold{f['name']}_all"
+            cells.append(Cell(key=key, fold=int(f['fold']), seed=int(seed), mode='all',
+                              bbox=bbox, active=active_sub, truth_yx=truth_yx,
+                              k_dg=k_sub, n_truth=int(truth_yx[0].size)))
+            hidden_by_cell[key] = hidden_global
+            visible_by_cell[key] = visible_global
+            del k_full, k_sub, truth_full, truth_sub, active_full, active_sub
+
+    return HoldoutContext(grid=grid, quad=quad, cells=cells,
+                          hidden_by_cell=hidden_by_cell,
+                          visible_by_cell=visible_by_cell)

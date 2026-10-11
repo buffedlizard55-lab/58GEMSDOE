@@ -1,0 +1,92 @@
+{
+  "file": "gems58-mece-sgmc-catkernel-20261011T015429Z-b324aa01-zeros.tif",
+  "sha256": "6a5f3695b566b5dabbad655c301247c93b739056e7de85caa0142f5f9b11cdbc",
+  "bytes": 819002,
+  "name": "gems58-mece-sgmc-catkernel-20261011T015429Z-b324aa01-zeros",
+  "note": "MECE diagnostic; outside ribbon-only scope; holdout and full-registry gates not cleared; DO NOT SUBMIT.",
+  "n_dots": 35000,
+  "holdout_dti_evidence_class": "NOT A REPORTABLE HOLDOUT-DTI CLAIM",
+  "holdout_dti_note": "The recorded full-catalogue proximity experiment leaks withheld labels and has no valid promotion-grade 95% CI. Do not quote its raw value as a score.",
+  "method": "MECE (Multi-Evidence Concordance Emission)",
+  "mechanism": "Probability surface = max(SGMC_binary, kernel(distance_to_catalogue/100m)). Greedy decimated allocation at 3px tile grid. Dots at exactly 1.0 off-catalogue.",
+  "validator": {
+    "file": "/home/user/docs/downloads/gems58-mece-sgmc-catkernel-20261011T015429Z-b324aa01-zeros.tif",
+    "bytes": 819002,
+    "sha256": "6a5f3695b566b5dabbad655c301247c93b739056e7de85caa0142f5f9b11cdbc",
+    "meta": {
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "count": 1,
+      "nodata": null,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "profile_compress": "lzw"
+    },
+    "band_description": [
+      "predicted_new_fault_probability"
+    ],
+    "n_finite": 12279160,
+    "n_nan": 0,
+    "n_infinite": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.002850357908755541,
+    "emitted_positive_pixels": 35000,
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "dimensions_3730x3292": true,
+      "crs_epsg_32611": true,
+      "transform_matches_sample_submission": true,
+      "no_nan_anywhere": true,
+      "no_inf_anywhere": true,
+      "no_sentinel_values": true,
+      "range_0_1_guaranteed": true,
+      "min_ge_0": true,
+      "max_le_1": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_range_0_1": true,
+      "outside_footprint_zero": true,
+      "zero_dots_on_mapped_catalogue": true
+    },
+    "validation_class": "local format/range preflight only; not uniqueness clearance or organizer acceptance",
+    "on_catalogue_positive_pixels": 0,
+    "in_footprint_positive_pixels": 35000,
+    "footprint_fraction": 0.006773267577161548,
+    "local_format_preflight_passed": true
+  },
+  "generated_utc": "2026-10-11T01:54:29Z",
+  "holdout_dti": null,
+  "status": "OUT_OF_LANE_DIAGNOSTIC_NOT_SUBMISSION_READY",
+  "submission_status": "NOT_OK_TO_SUBMIT",
+  "promotion_grade": false,
+  "diagnostic_only": true,
+  "approved_for_weekly_slot": false,
+  "promoted": false,
+  "submission_slots_used": 0,
+  "note_chars": 103,
+  "approval_blockers": [
+    "MECE/multi-evidence is outside the current ribbon-only scope",
+    "full-catalogue proximity holdout is leakage-flagged and has no valid CI",
+    "pairwise comparison against a ribbon candidate is not full-registry uniqueness clearance",
+    "current public registry scan is incomplete"
+  ],
+  "leakage_canary": {
+    "status": "NOT MEASURED FOR MECE",
+    "current_evidence": null,
+    "note": "The prior ribbon canary is not transferable to this MECE design."
+  },
+  "overall_uniqueness_gate_passed": false,
+  "full_registry_clearance": false,
+  "submission_ready": false
+}
