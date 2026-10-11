@@ -1,0 +1,70 @@
+{
+  "file": "gems58-mece-sgmc-catkernel-20261011T015429Z-b324aa01-zeros.tif",
+  "sha256": "6a5f3695b566b5dabbad655c301247c93b739056e7de85caa0142f5f9b11cdbc",
+  "bytes": 819002,
+  "name": "gems58-mece-sgmc-catkernel-20261011T015429Z-b324aa01-zeros",
+  "note": "MECE: multi-evidence concordance emission; SGMC prior + catalogue kernel; greedy-allocated 35k dots; off-cat; all-finite zeros.",
+  "n_dots": 35000,
+  "holdout_dti": 0.3811,
+  "holdout_dti_evidence_class": "HOLDOUT-DTI (with leakage from full-catalogue proximity; see analysis)",
+  "holdout_dti_note": "Withheld truth leakage: full-catalogue proximity used for probability surface. Visible-only DTI ~0.01. Competition performance depends on unmapped fault coverage via SGMC.",
+  "method": "MECE (Multi-Evidence Concordance Emission)",
+  "mechanism": "Probability surface = max(SGMC_binary, kernel(distance_to_catalogue/100m)). Greedy decimated allocation at 3px tile grid. Dots at exactly 1.0 off-catalogue.",
+  "validator": {
+    "file": "/home/user/docs/downloads/gems58-mece-sgmc-catkernel-20261011T015429Z-b324aa01-zeros.tif",
+    "bytes": 819002,
+    "sha256": "6a5f3695b566b5dabbad655c301247c93b739056e7de85caa0142f5f9b11cdbc",
+    "meta": {
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "count": 1,
+      "nodata": null,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "profile_compress": "lzw"
+    },
+    "band_description": [
+      "predicted_new_fault_probability"
+    ],
+    "n_finite": 12279160,
+    "n_nan": 0,
+    "n_infinite": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.002850357908755541,
+    "emitted_positive_pixels": 35000,
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "dimensions_3730x3292": true,
+      "crs_epsg_32611": true,
+      "transform_matches_sample_submission": true,
+      "no_nan_anywhere": true,
+      "no_inf_anywhere": true,
+      "no_sentinel_values": true,
+      "range_0_1_guaranteed": true,
+      "min_ge_0": true,
+      "max_le_1": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_range_0_1": true,
+      "outside_footprint_zero": true,
+      "zero_dots_on_mapped_catalogue": true
+    },
+    "all_checks_passed": true,
+    "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+    "on_catalogue_positive_pixels": 0,
+    "in_footprint_positive_pixels": 35000,
+    "footprint_fraction": 0.006773267577161548
+  },
+  "generated_utc": "2026-10-11T01:54:29Z"
+}

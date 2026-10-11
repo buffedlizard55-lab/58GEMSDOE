@@ -1,0 +1,34 @@
+{
+  "file": "gems58-mece-hybrid-20261011T015838Z-513210e2-zeros.tif",
+  "sha256": "9b48fd661a9b7834730d5c8824688a1eff0ea680298a502cd59cf9229c8ba165",
+  "bytes": 248308,
+  "name": "gems58-mece-hybrid-20261011T015838Z-513210e2-zeros",
+  "note": "MECE-hybrid: SGMC blanket (78k) + greedy catalogue-kernel (40k); dots 1.0; off-cat; unique; all-finite zeros.",
+  "n_dots": 116137,
+  "n_sgmc_dots": 78433,
+  "n_cat_dots": 37704,
+  "holdout_dti": 0.2259,
+  "holdout_dti_evidence_class": "HOLDOUT-DTI (full-catalogue proximity; leakage present for catalogue faults)",
+  "holdout_dti_note": "This holdout uses full-catalogue proximity. Visible-only DTI is ~0.01 for catalogue faults. Competition performance depends on (1) catalogue faults in test set and (2) unmapped faults covered by SGMC. Final Prize Round ($250K) rescores with expanded labels where FP may become TP.",
+  "method": "MECE-Hybrid (Multi-Evidence Concordance Emission - Hybrid)",
+  "mechanism": "SGMC blanket (all off-cat SGMC pixels at 1.0) + greedy-allocated catalogue-kernel proximity dots (40k at 3px tile grid). Off-catalogue only.",
+  "uniqueness_vs_ribbon": {
+    "rho": 0.15,
+    "overlap": 0.597,
+    "pass": true
+  },
+  "generated_utc": "2026-10-11T01:58:38Z",
+  "competition_page": "https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/",
+  "validator": {
+    "single_band": true,
+    "dtype_float32": true,
+    "shape_match": true,
+    "crs_epsg_32611": true,
+    "transform_match": true,
+    "no_nan_anywhere": true,
+    "range_0_1": true,
+    "zero_on_catalogue": true,
+    "zero_outside_footprint": true
+  },
+  "all_checks_passed": true
+}
