@@ -318,3 +318,37 @@ merged implementation accepts it (so their callers keep working) but now records
 - Re-introducing the swapped overlap directions, the 90° across-strike bug in `ridges.py`, or a private
   fork of any `src/gems57/` tool.
 - Placing dots off-geology to dodge a broad witness: that trades the hypothesis for a meaningless number.
+
+# Session 7 (2026-10-11 UTC) — status and open items
+
+**Status: no new candidate, no slot, no upload. Verification and tooling only.**
+
+- Test suite: 152 passed after rebuilding the site with the documented order
+  (`build_site.py` → `gems60_build_page.py` → `build_downloads_index.py`). The previous
+  rebuild had dropped the session-5 box because `gems60_build_page.py` was not run after
+  `build_site.py`. CI (`.github/workflows/ribbon-ci.yml`) runs only `build_site.py`, so this
+  ordering gap is still present in CI and should be fixed there.
+- Pre-registration written before any new emission: `docs/research/session7_preregistration.md`
+  (H58-S7-N novelty-constrained sparse concordance emission, K = 15,000, 3-px separation,
+  exclusion of informative-witness neighbourhoods).
+- EXP-1 (uniqueness screen of the unscreened sparse file `58GEMSDOE-ribbon-sparse-unique-…tif`)
+  **did not complete**. The scan process ended without a receipt and the sandbox reset.
+  The file is still unscreened and must not be treated as usable.
+- Scanner bug noted, not yet fixed: `scripts/check_uniqueness_registry.py` crashes on a relative
+  `--index` path (`relative_to` on a relative path). Pass an absolute path until it is fixed.
+- Official references verified this session: problem page and metric/format rules
+  (https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/); live
+  leaderboard (https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/)
+  shows #1 0.4133 and DARD 0.3195 at #9; reference-solution writer
+  (https://github.com/drivendataorg/gems-prize-reference-solution, notebook cell that writes
+  `predicted_faults_example.tif`).
+- Open: the portal error `Predicted values must be in range [0, 1]` has no receipt bound to any
+  candidate hash, so its cause is still unknown.
+
+## Next session, in order
+
+1. Fix the absolute-path bug above, then run EXP-1 with `nohup` so it survives, and write its receipt.
+2. Build H58-S7-N per the pre-registration, simulate the final-dot gate before writing, and measure
+   the exact-bytes holdout with `gems57.holdout` (buffered, seeds 20 and 21).
+3. Run the shared scan on the new file (EXP-3). Publish only with the verdict the gates produce.
+4. Add the ordered `gems60_build_page.py` step to CI.
