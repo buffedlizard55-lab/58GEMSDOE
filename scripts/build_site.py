@@ -184,8 +184,11 @@ def build_site(card: dict) -> None:
             lineage[key] = max(r.get("my_dots_within_3px_of_theirs", 0) for r in m)
     lineage_rows = "".join(f"<tr><td>{k}</td><td>{fmt(v, 3)}</td></tr>" for k, v in sorted(lineage.items()))
 
-    badge = "APPROVED BY LOCAL GATES" if ok else "UNIQUENESS GATE NEGATIVE (see breakdown)"
+    badge = ("CLEARED FOR SUBMISSION (project-owner sign-off recorded)" if ok else
+             "NOT CLEARED - DO NOT SUBMIT AS A UNIQUE SUBMISSION (uniqueness gate negative). File is for review only.")
     badge_color = "#0a7d33" if ok else "#a11212"
+    cc_path = ROOT / "evidence" / "ribbon_uniqueness_chance_corrected.json"
+    cc = json.loads(cc_path.read_text())["summary"] if cc_path.exists() else {}
 
     html = f"""<!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
@@ -197,14 +200,14 @@ def build_site(card: dict) -> None:
 <p>Ribbon lane: emission width matched to the measured localization error.</p></header>
 <section class="submit-box">
   <div class="badge" style="background:{badge_color}">{badge}</div>
-  <h2>Submission file (single-band GeoTIFF, EPSG:32611, 3730x3292, values in [0,1], all-finite)</h2>
-  <p><a class="big-btn" href="downloads/{tif}" download>&#11015; DOWNLOAD: {tif}</a></p>
-  <p>Submit this exact file at the
-  <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/">competition submission page</a>
-  (single-band GeoTIFF, or the one-TIFF <a href="downloads/{zipf}">ZIP</a>).
-  Suggested note for the comment box: <code>{receipt.get('note','')}</code></p>
+  <h2>Candidate file (single-band GeoTIFF, EPSG:32611, 3730x3292, values in [0,1])</h2>
+  <p><b>Status: NOT cleared for submission.</b> The file is downloadable for review only. Do not upload it as a
+  unique submission until the uniqueness question below is resolved by the project owner.</p>
+  <p><a class="big-btn" href="downloads/{tif}" download>&#11015; DOWNLOAD (review only): {tif}</a></p>
+  <p>Competition submission page (login): <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/">submissions</a>.
+  Suggested note if the owner clears it: <code>{receipt.get('note','')}</code></p>
   <ul>
-    <li>Values: dots at exactly <b>1.0</b>, zeros elsewhere &mdash; no NaN anywhere (this is the fix for the portal error <i>"Predicted values must be in range [0, 1]"</i>).</li>
+    <li>Values: dots at exactly <b>1.0</b>, zeros elsewhere &mdash; no NaN anywhere, all in [0,1]. (Whether this resolves the portal error <i>"Predicted values must be in range [0, 1]"</i> is not confirmed.)</li>
     <li>sha256: <code>{receipt.get('sha256','')}</code></li>
     <li>Dots: {receipt.get('validator', {}).get('emitted_positive_pixels', 'n/a')} positive pixels, all off the mapped catalogue.</li>
     <li>Local validator: all_checks_passed = {receipt.get('validator', {}).get('all_checks_passed')} &middot; CRS/shape/transform match the official sample submission.</li>
@@ -215,14 +218,19 @@ def build_site(card: dict) -> None:
         the sibling h58 audit hit the identical wall) and <b>{len(sparse_flags)}</b> broad near-catalogue carpets from other lanes.
         Vs the proven dotted-ridge lineage: {lineage_rows if lineage_rows else 'n/a'} &mdash; all far under the 0.70 limit.
         Full rows: <code>evidence/ribbon_uniqueness.json</code>; see IR-58-UNIQ-01.</li>
+        <li><b>Chance-corrected diagnostic</b> (literal gate unchanged; <code>evidence/ribbon_uniqueness_chance_corrected.json</code>):
+        {cc.get('literal_flagged_and_informative', 'n/a')} flagged rasters have expected chance overlap E &lt; 0.99 and show real
+        co-location (max lift {fmt(cc.get('max_lift_informative'), 3)}); {cc.get('literal_flagged_and_saturated', 'n/a')} flagged
+        rasters are saturated (E &ge; 0.99), where no non-empty candidate can pass the literal rule.
+        Conclusion: the candidate is not clearable under either statistic.</li>
   </ul>
 </section>
 <section>
-<h2>How to submit (executive summary)</h2>
+<h2>Submission steps (executive summary)</h2>
 <ol>
-  <li>Click the download button above and save the <code>.tif</code> (or the <code>.zip</code> with the same name).</li>
-  <li>Log in to <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">DrivenData competition 306</a> and open <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/">Submissions</a>.</li>
-  <li>Upload the file, paste the note above into the optional comment box, submit.</li>
+  <li><b>Do not submit yet.</b> The uniqueness gate is negative (see above). The file is for review.</li>
+  <li>Once the project owner clears it, download the <code>.tif</code> (or the same-name <code>.zip</code>).</li>
+  <li>Log in to <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">DrivenData competition 306</a>, open <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/">Submissions</a>, upload, and add the note.</li>
   <li>Details and caveats: <a href="executive-summary.html">Executive summary</a>.</li>
 </ol>
 </section>
@@ -278,20 +286,19 @@ within the weekly cap shown on the submission page. Generated {time.strftime('%Y
 <title>Executive summary - how to submit</title><link rel="stylesheet" href="assets/site.css"></head><body>
 <header><h1>Executive summary: submitting to GEMS (DrivenData #306)</h1></header>
 <section>
-<h2>The 60-second version</h2>
+<h2>Status first</h2>
+<p style="background:#fde8e8;padding:8px"><b>NOT CLEARED FOR SUBMISSION.</b> The candidate GeoTIFF is downloadable for review only. Its uniqueness gate is negative (see the main page and <code>evidence/ribbon_uniqueness*.json</code>). Do not upload it as a unique submission until the project owner resolves that gate.</p>
+<h2>Submission steps once cleared</h2>
 <ol>
-<li><b>Download</b> the current submission GeoTIFF from the <a href="index.html">main page download button</a>
-(single-band, float32, EPSG:32611, 3730&times;3292, transform (100, 0, 243350, 0, -100, 4508550), all values in [0,1], no NaN).</li>
+<li><b>Download</b> the GeoTIFF from the <a href="index.html">main page</a> (single-band, float32, EPSG:32611, 3730&times;3292, transform (100, 0, 243350, 0, -100, 4508550), values in [0,1]; off-footprint cells are 0, see the note on NaN convention in the README).</li>
 <li>Open <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/">the submission page</a> (login required).</li>
 <li>Upload the <code>.tif</code> (or the single-TIFF <code>.zip</code>). Add the suggested note from the main page.</li>
 <li>Scored metric: pooled Distance-Weighted Tversky Index, alpha=0.2, beta=0.8, 300 m triangular kernel
 (see <a href="https://en.wikipedia.org/wiki/Tversky_index">Tversky index</a> and the
 <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">problem description</a>).</li>
 </ol>
-<h2>Why the earlier portal error happened and why this file is safe</h2>
-<p>The portal error <i>"Predicted values must be in range [0, 1]"</i> is triggered by out-of-range or non-finite cells.
-This file uses the all-finite export policy: dots at exactly 1.0, zeros everywhere else including outside the
-scored footprint &mdash; nothing can violate [0,1] and no NaN exists. The fail-closed writer re-opens the written
+<h2>The portal error and the value convention</h2>
+<p>The portal error <i>"Predicted values must be in range [0, 1]"</i> was reported by the user; its exact cause is not confirmed here. This file keeps every value in [0,1] (dots at exactly 1.0, zeros elsewhere, no NaN). The organizer sample_submission uses NaN outside its 5,167,373-cell footprint, so the two conventions differ. Both NaN-outside and zeros-outside variants appear among previously scored registry files, but that is not an organizer statement. The fail-closed writer re-opens the written
 file and checks CRS, shape, transform, dtype, range, finiteness, zero-outside-footprint and zero-on-catalogue
 before the file is released (<code>src/gems57/submission_writer.py</code>).</p>
 <h2>What this submission is (method, one paragraph)</h2>

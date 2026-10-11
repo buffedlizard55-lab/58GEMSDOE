@@ -3,20 +3,19 @@
 <title>Executive summary - how to submit</title><link rel="stylesheet" href="assets/site.css"></head><body>
 <header><h1>Executive summary: submitting to GEMS (DrivenData #306)</h1></header>
 <section>
-<h2>The 60-second version</h2>
+<h2>Status first</h2>
+<p style="background:#fde8e8;padding:8px"><b>NOT CLEARED FOR SUBMISSION.</b> The candidate GeoTIFF is downloadable for review only. Its uniqueness gate is negative (see the main page and <code>evidence/ribbon_uniqueness*.json</code>). Do not upload it as a unique submission until the project owner resolves that gate.</p>
+<h2>Submission steps once cleared</h2>
 <ol>
-<li><b>Download</b> the current submission GeoTIFF from the <a href="index.html">main page download button</a>
-(single-band, float32, EPSG:32611, 3730&times;3292, transform (100, 0, 243350, 0, -100, 4508550), all values in [0,1], no NaN).</li>
+<li><b>Download</b> the GeoTIFF from the <a href="index.html">main page</a> (single-band, float32, EPSG:32611, 3730&times;3292, transform (100, 0, 243350, 0, -100, 4508550), values in [0,1]; off-footprint cells are 0, see the note on NaN convention in the README).</li>
 <li>Open <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/">the submission page</a> (login required).</li>
 <li>Upload the <code>.tif</code> (or the single-TIFF <code>.zip</code>). Add the suggested note from the main page.</li>
 <li>Scored metric: pooled Distance-Weighted Tversky Index, alpha=0.2, beta=0.8, 300 m triangular kernel
 (see <a href="https://en.wikipedia.org/wiki/Tversky_index">Tversky index</a> and the
 <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">problem description</a>).</li>
 </ol>
-<h2>Why the earlier portal error happened and why this file is safe</h2>
-<p>The portal error <i>"Predicted values must be in range [0, 1]"</i> is triggered by out-of-range or non-finite cells.
-This file uses the all-finite export policy: dots at exactly 1.0, zeros everywhere else including outside the
-scored footprint &mdash; nothing can violate [0,1] and no NaN exists. The fail-closed writer re-opens the written
+<h2>The portal error and the value convention</h2>
+<p>The portal error <i>"Predicted values must be in range [0, 1]"</i> was reported by the user; its exact cause is not confirmed here. This file keeps every value in [0,1] (dots at exactly 1.0, zeros elsewhere, no NaN). The organizer sample_submission uses NaN outside its 5,167,373-cell footprint, so the two conventions differ. Both NaN-outside and zeros-outside variants appear among previously scored registry files, but that is not an organizer statement. The fail-closed writer re-opens the written
 file and checks CRS, shape, transform, dtype, range, finiteness, zero-outside-footprint and zero-on-catalogue
 before the file is released (<code>src/gems57/submission_writer.py</code>).</p>
 <h2>What this submission is (method, one paragraph)</h2>
@@ -35,4 +34,4 @@ oracle accept test); the truth-free live rule itself was holdout-scored at 0.130
 <li>Slot promotion is a separate selector step within the weekly cap shown on the submission page.</li>
 </ul>
 </section>
-<footer>Generated 2026-10-11 01:19 UTC</footer></body></html>
+<footer>Generated 2026-10-11 01:54 UTC</footer></body></html>

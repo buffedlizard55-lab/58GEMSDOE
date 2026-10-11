@@ -7,15 +7,15 @@
 <header><h1>58GEMSDOE &mdash; GEMS competition (DrivenData #306)</h1>
 <p>Ribbon lane: emission width matched to the measured localization error.</p></header>
 <section class="submit-box">
-  <div class="badge" style="background:#a11212">UNIQUENESS GATE NEGATIVE (see breakdown)</div>
-  <h2>Submission file (single-band GeoTIFF, EPSG:32611, 3730x3292, values in [0,1], all-finite)</h2>
-  <p><a class="big-btn" href="downloads/gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.tif" download>&#11015; DOWNLOAD: gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.tif</a></p>
-  <p>Submit this exact file at the
-  <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/">competition submission page</a>
-  (single-band GeoTIFF, or the one-TIFF <a href="downloads/gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.zip">ZIP</a>).
-  Suggested note for the comment box: <code>H58b ribbon lane: +/-sigma (3 px) parallel dotted lines; concordant sgmc+cat axes; dots 1.0; holdout-validated rule.</code></p>
+  <div class="badge" style="background:#a11212">NOT CLEARED - DO NOT SUBMIT AS A UNIQUE SUBMISSION (uniqueness gate negative). File is for review only.</div>
+  <h2>Candidate file (single-band GeoTIFF, EPSG:32611, 3730x3292, values in [0,1])</h2>
+  <p><b>Status: NOT cleared for submission.</b> The file is downloadable for review only. Do not upload it as a
+  unique submission until the uniqueness question below is resolved by the project owner.</p>
+  <p><a class="big-btn" href="downloads/gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.tif" download>&#11015; DOWNLOAD (review only): gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.tif</a></p>
+  <p>Competition submission page (login): <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/">submissions</a>.
+  Suggested note if the owner clears it: <code>H58b ribbon lane: +/-sigma (3 px) parallel dotted lines; concordant sgmc+cat axes; dots 1.0; holdout-validated rule.</code></p>
   <ul>
-    <li>Values: dots at exactly <b>1.0</b>, zeros elsewhere &mdash; no NaN anywhere (this is the fix for the portal error <i>"Predicted values must be in range [0, 1]"</i>).</li>
+    <li>Values: dots at exactly <b>1.0</b>, zeros elsewhere &mdash; no NaN anywhere, all in [0,1]. (Whether this resolves the portal error <i>"Predicted values must be in range [0, 1]"</i> is not confirmed.)</li>
     <li>sha256: <code>8b196e6eea06fef0d6cf2c9109091d1e2677a77d6e48d8b04f334a879551687f</code></li>
     <li>Dots: 67379 positive pixels, all off the mapped catalogue.</li>
     <li>Local validator: all_checks_passed = True &middot; CRS/shape/transform match the official sample submission.</li>
@@ -26,14 +26,19 @@
         the sibling h58 audit hit the identical wall) and <b>19</b> broad near-catalogue carpets from other lanes.
         Vs the proven dotted-ridge lineage: <tr><td>anderson</td><td>0.198</td></tr><tr><td>d28-poisson</td><td>0.336</td></tr><tr><td>dotted-h19-5</td><td>0.352</td></tr><tr><td>h19-5</td><td>0.375</td></tr><tr><td>h27-4</td><td>0.474</td></tr><tr><td>h32</td><td>0.353</td></tr><tr><td>h36-1-rung30</td><td>0.250</td></tr> &mdash; all far under the 0.70 limit.
         Full rows: <code>evidence/ribbon_uniqueness.json</code>; see IR-58-UNIQ-01.</li>
+        <li><b>Chance-corrected diagnostic</b> (literal gate unchanged; <code>evidence/ribbon_uniqueness_chance_corrected.json</code>):
+        69 flagged rasters have expected chance overlap E &lt; 0.99 and show real
+        co-location (max lift 1.000); 54 flagged
+        rasters are saturated (E &ge; 0.99), where no non-empty candidate can pass the literal rule.
+        Conclusion: the candidate is not clearable under either statistic.</li>
   </ul>
 </section>
 <section>
-<h2>How to submit (executive summary)</h2>
+<h2>Submission steps (executive summary)</h2>
 <ol>
-  <li>Click the download button above and save the <code>.tif</code> (or the <code>.zip</code> with the same name).</li>
-  <li>Log in to <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">DrivenData competition 306</a> and open <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/">Submissions</a>.</li>
-  <li>Upload the file, paste the note above into the optional comment box, submit.</li>
+  <li><b>Do not submit yet.</b> The uniqueness gate is negative (see above). The file is for review.</li>
+  <li>Once the project owner clears it, download the <code>.tif</code> (or the same-name <code>.zip</code>).</li>
+  <li>Log in to <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">DrivenData competition 306</a>, open <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/">Submissions</a>, upload, and add the note.</li>
   <li>Details and caveats: <a href="executive-summary.html">Executive summary</a>.</li>
 </ol>
 </section>
@@ -79,5 +84,5 @@ was scored on the same holdout cells: blanket both types <b>0.1252</b>
 </ul>
 </section>
 <footer>Local validation and uniqueness are necessary, not sufficient: organizer acceptance and slot promotion are separate steps
-within the weekly cap shown on the submission page. Generated 2026-10-11 01:19 UTC.</footer>
+within the weekly cap shown on the submission page. Generated 2026-10-11 01:54 UTC.</footer>
 </body></html>
