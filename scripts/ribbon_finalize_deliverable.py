@@ -27,7 +27,7 @@ from gems58w import submission  # noqa: E402
 V2 = ROOT / "evidence" / "ribbon_v2"
 CARD = ROOT / "evidence" / "ribbon" / "run_card.json"
 NOVEL = ROOT / "evidence" / "ribbon" / "run_card_novel.json"
-DL = ROOT / "docs" / "ribbon" / "downloads"
+DL = ROOT / "docs" / "deliverable" / "downloads"
 
 
 def load(p: Path) -> dict:
