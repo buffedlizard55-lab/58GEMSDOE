@@ -1,0 +1,49 @@
+{
+ "experiment": "E2b-live-rule-blanket",
+ "evidence_class": "HOLDOUT-DTI",
+ "evaluator": "gems57.holdout score_cell (shared, exact)",
+ "withheld_positive_pixels": 22641,
+ "pooled_dti": 0.12515789263008548,
+ "pooled_tp": 7260.75152036136,
+ "pooled_fp": 192238.91796875,
+ "pooled_fn": 15380.248479638642,
+ "per_cell": {
+  "draw20_foldNW_all": {
+   "dti": 0.13964626201146427,
+   "dots": 17426
+  },
+  "draw20_foldNE_all": {
+   "dti": 0.09941620420225142,
+   "dots": 33728
+  },
+  "draw20_foldSW_all": {
+   "dti": 0.1360317450249175,
+   "dots": 21435
+  },
+  "draw20_foldSE_all": {
+   "dti": 0.13731117854110714,
+   "dots": 26162
+  },
+  "draw21_foldNW_all": {
+   "dti": 0.13661193996607754,
+   "dots": 17434
+  },
+  "draw21_foldNE_all": {
+   "dti": 0.10071403480616184,
+   "dots": 33698
+  },
+  "draw21_foldSW_all": {
+   "dti": 0.13634641080453705,
+   "dots": 21485
+  },
+  "draw21_foldSE_all": {
+   "dti": 0.1309482953679132,
+   "dots": 26117
+  }
+ },
+ "rule": {
+  "offsets": "+/-clip(round(sigma),1,3)",
+  "stride_px": 3,
+  "note": "blanket on all ridge segments; no accept test (live has no truth)"
+ }
+}

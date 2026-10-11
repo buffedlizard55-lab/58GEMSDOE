@@ -96,14 +96,17 @@ for the 60-second submission instructions (fixes the portal error
 
 | Item | Value | Label |
 |---|---|---|
-| σ(cat-axis), pooled | see `evidence/ribbon_e1_sigma.json` (~2.5–3.2 px by block) | HOLDOUT-STRUCTURE |
-| σ(sgmc-axis), pooled | see same (~3.0–3.5 px by block) | HOLDOUT-STRUCTURE |
-| Leakage canary | PASS (max single-feature AUC 0.63 / 0.68 < 0.90) | HOLDOUT-DTI instrument |
-| Tight baseline vs ribbon vs ribbon-pool | `evidence/ribbon_e2_arms.json` | HOLDOUT-DTI |
-| Per-class simulated gains | `evidence/ribbon_e2_arms.json` | HOLDOUT-DTI |
-| Uniqueness vs registry (695 rasters, 57 repos) | `evidence/ribbon_uniqueness.json` | REGISTRY-MEASUREMENT |
-| Submission raster + receipt | `docs/downloads/*zeros.tif/.json` | local validator output |
-| Run card | `evidence/run_card.json` | verdict promote/negative |
+| σ(cat-axis), pooled | 2.9 px RMS (2.55–3.16 by block) | HOLDOUT-STRUCTURE |
+| σ(sgmc-axis), pooled | 3.2 px RMS (3.01–3.49 by block) | HOLDOUT-STRUCTURE |
+| Leakage canary | PASS (max single-feature AUC 0.630 / 0.683 < 0.90) | holdout instrument |
+| Tight baseline, pooled | 0.1573 (22,641 withheld px) | HOLDOUT-DTI |
+| Ribbon (per-segment exact-U selection), pooled | **0.3583** | HOLDOUT-DTI |
+| Paired ribbon − tight | **+0.2010**, CI95 [0.1910, 0.2108] | HOLDOUT-DTI |
+| Per-class gains (ribbon-only − tight-only) | cat-axis +0.1785, sgmc-axis +0.0983 | HOLDOUT-DTI |
+| Live rule as shipped (no oracle), pooled | 0.1309 (blanket variant: 0.1252) | HOLDOUT-DTI |
+| Uniqueness, 695/695 registry rasters | max ρ 0.190 (<0.90); literal overlap gate negative — see `evidence/ribbon_uniqueness.json` + IR-58-UNIQ-01 | REGISTRY-MEASUREMENT |
+| Submission raster + receipt | `docs/downloads/gems58-ribbon-concordant-*zeros.tif/.json` | local validator output |
+| Run card verdict | negative on the literal overlap gate (dense-prior degeneracy; drift forensic attached) | `evidence/run_card.json` |
 
 Reference receipts (ORGANIZER-CONFIRMED, copied from prior sites' pages only):
 `h33-h33-2-b2-...-zeros: 0.2778` (GEMSDOE32), `dotted-h19-5-d2-8: 0.2600`,

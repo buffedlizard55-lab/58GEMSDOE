@@ -182,12 +182,12 @@ def block_terms(cell, choices, block_px=BLOCK_PX):
     oy, ox = cell.bbox[0].start, cell.bbox[1].start
     GY = (cell.truth_yx[0].astype(np.int64) + oy) // block_px
     GX = (cell.truth_yx[1].astype(np.int64) + ox) // block_px
-    ncid = GY * ((grid._shape()[1] + block_px - 1) // block_px) + GX
+    ncid = GY * ((grid.shape[1] + block_px - 1) // block_px) + GX
     ys, xs = np.nonzero(m)
     DY = (ys.astype(np.int64) + oy) // block_px
     DX = (xs.astype(np.int64) + ox) // block_px
-    ncid_p = DY * ((grid._shape()[1] + block_px - 1) // block_px) + DX
-    n_blocks = ((grid._shape()[0] + block_px - 1) // block_px) * ((grid._shape()[1] + block_px - 1) // block_px)
+    ncid_p = DY * ((grid.shape[1] + block_px - 1) // block_px) + DX
+    n_blocks = ((grid.shape[0] + block_px - 1) // block_px) * ((grid.shape[1] + block_px - 1) // block_px)
     # exact per-truth credit and per-dot fp from the shared kernel arithmetic
     from gems57.metric import kernel as _k
     ty, tx = cell.truth_yx

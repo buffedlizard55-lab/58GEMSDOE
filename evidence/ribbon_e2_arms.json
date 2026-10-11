@@ -1,0 +1,190 @@
+{
+ "experiment": "E2-ribbon-arms",
+ "evidence_class": "HOLDOUT-DTI",
+ "instrument": {
+  "kind": "hide-and-recover",
+  "seeds": [
+   20,
+   21
+  ],
+  "mode": "all",
+  "evaluator": "gems57.holdout score_cell (shared, exact)",
+  "alpha": 0.2,
+  "beta": 0.8,
+  "triangular_radius_px": 3.0
+ },
+ "dti0_reference": {
+  "value": 0.15729798989964808,
+  "arm": "tight",
+  "evidence_class": "HOLDOUT-DTI"
+ },
+ "dti0_assumed_for_ordering": 0.28,
+ "arms": {
+  "tight": {
+   "pooled_dti": 0.15729798989964808,
+   "per_cell": {
+    "draw20_foldNW_all": {
+     "dti": 0.24546291954767824,
+     "dots": 520
+    },
+    "draw20_foldNE_all": {
+     "dti": 0.2548962564408034,
+     "dots": 634
+    },
+    "draw20_foldSW_all": {
+     "dti": 0.059378094436977384,
+     "dots": 277
+    },
+    "draw20_foldSE_all": {
+     "dti": 0.15397860343158667,
+     "dots": 632
+    },
+    "draw21_foldNW_all": {
+     "dti": 0.22994469500405454,
+     "dots": 481
+    },
+    "draw21_foldNE_all": {
+     "dti": 0.2525201079222835,
+     "dots": 656
+    },
+    "draw21_foldSW_all": {
+     "dti": 0.05558480490540706,
+     "dots": 323
+    },
+    "draw21_foldSE_all": {
+     "dti": 0.14265440028794865,
+     "dots": 595
+    }
+   }
+  },
+  "ribbon": {
+   "pooled_dti": 0.35832971058014196,
+   "per_cell": {
+    "draw20_foldNW_all": {
+     "dti": 0.40773284297008505,
+     "dots": 2294
+    },
+    "draw20_foldNE_all": {
+     "dti": 0.40384195914092813,
+     "dots": 2750
+    },
+    "draw20_foldSW_all": {
+     "dti": 0.30560645764409183,
+     "dots": 3455
+    },
+    "draw20_foldSE_all": {
+     "dti": 0.3661615660448261,
+     "dots": 4075
+    },
+    "draw21_foldNW_all": {
+     "dti": 0.39961349614487873,
+     "dots": 2272
+    },
+    "draw21_foldNE_all": {
+     "dti": 0.41128573889069964,
+     "dots": 2892
+    },
+    "draw21_foldSW_all": {
+     "dti": 0.3010988501877121,
+     "dots": 3316
+    },
+    "draw21_foldSE_all": {
+     "dti": 0.34658849119824575,
+     "dots": 3912
+    }
+   }
+  },
+  "ribbon-pool": {
+   "pooled_dti": 0.35832971058014196,
+   "per_cell": {
+    "draw20_foldNW_all": {
+     "dti": 0.40773284297008505,
+     "dots": 2294
+    },
+    "draw20_foldNE_all": {
+     "dti": 0.40384195914092813,
+     "dots": 2750
+    },
+    "draw20_foldSW_all": {
+     "dti": 0.30560645764409183,
+     "dots": 3455
+    },
+    "draw20_foldSE_all": {
+     "dti": 0.3661615660448261,
+     "dots": 4075
+    },
+    "draw21_foldNW_all": {
+     "dti": 0.39961349614487873,
+     "dots": 2272
+    },
+    "draw21_foldNE_all": {
+     "dti": 0.41128573889069964,
+     "dots": 2892
+    },
+    "draw21_foldSW_all": {
+     "dti": 0.3010988501877121,
+     "dots": 3316
+    },
+    "draw21_foldSE_all": {
+     "dti": 0.34658849119824575,
+     "dots": 3912
+    }
+   }
+  }
+ },
+ "paired_bootstrap": {
+  "evidence_class": "HOLDOUT-DTI",
+  "method": "paired percentile bootstrap over physical 20 km blocks (pooled terms)",
+  "blocks": 335,
+  "draws": 1000,
+  "seed": 520810,
+  "ribbon_minus_tight": {
+   "delta": 0.20103172068049388,
+   "ci95": [
+    0.19101762328792596,
+    0.21077503344939316
+   ]
+  },
+  "ribbon_minus_ribbonpool": {
+   "delta": 0.0,
+   "ci95": [
+    0.0,
+    0.0
+   ]
+  },
+  "caveat": "Conditional on fitted folds, catalogue labels and fixed patterns; not a leaderboard interval."
+ },
+ "per_class_gains": {
+  "cat-axis": {
+   "ribbon_only_dti": 0.17850385942602237,
+   "tight_only_dti": 0.0,
+   "gain": 0.17850385942602237,
+   "n_dots_ribbon": 11184,
+   "n_dots_tight": 0,
+   "evidence_class": "HOLDOUT-DTI (class-restricted emission)"
+  },
+  "sgmc-axis": {
+   "ribbon_only_dti": 0.2555989729686658,
+   "tight_only_dti": 0.15729798989964808,
+   "gain": 0.09830098306901772,
+   "n_dots_ribbon": 13782,
+   "n_dots_tight": 4118,
+   "evidence_class": "HOLDOUT-DTI (class-restricted emission)"
+  }
+ },
+ "config_mix_ribbon": {
+  "cat-axis|pair3": 961,
+  "sgmc-axis|pair3": 601,
+  "sgmc-axis|pair1": 500,
+  "sgmc-axis|pair2": 353,
+  "cat-axis|pair2": 359,
+  "sgmc-axis|tight": 107,
+  "cat-axis|pair1": 820
+ },
+ "pattern_rule": {
+  "stride_px": 3,
+  "note": "along-line stride = 3 px (kernel radius); parallel lines spaced 2*|offset| px"
+ },
+ "withheld_positive_pixels": 22641,
+ "elapsed_s": 429.5397310256958
+}

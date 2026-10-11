@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Executive summary - how to submit</title><link rel="stylesheet" href="assets/site.css"></head><body>
+<header><h1>Executive summary: submitting to GEMS (DrivenData #306)</h1></header>
+<section>
+<h2>The 60-second version</h2>
+<ol>
+<li><b>Download</b> the current submission GeoTIFF from the <a href="index.html">main page download button</a>
+(single-band, float32, EPSG:32611, 3730&times;3292, transform (100, 0, 243350, 0, -100, 4508550), all values in [0,1], no NaN).</li>
+<li>Open <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/">the submission page</a> (login required).</li>
+<li>Upload the <code>.tif</code> (or the single-TIFF <code>.zip</code>). Add the suggested note from the main page.</li>
+<li>Scored metric: pooled Distance-Weighted Tversky Index, alpha=0.2, beta=0.8, 300 m triangular kernel
+(see <a href="https://en.wikipedia.org/wiki/Tversky_index">Tversky index</a> and the
+<a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">problem description</a>).</li>
+</ol>
+<h2>Why the earlier portal error happened and why this file is safe</h2>
+<p>The portal error <i>"Predicted values must be in range [0, 1]"</i> is triggered by out-of-range or non-finite cells.
+This file uses the all-finite export policy: dots at exactly 1.0, zeros everywhere else including outside the
+scored footprint &mdash; nothing can violate [0,1] and no NaN exists. The fail-closed writer re-opens the written
+file and checks CRS, shape, transform, dtype, range, finiteness, zero-outside-footprint and zero-on-catalogue
+before the file is released (<code>src/gems57/submission_writer.py</code>).</p>
+<h2>What this submission is (method, one paragraph)</h2>
+<p>Candidate fault ridge axes are extracted from (a) the visible USGS/INGENIOUS catalogue skeleton and
+(b) the independent SGMC public fault compilation where it runs within the measured 8 px localization
+cap of the catalogue. On a hide-and-recover holdout (whole catalogue segments withheld per spatial block
+with buffered context), the across-strike distance between each candidate ridge and the nearest withheld
+segment was measured and an error scale sigma(block, type) fitted (~2.5-3.5 px). Per the lane, emission
+uses parallel dotted lines about &plusmn;sigma wide (spacing near the 3-px kernel radius), each dot at
+exactly 1.0, off the mapped catalogue. Holdout evidence: ribbon &gt;&gt; tight line (+0.201 pooled with an
+oracle accept test); the truth-free live rule itself was holdout-scored at 0.1309 (HOLDOUT-DTI).</p>
+<h2>What this submission is NOT</h2>
+<ul>
+<li>It is not an organizer-accepted score: leaderboard points come only from a real submission receipt (ORGANIZER-CONFIRMED).</li>
+<li>Holdout numbers are HOLDOUT-DTI evidence, not leaderboard projections.</li>
+<li>Slot promotion is a separate selector step within the weekly cap shown on the submission page.</li>
+</ul>
+</section>
+<footer>Generated 2026-10-11 01:19 UTC</footer></body></html>
