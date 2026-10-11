@@ -358,7 +358,7 @@
  },
  "simulated_gain_per_class_file": "/home/user/58GEMSDOE/evidence/gems61/exp2_holdout_arms.json",
  "uniqueness": {
-  "verdict": "UNIQUE_UNDER_RATIFIED_LITERAL_FIRES",
+  "verdict": "DUPLICATE_OR_DRIFT_LITERAL_STOP",
   "n_witnesses": 694,
   "worst_rho_final": 0.013002654827410039,
   "worst_forward_overlap_final": 1.0,
@@ -1533,7 +1533,8 @@
    ],
    "runtime_s": 455.5
   },
-  "instrument": "scripts/gems61_screen.py (definitions = gems57.uniqueness via gems58w.uniqueness; forward = fraction of MY dots within 3 px of their dots; governing rule RATIFIED-UNIQ-v1, literal reading published beside it)"
+  "instrument": "scripts/gems61_screen.py (definitions = gems57.uniqueness via gems58w.uniqueness; forward = fraction of MY dots within 3 px of their dots; governing rule RATIFIED-UNIQ-v1, literal reading published beside it)",
+  "rule_in_force": "literal 70% forward-overlap / rho>0.90 stop (merged PROMPT.md, supersedes RATIFIED-UNIQ-v1 where they conflict); chance-corrected readings recorded beside it, not used to waive"
  },
  "raster": {
   "path": "docs/downloads/gems61-deepedge-sigribbon-40000-20261011T201101Z.tif",
@@ -1603,8 +1604,10 @@
   "note_chars": 96,
   "download": "docs/downloads/gems61-deepedge-sigribbon-40000-20261011T201101Z.tif"
  },
- "verdict": "promote",
- "verdict_rule": "promote requires ALL of: uniqueness clear under RATIFIED-UNIQ-v1; paired A1-A0 HOLDOUT-DTI delta > 0 with the 95% CI lower bound > 0; leakage canary CLEAN; cross-fitted pooled HOLDOUT-DTI above the same-instrument reference arm (the published session-5 concordance file re-scored on this instrument); and a non-degenerate emission (>= 1000 dots \u2014 a vacuous clearance on a 0-dot raster is not a candidate). AMENDED PREREGISTRATION (before EXP-3): the initial bar 'A1 > 0.043575' was withdrawn after measuring that 0.043575 comes from a different withhold instrument (gems58-pooled-hide-v1, 60,988 withheld positives) and is not like-for-like with gems61-buffered-hide-v1; the same-instrument reference replaces it. See IRREGULARITIES IR-58-S7-02.",
+ "verdict": "negative",
+ "verdict_rule": "The uniqueness rule in force (merged PROMPT.md: literal 70% / rho>0.90 stop, no chance-corrected waiver) fires on the final dots: literal_overlap_firings=74, worst forward overlap 1.0. A directly observed literal trigger is a decisive duplicate/drift stop: verdict is negative and the file is NOT CLEARED \u2014 DO NOT SUBMIT (retained for review). The chance-corrected readings (rule A 0, rule B 0, rank correlation 0) are recorded beside the literal reading and are NOT used to waive the stop. All measurement gates otherwise held: canary CLEAN, paired A1-A0 delta>0 with 95% CI lower>0, A1 beats the same-instrument reference, emission >= 1000 dots. Note: 0.043575 comes from a different withhold instrument (gems58-pooled-hide-v1) and is not like-for-like with gems61-buffered-hide-v1 (IR-58-S7-02).",
  "slots_used": 0,
- "generated_utc": "2026-10-11T20:28:11Z"
+ "generated_utc": "2026-10-11T20:28:11Z",
+ "verdict_recomputed_utc": "2026-10-11T21:20:00Z",
+ "verdict_recompute_note": "verdict field recomputed after merging the current contract from main (literal uniqueness stop supersedes RATIFIED-UNIQ-v1); all measurement fields unchanged"
 }

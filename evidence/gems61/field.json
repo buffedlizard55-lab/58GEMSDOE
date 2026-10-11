@@ -1,0 +1,546 @@
+{
+ "evidence_class": "REGISTRY-MEASUREMENT",
+ "generated_utc": "2026-10-11T19:35:28Z",
+ "band_families": {
+  "magnetic": [
+   "mag_anom",
+   "rtp",
+   "tmi_hg",
+   "tmi_vg",
+   "tc",
+   "tmi"
+  ],
+  "gravity": [
+   "iso_grav_anom",
+   "iso_grav_anom_hg",
+   "iso_grav_anom_vg",
+   "iso_grav_anom_slope"
+  ],
+  "topographic": [
+   "det_elev",
+   "det_elev_slope",
+   "dem100"
+  ],
+  "subsurface": [
+   "depth_to_base_surf",
+   "cond_surf"
+  ],
+  "geodetic": [
+   "geod_2ndinv",
+   "geod_shearrate",
+   "geod_dilaterate"
+  ],
+  "seismic": [
+   "deq_n100a15",
+   "ieq_n100a15"
+  ],
+  "radiometric": [
+   "rad_K",
+   "rad_Th",
+   "rad_U",
+   "rad_TC",
+   "ext_ThK",
+   "ext_UK",
+   "ext_UTh"
+  ],
+  "lidar": [
+   "lid_ex_max",
+   "lid_step_max",
+   "lid_lapneg_max",
+   "lid_lappos_max",
+   "lid_downface_max",
+   "lid_upface_max",
+   "lid_cross_max",
+   "lid_relief"
+  ],
+  "channel": [
+   "dem10_chan",
+   "dem10_knick",
+   "dem10_raised"
+  ]
+ },
+ "n_bands": 38,
+ "n_classes": 41,
+ "classes": [
+  {
+   "family": "channel",
+   "scale": 1.5,
+   "sign": -1
+  },
+  {
+   "family": "channel",
+   "scale": 1.5,
+   "sign": 1
+  },
+  {
+   "family": "channel",
+   "scale": 3.0,
+   "sign": -1
+  },
+  {
+   "family": "channel",
+   "scale": 3.0,
+   "sign": 1
+  },
+  {
+   "family": "geodetic",
+   "scale": 1.5,
+   "sign": -1
+  },
+  {
+   "family": "geodetic",
+   "scale": 3.0,
+   "sign": -1
+  },
+  {
+   "family": "geodetic",
+   "scale": 6.0,
+   "sign": -1
+  },
+  {
+   "family": "gravity",
+   "scale": 1.5,
+   "sign": -1
+  },
+  {
+   "family": "gravity",
+   "scale": 1.5,
+   "sign": 1
+  },
+  {
+   "family": "gravity",
+   "scale": 3.0,
+   "sign": -1
+  },
+  {
+   "family": "gravity",
+   "scale": 3.0,
+   "sign": 1
+  },
+  {
+   "family": "gravity",
+   "scale": 6.0,
+   "sign": -1
+  },
+  {
+   "family": "gravity",
+   "scale": 6.0,
+   "sign": 1
+  },
+  {
+   "family": "lidar",
+   "scale": 1.5,
+   "sign": -1
+  },
+  {
+   "family": "lidar",
+   "scale": 1.5,
+   "sign": 1
+  },
+  {
+   "family": "lidar",
+   "scale": 3.0,
+   "sign": -1
+  },
+  {
+   "family": "lidar",
+   "scale": 3.0,
+   "sign": 1
+  },
+  {
+   "family": "magnetic",
+   "scale": 1.5,
+   "sign": -1
+  },
+  {
+   "family": "magnetic",
+   "scale": 1.5,
+   "sign": 1
+  },
+  {
+   "family": "magnetic",
+   "scale": 3.0,
+   "sign": -1
+  },
+  {
+   "family": "magnetic",
+   "scale": 3.0,
+   "sign": 1
+  },
+  {
+   "family": "magnetic",
+   "scale": 6.0,
+   "sign": -1
+  },
+  {
+   "family": "magnetic",
+   "scale": 6.0,
+   "sign": 1
+  },
+  {
+   "family": "radiometric",
+   "scale": 1.5,
+   "sign": -1
+  },
+  {
+   "family": "radiometric",
+   "scale": 1.5,
+   "sign": 1
+  },
+  {
+   "family": "radiometric",
+   "scale": 3.0,
+   "sign": -1
+  },
+  {
+   "family": "radiometric",
+   "scale": 3.0,
+   "sign": 1
+  },
+  {
+   "family": "seismic",
+   "scale": 1.5,
+   "sign": -1
+  },
+  {
+   "family": "seismic",
+   "scale": 3.0,
+   "sign": -1
+  },
+  {
+   "family": "seismic",
+   "scale": 6.0,
+   "sign": -1
+  },
+  {
+   "family": "seismic",
+   "scale": 6.0,
+   "sign": 1
+  },
+  {
+   "family": "subsurface",
+   "scale": 1.5,
+   "sign": -1
+  },
+  {
+   "family": "subsurface",
+   "scale": 1.5,
+   "sign": 1
+  },
+  {
+   "family": "subsurface",
+   "scale": 3.0,
+   "sign": -1
+  },
+  {
+   "family": "subsurface",
+   "scale": 3.0,
+   "sign": 1
+  },
+  {
+   "family": "subsurface",
+   "scale": 6.0,
+   "sign": -1
+  },
+  {
+   "family": "subsurface",
+   "scale": 6.0,
+   "sign": 1
+  },
+  {
+   "family": "topographic",
+   "scale": 1.5,
+   "sign": -1
+  },
+  {
+   "family": "topographic",
+   "scale": 1.5,
+   "sign": 1
+  },
+  {
+   "family": "topographic",
+   "scale": 3.0,
+   "sign": -1
+  },
+  {
+   "family": "topographic",
+   "scale": 6.0,
+   "sign": -1
+  }
+ ],
+ "cache": "/home/user/58GEMSDOE/.cache/gems58/ridge_field_ext_v1.npz",
+ "cached": true,
+ "ridge_px_total": 5167205,
+ "ridge_px_in_footprint": 5167205,
+ "footprint_px": 5167373,
+ "layer_inventory": [
+  {
+   "band": "mag_anom",
+   "family": "magnetic",
+   "valid_px": 5164312,
+   "ordinal_only": false,
+   "ridge_px_at_zero_threshold": 229995
+  },
+  {
+   "band": "rtp",
+   "family": "magnetic",
+   "valid_px": 5164312,
+   "ordinal_only": false,
+   "ridge_px_at_zero_threshold": 229995
+  },
+  {
+   "band": "tmi_hg",
+   "family": "magnetic",
+   "valid_px": 5164312,
+   "ordinal_only": false,
+   "ridge_px_at_zero_threshold": 229995
+  },
+  {
+   "band": "tmi_vg",
+   "family": "magnetic",
+   "valid_px": 5164312,
+   "ordinal_only": false,
+   "ridge_px_at_zero_threshold": 229995
+  },
+  {
+   "band": "tc",
+   "family": "magnetic",
+   "valid_px": 5164300,
+   "ordinal_only": false,
+   "ridge_px_at_zero_threshold": 229995
+  },
+  {
+   "band": "tmi",
+   "family": "magnetic",
+   "valid_px": 5164312,
+   "ordinal_only": false,
+   "ridge_px_at_zero_threshold": 229995
+  },
+  {
+   "band": "iso_grav_anom",
+   "family": "gravity",
+   "valid_px": 5164312,
+   "ordinal_only": false,
+   "ridge_px_at_zero_threshold": 99897
+  },
+  {
+   "band": "iso_grav_anom_hg",
+   "family": "gravity",
+   "valid_px": 5164312,
+   "ordinal_only": false,
+   "ridge_px_at_zero_threshold": 99897
+  },
+  {
+   "band": "iso_grav_anom_vg",
+   "family": "gravity",
+   "valid_px": 5164312,
+   "ordinal_only": false,
+   "ridge_px_at_zero_threshold": 99897
+  },
+  {
+   "band": "iso_grav_anom_slope",
+   "family": "gravity",
+   "valid_px": 5164312,
+   "ordinal_only": false,
+   "ridge_px_at_zero_threshold": 99897
+  },
+  {
+   "band": "det_elev",
+   "family": "topographic",
+   "valid_px": 5164312,
+   "ordinal_only": false,
+   "ridge_px_at_zero_threshold": 331813
+  },
+  {
+   "band": "det_elev_slope",
+   "family": "topographic",
+   "valid_px": 5164312,
+   "ordinal_only": false,
+   "ridge_px_at_zero_threshold": 331813
+  },
+  {
+   "band": "dem100",
+   "family": "topographic",
+   "valid_px": 5165644,
+   "ordinal_only": false,
+   "ridge_px_at_zero_threshold": 331813
+  },
+  {
+   "band": "depth_to_base_surf",
+   "family": "subsurface",
+   "valid_px": 5164312,
+   "ordinal_only": false,
+   "ridge_px_at_zero_threshold": 18229
+  },
+  {
+   "band": "cond_surf",
+   "family": "subsurface",
+   "valid_px": 5164312,
+   "ordinal_only": false,
+   "ridge_px_at_zero_threshold": 18229
+  },
+  {
+   "band": "geod_2ndinv",
+   "family": "geodetic",
+   "valid_px": 5164312,
+   "ordinal_only": false,
+   "ridge_px_at_zero_threshold": 10656
+  },
+  {
+   "band": "geod_shearrate",
+   "family": "geodetic",
+   "valid_px": 5164312,
+   "ordinal_only": false,
+   "ridge_px_at_zero_threshold": 10656
+  },
+  {
+   "band": "geod_dilaterate",
+   "family": "geodetic",
+   "valid_px": 5164312,
+   "ordinal_only": false,
+   "ridge_px_at_zero_threshold": 10656
+  },
+  {
+   "band": "deq_n100a15",
+   "family": "seismic",
+   "valid_px": 5164312,
+   "ordinal_only": false,
+   "ridge_px_at_zero_threshold": 6104
+  },
+  {
+   "band": "ieq_n100a15",
+   "family": "seismic",
+   "valid_px": 5164312,
+   "ordinal_only": false,
+   "ridge_px_at_zero_threshold": 6104
+  },
+  {
+   "band": "rad_K",
+   "family": "radiometric",
+   "valid_px": 5166085,
+   "ordinal_only": true,
+   "ridge_px_at_zero_threshold": 2786282
+  },
+  {
+   "band": "rad_Th",
+   "family": "radiometric",
+   "valid_px": 5166085,
+   "ordinal_only": true,
+   "ridge_px_at_zero_threshold": 2786282
+  },
+  {
+   "band": "rad_U",
+   "family": "radiometric",
+   "valid_px": 5166085,
+   "ordinal_only": true,
+   "ridge_px_at_zero_threshold": 2786282
+  },
+  {
+   "band": "rad_TC",
+   "family": "radiometric",
+   "valid_px": 5166085,
+   "ordinal_only": true,
+   "ridge_px_at_zero_threshold": 2786282
+  },
+  {
+   "band": "ext_ThK",
+   "family": "radiometric",
+   "valid_px": 5166085,
+   "ordinal_only": true,
+   "ridge_px_at_zero_threshold": 2786282
+  },
+  {
+   "band": "ext_UK",
+   "family": "radiometric",
+   "valid_px": 5166085,
+   "ordinal_only": true,
+   "ridge_px_at_zero_threshold": 2786282
+  },
+  {
+   "band": "ext_UTh",
+   "family": "radiometric",
+   "valid_px": 5166085,
+   "ordinal_only": true,
+   "ridge_px_at_zero_threshold": 2786282
+  },
+  {
+   "band": "lid_ex_max",
+   "family": "lidar",
+   "valid_px": 3893184,
+   "ordinal_only": true,
+   "ridge_px_at_zero_threshold": 1112300
+  },
+  {
+   "band": "lid_step_max",
+   "family": "lidar",
+   "valid_px": 3893184,
+   "ordinal_only": true,
+   "ridge_px_at_zero_threshold": 1112300
+  },
+  {
+   "band": "lid_lapneg_max",
+   "family": "lidar",
+   "valid_px": 3893184,
+   "ordinal_only": true,
+   "ridge_px_at_zero_threshold": 1112300
+  },
+  {
+   "band": "lid_lappos_max",
+   "family": "lidar",
+   "valid_px": 3893184,
+   "ordinal_only": true,
+   "ridge_px_at_zero_threshold": 1112300
+  },
+  {
+   "band": "lid_downface_max",
+   "family": "lidar",
+   "valid_px": 3207200,
+   "ordinal_only": true,
+   "ridge_px_at_zero_threshold": 1112300
+  },
+  {
+   "band": "lid_upface_max",
+   "family": "lidar",
+   "valid_px": 3207200,
+   "ordinal_only": true,
+   "ridge_px_at_zero_threshold": 1112300
+  },
+  {
+   "band": "lid_cross_max",
+   "family": "lidar",
+   "valid_px": 3207200,
+   "ordinal_only": true,
+   "ridge_px_at_zero_threshold": 1112300
+  },
+  {
+   "band": "lid_relief",
+   "family": "lidar",
+   "valid_px": 3893184,
+   "ordinal_only": true,
+   "ridge_px_at_zero_threshold": 1112300
+  },
+  {
+   "band": "dem10_chan",
+   "family": "channel",
+   "valid_px": 1125140,
+   "ordinal_only": true,
+   "ridge_px_at_zero_threshold": 571929
+  },
+  {
+   "band": "dem10_knick",
+   "family": "channel",
+   "valid_px": 91907,
+   "ordinal_only": true,
+   "ridge_px_at_zero_threshold": 571929
+  },
+  {
+   "band": "dem10_raised",
+   "family": "channel",
+   "valid_px": 599081,
+   "ordinal_only": true,
+   "ridge_px_at_zero_threshold": 571929
+  }
+ ],
+ "ordinals_note": "the owner-published mirrors are 8-bit encodings whose physical scaling is not published in this checkout; they are rank-transformed inside the footprint and used ordinally only",
+ "wall_seconds": 71.2
+}

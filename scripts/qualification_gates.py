@@ -160,8 +160,20 @@ def _ci95(record: dict, *, require_reportable: bool = True) -> tuple[bool, str]:
         conf = float(confidence)
     except (TypeError, ValueError):
         return False, "95% interval lacks valid bounds, cluster count, or confidence"
+    # A min/max over four quadrants is NOT a 95% confidence interval. A
+    # self-declared `reportable: true` must not turn it into one. Require a
+    # stated physical-cluster bootstrap with actual draws; statistical validity
+    # still depends on the cluster design being reviewed independently.
+    bootstrap = record.get("bootstrap", {}) if isinstance(record.get("bootstrap"), dict) else {}
+    try:
+        draws = int(bootstrap.get("draws", 0))
+    except (TypeError, ValueError):
+        draws = 0
+    method = str(note).lower()
     valid = (math.isfinite(lo) and math.isfinite(hi) and 0 <= lo <= hi <= 1
-             and bool(note) and n_clusters >= 2 and math.isclose(conf, 0.95, abs_tol=1e-9)
+             and "spatial-cluster" in method and "bootstrap" in method
+             and n_clusters >= 10 and draws >= 1000
+             and math.isclose(conf, 0.95, abs_tol=1e-9)
              and (reportable is True or not require_reportable))
     if not valid:
         return False, "95% interval is not supported by a declared physical-cluster method"
@@ -360,7 +372,7 @@ def _valid_canary(canary: dict, candidate_file_sha256: str | None,
                   candidate_decoded_sha256: str | None,
                   inventory_index_sha256: str | None,
                   freshness_receipt_sha256: str | None) -> tuple[bool, str]:
-    if not isinstance(canary, dict):
+    if not isinstance(canary, dict) or not canary:
         return False, "feature-alone canary receipt is missing"
     features = canary.get("features")
     if isinstance(features, dict):
@@ -634,9 +646,10 @@ def evaluate_gates(emi: dict, sig: dict, inv: dict, tif: Path,
     else:
         crosscheck_ok = xcheck.get("verdict") == "AGREE"
         crosscheck_detail = (
-            f"Legacy metric arithmetic verdict={esc(xcheck.get('verdict'))}; shared-metric value="
-            f"{fmt((xcheck.get('pooled') or {}).get('shared_gems57_binary'), 9)}. This checks arithmetic "
-            "only; it does not upgrade the old evaluator, split, selection process, or interval."
+            f"Legacy metric arithmetic verdict={esc(xcheck.get('verdict'))}. This checks arithmetic only; "
+            "its numerical diagnostic is withheld from the public gate panel because it does not carry "
+            "the current promotion-grade protocol and defensible 95% CI. It does not upgrade the old "
+            "evaluator, split, or selection process."
         )
     add("G5i", "Legacy diagnostic arithmetic cross-check (not promotion evidence)", crosscheck_ok,
         crosscheck_detail, informational=True)

@@ -2,9 +2,10 @@
 """Render a per-file download/eligibility index for every public TIFF and ZIP.
 
 One downloadable artifact per row, each with its own SHA-256 and its own submit
-verdict, so no file can inherit clearance from another. The current candidate is
-identified from ``evidence/ribbon/emission.json`` and ``docs/RUN_CARD.json``; every
-other public raster is review-only regardless of any local format pass.
+verdict, so no file can inherit clearance from another. The current review-only
+artifact is identified from ``evidence/58gemsdoe_unique_ribbon/run_card.json`` and
+its direct overlap receipt; every other public raster is review-only regardless of
+any local format pass.
 
     python3 scripts/build_downloads_index.py
 """
@@ -21,7 +22,7 @@ DOCS = ROOT / "docs"
 DOWNLOADS = DOCS / "downloads"
 LEGACY_DOWNLOADS = DOCS / "deliverable" / "downloads"
 RASTER_SUFFIXES = {".tif", ".tiff", ".zip"}
-REVIEW_ONLY = "NOT OK TO SUBMIT — REVIEW ONLY"
+REVIEW_ONLY = "NOT OK TO SUBMIT — REVIEW ONLY — DO NOT SUBMIT"
 
 
 def esc(value) -> str:
@@ -47,17 +48,34 @@ def collect() -> list[dict]:
     """Every public raster, with the label its own receipts allow."""
     emission = load(ROOT / "evidence" / "ribbon" / "emission.json")
     run_card = load(DOCS / "RUN_CARD.json")
+    review_card = load(ROOT / "evidence" / "58gemsdoe_unique_ribbon" / "run_card.json")
     current_tif = (ROOT / str(emission["file"])).resolve() if emission.get("file") else None
     current_zip = (ROOT / str(emission["zip"])).resolve() if emission.get("zip") else None
+    review_file = review_card.get("artifact_file") or review_card.get("file")
+    if review_file:
+        review_tif = (ROOT / str(review_file)).resolve()
+        if not review_tif.is_file():
+            review_tif = (DOWNLOADS / Path(str(review_file)).name).resolve()
+    else:
+        review_tif = None
+    review_zip = review_tif.with_suffix(".zip") if review_tif else None
+    overlap_record = (review_card.get("correlation_overlap_vs_registry", {})
+                      .get("final_dots", {}))
+    observed_overlap = overlap_record.get("candidate_specific_overlap_within_3px")
+    overlap_limit = overlap_record.get("threshold", 0.70)
+    literal_failure = (observed_overlap is not None and observed_overlap > overlap_limit)
     site_verdict = run_card.get("site_verdict", "NOT_OK_TO_SUBMIT")
     current_hashes = {current_tif, current_zip} - {None}
-    # session-7 candidate carries its own run-card verdict (evidence/gems61)
-    s7 = load(ROOT / "evidence" / "gems61" / "run_card.json")
-    s7_paths: set = set()
-    s7_ok = s7.get("verdict") == "promote"
-    if s7.get("raster", {}).get("path"):
-        s7_tif = (ROOT / str(s7["raster"]["path"])).resolve()
-        s7_paths = {s7_tif, s7_tif.with_suffix(".zip")}
+    review_hashes = {review_tif, review_zip} - {None}
+    # session-7 deep-edge candidate (evidence/gems61) — literal uniqueness stop
+    s7_card = load(ROOT / "evidence" / "gems61" / "run_card.json")
+    s7_hashes: set = set()
+    if s7_card.get("raster", {}).get("path"):
+        s7_tif = (ROOT / str(s7_card["raster"]["path"])).resolve()
+        s7_hashes = {s7_tif, s7_tif.with_suffix(".zip")}
+    s7_lit = (s7_card.get("uniqueness", {}).get("readings_final") or
+              s7_card.get("uniqueness", {}).get("readings_pre_gap") or {})
+    s7_n_lit = s7_lit.get("literal_overlap_firings")
 
     rows: list[dict] = []
     for base, prefix, archived in ((DOWNLOADS, "", False), (LEGACY_DOWNLOADS, "legacy/", True)):
@@ -68,20 +86,27 @@ def collect() -> list[dict]:
                 continue
             relative = path.relative_to(base).as_posix()
             is_current = path.resolve() in current_hashes
-            is_s7 = path.resolve() in s7_paths
+            is_latest_review = path.resolve() in review_hashes
             is_archived = archived or "archive" in path.relative_to(base).parts
-            if is_s7 and s7_ok:
-                label = "Current session-7 candidate — local gates pass; no organizer receipt exists"
-                kind = "Current candidate"
-            elif is_s7:
-                label = REVIEW_ONLY + " (session-7 candidate; run-card verdict " + esc(s7.get("verdict", "")) + ")"
-                kind = "Current candidate"
+            is_s7 = path.resolve() in s7_hashes
+            if is_s7:
+                label = (REVIEW_ONLY + " (session-7 deep-edge candidate; literal uniqueness stop — "
+                         f"{s7_n_lit} overlap firings)" if s7_n_lit is not None
+                         else REVIEW_ONLY + " (session-7 deep-edge candidate)")
+                kind = "Session-7 deep-edge candidate"
+            elif is_latest_review:
+                if literal_failure:
+                    label = (REVIEW_ONLY + f" (literal 3 px overlap {observed_overlap:.4f} "
+                             f"> {overlap_limit:.2f}; DO NOT SUBMIT)")
+                else:
+                    label = REVIEW_ONLY + " (latest diagnostic; required gates not cleared)"
+                kind = "Latest generated review artifact"
             elif is_current and site_verdict == "OK_TO_DOWNLOAD_AND_SUBMIT":
                 label = "Current candidate — local gates pass; no organizer receipt exists"
                 kind = "Current candidate"
             elif is_current:
-                label = REVIEW_ONLY + " (current candidate; site verdict " + esc(site_verdict) + ")"
-                kind = "Current candidate"
+                label = REVIEW_ONLY + " (historical candidate; site verdict " + esc(site_verdict) + ")"
+                kind = "Historical candidate"
             else:
                 label = REVIEW_ONLY
                 kind = "Archived historical artifact" if is_archived else "Historical diagnostic"
@@ -128,9 +153,9 @@ are never cleared by a current candidate's local gates.</p></div>
 {chr(10).join(body)}
 </tbody></table>
 <p class="small">Generated {esc(generated)} by <code>scripts/build_downloads_index.py</code> from
-<code>evidence/ribbon/emission.json</code>, <code>docs/RUN_CARD.json</code> and the bytes on disk.
-Local file audits (<code>evidence/ribbon/file_audit.json</code>) verify grid, range, mask, hashes and
-ZIP round-trip only; they are not portal acceptance, uniqueness clearance, or eligibility.</p>
+<code>evidence/58gemsdoe_unique_ribbon/run_card.json</code>, <code>docs/RUN_CARD.json</code> and the bytes on disk.
+Local file audits verify grid, range, mask, hashes and ZIP round-trip only; they are not portal
+acceptance, uniqueness clearance, or eligibility.</p>
 </section>
 </div></body></html>
 """

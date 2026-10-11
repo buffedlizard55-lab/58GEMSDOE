@@ -50,7 +50,9 @@ def evidence(tmp_path):
         },
         "holdout_dti": {"pooled": 0.043651, "per_fold": {"NW": 0.046, "NE": 0.036},
                         "n_withheld_positives": 60869, "protocol": "gems58-pooled-hide-v1",
-                        "evaluator": "gems58w.metric/v1", "ci": {"lo": 0.033, "hi": 0.056},
+                        "evaluator": "gems57.metric/v1", "ci": {"lo": 0.033, "hi": 0.056},
+                        "ci95": {"lo": 0.033, "hi": 0.056, "confidence_level": 0.95,
+                                 "method": "cluster bootstrap", "cluster_unit": "fault-segment"},
                         "coverage": 0.0561},
         "catalogue_distance_profile": {"on_catalogue": 0, "median_px": 19.7, "frac_le_3px": 0.106,
                                        "frac_le_10px": 0.309},
@@ -79,8 +81,8 @@ def evidence(tmp_path):
            "worst_spearman_full_footprint": 0.42, "worst_dot_overlap": 0.55,
            "worst_rho_submission": "some-repo", "worst_overlap_submission": "some-repo",
            "duplicate_count": 0, "verdict": "unique", "index": "registry/registry_merged.json",
-           # RATIFIED-UNIQ-v1 additionally requires byte/pixel uniqueness flags and
-           # row-level chance measurements (E) so firings can be classified.
+           # The current hard-stop requires complete inventory and byte/pixel checks;
+           # chance measurements are retained only as historical context.
            "byte_unique_among_checked": True, "pixel_unique_among_checked": True,
            "worst_jaccard_dot_sets": 0.05,
            "rows": [{"submission": "some-repo", "my_dots_within_3px_of_theirs": 0.55,
@@ -172,6 +174,20 @@ def test_stop_limits_are_inclusive_and_strictly_enforced(evidence):
     assert ok is False
 
 
+def test_saturated_witness_does_not_waive_the_raw_overlap_stop(evidence):
+    inv = json.loads(json.dumps(evidence["inv"]))
+    inv["rows"] = [{"submission": "saturated-witness",
+                    "my_dots_within_3px_of_theirs": 0.71,
+                    "chance_expected_overlap": 1.0}]
+    inv["worst_dot_overlap"] = 0.71
+    inv["informative_reading"] = {"overlap_firings": 0}
+    gs, ok = gates(evidence, inv=inv)
+    assert by_id(gs)["G3"]["ok"] is False
+    assert by_id(gs)["G3L"]["ok"] is False
+    assert "including against saturated witnesses" in by_id(gs)["G3"]["detail"]
+    assert ok is False
+
+
 def test_canary_at_or_above_the_limit_fails_closed(evidence):
     for auc, expect in ((0.90, False), (0.9001, False), (0.8999, True)):
         sig = json.loads(json.dumps(evidence["sig"]))
@@ -215,6 +231,15 @@ def test_any_failed_local_format_check_fails_closed(evidence):
     emi["validator"]["checks"]["values_in_unit_interval"] = {"ok": False, "detail": "max=1.5"}
     gs, ok = gates(evidence, emi=emi)
     assert by_id(gs)["G1"]["ok"] is False
+    assert ok is False
+
+
+def test_holdout_without_a_physical_cluster_95_percent_ci_is_not_reportable(evidence):
+    emi = json.loads(json.dumps(evidence["emi"]))
+    emi["holdout_dti"].pop("ci95")
+    gs, ok = gates(evidence, emi=emi)
+    assert by_id(gs)["G5"]["ok"] is False
+    assert "NOT REPORTABLE" in by_id(gs)["G5"]["detail"]
     assert ok is False
 
 

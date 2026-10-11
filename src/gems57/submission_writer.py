@@ -31,10 +31,13 @@ def write_submission(path, prediction, sample, footprint, *, note, name,
                      catalogue=None, metadata=None):
     """Write a locally validated single-band GeoTIFF and one-TIFF ZIP.
 
-    ``name`` and ``note`` are limited to 140 characters.  The prediction must
-    already be a 2-D finite float field in ``[0,1]``, aligned with the footprint,
-    and have no positive support outside it.  If ``catalogue`` is supplied, the
-    candidate must also have zero positive pixels on mapped faults.
+    ``name`` and ``note`` are limited to 140 characters. The in-memory
+    prediction must be a finite 2-D float field in ``[0,1]`` aligned with the
+    footprint, with zero mass outside it. For the serialized GeoTIFF, cells
+    outside the footprint are encoded as NaN with a NaN nodata tag, matching
+    the published sample-submission representation. If ``catalogue`` is
+    supplied, positive support on mapped faults is rejected. Local validation
+    remains distinct from organizer upload acceptance.
     """
     if not isinstance(name, str) or not name.strip() or len(name) > 140:
         raise ValueError('name must contain 1..140 non-whitespace characters')
@@ -78,8 +81,12 @@ def write_submission(path, prediction, sample, footprint, *, note, name,
         tmp_tif = _temp_path(path.parent, path.stem, path.suffix)
         tmp_zip = _temp_path(path.parent, path.stem, '.zip')
         tmp_receipt = _temp_path(path.parent, path.stem, '.json')
-        # grid.write_geotiff itself rejects shape, dtype, NaN/inf, and range drift.
-        grid.write_geotiff(tmp_tif, p.astype(np.float32, copy=False), nodata=None)
+        # Keep model arrays all-finite in memory, then encode cells outside the
+        # official footprint as NaN. The footprint-aware on-disk validator
+        # checks that no NaN or infinity entered the scored area.
+        serialized = p.astype(np.float32, copy=True)
+        serialized[~fp] = np.nan
+        grid.write_geotiff(tmp_tif, serialized, nodata=np.nan)
         report = gates.format_report(tmp_tif, sample, footprint=fp)
         if not report['ok']:
             raise ValueError(f'on-disk template validator rejected output: {report["problems"]}')

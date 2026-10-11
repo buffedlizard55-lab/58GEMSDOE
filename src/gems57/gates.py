@@ -1,11 +1,13 @@
 """On-disk format validation and compatibility access to the literal shared gate.
 
-All-finite export is a conservative project policy, not proof of portal behavior.
-Uniqueness delegates to gems57.uniqueness with the indexed public
-owner-repository inventory manifest. This inventory is not organizer-complete;
-private, unlinked, external, and otherwise inaccessible rasters may be absent.
-The inherited >=0.5 continuous-support and saturated-prior exemptions were
-unauthorized and are retired; no second or private clearance policy remains.
+The format check matches the published sample representation: finite [0,1]
+probabilities inside the footprint and NaN outside. A pass is still local
+preflight, not organizer upload acceptance. Uniqueness delegates to
+``gems57.uniqueness`` with the indexed public owner-repository inventory
+manifest. This inventory is not organizer-complete; private, unlinked, external,
+and otherwise inaccessible rasters may be absent. The inherited >=0.5
+continuous-support and saturated-prior exemptions were unauthorized and are
+retired; no second or private clearance policy remains.
 """
 from __future__ import annotations
 
@@ -35,16 +37,29 @@ def read_raster(path):
 
 
 def format_report(path, sample, epsg=32611, cell=100.0, footprint=None):
+    """Check a serialized candidate against the organizer's sample-grid mask.
+
+    Prediction values must be finite and in [0, 1] inside the study footprint;
+    the cells outside it must be NaN, matching the public specification and
+    sample_submission.tif. A pass is local preflight only, never portal acceptance.
+    """
     path, sample = Path(path), Path(sample)
     out = dict(path=str(path), bytes=path.stat().st_size, sha256=sha256(path))
     problems = []
     with rasterio.open(path) as src, rasterio.open(sample) as ref:
         a = src.read(1)
+        ref_footprint = np.isfinite(ref.read(1))
+        if footprint is None:
+            fp = ref_footprint
+        else:
+            fp = np.asarray(footprint, bool)
+        nodata_label = ("NaN" if src.nodata is not None and not np.isfinite(src.nodata)
+                        else float(src.nodata) if src.nodata is not None else None)
         out.update(bands=src.count, dtype=src.dtypes[0], crs=str(src.crs), width=src.width, height=src.height,
                    bounds=list(src.bounds), ref_bounds=list(ref.bounds), transform=list(src.transform)[:6],
-                   nodata=float(src.nodata) if src.nodata is not None and np.isfinite(src.nodata) else str(src.nodata) if src.nodata is not None else None,
-                   blocksize=list(src.block_shapes[0]), fixture_grid=ref.shape != SHAPE,
-                   has_validity_mask=bool((src.dataset_mask() == 0).any()))
+                   nodata=nodata_label, blocksize=list(src.block_shapes[0]), fixture_grid=ref.shape != SHAPE,
+                   has_validity_mask=bool((src.dataset_mask() == 0).any()),
+                   footprint_pixels=int(fp.sum()))
         if src.count != 1:
             problems.append(f"{src.count} bands, must be 1")
         if src.dtypes[0] != "float32":
@@ -60,35 +75,43 @@ def format_report(path, sample, epsg=32611, cell=100.0, footprint=None):
         if ref.shape == SHAPE:
             if src.crs is None or src.crs.to_epsg() != epsg:
                 problems.append(f"CRS must be EPSG:{epsg}")
-            # TRANSFORM is an affine.Affine (9 elements), so compare six-to-six.
             if tuple(src.transform)[:6] != tuple(TRANSFORM)[:6]:
                 problems.append("transform differs from pinned competition transform "
                                 f"{tuple(TRANSFORM)[:6]}")
             if tuple(src.res) != (cell, cell):
                 problems.append(f"resolution {src.res} != {(cell, cell)}")
+        if fp.shape != a.shape:
+            problems.append(f"footprint shape {fp.shape} != raster shape {a.shape}")
+        elif not np.array_equal(fp, ref_footprint):
+            problems.append("provided footprint differs from the sample_submission finite mask")
         finite = np.isfinite(a)
-        out.update(nan_pixels=int(np.isnan(a).sum()), infinity_pixels=int(np.isinf(a).sum()), n_nan=int((~finite).sum()))
-        if not finite.all():
-            problems.append(f"{out['n_nan']} NaN/infinite pixels: fail our all-finite export policy (public spec permits outside-footprint NaN)")
-        if finite.any():
-            lo, hi = float(a[finite].min()), float(a[finite].max())
-            out.update(min=lo, max=hi, mean=float(a[finite].mean()), n_nonzero=int(((a > 0) & finite).sum()), mass=float(a[finite].sum(dtype=np.float64)))
+        inside = a[fp] if fp.shape == a.shape else np.asarray([], dtype=a.dtype)
+        outside = a[~fp] if fp.shape == a.shape else np.asarray([], dtype=a.dtype)
+        out.update(nan_pixels=int(np.isnan(a).sum()), infinity_pixels=int(np.isinf(a).sum()),
+                   finite_inside=int(np.isfinite(inside).sum()), nan_outside=int(np.isnan(outside).sum()),
+                   finite_outside=int(np.isfinite(outside).sum()))
+        if np.isinf(a).any():
+            problems.append(f"{int(np.isinf(a).sum())} infinite pixels are not allowed")
+        if fp.shape == a.shape:
+            if not np.isfinite(inside).all():
+                problems.append("prediction contains NaN/non-finite values inside the study footprint")
+            if not np.isnan(outside).all():
+                problems.append("pixels outside the study footprint must be null/NaN as in the official sample")
+        if src.nodata is None or np.isfinite(src.nodata):
+            problems.append("nodata tag must be NaN to match the official sample_submission.tif")
+        finite_inside = inside[np.isfinite(inside)]
+        if finite_inside.size:
+            lo, hi = float(finite_inside.min()), float(finite_inside.max())
+            out.update(min=lo, max=hi, mean=float(finite_inside.mean()),
+                       n_nonzero=int((finite_inside > 0).sum()),
+                       mass=float(finite_inside.sum(dtype=np.float64)))
             if lo < 0 or hi > 1:
-                problems.append(f"values outside [0,1]: min {lo}, max {hi}")
+                problems.append(f"in-footprint values outside [0,1]: min {lo}, max {hi}")
         else:
-            problems.append("every pixel is NaN/infinite")
-        if src.nodata is not None and (not np.isfinite(src.nodata) or not 0 <= src.nodata <= 1):
-            problems.append("nodata tag outside all-finite [0,1] export policy")
-        if footprint is not None:
-            fp = np.asarray(footprint, bool)
-            if fp.shape != a.shape:
-                problems.append(f"footprint shape {fp.shape} != raster shape {a.shape}")
-            else:
-                out["mass_outside_footprint"] = int(((a > 0) & ~fp).sum())
-                if out["mass_outside_footprint"]:
-                    problems.append(f"{out['mass_outside_footprint']} emitted pixels outside the valid footprint")
+            problems.append("study footprint has no finite prediction values")
+        out["mass_outside_footprint"] = int(((a > 0) & ~fp).sum()) if fp.shape == a.shape else None
     out.update(problems=problems, ok=not problems,
-               validation_class="local on-disk template/range check; not organizer upload acceptance")
+               validation_class="local on-disk check against the official sample representation; not organizer upload acceptance")
     return out
 
 

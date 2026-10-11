@@ -37,8 +37,8 @@ footer{color:#41505f;font-size:.82rem;border-top:1px solid #d7dee6;margin-top:2r
 </header>
 
 <section>
-<div class="ok-box">
-  <p style="margin:.2rem 0"><span class="badge ok">OK TO DOWNLOAD AND SUBMIT</span></p>
+<div class="bad-box">
+  <p style="margin:.2rem 0"><span class="badge bad">NOT OK TO SUBMIT — DO NOT SUBMIT</span></p>
   <p><b>File:</b> <code>gems61-deepedge-sigribbon-40000-20261011T201101Z.tif</code> · <b>SHA256</b>
      <span class="mono">d35e2b4d68588672d526a88f…</span>
      ✅ recomputed from disk and matches the receipt</p>
@@ -51,7 +51,7 @@ footer{color:#41505f;font-size:.82rem;border-top:1px solid #d7dee6;margin-top:2r
     <a class="big-btn gray" href="downloads/gems61-deepedge-sigribbon-40000-20261011T201101Z.json">Format receipt (JSON)</a>
     <a class="big-btn gray" href="submit.html">Portal checklist</a>
   </div>
-  <p class="small">This file passed every gate recorded in the run card; submitting it is your decision (promotion to a weekly slot is a separate selector step).</p>
+  <p class="small">This file is published for review. It did NOT pass every gate (see below). Do not submit it.</p>
 </div>
 
 <h2>How to make a submission — executive summary</h2>
@@ -149,12 +149,12 @@ is context only — see IR-58-S7-02.</p>
 <b>694</b> · pre-placement surface screen <i>and</i> final-dot screen both run.</p>
 <table>
 <tr><th>reading</th><th>result</th></tr>
-<tr><td>Governing verdict (RATIFIED-UNIQ-v1)</td><td><b>UNIQUE_UNDER_RATIFIED_LITERAL_FIRES</b></td></tr>
+<tr><td>Verdict under the uniqueness rule in force (literal 70% stop)</td><td><b>DUPLICATE_OR_DRIFT_LITERAL_STOP</b></td></tr>
 <tr><td>worst rank correlation ρ (limit 0.90)</td><td class="num">0.0130 · firings 0</td></tr>
 <tr><td>worst forward 3-px overlap (limit 0.70)</td><td class="num">1.0000</td></tr>
 <tr><td>literal 70% firings (published beside the governing verdict)</td>
 <td>74 (54 of them saturated, E ≥ 0.99)</td></tr>
-<tr><td>rule A (O &gt; 0.70 with E &lt; 0.70 — informative)</td><td>0</td></tr>
+<tr><td>rule A (O &gt; 0.70 with E &lt; 0.70 — informative; chance-corrected reading, recorded, not governing)</td><td>0</td></tr>
 <tr><td>rule B (chance-corrected lift &gt; 0.50 with E &lt; 0.99)</td><td>0</td></tr>
 <tr><td>H7-C gap pass (preregistered registry-gap trim)</td>
 <td>0 witness(es) trimmed; 0 dots removed before the final screen</td></tr>
@@ -174,7 +174,7 @@ is context only — see IR-58-S7-02.</p>
 <p class="small">Hypothesis: H7-A: deep-structure step edges (depth_to_base_surf, cond_surf, tc) with sigma-adaptive parallel dotted ribbons (H7-B relief-conditioned width, H7-C registry-gap uniqueness selection)<br>
 Mechanism: step-edge (first-derivative) detector on subsurface/magnetic-structure surfaces finds cover-buried faults absent from the surface-trace catalogue; ribbon width matches the measured ridge-&gt;truth localization error; per-stratum pattern chosen by exact-metric U; dots exactly 1.0<br>
 Named non-fault mimic: lithologic contacts and basin-fill pinch-outs, dike swarms, alteration fronts, survey-footprint edges<br>
-Verdict: <b>promote</b> — promote requires ALL of: uniqueness clear under RATIFIED-UNIQ-v1; paired A1-A0 HOLDOUT-DTI delta &gt; 0 with the 95% CI lower bound &gt; 0; leakage canary CLEAN; cross-fitted pooled HOLDOUT-DTI above the same-instrument reference arm (the published session-5 concordance file re-scored on this instrument); and a non-degenerate emission (&gt;= 1000 dots — a vacuous clearance on a 0-dot raster is not a candidate). AMENDED PREREGISTRATION (before EXP-3): the initial bar &#x27;A1 &gt; 0.043575&#x27; was withdrawn after measuring that 0.043575 comes from a different withhold instrument (gems58-pooled-hide-v1, 60,988 withheld positives) and is not like-for-like with gems61-buffered-hide-v1; the same-instrument reference replaces it. See IRREGULARITIES IR-58-S7-02.<br>
+Verdict: <b>negative</b> — The uniqueness rule in force (merged PROMPT.md: literal 70% / rho&gt;0.90 stop, no chance-corrected waiver) fires on the final dots: literal_overlap_firings=74, worst forward overlap 1.0. A directly observed literal trigger is a decisive duplicate/drift stop: verdict is negative and the file is NOT CLEARED — DO NOT SUBMIT (retained for review). The chance-corrected readings (rule A 0, rule B 0, rank correlation 0) are recorded beside the literal reading and are NOT used to waive the stop. All measurement gates otherwise held: canary CLEAN, paired A1-A0 delta&gt;0 with 95% CI lower&gt;0, A1 beats the same-instrument reference, emission &gt;= 1000 dots. Note: 0.043575 comes from a different withhold instrument (gems58-pooled-hide-v1) and is not like-for-like with gems61-buffered-hide-v1 (IR-58-S7-02).<br>
 Full card: <a href="downloads/gems61-run_card.json">run_card.json (copy)</a> ·
 source of truth: <code>evidence/gems61/run_card.json</code> ·
 σ receipt: <code>evidence/gems61/sigma.json</code></p>
@@ -195,6 +195,6 @@ source of truth: <code>evidence/gems61/run_card.json</code> ·
 Tversky index — <a href="https://en.wikipedia.org/wiki/Tversky_index">wikipedia.org</a></li>
 </ul>
 </section>
-<footer>58GEMSDOE · session 7 · generated 2026-10-11T20:47:29Z
+<footer>58GEMSDOE · session 7 · generated 2026-10-11T21:00:45Z
 · Core values: Maximize P(Win), Own the Outcome</footer>
 </body></html>

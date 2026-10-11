@@ -1,6 +1,6 @@
 # Irregularities log (58GEMSDOE)
 
-> **Historical research log — not the current status source.** Some older entries below report obsolete inventory counts, unbuffered holdout values, private metric copies, or propose exemptions from the literal overlap stop. Those suggestions are not authorized. Use [`docs/IRREGULARITIES.md`](../IRREGULARITIES.md), [`docs/LEADERBOARD.md`](../LEADERBOARD.md), and `evidence/run_card.json` for the current decision. The current candidate is **NOT OK TO SUBMIT — DO NOT SUBMIT**.
+> **Historical research log — not the current status source.** Some older entries below report obsolete inventory counts, unbuffered holdout values, private metric copies, or propose exemptions from the literal overlap stop. Those suggestions are not authorized. Use [`docs/IRREGULARITIES.md`](../IRREGULARITIES.md), [`docs/LEADERBOARD.md`](../LEADERBOARD.md), [`docs/research/session7_review_20261011.md`](session7_review_20261011.md), and `evidence/58gemsdoe_unique_ribbon/run_card.json` for the current decision. The current downloadable artifact is **NOT OK TO SUBMIT — DO NOT SUBMIT**.
 
 Each entry: what was observed, how it was verified, and the action taken. Newest last. Nothing here is a score.
 

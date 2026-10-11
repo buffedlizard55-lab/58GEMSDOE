@@ -68,5 +68,7 @@
   "passed": 12,
   "total": 12,
   "verdict": "LOCAL FORMAT OK",
-  "caveat": "local format validity is not organizer acceptance, not a uniqueness clearance outside the screened inventory, and not a score"
+  "caveat": "local format validity is not organizer acceptance, not a uniqueness clearance outside the screened inventory, and not a score",
+  "reportability_status": "ARCHIVED FORMAT CHECK ONLY — no model performance or organizer score established by this file.",
+  "submission_status": "NOT OK TO SUBMIT — DO NOT SUBMIT; archived artifact"
 }

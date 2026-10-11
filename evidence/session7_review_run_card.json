@@ -1,0 +1,146 @@
+{
+  "evidence_class": "REVIEW-RUN-CARD",
+  "generated_utc": "2026-10-11T19:44:24Z",
+  "candidate_file": "docs/downloads/gems58-concordance-ribbon-40768-20261011T160514Z.tif",
+  "candidate_file_sha256": "f709b6f12d5188e34aa3aed3b83d785b97a232224692dcdfffedaa009dee9d0d",
+  "candidate_decoded_sha256": null,
+  "raster_sha256": "f709b6f12d5188e34aa3aed3b83d785b97a232224692dcdfffedaa009dee9d0d",
+  "submission_name": "gems58-concordance-ribbon-40768-20261011T160514Z",
+  "submission_note": "Ribbon lane H58-X1: 2-family-concordant Hessian ridges, sigma-adaptive dotted ribbons 0/±300/±600 m; 40768 isolated dots at 1.0.",
+  "submission_note_status": "IDENTIFICATION ONLY — NOT FOR SUBMISSION",
+  "submission_status": "NOT_OK_TO_SUBMIT",
+  "promote_or_negative": "negative",
+  "verdict": "negative",
+  "verdict_reason": "Required gates open: G2P, G3, G4, G5. See site_gates and current receipts; do not submit.",
+  "site_verdict": "NOT_OK_TO_SUBMIT",
+  "site_gates": [
+    {
+      "id": "G1",
+      "name": "Local format preflight (not portal acceptance)",
+      "ok": true,
+      "detail": "15/15 receipt checks pass; on-disk SHA-256 matches the emission receipt. This is only a local format/range result; the reported portal [0,1] rejection is unresolved.",
+      "informational": false
+    },
+    {
+      "id": "G2",
+      "name": "Local witness subset (diagnostic only)",
+      "ok": true,
+      "detail": "31 local witnesses checked; pass/fail here is not a full registry clearance and is not used as a substitute for the pre-placement or final-dot gates.",
+      "informational": true
+    },
+    {
+      "id": "G2P",
+      "name": "Pre-placement surface gate",
+      "ok": false,
+      "detail": "A separate hash-bound pre-placement surface receipt is required against the fresh inventory. The qualification receipt is missing or does not bind this candidate/inventory.",
+      "informational": false
+    },
+    {
+      "id": "G3",
+      "name": "Final-dot uniqueness and inventory gate (literal protocol)",
+      "ok": false,
+      "detail": "Recorded scan checked 703 indexed rasters at 2026-10-11T05:34:05Z; complete for that accessible snapshot=True, missing/invalid=0, source errors=0. Literal forward-overlap firings=83 (29 informative, 54 saturated/vacuous); worst overlap=1.0000, worst rank correlation=0.2823. unique=False, stop_required=True. The scan covers its saved public-inventory snapshot only, not an organizer-wide inventory; freshness clearance=False. A literal trigger is never waived by chance correction.",
+      "informational": false
+    },
+    {
+      "id": "G4",
+      "name": "Promotion-grade feature-alone leakage canary",
+      "ok": false,
+      "detail": "feature-alone canary receipt is missing Feature-level results must use the current split and be bound to this candidate and inventory.",
+      "informational": false
+    },
+    {
+      "id": "G5",
+      "name": "Buffered spatial HOLDOUT-DTI with defensible 95% CI",
+      "ok": false,
+      "detail": "No hash-bound, reportable shared-evaluator qualification is present. qualification receipt does not mark the holdout passed. Saved candidate measurement uses legacy gems58-pooled-hide-v1 / gems58w.metric/v1 (exact triangular kernel, R=3 px, alpha=0.2, beta=0.8); it is not a promotion-grade shared-evaluator result.",
+      "informational": false
+    },
+    {
+      "id": "G5i",
+      "name": "Legacy diagnostic arithmetic cross-check (not promotion evidence)",
+      "ok": true,
+      "detail": "Legacy metric arithmetic verdict=AGREE. This checks arithmetic only; its numerical diagnostic is withheld from the public gate panel because it does not carry the current promotion-grade protocol and defensible 95% CI. It does not upgrade the old evaluator, split, or selection process.",
+      "informational": true
+    },
+    {
+      "id": "G6",
+      "name": "Organizer receipt (post-upload only)",
+      "ok": false,
+      "detail": "No organizer submission receipt is present. This is not a pre-upload eligibility gate and cannot be inferred from a local format check; no score is attributed to this TIFF.",
+      "informational": true
+    }
+  ],
+  "hypothesis": {
+    "id": "H58-U1",
+    "title": "Relief-conditioned width around the existing topographic ridge surface",
+    "status": "PROPOSED — NOT IMPLEMENTED OR VALIDATED",
+    "candidate_output_emitted": false,
+    "candidate_output_sha256": null,
+    "layers": [
+      "det_elev",
+      "det_elev_slope"
+    ],
+    "mechanism": "Localization error may vary with relief/scarp expression; only a wider ribbon near an already-detected ridge could cover positional uncertainty for a nearby unmapped trace. This cannot recover a fault the fixed ridge surface entirely misses.",
+    "named_non_fault_mimic": "drainage channels, alluvial-fan fronts, terrace margins, road cuts, and erosional scarps",
+    "expected_benefit": "Low to moderate potential; high uncertainty; no numeric forecast.",
+    "implementation_cost_estimate": "1–2 engineering hours; estimate only.",
+    "untried_audit": "Specific relief-conditioned ribbon-width rule not found in this checkout; see docs/research/hypotheses_new.md."
+  },
+  "reviewed_artifact": {
+    "file": "docs/downloads/gems58-concordance-ribbon-40768-20261011T160514Z.tif",
+    "hypothesis_id": "H58-X1 — legacy cross-family concordance artifact",
+    "sha256": "f709b6f12d5188e34aa3aed3b83d785b97a232224692dcdfffedaa009dee9d0d",
+    "positive_pixels": 40768,
+    "new_file_emitted_this_review": false,
+    "not_the_output_of_hypothesis": "H58-U1"
+  },
+  "holdout": {
+    "evidence_class": "HOLDOUT-DTI",
+    "status": "NOT MEASURED",
+    "evaluator": null,
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "protocol": null,
+    "withheld_positive_pixels": null,
+    "ci95": null,
+    "reason": "No candidate-, inventory-, evaluator-, and protocol-bound reportable result with a defensible 95% CI is available.",
+    "legacy_diagnostic_receipts": [
+      "evidence/ribbon/run_card_v2.json",
+      "evidence/ribbon/adaptive_arms.json",
+      "evidence/ribbon/shared_metric_crosscheck.json"
+    ],
+    "legacy_values_are_not_current_holdout": true
+  },
+  "registry": {
+    "literal_rule": "PARALLEL-RUN-LITERAL-70%-v1",
+    "rule_statement": "Stop if rank correlation >0.90 OR if >70% of candidate dots are within 3 px of any one witness. Any literal trigger is a stop; do not waive with chance correction or saturated-witness reasoning.",
+    "freshness_decision": "BLOCKED_NOT_EXHAUSTIVE",
+    "fresh_current_inventory": false,
+    "freshness_receipt": "evidence/registry_freshness_audit.json",
+    "final_dot_scan_status": "STOP — SNAPSHOT ONLY; NOT CURRENT CLEARANCE",
+    "final_dot_scan_receipt": "evidence/ribbon/uniqueness_full_inventory.json",
+    "rasters_checked_in_saved_scan": 703,
+    "literal_overlap_firings": 83,
+    "worst_literal_forward_overlap": 1.0,
+    "worst_rank_correlation": 0.2823334549607636,
+    "stop_required_in_saved_scan": true,
+    "preplacement_surface_status": "NOT CLEARED AGAINST A FRESH EXHAUSTIVE INVENTORY",
+    "preplacement_receipt": "evidence/ribbon/concordance_surface_uniqueness.json"
+  },
+  "local_validator": {
+    "all_checks_passed": true,
+    "checks_passed": 15,
+    "checks_total": 15,
+    "scope": "Local format/range only; not portal acceptance.",
+    "reported_portal_range_error": "UNRESOLVED — no response payload or hash-bound receipt."
+  },
+  "experiment_budget": {
+    "experiments_used": 0,
+    "maximum_experiments": 3,
+    "time_limit_hours": 2,
+    "slot_selections": 0
+  },
+  "next_action": "Refresh and verify the current public inventory, then pass the pre-placement surface gate before any H58-U1 experiment or new emission.",
+  "archived_prior_run_card": "evidence/ribbon/run_card_v2.json",
+  "slots_used": 0
+}
