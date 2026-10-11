@@ -1,41 +1,23 @@
-"""Exact Distance-weighted Tversky Index (DTI) for the DOE GEMS Prize.
+"""LEGACY exact-metric copy — not the active evaluator or submission path.
 
-Transcribed from the official problem description (DrivenData page 967,
-"Performance metric") which is reproduced verbatim in
-``docs/research/metric.md`` and linked in ``registry/sources.json``:
+This ``gems58w`` implementation is retained for audit/history. Current work
+must use the shared ``gems57`` implementation and ``gems57.evaluate_holdout``;
+no new score, holdout, or submission may be routed through this private copy.
+The current repository-wide status and corrected algebra are documented in
+``docs/research/metric.md``.
 
-    k(d)   = max(1 - d / R, 0),          R = 300 m = 3 pixels
-    TP_w   = sum_{g in G}  max_{x: d(x,g) <= R} p(x) * k(d(x,g))
-    FP_w   = sum_{x: p(x) > 0} p(x) * [1 - max_{g in G} k(d(x,g))]
-    FN_w   = sum_{g in G}  [1 - max_{x: d(x,g) <= R} p(x) * k(d(x,g))]
-    DTI    = TP_w / (TP_w + alpha * FP_w + beta * FN_w + eps),  alpha = 0.2, beta = 0.8
+The official metric definitions in the functions below remain useful for
+small regression/educational cases, but the old prose that treated
+``k > alpha*s`` as a general ribbon rule was wrong. For an arbitrary prediction
+pattern change the exact condition uses marginal changes after max-credit
+interactions:
 
-Because ``FN_w = |G| - TP_w`` the index collapses to
+    U = (1 - alpha*s) * DeltaTP - alpha*s * DeltaFP
 
-    DTI = TP_w / (alpha * (TP_w + FP_w) + beta * |G| + eps).            (A)
-
-(A) is the form used everywhere in this repository; ``dti_bruteforce`` below is a
-literal, unoptimised transcription of the three sums and the tests assert that
-every fast path reproduces it to machine precision.
-
-Two exact consequences drive the whole ribbon lane (proved in
-``docs/research/ribbon-algebra.md`` and re-verified by
-``scripts/ribbon_verify_theorems.py``):
-
-1. **Binary dominates soft.**  For the support-scaled family ``p_lambda = lambda * b``
-   with ``b`` binary, ``DTI(lambda) = lambda*T / (alpha*lambda*(T+F) + beta*G)``
-   which is strictly increasing in ``lambda`` on ``(0, 1]``.  A graded probability
-   raster is therefore strictly dominated by its own thresholded support, and the
-   emitted value must be exactly ``1.0``.
-2. **Marginal inclusion.**  Adding an emitted pixel of own-credit ``k`` changes
-   ``TP`` by ``k`` and ``FP`` by ``1 - k``.  Writing ``s = DTI_0``,
-
-       DTI' >= s   <=>   k * (1 - alpha*s) >= alpha*s * (1 - k)
-                   <=>   k >= alpha*s.
-
-   So at ``s = 0.3195`` a dot pays for itself iff its kernel credit exceeds
-   ``0.064``, i.e. iff it lands within 280.9 m of a scored truth pixel.  The
-   emission rule is a *distance* filter, not a precision filter.
+and a change improves DTI iff ``U > 0``. The isolated-dot shortcut
+``k > alpha*s`` applies only when one new, non-redundant dot has
+``DeltaTP = k`` and ``DeltaFP = 1 - k``. Do not use the legacy emitter's
+Normal/lattice calculations as promotion-grade evidence.
 """
 
 from __future__ import annotations
@@ -182,7 +164,12 @@ def dti_bruteforce(pred, truth, alpha=ALPHA, beta=BETA, radius=RADIUS_PX) -> DTI
 
 
 def marginal_inclusion_threshold(dti0: float, alpha: float = ALPHA) -> float:
-    """Smallest own-credit ``k`` for which one more emitted pixel still pays at ``dti0``."""
+    """Isolated non-redundant dot threshold only; not a general pattern rule.
+
+    This shortcut assumes the new dot earns fresh truth credit ``DeltaTP = k``
+    and adds ``DeltaFP = 1-k``. Use the shared exact metric and its marginal
+    changes for redundant dots or interacting ribbon patterns.
+    """
     return alpha * dti0
 
 

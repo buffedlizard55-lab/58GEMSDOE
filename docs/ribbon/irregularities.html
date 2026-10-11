@@ -1,48 +1,18 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Irregularities — 58GEMSDOE ribbon lane</title>
-<link rel="stylesheet" href="assets/site.css"></head><body><div class="wrap">
-<nav><a href="index.html">Overview</a><a href="executive-summary.html">How to submit</a>
-<a href="hypotheses.html">Hypotheses</a><a href="research.html">Research</a>
-<a href="sources.html">Sources</a><a href="irregularities.html">Irregularities</a></nav>
-<h1>Irregularities flagged for review</h1>
-<p>Nothing here is hidden in a footnote. Each item is a place where the evidence does not support
-the strongest available reading.</p>
-<div class="card bad"><h3 style="margin-top:0">IR-58-01 — the two owner-reported ceilings disagree</h3>
-<p>The brief calls <strong>0.3774</strong> the "current GEMSDOE high score" and
-<strong>0.3195</strong> "the highest score right now"; the group's own best artifact is recorded by
-the sibling lane at <strong>0.2778</strong>. All three are OWNER-REPORTED. No organizer receipt in
-this checkout ties any leaderboard number to any file hash. <strong>Needs an owner ruling.</strong></p></div>
-<div class="card bad"><h3 style="margin-top:0">IR-58-02 — the mandated holdout cannot score an
-off-catalogue file</h3>
-<p>The holdout's withheld truth <em>is</em> catalogue. Any catalogue-margin screen — a property every
-live-scoring file in the portfolio has — therefore makes its HOLDOUT-DTI read exactly
-<strong>0 by construction</strong>. This is not a defect of the file; it is the instrument.
-Proof: the delivered file scores
-<strong>0.000000</strong>; the identical geometry with the screen relaxed to
-1 px (still zero dots on the catalogue) scores
-<strong>0.052112</strong>.
-The standing rule "validate on the holdout before touching a slot" is therefore
-<strong>not sufficient</strong> for this family. Sibling lane measurement of the same obstruction:
-<code>IR-57-INSTR-01</code>, Spearman(live, proxy-DTI) = −0.928.</p></div>
-<div class="card warn"><h3 style="margin-top:0">IR-58-03 — the live-evidence correlations are
-n = 15 and confounded</h3>
-<p>dot-count (log) ρ = −0.810; 0–5° relative strike ρ = −0.810; 25–30° ρ = +0.864; dots ≤ 2 px from
-a mapped fault ρ = −0.544; median catalogue distance ρ = +0.766. Owner-reported, one portfolio,
-heavy collinearity. They justify a design choice; they do not calibrate one.</p></div>
-<div class="card warn"><h3 style="margin-top:0">IR-58-04 — a 90° direction bug was found and fixed
-mid-session</h3>
-<p>The first ridge release returned the <em>along-strike</em> eigenvector while labelling it
-across-strike, so the first "ribbon" was offset along the ridge and the first geometry comparison
-measured mass instead of width. Fixed in <code>src/gems58w/ridges.py</code> (sign convention plus a
-non-maximum-suppression plateau rule that kept flat background), the field cache was rebuilt, and
-every number on this site comes from the corrected field. The lesson is kept in the README.</p></div>
-<div class="card warn"><h3 style="margin-top:0">IR-58-05 — transport provenance is not origin
-provenance</h3>
-<p>The 419 MB feature stack arrived over a community-maintained GitHub bridge. Its sha256 is pinned
-and re-verified here, which authenticates <em>transport</em>, not official origin. The DrivenData
-data tab redirects to login and was unreachable from this sandbox.</p></div>
-
-<footer>58GEMSDOE · ribbon lane · every figure on this site is rendered from
-<code>evidence/*.json</code> · no organizer-confirmed score exists for any artifact here.</footer>
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Irregularities — archived ribbon site</title><link rel="stylesheet" href="assets/site.css"></head>
+<body><div class="wrap">
+<nav><a href="index.html">Archive notice</a><a href="hypotheses.html">Hypotheses</a><a href="research.html">Research note</a><a href="sources.html">Sources</a><a href="irregularities.html">Irregularities</a></nav>
+<div class="card bad" role="alert"><h1>NOT OK TO SUBMIT — DO NOT SUBMIT</h1><p>Use the root status and current evidence; this page is a historical mirror and cannot clear a candidate.</p><p><a href="../index.html">Current status page</a> · <a href="../IRREGULARITIES.md">Current irregularities log</a> · <a href="../LEADERBOARD.md">Score attribution record</a></p></div>
+<h2>Current blockers</h2>
+<ol>
+<li>The current candidate's final-dot overlap is 1.0 within 3 px of a full-footprint-positive registry raster; the literal limit is 0.70.</li>
+<li>Only 694 of 695 pinned rasters were restored, and the public inventory is stale/incomplete.</li>
+<li>The candidate-specific pre-placement surface gate is not cleared.</li>
+<li>No promotion-grade buffered/nested HOLDOUT-DTI exists for the current instrument.</li>
+<li>The local format preflight does not establish portal acceptance or an organizer score.</li>
+</ol>
+<h2>Historical result caveat</h2>
+<p>Older <code>gems58w</code> holdout and width-sweep outputs are not promotion-grade. Do not use their values as current HOLDOUT-DTI. Do not treat the official leaderboard's 0.2778 row for extradr19 as a score for the GEMSDOE32 H33 TIFF; its owner page says that artifact has no organizer score.</p>
+<footer>Negative results and irregularities are preserved; no slot has been selected.</footer>
 </div></body></html>

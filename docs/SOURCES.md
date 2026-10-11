@@ -11,7 +11,9 @@ Last checked: **2026-10-11 (UTC)**. Statuses below distinguish official page tex
 | [Official GEMS Prize Rules (Sept. 2026 PDF)](https://docs.nlr.gov/docs/fy26osti/96647.pdf) | §3.4 permits up to three automated-scoring submissions per week; only one final submission is selected across both prize rounds. §3.2 requires generative-AI use to be described in the narrative when applicable. Appendix A says 5:00 p.m. ET on the deadline date. | Fetched directly 2026-10-11. Eligibility, final package, code/documentation, and other terms remain the competitor’s responsibility; read the complete PDF. |
 | [DrivenData rules landing page](https://www.drivendata.org/competitions/306/competition-doe-gems/rules/) | Links to the official rules resource. | Fetched directly 2026-10-11. |
 | [DrivenData data tab](https://www.drivendata.org/competitions/306/competition-doe-gems/data/) | Redirects to the DrivenData login page. | Fetched directly 2026-10-11. No login was attempted. |
-| [DrivenData submissions page](https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/) | Redirects to the DrivenData login page. | Fetched directly 2026-10-11. No account action or upload was performed; there is no organizer receipt in this workspace. |
+| [DrivenData submissions page](https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/) | Redirects to the DrivenData login page. | Fetched directly 2026-10-11. No account action or upload was performed; there is no receipt for the current 58GEMSDOE diagnostic TIFF in this workspace. |
+| [DrivenData official public leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/) | Snapshot observed 2026-10-11 UTC: xiaofanhu rank 1 / 0.4133; DARD rank 8 / 0.3195; extradr19 rank 23 / 0.2778. | Fetched directly from the public page. Dynamic public rows; no file/hash crosswalk or submission receipt was exposed. The selected rows and caveat are saved in `evidence/official_leaderboard_observation_20261011.json` and `docs/LEADERBOARD.md`. |
+| [GEMSDOE32 owner-maintained H33 page](https://buffedlizard55-lab.github.io/GEMSDOE32/docs/index.html) and [public GitHub source](https://github.com/buffedlizard55-lab/GEMSDOE32/blob/main/docs/index.html) | Page states “NO ORGANISER SCORE EXISTS” for the named H33 artifact and labels 0.2747 a model projection. | The page source was fetched live through GitHub's public contents API on 2026-10-11. This is a team-maintained statement, not an organizer receipt; it does not identify which file earned extradr19's 0.2778 leaderboard row. |
 
 ### Deadline discrepancy
 
@@ -37,7 +39,8 @@ The public competition homepage states **Dec. 3, 2026, 11:59 p.m. UTC**. Appendi
 
 ## Claims deliberately not made
 
-- No current public leaderboard number or competitor score was checked.
-- No organizer score/receipt was obtained. No number in the local run evidence is `ORGANIZER-CONFIRMED`.
+- The 2026-10-11 public-board snapshot is not an organizer receipt, a final private-round result, or an attribution to a TIFF. No official hash-to-score crosswalk for the GEMSDOE32 H33 file or the current 58GEMSDOE diagnostic was obtained.
+- No organizer score/receipt for the current 58GEMSDOE TIFF was obtained. No model result in the local run evidence is `ORGANIZER-CONFIRMED`.
+- The GEMSDOE32 owner page's no-score/projection statement is a team-maintained page, not independent organizer confirmation.
 - No raw GeoDAWN, SGMC 2026, 3DEP DEM, or GDR archive was downloaded in this review.
 - No organizer confirmation was obtained for the deadline discrepancy, NaN/mask behavior, or whether any candidate file is accepted.

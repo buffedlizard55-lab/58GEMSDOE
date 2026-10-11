@@ -1,7 +1,8 @@
 # Irregularities log (58GEMSDOE)
 
-Each entry: what was observed, how it was verified, and the action taken.
-Newest last. Nothing here is a score.
+> **Historical research log — not the current status source.** Some older entries below report obsolete inventory counts, unbuffered holdout values, private metric copies, or propose exemptions from the literal overlap stop. Those suggestions are not authorized. Use [`docs/IRREGULARITIES.md`](../IRREGULARITIES.md), [`docs/LEADERBOARD.md`](../LEADERBOARD.md), and `evidence/run_card.json` for the current decision. The current candidate is **NOT OK TO SUBMIT — DO NOT SUBMIT**.
+
+Each entry: what was observed, how it was verified, and the action taken. Newest last. Nothing here is a score.
 
 1. **IR-58-DATA-01 — public `labels.tif` is the catalogue, not hidden truth.**
    `data/official/labels.tif` is byte-identical to `data/official/existing_faults.tif`
@@ -193,3 +194,11 @@ Newest last. Nothing here is a score.
     place mass *beside* the catalogue. Action: CTX is reported as a negative result (it is still in the
     evidence as an arm), the PROX family is used instead, and the collapse is flagged so that a future
     lane does not re-derive it.
+
+## Session-3 correction (2026-10-11 UTC) — attribution and lane status
+
+19. **IR-58-BOARD-01 — 0.2778 is a public leaderboard row, not an H33 file score.** The official live public page observed on 2026-10-11 showed xiaofanhu #1 at 0.4133, DARD #8 at 0.3195, and extradr19 #23 at 0.2778. The GEMSDOE32 owner page says its H33 artifact has no organizer score and describes 0.2747 as a projection. No receipt/hash crosswalk links 0.2778 to H33. See `docs/LEADERBOARD.md` and `evidence/official_leaderboard_observation_20261011.json`.
+
+20. **IR-58-LEGACY-01 — prior width numbers and generated ribbon pages are not promotion evidence.** The archived E1/E2 pipeline has same-cell selection leakage, an unbuffered split, and invalid inference for promotion; its numbers are not current HOLDOUT-DTI claims. The previous ribbon site incorrectly used “Download: OK” despite failing current gates. Its pages are now a red research-only notice, and legacy build/submit CLIs are disabled. Use `evidence/run_card.json` and root `docs/index.html` for current status.
+
+21. **IR-58-UNIQ-03 — literal 3-px overlap remains a hard stop, not a protocol exemption.** The current candidate's frozen scan found 1.0 forward overlap against a full-footprint-positive raster; 694/695 pinned rasters were checked and the current inventory is stale. Earlier research proposed excluding dense/carrier rasters, but no such exception was authorized. The candidate and any future nonempty in-footprint emission stay blocked until the required inventory/criterion is resolved without silently waiving the user's threshold.

@@ -1,0 +1,18 @@
+{
+  "evidence_class": "PUBLIC-LEADERBOARD-SNAPSHOT",
+  "observed_date_utc": "2026-10-11",
+  "source_url": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
+  "source_type": "official public leaderboard page",
+  "complete_snapshot_saved": false,
+  "selected_rows": [
+    {"rank": 1, "participant": "xiaofanhu", "public_dti": 0.4133},
+    {"rank": 8, "participant": "DARD", "public_dti": 0.3195},
+    {"rank": 23, "participant": "extradr19", "public_dti": 0.2778}
+  ],
+  "artifact_attribution": "No submission receipt or hash crosswalk was present. These rows do not identify or score any TIFF in this repository or the GEMSDOE32 H33 artifact.",
+  "notes": [
+    "The public leaderboard is dynamic; ranks and scores can change after this observation.",
+    "This record is a page observation, not a submission-page receipt and not ORGANIZER-CONFIRMED attribution to a local artifact.",
+    "The GEMSDOE32 owner-maintained H33 page states that the named artifact has no organizer score and describes 0.2747 as a model projection."
+  ]
+}

@@ -1,21 +1,33 @@
-# Leaderboard and prior-submission numbers (USER-SUPPLIED, UNVERIFIED)
+# Official public leaderboard snapshot and file attribution
 
-Every number below was pasted in the project brief. None were checked: the leaderboard (S6) and all GEMSDOE submission pages (S20) are unreachable from this sandbox. Do not cite any of them as an organizer score until it is copied from a DrivenData receipt (label: ORGANIZER-CONFIRMED).
+**Observed: 2026-10-11 UTC.** The official public leaderboard is dynamic. This is a dated observation, not a final private prize-round result and not a submission receipt for any local TIFF.
 
-| Submission (as written in brief) | Score (user-supplied) | Site (as written) |
-|---|---|---|
-| h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros | 0.2778 | GEMSDOE32 |
-| anderson-geothermal-pinn-38854-20261004T230000Z-9b9ea4e6-zeros | 0.2750 | GEMSDOE36 |
-| h36-1-rung30-blind-r1-20261003-b531dae0a36f-nan | 0.2710 | GEMSDOE28 |
-| h27-4-solo-d28-20261004-8acb75e1-nan | 0.2708 | GEMSDOE31 |
-| h38-1-hf-euler-r30-r1-20261003-56a9f473edc7-nan | 0.2707 | GEMSDOE28 |
-| dotted-h19-5-d2-8-20261002-e56ea318af89-nan | 0.2600 | GEMSDOE25 |
-| d28-poisson300m-offcat-44090-20261003T233156Z-91eae1ca | 0.2600 | GEMSDOE30 |
-| h25-1-dotted-h19-5-d1-5-20261002-989f59505db1-nan | 0.2477 | GEMSDOE24 |
-| h59-cover-ds-belief-b2xh33d-20261008T184547Z-b79c4c61d8d8 | 0.2296 | GEMSDOE48 |
-| gate_ortho_w0.25-40k-20261006T213721Z-nan | 0.2376 | GEMSDOE49 |
-| h19-5-powerlaw-budget-multiline-corroborated-20260930-e27054cf-nan | 0.1922 | 19GEMSDOE |
-| gems-submission-20260925T001403Z-7f00890a | 0.1563 | GEMSDOE |
-| (leaderboard top, as stated in brief) | 0.3774 and 0.3195 (conflicting) | — |
+| Rank | Participant | Public DTI | Evidence class |
+|---:|---|---:|---|
+| 1 | xiaofanhu | 0.4133 | PUBLIC-LEADERBOARD-SNAPSHOT |
+| 8 | DARD | 0.3195 | PUBLIC-LEADERBOARD-SNAPSHOT |
+| 23 | extradr19 | 0.2778 | PUBLIC-LEADERBOARD-SNAPSHOT |
 
-The brief contains about 100 entries. Only those most relevant to the analysis are copied here. Re-enter the rest from the brief, not from memory.
+Source: [official DrivenData leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/). The selected rows and retrieval date are preserved in `evidence/official_leaderboard_observation_20261011.json`. A previous 2026-10-04 snapshot under `registry/leaderboard_history.jsonl` showed an earlier ordering; do not present that old ordering as current.
+
+## The 0.2778 attribution
+
+The 0.2778 number is present on the official public board for `extradr19` at rank 23 in the observed snapshot. That does **not** establish which of that participant's files earned the score, and it does **not** link the score to the similarly quoted GEMSDOE32 H33 TIFF.
+
+The GEMSDOE32 owner-maintained [H33 page](https://buffedlizard55-lab.github.io/GEMSDOE32/docs/index.html) states **“NO ORGANISER SCORE EXISTS”** for `gemsdoe32-h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros.tif` and calls **0.2747** a model projection, not a score. The public GitHub source for that page is [`GEMSDOE32/docs/index.html`](https://github.com/buffedlizard55-lab/GEMSDOE32/blob/main/docs/index.html). Neither source supplies an organizer receipt or hash crosswalk attributing 0.2778 to that H33 file.
+
+Therefore:
+
+- Do **not** say “the H33 TIFF scored 0.2778.” Its attribution is unverified and the current owner page explicitly says it is unscored.
+- Do **not** say “0.2747 is the H33 organizer score.” The owner page labels it a model projection.
+- Do **not** call 0.3195 the current leader: in the observed snapshot it is DARD at rank 8. The observed rank-1 public row is 0.4133 for xiaofanhu.
+- No public-board row here is tied to the current 58GEMSDOE diagnostic raster. No submission was made, no slot was selected, and no organizer receipt exists for that raster.
+
+A public leaderboard observation is recorded separately from an artifact score. For this repository, model-quality claims must still be labelled **HOLDOUT-DTI** with evaluator/version, withheld-positive count, protocol, and valid 95% CI, or **ORGANIZER-CONFIRMED** only from a receipt/hash crosswalk.
+
+## Official references
+
+- [Competition problem description and metric](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/)
+- [Official public leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/)
+- [GEMSDOE32 owner-maintained H33 page](https://buffedlizard55-lab.github.io/GEMSDOE32/docs/index.html)
+- [GEMSDOE32 source page on GitHub](https://github.com/buffedlizard55-lab/GEMSDOE32/blob/main/docs/index.html)

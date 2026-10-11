@@ -1,32 +1,20 @@
 #!/usr/bin/env python3
-"""Site QA: re-derive every published number and fail closed.
+"""QA for the archived ribbon pages and current fail-closed status.
 
-Checks (each a non-zero exit on failure):
-
-* every page in ``docs/`` exists and every internal link resolves;
-* the downloadable TIFF exists, its sha256 and byte size match the run card, and
-  the 15 local portal checks still pass on the published bytes;
-* the ZIP holds exactly one GeoTIFF;
-* the pages do not advertise a permission the run card denies, and do not quote a
-  leaderboard number without the OWNER-REPORTED label.
-
-    PYTHONPATH=src python3 scripts/ribbon_check_site.py
+This checker intentionally does not use the legacy ``gems58w`` writer or
+re-derive its historical claims. It verifies status copy, links, and the current
+run-card stop conditions only.
 """
 from __future__ import annotations
 
-import html
 import json
 import re
 import sys
-import zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "src"))
-
-from gems58w import submission  # noqa: E402
-from gems58w.paths import DOCS, EVIDENCE  # noqa: E402
-
+DOCS = ROOT / "docs"
+RIBBON = DOCS / "ribbon"
 PAGES = ["index.html", "executive-summary.html", "hypotheses.html", "research.html",
          "sources.html", "irregularities.html"]
 LINK_RE = re.compile(r'(?:href|src)="([^"#]+)"')
@@ -34,68 +22,64 @@ LINK_RE = re.compile(r'(?:href|src)="([^"#]+)"')
 
 def main() -> int:
     errors: list[str] = []
-    doc = DOCS
-    card = json.loads((EVIDENCE / "run_card.json").read_text())
-
-    for p in PAGES:
-        f = doc / p
-        if not f.exists():
-            errors.append(f"missing page {p}")
+    for name in PAGES:
+        path = RIBBON / name
+        if not path.is_file():
+            errors.append(f"missing archived page: {name}")
             continue
-        body = f.read_text()
+        body = path.read_text(encoding="utf-8")
+        if "NOT OK TO SUBMIT" not in body and "DO NOT SUBMIT" not in body:
+            errors.append(f"{name}: missing unmistakable negative status")
+        if "Download: OK" in body:
+            errors.append(f"{name}: legacy permission text remains")
         for link in LINK_RE.findall(body):
             if link.startswith(("http://", "https://", "mailto:", "//")):
                 continue
-            target = (f.parent / link).resolve()
-            if not target.exists():
-                errors.append(f"{p}: broken link {link}")
-        live = [n for n in ("0.3195", "0.3774", "0.2778") if n in body]
-        if live and "OWNER-REPORTED" not in body:
-            errors.append(f"{p}: quotes live number(s) {live} without the OWNER-REPORTED label")
+            if not (path.parent / link).resolve().exists():
+                errors.append(f"{name}: broken internal link {link}")
 
-    tif = doc / "downloads" / f"{card['name']}.tif"
-    if not tif.exists():
-        errors.append(f"missing download {tif.name}")
+    card_path = ROOT / "evidence" / "run_card.json"
+    try:
+        card = json.loads(card_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        card = {}
+        errors.append(f"cannot read current run card: {exc}")
+    if card.get("submission_status") != "NOT_OK_TO_SUBMIT":
+        errors.append("current run card does not deny submission")
+    if card.get("verdict") != "negative":
+        errors.append("current run card verdict is not negative")
+    scan = card.get("correlation_overlap_vs_registry", {})
+    gate = scan.get("final_dot_gate", {})
+    if gate.get("passed") is not False or float(gate.get("worst_dot_overlap", 0.0)) <= 0.70:
+        errors.append("current run card does not preserve the literal final-dot overlap stop")
+    if scan.get("latest_pinned_snapshot_scan", {}).get("complete_accessible_scan") is not False:
+        errors.append("current run card no longer records the incomplete pinned scan")
+
+    root_index = DOCS / "index.html"
+    if not root_index.is_file():
+        errors.append("missing current root status page docs/index.html")
     else:
-        val = submission.validate(tif)
-        if submission.sha256(tif) != card["raster_sha256"]:
-            errors.append("published TIFF sha256 does not match the run card")
-        if tif.stat().st_size != card["raster_bytes"]:
-            errors.append("published TIFF size does not match the run card")
-        if not val["passed"]:
-            errors.append("published TIFF fails the portal checks: "
-                          + ", ".join(k for k, c in val["checks"].items() if not c["ok"]))
-        if val["n_positives"] != card["validator"]["n_positives"]:
-            errors.append("published TIFF dot count does not match the run card")
+        body = root_index.read_text(encoding="utf-8")
+        if "NOT CLEARED" not in body and "DO NOT SUBMIT" not in body:
+            errors.append("root status page has no negative submission status")
+        if "LEADERBOARD.md" not in body:
+            errors.append("root status page does not link the score-attribution record")
 
-    z = doc / "downloads" / f"{card['name']}.zip"
-    if not z.exists():
-        errors.append("missing single-GeoTIFF ZIP")
-    else:
-        with zipfile.ZipFile(z) as zf:
-            names = zf.namelist()
-        if len(names) != 1 or not names[0].endswith(".tif"):
-            errors.append(f"ZIP must hold exactly one GeoTIFF, holds {names}")
+    legacy_dir = RIBBON / "downloads"
+    if legacy_dir.exists() and any(legacy_dir.iterdir()):
+        errors.append("legacy downloadable artifacts remain under docs/ribbon/downloads")
 
-    idx = (doc / "index.html").read_text() if (doc / "index.html").exists() else ""
-    if card["verdict"].startswith("candidate"):
-        if "Download: OK" not in idx:
-            errors.append("run card is a candidate but the index does not say download is OK")
-    for frag in ("0.3195", "OWNER-REPORTED"):
-        if frag not in idx:
-            errors.append(f"index.html must carry {frag}")
-
-    feed = json.loads((doc / "data" / "feed.json").read_text())
-    if feed["sha256"] != card["raster_sha256"]:
-        errors.append("feed.json sha256 does not match the run card")
+    archive = ROOT / "evidence" / "ribbon" / "archive-downloads"
+    if not (archive / "README.md").is_file():
+        errors.append("legacy download archive lacks its research-only notice")
 
     if errors:
-        print("SITE QA FAILED")
-        for e in errors:
-            print("  -", e)
+        print("RIBBON SITE QA FAILED")
+        for error in errors:
+            print(" -", error)
         return 1
-    print(f"SITE QA PASSED: {len(PAGES)} pages, links resolve, hash and dot count re-derived, "
-          f"ZIP holds one GeoTIFF, permissions match the run card.")
+    print(f"RIBBON SITE QA PASSED: {len(PAGES)} archived pages are red, links resolve, "
+          "legacy downloads are archived, and current run-card stop conditions remain intact.")
     return 0
 
 
