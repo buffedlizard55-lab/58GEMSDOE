@@ -1,0 +1,26 @@
+# Candidate hypotheses (not yet validated)
+
+Status of every candidate: **NOT VALIDATED.** No holdout score exists, because the competition rasters are unavailable (see IRREGULARITIES.md item 1). The "expected gain" column is qualitative judgment. It is not a measured DTI and must not be written as one.
+
+The repo contained no implemented method before this session (see IRREGULARITIES.md item 2). "Differs from the repo" therefore means "differs from the official reference notebook (S1)", the only implementation we could read.
+
+Band numbers and names are from the official reference notebook (S1) and S8's inventory. The band-name check against the real file is still open.
+
+| Rank | Hypothesis | Layer(s) and bands | Physical signature targeted | Why it should find faults missing from the USGS catalogue | Mimic (non-fault process) | Differs from the official reference (S1) | Implementation cost | Expected DTI gain (qualitative) |
+|---|---|---|---|---|---|---|---|---|
+| 1 | **Tilt-ridge lineament with strike coherence.** Ridge-filter the tilt-angle/total-curvature band, keep ridges whose orientation agrees with the regional Walker Lane trend, then close gaps. | Band 6 "Tilt angle or total curvature" (magnetic edge detector); band 2 RTP for orientation check | Linear zero-crossings of the tilt angle, which mark magnetic contrast edges. Fault zones can offset or alter magnetic basement. | Magnetic contrast is measured independently of the USGS trace compilation. A segment with no mapped trace can still show a continuous tilt ridge. | Dikes, lithologic contacts, and basalt-flow edges. Flight-line striping, which runs parallel to survey lines, can imitate a ridge. Strike filtering reduces this. | No hand-built edge operator in S1. S1 feeds raw bands to a U-Net. | Low: one band, scipy only. | Unknown. Test first. |
+| 2 | **Gravity-gradient contact detector.** Find maxima of the horizontal gradient of the isostatic gravity field, then keep the ones that line up. | Band 5 "Isostatic gravity anomaly slope" | Density-contrast contacts. Fault-controlled basin margins show as gradient maxima. | Gravity is an independent density measurement. It can reveal a buried fault that has no surface trace. | Basin-margin sediment edges and terrain-correction residuals. Unconsolidated basin edges are not faults. | As above. | Low | Unknown. Test second. |
+| 3 | **Geodetic strain-localization lineaments.** Mark lines where shear rate and dilatation change sharply over a short distance. | Bands 4 (geodetic 2nd invariant), 7 (shear rate), 8 (dilatation) | Localized shear along a fault zone, which strain maps can show where GPS/InSAR density is sufficient. | Strain is a deformation observation, not a catalogue of traces. | Interpolation artifacts from sparse GPS/InSAR, anthropogenic subsidence (groundwater pumping), and post-earthquake deformation. | As above. | Medium: the band interpolation method must be checked. | Unknown. High mimic risk. |
+| 4 | **Positive-unlabelled (PU) label treatment.** Keep unmapped pixels as unlabelled, not negative, when training and when scoring. | Method, not a layer. Applies to any of 1–3. | Does not target a physical signature. It targets the bias in the labels: unmapped does not mean no fault. | The guide (S8) notes that unmapped pixels may be undiscovered faults. Treating them as negatives suppresses exactly what the competition wants. | Not a geological mimic; the risk is the model's calibration. | Yes: S1 uses plain Tversky loss with unlabelled cells as negatives. | Low | Unknown. Must be evaluated with the DTI metric. |
+| 5 | **Earthquake-lineation prior.** Look for alignments in earthquake epicentres, rather than the distance-to-earthquake band already in the stack. | Needs an earthquake catalogue. The distance-to-earthquake band (S8: band 10, "deq_n100a15") already exists. | Alignments of hypocentres along a fault plane. | Microseismicity can outline a fault that has no mapped trace. | Induced seismicity from geothermal or mining operations, and aftershock clusters. Both are real seismicity but not faults. | Yes, but the catalogue is new external data. | High: the source must be checked. | Unknown. Lowest rank: needs new data and has the most mimics. |
+
+## Ranking rationale
+- Ranked by a judgment of (expected gain × confidence) ÷ cost. The expected gain is unmeasured.
+- **Top candidate: H1.** Cheapest to test, and the signature is well understood in magnetics. The check is the single-feature leakage canary (AUC must stay below 0.90) before any use.
+- H4 is a method and can be combined with H1–H3. It is not a standalone candidate.
+- Per the brief, **no candidate may use a weekly submission slot until it beats the current holdout best on the spatially blocked holdout.** No holdout run exists yet, so no candidate has qualified.
+
+## Free official sources that would be needed (status)
+- Competition rasters (S5, S14): needed for every candidate. Registered-participant download. Status: not obtainable from this sandbox.
+- USGS GeoDAWN (S12): raw magnetic and radiometric source. Status: unreachable here.
+- Earthquake catalogue for H5: USGS ComCat is the usual free official source. **Not checked: the host was not in the allow-list and could not be reached from this sandbox.** Do not propose H5 as viable until it is verified.

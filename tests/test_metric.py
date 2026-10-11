@@ -1,63 +1,70 @@
 import numpy as np
 import pytest
 
-from gems.metric import (ALPHA, BETA, dti_binary, dti_bruteforce, dti_from_components,
-                         dti_soft, utility_U)
+from gems.metric import dti, triangular_kernel, utility
 
 
-def test_rules_worked_example_numbers():
-    # Official rules/problem page worked example: TP=3.00, FP=1.89, FN=2.00 -> 0.60
-    tp, fp, fn = 3.00, 1.89, 2.00
-    assert round(tp / (tp + 0.2 * fp + 0.8 * fn), 2) == 0.60
-    assert dti_from_components(tp, fp, n_truth=int(round(tp + fn))) == pytest.approx(tp / (tp + 0.2 * fp + 0.8 * fn), rel=1e-9)
+def _line(h=40, w=40, row=20):
+    lab = np.zeros((h, w), bool)
+    lab[row, 5:35] = True
+    return lab
 
 
-def test_constants_match_official_definition():
-    assert ALPHA == 0.2 and BETA == 0.8
+def test_kernel_values():
+    assert triangular_kernel(0) == 1.0
+    assert triangular_kernel(150) == pytest.approx(0.5)
+    assert triangular_kernel(300) == 0.0
+    assert triangular_kernel(450) == 0.0
 
 
-@pytest.mark.parametrize("seed", [0, 1, 2])
-def test_vectorised_matches_bruteforce(seed):
-    rng = np.random.default_rng(seed)
-    truth = np.zeros((14, 16), bool)
-    truth[rng.integers(0, 14, 12), rng.integers(0, 16, 12)] = True
-    pred = np.zeros((14, 16))
-    m = rng.random((14, 16)) < 0.25
-    pred[m] = rng.random(m.sum())
-    fast = dti_soft(pred, truth)
-    slow = dti_bruteforce(pred, truth)
-    assert fast.tp == pytest.approx(slow["tp"], abs=1e-9)
-    assert fast.fp == pytest.approx(slow["fp"], abs=1e-9)
-    assert fast.dti == pytest.approx(slow["dti"], abs=1e-9)
+def test_perfect_prediction_scores_one():
+    lab = _line()
+    assert dti(lab.astype(float), lab) == pytest.approx(1.0, abs=1e-6)
 
 
-def test_binary_matches_soft_on_binary_input():
-    rng = np.random.default_rng(3)
-    truth = rng.random((20, 20)) < 0.05
-    pred = rng.random((20, 20)) < 0.2
-    a = dti_binary(pred, truth)
-    b = dti_soft(pred.astype(float), truth)
-    assert a.dti == pytest.approx(b.dti, abs=1e-12)
+def test_all_zero_prediction_scores_zero():
+    lab = _line()
+    assert dti(np.zeros(lab.shape), lab) == pytest.approx(0.0, abs=1e-6)
 
 
-def test_known_mask_removes_pixels_from_score():
-    truth = np.zeros((9, 9), bool)
-    truth[4, :] = True
-    pred = np.zeros((9, 9))
-    pred[0, :] = 1.0  # far from the truth line: pure FP
-    base = dti_soft(pred, truth)
-    known = np.zeros((9, 9), bool)
-    known[0, :] = True
-    masked = dti_soft(pred, truth, known=known)
-    assert base.fp > 0 and masked.fp == 0.0
+def test_one_pixel_offset_tolerance_is_graded():
+    lab = _line()
+    pred = np.zeros(lab.shape)
+    pred[21, 5:35] = 1.0  # 100 m off the trace
+    s, parts = dti(pred, lab, return_parts=True)
+    # TP credit 2/3 per pixel, FP the remaining 1/3 (sum over 30 px)
+    assert parts["TP_w"] == pytest.approx(30 * 2 / 3, rel=1e-6)
+    assert parts["FP_w"] == pytest.approx(30 * 1 / 3, rel=1e-6)
+    assert s > 0.5
 
 
-def test_out_of_range_predictions_rejected():
+def test_offset_at_300m_gets_no_credit():
+    lab = _line()
+    pred = np.zeros(lab.shape)
+    pred[23, 5:35] = 1.0  # 300 m away
+    _, parts = dti(pred, lab, return_parts=True)
+    assert parts["TP_w"] == pytest.approx(0.0, abs=1e-9)
+
+
+def test_nan_is_outside_footprint_and_free():
+    lab = _line()
+    pred = lab.astype(float)
+    pred[:, :3] = np.nan  # outside footprint, no labels there
+    assert dti(pred, lab) == pytest.approx(1.0, abs=1e-6)
+
+
+def test_rejects_out_of_range():
+    lab = _line()
     with pytest.raises(ValueError):
-        dti_soft(np.full((4, 4), 1.5), np.zeros((4, 4), bool))
+        dti(lab.astype(float) * 2, lab)
 
 
-def test_U_is_linearisation_sign():
-    # Adding a dot that lands on truth (dTP=1, dFP=0) must increase U; a pure FP must decrease it.
-    assert utility_U(1.0, 0.0, 0.3) > 0
-    assert utility_U(0.0, 1.0, 0.3) < 0
+def test_thin_line_beats_diffuse_map():
+    lab = _line()
+    thin = lab.astype(float)
+    diffuse = np.full(lab.shape, 0.5)
+    assert dti(thin, lab) > dti(diffuse, lab)
+
+
+def test_utility_formula():
+    assert utility(0.3, 10, 4) == pytest.approx((1 - 0.06) * 10 - 0.06 * 4)

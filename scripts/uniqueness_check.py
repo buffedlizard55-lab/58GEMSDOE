@@ -14,7 +14,7 @@ import rasterio
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
-from gems import uniqueness as U  # noqa: E402
+from gems58 import uniqueness as U  # noqa: E402
 
 ap = argparse.ArgumentParser()
 ap.add_argument("candidate")

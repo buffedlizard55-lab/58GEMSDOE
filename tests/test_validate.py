@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 rasterio = pytest.importorskip("rasterio")
 from rasterio.transform import from_origin
-from gems.validate import validate
+from gems58.validate import validate
 
 
 def _write(path, arr, nodata=np.nan, crs=32611):

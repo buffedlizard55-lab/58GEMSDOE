@@ -61,7 +61,7 @@ run_card = {
     "named_non_fault_process_that_could_mimic_it": "Lithologic contacts and intrusive or basin-edge gradients in magnetic/gravity fields, and topographic breaks from erosion or landslides, which give linear ridge responses without slip",
     "holdout_dti": {"value": round(h["value"], 4), "ci95": [round(h["ci95_t"][0], 4), round(h["ci95_t"][1], 4)],
                     "method": "jackknife over 4 quadrant blocks, t(3)", "n_withheld_positives": h["n_withheld_positives"],
-                    "evaluator": "gems.metric (58GEMSDOE) — checked vs rules worked example and brute force"},
+                    "evaluator": "gems58.metric (58GEMSDOE) — checked vs rules worked example and brute force"},
     "baseline_L1_union_holdout_dti": round(e2["baseline_L1_union_frac0p005_pooled_dti"], 4),
     "canary": {"max_single_feature_auc": round(max_auc_feat[1]["max_auc"], 3), "feature": max_auc_feat[0],
                "threshold": 0.90, "leak_flag": bool(e1["canary_leak_flags_gt_0p90"])},
@@ -200,7 +200,7 @@ body_submit = f"""
 <ol>
 <li><b>Eligibility and registration.</b> Create a DrivenData profile and register for the challenge (rules §3.1). Individuals must be U.S. citizens or permanent residents; the registered person must certify eligibility (rules §1.3, §A.1). Only the registered person can do this.</li>
 <li><b>Download</b> <code>{esc(SUBFILE)}</code> from this site.</li>
-<li><b>Check it</b> (optional, local): from the repository root run <code>PYTHONPATH=src python -m gems.validate {esc(SUBFILE)} --reference sample_submission.tif</code> (the reference is your local copy of the official sample). Every check must read <code>true</code>.</li>
+<li><b>Check it</b> (optional, local): from the repository root run <code>PYTHONPATH=src python -m gems58.validate {esc(SUBFILE)} --reference sample_submission.tif</code> (the reference is your local copy of the official sample). Every check must read <code>true</code>.</li>
 <li><b>Open the submission form</b> on the competition's submission page and click <i>File to submit → choose file</i>. Upload <code>{esc(SUBFILE)}</code> as a single-band GeoTIFF (.tif). It must match the submission format's CRS, shape and geotransform.</li>
 <li><b>Name it.</b> Use the unique name <code>{esc(SUB)}</code>.</li>
 <li><b>Add the note</b> (≤140 characters): <code>{esc(NOTE)}</code></li>
@@ -248,7 +248,7 @@ body_ev = f"""
 <p class="mut">Every number below is read from <code>registry/</code>. HOLDOUT-DTI means the score on our hide-and-recover catalogue holdout. It is <b>not</b> an organizer score.</p>
 <h2>0. Method notes (what was actually run)</h2>
 <ul>
-<li><b>Ridge fields:</b> Hessian of a Gaussian-smoothed band, scale 1 px (100 m features) and 2 px (200 m features). The 1.5 px scale in the original plan was <b>not</b> used; this is a documented deviation (<code>RESOLUTIONS</code> in <code>src/gems/ribbon.py</code>).</li>
+<li><b>Ridge fields:</b> Hessian of a Gaussian-smoothed band, scale 1 px (100 m features) and 2 px (200 m features). The 1.5 px scale in the original plan was <b>not</b> used; this is a documented deviation (<code>RESOLUTIONS</code> in <code>src/gems58/ribbon.py</code>).</li>
 <li><b>Ridge bands:</b> total magnetic (<code>tmi_hg</code>), isostatic gravity (<code>iso_grav_anom_hg</code>), and topographic slope (<code>det_elev_slope</code>), each at fine and coarse scale. Values are clipped to the 1st–99th percentile and standardised before the Hessian.</li>
 <li><b>σ rule:</b> σ = 1.4826 × MAD of distances from withheld truth to the nearest candidate, counting only matches within 10 px (<code>robust_sigma</code>, <code>run_ribbon_lane.py</code>). The lane's σ rule restricts configurations only when σ &lt; 0.5 (tight line) or σ is 2–3 px (ribbon of ±round(σ)). Every pooled σ selected here was outside those bands, so all configurations were admissible and the utility U alone decided.</li>
 <li><b>Emission (E3):</b> all six classes selected 1% of footprint pixels and configuration <code>D3o+1</code>. Pooled σ across blocks: {sig_min:.2f}–{sig_max:.2f} px.</li>

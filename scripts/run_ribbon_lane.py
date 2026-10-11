@@ -26,17 +26,17 @@ from scipy.stats import t as tdist
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from gems import ribbon as R  # noqa: E402
-from gems import uniqueness as U  # noqa: E402
-from gems.metric import EPS, ALPHA, BETA, truth_weight_map, utility_U  # noqa: E402
-from gems.validate import validate  # noqa: E402
+from gems58 import ribbon as R  # noqa: E402
+from gems58 import uniqueness as U  # noqa: E402
+from gems58.metric import EPS, ALPHA, BETA, truth_weight_map, utility_U  # noqa: E402
+from gems58.validate import validate  # noqa: E402
 
 DATA = Path(os.environ.get("GEMS_DATA", Path.home() / ".cache/gems-data"))
 REGISTRY = Path(os.environ.get("GEMS_REGISTRY", Path.home() / ".cache/gems-src"))
 OUT_REG = ROOT / "registry"
 OUT_DOCS = ROOT / "docs" / "downloads"
 SUBMISSION_NAME = "58GEMSDOE-ribbon-lane-v1-20261011"
-EVALUATOR = "gems.metric (58GEMSDOE, verified vs rules worked example + brute force)"
+EVALUATOR = "gems58.metric (58GEMSDOE, verified vs rules worked example + brute force)"
 T0 = time.time()
 
 

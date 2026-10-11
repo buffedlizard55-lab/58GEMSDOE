@@ -1,0 +1,22 @@
+{
+  "example_submission.tif": {
+    "status": "failed",
+    "error": "<urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>",
+    "url": "https://www.dropbox.com/scl/fi/6rgvnuady818ol8yqgis4/example_submission.tif?rlkey=kbykilvau066xuogoosbf4cq8&st=8junzdyw&dl=1"
+  },
+  "existing_faults.tif": {
+    "status": "failed",
+    "error": "<urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>",
+    "url": "https://www.dropbox.com/scl/fi/t7fyt03qdh9egyme0itwo/existing_faults.tif?rlkey=yiao96uluqdkipf0h5vju71jf&st=rnino7ya&dl=1"
+  },
+  "gems-geodawn-numerical-features.tif": {
+    "status": "failed",
+    "error": "<urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>",
+    "url": "https://www.dropbox.com/scl/fi/3vz9o0wwavi26xaeoxlwr/gems-geodawn-numerical-features.tif?rlkey=je8d8fepqfbst9lnwsq9rkplu&st=zj1lag1r&dl=1"
+  },
+  "GEMS_96647.pdf": {
+    "status": "failed",
+    "error": "<urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>",
+    "url": "https://www.dropbox.com/scl/fi/aemhtutjgcp6tr3tint94/GEMS_96647.pdf?rlkey=rek210cj2smnmzb8n0sla1vmd&st=wz4kofki&dl=1"
+  }
+}

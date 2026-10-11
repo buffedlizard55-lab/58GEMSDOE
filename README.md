@@ -7,10 +7,10 @@
 
 | item | status | evidence |
 |---|---|---|
-| Submission GeoTIFF (format) | **PASS** — single float32 band, EPSG:32611, 100 m, same grid as the official sample, NaN outside the footprint, values exactly 0 or 1 | `registry/experiments/E3_final_emission.json`, `src/gems/validate.py` |
+| Submission GeoTIFF (format) | **PASS** — single float32 band, EPSG:32611, 100 m, same grid as the official sample, NaN outside the footprint, values exactly 0 or 1 | `registry/experiments/E3_final_emission.json`, `src/gems58/validate.py` |
 | Submission file | `docs/downloads/58GEMSDOE-ribbon-lane-v1-20261011.tif` (1,759,778 B; sha256 `053f88f5…3111e`) | validator receipt in `registry/experiments/E3_final_emission.json` |
 | Uniqueness vs registry (protocol §1) | **HOLD — literal test fails.** Spearman max ρ = 0.23 on the final file (threshold 0.90; pass). The literal 70% dot-overlap test flags **25** registry rasters (max overlap 0.995). The chance control shows that for about half of them the overlap is at chance, but **12 of 25 exceed chance by more than 0.08**, the largest against the 13GEMSDOE r6 ensemble map (observed 0.817 vs chance 0.646, excess +0.172). This is not a clean density artifact. See §5. | `registry/uniqueness_final_*.csv`, `registry/chance_coverage_final.csv`, `registry/uniqueness_surface_pre-placement*` |
-| Holdout DTI (HOLDOUT-DTI) | **0.0368**, 95% CI **0.006–0.068** (jackknife over 4 blocks, t₃), n withheld positives = 60,988, evaluator `src/gems/metric.py` | `registry/experiments/E2_nested_holdout.json` |
+| Holdout DTI (HOLDOUT-DTI) | **0.0368**, 95% CI **0.006–0.068** (jackknife over 4 blocks, t₃), n withheld positives = 60,988, evaluator `src/gems58/metric.py` | `registry/experiments/E2_nested_holdout.json` |
 | Organizer-confirmed score | **none** for this file. Nothing has been uploaded from this sandbox (no DrivenData login). | — |
 | Beats 0.2778 / 0.3195 / 0.3774? | **No evidence.** Our holdout is far below the level the public leaderboard suggests. Do not spend a weekly slot on this file without a team decision. | §4 |
 | Leakage canary (protocol §4) | **PASS** — no feature exceeds AUC 0.90 alone. Watch item: `geod_2ndinv` max 0.896 on one block. | `registry/canary_auc.csv` |
@@ -226,10 +226,10 @@ Go ahead and create a pull request and then merge the pull request onto the main
 | `docs/sources.html` | Source register with official links, and the irregularities table |
 | `scripts/build_site.py` | Generates the four pages and `registry/RUN_CARD.json` from `registry/` (no hand-typed numbers) |
 | `docs/downloads/` | Validated submission GeoTIFF(s) — the only rasters committed |
-| `src/gems/metric.py` | Exact distance-weighted Tversky index (rules definition) + brute-force oracle |
-| `src/gems/validate.py` | Official-format validator (CRS, grid, transform, NaN footprint, [0,1]) |
-| `src/gems/ribbon.py` | Ribbon-lane method: ridge candidates, σ, dotted/ribbon configurations |
-| `src/gems/uniqueness.py` | Registry uniqueness / lane-drift check (Spearman + 3-px dot overlap, chance-aware) |
+| `src/gems58/metric.py` | Exact distance-weighted Tversky index (rules definition) + brute-force oracle |
+| `src/gems58/validate.py` | Official-format validator (CRS, grid, transform, NaN footprint, [0,1]) |
+| `src/gems58/ribbon.py` | Ribbon-lane method: ridge candidates, σ, dotted/ribbon configurations |
+| `src/gems58/uniqueness.py` | Registry uniqueness / lane-drift check (Spearman + 3-px dot overlap, chance-aware) |
 | `scripts/run_ribbon_lane.py` | Full pipeline E1 → E2 → E3 (canary, σ, nested holdout, final emission) |
 | `scripts/uniqueness_check.py` | Standalone uniqueness check of any GeoTIFF vs the registry |
 | `scripts/chance_coverage.py` | Chance-level control for dot-overlap flags |
@@ -300,7 +300,7 @@ Registry clones (`~/.cache/gems-src`) are needed for the uniqueness check; they 
 | I-13 | `labels_valid_equals_footprint` = True, but ~3,061 footprint pixels per feature band hold the −3.4e38 nodata value. | Would corrupt ridge fields if unhandled. | Handled in code (`clean_band`, `NODATA_ABS`). |
 | I-14 | Protocol budget: the pipeline counts as three experiments (E1 canary/σ/surface, E2 nested holdout, E3 emission). Several reruns were needed to fix bugs (nodata handling, normalisation, uniqueness tool). | Honest accounting. | Reported here and in the run card. |
 | I-15 | Rules §2 says the labels come from the USGS Quaternary Fault and Fold Database plus new expert faults; rules §3.3 says the training labels come from the INGENIOUS Great Basin compilation. | Sources for the labels are described two ways in the same document. | Team to confirm the label provenance on the competition data page (login-gated). |
-| I-16 | GEMSDOE32's page says its empirical break-even of 0.0548 credit per dot is "the same number" as 0.2·0.26 = 0.0520 from the published formula. These differ by 0.0028. | A claimed cross-check that does not hold. | Do not cite the break-even as confirmed; recompute it from the metric (src/gems/metric.py). |
+| I-16 | GEMSDOE32's page says its empirical break-even of 0.0548 credit per dot is "the same number" as 0.2·0.26 = 0.0520 from the published formula. These differ by 0.0028. | A claimed cross-check that does not hold. | Do not cite the break-even as confirmed; recompute it from the metric (src/gems58/metric.py). |
 
 ## 9. Next steps (for the next session)
 
@@ -326,7 +326,7 @@ Registry clones (`~/.cache/gems-src`) are needed for the uniqueness check; they 
     ],
     "method": "jackknife over 4 quadrant blocks, t(3)",
     "n_withheld_positives": 60988,
-    "evaluator": "gems.metric (58GEMSDOE) — checked vs rules worked example and brute force"
+    "evaluator": "gems58.metric (58GEMSDOE) — checked vs rules worked example and brute force"
   },
   "baseline_L1_union_holdout_dti": 0.0265,
   "canary": {
@@ -372,3 +372,16 @@ Registry clones (`~/.cache/gems-src`) are needed for the uniqueness check; they 
   "verdict": "negative"
 }
 ```
+
+---
+
+## Earlier workspace on `main` (kept, not deleted)
+
+`main` already contained a workspace from an earlier session (PRs #1 and #2). It is kept as merged:
+
+- `gems/` — the earlier package. Its `gems/metric.py` is an **approximation, marked unverified** (its own docstring). It is **not** used for any number in this README or on the site. The exact, verified metric lives in `src/gems58/` (see §3 and `tests/test_metric_exact.py`).
+- `docs/MISSION.md` (the condensed project prompt), `docs/SUBMISSION_GUIDE.md`, `docs/IRREGULARITIES.md`, `docs/HYPOTHESES.md`, `docs/ANALYSIS_H33.md`, `docs/LEADERBOARD.md`, `docs/SOURCES.md`, `docs/AI_USAGE.md`, `docs/RUN_CARD.json` — the earlier session's notes. Their status lines say "not generated / not run" and are **out of date** with this README; the numbers here supersede them.
+- `scripts/fetch_data.py`, `scripts/check_data.py`, `scripts/make_submission.py` — earlier helper scripts. The reproducible pipeline is `scripts/fetch_inputs.sh` and `scripts/run_ribbon_lane.py`.
+- `index.html` at the repository root — the earlier landing page. It is replaced by a redirect to `docs/index.html` (this session's site).
+
+Decision for the team: whether to delete the superseded `gems/` package and the older `docs/*.md` files. They are kept now to avoid losing history.

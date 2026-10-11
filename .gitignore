@@ -1,5 +1,7 @@
-# Competition rasters and other large inputs are NEVER committed (see README §Data policy)
-data/
+# Competition rasters and other large inputs are NEVER committed (see README data policy)
+data/*
+!data/.gitkeep
+!data/fetch_log.json
 .cache/
 *.npy
 *.npz
@@ -7,4 +9,10 @@ __pycache__/
 .pytest_cache/
 *.pyc
 .venv/
-# Submission rasters are committed ONLY under docs/downloads/ (small, validated)
+.venv*/
+# Generated TIFs are not committed EXCEPT the one validated submission served for one-click download
+*.tif
+*.tiff
+!docs/downloads/*.tif
+*.zip
+submissions/

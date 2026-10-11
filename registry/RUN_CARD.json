@@ -10,7 +10,7 @@
     ],
     "method": "jackknife over 4 quadrant blocks, t(3)",
     "n_withheld_positives": 60988,
-    "evaluator": "gems.metric (58GEMSDOE) \u2014 checked vs rules worked example and brute force"
+    "evaluator": "gems58.metric (58GEMSDOE) \u2014 checked vs rules worked example and brute force"
   },
   "baseline_L1_union_holdout_dti": 0.0265,
   "canary": {
