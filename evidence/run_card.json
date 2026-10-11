@@ -147,8 +147,8 @@
  },
  "correlation_overlap_vs_registry": {
   "registry_rasters": 695,
-  "restored": 695,
-  "complete_accessible_scan": true,
+  "restored": 694,
+  "complete_accessible_scan": false,
   "rho_limit": 0.9,
   "overlap_limit": 0.7,
   "worst_spearman_full_footprint": 0.18964557053051112,
@@ -221,6 +221,6 @@
  "submission_name": "gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros",
  "submission_note": "H58b ribbon lane: +/-sigma (3 px) parallel dotted lines; concordant sgmc+cat axes; dots 1.0; holdout-validated rule.",
  "verdict": "negative",
- "generated_utc": "2026-10-11T01:19:23Z",
+ "generated_utc": "2026-10-11T01:54:11Z",
  "verdict_note": "Negative on the LITERAL overlap gate: every flagging raster is either a dense soft surface (>=200k dots, universal blocker) or another lane's near-catalogue carpet; max Spearman rho 0.19 and <=0.474 vs the dotted-ridge lineage show no lane drift. Selector decides; slots are not picked here."
 }

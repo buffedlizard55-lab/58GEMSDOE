@@ -5,13 +5,12 @@ submissions for the [DOE GEMS competition](https://www.drivendata.org/competitio
 with every number labelled and every claim traceable to evidence JSON in
 `evidence/`.
 
-**➡ The current submission file lives at
-[`docs/downloads/`](docs/downloads/) and on the site:
-<https://buffedlizard55-lab.github.io/58GEMSDOE/> — the green DOWNLOAD button
-at the top of that page is always the file to submit. Read
+**STATUS (2026-10-11): the candidate GeoTIFF is NOT cleared for submission.**
+The uniqueness gate is negative under the literal rule and under a chance-corrected
+diagnostic (see "Current status" below). The file in
+[`docs/downloads/`](docs/downloads/) is kept for review only. Read
 [docs/executive-summary.html](https://buffedlizard55-lab.github.io/58GEMSDOE/executive-summary.html)
-for the 60-second submission instructions (fixes the portal error
-"Predicted values must be in range [0, 1]").**
+for the status and the steps to follow once a project owner clears it.
 
 ---
 
@@ -104,11 +103,14 @@ for the 60-second submission instructions (fixes the portal error
 | Paired ribbon − tight | **+0.2010**, CI95 [0.1910, 0.2108] | HOLDOUT-DTI |
 | Per-class gains (ribbon-only − tight-only) | cat-axis +0.1785, sgmc-axis +0.0983 | HOLDOUT-DTI |
 | Live rule as shipped (no oracle), pooled | 0.1309 (blanket variant: 0.1252) | HOLDOUT-DTI |
-| Uniqueness, 695/695 registry rasters | max ρ 0.190 (<0.90); literal overlap gate negative — see `evidence/ribbon_uniqueness.json` + IR-58-UNIQ-01 | REGISTRY-MEASUREMENT |
+| Uniqueness, registry scan (694 of 695 restored; `57GEMSDOE-PR6` repo now returns "Repository not found") | max ρ 0.190 (<0.90); literal 3-px overlap gate **negative**: 123 rasters flagged (>70%). Chance-corrected diagnostic: 54 flagged rasters are *saturated* (expected chance overlap ≥0.99, so no non-empty candidate can pass the literal rule); 69 are informative with real co-location (max lift 1.0). See `evidence/ribbon_uniqueness*.json`, IR-58-UNIQ-02..03 | REGISTRY-MEASUREMENT |
+| Scored-footprint geometry | 5,167,373 cells (labels ≠ −1); the organizer sample has 12,279,160 cells with NaN outside the footprint. The shipped file writes 0 outside (IR-58-FMT-01) | local check |
+| Winner-design geometry (registry file `c55bafc4…`, matched by name to the user-supplied 0.2778 entry `h33-h33-2-b2-…-zeros`) | binary 0/1, 37,654 dots, 0 on catalogue, median 1,965 m from catalogue (6% within 300 m) vs our 67,379 dots, median 300 m. `evidence/registry_h33_0p2778_structure.json` | REGISTRY-MEASUREMENT (geometry only, not a score) |
+| Submission status | **NOT CLEARED — do not upload as a unique submission.** Local format checks pass; uniqueness does not | local validator + uniqueness |
 | Submission raster + receipt | `docs/downloads/gems58-ribbon-concordant-*zeros.tif/.json` | local validator output |
-| Run card verdict | negative on the literal overlap gate (dense-prior degeneracy; drift forensic attached) | `evidence/run_card.json` |
+| Run card verdict | negative (literal gate; chance-corrected diagnostic agrees: co-located with informative rasters). Not cleared for submission. | `evidence/run_card.json` |
 
-Reference receipts (ORGANIZER-CONFIRMED, copied from prior sites' pages only):
+Reference scores (USER-SUPPLIED in the brief, NOT verified here; the GitHub Pages sites are not reachable from this sandbox, so no organizer receipt was checked):
 `h33-h33-2-b2-...-zeros: 0.2778` (GEMSDOE32), `dotted-h19-5-d2-8: 0.2600`,
 `h27-4-solo-d28: 0.2708`, `h36-1-rung30: 0.2710`,
 `anderson-geothermal-pinn: 0.2750`. Current known leaderboard high: **0.3195**
