@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>58GEMSDOE - Executive Summary</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 900px; margin: 40px auto; line-height: 1.6; }
+        .warning { background: #ffdddd; border: 3px solid #f00; padding: 20px; margin: 20px 0; border-radius: 5px; }
+        .info { background: #ddddff; border: 2px solid #00f; padding: 15px; margin: 20px 0; border-radius: 5px; }
+        .success { background: #ddffdd; border: 2px solid #0a0; padding: 15px; margin: 20px 0; border-radius: 5px; }
+        .download { margin: 20px 0; text-align: center; }
+        .download a { display: inline-block; margin: 10px; padding: 15px 30px; 
+                       background: #4CAF50; color: white; text-decoration: none; 
+                       border-radius: 8px; font-size: 16px; }
+        .download a:hover { background: #45a049; }
+        pre { background: #f5f5f5; padding: 15px; overflow-x: auto; border-radius: 5px; font-size: 14px; }
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+        th, td { padding: 10px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background: #f2f2f2; }
+        .header { text-align: center; padding: 20px; background: #2c3e50; color: white; border-radius: 8px; }
+        .footer { text-align: center; padding: 20px; color: #666; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>58GEMSDOE - Unique Ribbon Submission</h1>
+        <p style="font-size: 18px; margin-top: 10px;">DOE GEMS Prize Challenge</p>
+    </div>
+    
+    <div class="warning">
+        <h2 style="color: #d32f2f; margin-top: 0;">⚠️ NOT OK TO SUBMIT - DO NOT SUBMIT</h2>
+        <p><strong>This file has NOT been cleared for submission to the competition.</strong></p>
+        <p>It passes format validation but requires the following gates to be cleared:</p>
+        <ol>
+            <li><strong>Registry uniqueness scan</strong> (RATIFIED-UNIQ-v1)</li>
+            <li><strong>Pre-placement surface comparison</strong> against all registry rasters</li>
+            <li><strong>Feature-alone leakage canary tests</strong> (AUC &lt; 0.90 for each feature)</li>
+            <li><strong>Proper holdout evaluation</strong> with cross-validated sigma and defensible CI</li>
+        </ol>
+        <p><strong>Submitting this file without clearing these gates may result in disqualification.</strong></p>
+    </div>
+    
+    <h2>📋 Submission Details</h2>
+    <table>
+        <tr><td><strong>Submission Name:</strong></td><td>58GEMSDOE-ribbon-sparse-unique</td></tr>
+        <tr><td><strong>Timestamp:</strong></td><td>20261011T182511Z</td></tr>
+        <tr><td><strong>File:</strong></td><td><code>58GEMSDOE-ribbon-sparse-unique-20261011T182511Z.tif</code></td></tr>
+        <tr><td><strong>SHA256:</strong></td><td><code>b4cd208015892a19bb2de36585a6f5ff8203dd78b95d49d6b88c8d4c927c1448</code></td></tr>
+        <tr><td><strong>Decoded SHA256:</strong></td><td><code>N/A</code></td></tr>
+        <tr><td><strong>File Size:</strong></td><td>49,139,380 bytes</td></tr>
+        <tr><td><strong>Number of Dots:</strong></td><td>15,000</td></tr>
+        <tr><td><strong>Method:</strong></td><td>ribbon_lane_sparse</td></tr>
+        <tr><td><strong>Verdict:</strong></td><td><span style="color: #d32f2f; font-weight: bold; font-size: 18px;">NEGATIVE</span></td></tr>
+        <tr><td><strong>Promote:</strong></td><td>NO</td></tr>
+    </table>
+    
+    <h2>🔬 Hypothesis</h2>
+    <div class="info">
+        <p><strong>Ribbon lane: sparse adaptive dotted ribbons calibrated to measured localization error</strong></p>
+    </div>
+    
+    <h2>⚙️ Mechanism</h2>
+    <div class="info">
+        <p>Sparse emission (15,000 dots) placed along catalogue fault boundaries to avoid uniqueness violations with broad registry witnesses. All dots emitted at exactly 1.0, no dots on mapped catalogue faults.</p>
+    </div>
+    
+    <h2>⚠️ Named Non-Fault Mimics</h2>
+    <div class="info">
+        <p>Drainage channels, alluvial-fan fronts, terrace margins, road cuts, and erosion features</p>
+    </div>
+    
+    <h2>📥 Download Files (Review Only)</h2>
+    <div class="download">
+        <p style="margin-bottom: 20px; font-weight: bold;">
+            <strong>⚠️ DO NOT SUBMIT these files to the competition yet!</strong><br>
+            These files are for review and testing only.
+        </p>
+        <p>
+            <a href="58GEMSDOE-ribbon-sparse-unique-20261011T182511Z.tif" download>📄 Download TIF</a>
+            <a href="58GEMSDOE-ribbon-sparse-unique-20261011T182511Z.zip" download>📦 Download ZIP</a>
+            <a href="58GEMSDOE-ribbon-sparse-unique-20261011T182511Z.json" download>📋 Download Receipt</a>
+        </p>
+    </div>
+    
+    <h2>✅ Format Validation</h2>
+    <div class="success">
+        <p>✓ All format checks passed: True</p>
+        <p><strong>Validation Summary:</strong></p>
+        <pre>{
+  "file": "/home/user/58GEMSDOE/docs/downloads/58GEMSDOE-ribbon-sparse-unique-20261011T182511Z.tif",
+  "bytes": 49139380,
+  "sha256": "b4cd208015892a19bb2de36585a6f5ff8203dd78b95d49d6b88c8d4c927c1448",
+  "meta": {
+    "crs": "EPSG:32611",
+    "shape": [
+      3730,
+      3292
+    ],
+    "dtype": "float32",
+    "count": 1,
+    "nodata": null,
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "profile_compress": null
+  },
+  "band_description": [
+    null
+  ],
+  "n_finite": 12279160,
+  "n_nan": 0,
+  "n_infinite": 0,
+  "min": 0.0,
+  "max": 1.0,
+  "mean": 0.0012215819442644715,
+  "emitted_positive_pixels": 15000,
+  "all_checks_passed": true,
+  "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+  "on_catalogue_positive_pixels": 0,
+  "in_footprint_positive_pixels": 15000,
+  "footprint_fraction": 0.0029028289616406635
+}</pre>
+        <p><strong>Individual Checks:</strong></p>
+        <pre>{
+  "single_band": true,
+  "dtype_float32": true,
+  "dimensions_3730x3292": true,
+  "crs_epsg_32611": true,
+  "transform_matches_sample_submission": true,
+  "no_nan_anywhere": true,
+  "no_inf_anywhere": true,
+  "no_sentinel_values": true,
+  "range_0_1_guaranteed": true,
+  "min_ge_0": true,
+  "max_le_1": true,
+  "in_footprint_all_finite": true,
+  "in_footprint_range_0_1": true,
+  "outside_footprint_zero": true,
+  "zero_dots_on_mapped_catalogue": true
+}</pre>
+    </div>
+    
+    <h2>📊 Full Receipt</h2>
+    <div class="info">
+        <p>Complete receipt with all metadata:</p>
+        <pre>{
+  "timestamp": "20261011T182511Z",
+  "submission_name": "58GEMSDOE-ribbon-sparse-unique",
+  "submission_note": "Ribbon lane: sparse boundary dots (15000 dots at 1.0), uniqueness-filtered",
+  "file": "58GEMSDOE-ribbon-sparse-unique-20261011T182511Z.tif",
+  "sha256": "b4cd208015892a19bb2de36585a6f5ff8203dd78b95d49d6b88c8d4c927c1448",
+  "bytes": 49139380,
+  "n_dots": 15000,
+  "method": "ribbon_lane_sparse",
+  "hypothesis": "Ribbon lane: sparse adaptive dotted ribbons calibrated to measured localization error",
+  "mechanism": "Sparse emission (15,000 dots) placed along catalogue fault boundaries to avoid uniqueness violations with broad registry witnesses. All dots emitted at exactly 1.0, no dots on mapped catalogue faults.",
+  "non_fault_mimic": "Drainage channels, alluvial-fan fronts, terrace margins, road cuts, and erosion features",
+  "holdout_dti": "NOT MEASURED",
+  "evaluator_version": "NOT MEASURED",
+  "withheld_positive_count": 0,
+  "ci95": null,
+  "uniqueness_screen": {
+    "status": "NOT SCREENED",
+    "message": "Registry scan required before submission"
+  },
+  "surface_gate": {
+    "status": "NOT SCREENED",
+    "message": "Pre-placement surface comparison required"
+  },
+  "leakage_canary": {
+    "status": "NOT RUN",
+    "message": "Feature-alone AUC tests required"
+  },
+  "format_validation": {
+    "file": "/home/user/58GEMSDOE/docs/downloads/58GEMSDOE-ribbon-sparse-unique-20261011T182511Z.tif",
+    "bytes": 49139380,
+    "sha256": "b4cd208015892a19bb2de36585a6f5ff8203dd78b95d49d6b88c8d4c927c1448",
+    "meta": {
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "count": 1,
+      "nodata": null,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "profile_compress": null
+    },
+    "band_description": [
+      null
+    ],
+    "n_finite": 12279160,
+    "n_nan": 0,
+    "n_infinite": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.0012215819442644715,
+    "emitted_positive_pixels": 15000,
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "dimensions_3730x3292": true,
+      "crs_epsg_32611": true,
+      "transform_matches_sample_submission": true,
+      "no_nan_anywhere": true,
+      "no_inf_anywhere": true,
+      "no_sentinel_values": true,
+      "range_0_1_guaranteed": true,
+      "min_ge_0": true,
+      "max_le_1": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_range_0_1": true,
+      "outside_footprint_zero": true,
+      "zero_dots_on_mapped_catalogue": true
+    },
+    "all_checks_passed": true,
+    "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+    "on_catalogue_positive_pixels": 0,
+    "in_footprint_positive_pixels": 15000,
+    "footprint_fraction": 0.0029028289616406635
+  },
+  "verdict": "negative",
+  "promote": false,
+  "slots_used": 0,
+  "notes": [
+    "This is a sparse emission designed to avoid uniqueness violations.",
+    "Proper holdout, surface gate, and registry scan are required before promotion.",
+    "The file passes format validation but is NOT OK TO SUBMIT until all gates clear."
+  ]
+}</pre>
+    </div>
+    
+    <h2>🚀 Next Steps Required</h2>
+    <div class="info">
+        <p>To clear this submission for promotion and eventual submission to the competition:</p>
+        <ol>
+            <li><p><strong>Run registry uniqueness scan:</strong></p>
+                <pre>python scripts/check_uniqueness_registry.py 58GEMSDOE-ribbon-sparse-unique-20261011T182511Z.tif</pre>
+                <p>This will scan the final dots against all 700+ registry rasters and check for uniqueness violations.</p>
+            </li>
+            <li><p><strong>Run pre-placement surface comparison:</strong></p>
+                <p>Compare the placement surface (before emission) against all registry rasters to ensure no drift into other lanes.</p>
+            </li>
+            <li><p><strong>Run feature-alone leakage canary tests:</strong></p>
+                <p>Test each feature alone on the holdout. AUC &gt; 0.90 means leakage until proven otherwise.</p>
+            </li>
+            <li><p><strong>Run proper holdout evaluation:</strong></p>
+                <p>Use <code>gems57.evaluate_holdout</code> with buffered whole fault segments, catalogue-based features from visible faults only, pixel-exact masking, and pooled DTI with α=0.2, β=0.8, 300 m triangular kernel.</p>
+            </li>
+            <li><p><strong>If all gates pass:</strong></p>
+                <p>Update the verdict to <code>'promote'</code> in the run card and set <code>promote: true</code>.</p>
+            </li>
+            <li><p><strong>Select a weekly slot:</strong></p>
+                <p>Only a separate human/selector process may choose a weekly slot for submission to the competition.</p>
+            </li>
+        </ol>
+    </div>
+    
+    <h2>📚 Important Notes</h2>
+    <div class="info">
+        <ul>
+            <li><strong>This is a sparse emission</strong> with exactly 15,000 dots to avoid plane-filling overlap with broad registry witnesses (which cover 53-68% of the footprint).</li>
+            <li>Dots are placed along catalogue fault boundaries (not on the faults themselves).</li>
+            <li>All dots are emitted at exactly <strong>1.0</strong> as required by the ribbon lane method.</li>
+            <li>No dots are placed on mapped catalogue faults (pixel-exact masking).</li>
+            <li>All values are finite and in the range <strong>[0, 1]</strong>.</li>
+            <li>No dots are placed outside the valid footprint.</li>
+            <li>The file matches the competition's CRS (EPSG:32611), shape (3730×3292), and geotransform exactly.</li>
+        </ul>
+    </div>
+    
+    <h2>🎯 Ribbon Lane Method</h2>
+    <div class="info">
+        <p>This submission implements the Ribbon lane method as described in the prompt:</p>
+        <ul>
+            <li><strong>Match emission width to measured localization error</strong> - In a full implementation, σ(x) would be measured by data block, feature resolution, and ridge type. This sparse version uses a conservative fixed width.</li>
+            <li><strong>Use parallel dotted lines when location is uncertain</strong> - The sparse emission avoids regions of high uncertainty.</li>
+            <li><strong>Emit included dots at exactly 1.0</strong> - All dots are at exactly 1.0, as scaling values down only scales the net gain down.</li>
+            <li><strong>Maximize U = (1 - 0.2·DTI₀)·TP - 0.2·DTI₀·FP</strong> - The sparse placement is designed to maximize this utility function by avoiding false positives from broad witnesses.</li>
+        </ul>
+    </div>
+    
+    <h2>🔗 References</h2>
+    <ul>
+        <li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">DOE GEMS Prize Competition</a></li>
+        <li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">Problem Description & Metric</a></li>
+        <li><a href="https://docs.nlr.gov/docs/fy26osti/96647.pdf">Official Rules (PDF)</a></li>
+        <li><a href="https://github.com/buffedlizard55-lab/58GEMSDOE">58GEMSDOE Repository</a></li>
+        <li><a href="https://en.wikipedia.org/wiki/Tversky_index">Tversky Index (Wikipedia)</a></li>
+    </ul>
+    
+    <div class="footer">
+        <hr>
+        <p><em>Generated: 20261011T182511Z</em></p>
+        <p><em>58GEMSDOE - Maximize P(Win) | Own the Outcome</em></p>
+    </div>
+</body>
+</html>
