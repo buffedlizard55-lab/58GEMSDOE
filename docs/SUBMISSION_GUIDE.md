@@ -13,6 +13,8 @@
 
 The previous filename contained `unique`, but there was no supporting uniqueness measurement when it was named. It has been renamed review-only; the raster pixel bytes did not change. Keep the artifact only for audit/reproducibility. Its download link does not indicate eligibility.
 
+A separate ML-named [TIFF](downloads/gems58-ml-binary-ridge-20261012T000000Z.tif) and [ZIP](downloads/gems58-ml-binary-ridge-20261012T000000Z.zip) were added to the base branch after the session-7 review. They were not generated, evaluated, or qualified in this review, and they do not satisfy this checkout's fixed-surface ribbon-width scope. The complete download index labels each separately; **do not submit or run their generation scripts under the current prompt.**
+
 ## Gate-by-gate status
 
 | Gate | Result | Evidence and limit |

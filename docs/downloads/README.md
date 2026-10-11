@@ -1,8 +1,8 @@
 # Downloads — review-only diagnostic
 
-> **NOT OK TO SUBMIT — DO NOT SUBMIT.** This directory contains historical research artifacts and one latest sparse TIFF available only for audit. No GeoTIFF here is approved for a competition upload.
+> **NOT OK TO SUBMIT — DO NOT SUBMIT.** This directory contains historical research artifacts, the session-7 sparse TIFF available only for audit, and a separate unreviewed ML-named TIFF inherited from a later base-branch update. No GeoTIFF here is approved for a competition upload.
 
-## Latest artifact
+## Session-7 audited artifact
 
 - [GeoTIFF](58GEMSDOE-ribbon-sparse-review-only-20261011T182511Z.tif)
 - [ZIP containing one TIFF](58GEMSDOE-ribbon-sparse-review-only-20261011T182511Z.zip)
@@ -19,6 +19,10 @@ A direct hash-pinned registry comparison measured **1.0000** of its positive dot
 The local 19/19 format/range checks are not uniqueness clearance, holdout evidence, or organizer acceptance. Nodata metadata differs from the sample (`null` versus `NaN`) and portal handling is unknown. HOLDOUT-DTI, σ, simulated gain by class, and a feature-alone leakage canary are not measured for this artifact. No experiment, slot, or upload occurred in session 7.
 
 The old `RATIFIED-UNIQ-v1` chance-corrected protocol in session-5 records is not used to waive the current literal rule. Do not generate a replacement candidate, select a slot, or upload under the current stop.
+
+## Separate inherited artifact — not reviewed or qualified
+
+The base branch now also contains [`gems58-ml-binary-ridge-20261012T000000Z.tif`](gems58-ml-binary-ridge-20261012T000000Z.tif), its [ZIP](gems58-ml-binary-ridge-20261012T000000Z.zip), and [sidecar JSON](gems58-ml-binary-ridge-20261012T000000Z.evidence.json). This artifact was added after the session-7 review, was not produced or qualified in that review, and is outside the current ribbon-width scope. The sidecar is not a current HOLDOUT-DTI result or organizer receipt. The per-file index labels the files **NOT OK TO SUBMIT — REVIEW ONLY**. Do not submit them or run their generation scripts under the current prompt.
 
 ## Other records
 

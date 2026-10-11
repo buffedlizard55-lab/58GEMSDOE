@@ -58,6 +58,10 @@ Git and may need to be restored again in a later session.
 | [`evidence/ribbon/shared_metric_crosscheck.json`](../evidence/ribbon/shared_metric_crosscheck.json) | Arithmetic cross-check of a legacy diagnostic only. It does not replace the legacy evaluator, selection protocol, or invalid min/max-as-CI interpretation. |
 | [`registry/submissions_seen.csv`](../registry/submissions_seen.csv) | Attribution ledger. H33 has no numeric score recorded because no organizer receipt/hash crosswalk is available. |
 
+## Post-review base-branch artifact — unreviewed
+
+The later base-branch merge added [`gems58-ml-binary-ridge-20261012T000000Z.tif`](downloads/gems58-ml-binary-ridge-20261012T000000Z.tif), a ZIP, a sidecar JSON, and generator scripts. These are recorded here only to explain why additional files appear in the public-download index. They were not generated, independently assessed, or qualified in session 7; this ribbon-width review does not adopt that method. Any sidecar validation field is not a `HOLDOUT-DTI` result without the required shared evaluator, protocol, withheld-positive count, and defensible 95% CI; it is not organizer confirmation. The per-file index labels the raster and ZIP review-only. Do not run the generators or submit these files under the current prompt.
+
 ## Portal `[0,1]` report — unresolved
 
 A `[0,1]` rejection has been reported for a submission attempt, but this repository contains no

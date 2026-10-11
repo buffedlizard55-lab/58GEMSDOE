@@ -16,6 +16,8 @@ The earlier copy of this summary claimed “mission accomplished,” uniqueness,
 
 The TIFF was renamed from a path containing `unique`; the raster bytes were not changed. Direct downloads and the per-file review warning are linked from [`docs/index.html`](docs/index.html), [`docs/downloads/index.html`](docs/downloads/index.html), and [`docs/SUBMISSION_GUIDE.md`](docs/SUBMISSION_GUIDE.md).
 
+A separate ML-named TIFF/ZIP was added to the base branch after this session-7 review. It was not produced, evaluated, or qualified by this review; it is outside the stated ribbon-width scope and must remain review-only. The generated per-file index includes it separately. Do not run its generator or submit it under the current stop.
+
 ## Exact results and evidence classes
 
 ### LOCAL-FILE-AUDIT

@@ -20,6 +20,11 @@ inventory is not claimed to be currently exhaustive, and no uniqueness clearance
 reported portal `[0,1]` error's cause remains unknown absent a hash-bound portal receipt. The
 0.2778 public row belongs to `extradr19` in a dated board snapshot; no evidence ties it to H33.
 
+A later update to the inherited base branch added `gems58-ml-binary-ridge-20261012T000000Z.tif`,
+a ZIP, and generation scripts. They were not created, evaluated, or qualified in this session-7
+review and are outside the ribbon-width scope. The per-file index keeps them review-only; do not run
+their generators or treat their metadata as current HOLDOUT-DTI or organizer evidence.
+
 > **Historical sections below:** the S6/S5 and earlier queues preserve past decisions and measurements only. Their candidate status, chance-corrected exceptions, and proposed actions are superseded; do not execute them. The current prompt and S7 section above govern.
 
 ## S7.0 Work completed and evidence limits
@@ -31,7 +36,7 @@ reported portal `[0,1]` error's cause remains unknown absent a hash-bound portal
 | `docs/downloads/58GEMSDOE-ribbon-sparse-review-only-*` | The existing raster was renamed review-only, not re-emitted or modified. Its direct ZIP and JSON metadata are rebuilt; no candidate was generated. |
 | [`docs/research/session7_review_20261011.md`](docs/research/session7_review_20261011.md) | Reconciles current status, explains what 0.2778 can and cannot establish, and ranks three untried within-lane width hypotheses. |
 | `PROMPT.md` and `README.md` | Updated to use the explicit current literal rule, not the old chance-corrected resolution. README includes the complete current prompt verbatim. |
-| `docs/SUBMISSION_GUIDE.md`, root status pages, executive summary, download index | Current review-only wording is generated from the session-7 card/audit; the 21-file index labels every TIFF/ZIP. `build_session7_pages.py --check`, `ribbon_check_site.py`, and the repository tests pass. Historical session-5/deliverable pages are isolated and labeled as archives. |
+| `docs/SUBMISSION_GUIDE.md`, root status pages, executive summary, download index | Current review-only wording is generated from the session-7 card/audit; the 23-file index labels every TIFF/ZIP. `build_session7_pages.py --check`, `ribbon_check_site.py`, and the repository tests pass. Historical session-5/deliverable pages are isolated and labeled as archives. |
 | [`.github/workflows/ribbon-ci.yml`](.github/workflows/ribbon-ci.yml) | CI now runs pytest, current-page/index generation and checks, plus archived-link/current-status QA. GitHub Actions was not triggered in this local review; its equivalent checks passed locally. |
 | [`evidence/feature_stack_restore_20261011.json`](evidence/feature_stack_restore_20261011.json) | Records part and whole-file hashes and grid header for the restored cache; integrity relative to an owner-maintained bridge pin only, not organizer provenance. |
 

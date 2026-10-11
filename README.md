@@ -12,6 +12,8 @@
 
 Full review: [`docs/research/session7_review_20261011.md`](docs/research/session7_review_20261011.md). Current issue/status log: [`docs/IRREGULARITIES.md`](docs/IRREGULARITIES.md). Artifact-specific JSON run card: [`evidence/58gemsdoe_unique_ribbon/run_card.json`](evidence/58gemsdoe_unique_ribbon/run_card.json); audit receipt: [`evidence/58gemsdoe_unique_ribbon/audit.json`](evidence/58gemsdoe_unique_ribbon/audit.json).
 
+**Post-review base-branch notice:** a separate file, [`gems58-ml-binary-ridge-20261012T000000Z.tif`](docs/downloads/gems58-ml-binary-ridge-20261012T000000Z.tif), its [ZIP](docs/downloads/gems58-ml-binary-ridge-20261012T000000Z.zip), and [sidecar record](docs/downloads/gems58-ml-binary-ridge-20261012T000000Z.evidence.json) were added to the base branch after this session-7 review. This review did not generate, evaluate, or qualify that artifact. It is outside this checkout's current ribbon-width task and is **not approved for submission**; the per-file download index labels it review-only. Do not run its generation scripts or use sidecar fields as current HOLDOUT-DTI or organizer evidence.
+
 ## Requested deliverables and evidence
 
 | Deliverable | Current record | What it says |

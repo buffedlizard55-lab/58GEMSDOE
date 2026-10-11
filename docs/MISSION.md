@@ -6,7 +6,7 @@ Maximize the probability of winning the DOE GEMS competition and own the outcome
 
 ## Current decision — session 7, 2026-10-11 UTC
 
-**NOT OK TO SUBMIT — DO NOT UPLOAD OR SELECT A SLOT.** The only current downloadable TIFF is an audit artifact renamed `review-only` without changing its pixel bytes. Its local format/range audit passes 19/19 checks, but this is not uniqueness clearance, holdout evidence, or portal acceptance. The candidate TIFF has `nodata=null`; the sample has `nodata=NaN`, so portal interpretation is unconfirmed.
+**NOT OK TO SUBMIT — DO NOT UPLOAD OR SELECT A SLOT.** The session-7 audited TIFF is an audit artifact renamed `review-only` without changing its pixel bytes. Its local format/range audit passes 19/19 checks, but this is not uniqueness clearance, holdout evidence, or portal acceptance. The candidate TIFF has `nodata=null`; the sample has `nodata=NaN`, so portal interpretation is unconfirmed. A separate ML-named TIFF was added to the base branch after this review; it was not reviewed or qualified here, is outside this ribbon-width task, and is labeled review-only in the per-file download index.
 
 The direct final-dot measurement against one hash-pinned prior registry raster is **1.0000 within 3 px**, greater than the user's literal **0.70** stop. This is a duplicate/drift protocol stop, not proof of byte/pixel copying. The witness's 3-px dilation covers every cell in the bridged allowed footprint. The old chance-corrected `RATIFIED-UNIQ-v1` record is historical and does not waive this current literal stop.
 

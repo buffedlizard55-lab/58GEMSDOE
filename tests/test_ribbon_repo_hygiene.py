@@ -90,6 +90,13 @@ def test_every_public_raster_carries_its_own_submit_verdict():
         assert f"legacy/{path.relative_to(ROOT / 'docs' / 'deliverable' / 'downloads').as_posix()}" in index
     assert "NOT OK TO SUBMIT — REVIEW ONLY" in index
     assert "literal 3 px overlap 1.0000 &gt; 0.70" in index
+    inherited = "gems58-ml-binary-ridge-20261012T000000Z"
+    if (ROOT / "docs" / "downloads" / f"{inherited}.tif").exists():
+        assert inherited in index
+        row_at = index.index(inherited)
+        row_start = index.rfind("<tr>", 0, row_at)
+        row_end = index.find("</tr>", row_at)
+        assert "NOT OK TO SUBMIT — REVIEW ONLY" in index[row_start:row_end]
 
 
 def test_archived_deliverable_pages_cannot_grant_download_permission():
@@ -172,6 +179,9 @@ def test_session7_pages_are_current_and_submit_guide_does_not_overclaim():
         assert "NOT OK TO SUBMIT — DO NOT SUBMIT" in text
         assert "58GEMSDOE-ribbon-sparse-review-only-20261011T182511Z.tif" in text
         assert "RATIFIED-UNIQ-v1" not in text
+        if (ROOT / "docs" / "downloads" / "gems58-ml-binary-ridge-20261012T000000Z.tif").exists():
+            assert "UNREVIEWED ARTIFACT — NOT OK TO SUBMIT" in text
+            assert "gems58-ml-binary-ridge-20261012T000000Z.tif" in text
     guide = (ROOT / "docs" / "SUBMISSION_GUIDE.md").read_text()
     assert "cause is **unknown**" in guide
     assert "1.0000" in guide and ">70%" in guide

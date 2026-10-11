@@ -150,13 +150,28 @@ not cleared, and there is no HOLDOUT-DTI result for this artifact.</p>
 </section>"""
 
 
+def inherited_unreviewed_notice() -> str:
+    """Warn if a separate artifact from a later base update is present."""
+    name = "gems58-ml-binary-ridge-20261012T000000Z.tif"
+    path = DOCS / "downloads" / name
+    if not path.is_file():
+        return ""
+    return f"""<section class="s7-alert" role="alert">
+<span class="s7-badge">⛔ UNREVIEWED ARTIFACT — NOT OK TO SUBMIT</span>
+<p>A separate file, <code>{esc(name)}</code>, was added to the base branch after the session-7 review.
+It was not generated, evaluated, or qualified in that review and is outside the fixed-surface ribbon-width
+scope. Do not submit it or run its generation scripts. See the
+<a href="downloads/index.html">per-file review-only index</a>.</p>
+</section>"""
+
+
 def build_index(card: dict, audit: dict, tif: Path) -> str:
     rows = []
     for gate in gate_rows(card, audit):
         state = "PASS — LOCAL ONLY" if gate["ok"] else "NOT CLEARED / FAILED"
         klass = "s7-pass" if gate["ok"] else "s7-fail"
         rows.append(f"<tr><td>{esc(gate['name'])}</td><td class=\"{klass}\">{state}</td><td>{esc(gate['status'])}</td></tr>")
-    body = common_banner(card, audit, tif) + f"""
+    body = common_banner(card, audit, tif) + inherited_unreviewed_notice() + f"""
 <section class="s7-grid">
 <div class="s7-card"><h2>Current decision</h2><p><b>negative</b>. No experiment, slot, or upload
 occurred in this review. A filename/download link is not permission to submit.</p>
@@ -194,7 +209,7 @@ clearance. The literal stop is decisive; this page does not claim a fresh comple
 
 
 def build_executive(card: dict, audit: dict, tif: Path) -> str:
-    body = common_banner(card, audit, tif) + """
+    body = common_banner(card, audit, tif) + inherited_unreviewed_notice() + """
 <h2>Executive decision</h2>
 <p><b>Do not submit this TIFF.</b> The active literal rule stops it because more than 70% of its
 positive pixels fall within 3 px of one prior registry raster. The observed current-file overlap is
@@ -224,7 +239,7 @@ def build_submit(card: dict, audit: dict, tif: Path) -> str:
     rows = []
     for gate in gate_rows(card, audit):
         rows.append(f"<tr><td>{esc(gate['name'])}</td><td class=\"s7-fail\">{esc('LOCAL PASS ONLY' if gate['ok'] else 'STOP / NOT CLEARED')}</td><td>{esc(gate['status'])}</td></tr>")
-    body = common_banner(card, audit, tif) + f"""
+    body = common_banner(card, audit, tif) + inherited_unreviewed_notice() + f"""
 <h2>Submission checklist — stopped</h2>
 <p>The required qualification gates are not all satisfied. Do not choose a competition slot or
 upload this artifact.</p>
@@ -249,7 +264,7 @@ exact raster.</li>
 
 
 def build_evidence(card: dict, audit: dict, tif: Path) -> str:
-    body = common_banner(card, audit, tif) + f"""
+    body = common_banner(card, audit, tif) + inherited_unreviewed_notice() + f"""
 <h2>Bound evidence</h2>
 <ul><li>Current run card: <a href="../evidence/58gemsdoe_unique_ribbon/run_card.json">JSON</a>.</li>
 <li>Independent audit receipt: <a href="../evidence/58gemsdoe_unique_ribbon/audit.json">JSON</a>.</li>
