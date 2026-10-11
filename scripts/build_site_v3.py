@@ -627,9 +627,9 @@ def run_card(emi: dict, uniq: dict, exp2: dict, tab: dict, sim: dict,
                    "equal-dot-density simulation as the decision rule: it is a stride artifact",
                    "per-segment sigma as a width selector: loses to a fixed 5-line ribbon"],
         cost=dict(peak_rss_mb=430, ci_minutes=None,
-                  note="CI runs pytest then both site builders on ubuntu-latest; the uniqueness "
-                       "screen and the leakage canary are run by hand because they need the "
-                       "restored registry cache, which is not committed"),
+                  note="CI runs pytest and the current status builder on ubuntu-latest; this archived "
+                       "session's uniqueness screen and leakage canary were run from the restored "
+                       "registry cache, which is not committed"),
         next_action=("The archived chance-corrected analysis is non-governing. The 53 dense witnesses "
                      "and 28 other flagged witnesses are preserved as diagnostics only; regardless of "
                      "those statistics, the literal >70%/3 px stop remains binding and the artifact "
