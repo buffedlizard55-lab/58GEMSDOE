@@ -1,95 +1,40 @@
-# Remaining work and limitations — 58GEMSDOE session 1 (2026-10-11)
+# Remaining work — current status (2026-10-11 UTC)
 
-**Status of the delivered artifact**
-`docs/ribbon/downloads/gems58-adaptive-ribbon-38000-20261011T000000Z.tif`
-(sha256 `d631b4af205bd6e0961f4bad3f4d12bc27b651a020dcd38666e4c5f5246720f7`):
-download **OK**, submit **your decision**, **zero competition slots spent by this project**.
-15/15 local acceptance checks pass, 0 duplicates against the registry, 38,000 dots, all exactly
-`1.0`, no `NaN` inside the footprint.
+This file supersedes the old “session 1” queue. No scientific experiment or new TIFF was run in the latest review; no weekly slot was selected.
 
-## 0. Merge status and scope of the uniqueness claim
+## Hard stop: do not submit or launch an experiment
 
-This lane is merged into `main` (PR #11, merge commit `967f400`) and namespaced so it sits beside
-the other lanes: code in `src/gems58w/`, scripts as `scripts/ribbon_*`, receipts in
-`evidence/ribbon/`, registry metadata in `registry/ribbon/`, site in `docs/ribbon/`.
+The current diagnostic is `docs/downloads/gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.tif` (SHA256 `8b196e6eea06fef0d6cf2c9109091d1e2677a77d6e48d8b04f334a879551687f`). Local format/range preflight passes. That is not uniqueness clearance, portal acceptance, or an organizer score.
 
-**Scope of "not a duplicate" (the single most important caveat):** the uniqueness screen in this
-session ran against the **19 earlier rasters present in this checkout**
-(`data/registry/rasters/`), and the worst pair was rank correlation **0.0137** / 3 px forward
-overlap **0.3600** — below the 0.90 / 0.70 stop limits. The sibling lane maintains a **695-raster
-frozen inventory** and found a candidate there at **100 %** 3 px overlap. This lane's file has
-**not** been screened against that larger inventory, so it must not be described as cleared until
-`scripts/check_uniqueness_registry.py` (main) is run against it. This is a stop-looking condition:
-treat the delivered raster as **downloadable for review, not cleared for submission** until that
-scan exists.
+`evidence/ribbon_uniqueness.json` compares the candidate with 694 of 695 pinned rasters and records 100% of its dots within 3 px of `GEMSDOE2:data/evidence/runs/turbo-simple-20260925T042003Z/submission.tif`. This exceeds the literal >70% stop threshold. The one full-footprint-positive witness makes the literal final-dot test fail for this nonempty candidate. The registry is also stale/incomplete, and a candidate-specific current pre-placement surface result is absent. Do not exempt, omit, or silently down-weight this raster; resolve the scope/meaning of the gate before any new placement/emission experiment.
 
-## 0b. What the merged file is
+No current promotion-grade HOLDOUT-DTI exists. The historical E1/E2 artifacts under `evidence/ribbon/` are legacy diagnostics; E2 consulted the same-cell withheld truth for selection, fit σ on scored folds, and used an invalid repeated-block bootstrap. Do not cite those values as promotion-grade results.
 
-38,000 dots at exactly `1.0`, `NaN` outside the footprint, 15/15 local acceptance checks, median
-catalogue distance 21.9 px, 0 dots on the catalogue, per-segment 5-line ribbon at `0, ±300 m,
-±600 m` (σ-driven), lead-time note 126 characters.
+## Completed in this review
 
-## 1. The one thing that is actually blocking a higher score
+1. Checked the current official DrivenData leaderboard and recorded a dated snapshot in `evidence/official_leaderboard_observation_20261011.json`: xiaofanhu rank 1 at 0.4133, DARD rank 8 at 0.3195, extradr19 rank 23 at 0.2778. This is a public-board observation, not a receipt/hash crosswalk to a local file.
+2. Checked the current GEMSDOE32 owner-maintained page through its public GitHub source. It says the named H33 artifact has no organizer score and calls 0.2747 a model projection. No evidence ties 0.2778 to the H33 file. See `docs/LEADERBOARD.md` and `docs/research/why-02778.md`.
+3. Rechecked the existing candidate's local format/range preflight against `data/bridge`; the TIFF bytes/hash are unchanged. This does not waive the registry stop.
+4. Reconciled the exact marginal-utility explanation and the legacy ribbon site's messaging. See `docs/research/metric.md`, `docs/research/ribbon-algebra.md`, `src/gems58w/`, and `docs/ribbon/`.
+5. Ranked four previously unrun, strictly within-lane calibration hypotheses in `docs/research/hypotheses_new.md`. They are proposals, not measured improvements.
 
-**Coverage, not emission.** The lane's own measurement: 11.6 % of withheld catalogue truth falls
-within 300 m of the ridge field. A file at 0.3195 with 38,000 dots needs `TP > 5,672` against a
-hidden mass of ≈ 12,691 px — about **45 % weighted coverage**. Every geometry in this lane moves
-the holdout DTI by at most ~0.003. The gap is a factor of four in coverage. Until a believed
-surface with materially higher detection exists, no emission rule can close it. This is the same
-conclusion GEMSDOE32's `score-ceiling-analysis.md` reached from the opposite direction.
+## Next work, in order — only if the literal gate can be resolved
 
-**Next measurement that would change the answer:** a *cross-fitted* detector over the 19-band
-stack with the withheld segments as the target, reported as a detection-rate curve per stratum.
-The ridge operator used here is a fixed, unsupervised edge/ridge response; it was chosen because
-the lane is about *emission width*, not detection. A supervised detector would move the detection
-rate, which is the only number that matters.
+1. **Resolve the inventory/gate blocker:** refresh the complete accessible public-raster inventory at current default-branch commits; record inaccessible sources and exact CRS/shape/transform; retain the full-footprint witness unless an authorized, documented policy says otherwise. No run proceeds while the required accessible inventory is stale or a literal stop still fires.
+2. **Run the surface gate before placement:** compare the proposed ridge-placement surface with every current accessible registry raster. Stop on rank correlation >0.90 or >70% 3-px overlap; do not produce a candidate TIFF in a stopped run.
+3. **Preregister only the top hypothesis** from `docs/research/hypotheses_new.md`. Reuse the cached feature stack, buffered whole-component context, shared feature-alone leakage canary, `gems57.evaluate_holdout` and `gems57.submission_writer`. Do not select or use a slot.
+4. **Promotion-grade result:** use training-only/nested selection and untouched buffered outer spatial blocks; report pooled HOLDOUT-DTI with evaluator version, withheld-positive count, CI method and valid 95% CI. The positive labels remain catalogue-based proxy truth, not the organizer's private expert faults; state that limitation.
+5. **If and only if holdout and both uniqueness phases pass:** write a new raster with the shared writer, validate exact bounds/transform/CRS/range/nodata requirements, run final-dot inventory comparison, record a hash-bound run card, and clearly distinguish local preflight from organizer acceptance. Only a separate human/selector process may choose a weekly slot.
 
-## 2. Instrument limits that must be fixed before any further promotion
+## Experiment budget and stopping criteria
 
-1. **IR-58-02 — the mandated holdout cannot score an off-catalogue file.** Its withheld truth *is*
-   catalogue, so any catalogue-margin screen makes HOLDOUT-DTI read exactly 0 by construction
-   (`evidence/ribbon/instrument_control.json`). The standing rule "validate on the holdout before touching
-   a slot" is therefore **not sufficient** for this family of files. A holdout whose truth is a
-   *held-out inventory* (e.g. a state geological survey compilation the organizer also excluded
-   from the catalogue) is needed. Sibling lane `57GEMSDOE`'s `IR-57-INSTR-01`
-   (Spearman(live, proxy-DTI) = −0.928) is the same obstruction measured differently.
-2. **The live-evidence correlations are n = 15 and collinear** (IR-58-03). They set the *design*
-   (38,000 dots, off-catalogue, median distance 19–22 px) and nothing more.
-3. **No organizer receipt exists** linking any score to any hash (IR-58-01). One upload of the
-   `M1` control file would convert the owner-reported ordering into a measurement, at the cost of
-   one slot from the weekly cap.
+The session limit is at most three experiments and two hours. Stop early for any uniqueness trigger, stale/incomplete inventory, AUC >0.90 without a leakage explanation, an invalid holdout protocol, a nonpositive paired primary result, or a 95% CI that does not support the predeclared promotion rule. Do not start additional variants because an outcome is weak.
 
-## 3. Untried, ranked by expected value per hour
+## Score attribution facts
 
-1. **Forward-model the aeromagnetic flight-line geometry** and regress it out of `tmi`, `rtp`,
-   `tmi_hg`, `tmi_vg`, `tc` before ridge extraction. The survey line spacing is coarser than the
-   100 m pixel, so levelling residuals are the dominant non-fault lineament source in the magnetic
-   family — the largest single source of false ridges in this lane's support. Needs only the
-   survey-line geometry (public USGS GeoDAWN metadata); no new binaries.
-2. **Swap the ridge operator for a cross-fitted detector** and re-run the same width test. Strictly
-   better detection at the same geometry.
-3. **Directional (not scalar) σ.** The kernel is isotropic, so σ as an RMS is the right *scalar*
-   for the metric, but a ribbon offset along the *local* gradient direction is only optimal if the
-   error is isotropic in the same frame. Measuring the error tensor per stratum and choosing the
-   offset direction per segment is a strictly more general version of this lane, still inside it.
-4. **Density-decay allocation** (sibling lane's H59-A): replace the flat 38,000 cap with the fitted
-   annulus hazard. Cheap, and it makes the budget a measurement rather than a precedent.
+- Official page 967 gives the task and metric; local score claims require either a conforming HOLDOUT-DTI record or an organizer receipt tied to the artifact.
+- A 2026-10-11 public-board row shows extradr19 at 0.2778 and DARD at 0.3195; current rank 1 is xiaofanhu at 0.4133. These dynamic public rows are not tied to the GEMSDOE32 H33 TIFF.
+- The GEMSDOE32 page says that H33 artifact is unscored and that 0.2747 is a projection. Do not call it a score.
+- No competition slot was selected and no organizer receipt was obtained for this repository's TIFF.
 
-## 4. What NOT to re-run (measured negatives, kept)
-
-* Catalogue-distance screens **cannot** be evaluated on this holdout (they zero it).
-* Unheld-budget density sweeps: they measure mass, not geometry. The first run overstated the
-  ribbon's benefit by an order of magnitude (+0.025 vs the honest +0.0022).
-* Width 4 (+6 px lines): beyond the measured σ = 1.68 px, and it does not beat width 3 by more
-  than noise.
-* Blurring a belief field before a max-coverage emitter (sibling H34): negative there, and this
-  lane's failure mode was the geometry convention, now fixed.
-
-## 5. Housekeeping still open
-
-* `data/official/` holds only the two small rasters plus the template. The 419 MB stack is fetched
-  by `scripts/fetch_features.sh`; nothing large is committed.
-* The Pages site is static HTML rendered by `scripts/ribbon_build_site.py` from `evidence/ribbon/*.json`;
-  `scripts/check_site.py` re-derives the hashes and fails closed.
-* Changing Pages settings needs repository administration scope, which this integration does not
-  have; the site is served from `docs/` on the default branch.
+Official links and dated checks are in `docs/SOURCES.md`; the full protocol is in `PROMPT.md` and `README.md`.

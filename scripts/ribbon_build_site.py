@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
-"""Render the GitHub Pages site from the evidence receipts.
+"""ARCHIVED legacy ribbon-site renderer — command-line execution is disabled.
 
-Every number on every page is read out of ``evidence/*.json`` or
-``registry/*.json`` at render time, so a page can never advertise something the
-receipts do not contain.  ``scripts/ribbon_check_site.py`` re-derives the hashes and the
-dot counts and fails closed.
-
-    python3 scripts/ribbon_build_site.py
+The old renderer reads legacy ``gems58w`` cards and can publish misleading
+“Download: OK” wording and non-promotion-grade width numbers. The existing
+``docs/ribbon/`` pages are now a red research-only archive; this script is kept
+only to document the historical generator. Do not regenerate the site with it.
+The active fail-closed site generator is ``scripts/build_site.py``.
 """
 from __future__ import annotations
 
@@ -421,4 +420,8 @@ data tab redirects to login and was unreachable from this sandbox.</p></div>
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    raise SystemExit(
+        "DEPRECATED/NO-GO: legacy ribbon site generation is disabled because it "
+        "publishes stale metrics and unsafe download wording. Use scripts/build_site.py "
+        "for the current status site."
+    )

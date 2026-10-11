@@ -1,7 +1,14 @@
 #!/usr/bin/env python3
-"""Build, screen, validate and publish the GEMS58 ribbon-lane submission.
+"""ARCHIVED legacy builder — DO NOT RUN for submission or promotion.
 
-Pipeline (one run, no manual steps):
+Its historical implementation uses the private ``gems58w`` split, metric,
+uniqueness screen, and writer. It is retained for audit only; the command-line
+entry point below exits with NO-GO. Current work must use the shared
+``gems57.evaluate_holdout`` and ``gems57.submission_writer`` after all gates
+pass. The old comments below describe the historical recipe, not an approved
+or promotion-grade pipeline.
+
+Historical pipeline (not current protocol):
 
 1. read the cached multi-family ridge field (``extract.build``);
 2. keep every ridge segment and expand it into a **per-segment parallel dotted
@@ -338,4 +345,8 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    raise SystemExit(
+        "DEPRECATED/NO-GO: this legacy gems58w builder uses a private metric, "
+        "unbuffered holdout and private submission path. It is retained for audit only. "
+        "Do not build or submit from it; use the shared gems57 pipeline only after all gates pass."
+    )

@@ -1,6 +1,7 @@
 # registry raster cache (restorable via scripts/fetch_registry_sparse.py; pinned by sha256 in registry/)
 .cache/
 # python
+.venv/
 __pycache__/
 *.pyc
 .pytest_cache/

@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""EXP-2b: geometry sweep at a fixed 38,000-dot budget.
+"""ARCHIVED/NO-GO legacy experiment; command-line execution is disabled.
+
+The historical notes below include owner-reported leaderboard rows and a
+private/unbuffered geometry comparison. They are not promotion-grade evidence.
+
+Historical description: geometry sweep at a fixed dot budget.
 
 The dot budget is held at the level that the three best *measured* live files
 used (37,654 / 38,000 / 38,854 dots; owner-reported scores 0.2778 / 0.2750 /
@@ -194,4 +199,7 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    raise SystemExit(
+        "DEPRECATED/NO-GO: legacy geometry sweep uses the private gems58w holdout/metric "
+        "and is not promotion-grade. Do not run it for current claims."
+    )

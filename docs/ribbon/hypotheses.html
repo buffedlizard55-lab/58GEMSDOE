@@ -1,112 +1,16 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Hypotheses — 58GEMSDOE ribbon lane</title>
-<link rel="stylesheet" href="assets/site.css"></head><body><div class="wrap">
-<nav><a href="index.html">Overview</a><a href="executive-summary.html">How to submit</a>
-<a href="hypotheses.html">Hypotheses</a><a href="research.html">Research</a>
-<a href="sources.html">Sources</a><a href="irregularities.html">Irregularities</a></nav>
-<h1>Candidate geological hypotheses</h1>
-<p>Five candidates were written down <em>before</em> any of them was run, ranked by expected DTI
-improvement and implementation cost. Each names the layer(s) involved, the physical signature, why
-it should catch a fault the USGS/INGENIOUS catalogue does not contain, and how it differs from
-anything already implemented in this repo or in the sibling lanes whose hypothesis lists were read
-(<code>57GEMSDOE/BRIEF.md</code>, <code>GEMSDOE32/docs/research/*.md</code>: H33-A…E, H34,
-H57-1…5, H57-G1…G5, H61-1…5, H62-1…5).</p>
-
-<h2>Rank 1 — H58-R: emissive-width calibration of multi-family ridge detections (IMPLEMENTED)</h2>
-<table>
-<tr><th>layer(s)</th><td>all 19 organizer bands, grouped into the organizer's own six families
-(magnetic, gravity, topographic, subsurface, geodetic, seismic) at three ridge scales
-(1.5 / 3.0 / 6.0 px = 150 / 300 / 600 m)</td></tr>
-<tr><th>physical signature</th><td>Hessian ridge magnitude
-<code>| |λ₁| − |λ₂| | = 2·min(|tr|/2, disc)</code>, i.e. curvature across strike exceeding curvature
-along strike — the definition of curvilinear structure. Not an edge detector: an edge has
-<em>equal</em> eigenvalue magnitudes and scores zero here.</td></tr>
-<tr><th>why off-catalogue</th><td>detection uses no catalogue information by construction
-(guarded by <code>tests/test_holdout.py::test_no_catalogue_derived_feature_feeds_the_holdout</code>),
-so it can only surface lineaments the catalogue does not already contain; and dots on the
-catalogue are masked by the organizer, hence worthless.</td></tr>
-<tr><th>difference</th><td>sibling H34 blurred a <em>belief field</em> and re-ran a max-coverage
-emitter — a field transform. This lane transforms the <em>emission support geometry</em>: parallel
-dotted lines at the kernel radius, chosen per segment from a measured σ. Sibling H33-A ("multi-
-physics orientation") used band orientation products; this lane never combines channels into one
-index, it detects per channel and per scale and keeps the winning stratum's identity.</td></tr>
-<tr><th>cost</th><td>implemented: 3 registry scripts, one cached field, ~20 min per sweep</td></tr>
-<tr><th>result</th><td><strong>HOLDOUT-DTI (gems58.metric/v1, 60,359 withheld positives):
-width 1 = 0.039363, width 5 = 0.040008</strong> at an identical 38,000-dot budget.
-σ_detect = 1.70 px (per-component σ median 6.88 px) ⇒ the lane's rule selects the ribbon, and the per-segment plan resolves it to 5 lines at 0, ±300 m, ±600 m. Delivered file is this arm.</td></tr>
-</table>
-
-<h2>Rank 2 — H58-S: flight-line artefact suppression before detection (NOT RUN, highest value)</h2>
-<table>
-<tr><th>layer(s)</th><td><code>tmi</code>, <code>rtp</code>, <code>tmi_hg</code>,
-<code>tmi_vg</code>, <code>tc</code></td></tr>
-<tr><th>physical signature</th><td>aeromagnetic levelling residuals appear as lineaments
-<em>parallel to the survey flight lines</em>, at a spacing set by the survey, not by geology.
-Fitting and removing that directional comb leaves tectonic response.</td></tr>
-<tr><th>why off-catalogue</th><td>it removes <em>false</em> ridges, so it raises the precision of
-every off-catalogue detection without touching the catalogue.</td></tr>
-<tr><th>difference</th><td>sibling H61-5 works scarp morphology from the 1 m DEM; sibling H57-U
-proposed "flight-line-aligned magnetic mimic suppression" as an untested backlog item and never
-ran it. This is that idea with a concrete estimator.</td></tr>
-<tr><th>cost</th><td>high-ish: needs the survey line geometry (public USGS GeoDAWN metadata)</td></tr>
-<tr><th>status</th><td><strong>not validated — cannot be claimed.</strong> Named here because it is
-the largest single reduction in false support available to this lane.</td></tr>
-</table>
-
-<h2>Rank 3 — H58-T: directional (tensor) σ instead of scalar σ (NOT RUN)</h2>
-<table>
-<tr><th>layer(s)</th><td>same field as H58-R</td></tr>
-<tr><th>physical signature</th><td>the residual between a detected ridge and the true trace is
-anisotropic: along-strike the detection is far better than across-strike, because the ridge is
-continuous and the offset is a single number.</td></tr>
-<tr><th>why off-catalogue</th><td>it does not change <em>which</em> lineaments are found, only how
-wide their emission is, so it is orthogonal to the catalogue.</td></tr>
-<tr><th>difference</th><td>H58-R uses the RMS (isotropic) σ because the kernel is isotropic; the
-tensor version measures the error in the ridge frame and picks the offset direction per segment.
-It is a strict generalisation and therefore cannot lose except through extra parameters.</td></tr>
-<tr><th>cost</th><td>medium: same machinery, two more columns in the σ table</td></tr>
-<tr><th>status</th><td>not validated</td></tr>
-</table>
-
-<h2>Rank 4 — H58-U: held-out-inventory truth set (NOT RUN, unblocks the instrument)</h2>
-<table>
-<tr><th>layer(s)</th><td>none (a data-acquisition hypothesis)</td></tr>
-<tr><th>physical signature</th><td>—</td></tr>
-<tr><th>why off-catalogue</th><td>it builds a holdout whose truth is <em>not</em> the catalogue:
-a state or regional geological compilation (e.g. the SGMC-derived rasters the sibling lane already
-pins in <code>57GEMSDOE/data/external/</code>) that the organizer's catalogue also excludes. Only
-then can a hide-and-recover score rank off-catalogue placements.</td></tr>
-<tr><th>difference</th><td>every sibling lane's instrument uses the catalogue as truth; this is the
-first that does not.</td></tr>
-<tr><th>cost</th><td>medium; the source is already mirrored inside the sibling repository, so no new
-binary fetch is required</td></tr>
-<tr><th>status</th><td>not run — the deliverable in this session is honest about the instrument
-limit instead (IR-58-02)</td></tr>
-</table>
-
-<h2>Rank 5 — H58-V: seismic-catalogue declustering conditioning (NOT RUN)</h2>
-<table>
-<tr><th>layer(s)</th><td><code>deq_n100a15</code>, <code>ieq_n100a15</code></td></tr>
-<tr><th>physical signature</th><td>earthquake density as a weak prior on where structure exists,
-after removing the network-detection footprint (which follows roads, basins and population, not
-faults).</td></tr>
-<tr><th>why off-catalogue</th><td>a declustered epicentral lineation is evidence of a structure
-that a surface catalogue may not have mapped.</td></tr>
-<tr><th>difference</th><td>sibling H61-2 / H33-E used seismicity lineations directly; this
-conditions on the detection footprint first.</td></tr>
-<tr><th>cost</th><td>low</td></tr>
-<tr><th>status</th><td>not run — ranked last because the two seismic bands are 100 km-radius
-smooth fields and carry almost no resolvable lineation at 100 m</td></tr>
-</table>
-
-<h2>Ranking rationale and the budget actually spent</h2>
-<p>Rank 1 was implemented because it is the lane, it is cheap, and it is the only candidate whose
-decision variable (emission width) is measurable on the mandated holdout without new data. Ranks
-2 and 3 are the two cheapest real improvements and neither was validated inside the
-<strong>3-experiment / 2-hour</strong> budget; they are named as next work, not as claims.
-Ranks 4 and 5 need either a new truth set or carry too little signal per hour.</p>
-
-<footer>58GEMSDOE · ribbon lane · every figure on this site is rendered from
-<code>evidence/*.json</code> · no organizer-confirmed score exists for any artifact here.</footer>
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ribbon-width hypotheses — proposals only</title><link rel="stylesheet" href="assets/site.css"></head>
+<body><div class="wrap">
+<nav><a href="index.html">Archive notice</a><a href="hypotheses.html">Hypotheses</a><a href="research.html">Research note</a><a href="sources.html">Sources</a><a href="irregularities.html">Irregularities</a></nav>
+<div class="card bad" role="alert"><h1>NOT OK TO SUBMIT — DO NOT SUBMIT</h1><p>The items below are untested research proposals. None has a result or slot decision. The current registry stop must be resolved before any test.</p><p><a href="../research/hypotheses_new.md">Current ranked hypotheses and test plan</a> · <a href="../index.html">Current status</a></p></div>
+<h2>Within-lane proposals only</h2>
+<ol>
+<li><strong>Magnetic signed-bias/asymmetric ribbon</strong> — existing magnetic edges; fit signed normal error by training block and test a frozen shift/unequal offsets on untouched blocks.</li>
+<li><strong>Relief-conditioned topographic width</strong> — existing detrended-elevation ridges; test whether localization error changes with local relief before choosing ribbon width.</li>
+<li><strong>Geodetic signed-normal shift</strong> — existing strain ridges; test whether a stable cross-fitted normal bias justifies an offset centerline.</li>
+<li><strong>Empirical-tail gravity width</strong> — existing gravity edges; compare empirical error quantiles with the legacy scalar/Normal width assumption.</li>
+</ol>
+<p>These proposals can only improve emission around a detected ridge that is already near a fault trace. They cannot recover an entirely missed fault. Their expected effects are qualitative, not projected scores. See the root hypothesis document for differences from prior code, mimic processes, costs, and stop criteria.</p>
+<footer>Proposal list only; no candidate has been implemented or validated.</footer>
 </div></body></html>

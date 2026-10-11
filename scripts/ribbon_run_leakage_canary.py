@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
-"""Leakage canary: AUC of every single band against the withheld truth.
+"""ARCHIVED/NO-GO legacy canary; command-line execution is disabled.
+
+The historical notes below use the private ``gems58w`` unbuffered split. Their
+AUC values are not a current leakage clearance; use the shared buffered canary
+only after the registry stop is resolved.
+
+Historical description: AUC of individual bands against withheld truth.
 
 Protocol rule 4: test each feature alone on the holdout before trusting any result;
 AUC above 0.90 means leakage until proven otherwise.  A feature that merely *is*
@@ -100,4 +106,7 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    raise SystemExit(
+        "DEPRECATED/NO-GO: legacy leakage canary uses the private gems58w split; "
+        "do not use its results as current clearance."
+    )

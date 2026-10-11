@@ -343,19 +343,8 @@ def build_run_card() -> dict:
 
 
 def candidate_register() -> str:
-    """HTML table of every GeoTIFF offered under ``docs/downloads/``.
-
-    The repository now carries more than one candidate from more than one session.
-    A single pinned TIF is not enough to answer "is it OK to download and submit
-    this?", so every candidate is listed with the facts that can be checked from
-    its own bytes, and none of them is described as cleared. Session-2 evidence is
-    attached where the session-2 scan exists.
-    """
-    uniq2 = load_json(EV / "model_uniqueness.json")
-    e3 = load_json(EV / "model_e3.json")
-    per_sha = {}
-    if uniq2.get("candidate_file_sha256"):
-        per_sha[uniq2["candidate_file_sha256"]] = uniq2
+    """List downloadable TIFFs without importing out-of-lane score claims."""
+    current_name = Path(TIF_REL).name
     rows = []
     for tif in sorted(DL.glob("*.tif")):
         receipt = load_json(tif.with_suffix(".json"))
@@ -367,21 +356,18 @@ def candidate_register() -> str:
             pass
         v = receipt.get("validator", {})
         dots = v.get("emitted_positive_pixels", receipt.get("metadata", {}).get("dots_emitted"))
-        scan = per_sha.get(sha)
-        if scan:
-            note = (f"session-2 scan: {scan.get('registry_rasters_checked')}/"
-                    f"{scan.get('registry_rasters_expected')} rasters; worst rho "
-                    f"{fmt(scan.get('worst_spearman_full_footprint'), 3)}; worst overlap "
-                    f"{fmt(scan.get('worst_dot_overlap'), 3)} &rarr; {scan.get('verdict')}")
+        mismatch = "" if sha == live else " <b>MISMATCH vs bytes on disk</b>"
+        if tif.name == current_name:
+            note = ("current ribbon diagnostic; final-dot overlap is 1.000 &gt; 0.70 "
+                    "in a 694/695 pinned-raster scan; NOT CLEARED")
         else:
-            note = "no session-2 full-registry scan on file"
+            note = "outside this ribbon-width review; not qualified or cleared"
         rows.append(
             "<tr>"
             f"<td><code>{html.escape(tif.name)}</code><br><span class=\"small\">sha256 "
-            f"<code>{html.escape(sha[:16])}&hellip;</code>"
-            f"{'' if sha == live else ' <b>MISMATCH vs bytes on disk</b>'}</span></td>"
+            f"<code>{html.escape(sha[:16])}&hellip;</code>{mismatch}</span></td>"
             f"<td>{html.escape(str(dots if dots is not None else 'not recorded'))}</td>"
-            f"<td>{'passed' if v.get('all_checks_passed') else 'not recorded'}</td>"
+            f"<td>{'passed (internal)' if v.get('all_checks_passed') else 'not recorded'}</td>"
             f"<td><b>NOT CLEARED</b> &mdash; {note}</td>"
             "</tr>")
     if not rows:
@@ -389,20 +375,9 @@ def candidate_register() -> str:
     table = ("<table><tr><th>Candidate file</th><th>Positive pixels</th>"
              "<th>Local format/range preflight</th><th>Uniqueness / lane status</th></tr>"
              + "".join(rows) + "</table>")
-    extra = ""
-    if e3:
-        best = (e3.get("holdout_sweep", {}).get("detached", {}) or {})
-        arm = e3.get("best_detached_arm")
-        dti = (best.get(arm) or {}).get("dti")
-        extra = (
-            "<p class=\"small\">Session-2 equal-budget ranking contest (detached HOLDOUT-DTI, shared "
-            f"exact evaluator): best arm <code>{html.escape(str(arm))}</code> at "
-            f"{fmt(dti)} with nu*={fmt(e3.get('nu_star_detached'), 2)} and an off-catalogue buffer of "
-            f"{html.escape(str(e3.get('buffer_star_px')))} px. The ribbon lane's own truth-free live rule "
-            "scored 0.1309 on the same instrument, below its 0.1573 tight-line baseline. "
-            "Details: <code>evidence/model_e3.json</code>, <code>evidence/model_run_card.json</code>.</p>")
-    return ("<h3>Every candidate in <code>docs/downloads/</code> &mdash; none is cleared</h3>"
-            + table + extra)
+    return ("<h3>Every TIFF in <code>docs/downloads/</code> — none is cleared</h3>"
+            + "<p>Only the ribbon diagnostic is in this review. Other inherited files are listed "
+            "solely to prevent accidental use; their performance is outside scope.</p>" + table)
 
 
 def build_site(card: dict) -> None:
@@ -491,7 +466,7 @@ def build_site(card: dict) -> None:
 <tr><td>Pre-placement surface</td><td>NOT CLEARED for this TIFF/current inventory</td><td>The existing historical surface report is for another build and is not reusable.</td></tr>
 <tr><td>Buffered outer holdout</td><td>NOT MEASURED for the current instrument</td><td>The {legacy_n} old E2 output is not promotion-grade; no DTI is shown here.</td></tr>
 <tr><td>Local format/range</td><td>{local_validation}</td><td>Internal check only; sample nodata semantics and portal acceptance remain unconfirmed.</td></tr>
-<tr><td>Organizer receipt</td><td>None</td><td>No organizer score exists.</td></tr></table>
+<tr><td>Organizer receipt for this TIFF</td><td>None</td><td>Public leaderboard rows are not a hash/receipt attribution to this artifact.</td></tr></table>
 </section>
 <section>
 <h2>{html.escape(instruction_title)}</h2>
@@ -506,7 +481,7 @@ def build_site(card: dict) -> None:
 </section>
 <section><h2>Review links</h2><ul>
 <li><a href="SUBMISSION_GUIDE.md">Full submission guide</a></li><li><a href="SOURCES.md">Official sources and availability checks</a></li>
-<li><a href="IRREGULARITIES.md">Irregularities / review flags</a></li><li><a href="research/hypotheses_new.md">Ranked untested hypotheses</a></li>
+<li><a href="IRREGULARITIES.md">Irregularities / review flags</a></li><li><a href="LEADERBOARD.md">Dated public leaderboard and file-attribution review</a></li><li><a href="research/hypotheses_new.md">Ranked untested hypotheses</a></li>
 <li><a href="evidence.html">Evidence status</a></li><li><a href="sources.html">Short source register</a></li>
 <li><a href="AI_USAGE.md">Generative-AI use log (rules disclosure reference)</a></li>
 </ul></section>
@@ -521,9 +496,9 @@ def build_site(card: dict) -> None:
 <p>{summary_warning}</p>
 <p><a href="index.html">Return to status page</a> · <a href="SUBMISSION_GUIDE.md">Full guide</a></p></section>
 <h2>What the number labels mean</h2><ul><li><b>HOLDOUT-DTI</b> requires a named shared evaluator/version, withheld-positive count and defensible 95% CI. No such result exists for the revised instrument.</li>
-<li><b>ORGANIZER-CONFIRMED</b> requires a DrivenData receipt. None exists.</li><li>Local format/uniqueness evidence is not a performance score.</li></ul>
+<li><b>ORGANIZER-CONFIRMED</b> requires a DrivenData receipt tied to this exact artifact. None exists for this TIFF; public-board rows are separate.</li><li>Local format/uniqueness evidence is not a performance score.</li></ul>
 <h2>Submission steps when—and only when—the status changes</h2><ol><li>Confirm a complete current accessible-raster inventory.</li><li>Pass the pre-placement surface and final-dot literal gates.</li><li>Pass the buffered, nested outer-block holdout and feature-alone canaries.</li><li>Read the official rules and disclose generative-AI use if applicable.</li><li>Use the platform separately; select only one final submission across prize rounds. Save the receipt.</li></ol>
-<footer>Generated {generated}. No leaderboard claim or organizer receipt.</footer></body></html>"""
+<footer>Generated {generated}. No public leaderboard row is attributed to this TIFF; no organizer receipt for this artifact exists. See <a href="LEADERBOARD.md">the dated public-board observation and attribution limits</a>.</footer></body></html>"""
     (ROOT / "docs" / "executive-summary.html").write_text(summary, encoding="utf-8")
     (ROOT / "docs" / "submit.html").write_text(summary.replace("Executive summary — current GEMS decision", "Submission guide — current GEMS decision"), encoding="utf-8")
     evidence_summary = (

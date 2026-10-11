@@ -1,7 +1,13 @@
 #!/usr/bin/env python3
-"""EXP-2c: fixed-budget geometry sweep evaluated **off-catalogue**.
+"""ARCHIVED/NO-GO legacy experiment; command-line execution is disabled.
 
-Two corrections to ``run_geometry_sweep.py``, both forced by measurement:
+The historical notes below describe an unbuffered/private-metric comparison;
+they are not promotion-grade evidence. Use the current protocol and shared
+gems57 tools only after the registry stop is cleared.
+
+Historical description: fixed-budget geometry sweep evaluated off-catalogue.
+
+Two historical corrections to ``run_geometry_sweep.py``, both forced by measurement:
 
 1. **Hard budget.**  The emitter greedy-keeps the strongest dots subject to a
    minimum separation until it hits exactly the 38,000-dot budget, so every row
@@ -177,4 +183,7 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    raise SystemExit(
+        "DEPRECATED/NO-GO: legacy final sweep uses the private gems58w holdout/metric "
+        "and is not promotion-grade. Do not run it for current claims."
+    )

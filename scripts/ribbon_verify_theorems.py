@@ -1,18 +1,11 @@
 #!/usr/bin/env python3
-"""Re-derive the three lane theorems from the official equations, by machine.
+"""ARCHIVED legacy theorem script — do not use for current qualification.
 
-1. ``DTI = TP / (alpha(T + F) + beta*G)``  --- follows from ``FN = G - TP``.
-2. **Binary dominates soft**: ``lambda -> lambda*T / (alpha*lambda*(T+F) + beta*G)``
-   is strictly increasing on ``(0, 1]``, so the emitted value is exactly 1.0.
-   Verified on random binary supports, and against the closed-form derivative.
-3. **Marginal inclusion**: one more emitted pixel with own kernel credit ``k``
-   changes the index by a positive amount iff ``k >= alpha * s`` where ``s`` is
-   the index before the addition.  Verified numerically on random grids, and by
-   the closed-form threshold table used in the run card.
-
-Exits non-zero if any assertion fails, so CI can gate on it.
-
-    PYTHONPATH=src python3 scripts/ribbon_verify_theorems.py
+This script imports the private ``gems58w`` metric and its old marginal-rule
+wording generalized ``k > alpha*s`` beyond the non-redundant one-dot case.
+Its command-line entry point is disabled. The corrected exact pattern rule and
+shared-metric regression test are in ``docs/research/metric.md`` and
+``tests/test_metric_exact.py``; current holdout work must use ``gems57``.
 """
 from __future__ import annotations
 
@@ -119,4 +112,7 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    raise SystemExit(
+        "DEPRECATED/NO-GO: this legacy theorem script uses private gems58w logic. "
+        "See docs/research/metric.md and the shared gems57 regression tests instead."
+    )

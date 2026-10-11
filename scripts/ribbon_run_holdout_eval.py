@@ -1,7 +1,13 @@
 #!/usr/bin/env python3
-"""EXP-2: exact-metric comparison of tight lines vs parallel-dotted ribbons.
+"""ARCHIVED/NO-GO legacy experiment; command-line execution is disabled.
 
-Everything is measured on the buffered hide-and-recover holdout
+The historical notes below use a private ``gems58w`` metric and holdout; they
+are not current promotion-grade results. Use the shared buffered protocol only
+after the pre-placement registry gate is resolved.
+
+Historical description: compare tight lines with parallel-dotted ribbons.
+
+Everything was measured on the buffered hide-and-recover holdout
 (``gems58-pooled-hide-v1``); the metric is ``gems58w.metric/v1``, the literal
 transcription of the official equations (cross-checked by
 ``scripts/ribbon_verify_theorems.py`` against a brute-force oracle).
@@ -186,4 +192,7 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    raise SystemExit(
+        "DEPRECATED/NO-GO: legacy holdout evaluation uses the private gems58w protocol; "
+        "do not run or report it as current HOLDOUT-DTI."
+    )

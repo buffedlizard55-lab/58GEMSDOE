@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
-"""EXP-3: the decisive equal-budget test --- dense single chain vs parallel dotted ribbon.
+"""ARCHIVED/NO-GO legacy experiment; command-line execution is disabled.
+
+The historical notes below describe an unbuffered/private-metric comparison;
+they are not promotion-grade evidence. Use the current protocol and shared
+gems57 tools only after the registry stop is cleared.
+
+Historical description: equal-budget test --- dense single chain vs dotted ribbon.
 
 Every arm emits **isolated dots** (no two 8-adjacent, ``min_sep = 1``) and every
 arm is greedy-capped at the **same 38,000-dot budget**, so the only difference is
@@ -233,4 +239,7 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    raise SystemExit(
+        "DEPRECATED/NO-GO: legacy equal-budget experiment uses the private gems58w "
+        "holdout/metric and is not promotion-grade. Do not run it for current claims."
+    )
