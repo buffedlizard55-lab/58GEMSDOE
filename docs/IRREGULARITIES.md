@@ -136,10 +136,28 @@ Numbering continues the historical list that this page replaced; each item carri
     literal rule and both need the same chance-corrected reading. What the irregularity is: a clearance
     published in the wrong direction cannot support a green "download OK" banner, and the two lanes are
     now reporting opposite verdicts from the same registry because they measured different statistics.
-    Outstanding: a corrected full screen of the sibling deliverable with both readings —
-    `PYTHONPATH=src python3 scripts/check_uniqueness_registry.py
-    docs/deliverable/downloads/gems58-novel-scatter-44090-20261011T0630Z.tif --workers 2
-    --out ribbon/sibling_full_inventory.json` (~35 min). Note also that the sibling screen ran over
-    **473** live-fetched rasters while the pinned+delta inventory holds **703**; the inventories are not
-    the same set, and `rho_subsample` (a subsampled Spearman) is now recorded explicitly in the summary
-    so a subsampled pass can never be reported as an exact one.
+    **The corrected full screen has now been run**
+    ([`evidence/ribbon/sibling_full_inventory.json`](../evidence/ribbon/sibling_full_inventory.json)):
+    703 witnesses, complete, 0 missing/invalid — verdict **negative**, `stop_required` true,
+    **79 literal firings** (54 vacuous with E ≥ 0.99, 25 informative; worst informative overlap
+    0.8496), while the discriminating statistics all pass by wide margins (byte-unique, pixel-unique,
+    worst rank correlation **0.0900** vs 0.90, worst dot-set Jaccard **0.0509** vs 0.50). Its highest
+    chance-corrected lift is **1.000** against `5GEMSDOE:data/derived/context_detector_prob_u8.tif`
+    (every one of its dots within 3 px of a witness whose own dilation covers ~75 % of the footprint)
+    and **0.7143** against this lane's candidate. So the sibling file is in exactly this lane's
+    position under the protocol as written — not cleared by the literal rule, and not a copy of
+    anything — and its green banner rests on a statistic the protocol does not define. Note also that
+    the sibling screen ran over **473** live-fetched rasters while the pinned+delta inventory holds
+    **703**; the inventories are not the same set, and `rho_subsample` (a subsampled Spearman) is now
+    recorded explicitly in the summary so a subsampled pass can never be reported as an exact one.
+
+    **Cross-lane screen** ([`evidence/ribbon/cross_lane_screen.json`](../evidence/ribbon/cross_lane_screen.json)):
+    the two candidates share 3,542 exact pixels out of 40,768 and 44,090 (Jaccard 0.0436), so neither
+    copies the other, but the overlap is strongly **asymmetric** — this lane's file has **0.2998** of
+    its dots within 3 px of the sibling's support (E = 0.0450, lift 0.2668, **clears**) while the
+    sibling's file has **0.7513** of its dots within 3 px of this lane's support (E = 0.1295, lift
+    0.7143, **fires**). The cause is geometry: ridge-concentrated emission dilates to 12.95 % of the
+    footprint and swallows a sparse scatter emission, whose own dilation covers 4.50 %. Consequence for
+    the owner's decision: this lane's reading is unchanged by the sibling file joining the inventory,
+    but any ratified chance-corrected threshold must be applied to **both** files at the same value, or
+    the two lanes will keep publishing opposite verdicts from the same registry.

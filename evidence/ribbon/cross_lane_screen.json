@@ -1,0 +1,24 @@
+{
+ "evidence_class": "REGISTRY-MEASUREMENT",
+ "generated_utc": "2026-10-11T07:20:00Z",
+ "purpose": "Cross-screen of the two candidates published on 2026-10-11 against each other, in the protocol direction and with the chance correction, because the sibling file joined the inventory after this lane's own scan had run.",
+ "a": {
+  "file": "docs/downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif",
+  "dots": 40768,
+  "as_candidate_overlap": 0.29976942700156983,
+  "witness_E": 0.04502616706786988,
+  "chance_corrected_lift": 0.2667541781239618,
+  "literal_fires": false
+ },
+ "b": {
+  "file": "docs/deliverable/downloads/gems58-novel-scatter-44090-20261011T0630Z.tif",
+  "dots": 44090,
+  "as_candidate_overlap": 0.751258788841007,
+  "witness_E": 0.12950623072884423,
+  "chance_corrected_lift": 0.7142527379980466,
+  "literal_fires": true
+ },
+ "exact_common_pixels": 3542,
+ "jaccard": 0.04355846327905947,
+ "interpretation": "The two lanes' files are not copies of each other: they share 3,542 exact pixels out of 40,768 and 44,090 (dot-set Jaccard 0.0436). The overlap is strongly ASYMMETRIC, and the asymmetry is the finding. Measured in the protocol direction, this lane's candidate has 0.2998 of its dots within 3 px of the sibling's support (chance expectation 0.0450, lift 0.2668) and therefore CLEARS the 0.70 limit against it, while the sibling's candidate has 0.7513 of its dots within 3 px of this lane's support (chance expectation 0.1295, lift 0.7143) and therefore FIRES. The reason is geometry, not copying: the ribbon emission is concentrated along ridges, so its 3 px dilation covers 12.95% of the footprint and swallows most of a sparse scatter emission, whereas the scatter emission's dilation covers only 4.50% and catches under a third of the ridge-concentrated dots. Two consequences for the owner. (1) The reading published for this lane's candidate is unchanged by the sibling file entering the inventory: it does not fire against it, so a ratified lift threshold of 0.50 still leaves only this repository's own earlier ribbon files as firings. (2) The sibling's file acquires one more informative firing, against this lane's candidate, so its own 'zero triggers' claim weakens further under the protocol direction - and any chance-corrected rule the owner ratifies must be applied to both files with the same threshold, or the two lanes will keep reporting opposite verdicts from the same registry."
+}
