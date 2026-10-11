@@ -54,15 +54,18 @@ metadata is null while the sample metadata is NaN; organizer interpretation is u
 <h2>What is not known</h2>
 <ul><li>Pre-placement surface uniqueness is NOT MEASURED.</li>
 <li>Current registry freshness is BLOCKED_NOT_EXHAUSTIVE.</li>
-<li>HOLDOUT-DTI, evaluator, withheld-positive count and 95% CI are NOT MEASURED for this raster.</li>
-<li>σ, simulated class gain and a feature-alone leakage canary are NOT MEASURED / NOT RUN.</li>
+<li><b>G4 — Promotion-grade feature-alone leakage canary:</b> FAIL / NOT RUN; no candidate-bound receipt exists.</li>
+<li><b>G5 — Buffered spatial HOLDOUT-DTI with defensible 95% CI:</b> FAIL / NOT MEASURED; no evaluator, withheld-positive count, protocol, or reportable interval is bound to this raster.</li>
+<li>σ and simulated class gain are NOT MEASURED.</li>
 <li>No organizer score or portal acceptance receipt exists.</li></ul>
 <h2>Before any future submission</h2>
 <p>See the <a href="SUBMISSION_GUIDE.md">full submission guide</a>. The current literal stop means no
 experiment or replacement candidate is authorized under this review. No slot has been selected.</p>
 <h2>Attribution of 0.2778</h2>
-<p>The public snapshot ties 0.2778 to <code>extradr19</code>; no artifact hash or receipt connects it to
-H33. The cause of that score is unknown. See <a href="research/why-02778.md">the attribution review</a>.</p>
+<p><b>PUBLIC-LEADERBOARD-SNAPSHOT:</b> the dated participant-row observation ties 0.2778 to
+<code>extradr19</code>. It is not an organizer-confirmed artifact score. No artifact hash or receipt
+connects it to H33; the cause of the participant's result is unknown. See
+<a href="research/why-02778.md">the attribution review</a>.</p>
 
 <footer><hr><p class="s7-small">Rendered from the session-7 artifact audit and run card by
 <code>scripts/build_session7_pages.py</code>. This page is a local project record, not an organizer decision.</p></footer>

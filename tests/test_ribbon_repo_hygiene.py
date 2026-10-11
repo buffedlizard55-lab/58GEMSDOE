@@ -27,8 +27,8 @@ def test_generated_status_is_an_unambiguous_negative():
     assert gates["PREPLACEMENT"] is False
     assert gates["FINAL_DOTS"] is False
     assert gates["INVENTORY"] is False
-    assert gates["HOLDOUT"] is False
-    assert gates["LEAKAGE"] is False
+    assert gates["G5"] is False
+    assert gates["G4"] is False
     assert gates["PORTAL"] is False
 
     final = audit["correlation_overlap_vs_registry"]["final_dots"]["witness_measurement"]

@@ -36,8 +36,14 @@
       "status": "BLOCKED_NOT_EXHAUSTIVE"
     },
     {
-      "id": "HOLDOUT",
-      "name": "HOLDOUT-DTI qualification",
+      "id": "G4",
+      "name": "G4 \u2014 Promotion-grade feature-alone leakage canary",
+      "ok": false,
+      "status": "NOT RUN"
+    },
+    {
+      "id": "G5",
+      "name": "G5 \u2014 Buffered spatial HOLDOUT-DTI with defensible 95% CI",
       "ok": false,
       "status": "NOT MEASURED"
     },
@@ -46,12 +52,6 @@
       "name": "Artifact-specific \u03c3 table and simulated class gain",
       "ok": false,
       "status": "\u03c3: NOT MEASURED; gain: NOT MEASURED"
-    },
-    {
-      "id": "LEAKAGE",
-      "name": "Feature-alone leakage canary",
-      "ok": false,
-      "status": "NOT RUN"
     },
     {
       "id": "PORTAL",

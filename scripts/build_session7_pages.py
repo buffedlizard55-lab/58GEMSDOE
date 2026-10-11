@@ -83,12 +83,12 @@ def gate_rows(card: dict, audit: dict) -> list[dict]:
          "status": f"FAIL — overlap {measured_text} exceeds literal threshold {threshold_text}; stop required"},
         {"id": "INVENTORY", "name": "Fresh complete registry", "ok": False,
          "status": freshness},
-        {"id": "HOLDOUT", "name": "HOLDOUT-DTI qualification", "ok": False,
+        {"id": "G4", "name": "G4 — Promotion-grade feature-alone leakage canary", "ok": False,
+         "status": leakage.get("status", "NOT RUN")},
+        {"id": "G5", "name": "G5 — Buffered spatial HOLDOUT-DTI with defensible 95% CI", "ok": False,
          "status": holdout.get("status", "NOT MEASURED")},
         {"id": "SIGMA", "name": "Artifact-specific σ table and simulated class gain", "ok": False,
          "status": f"σ: {card.get('sigma_table', 'NOT MEASURED')}; gain: {card.get('simulated_gain_per_class', 'NOT MEASURED')}"},
-        {"id": "LEAKAGE", "name": "Feature-alone leakage canary", "ok": False,
-         "status": leakage.get("status", "NOT RUN")},
         {"id": "PORTAL", "name": "Organizer/portal acceptance and score receipt", "ok": False,
          "status": f"{validator.get('portal_acceptance', 'NOT CONFIRMED')}; no hash-bound organizer receipt"},
     ]
@@ -180,9 +180,10 @@ occurred in this review. A filename/download link is not permission to submit.</
 <div class="s7-card"><h2>Top untested width hypothesis</h2><p>H58-U1: condition ribbon width on local relief around fixed existing topographic ridge
 centerlines. Proposal only; not implemented, not measured. A width change cannot detect a fault that
 the fixed ridge surface entirely missed.</p><p><a href="research/hypotheses_new.md">See ranked hypotheses and falsifiers</a>.</p></div>
-<div class="s7-card"><h2>Reported 0.2778</h2><p>The dated public snapshot attributes 0.2778 to participant <code>extradr19</code>.
-No receipt/hash crosswalk ties it to GEMSDOE32 H33; its owner page labels the H33 file unscored.
-The cause of the participant's result is unknown.</p><p><a href="research/why-02778.md">Attribution review</a> · <a href="LEADERBOARD.md">dated leaderboard record</a>.</p></div>
+<div class="s7-card"><h2>Reported 0.2778</h2><p><span class="s7-badge">PUBLIC-LEADERBOARD-SNAPSHOT</span>
+The dated participant-row snapshot attributes 0.2778 to <code>extradr19</code>. It is not an
+organizer-confirmed artifact score. No receipt/hash crosswalk ties it to GEMSDOE32 H33; its owner page
+labels the H33 file unscored. The cause of the participant's result is unknown.</p><p><a href="research/why-02778.md">Attribution review</a> · <a href="LEADERBOARD.md">dated leaderboard record</a>.</p></div>
 </section>
 <h2>Current artifact gate matrix</h2>
 <p>Evidence classes are kept separate: local validation, registry measurements, holdout evidence, and organizer results are not interchangeable.</p>
@@ -222,15 +223,18 @@ metadata is null while the sample metadata is NaN; organizer interpretation is u
 <h2>What is not known</h2>
 <ul><li>Pre-placement surface uniqueness is NOT MEASURED.</li>
 <li>Current registry freshness is BLOCKED_NOT_EXHAUSTIVE.</li>
-<li>HOLDOUT-DTI, evaluator, withheld-positive count and 95% CI are NOT MEASURED for this raster.</li>
-<li>σ, simulated class gain and a feature-alone leakage canary are NOT MEASURED / NOT RUN.</li>
+<li><b>G4 — Promotion-grade feature-alone leakage canary:</b> FAIL / NOT RUN; no candidate-bound receipt exists.</li>
+<li><b>G5 — Buffered spatial HOLDOUT-DTI with defensible 95% CI:</b> FAIL / NOT MEASURED; no evaluator, withheld-positive count, protocol, or reportable interval is bound to this raster.</li>
+<li>σ and simulated class gain are NOT MEASURED.</li>
 <li>No organizer score or portal acceptance receipt exists.</li></ul>
 <h2>Before any future submission</h2>
 <p>See the <a href="SUBMISSION_GUIDE.md">full submission guide</a>. The current literal stop means no
 experiment or replacement candidate is authorized under this review. No slot has been selected.</p>
 <h2>Attribution of 0.2778</h2>
-<p>The public snapshot ties 0.2778 to <code>extradr19</code>; no artifact hash or receipt connects it to
-H33. The cause of that score is unknown. See <a href="research/why-02778.md">the attribution review</a>.</p>
+<p><b>PUBLIC-LEADERBOARD-SNAPSHOT:</b> the dated participant-row observation ties 0.2778 to
+<code>extradr19</code>. It is not an organizer-confirmed artifact score. No artifact hash or receipt
+connects it to H33; the cause of the participant's result is unknown. See
+<a href="research/why-02778.md">the attribution review</a>.</p>
 """
     return page("Executive review — not a submission approval", body)
 
