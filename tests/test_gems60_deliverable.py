@@ -163,9 +163,8 @@ def test_published_pages_carry_the_same_banner_as_the_gates() -> None:
     assert re.search(r"big-btn[^>]*downloads/gems60-convergence-ribbon6-.*\.tif", text), \
         "the one-click download button must point at the pinned raster"
     if index.exists():
-        m = re.search(r"<!-- session5:begin -->(.*?)<!-- session5:end -->", index.read_text(), re.S)
-        assert m, "the front door must carry the session-5 box"
-        box = m.group(1)
-        assert ("OK TO DOWNLOAD AND SUBMIT" in box) is cleared, \
-            "the front-door box must agree with the governing readings"
-        assert ("NOT CLEARED" in box) is not cleared
+        # Historical session-5 status must not be injected into the current front door.
+        current = index.read_text()
+        assert "<!-- session5:begin -->" not in current
+        assert "NOT OK TO SUBMIT" in current
+        assert "DO NOT SUBMIT" in current

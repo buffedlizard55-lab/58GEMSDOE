@@ -1,13 +1,14 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Portal checklist — 58GEMSDOE (GEMS competition #306)</title>
+<title>Local artifact QA — not submission clearance — 58GEMSDOE (GEMS competition #306)</title>
 <link rel="stylesheet" href="assets/site.css">
 <style>
 .gates{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:.6rem;margin:.8rem 0}
 .gate{border:1px solid #d7dee6;border-left:5px solid #999;border-radius:8px;padding:.55rem .7rem;background:#fbfcfd}
 .gate.pass{border-left-color:#1d7a45;background:#f2fbf5}
 .gate.fail{border-left-color:#a11212;background:#fdf3f3}
+.gate.info{border-left-color:#2f5f8f;background:#f5f9fc}
 .gate h4{margin:0 0 .25rem;font-size:.95rem}
 .gate p{margin:0;font-size:.83rem;color:#41505f}
 .pill{display:inline-block;padding:.1em .55em;border-radius:999px;font-size:.76rem;font-weight:700;color:#fff}
@@ -27,56 +28,42 @@ table{max-width:100%}
 <header><h1>58GEMSDOE — DOE GEMS competition #306</h1>
 <p>Geothermal fault detection, northwestern Great Basin (NV) · ribbon lane · every figure on this
 site is rendered from <code>evidence/**.json</code> at build time</p>
-<nav class="small"><a href="index.html">Status &amp; download</a> · <a href="executive-summary.html">How to submit</a> · <a href="submit.html" style="font-weight:700">Portal checklist</a> · <a href="deliverable/index.html">Sibling-lane deliverable</a> · <a href="sources.html">Sources</a> · <a href="evidence.html">Evidence index</a> · <a href="ribbon/index.html">Ribbon lane archive</a></nav></header>
+<nav class="small"><a href="index.html">Status &amp; review</a> · <a href="executive-summary.html">Research review</a> · <a href="submit.html" style="font-weight:700">Local file QA</a> · <a href="deliverable/index.html">Sibling-lane deliverable</a> · <a href="sources.html">Sources</a> · <a href="evidence.html">Evidence index</a> · <a href="ribbon/index.html">Ribbon lane archive</a></nav></header>
 
-<section class="submit-box" style="border-color:#a11212">
-  <div class="badge" style="background:#a11212">
-    PREFLIGHT NOT CLEARED</div>
-  <h2 style="margin-top:.7rem">Portal checklist for <code>gems58-concordance-ribbon-40768-20261011T160514Z.tif</code></h2>
-  <p class="small">Every row is produced by <code>src/gems58w/submission.py:validate()</code> against
-  the bytes on disk at build time. It is a <b>local preflight</b>: it reproduces the format rules
-  published on the competition page and the reference solution's writer. It is not an organizer
-  acceptance, and it is not a score.</p>
-  <div class="dlrow">
-    <a class="big-btn" style="background:#a11212" href="downloads/gems58-concordance-ribbon-40768-20261011T160514Z.tif" download>
-      ⬇ Download the GeoTIFF</a>
-    <a class="big-btn" style="background:#2f5f8f" href="downloads/gems58-concordance-ribbon-40768-20261011T160514Z.zip" download>
-      ⬇ Download the ZIP</a>
-  </div>
-</section>
+<section class="banner" role="alert"><h2>NOT OK TO SUBMIT — DO NOT SUBMIT</h2>
+<p>The download below is an audit artifact for review and reproducibility only. Do not upload it,
+select a competition slot, or infer eligibility from a local format check.</p>
+<p><span class="pill pass">LOCAL FORMAT PREFLIGHT: PASS</span>
+<span class="pill fail">OVERALL QUALIFICATION IS SEPARATE</span></p></section>
+<section><h2>Exact artifact reviewed</h2>
+<p><code>gems58-concordance-ribbon-40768-20261011T160514Z.tif</code> · SHA-256 <code>f709b6f12d5188e34aa3aed3b83d785b97a232224692dcdfffedaa009dee9d0d</code> ·
+427919 bytes ·
+40768 positive pixels.</p>
+<p><a class="button review" href="downloads/gems58-concordance-ribbon-40768-20261011T160514Z.tif" download>Download for audit only — DO NOT SUBMIT</a>
+<a href="downloads/index.html">See the individually labelled downloads index.</a></p></section>
+<section><h2>What the local preflight checks</h2>
+<p>The receipt was produced by the project's local validator and compared with the bytes on disk.
+A local pass does not establish that DrivenData accepted the file or that its portal validator will
+interpret the NoData mask the same way. The previously reported portal message
+<code>Predicted values must be in range [0, 1]</code> is <b>unresolved</b>: this checkout has no
+portal response payload or submission receipt bound to this SHA-256. Do not infer its cause from the
+local minimum/maximum.</p>
+<table class="kv"><thead><tr><th>local check</th><th>result</th><th>detail</th></tr></thead><tbody><tr><td><code>exists</code></td><td><span class="pill pass">PASS</span></td><td>/home/user/58GEMSDOE/docs/downloads/gems58-concordance-ribbon-40768-20261011T160514Z.tif</td></tr><tr><td><code>single_band</code></td><td><span class="pill pass">PASS</span></td><td>count=1</td></tr><tr><td><code>dtype_float32</code></td><td><span class="pill pass">PASS</span></td><td>float32</td></tr><tr><td><code>crs_match</code></td><td><span class="pill pass">PASS</span></td><td>EPSG:32611</td></tr><tr><td><code>shape_match</code></td><td><span class="pill pass">PASS</span></td><td>3730x3292</td></tr><tr><td><code>transform_match</code></td><td><span class="pill pass">PASS</span></td><td>(100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0)</td></tr><tr><td><code>nan_outside_footprint</code></td><td><span class="pill pass">PASS</span></td><td>finite pixels outside the footprint = 0</td></tr><tr><td><code>finite_inside_footprint</code></td><td><span class="pill pass">PASS</span></td><td>NaN inside footprint = 0</td></tr><tr><td><code>values_in_unit_interval</code></td><td><span class="pill pass">PASS</span></td><td>min=0.000 max=1.000</td></tr><tr><td><code>positive_is_exactly_one</code></td><td><span class="pill pass">PASS</span></td><td>unique positives = [1.0]</td></tr><tr><td><code>positives_inside_footprint</code></td><td><span class="pill pass">PASS</span></td><td>outside = 0</td></tr><tr><td><code>footprint_mask_identical</code></td><td><span class="pill pass">PASS</span></td><td>finite=5167373 footprint=5167373</td></tr><tr><td><code>no_positive_on_catalogue</code></td><td><span class="pill pass">PASS</span></td><td>on-catalogue dots = 0</td></tr><tr><td><code>positive_count_in_range</code></td><td><span class="pill pass">PASS</span></td><td>n_positives = 40768</td></tr><tr><td><code>byte_size_reasonable</code></td><td><span class="pill pass">PASS</span></td><td>0.408 MB</td></tr></tbody></table>
+<p class="small">Receipt-level checks passing: 15/15.
+These checks concern format/range only. They are not uniqueness, inventory freshness, leakage,
+holdout, organizer acceptance, score attribution, or submit authorization.</p></section>
+<section><h2>Official format references</h2><ul>
+<li>DrivenData specifies a single-band float32 GeoTIFF (or ZIP with exactly one TIFF), EPSG:32611,
+100 m, matching bounds, values in [0,1], and null/NaN outside the study area:
+<a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">official problem page</a>.</li>
+<li>The <a href="https://github.com/drivendataorg/gems-prize-reference-solution">official reference-solution repository</a>
+shows a writer that leaves no NaN inside the footprint. It does not resolve acceptance for this candidate.</li>
+</ul><p>For the evidence-based decision, see <a href="index.html">current status and required gates</a>,
+<a href="executive-summary.html">research review</a>, and <a href="RUN_CARD.json">the machine-readable run card</a>.</p></section>
 
-<h2>Format rules, and where each one comes from</h2>
-<table class="kv"><thead><tr><th>rule</th><th>source (open for manual review)</th></tr></thead><tbody><tr><td>Single-band GeoTIFF, float32</td><td><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">page 967</a> — submission format</td></tr><tr><td>EPSG:32611, 100&nbsp;m pixels, same bounds as the training data</td><td><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">page 967</a> · <a href="https://epsg.io/32611">EPSG:32611</a></td></tr><tr><td>Values in [0, 1], higher = more probable</td><td><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">page 967</a></td></tr><tr><td>Outside the study area: null / NaN</td><td><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">page 967</a> · reproduced by <code>data/official/sample_submission.tif</code> (7,111,787 NaN, nodata=nan)</td></tr><tr><td>A ZIP must contain exactly one GeoTIFF</td><td><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">page 967</a></td></tr><tr><td>Reference-solution writer: single-band float32, crs/transform from labels, no NaN inside the footprint</td><td><a href="https://github.com/drivendataorg/gems-prize-reference-solution">drivendataorg/gems-prize-reference-solution</a></td></tr><tr><td>Known USGS/INGENIOUS fault pixels are masked out of evaluation in both rounds</td><td><a href="https://community.drivendata.org/t/11516">staff answer, thread 11516</a></td></tr></tbody></table>
-
-<h2>Validation receipt — 15/15 pass</h2>
-<table class="kv"><thead><tr><th>check</th><th>result</th><th>detail</th></tr></thead><tbody><tr><td><code>exists</code></td><td><span class="pill pass">PASS</span></td><td>/home/user/58GEMSDOE/docs/downloads/gems58-concordance-ribbon-40768-20261011T160514Z.tif</td></tr><tr><td><code>single_band</code></td><td><span class="pill pass">PASS</span></td><td>count=1</td></tr><tr><td><code>dtype_float32</code></td><td><span class="pill pass">PASS</span></td><td>float32</td></tr><tr><td><code>crs_match</code></td><td><span class="pill pass">PASS</span></td><td>EPSG:32611</td></tr><tr><td><code>shape_match</code></td><td><span class="pill pass">PASS</span></td><td>3730x3292</td></tr><tr><td><code>transform_match</code></td><td><span class="pill pass">PASS</span></td><td>(100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0)</td></tr><tr><td><code>nan_outside_footprint</code></td><td><span class="pill pass">PASS</span></td><td>finite pixels outside the footprint = 0</td></tr><tr><td><code>finite_inside_footprint</code></td><td><span class="pill pass">PASS</span></td><td>NaN inside footprint = 0</td></tr><tr><td><code>values_in_unit_interval</code></td><td><span class="pill pass">PASS</span></td><td>min=0.000 max=1.000</td></tr><tr><td><code>positive_is_exactly_one</code></td><td><span class="pill pass">PASS</span></td><td>unique positives = [1.0]</td></tr><tr><td><code>positives_inside_footprint</code></td><td><span class="pill pass">PASS</span></td><td>outside = 0</td></tr><tr><td><code>footprint_mask_identical</code></td><td><span class="pill pass">PASS</span></td><td>finite=5167373 footprint=5167373</td></tr><tr><td><code>no_positive_on_catalogue</code></td><td><span class="pill pass">PASS</span></td><td>on-catalogue dots = 0</td></tr><tr><td><code>positive_count_in_range</code></td><td><span class="pill pass">PASS</span></td><td>n_positives = 40768</td></tr><tr><td><code>byte_size_reasonable</code></td><td><span class="pill pass">PASS</span></td><td>0.408 MB</td></tr></tbody></table>
-<p class="small">raster sha256 <code>f709b6f12d5188e34aa3aed3b83d785b97a232224692dcdfffedaa009dee9d0d</code> · 427,919 bytes ·
-40,768 positives · ZIP <code>downloads/gems58-concordance-ribbon-40768-20261011T160514Z.zip</code> ·
-built 2026-10-11T16:06:53Z</p>
-
-<h2>Submission name and note</h2>
-<p>Name: <code>gems58-concordance-ribbon-40768-20261011T160514Z</code><br>
-Note: <code>Ribbon lane H58-X1: 2-family-concordant Hessian ridges, sigma-adaptive dotted ribbons 0/±300/±600 m; 40768 isolated dots at 1.0.</code> (128 of 140 characters)</p>
-
-<h2>Why every emitted dot is exactly 1.0</h2>
-<p class="small">With the official metric
-<code>DTI = TP<sub>w</sub> / (TP<sub>w</sub> + α·FP<sub>w</sub> + β·FN<sub>w</sub> + ε)</code>,
-α = 0.2, β = 0.8, and the triangular kernel <code>k(d) = max(1 − d/R, 0)</code>, R = 300&nbsp;m =
-3&nbsp;px, a truth pixel takes the <b>maximum</b> kernel value over all predictions while a predicted
-pixel pays its own value times the leftover kernel. Scaling a dot down therefore scales its credit
-down without reducing the fixed β·FN term, so on a fixed support DTI is monotone increasing in
-emitted mass and the optimum is 1.0 everywhere you emit. Verified algebraically in
-<code>evidence/ribbon/theorems.json</code> and numerically by the
-<code>positive_is_exactly_one</code> check above (unique positives = [1.0]).</p>
-
-<h2>What the portal does with dots on the mapped catalogue</h2>
-<p class="small">Nothing: the organizer masks known USGS/INGENIOUS fault pixels out of evaluation in
-both rounds, so a dot there earns no credit and costs nothing. This file has
-0 such dots — the emitter drops them, which
-keeps the whole budget available for off-catalogue placement (and, on the local holdout, keeps the
-withheld truth scoreable instead of reading exactly 0.0 — IR-58-02).</p>
-
-<footer>Generated 2026-10-11T17:53:40Z by
-<code>scripts/build_site.py</code>. No organizer receipt exists for any artifact on this site, so no
-number here is a leaderboard score unless it is labelled ORGANIZER-CONFIRMED.</footer>
+<footer>Generated 2026-10-11T18:44:13Z by
+<code>scripts/build_site.py</code>. No artifact-specific organizer receipt/hash crosswalk exists for
+the current candidate. Public participant rows are labelled PUBLIC-LEADERBOARD-SNAPSHOT; model
+results require HOLDOUT-DTI with evaluator/version, protocol, withheld-positive count, and a defensible
+95% CI.</footer>
 </body></html>

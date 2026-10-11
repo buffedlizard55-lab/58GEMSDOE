@@ -6,11 +6,12 @@ board; they do not identify a TIFF, file hash, private score, or organizer recei
 ## Snapshot observed 2026-10-11
 
 The official [DrivenData GEMS public leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/)
-was fetched during the 2026-10-11 review. The reviewed rows were:
+was fetched during the 2026-10-11 review. The UTC clock was sampled immediately after fetching the page text (approximate observation marker `2026-10-11T18:33:10Z`, not a server timestamp). The reviewed rows were:
 
 | Rank | Public participant row | DTI | What it establishes |
 |---:|---|---:|---|
 | 1 | `xiaofanhu` | 0.4133 | Public-board participant row only. |
+| 2 | `cfld__` | 0.3585 | Public-board participant row only. |
 | 8 | `kinghorton42` | 0.3261 | Public-board participant row only. |
 | 9 | `DARD` | 0.3195 | Public-board participant row only. |
 | 23 | `extradr19` | 0.2778 | Public-board participant row only. |

@@ -430,8 +430,10 @@ def test_rendered_pages_never_turn_a_local_pass_into_portal_acceptance():
                       "organizer-confirmed score for this raster",
                       "download: ok"):
             assert claim not in flat, (name, claim)
-    # The portal-checklist page is where a local preflight could be over-read.
-    assert "it is not an organizer acceptance, and it is not a score" in _flat_text("submit.html")
+    # The local QA page explicitly separates format checks from portal acceptance.
+    flat_submit = _flat_text("submit.html")
+    assert "does not establish that drivendata accepted the file" in flat_submit
+    assert "reported portal" in flat_submit and "unresolved" in flat_submit
 
 
 def test_current_repository_candidate_is_not_qualified():

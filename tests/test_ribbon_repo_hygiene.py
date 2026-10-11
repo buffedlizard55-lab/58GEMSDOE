@@ -17,8 +17,10 @@ def test_generated_status_is_an_unambiguous_negative():
     assert card["verdict"] == "negative"
     assert card["slots_used"] == 0
     gates = {g["id"]: g["ok"] for g in card["site_gates"]}
-    assert gates["G3"] is False, "the ratified uniqueness gate must stay closed"
-    assert gates["G3L"] is False, "the literal pre-ratification reading must stay closed"
+    assert gates["G3"] is False, "the literal uniqueness gate must stay closed"
+    assert "G3L" not in gates, "the retired pre-ratification gate is not part of current status"
+    assert gates["G4"] is False, "the required feature-alone canary is missing"
+    assert gates["G5"] is False, "no promotion-grade holdout receipt exists"
     assert gates["G6"] is False, "no organizer receipt may be claimed from this sandbox"
 
     inv = json.loads((ROOT / "evidence" / "ribbon" / "uniqueness_full_inventory.json").read_text())

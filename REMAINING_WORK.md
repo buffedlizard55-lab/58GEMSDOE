@@ -1,4 +1,56 @@
-# Session 6 (2026-10-11 UTC) — merge reconciliation: verification tooling, no new candidate
+# Session 7 review (2026-10-11 UTC) — fail-closed site wiring and research plan
+
+**Current disposition: NOT OK TO SUBMIT — DO NOT SUBMIT.** No experiment, new TIFF, promotion-grade
+holdout, upload, or slot selection occurred. The reviewed artifact remains
+`gems58-concordance-ribbon-40768-20261011T160514Z.tif` (40,768 positive pixels; SHA-256
+`f709b6f12d5188e34aa3aed3b83d785b97a232224692dcdfffedaa009dee9d0d`). Its local format preflight
+is not portal acceptance.
+
+## S7.0 Review corrections
+
+- `scripts/build_site.py` now delegates every eligibility decision to
+  `scripts/qualification_gates.py`; it no longer computes its own legacy RATIFIED-UNIQ-v1 pass/fail.
+  The shared evaluator shows G1 local-format PASS, G2P/G3/G4/G5 FAIL, with G2/G5i/G6 explicitly
+  informational. `--strict` exits 2 while any required gate is open.
+- The public pages no longer present the legacy holdout value, four-block min–max range, or legacy
+  canary AUC as promotion evidence. Current promotion-grade HOLDOUT-DTI, withheld-positive count,
+  and defensible 95% CI are **NOT MEASURED**. The reported portal `[0,1]` rejection remains
+  unresolved; local checks do not identify its cause.
+- The saved final-dot scan records **83 literal >70% overlap triggers** over its 703-raster snapshot.
+  This is a stop even though the inventory-freshness audit is
+  `BLOCKED_NOT_EXHAUSTIVE`; the saved scan is not current clearance. The separate pre-placement gate
+  has no current hash-bound receipt. No threshold is waived by chance-correction or saturated-witness
+  arguments.
+- Public leaderboard attribution was rechecked: xiaofanhu rank 1 / 0.4133, DARD rank 9 / 0.3195,
+  and extradr19 rank 23 / 0.2778 in the dated snapshot. Those are participant rows, not local artifact
+  scores. The H33/0.2778 crosswalk is absent; the owner-maintained H33 page says unscored and calls
+  0.2747 a projection. No score-level explanation is supportable without the exact scored artifact
+  and organizer receipt.
+- Four untried width hypotheses are documented in `docs/research/hypotheses_new.md`; H58-U1 is
+  ranked first. The experiment budget remains **0/3**. The feature stack is not present locally, but
+  no experiment or stack download was attempted while uniqueness/freshness is blocked.
+
+## S7.1 Remaining work — in order
+
+1. Refresh and audit the current public raster inventory. A stale, incomplete, or errored inventory
+   stops all candidate work.
+2. Before placement or emission, screen the frozen candidate surface against that fresh inventory
+   with the literal `rho > 0.90 OR overlap > 0.70 within 3 px` rule. Any trigger stops; never waive it.
+3. Only after surface clearance, restore the hash-pinned official feature stack and preregister H58-U1
+   with one primary feature definition, fixed ridge surface, comparator, and spatial analysis.
+4. Run individual feature-alone leakage checks and the shared buffered spatial holdout with exact
+   marginal DTI. Any reportable number must include evaluator/version, protocol, withheld-positive
+   count, and a defensible 95% CI. The holdout remains a proxy for catalogue-localization, not a
+   test against hidden competition faults.
+5. Only after all gates pass may the shared writer emit; then run final-dot uniqueness against the
+   same fresh inventory. No slot selection is part of this workflow.
+
+See [`docs/research/session7_review_20261011.md`](docs/research/session7_review_20261011.md),
+[`docs/RUN_CARD.json`](docs/RUN_CARD.json), and the earlier session-6 history below.
+
+---
+
+# Historical session 6 (2026-10-11 UTC) — merge reconciliation: verification tooling, no new candidate
 
 This section records what the session-6 review branch added on top of session 5. **No experiment,
 holdout, emission, slot, or upload occurred**, and no verdict changed: the current candidate is still

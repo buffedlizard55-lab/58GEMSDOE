@@ -1,4 +1,4 @@
-# Three genuinely untried ribbon-width hypotheses
+# Four genuinely untried ribbon-width hypotheses
 
 **Audit date:** 2026-10-11 UTC. **Status:** proposals only; none has been implemented or measured in
 this checkout. **Top candidate:** H58-U1, relief-conditioned width — **NOT VALIDATED**. No holdout
@@ -33,13 +33,16 @@ Ranking is qualitative expected value per implementation effort, not a score for
 hypothesis requires training-only fitting, a frozen rule, individual feature-leakage checks, and the
 prescribed blocked holdout; all work is currently blocked before experiment by the registry stop.
 
-| Rank | Hypothesis | Existing bands / layers | Physical signature | Expected value / uncertainty | Engineering cost | Official data availability |
+| Rank | Hypothesis | Existing bands / layers | Physical signature and route to a missed fault | Expected DTI value / uncertainty | Engineering cost | Official data availability / new source |
 |---:|---|---|---|---|---|---|
-| **1** | **H58-U1: relief-conditioned width for existing topographic ridges** | `det_elev`, `det_elev_slope`; existing topographic ridge centerlines | Scarp preservation and erosion vary with local relief; the same ridge detector may have different localization error on sharp bedrock scarps versus low-relief basin fill. | Low–moderate potential; high uncertainty. It is the simplest direct test of a plausible within-family error regime. | Low–medium, about 1–2 engineering hours. | Both bands are in the organizer-provided 19-band `training_features.tif`; local use requires restoring the pinned stack. |
-| 2 | **H58-U2: basin-cover / basement-context-conditioned width** | `depth_to_base_surf`, `cond_surf`; widths around already-existing ridges (no new ridge detection) | Thick or laterally changing basin fill and conductivity can obscure, broaden, or displace a surface expression relative to a subsurface structural edge. | Low–moderate potential; high uncertainty. The context may be predictive of error or merely regional geology. | Medium, about 2–3 engineering hours. | Both bands are in the organizer-provided 19-band stack; no external layer is required. |
-| 3 | **H58-U3: along-strike centerline-curvature-conditioned width** | Centerline geometry of the existing Hessian ridge field from the official 19-band stack; no new feature raster | Localization and segmentation error may rise at bends, relay-like kinks, and line intersections, even after controlling for band, scale, sign, and magnitude. | Low potential; high uncertainty. It is a geometric error-stratum test, not a detector. | Low–medium, about 1–2 engineering hours. | Derived from the existing official-stack ridge field; no additional data required. |
+| **1** | **H58-U1: relief-conditioned width for existing topographic ridges** | `det_elev`, `det_elev_slope`; fixed existing topographic ridge centerlines | Relief/scarp preservation may stratify localization error. If a fixed ridge is already near an unmapped or mislocated trace, extra width in a high-error relief regime could cover the offset; it cannot create a ridge where none was detected. | Low–moderate potential; high uncertainty and weak transfer evidence from known catalogue faults to unmapped faults. No numeric forecast. | Low–medium, about 1–2 engineering hours after inputs are available. | Existing 19-band `training_features.tif`; restore its pinned mirror. No new external layer. Official feature/task description and USGS GeoDAWN context linked below. |
+| 2 | **H58-U4: cross-strike profile-shape-conditioned width** | Existing `tmi_hg`, `iso_grav_anom_slope`, `det_elev_slope` ridge-source profiles and fixed centerlines | Broad, asymmetric, or multi-lobed cross-strike profiles may mark a poorly localized structural axis; greater width could cover nearby unmapped traces only where the fixed ridge already lies near them. Source depth and non-fault contacts can produce the same signature. | Low–moderate potential; high uncertainty. Profile shape may proxy source depth or lithology rather than axis error. No numeric forecast. | Medium, about 2–3 engineering hours after inputs are available. | Existing 19-band stack only; no new data. Exact channel semantics must be checked against the official stack metadata before preregistration. |
+| 3 | **H58-U2: basin-cover / basement-context-conditioned width** | `depth_to_base_surf`, `cond_surf`; widths around already-existing ridges only | Cover thickness/conductivity may change how sharply a fault-related surface expression is localized. Conditional width could help near a concealed/misaligned trace only if an existing ridge is already nearby. | Low–moderate potential; high uncertainty; context may be merely regional geology. No numeric forecast. | Medium, about 2–3 engineering hours after inputs are available. | Existing organizer-described surface-conductivity/depth-to-base bands; no new external layer. Verify band mapping in the restored stack. |
+| 4 | **H58-U3: along-strike centerline-curvature-conditioned width** | Curvature/tangent geometry of the fixed Hessian ridge centerlines; no new raster layer | Localization error may rise at bends, relay-like kinks, or intersections. Extra width could cover a nearby omitted/misaligned segment at a detected kink, but cannot discover an absent centerline. | Low potential; high uncertainty; a geometric error-stratum test only. No numeric forecast. | Low–medium, about 1–2 engineering hours after inputs are available. | Derived from the existing ridge field; no new external data. |
 
-All costs are implementation estimates only; they do not authorize running an experiment.
+All costs are implementation estimates only; they exclude restoring the missing feature stack and the full registry refresh, and they do not authorize running an experiment. The permitted public feature descriptions are in the [DrivenData problem/data pages](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/) and the survey context is in the [USGS GeoDAWN release](https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and). None of these sources proves a proposed width regime transfers from mapped catalogue faults to unmapped faults.
+
+**Scope limit shared by all four:** these change only ribbon width around a frozen, already-detected surface. They can help only if a fixed ridge is within the official 300 m scoring kernel of a missed/mislocated trace; they cannot discover a fault where the ridge detector emits nothing. The required local holdout withholds known catalogue segments, so a positive HOLDOUT-DTI is a proxy for localization—not validation against competition's new-fault truth. This transfer uncertainty remains even if all local gates pass.
 
 ## H58-U1 — relief-conditioned width (top candidate, not validated)
 
@@ -98,6 +101,41 @@ All costs are implementation estimates only; they do not authorize running an ex
   individual-feature canary, or produce a nonpositive paired HOLDOUT-DTI change.
 - **Availability:** derived from the existing official-stack ridge field; no additional source data
   are required.
+
+## H58-U4 — cross-strike profile-shape-conditioned width
+
+- **Layers:** cross-strike samples from the fixed ridge-source fields `tmi_hg`,
+  `iso_grav_anom_slope`, and `det_elev_slope`, evaluated at existing centerlines only. Candidate
+  conditioning variables would be normalized profile full-width-at-half-maximum, left/right
+  asymmetry, and a preregistered secondary-lobe indicator. The source-band mapping and units must be
+  verified from the restored stack metadata before freezing the feature definition.
+- **Physical signature / rationale:** a broad or asymmetric magnetic/gravity/terrain response can
+  leave the center of a structural edge less precisely localized than a narrow, symmetric profile.
+  A conditional increase in width could cover a nearby omitted or displaced fault trace where the
+  ridge is already present. It is plausible for concealed structure, but a broad anomaly is not itself
+  evidence of a fault.
+- **Difference from existing code:** ridge extraction uses Hessian response and existing σ
+  calibration uses family, scale, sign, magnitude, and spatial block. The repo does not use the
+  *cross-strike profile shape at the detected axis* as an additional within-ridge width predictor.
+  The centerline, threshold, feature family, and emitted budget remain fixed; no new edge detector is
+  added.
+- **Named non-fault mimics:** mafic dikes and lithologic contacts, remanent magnetization,
+  source-depth changes, topographic drainage edges, and overlapping non-tectonic anomalies.
+- **Expected benefit / uncertainty:** low–moderate potential with high uncertainty. Profile width can
+  encode source depth or contact geometry rather than localization error; it must show incremental,
+  stable out-of-fold calibration beyond family/scale/sign/magnitude and pass each feature-alone
+  leakage canary. No DTI gain is forecast.
+- **Implementation cost:** about 2–3 engineering hours after the feature stack and registry are
+  available; estimate only. This includes preregistered sampling/normalization and ablation tests, not
+  a new source acquisition.
+- **Availability / trusted-source requirement:** the named channels are in the repository's expected
+  19-band stack definition; the official task page lists the supplied magnetic, gravity, and
+  detrended-elevation products. No extra data are proposed. Confirm exact band order/metadata after
+  restoring the pinned stack. The [USGS GeoDAWN release](https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and)
+  is source context, not a source for score labels.
+- **Falsifier:** profile-shape strata do not improve train-only, cross-fitted localization calibration
+  after existing strata; the canary exceeds AUC 0.90; the feature leaks; or paired buffered
+  HOLDOUT-DTI improvement is nonpositive/uncertain under its prespecified 95% CI.
 
 ## Required protocol before any future experiment
 

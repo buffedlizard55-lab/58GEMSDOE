@@ -2,11 +2,11 @@
   "evidence_class": "PUBLIC-LEADERBOARD-SNAPSHOT",
   "source_url": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
   "observed_date_utc": "2026-10-11",
-  "retrieval_time_utc": null,
-  "retrieval_note": "Fetched during the 2026-10-11 review; exact retrieval time was not captured. The public board is dynamic.",
+  "retrieval_time_utc": "2026-10-11T18:33:10Z",
+  "retrieval_note": "Fetched from the official public leaderboard. The UTC clock was sampled immediately after the page text was fetched; this timestamp is an observation-time marker, not a server-provided timestamp. The board is dynamic.",
   "rows": [
     {"rank": 1, "participant": "xiaofanhu", "score": 0.4133},
-    {"rank": 8, "participant": "kinghorton42", "score": 0.3261},
+    {"rank": 2, "participant": "cfld__", "score": 0.3585},
     {"rank": 9, "participant": "DARD", "score": 0.3195},
     {"rank": 23, "participant": "extradr19", "score": 0.2778},
     {"rank": 30, "participant": "raboush2", "score": 0.2747},
@@ -15,8 +15,8 @@
   ],
   "artifact_attribution": "NONE. These are participant leaderboard rows; no artifact SHA or organizer receipt crosswalk was observed.",
   "notes": [
-    "An earlier same-day observation in official_leaderboard_observation_20261011.json recorded DARD at rank 8. This later observation recorded DARD at rank 9; do not merge the two snapshots.",
+    "A previously saved same-day observation recorded DARD at rank 8. This later observation recorded DARD at rank 9; do not merge the snapshots or imply a score change from rank movement.",
     "The 0.2778 row belongs to extradr19 at rank 23 and does not establish a GEMSDOE32 H33 score.",
-    "The owner-maintained GEMSDOE32 H33 page marks H33-2-B2 UNSCORED and calls 0.2747 a projection. Repeated 0.2747 public rows do not establish attribution to H33."
+    "The owner-maintained GEMSDOE32 H33 page marks H33-2-B2 UNSCORED and calls 0.2747 a projection. The 0.2747 public rows are unrelated participant rows; they do not establish attribution to H33."
   ]
 }
