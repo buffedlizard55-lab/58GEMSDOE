@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
-"""Build the owner-facing GitHub Pages site from recorded evidence, fail-closed.
+"""Historical session-5/6 site generator (not the current session-7 renderer).
 
-One generator, one source of truth: every number on the page is read out of an
-``evidence/**.json`` receipt at build time and re-verified where it can be (the
-delivered raster's sha256 is recomputed from the bytes on disk, never trusted
-from the receipt).  Nothing is presented as a score unless it carries one of the
-labels the protocol allows:
+Its gate helpers remain available for regression tests and historical audit. The
+current session-7 pages are owned by ``scripts/build_session7_pages.py``; this
+builder refuses to overwrite them while the current artifact-specific run card is
+present.
+
+One generator, one source of truth: every number on the historical page is read
+out of an ``evidence/**.json`` receipt at build time and re-verified where it can
+be. Nothing is presented as a score unless it carries one of the historical
+labels:
 
     ORGANIZER-CONFIRMED   copied from a DrivenData page or submission receipt
     HOLDOUT-DTI           measured here with the named evaluator and protocol,
@@ -24,6 +28,7 @@ from __future__ import annotations
 import hashlib
 import html
 import json
+import math
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -166,58 +171,32 @@ def evaluate_gates(emi: dict, sig: dict, inv: dict, tif: Path,
         worst_rho = inv.get("worst_spearman_full_footprint")
         worst_ov = inv.get("worst_dot_overlap")
         info = inv.get("informative_reading", {}) or {}
-        ra = ratification_analysis(inv)
         base_ok = (inv.get("complete_accessible_scan") is True
                    and inv.get("byte_unique_among_checked") is True
                    and inv.get("pixel_unique_among_checked") is True
                    and worst_rho is not None and float(worst_rho) <= RHO_LIMIT
                    and count_flag(inv, "duplicate_by_rho") == 0
                    and count_flag(inv, "duplicate_by_jaccard") == 0)
-        # RATIFIED-UNIQ-v1 (ratified 2026-10-11, session 5; docs/research/irregularities.md
-        # IR-58-UNIQ-07): an overlap firing blocks iff the witness could have failed to fire —
-        # literal O > 0.70 against a witness with chance expectation E < 0.70 (rule A), or
-        # chance-corrected lift (O − E)/(1 − E) > 0.50 against any witness (rule B).
-        # Fail closed: a literal firing that cannot be classified (no per-row chance
-        # measurement in the receipt) blocks exactly as it did before ratification.
-        literal_fired = worst_ov is not None and float(worst_ov) > OVERLAP_LIMIT
-        firing_rows = [r for r in inv.get("rows", []) or []
-                       if (r.get("my_dots_within_3px_of_theirs") or 0.0) > OVERLAP_LIMIT]
-        firings_classified = bool(firing_rows) and all(
-            r.get("chance_expected_overlap") is not None for r in firing_rows)
-        ratified_ok = (base_ok and ra.get("rule_a_firings") == 0
-                       and ra.get("rule_b_firings") == 0
-                       and (not literal_fired or firings_classified))
-        add("G3", "Uniqueness — public inventory scan (ratified chance-corrected gate "
-            "RATIFIED-UNIQ-v1)", ratified_ok,
+        # The literal raw-overlap instruction is the governing stop. Historical
+        # RATIFIED-UNIQ-v1/chance-corrected readings may remain in archived receipts,
+        # but they never exempt a witness or clear this gate.
+        literal_ok = (base_ok and inv.get("unique") is True
+                      and worst_ov is not None and float(worst_ov) <= OVERLAP_LIMIT)
+        literal_count = info.get("overlap_firings")
+        add("G3", "Uniqueness — public inventory scan (literal raw-overlap stop)", literal_ok,
             f"{inv.get('registry_rasters_checked', inv.get('n_compared'))} sha256-verified rasters "
             f"from <code>{esc(inv.get('index'))}</code>; complete accessible scan "
             f"{inv.get('complete_accessible_scan')}; missing/invalid "
             f"{inv.get('missing_or_invalid')}. Byte-unique {inv.get('byte_unique_among_checked')}, "
             f"pixel-unique {inv.get('pixel_unique_among_checked')}; worst rank correlation "
-            f"{fmt(worst_rho)} (limit 0.90, {count_flag(inv, 'duplicate_by_rho')} firings); worst "
-            f"Jaccard {fmt(inv.get('worst_jaccard_dot_sets'))} (limit 0.50, "
-            f"{count_flag(inv, 'duplicate_by_jaccard')} firings). <b>Ratified overlap rule:</b> "
-            f"rule A (literal &gt; 0.70 vs witnesses with E &lt; 0.70): "
-            f"<b>{ra.get('rule_a_firings')}</b> firings; rule B (chance-corrected lift &gt; 0.50 vs "
-            f"any witness): <b>{ra.get('rule_b_firings')}</b> firings "
-            f"(max lift {fmt(ra.get('max_lift'), 3)}; max vs another repository "
-            f"{fmt(ra.get('max_lift_other_repo'), 3)}). The literal pre-ratification reading is "
-            f"reported unchanged in G3L below and in the run card.")
-        literal_ok = (base_ok and inv.get("unique") is True
-                      and worst_ov is not None and float(worst_ov) <= OVERLAP_LIMIT)
-        add("G3L", "Uniqueness — literal pre-ratification reading (reported, not governing)",
-            literal_ok,
-            f"<b>Literal reading:</b> worst 3&nbsp;px forward overlap <b>{fmt(worst_ov)}</b> vs the "
-            f"0.70 limit → <b>{info.get('overlap_firings')} firings</b>, of which "
-            f"{info.get('overlap_firings_vacuous')} are against witnesses whose 3&nbsp;px dilation "
-            f"covers ≥ 99&nbsp;% of the footprint (E ≥ 0.99: they overlap <i>every</i> nonempty "
-            f"candidate and carry no information) and {info.get('overlap_firings_informative')} are "
-            f"against broader dot fields (smallest E among non-saturated firings "
-            f"{fmt(min_e_of_firings(inv))}). Scan verdict as recorded: {esc(inv.get('verdict'))}; "
-            f"stop_required {inv.get('stop_required')}. The literal rule fires for every nonempty "
-            f"candidate against a witness whose dilation covers the footprint, so it cannot "
-            f"discriminate lane drift; RATIFIED-UNIQ-v1 (G3) governs since 2026-10-11 and this "
-            f"reading stays published beside it.")
+            f"{fmt(worst_rho)} (limit 0.90); worst raw candidate-forward overlap within 3 px "
+            f"{fmt(worst_ov)} (strict stop above 0.70; {literal_count} reported firings). "
+            f"Any firing is a hard stop, including against saturated witnesses; no chance-corrected "
+            f"exception or RATIFIED-UNIQ-v1 interpretation overrides this rule.")
+        add("G3L", "Uniqueness — literal raw 3 px overlap (same governing stop)", literal_ok,
+            f"Literal raw overlap {fmt(worst_ov)} vs strict 0.70 stop; "
+            f"reported firings {literal_count}. Saturated witnesses receive no exemption. "
+            f"Registry must be complete, current, and byte-verified.")
 
     can = sig.get("leakage_canary", {}) or {}
     aucs = [v.get("auc_max") for v in can.values() if isinstance(v, dict) and v.get("auc_max") is not None]
@@ -229,12 +208,43 @@ def evaluate_gates(emi: dict, sig: dict, inv: dict, tif: Path,
         f"{sum(1 for v in can.values() if isinstance(v, dict) and v.get('leaks'))}")
 
     ho = emi.get("holdout_dti", {}) or {}
-    add("G5", "Holdout evidence recorded and labelled",
-        ho.get("pooled") is not None and bool(ho.get("per_fold")),
-        f"HOLDOUT-DTI {fmt(ho.get('pooled'), 6)} pooled over {ho.get('n_withheld_positives')} "
-        f"withheld positives ({esc(ho.get('protocol'))} / {esc(ho.get('evaluator'))}). This measures "
-        f"recovery of <i>catalogue</i> truth, not the organizer's new-fault truth, and is not a "
-        f"leaderboard forecast.")
+    ci95 = ho.get("ci95", {}) or {}
+    pooled = ho.get("pooled")
+    withheld = ho.get("n_withheld_positives")
+    ci_lo, ci_hi = ci95.get("lo"), ci95.get("hi")
+    cluster_unit = str(ci95.get("cluster_unit") or "").strip()
+    cluster_label = cluster_unit.lower()
+    physical_cluster = any(token in cluster_label for token in ("fault", "segment", "physical", "geologic"))
+
+    def is_probability(value):
+        return (isinstance(value, (int, float)) and not isinstance(value, bool)
+                and math.isfinite(float(value)) and 0.0 <= float(value) <= 1.0)
+
+    ci_ok = (isinstance(ci95, dict)
+             and ci95.get("confidence_level") == 0.95
+             and is_probability(ci_lo) and is_probability(ci_hi)
+             and float(ci_lo) <= float(ci_hi)
+             and bool(str(ci95.get("method") or "").strip())
+             and physical_cluster)
+    holdout_ok = (is_probability(pooled)
+                  and isinstance(ho.get("per_fold"), dict) and bool(ho.get("per_fold"))
+                  and isinstance(withheld, int) and not isinstance(withheld, bool) and withheld > 0
+                  and bool(str(ho.get("protocol") or "").strip())
+                  and bool(str(ho.get("evaluator") or "").strip())
+                  and ci_ok)
+    if holdout_ok:
+        holdout_detail = (
+            f"HOLDOUT-DTI {fmt(pooled, 6)} over {withheld:,} withheld positives "
+            f"({esc(ho.get('protocol'))} / {esc(ho.get('evaluator'))}); defensible physical-cluster "
+            f"95% CI [{fmt(ci_lo, 6)}, {fmt(ci_hi, 6)}] by {esc(ci95.get('method'))} "
+            f"({esc(cluster_unit)}). This is not an organizer score or leaderboard forecast.")
+    else:
+        holdout_detail = (
+            "NOT REPORTABLE — HOLDOUT-DTI requires the shared evaluator and protocol, a positive "
+            "withheld-positive count, pooled/per-fold results, and a defensible physical-cluster "
+            "95% CI with interval, method, and cluster unit.")
+    add("G5", "Promotion-grade HOLDOUT-DTI with physical-cluster 95% CI", holdout_ok,
+        holdout_detail)
 
     if xcheck is None:
         add("G5i", "HOLDOUT-DTI re-derived with the shared gems57 metric", False,
@@ -598,15 +608,13 @@ def irregularities() -> list[tuple[str, str, str]]:
          "reading that excludes saturated witnesses, with the literal reading still reported "
          "alongside it."),
         ("IR-58-UNIQ-05", "warn",
-         "<b>The scanner rejected the organizer's own submission representation.</b> "
+         "<b>Portal error cause is unverified; the old diagnosis is withdrawn.</b> "
          "<code>sample_submission.tif</code> carries NaN outside the study footprint "
-         "(<code>nodata=nan</code>, 7,111,787 pixels) and finite values inside it, but the "
-         "uniqueness scanner demanded an all-finite candidate, which is why earlier artifacts had "
-         "to be published as <code>*-zeros.tif</code> variants that do not match the official "
-         "representation. Fixed once in the shared tool: non-finite <i>inside</i> the footprint "
-         "stays a hard error (that is exactly the portal rejection <code>Predicted values must be in "
-         "range [0, 1]</code>), non-finite outside it is normalised to 0 for statistics that are "
-         "footprint-restricted anyway."),
+         "(<code>nodata=nan</code>) and finite values inside it. An owner-reported portal message "
+         "said <code>Predicted values must be in range [0, 1]</code>, but this repository has no "
+         "hash-bound portal response proving whether NaN, an out-of-range value, or another issue "
+         "caused it. The shared local validator checks finite [0,1] values and footprint handling; "
+         "those checks are precautionary and do not establish organizer acceptance."),
         ("IR-58-02", "warn",
          "<b>The mandated holdout cannot score an off-catalogue file.</b> The withheld truth "
          "<i>is</i> catalogue, so a candidate that keeps a 3&nbsp;px catalogue margin scores "
@@ -1078,17 +1086,16 @@ on a buffered hide-and-recover holdout and cross-fitted leave-one-block-out. No 
 mapped USGS/INGENIOUS catalogue, because the organizer masks those pixels out of evaluation. Outside
 the study footprint the file is NaN, exactly like <code>sample_submission.tif</code>.</p>
 
-<h2>The error this file cannot produce</h2>
-<div class="ok-box"><p><b><code>Predicted values must be in range [0, 1]</code></b> — the portal
-rejection already hit on this competition — is caused by a non-finite or out-of-range value landing
-<i>inside</i> the scored footprint. This file is checked for exactly that before publication:
+<h2>Local checks related to the reported portal error</h2>
+<div class="warn-box"><p>The owner-reported portal message <code>Predicted values must be in range [0, 1]</code>
+has no hash-bound response or submission record in this repository, so its cause is <b>unknown</b>.
+This historical candidate's local receipt records:
 <code>finite_inside_footprint</code> ({esc(emi['validator']['checks']['finite_inside_footprint']['detail'])}),
 <code>values_in_unit_interval</code> ({esc(emi['validator']['checks']['values_in_unit_interval']['detail'])}),
 <code>positive_is_exactly_one</code> ({esc(emi['validator']['checks']['positive_is_exactly_one']['detail'])}),
-and the NaN count outside the footprint is identical to the organizer's sample submission
-(7,111,787). All {sum(1 for c in emi['validator']['checks'].values() if c['ok'])}/
-{len(emi['validator']['checks'])} local checks pass — full receipt on the
-<a href="submit.html">portal checklist</a> page.</p></div>
+and an outside-footprint mask comparison. These local checks do not prove the cause of a prior error,
+that the same error cannot occur, or that the portal will accept this file. See the
+<a href="IRREGULARITIES.md">current status log</a>.</p></div>
 
 <h2>Steps</h2>
 <ol>{''.join(f'<li><b>{esc(t)}</b><br><span class="small">{d}</span></li>' for t, d in steps)}</ol>
@@ -1313,6 +1320,12 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--strict", action="store_true",
                     help="exit 2 unless every gate G1-G5 passes (banner green)")
     strict = ap.parse_args(argv).strict
+
+    current_card = ROOT / "evidence" / "58gemsdoe_unique_ribbon" / "run_card.json"
+    if current_card.is_file():
+        print("refusing to overwrite current session-7 pages with the historical session-5/6 builder; "
+              "run scripts/build_session7_pages.py instead", file=sys.stderr)
+        return 2
 
     emi = load(RIB / "emission.json")
     card = load(RIB / "run_card_v2.json")

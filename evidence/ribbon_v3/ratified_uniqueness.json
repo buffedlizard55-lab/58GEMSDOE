@@ -1,0 +1,33 @@
+{
+ "evidence_class": "REGISTRY-MEASUREMENT",
+ "protocol": "RATIFIED-UNIQ-v1 (ratified 2026-10-11 in session 5)",
+ "candidate": "docs/downloads/gems58-s4-ribbon-r5-d3-44090-20261011T175553Z.tif",
+ "candidate_dots_in_footprint": 43867,
+ "n_witnesses": 694,
+ "n_scored": 694,
+ "n_errors": 0,
+ "e_limit": 0.7,
+ "lift_limit": 0.5,
+ "overlap_limit": 0.7,
+ "n_discriminating": 618,
+ "worst_overlap_discriminating": 0.7886794173296555,
+ "worst_overlap_discriminating_E": 0.6455732922705599,
+ "worst_overlap_discriminating_submission": "13GEMSDOE:docs/downloads/archive/13gems-r6-ensemble-20260929T182914Z_allfinite.tif",
+ "rule_a_firings": 7,
+ "rule_a_submissions": [
+  "GEMSDOE3:docs/downloads/coverage-v3-wide-20260925T054019Z-0ac095a7ed.tif",
+  "GEMSDOE50:docs/downloads/gemsdoe50-h59-topo-lineament-scatter-180k-20261007T170212Z-nan.tif",
+  "13GEMSDOE:docs/downloads/archive/13gems-r6-ensemble-20260929T182914Z_allfinite.tif",
+  "13GEMSDOE:docs/downloads/archive/13gems-toporef-holdoutref.tif",
+  "GEMSDOE50:docs/downloads/gemsdoe50-h59-topo-lineament-scatter-180k-20261007T170212Z-allfinite.tif",
+  "13GEMSDOE:docs/downloads/archive/13gems-r6-ensemble-20260929T182914Z.tif",
+  "13GEMSDOE:docs/downloads/archive/13gems-toporef-holdoutref_allfinite.tif"
+ ],
+ "max_lift": 0.4554453926299625,
+ "max_lift_submission": "GEMSDOE50:docs/downloads/gems50-h52-coincidence8-80000-20261007T032938Z.tif",
+ "max_lift_submission_E": 0.23857093343174568,
+ "rule_b_firings": 0,
+ "rule_b_submissions": [],
+ "ratified_ok": false,
+ "literal_firings": 81
+}

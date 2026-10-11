@@ -6,11 +6,12 @@ board; they do not identify a TIFF, file hash, private score, or organizer recei
 ## Snapshot observed 2026-10-11
 
 The official [DrivenData GEMS public leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/)
-was fetched during the 2026-10-11 review. The reviewed rows were:
+was fetched during the 2026-10-11 review. The UTC clock was sampled immediately after fetching the page text (approximate observation marker `2026-10-11T18:33:10Z`, not a server timestamp). The reviewed rows were:
 
 | Rank | Public participant row | DTI | What it establishes |
 |---:|---|---:|---|
 | 1 | `xiaofanhu` | 0.4133 | Public-board participant row only. |
+| 2 | `cfld__` | 0.3585 | Public-board participant row only. |
 | 8 | `kinghorton42` | 0.3261 | Public-board participant row only. |
 | 9 | `DARD` | 0.3195 | Public-board participant row only. |
 | 23 | `extradr19` | 0.2778 | Public-board participant row only. |
@@ -39,10 +40,10 @@ The disputed statement conflates a public participant row with a separate owner-
 4. The public board observed during review contains other participants at 0.2747 (ranks 30–32), so
    that rounded value is not a unique artifact identifier either.
 
-**Conclusion:** no verified evidence shows that H33 scored 0.2778. The most defensible account is a
-misattribution of the `extradr19` public row to H33; the exact origin of that attribution is unknown.
-Do not report 0.2778 or the owner's 0.2747 projection as an H33 organizer score. An
-`ORGANIZER-CONFIRMED` score would require a receipt/hash crosswalk from DrivenData.
+**Conclusion:** no verified evidence shows that H33 scored 0.2778. A participant-row mix-up is one
+possible explanation, but the available evidence does not establish how the attribution arose or why
+`extradr19` received 0.2778. Do not report 0.2778 or the owner's 0.2747 projection as an H33 organizer
+score. An `ORGANIZER-CONFIRMED` score would require a receipt/hash crosswalk from DrivenData.
 
 ## Attribution register
 

@@ -1,0 +1,34 @@
+{
+  "evidence_class": "PROVENANCE-PIN / LOCAL-RESTORE",
+  "generated_utc": "2026-10-11T19:00:23Z",
+  "canonical_file": "~/.cache/gems/training_features.tif",
+  "restoration_command": "bash scripts/fetch_feature_stack.sh",
+  "source_type": "Owner-maintained public GitHub data bridge; not an independently authenticated DrivenData download",
+  "source_manifest": "https://github.com/buffedlizard55-lab/GEMSDOE/blob/main/data/bridge/manifest.json",
+  "official_competition_data_tab": "https://www.drivendata.org/competitions/306/competition-doe-gems/data/",
+  "official_data_tab_login_requirement": "The local project records the DrivenData data tab as login-gated; this session restored only the pinned owner mirror.",
+  "whole_file": {
+    "bytes": 418912844,
+    "sha256": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
+    "pin_matches": true
+  },
+  "parts": [
+    {"name": "gems-geodawn-numerical-features.tif.part-000", "bytes": 94371840, "sha256": "0a330f8951af6c921029e25c84a579319d2db554d62d30d894d6ddc97f98cff7", "pin_matches": true},
+    {"name": "gems-geodawn-numerical-features.tif.part-001", "bytes": 94371840, "sha256": "3c98037b2c997e3bbfcdfc2d9a982e8b820a77410dd7404b05cdb80594922c50", "pin_matches": true},
+    {"name": "gems-geodawn-numerical-features.tif.part-002", "bytes": 94371840, "sha256": "c375c4dbc40c59bbaece572b5e348700b75935f9a30c879c82b6417e0836f31c", "pin_matches": true},
+    {"name": "gems-geodawn-numerical-features.tif.part-003", "bytes": 94371840, "sha256": "b164159e6d0cb2595bc9f63a948af2646b124114a9c5921880c7516092137320", "pin_matches": true},
+    {"name": "gems-geodawn-numerical-features.tif.part-004", "bytes": 41425484, "sha256": "fa0a6f9c936fac1d6f20ca37f5929b2d60bf7a80f3d477dcab886f941aee2696", "pin_matches": true}
+  ],
+  "geotiff_header_read": {
+    "bands": 19,
+    "dtype": "float32",
+    "shape": [3730, 3292],
+    "crs": "EPSG:32611",
+    "transform": [100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0],
+    "descriptions_read_from_file": true
+  },
+  "integrity_conclusion": "All five part hashes and the whole-file SHA-256 match the owner-maintained bridge pins; Rasterio opened the file and read its 19-band header.",
+  "provenance_limit": "Matching a mirror's own hashes proves byte integrity relative to that mirror. It does not prove the bytes came unchanged from the competition's authenticated data tab.",
+  "cache_persistence": "Outside the repository and excluded from Git snapshots. Re-run scripts/fetch_feature_stack.sh in a future session if the cache is absent.",
+  "experiment_use": "No feature was evaluated and no holdout experiment was run because the literal uniqueness stop blocks the current artifact before candidate qualification."
+}

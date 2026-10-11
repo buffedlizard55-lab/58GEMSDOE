@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Render the session-6 deliverable page and inject its banner into docs/index.html.
+"""Render the session-6 deliverable page (docs/s6/index.html).
 
 Everything on the page is rendered from ``evidence/s6/*.json`` at build time; the
 script never edits a number. It is idempotent: re-running replaces the
@@ -320,83 +320,20 @@ every figure on this page is rendered from those files at build time.</footer>
     return "".join(parts)
 
 
-def inject_index(page: str) -> None:
-    """Prepend the session-6 banner to docs/index.html, idempotently."""
-    emit = j("emit.json")
-    uniq = j("uniqueness.json")
-    hold = emit.get("holdout", {})
-    file = emit.get("file", "")
-    fir = uniq.get("firings", {})
-    worst = uniq.get("worst", {})
-    literal = int(fir.get("literal", 0))
-    ruleA = int(fir.get("ruleA", 0))
-    ruleB = int(fir.get("ruleB", 0))
-    vac = literal - ruleA
-    cleared = literal == 0
-    cls = "s5" + ("" if cleared else (" bad" if (ruleA or ruleB) else " warn"))
-    badge = ("✅ OK TO DOWNLOAD AND SUBMIT" if cleared else
-             "⛔ NOT CLEARED — DOWNLOAD FOR REVIEW ONLY")
-
-    block = f"""<!-- session6:begin -->
-<section class="{cls}">
-  <div class="badge">{badge}</div>
-  <h2>Session-6 deliverable: <code>{esc(file)}</code></h2>
-  <p>Ribbon lane, width matched to the measured localisation error: {emit.get('n_dots', 0):,} strictly
-  isolated dots (largest 8-connected component {uniq.get('shape', {}).get('max_component_px', '?')} px),
-  every value exactly <code>1.0</code>, <b>0 dots on the mapped catalogue</b> and none within
-  {emit.get('collar', '?')} px of it, NaN outside the footprint exactly as in the organizer's
-  <code>sample_submission.tif</code>. Local format gate
-  <b>{sum(1 for c in emit.get('validator', {}).get('checks', {}).values() if c['ok'])}/{len(emit.get('validator', {}).get('checks', {}))} passed</b>.
-  HOLDOUT-DTI <b>{fmt(hold.get('dti'))}</b> ({esc(hold.get('evaluator'))}, protocol
-  <code>{esc(hold.get('protocol'))}</code>, {hold.get('withheld_positive_pixels', 0):,} withheld positives,
-  block range {fmt(min(b['dti'] for b in hold['per_fold']))}–{fmt(max(b['dti'] for b in hold['per_fold']))})
-  against a <b>{fmt(j('geom.json').get('random_control', {}).get('dti'))}</b> uniform-random control at the same budget.
-  Leakage canary clean (worst single-feature AUC {fmt(j('canary.json').get('max_auc'))} &lt; 0.90).</p>
-  <p><b>Uniqueness over {esc(uniq.get('witnesses_screened', 0))} sha256-verified witnesses:</b>
-  literal 3 px forward-overlap rule <b>{literal} firing(s)</b> ({vac} vacuous — those witnesses' own
-  3 px dilation covers the whole scored footprint), informative rule-A {ruleA}, chance-corrected
-  rule-B {ruleB} (worst lift {fmt(worst.get('lift'))}), worst rank correlation
-  {fmt(worst.get('rank_corr'))} (limit 0.90), worst Jaccard {fmt(worst.get('jaccard'))} (limit 0.50),
-  byte-identical <b>{esc(uniq.get('byte_identical', False))}</b>. Verdict rendered by the protocol:
-  <b>{esc(uniq.get('verdict', ''))}</b>.</p>
-  <div class="dlrow">
-    <a class="big-btn" href="downloads/{esc(file)}" download>⬇ Download the submission GeoTIFF
-      ({emit.get('bytes', 0) / 1024:.0f} KiB)</a>
-    <a class="big-btn sec" href="downloads/{esc(file).replace('.tif', '.zip')}" download>⬇ ZIP (one GeoTIFF)</a>
-    <a class="big-btn sec" href="s6/index.html">Full session-6 page (σ table, per-class gains)</a>
-    <a class="big-btn sec" style="background:#41505f" href="executive-summary.html">How to submit it</a>
-  </div>
-  <p class="small">sha256 <code>{esc(emit.get('sha256', ''))}</code> · name
-  <code>{esc(Path(file).stem)}</code> · no organizer receipt exists for this or any file in this
-  repository, and no submission slot has been used.</p>
-</section>
-<!-- session6:end -->
-"""
-
-    idx = DOCS / "index.html"
-    txt = idx.read_text(encoding="utf-8")
-    if "<!-- session6:begin -->" in txt:
-        a = txt.index("<!-- session6:begin -->")
-        b = txt.index("<!-- session6:end -->") + len("<!-- session6:end -->")
-        txt = txt[:a] + block + txt[b:]
-    else:
-        marker = "<!-- session5:begin -->"
-        if marker in txt:
-            txt = txt.replace(marker, block + "\n" + marker, 1)
-        else:
-            txt = txt.replace("<section", block + "\n<section", 1)
-    idx.write_text(txt, encoding="utf-8")
-
-
 def main() -> int:
+    """Render docs/s6/index.html only.
+
+    ``docs/index.html`` and ``docs/executive-summary.html`` are owned by the shared
+    ``scripts/build_session7_pages.py``, which enforces byte-exact agreement with its
+    evidence. That builder imports this lane's blocks from ``scripts/s6_lane_notice.py``,
+    so re-running it is what refreshes the front door:
+    ``python3 scripts/build_session7_pages.py && python3 scripts/s6_build_page.py``.
+    """
     S6.mkdir(parents=True, exist_ok=True)
     (S6 / ".nojekyll").write_text("")
     page = build_page()
     (S6 / "index.html").write_text(page, encoding="utf-8")
     print("wrote", S6 / "index.html", len(page), "bytes")
-    if (EV / "emit.json").is_file():
-        inject_index(page)
-        print("injected session-6 banner into docs/index.html")
     return 0
 
 

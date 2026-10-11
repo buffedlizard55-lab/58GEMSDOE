@@ -132,7 +132,7 @@
  "public_leaderboard_review_2026_10_11": {
   "evidence_class": "PUBLIC-LEADERBOARD-SNAPSHOT",
   "source": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
-  "retrieval_note": "Later fetch during 2026-10-11 review; exact retrieval time was not captured.",
+  "retrieval_note": "Fetched from the official public leaderboard; UTC clock sampled immediately after page text fetch, so this is an observation-time marker rather than a server-provided timestamp. Board is dynamic.",
   "rows": [
    {
     "rank": 1,
@@ -140,9 +140,9 @@
     "team": "xiaofanhu"
    },
    {
-    "rank": 8,
-    "score": 0.3261,
-    "team": "kinghorton42"
+    "rank": 2,
+    "score": 0.3585,
+    "team": "cfld__"
    },
    {
     "rank": 9,
@@ -170,11 +170,12 @@
     "team": "1stop"
    }
   ],
-  "artifact_attribution": "NONE; participant leaderboard rows, not TIFF or submission-hash scores.",
+  "artifact_attribution": "NONE; public participant rows only, no artifact hash or organizer submission receipt crosswalk.",
   "notes": [
-   "Dynamic board; this later observation differs from the earlier same-day capture.",
-   "The 0.2778 row is extradr19 and does not establish a GEMSDOE32 H33 score.",
-   "The owner-maintained H33 page labels H33-2-B2 UNSCORED and 0.2747 a projection."
-  ]
+   "An earlier same-day observation recorded DARD at rank 8; this later observation records rank 9. Keep snapshots distinct.",
+   "The 0.2778 participant row belongs to extradr19 and does not establish a GEMSDOE32 H33 score.",
+   "The owner-maintained H33 page calls H33-2-B2 unscored and 0.2747 a projection; repeated public rows at 0.2747 are not an artifact identifier."
+  ],
+  "retrieval_time_utc": "2026-10-11T18:33:10Z"
  }
 }
