@@ -1,5 +1,4 @@
 """Fail-closed status, archived ribbon pages, and artifact-attribution checks."""
-
 from __future__ import annotations
 
 import hashlib
@@ -12,21 +11,31 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def test_current_run_card_is_an_unambiguous_negative():
-    card = json.loads((ROOT / "evidence" / "run_card.json").read_text())
-    assert card["submission_status"] == "NOT_OK_TO_SUBMIT"
-    assert card["human_readable_status"] == "NOT OK TO SUBMIT — DO NOT SUBMIT"
-    assert card["verdict"] == "negative"
-    assert card["correlation_overlap_vs_registry"]["final_dot_gate"]["passed"] is False
-    assert card["correlation_overlap_vs_registry"]["final_dot_gate"]["worst_dot_overlap"] > 0.70
-    assert card["correlation_overlap_vs_registry"]["latest_pinned_snapshot_scan"]["complete_accessible_scan"] is False
-    assert card["submission_note_chars"] <= 140
+    status = json.loads((ROOT / "evidence" / "site_status.json").read_text())
+    assert status["decision"] == "NOT_OK_TO_SUBMIT"
+    assert status["portal_acceptance"].startswith("UNRESOLVED")
+    assert status["final_dot_scan_verdict"] == "negative"
+    assert status["final_dot_scan_stop_required"] is True
+    assert status["literal_overlap_firings"] == 81
+    assert status["top_hypothesis_status"].startswith("NOT VALIDATED")
+    assert status["weekly_slot_selected"] is False
+    assert status["upload_performed"] is False
 
 
-def test_current_diagnostic_tif_matches_run_card_sha256():
-    card = json.loads((ROOT / "evidence" / "run_card.json").read_text())
-    p = ROOT / "docs" / "downloads" / f"{card['submission_name']}.tif"
+def test_legacy_run_card_top_labels_do_not_promote_diagnostic_metrics():
+    for name in ("run_card_v2.json", "run_card_final.json"):
+        card = json.loads((ROOT / "evidence" / "ribbon" / name).read_text())
+        assert card["holdout_dti_label"] == "LEGACY-DIAGNOSTIC-ONLY"
+        assert isinstance(card["holdout_dti"], (int, float))
+        assert card["holdout_dti_evaluator"].startswith("gems58w.metric/v1")
+        assert card["holdout_dti_withheld_positives"] == 60869
+
+
+def test_current_diagnostic_tif_matches_site_status_sha256():
+    status = json.loads((ROOT / "evidence" / "site_status.json").read_text())
+    p = ROOT / status["candidate_file"]
     assert p.exists(), p
-    assert hashlib.sha256(p.read_bytes()).hexdigest() == card["raster_sha256"]
+    assert hashlib.sha256(p.read_bytes()).hexdigest() == status["candidate_file_sha256"]
 
 
 def test_legacy_ribbon_pages_are_red_and_do_not_say_download_ok():
@@ -46,7 +55,8 @@ def test_legacy_submission_and_site_builders_fail_closed():
         "scripts/ribbon_run_equal_budget.py", "scripts/ribbon_run_final_sweep.py",
         "scripts/ribbon_run_geometry_sweep.py", "scripts/ribbon_run_holdout_eval.py",
         "scripts/ribbon_run_holdout_sigma.py", "scripts/ribbon_run_instrument_control.py",
-        "scripts/ribbon_run_leakage_canary.py", "scripts/run_ribbon_experiments.py",
+        "scripts/ribbon_run_leakage_canary.py", "scripts/ribbon_emit_adaptive.py",
+        "scripts/run_ribbon_experiments.py",
     ):
         proc = subprocess.run([sys.executable, str(ROOT / script)], cwd=ROOT,
                               capture_output=True, text=True, timeout=30)
@@ -70,7 +80,8 @@ def test_score_attribution_and_standing_prompt_are_current():
     seen = (ROOT / "registry" / "submissions_seen.csv").read_text()
     assert "PARALLEL-RUN PROTOCOL" in prompt
     assert "0.3195" in prompt and "0.4133" in prompt and "0.2778" in prompt
-    assert "Maximize" in readme and "DO NOT SUBMIT" in readme
-    assert "does **not** link the score to the similarly quoted" in leaderboard
-    assert "NO ORGANISER SCORE EXISTS" in leaderboard
-    assert "PUBLIC-LEADERBOARD-SNAPSHOT ONLY" in seen
+    assert "Maximize P(Win)" in readme and "DO NOT SUBMIT" in readme
+    assert "extradr19" in leaderboard and "UNSCORED" in leaderboard
+    assert "no verified evidence shows that H33 scored 0.2778" in leaderboard
+    assert "NO ORGANIZER SCORE" in seen
+    assert "c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9" in seen

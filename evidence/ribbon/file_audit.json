@@ -1,0 +1,70 @@
+{
+  "evidence_class": "LOCAL-FILE-AUDIT",
+  "generated_utc": "2026-10-11T16:27:45Z",
+  "file": "docs/downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif",
+  "zip_file": "docs/downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.zip",
+  "sample_file": "data/official/sample_submission.tif",
+  "sha256": "ecf833f8ea7a6698636b48b0dcd0d03aa925d603753e60e03d9d1660922711dd",
+  "decoded_prediction_sha256": "420cb56fcddb0b26d568d7eb61c477275671d230712c54ef03fbc9f4e5d3008d",
+  "zip_sha256": "c41c819f5465b54ec2935703fa1b9a05b53dcb2735e7e751b4378476441cb115",
+  "bytes": 433419,
+  "positive_pixels": 40768,
+  "inside_unique_values": [
+    0.0,
+    1.0
+  ],
+  "candidate_metadata": {
+    "count": 1,
+    "dtype": "float32",
+    "crs": "EPSG:32611",
+    "shape": [
+      3730,
+      3292
+    ],
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "nodata_is_nan": true
+  },
+  "sample_metadata": {
+    "count": 1,
+    "dtype": "float32",
+    "crs": "EPSG:32611",
+    "shape": [
+      3730,
+      3292
+    ],
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "nodata_is_nan": true
+  },
+  "zip_members": [
+    "gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif"
+  ],
+  "checks": {
+    "single_band_float32": true,
+    "crs_shape_transform_match_sample": true,
+    "nodata_nan_metadata_matches_sample": true,
+    "inside_footprint_finite": true,
+    "inside_footprint_values_in_unit_interval": true,
+    "inside_footprint_unique_values_zero_one": true,
+    "outside_footprint_nan_like_sample": true,
+    "positive_pixel_count_matches_record": true,
+    "tiff_sha256_matches_record": true,
+    "decoded_pixel_sha256_matches_record": true,
+    "zip_contains_exactly_this_tiff_and_roundtrips": true
+  },
+  "all_checks_passed": true,
+  "scope_note": "Local TIFF/ZIP grid and value audit only. Does not establish portal acceptance, registry uniqueness, promotion-grade holdout, organizer score, or submit eligibility."
+}

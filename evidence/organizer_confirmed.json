@@ -1,6 +1,6 @@
 {
- "evidence_class": "ORGANIZER-CONFIRMED",
- "definition": "Every entry below was read directly from a DrivenData / USGS page by fetch_page on the stated date and is quoted, not inferred. Nothing in this file is a projection, a holdout number, or an owner-quoted sibling score. A number becomes ORGANIZER-CONFIRMED for THIS repository only when it is copied from a submission-page receipt; no such receipt exists yet.",
+ "evidence_class": "OFFICIAL-SOURCE-FACTS",
+ "definition": "The entries below are facts transcribed from official DrivenData/USGS sources or cited staff statements with URLs and retrieval date. This file is not an artifact score receipt. Public leaderboard rows are separately classified PUBLIC-LEADERBOARD-SNAPSHOT; no organizer receipt/hash crosswalk for an artifact in this repository was found.",
  "fetched_utc": "2026-10-11",
  "fetched_by": "fetch_page (bash egress cannot reach drivendata.org from this sandbox)",
  "metric": {
@@ -49,17 +49,57 @@
   "source": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
   "chunk": "0 of 3 (the first page of the live table)",
   "rows": [
-   {"rank": 1, "score": 0.4133, "team": "xiaofanhu", "submissions": 16},
-   {"rank": 2, "score": 0.3418, "team": "JerryDataWorks"},
-   {"rank": 3, "score": 0.3361, "team": "alexoktaba"},
-   {"rank": 4, "score": 0.3333, "team": "joeyfezster"},
-   {"rank": 5, "score": 0.33, "team": "Batik Shirt Brothers"},
-   {"rank": 6, "score": 0.3262, "team": "nchuzhoy"},
-   {"rank": 7, "score": 0.3261, "team": "kinghorton42"},
-   {"rank": 8, "score": 0.3195, "team": "DARD"},
-   {"rank": "9+", "score": "0.3129 down to 0.2797", "team": "further rows on the same page"}
+   {
+    "rank": 1,
+    "score": 0.4133,
+    "team": "xiaofanhu",
+    "submissions": 16
+   },
+   {
+    "rank": 2,
+    "score": 0.3418,
+    "team": "JerryDataWorks"
+   },
+   {
+    "rank": 3,
+    "score": 0.3361,
+    "team": "alexoktaba"
+   },
+   {
+    "rank": 4,
+    "score": 0.3333,
+    "team": "joeyfezster"
+   },
+   {
+    "rank": 5,
+    "score": 0.33,
+    "team": "Batik Shirt Brothers"
+   },
+   {
+    "rank": 6,
+    "score": 0.3262,
+    "team": "nchuzhoy"
+   },
+   {
+    "rank": 7,
+    "score": 0.3261,
+    "team": "kinghorton42"
+   },
+   {
+    "rank": 8,
+    "score": 0.3195,
+    "team": "DARD"
+   },
+   {
+    "rank": "9+",
+    "score": "0.3129 down to 0.2797",
+    "team": "further rows on the same page"
+   }
   ],
-  "supersedes": "the owner-reported target 0.3195, which is rank 8 on the live board, not rank 1 (IR-58-TARGET-01)"
+  "supersedes": "Earlier same-day public-board observation only; not an artifact score.",
+  "evidence_class": "PUBLIC-LEADERBOARD-SNAPSHOT",
+  "retrieval_note": "Earlier same-day fetch; DARD rank 8. A later observation recorded DARD rank 9; keep the snapshots distinct.",
+  "artifact_attribution": "NONE; public participant rows only, no artifact hash crosswalk."
  },
  "prizes_and_rounds": {
   "initial_round": "top 5 x $10,000 on a fixed private new-fault set",
@@ -85,8 +125,56 @@
   "external_data": "external data is allowed if it is publicly available and freely usable, and must be declared (page 967)"
  },
  "not_present_here": {
-  "organizer_receipt_for_any_file_in_this_repository": "none",
+  "organizer_receipt_for_any_file_in_this_repository": "none; no artifact/hash score crosswalk was found",
   "submission_slots_used_by_this_session": 0,
-  "note": "Gate G6 on the site can therefore never pass from this sandbox; it is the owner's selector step."
+  "note": "Official source facts and public leaderboard snapshots do not become ORGANIZER-CONFIRMED artifact scores without a receipt/hash crosswalk."
+ },
+ "public_leaderboard_review_2026_10_11": {
+  "evidence_class": "PUBLIC-LEADERBOARD-SNAPSHOT",
+  "source": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
+  "retrieval_note": "Later fetch during 2026-10-11 review; exact retrieval time was not captured.",
+  "rows": [
+   {
+    "rank": 1,
+    "score": 0.4133,
+    "team": "xiaofanhu"
+   },
+   {
+    "rank": 8,
+    "score": 0.3261,
+    "team": "kinghorton42"
+   },
+   {
+    "rank": 9,
+    "score": 0.3195,
+    "team": "DARD"
+   },
+   {
+    "rank": 23,
+    "score": 0.2778,
+    "team": "extradr19"
+   },
+   {
+    "rank": 30,
+    "score": 0.2747,
+    "team": "raboush2"
+   },
+   {
+    "rank": 31,
+    "score": 0.2747,
+    "team": "Mekhi12"
+   },
+   {
+    "rank": 32,
+    "score": 0.2747,
+    "team": "1stop"
+   }
+  ],
+  "artifact_attribution": "NONE; participant leaderboard rows, not TIFF or submission-hash scores.",
+  "notes": [
+   "Dynamic board; this later observation differs from the earlier same-day capture.",
+   "The 0.2778 row is extradr19 and does not establish a GEMSDOE32 H33 score.",
+   "The owner-maintained H33 page labels H33-2-B2 UNSCORED and 0.2747 a projection."
+  ]
  }
 }

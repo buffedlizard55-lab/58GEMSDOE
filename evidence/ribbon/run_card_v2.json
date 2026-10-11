@@ -4,7 +4,7 @@
  "mechanism": "the scoring kernel is isotropic with R = 300 m, so a detected ridge that is off by sigma only earns credit where a parallel line falls inside 300 m of the true trace; lines at 0, +-3, +-6 px convert a multi-pixel localisation error into kernel credit at a cost of exactly alpha = 0.2 per emitted pixel",
  "named_non_fault_process": "aeromagnetic flight-line levelling and draped-sensor artefacts produce lineaments parallel to survey lines that no fault occupies; dense volcanic and alluvial contacts in the detrended DEM produce scarp-shaped curvature that is not tectonic",
  "holdout_dti": 0.043651085789432324,
- "holdout_dti_label": "HOLDOUT-DTI",
+ "holdout_dti_label": "LEGACY-DIAGNOSTIC-ONLY",
  "holdout_dti_evaluator": "gems58w.metric/v1 (exact triangular kernel, R=3 px, alpha=0.2, beta=0.8)",
  "holdout_dti_protocol": "gems58-pooled-hide-v1",
  "holdout_dti_withheld_positives": 60869,

@@ -1,82 +1,26 @@
-<!doctype html>
-<html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Portal checklist — 58GEMSDOE (GEMS competition #306)</title>
-<link rel="stylesheet" href="assets/site.css">
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Download and eligibility — GEMS</title>
 <style>
-.gates{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:.6rem;margin:.8rem 0}
-.gate{border:1px solid #d7dee6;border-left:5px solid #999;border-radius:8px;padding:.55rem .7rem;background:#fbfcfd}
-.gate.pass{border-left-color:#1d7a45;background:#f2fbf5}
-.gate.fail{border-left-color:#a11212;background:#fdf3f3}
-.gate h4{margin:0 0 .25rem;font-size:.95rem}
-.gate p{margin:0;font-size:.83rem;color:#41505f}
-.pill{display:inline-block;padding:.1em .55em;border-radius:999px;font-size:.76rem;font-weight:700;color:#fff}
-.pill.pass{background:#1d7a45}.pill.fail{background:#a11212}.pill.info{background:#2f5f8f}.pill.warn{background:#8a6d1a}
-.warn-box{border:1px solid #e0c46a;border-left:5px solid #8a6d1a;background:#fffbea;border-radius:8px;padding:.7rem .9rem;margin:.8rem 0}
-.bad-box{border:1px solid #e0a3a3;border-left:5px solid #a11212;background:#fff6f6;border-radius:8px;padding:.7rem .9rem;margin:.8rem 0}
-.ok-box{border:1px solid #9ed3b3;border-left:5px solid #1d7a45;background:#f4fcf7;border-radius:8px;padding:.7rem .9rem;margin:.8rem 0}
-.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1rem}
-.small{font-size:.85rem;color:#41505f}
-.dlrow{display:flex;flex-wrap:wrap;gap:.6rem;margin:.8rem 0}
-.num{font-variant-numeric:tabular-nums}
-nav a{margin-right:.9rem}
-footer{margin-top:2rem;border-top:1px solid #d7dee6;padding-top:.6rem;font-size:.82rem;color:#41505f}
-table{max-width:100%}
+:root{color-scheme:light;--ink:#182432;--muted:#526171;--line:#d7dee6;--red:#a11212;--redbg:#fff5f5;--green:#1d7a45;--greenbg:#f2fbf5;--blue:#285b87;--gold:#85670f}
+body{font:16px/1.55 system-ui,-apple-system,Segoe UI,sans-serif;color:var(--ink);margin:0;background:#f6f8fa}
+main{max-width:1120px;margin:0 auto;padding:1.25rem}header,section,article{background:#fff;border:1px solid var(--line);border-radius:10px;padding:1rem 1.2rem;margin:.8rem 0}
+h1,h2,h3{line-height:1.2}h1{margin:.2rem 0 .6rem}h2{margin-top:1.7rem}nav{margin:.3rem 0 1rem}nav a{display:inline-block;margin:0 .8rem .35rem 0}a{color:#135d99}code{overflow-wrap:anywhere;background:#f1f4f7;padding:.08em .24em;border-radius:3px}
+.banner{border:2px solid var(--red);background:var(--redbg);padding:1rem 1.2rem;border-radius:10px;margin:1rem 0}.banner.ok{border-color:var(--green);background:var(--greenbg)}
+.pill{display:inline-block;padding:.1em .55em;border-radius:999px;font-size:.76rem;font-weight:750;color:#fff;white-space:nowrap}.pill.pass{background:var(--green)}.pill.fail{background:var(--red)}.pill.info{background:var(--blue)}.pill.warn{background:var(--gold)}
+.gates{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:.7rem;margin:.8rem 0}.gate{border:1px solid var(--line);border-left:5px solid #888;border-radius:8px;padding:.7rem .8rem;background:#fff}.gate.pass{border-left-color:var(--green)}.gate.fail{border-left-color:var(--red)}.gate.info{border-left-color:var(--blue);background:#f5f9fc}.gate h3{font-size:1rem;margin:0 0 .35rem}.gate p{font-size:.9rem;margin:.35rem 0;color:#354454}
+.actions{display:flex;gap:.65rem;flex-wrap:wrap;margin:1rem 0}.button{display:inline-block;border-radius:7px;background:var(--blue);color:#fff;padding:.65rem .95rem;text-decoration:none;font-weight:700}.button.review{background:var(--red)}.small{font-size:.88rem;color:var(--muted)}.callout{border-left:5px solid var(--gold);background:#fffbea;padding:.8rem 1rem;border-radius:5px;margin:1rem 0}.red-callout{border-left:5px solid var(--red);background:var(--redbg);padding:.8rem 1rem;border-radius:5px;margin:1rem 0}
+table{border-collapse:collapse;width:100%;margin:.6rem 0 1rem;font-variant-numeric:tabular-nums}th,td{border:1px solid var(--line);padding:.5rem .6rem;text-align:left;vertical-align:top}th{background:#edf2f6}ul,ol{padding-left:1.35rem}footer{border-top:1px solid var(--line);margin-top:2rem;padding-top:.7rem;color:var(--muted);font-size:.84rem}
+@media(max-width:600px){main{padding:.7rem}header,section,article{padding:.8rem}.button{width:100%;text-align:center}}
 </style>
-</head><body>
-<header><h1>58GEMSDOE — DOE GEMS competition #306</h1>
-<p>Geothermal fault detection, northwestern Great Basin (NV) · ribbon lane · every figure on this
-site is rendered from <code>evidence/**.json</code> at build time</p>
-<nav class="small"><a href="index.html">Status &amp; download</a> · <a href="executive-summary.html">How to submit</a> · <a href="submit.html" style="font-weight:700">Portal checklist</a> · <a href="deliverable/index.html">Sibling-lane deliverable</a> · <a href="sources.html">Sources</a> · <a href="evidence.html">Evidence index</a> · <a href="ribbon/index.html">Ribbon lane archive</a></nav></header>
-
-<section class="submit-box" style="border-color:#a11212">
-  <div class="badge" style="background:#a11212">
-    PREFLIGHT NOT CLEARED</div>
-  <h2 style="margin-top:.7rem">Portal checklist for <code>gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif</code></h2>
-  <p class="small">Every row is produced by <code>src/gems58w/submission.py:validate()</code> against
-  the bytes on disk at build time. It is a <b>local preflight</b>: it reproduces the format rules
-  published on the competition page and the reference solution's writer. It is not an organizer
-  acceptance, and it is not a score.</p>
-  <div class="dlrow">
-    <a class="big-btn" style="background:#a11212" href="downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif" download>
-      ⬇ Download the GeoTIFF</a>
-    <a class="big-btn" style="background:#2f5f8f" href="downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.zip" download>
-      ⬇ Download the ZIP</a>
-  </div>
+</head><body><main><nav><a href="index.html">Status</a> <a href="executive-summary.html">Summary</a> <a href="submit.html" aria-current="page">Eligibility</a> <a href="downloads/index.html">Downloads</a> <a href="evidence.html">Evidence</a> <a href="LEADERBOARD.md">H33 attribution</a> <a href="research/hypotheses_new.md">Hypotheses</a></nav>
+<header><h1>Download and eligibility</h1><div class="banner " role="alert"><strong>NOT OK TO SUBMIT — REVIEW ONLY</strong>
+<p>Do not upload this file or select a slot. Its download is for review and reproducibility only.</p></div>
+<p><strong>NOT OK TO SUBMIT — REVIEW ONLY. Do not upload or select a slot.</strong></p><div class="actions"><a class="button review" href="downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif" download>Download current TIFF — NOT OK TO SUBMIT / review only</a><a class="button review" href="downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.zip" download>Download current ZIP — NOT OK TO SUBMIT / review only</a></div><p class="small">File <code>gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif</code> · SHA-256 <code>ecf833f8ea7a6698636b48b0dcd0d03aa925d603753e60e03d9d1660922711dd</code> · 40768 positive pixels.</p>
+<p><a href="downloads/index.html">Open the per-file download/status index</a> · <a href="SUBMISSION_GUIDE.md">Full submission guide</a></p></header>
+<section><h2>Gate receipts</h2><div class="gates"><article class="gate pass"><h3>G1 · Local format preflight (not portal acceptance) <span class="pill pass">PASS</span></h3><p>15/15 receipt checks pass; on-disk SHA-256 matches the emission receipt. This is only a local format/range result; the reported portal [0,1] rejection is unresolved.</p></article><article class="gate info"><h3>G2 · Local witness subset (diagnostic only) <span class="pill info">DIAGNOSTIC</span></h3><p>27 local witnesses checked; pass/fail here is not a full registry clearance and is not used as a substitute for the pre-placement or final-dot gates.</p></article><article class="gate fail"><h3>G2P · Pre-placement surface gate <span class="pill fail">NOT CLEARED</span></h3><p>A separate hash-bound pre-placement surface receipt is required against the fresh inventory. The qualification receipt is missing or does not bind this candidate/inventory.</p></article><article class="gate fail"><h3>G3 · Final-dot uniqueness and inventory gate (literal protocol) <span class="pill fail">NOT CLEARED</span></h3><p>Recorded scan checked 702 indexed rasters at 2026-10-11T05:34:05Z; complete for that accessible snapshot=True, missing/invalid=0, source errors=0. Literal forward-overlap firings=81 (27 informative, 54 saturated/vacuous); worst overlap=1.0000, worst rank correlation=0.1824. unique=False, stop_required=True. The scan covers its saved public-inventory snapshot only, not an organizer-wide inventory; freshness clearance=False. A literal trigger is never waived by chance correction.</p></article><article class="gate fail"><h3>G4 · Promotion-grade feature-alone leakage canary <span class="pill fail">NOT CLEARED</span></h3><p>canary feature count or AUC is invalid Feature-level results must use the current split and be bound to this candidate and inventory.</p></article><article class="gate fail"><h3>G5 · Buffered spatial HOLDOUT-DTI with defensible 95% CI <span class="pill fail">NOT CLEARED</span></h3><p>No hash-bound, reportable shared-evaluator qualification is present. qualification receipt does not mark the holdout passed. Saved candidate measurement uses legacy gems58-pooled-hide-v1 / gems58w.metric/v1 (exact triangular kernel, R=3 px, alpha=0.2, beta=0.8); it is not a promotion-grade shared-evaluator result.</p></article><article class="gate info"><h3>G5i · Legacy diagnostic arithmetic cross-check (not promotion evidence) <span class="pill info">DIAGNOSTIC</span></h3><p>Legacy metric arithmetic verdict=AGREE; shared-metric value=0.043651086. This checks arithmetic only; it does not upgrade the old evaluator, split, selection process, or interval.</p></article><article class="gate info"><h3>G6 · Organizer receipt (post-upload only) <span class="pill info">DIAGNOSTIC</span></h3><p>No organizer submission receipt is present. This is not a pre-upload eligibility gate and cannot be inferred from a local format check; no score is attributed to this TIFF.</p></article></div></section>
+<section><h2>Portal error: unresolved</h2>
+<p>The repository has no exact portal response or acceptance receipt tied to this TIFF's SHA-256. The official sample's NaN-outside representation is not proof this TIFF will pass and does not identify the cause of the reported <code>[0,1]</code> error. A local validator pass must not be represented as portal acceptance.</p>
 </section>
-
-<h2>Format rules, and where each one comes from</h2>
-<table class="kv"><thead><tr><th>rule</th><th>source (open for manual review)</th></tr></thead><tbody><tr><td>Single-band GeoTIFF, float32</td><td><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">page 967</a> — submission format</td></tr><tr><td>EPSG:32611, 100&nbsp;m pixels, same bounds as the training data</td><td><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">page 967</a> · <a href="https://epsg.io/32611">EPSG:32611</a></td></tr><tr><td>Values in [0, 1], higher = more probable</td><td><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">page 967</a></td></tr><tr><td>Outside the study area: null / NaN</td><td><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">page 967</a> · reproduced by <code>data/official/sample_submission.tif</code> (7,111,787 NaN, nodata=nan)</td></tr><tr><td>A ZIP must contain exactly one GeoTIFF</td><td><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">page 967</a></td></tr><tr><td>Reference-solution writer: single-band float32, crs/transform from labels, no NaN inside the footprint</td><td><a href="https://github.com/drivendataorg/gems-prize-reference-solution">drivendataorg/gems-prize-reference-solution</a></td></tr><tr><td>Known USGS/INGENIOUS fault pixels are masked out of evaluation in both rounds</td><td><a href="https://community.drivendata.org/t/11516">staff answer, thread 11516</a></td></tr></tbody></table>
-
-<h2>Validation receipt — 15/15 pass</h2>
-<table class="kv"><thead><tr><th>check</th><th>result</th><th>detail</th></tr></thead><tbody><tr><td><code>exists</code></td><td><span class="pill pass">PASS</span></td><td>/home/user/58GEMSDOE/docs/downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif</td></tr><tr><td><code>single_band</code></td><td><span class="pill pass">PASS</span></td><td>count=1</td></tr><tr><td><code>dtype_float32</code></td><td><span class="pill pass">PASS</span></td><td>float32</td></tr><tr><td><code>crs_match</code></td><td><span class="pill pass">PASS</span></td><td>EPSG:32611</td></tr><tr><td><code>shape_match</code></td><td><span class="pill pass">PASS</span></td><td>3730x3292</td></tr><tr><td><code>transform_match</code></td><td><span class="pill pass">PASS</span></td><td>(100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0)</td></tr><tr><td><code>nan_outside_footprint</code></td><td><span class="pill pass">PASS</span></td><td>finite pixels outside the footprint = 0</td></tr><tr><td><code>finite_inside_footprint</code></td><td><span class="pill pass">PASS</span></td><td>NaN inside footprint = 0</td></tr><tr><td><code>values_in_unit_interval</code></td><td><span class="pill pass">PASS</span></td><td>min=0.000 max=1.000</td></tr><tr><td><code>positive_is_exactly_one</code></td><td><span class="pill pass">PASS</span></td><td>unique positives = [1.0]</td></tr><tr><td><code>positives_inside_footprint</code></td><td><span class="pill pass">PASS</span></td><td>outside = 0</td></tr><tr><td><code>footprint_mask_identical</code></td><td><span class="pill pass">PASS</span></td><td>finite=5167373 footprint=5167373</td></tr><tr><td><code>no_positive_on_catalogue</code></td><td><span class="pill pass">PASS</span></td><td>on-catalogue dots = 0</td></tr><tr><td><code>positive_count_in_range</code></td><td><span class="pill pass">PASS</span></td><td>n_positives = 40768</td></tr><tr><td><code>byte_size_reasonable</code></td><td><span class="pill pass">PASS</span></td><td>0.413 MB</td></tr></tbody></table>
-<p class="small">raster sha256 <code>ecf833f8ea7a6698636b48b0dcd0d03aa925d603753e60e03d9d1660922711dd</code> · 433,419 bytes ·
-40,768 positives · ZIP <code>downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.zip</code> ·
-built 2026-10-11T05:31:27Z</p>
-
-<h2>Submission name and note</h2>
-<p>Name: <code>gems58-ribbon-sigma-adaptive-40768-20261011T052942Z</code><br>
-Note: <code>Ribbon lane: adaptive dotted ribbons 0/+-300/+-600 m on catalogue-free Hessian ridges (sigma cross-fitted); 40768 isolated dots at 1.0.</code> (135 of 140 characters)</p>
-
-<h2>Why every emitted dot is exactly 1.0</h2>
-<p class="small">With the official metric
-<code>DTI = TP<sub>w</sub> / (TP<sub>w</sub> + α·FP<sub>w</sub> + β·FN<sub>w</sub> + ε)</code>,
-α = 0.2, β = 0.8, and the triangular kernel <code>k(d) = max(1 − d/R, 0)</code>, R = 300&nbsp;m =
-3&nbsp;px, a truth pixel takes the <b>maximum</b> kernel value over all predictions while a predicted
-pixel pays its own value times the leftover kernel. Scaling a dot down therefore scales its credit
-down without reducing the fixed β·FN term, so on a fixed support DTI is monotone increasing in
-emitted mass and the optimum is 1.0 everywhere you emit. Verified algebraically in
-<code>evidence/ribbon/theorems.json</code> and numerically by the
-<code>positive_is_exactly_one</code> check above (unique positives = [1.0]).</p>
-
-<h2>What the portal does with dots on the mapped catalogue</h2>
-<p class="small">Nothing: the organizer masks known USGS/INGENIOUS fault pixels out of evaluation in
-both rounds, so a dot there earns no credit and costs nothing. This file has
-0 such dots — the emitter drops them, which
-keeps the whole budget available for off-catalogue placement (and, on the local holdout, keeps the
-withheld truth scoreable instead of reading exactly 0.0 — IR-58-02).</p>
-
-<footer>Generated 2026-10-11T06:54:08Z by
-<code>scripts/build_site.py</code>. No organizer receipt exists for any artifact on this site, so no
-number here is a leaderboard score unless it is labelled ORGANIZER-CONFIRMED.</footer>
-</body></html>
+<section><h2>Do not submit based on this page</h2>
+<p>There is no eligible candidate under the current evidence. A future gate pass would still be distinct from an organizer acceptance, score receipt, weekly-slot selection, or upload. See <a href="IRREGULARITIES.md">current blockers</a> and the governing <a href="../PROMPT.md">research protocol</a>.</p>
+</section>
+<footer>Generated from repository receipts by <code>scripts/build_site.py</code>. A rendered page is not a portal acceptance, organizer score, or upload authorization.</footer></main></body></html>

@@ -47,7 +47,7 @@ U = k - alpha*s > 0    iff    k > alpha*s.
 
 For a redundant dot, `DeltaTP` can be less than `k`; the shortcut is not sufficient. For an interacting group of ribbon dots, compute the setwise `DeltaTP` and `DeltaFP` with the shared exact metric rather than summing independent dot utilities. The regression test `test_redundant_dot_does_not_use_isolated_threshold` covers the counterexample.
 
-The conditional threshold at any reference index `s` is `k > 0.2s`, or `d < 300(1−0.2s)` metres for the triangular kernel. For context only, the official public board observed on 2026-10-11 listed DARD at 0.3195 (rank 8); this is not the current leader and not a local artifact score. See [`docs/LEADERBOARD.md`](../LEADERBOARD.md). No projected score or local holdout value is implied by this algebra.
+The conditional threshold at any reference index `s` is `k > 0.2s`, or `d < 300(1−0.2s)` metres for the triangular kernel. For context only, an earlier same-day public-board snapshot placed DARD at 0.3195 (rank 8); a later 2026-10-11 observation placed DARD at rank 9. Neither row is the current leader or a local artifact score. See [`../LEADERBOARD.md`](../LEADERBOARD.md). No projected score or local holdout value is implied by this algebra.
 
 ## Scope of this repository's holdout
 
