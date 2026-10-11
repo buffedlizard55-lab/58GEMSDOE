@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session-7 submission file — 58GEMSDOE (GEMS #306)</title>
+<link rel="stylesheet" href="assets/site.css">
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;margin:0;color:#1c2733;background:#f6f8fa}
+header,section,footer{max-width:1080px;margin:0 auto;padding:1rem 1.2rem}
+header{padding-top:1.4rem}
+h1{font-size:1.55rem;margin:.2rem 0} h2{font-size:1.2rem;margin-top:1.6rem}
+a{color:#235f9c} code{background:#eef1f4;padding:.08em .35em;border-radius:4px}
+.badge{display:inline-block;padding:.35em .8em;border-radius:8px;font-weight:800;font-size:1.02rem}
+.badge.ok{background:#1d7a45;color:#fff}.badge.bad{background:#a11212;color:#fff}
+.badge.warn{background:#8a6d1a;color:#fff}
+.ok-box,.bad-box,.warn-box,.info-box{border-radius:10px;padding:.9rem 1.1rem;margin:1rem 0}
+.ok-box{background:#eefaf2;border:1px solid #9ed3b3}
+.bad-box{background:#fdf0f0;border:1px solid #e0a3a3}
+.warn-box{background:#fffbea;border:1px solid #e0c46a}
+.info-box{background:#eef4fb;border:1px solid #b7cce2}
+.dlrow{display:flex;flex-wrap:wrap;gap:.7rem;margin:.9rem 0}
+.big-btn{display:inline-block;padding:.85rem 1.3rem;border-radius:10px;background:#1d7a45;
+ color:#fff;font-weight:800;text-decoration:none;font-size:1.05rem}
+.big-btn.alt{background:#2f5f8f} .big-btn.gray{background:#41505f}
+table{border-collapse:collapse;width:100%;font-size:.88rem;background:#fff}
+th,td{border:1px solid #d7dee6;padding:.4rem .55rem;text-align:left;vertical-align:top}
+th{background:#eef1f4} .num{font-variant-numeric:tabular-nums}
+.small{font-size:.84rem;color:#41505f} .mono{font-family:ui-monospace,monospace;font-size:.82rem}
+footer{color:#41505f;font-size:.82rem;border-top:1px solid #d7dee6;margin-top:2rem}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1rem}
+</style>
+</head><body>
+<header>
+<p class="small"><a href="index.html">← 58GEMSDOE status</a></p>
+<h1>Session-7 deep-edge sigma-ribbon — submission deliverable</h1>
+<p class="small">DOE GEMS Prize Challenge (DrivenData #306) · every figure rendered from
+<code>evidence/gems61/*.json</code> · generated 2026-10-11T20:28:11Z</p>
+</header>
+
+<section>
+<div class="bad-box">
+  <p style="margin:.2rem 0"><span class="badge bad">NOT OK TO SUBMIT — DO NOT SUBMIT</span></p>
+  <p><b>File:</b> <code>gems61-deepedge-sigribbon-40000-20261011T201101Z.tif</code> · <b>SHA256</b>
+     <span class="mono">d35e2b4d68588672d526a88f…</span>
+     ✅ recomputed from disk and matches the receipt</p>
+  <p><b>Submission name:</b> <code>h61a-deepedge-sigribbon-20261011T201101Z</code></p>
+  <p><b>Note (paste into the form, 96/140 chars):</b><br>
+     <code>H7-A deep-edge sigma-ribbon, 40000 dots @1.0, 0 on catalogue; HOLDOUT-DTI 0.0450; uniq UNIQUE_UN</code></p>
+  <div class="dlrow">
+    <a class="big-btn" href="downloads/gems61-deepedge-sigribbon-40000-20261011T201101Z.tif">⬇ Download the GeoTIFF (.tif)</a>
+    <a class="big-btn alt" href="downloads/gems61-deepedge-sigribbon-40000-20261011T201101Z.zip">⬇ Download ZIP (single GeoTIFF)</a>
+    <a class="big-btn gray" href="downloads/gems61-deepedge-sigribbon-40000-20261011T201101Z.json">Format receipt (JSON)</a>
+    <a class="big-btn gray" href="submit.html">Portal checklist</a>
+  </div>
+  <p class="small">This file is published for review. It did NOT pass every gate (see below). Do not submit it.</p>
+</div>
+
+<h2>How to make a submission — executive summary</h2>
+<ol>
+  <li><b>Download</b> the GeoTIFF above (single band, float32, EPSG:32611, 3292×3730,
+      100 m, every cell finite, every value in [0, 1], no nodata tag).</li>
+  <li>Open the competition submission page:
+      <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/">
+      drivendata.org/competitions/306/competition-doe-gems/submissions</a> (login required).</li>
+  <li><b>File to submit:</b> choose the downloaded <code>.tif</code> (or the <code>.zip</code>
+      containing exactly that one GeoTIFF). The file must match the submission format's
+      CRS, shape and geotransform — the organizer's <code>sample_submission.tif</code> grid;
+      every local gate re-checks this against the pinned template.</li>
+  <li><b>Note (optional):</b> paste the note above so your team can tell submissions apart.</li>
+  <li>Click <b>Create submission</b>. Keep the returned receipt (submission id + timestamp);
+      only a receipt makes a score ORGANIZER-CONFIRMED.</li>
+</ol>
+<div class="warn-box"><b>The portal error “Predicted values must be in range [0, 1]”.</b>
+Two measured causes: (1) a float32 nodata sentinel (−3.4e38, the feature stack's nodata)
+written through into the raster, and (2) NaN cells with a NaN nodata tag — NaN is not in
+[0, 1] under a strict validator. This file is written <b>all-finite, values in [0,1],
+zero outside the footprint and zero on the mapped catalogue, no nodata tag</b>, and the
+writer refuses anything else (<code>gems57.submission_writer</code>). See
+<a href="submit.html">submit.html</a> for the full checklist.</div>
+
+<h2>What this candidate is</h2>
+<p>Hypothesis <b>H7-A</b>: faults buried under basin fill appear as <b>step edges</b>
+(first-derivative maxima) in the organizer's subsurface and magnetic-structure surfaces
+(<code>depth_to_base_surf</code>, <code>cond_surf</code>, <code>tc</code>), not as Hessian
+ridges of the raw bands. Ribbon width matches the measured localization error
+(<b>H7-B</b>, relief-conditioned σ), and the number/offset of parallel dotted lines per
+segment is chosen by the exact-metric rule
+<code>U = (1 − 0.2·DTI₀)·ΔTP − 0.2·DTI₀·ΔFP</code> with setwise max-credit interactions.
+Every emitted dot is exactly <b>1.0</b>; <b>40000</b> dots;
+<b>0</b> on the mapped catalogue (B=2 prune). Hypotheses and ranking:
+<a href="research/hypotheses_session7.md">hypotheses_session7.md</a>.</p>
+
+<h2>Leakage canary (feature alone, holdout) — CLEAN</h2>
+<table><tr><th>feature (alone)</th><th>AUC vs withheld truth</th></tr><tr><td>combined_edge_strength</td><td class='num'>0.5012</td></tr><tr><td>band_subsurface:depth_to_base_surf</td><td class='num'>0.4993</td></tr><tr><td>band_subsurface:cond_surf</td><td class='num'>0.5028</td></tr><tr><td>band_magnetic:tc</td><td class='num'>0.4993</td></tr><tr><td>relief_field_H7B</td><td class='num'>0.5442</td></tr></table>
+<p class="small">Limit 0.90. AUC ≈ 0.50 means the deep-edge surfaces carry no catalogue
+signal — clean of leakage, and consistent with the discovery premise (these edges are not
+the mapped traces), but it also caps catalogue-recovery on the proxy holdout.</p>
+
+<h2>σ table — measured localization error (HOLDOUT measurement)</h2>
+<p class="small">Across-strike distance between each candidate ridge and the nearest
+withheld segment, stratified as the lane requires (data block × feature resolution ×
+ridge type; relief class is the H7-B conditioning variable). σ is the censored RMS at
+15 px; strict σ at the 6 px capture radius; truth RMS is the width needed to reach the
+coverable withheld pixels.</p>
+<table><tr><th>stratum</th><th>value</th><th>segments</th><th>σ median (px)</th>
+<th>strict σ (px)</th><th>truth RMS (px)</th></tr><tr><td>block</td><td>NE</td><td class='num'>273</td><td class='num'>9.07</td><td class='num'>4.07</td><td class='num'>4.04</td></tr><tr><td>block</td><td>NW</td><td class='num'>587</td><td class='num'>8.93</td><td class='num'>4.19</td><td class='num'>4.13</td></tr><tr><td>block</td><td>SE</td><td class='num'>169</td><td class='num'>8.84</td><td class='num'>4.15</td><td class='num'>4.11</td></tr><tr><td>block</td><td>SW</td><td class='num'>135</td><td class='num'>8.41</td><td class='num'>3.75</td><td class='num'>3.74</td></tr><tr><td>resolution</td><td>1.5px</td><td class='num'>1160</td><td class='num'>8.89</td><td class='num'>4.07</td><td class='num'>4.04</td></tr><tr><td>resolution</td><td>3px</td><td class='num'>4</td><td class='num'>8.12</td><td class='num'>3.99</td><td class='num'>3.46</td></tr><tr><td>ridge_type</td><td>magnetic:tc</td><td class='num'>1118</td><td class='num'>8.82</td><td class='num'>4.08</td><td class='num'>4.05</td></tr><tr><td>ridge_type</td><td>subsurface:depth_to_base_surf</td><td class='num'>46</td><td class='num'>11.16</td><td class='num'>3.59</td><td class='num'>3.67</td></tr><tr><td>relief_class</td><td>relief0</td><td class='num'>295</td><td class='num'>9.51</td><td class='num'>4.17</td><td class='num'>4.18</td></tr><tr><td>relief_class</td><td>relief1</td><td class='num'>547</td><td class='num'>8.72</td><td class='num'>4.06</td><td class='num'>3.98</td></tr><tr><td>relief_class</td><td>relief2</td><td class='num'>322</td><td class='num'>8.85</td><td class='num'>4.04</td><td class='num'>4.00</td></tr></table>
+
+<h2>Simulated gain per class (exact metric, inner folds)</h2>
+<table><tr><th>class (ridge type × resolution × relief)</th><th>strength bin</th>
+<th>segments</th><th>pattern</th><th>U best</th><th>dots</th><th>U/dot</th></tr><tr><td>subsurface:cond_surf@1.5px relief1</td><td>high</td><td class='num'>4</td><td>DROP</td><td class='num'>0.00</td><td class='num'>0</td><td class='num'>0.0000</td></tr><tr><td>subsurface:cond_surf@1.5px relief1</td><td>mid</td><td class='num'>3</td><td>DROP</td><td class='num'>0.00</td><td class='num'>0</td><td class='num'>0.0000</td></tr><tr><td>subsurface:cond_surf@1.5px relief1</td><td>low</td><td class='num'>3</td><td>DROP</td><td class='num'>0.00</td><td class='num'>0</td><td class='num'>0.0000</td></tr><tr><td>subsurface:cond_surf@1.5px relief2</td><td>high</td><td class='num'>5</td><td>DROP</td><td class='num'>0.00</td><td class='num'>0</td><td class='num'>0.0000</td></tr><tr><td>subsurface:cond_surf@1.5px relief2</td><td>mid</td><td class='num'>4</td><td>DROP</td><td class='num'>0.00</td><td class='num'>0</td><td class='num'>0.0000</td></tr><tr><td>subsurface:cond_surf@1.5px relief2</td><td>low</td><td class='num'>4</td><td>DROP</td><td class='num'>0.00</td><td class='num'>0</td><td class='num'>0.0000</td></tr><tr><td>subsurface:depth_to_base_surf@1.5px relief0</td><td>high</td><td class='num'>27</td><td>DROP</td><td class='num'>0.00</td><td class='num'>0</td><td class='num'>0.0000</td></tr><tr><td>subsurface:depth_to_base_surf@1.5px relief0</td><td>mid</td><td class='num'>26</td><td>P3-triple</td><td class='num'>7.21</td><td class='num'>207</td><td class='num'>0.0348</td></tr><tr><td>subsurface:depth_to_base_surf@1.5px relief0</td><td>low</td><td class='num'>26</td><td>DROP</td><td class='num'>0.00</td><td class='num'>0</td><td class='num'>0.0000</td></tr><tr><td>subsurface:depth_to_base_surf@1.5px relief1</td><td>high</td><td class='num'>24</td><td>P3-triple</td><td class='num'>6.15</td><td class='num'>228</td><td class='num'>0.0270</td></tr><tr><td>subsurface:depth_to_base_surf@1.5px relief1</td><td>mid</td><td class='num'>23</td><td>DROP</td><td class='num'>0.00</td><td class='num'>0</td><td class='num'>0.0000</td></tr><tr><td>subsurface:depth_to_base_surf@1.5px relief1</td><td>low</td><td class='num'>23</td><td>DROP</td><td class='num'>0.00</td><td class='num'>0</td><td class='num'>0.0000</td></tr><tr><td>subsurface:depth_to_base_surf@1.5px relief2</td><td>high</td><td class='num'>22</td><td>DROP</td><td class='num'>0.00</td><td class='num'>0</td><td class='num'>0.0000</td></tr><tr><td>subsurface:depth_to_base_surf@1.5px relief2</td><td>mid</td><td class='num'>21</td><td>DROP</td><td class='num'>0.00</td><td class='num'>0</td><td class='num'>0.0000</td></tr><tr><td>subsurface:depth_to_base_surf@1.5px relief2</td><td>low</td><td class='num'>22</td><td>DROP</td><td class='num'>0.00</td><td class='num'>0</td><td class='num'>0.0000</td></tr><tr><td>magnetic:tc@1.5px relief0</td><td>high</td><td class='num'>579</td><td>P3-triple</td><td class='num'>148.15</td><td class='num'>10697</td><td class='num'>0.0138</td></tr><tr><td>magnetic:tc@1.5px relief0</td><td>mid</td><td class='num'>578</td><td>P3-triple</td><td class='num'>78.72</td><td class='num'>6350</td><td class='num'>0.0124</td></tr><tr><td>magnetic:tc@1.5px relief0</td><td>low</td><td class='num'>579</td><td>P3-triple</td><td class='num'>57.41</td><td class='num'>5321</td><td class='num'>0.0108</td></tr><tr><td>magnetic:tc@1.5px relief1</td><td>high</td><td class='num'>545</td><td>P3-triple</td><td class='num'>105.12</td><td class='num'>7130</td><td class='num'>0.0147</td></tr><tr><td>magnetic:tc@1.5px relief1</td><td>mid</td><td class='num'>544</td><td>P3-triple</td><td class='num'>171.65</td><td class='num'>5831</td><td class='num'>0.0294</td></tr><tr><td>magnetic:tc@1.5px relief1</td><td>low</td><td class='num'>544</td><td>P3-triple</td><td class='num'>146.49</td><td class='num'>5299</td><td class='num'>0.0276</td></tr><tr><td>magnetic:tc@1.5px relief2</td><td>high</td><td class='num'>536</td><td>P3-triple</td><td class='num'>80.23</td><td class='num'>7245</td><td class='num'>0.0111</td></tr><tr><td>magnetic:tc@1.5px relief2</td><td>mid</td><td class='num'>536</td><td>P3-triple</td><td class='num'>85.11</td><td class='num'>6038</td><td class='num'>0.0141</td></tr><tr><td>magnetic:tc@1.5px relief2</td><td>low</td><td class='num'>536</td><td>P3-triple</td><td class='num'>133.04</td><td class='num'>5263</td><td class='num'>0.0253</td></tr><tr><td>magnetic:tc@3px relief1</td><td>high</td><td class='num'>3</td><td>DROP</td><td class='num'>0.00</td><td class='num'>0</td><td class='num'>0.0000</td></tr><tr><td>magnetic:tc@3px relief1</td><td>low</td><td class='num'>3</td><td>P3-triple</td><td class='num'>3.71</td><td class='num'>21</td><td class='num'>0.1767</td></tr><tr><td>subsurface:cond_surf@1.5px relief1</td><td>high</td><td class='num'>4</td><td>DROP</td><td class='num'>0.00</td><td class='num'>0</td><td class='num'>0.0000</td></tr><tr><td>subsurface:cond_surf@1.5px relief1</td><td>mid</td><td class='num'>3</td><td>DROP</td><td class='num'>0.00</td><td class='num'>0</td><td class='num'>0.0000</td></tr><tr><td>subsurface:cond_surf@1.5px relief1</td><td>low</td><td class='num'>3</td><td>DROP</td><td class='num'>0.00</td><td class='num'>0</td><td class='num'>0.0000</td></tr><tr><td>subsurface:cond_surf@1.5px relief2</td><td>high</td><td class='num'>5</td><td>DROP</td><td class='num'>0.00</td><td class='num'>0</td><td class='num'>0.0000</td></tr><tr><td>subsurface:cond_surf@1.5px relief2</td><td>mid</td><td class='num'>4</td><td>DROP</td><td class='num'>0.00</td><td class='num'>0</td><td class='num'>0.0000</td></tr><tr><td>subsurface:cond_surf@1.5px relief2</td><td>low</td><td class='num'>4</td><td>DROP</td><td class='num'>0.00</td><td class='num'>0</td><td class='num'>0.0000</td></tr><tr><td>subsurface:depth_to_base_surf@1.5px relief0</td><td>high</td><td class='num'>27</td><td>DROP</td><td class='num'>0.00</td><td class='num'>0</td><td class='num'>0.0000</td></tr><tr><td>subsurface:depth_to_base_surf@1.5px relief0</td><td>mid</td><td class='num'>26</td><td>P3-triple</td><td class='num'>3.95</td><td class='num'>207</td><td class='num'>0.0191</td></tr><tr><td>subsurface:depth_to_base_surf@1.5px relief0</td><td>low</td><td class='num'>26</td><td>P3-triple</td><td class='num'>6.39</td><td class='num'>183</td><td class='num'>0.0349</td></tr><tr><td>subsurface:depth_to_base_surf@1.5px relief1</td><td>high</td><td class='num'>24</td><td>P3-triple</td><td class='num'>6.01</td><td class='num'>228</td><td class='num'>0.0264</td></tr><tr><td>subsurface:depth_to_base_surf@1.5px relief1</td><td>mid</td><td class='num'>23</td><td>DROP</td><td class='num'>0.00</td><td class='num'>0</td><td class='num'>0.0000</td></tr><tr><td>subsurface:depth_to_base_surf@1.5px relief1</td><td>low</td><td class='num'>23</td><td>DROP</td><td class='num'>0.00</td><td class='num'>0</td><td class='num'>0.0000</td></tr><tr><td>subsurface:depth_to_base_surf@1.5px relief2</td><td>high</td><td class='num'>22</td><td>DROP</td><td class='num'>0.00</td><td class='num'>0</td><td class='num'>0.0000</td></tr><tr><td>subsurface:depth_to_base_surf@1.5px relief2</td><td>mid</td><td class='num'>21</td><td>P3-triple</td><td class='num'>1.16</td><td class='num'>165</td><td class='num'>0.0070</td></tr><tr><td>subsurface:depth_to_base_surf@1.5px relief2</td><td>low</td><td class='num'>22</td><td>DROP</td><td class='num'>0.00</td><td class='num'>0</td><td class='num'>0.0000</td></tr><tr><td>magnetic:tc@1.5px relief0</td><td>high</td><td class='num'>579</td><td>P3-triple</td><td class='num'>135.22</td><td class='num'>10697</td><td class='num'>0.0126</td></tr><tr><td>magnetic:tc@1.5px relief0</td><td>mid</td><td class='num'>578</td><td>P3-triple</td><td class='num'>73.33</td><td class='num'>6350</td><td class='num'>0.0115</td></tr><tr><td>magnetic:tc@1.5px relief0</td><td>low</td><td class='num'>579</td><td>P3-triple</td><td class='num'>50.37</td><td class='num'>5321</td><td class='num'>0.0095</td></tr><tr><td>magnetic:tc@1.5px relief1</td><td>high</td><td class='num'>545</td><td>P3-triple</td><td class='num'>116.74</td><td class='num'>7130</td><td class='num'>0.0164</td></tr><tr><td>magnetic:tc@1.5px relief1</td><td>mid</td><td class='num'>544</td><td>P3-triple</td><td class='num'>206.09</td><td class='num'>5831</td><td class='num'>0.0353</td></tr><tr><td>magnetic:tc@1.5px relief1</td><td>low</td><td class='num'>544</td><td>P3-triple</td><td class='num'>196.93</td><td class='num'>5299</td><td class='num'>0.0372</td></tr><tr><td>magnetic:tc@1.5px relief2</td><td>high</td><td class='num'>536</td><td>P3-triple</td><td class='num'>80.84</td><td class='num'>7245</td><td class='num'>0.0112</td></tr><tr><td>magnetic:tc@1.5px relief2</td><td>mid</td><td class='num'>536</td><td>P3-triple</td><td class='num'>66.83</td><td class='num'>6038</td><td class='num'>0.0111</td></tr><tr><td>magnetic:tc@1.5px relief2</td><td>low</td><td class='num'>536</td><td>P3-triple</td><td class='num'>108.67</td><td class='num'>5263</td><td class='num'>0.0206</td></tr><tr><td>magnetic:tc@3px relief1</td><td>high</td><td class='num'>3</td><td>DROP</td><td class='num'>0.00</td><td class='num'>0</td><td class='num'>0.0000</td></tr><tr><td>magnetic:tc@3px relief1</td><td>low</td><td class='num'>3</td><td>P3-triple</td><td class='num'>3.59</td><td class='num'>21</td><td class='num'>0.1711</td></tr><tr><td>subsurface:cond_surf@1.5px relief1</td><td>high</td><td class='num'>4</td><td>DROP</td><td class='num'>0.00</td><td class='num'>0</td><td class='num'>0.0000</td></tr><tr><td>subsurface:cond_surf@1.5px relief1</td><td>mid</td><td class='num'>3</td><td>DROP</td><td class='num'>0.00</td><td class='num'>0</td><td class='num'>0.0000</td></tr><tr><td>subsurface:cond_surf@1.5px relief1</td><td>low</td><td class='num'>3</td><td>DROP</td><td class='num'>0.00</td><td class='num'>0</td><td class='num'>0.0000</td></tr><tr><td>subsurface:cond_surf@1.5px relief2</td><td>high</td><td class='num'>5</td><td>DROP</td><td class='num'>0.00</td><td class='num'>0</td><td class='num'>0.0000</td></tr><tr><td>subsurface:cond_surf@1.5px relief2</td><td>mid</td><td class='num'>4</td><td>DROP</td><td class='num'>0.00</td><td class='num'>0</td><td class='num'>0.0000</td></tr><tr><td>subsurface:cond_surf@1.5px relief2</td><td>low</td><td class='num'>4</td><td>DROP</td><td class='num'>0.00</td><td class='num'>0</td><td class='num'>0.0000</td></tr><tr><td>subsurface:depth_to_base_surf@1.5px relief0</td><td>high</td><td class='num'>27</td><td>DROP</td><td class='num'>0.00</td><td class='num'>0</td><td class='num'>0.0000</td></tr><tr><td>subsurface:depth_to_base_surf@1.5px relief0</td><td>mid</td><td class='num'>26</td><td>P3-triple</td><td class='num'>12.80</td><td class='num'>207</td><td class='num'>0.0619</td></tr><tr><td>subsurface:depth_to_base_surf@1.5px relief0</td><td>low</td><td class='num'>26</td><td>P3-triple</td><td class='num'>6.05</td><td class='num'>183</td><td class='num'>0.0330</td></tr><tr><td>subsurface:depth_to_base_surf@1.5px relief1</td><td>high</td><td class='num'>24</td><td>P3-triple</td><td class='num'>6.24</td><td class='num'>228</td><td class='num'>0.0274</td></tr><tr><td>subsurface:depth_to_base_surf@1.5px relief1</td><td>mid</td><td class='num'>23</td><td>DROP</td><td class='num'>0.00</td><td class='num'>0</td><td class='num'>0.0000</td></tr><tr><td>subsurface:depth_to_base_surf@1.5px relief1</td><td>low</td><td class='num'>23</td><td>DROP</td><td class='num'>0.00</td><td class='num'>0</td><td class='num'>0.0000</td></tr><tr><td>subsurface:depth_to_base_surf@1.5px relief2</td><td>high</td><td class='num'>22</td><td>DROP</td><td class='num'>0.00</td><td class='num'>0</td><td class='num'>0.0000</td></tr><tr><td>subsurface:depth_to_base_surf@1.5px relief2</td><td>mid</td><td class='num'>21</td><td>P3-triple</td><td class='num'>1.42</td><td class='num'>165</td><td class='num'>0.0086</td></tr><tr><td>subsurface:depth_to_base_surf@1.5px relief2</td><td>low</td><td class='num'>22</td><td>DROP</td><td class='num'>0.00</td><td class='num'>0</td><td class='num'>0.0000</td></tr><tr><td>magnetic:tc@1.5px relief0</td><td>high</td><td class='num'>579</td><td>P3-triple</td><td class='num'>108.92</td><td class='num'>10697</td><td class='num'>0.0102</td></tr><tr><td>magnetic:tc@1.5px relief0</td><td>mid</td><td class='num'>578</td><td>P3-triple</td><td class='num'>25.33</td><td class='num'>6350</td><td class='num'>0.0040</td></tr><tr><td>magnetic:tc@1.5px relief0</td><td>low</td><td class='num'>579</td><td>P3-triple</td><td class='num'>20.10</td><td class='num'>5321</td><td class='num'>0.0038</td></tr><tr><td>magnetic:tc@1.5px relief1</td><td>high</td><td class='num'>545</td><td>P3-triple</td><td class='num'>69.10</td><td class='num'>7130</td><td class='num'>0.0097</td></tr><tr><td>magnetic:tc@1.5px relief1</td><td>mid</td><td class='num'>544</td><td>P3-triple</td><td class='num'>180.54</td><td class='num'>5831</td><td class='num'>0.0310</td></tr><tr><td>magnetic:tc@1.5px relief1</td><td>low</td><td class='num'>544</td><td>P3-triple</td><td class='num'>181.51</td><td class='num'>5299</td><td class='num'>0.0343</td></tr><tr><td>magnetic:tc@1.5px relief2</td><td>high</td><td class='num'>536</td><td>P3-triple</td><td class='num'>26.60</td><td class='num'>7245</td><td class='num'>0.0037</td></tr><tr><td>magnetic:tc@1.5px relief2</td><td>mid</td><td class='num'>536</td><td>P3-triple</td><td class='num'>83.19</td><td class='num'>6038</td><td class='num'>0.0138</td></tr><tr><td>magnetic:tc@1.5px relief2</td><td>low</td><td class='num'>536</td><td>P3-triple</td><td class='num'>114.77</td><td class='num'>5263</td><td class='num'>0.0218</td></tr><tr><td>magnetic:tc@3px relief1</td><td>high</td><td class='num'>3</td><td>DROP</td><td class='num'>0.00</td><td class='num'>0</td><td class='num'>0.0000</td></tr><tr><td>magnetic:tc@3px relief1</td><td>low</td><td class='num'>3</td><td>P3-triple</td><td class='num'>3.69</td><td class='num'>21</td><td class='num'>0.1756</td></tr><tr><td>subsurface:cond_surf@1.5px relief1</td><td>high</td><td class='num'>4</td><td>DROP</td><td class='num'>0.00</td><td class='num'>0</td><td class='num'>0.0000</td></tr><tr><td>subsurface:cond_surf@1.5px relief1</td><td>mid</td><td class='num'>3</td><td>DROP</td><td class='num'>0.00</td><td class='num'>0</td><td class='num'>0.0000</td></tr><tr><td>subsurface:cond_surf@1.5px relief1</td><td>low</td><td class='num'>3</td><td>DROP</td><td class='num'>0.00</td><td class='num'>0</td><td class='num'>0.0000</td></tr><tr><td>subsurface:cond_surf@1.5px relief2</td><td>high</td><td class='num'>5</td><td>DROP</td><td class='num'>0.00</td><td class='num'>0</td><td class='num'>0.0000</td></tr><tr><td>subsurface:cond_surf@1.5px relief2</td><td>mid</td><td class='num'>4</td><td>DROP</td><td class='num'>0.00</td><td class='num'>0</td><td class='num'>0.0000</td></tr><tr><td>subsurface:cond_surf@1.5px relief2</td><td>low</td><td class='num'>4</td><td>DROP</td><td class='num'>0.00</td><td class='num'>0</td><td class='num'>0.0000</td></tr><tr><td>subsurface:depth_to_base_surf@1.5px relief0</td><td>high</td><td class='num'>27</td><td>DROP</td><td class='num'>0.00</td><td class='num'>0</td><td class='num'>0.0000</td></tr><tr><td>subsurface:depth_to_base_surf@1.5px relief0</td><td>mid</td><td class='num'>26</td><td>P3-triple</td><td class='num'>12.90</td><td class='num'>207</td><td class='num'>0.0623</td></tr><tr><td>subsurface:depth_to_base_surf@1.5px relief0</td><td>low</td><td class='num'>26</td><td>P3-triple</td><td class='num'>6.06</td><td class='num'>183</td><td class='num'>0.0331</td></tr><tr><td>subsurface:depth_to_base_surf@1.5px relief1</td><td>high</td><td class='num'>24</td><td>DROP</td><td class='num'>0.00</td><td class='num'>0</td><td class='num'>0.0000</td></tr><tr><td>subsurface:depth_to_base_surf@1.5px relief1</td><td>mid</td><td class='num'>23</td><td>DROP</td><td class='num'>0.00</td><td class='num'>0</td><td class='num'>0.0000</td></tr><tr><td>subsurface:depth_to_base_surf@1.5px relief1</td><td>low</td><td class='num'>23</td><td>DROP</td><td class='num'>0.00</td><td class='num'>0</td><td class='num'>0.0000</td></tr><tr><td>subsurface:depth_to_base_surf@1.5px relief2</td><td>high</td><td class='num'>22</td><td>DROP</td><td class='num'>0.00</td><td class='num'>0</td><td class='num'>0.0000</td></tr><tr><td>subsurface:depth_to_base_surf@1.5px relief2</td><td>mid</td><td class='num'>21</td><td>P3-triple</td><td class='num'>1.33</td><td class='num'>165</td><td class='num'>0.0081</td></tr><tr><td>subsurface:depth_to_base_surf@1.5px relief2</td><td>low</td><td class='num'>22</td><td>DROP</td><td class='num'>0.00</td><td class='num'>0</td><td class='num'>0.0000</td></tr><tr><td>magnetic:tc@1.5px relief0</td><td>high</td><td class='num'>579</td><td>P3-triple</td><td class='num'>87.40</td><td class='num'>10697</td><td class='num'>0.0082</td></tr><tr><td>magnetic:tc@1.5px relief0</td><td>mid</td><td class='num'>578</td><td>P3-triple</td><td class='num'>36.12</td><td class='num'>6350</td><td class='num'>0.0057</td></tr><tr><td>magnetic:tc@1.5px relief0</td><td>low</td><td class='num'>579</td><td>P3-triple</td><td class='num'>21.86</td><td class='num'>5321</td><td class='num'>0.0041</td></tr><tr><td>magnetic:tc@1.5px relief1</td><td>high</td><td class='num'>545</td><td>P3-triple</td><td class='num'>104.28</td><td class='num'>7130</td><td class='num'>0.0146</td></tr><tr><td>magnetic:tc@1.5px relief1</td><td>mid</td><td class='num'>544</td><td>P3-triple</td><td class='num'>185.92</td><td class='num'>5831</td><td class='num'>0.0319</td></tr><tr><td>magnetic:tc@1.5px relief1</td><td>low</td><td class='num'>544</td><td>P3-triple</td><td class='num'>134.72</td><td class='num'>5299</td><td class='num'>0.0254</td></tr><tr><td>magnetic:tc@1.5px relief2</td><td>high</td><td class='num'>536</td><td>P3-triple</td><td class='num'>106.67</td><td class='num'>7245</td><td class='num'>0.0147</td></tr><tr><td>magnetic:tc@1.5px relief2</td><td>mid</td><td class='num'>536</td><td>P3-triple</td><td class='num'>36.01</td><td class='num'>6038</td><td class='num'>0.0060</td></tr><tr><td>magnetic:tc@1.5px relief2</td><td>low</td><td class='num'>536</td><td>P3-triple</td><td class='num'>99.69</td><td class='num'>5263</td><td class='num'>0.0189</td></tr><tr><td>magnetic:tc@3px relief1</td><td>high</td><td class='num'>3</td><td>DROP</td><td class='num'>0.00</td><td class='num'>0</td><td class='num'>0.0000</td></tr><tr><td>magnetic:tc@3px relief1</td><td>low</td><td class='num'>3</td><td>DROP</td><td class='num'>0.00</td><td class='num'>0</td><td class='num'>0.0000</td></tr></table>
+<p class="small">U is the exact-metric pattern utility on the inner holdout cells at the
+arm's baseline DTI₀; a class is emitted only when U &gt; 0. Full per-pattern terms:
+<a href="downloads/gems61-exp2_holdout_arms.json">exp2_holdout_arms.json (copy)</a>
+(source of truth <code>evidence/gems61/exp2_holdout_arms.json</code>).</p>
+
+<h2>HOLDOUT-DTI (labelled; not a leaderboard score)</h2>
+<div class="info-box">
+<p class="small"><b>HOLDOUT-DTI</b> · evaluator <code>gems61-buffered-hide-v1: gems57.holdout.build_buffered_holdout_context seeds=(20, 21) hide_frac=0.2 mode=all; exact triangular DTI alpha=0.2 beta=0.8 R=3px (gems57.metric)</code> ·
+withheld positives <b>22893</b> px · catalogue-recovery proxy
+truth (the organizer scores faults <i>absent</i> from the catalogue; this instrument is
+structurally blind to those — treat as relative evidence only).</p>
+<table>
+<tr><th>arm</th><th>pooled DTI</th><th>dots</th><th>TPw</th><th>FPw</th><th>FNw</th></tr>
+<tr><td>A1 sigma-ribbon (candidate rule)</td><td class="num">0.044958</td>
+<td class="num">238689</td><td class="num">1819.7</td>
+<td class="num">108990.6</td><td class="num">21073.3</td></tr>
+<tr><td>A0 single-line control (budget-matched)</td><td class="num">0.029430</td>
+<td class="num">82120</td><td class="num">762.2</td>
+<td class="num">37162.4</td><td class="num">22130.8</td></tr>
+<tr><td>Reference: session-5 concordance file on this instrument</td>
+<td class="num">0.030162</td><td class="num">40768</td>
+<td colspan="3" class="small">published session-5 concordance candidate re-scored on this instrument</td></tr>
+</table>
+<p>Paired A1 − A0: <b class="num">0.015528</b>
+ · 95% CI [0.011951,
+ 0.019133]
+ (paired percentile bootstrap over the 4 spatial quadrants (both seeds pooled per quadrant); coarse, 4 clusters). <b>Whole-rule contrast, not matched-mass</b> (IR-58-S7-03): the
+single-line control cannot emit the ribbon arm's mass at 3-px along-strike spacing
+(20,530 vs ≈59,700 dots per fold), so the delta measures the include rule + ribbon
+patterns together; the exact DTI already charges the ribbon arm's extra FP mass (0.2 each),
+and it still wins in 4/4 quadrants. Same-instrument reference (session-5 concordance file):
+<b class="num">0.030162</b> — the candidate rule beats it by
+<b class="num">0.014795</b>
+on this instrument. The cross-instrument figure 0.043575 (session-5 C2, `gems58-pooled-hide-v1`)
+is context only — see IR-58-S7-02.</p>
+</div>
+
+<h2>Uniqueness screen (every earlier raster)</h2>
+<p class="small">Instrument: <code>scripts/gems61_screen.py (definitions = gems57.uniqueness via gems58w.uniqueness; forward = fraction of MY dots within 3 px of their dots; governing rule RATIFIED-UNIQ-v1, literal reading published beside it)</code> · witnesses screened:
+<b>694</b> · pre-placement surface screen <i>and</i> final-dot screen both run.</p>
+<table>
+<tr><th>reading</th><th>result</th></tr>
+<tr><td>Verdict under the uniqueness rule in force (literal 70% stop)</td><td><b>DUPLICATE_OR_DRIFT_LITERAL_STOP</b></td></tr>
+<tr><td>worst rank correlation ρ (limit 0.90)</td><td class="num">0.0130 · firings 0</td></tr>
+<tr><td>worst forward 3-px overlap (limit 0.70)</td><td class="num">1.0000</td></tr>
+<tr><td>literal 70% firings (published beside the governing verdict)</td>
+<td>74 (54 of them saturated, E ≥ 0.99)</td></tr>
+<tr><td>rule A (O &gt; 0.70 with E &lt; 0.70 — informative; chance-corrected reading, recorded, not governing)</td><td>0</td></tr>
+<tr><td>rule B (chance-corrected lift &gt; 0.50 with E &lt; 0.99)</td><td>0</td></tr>
+<tr><td>H7-C gap pass (preregistered registry-gap trim)</td>
+<td>0 witness(es) trimmed; 0 dots removed before the final screen</td></tr>
+</table>
+
+<h2>Validator output (local, on-disk)</h2>
+<table><tr><th>check</th><th>result</th></tr>
+<tr><td>no NaN inside the footprint; values in [0, 1]</td>
+<td>PASS — min 0.000, max 1.000</td></tr>
+<tr><td>CRS / shape / transform match the organizer template</td><td>PASS (float32, EPSG:32611, 3292×3730, transform identical to sample_submission)</td></tr>
+<tr><td>all-finite policy (portal [0,1] error fix)</td><td>PASS — 0 NaN, no nodata tag, 0 cells outside [0,1]</td></tr>
+<tr><td>dots exactly 1.0 · on-catalogue dots</td><td>40000 dots at 1.0 · 0 on the catalogue</td></tr>
+<tr><td>decoded-pixel SHA256 (writer receipt)</td><td class="mono">7bd0e60554016ac61cb4e7bb…</td></tr>
+</table>
+
+<h2>Run card</h2>
+<p class="small">Hypothesis: H7-A: deep-structure step edges (depth_to_base_surf, cond_surf, tc) with sigma-adaptive parallel dotted ribbons (H7-B relief-conditioned width, H7-C registry-gap uniqueness selection)<br>
+Mechanism: step-edge (first-derivative) detector on subsurface/magnetic-structure surfaces finds cover-buried faults absent from the surface-trace catalogue; ribbon width matches the measured ridge-&gt;truth localization error; per-stratum pattern chosen by exact-metric U; dots exactly 1.0<br>
+Named non-fault mimic: lithologic contacts and basin-fill pinch-outs, dike swarms, alteration fronts, survey-footprint edges<br>
+Verdict: <b>negative</b> — The uniqueness rule in force (merged PROMPT.md: literal 70% / rho&gt;0.90 stop, no chance-corrected waiver) fires on the final dots: literal_overlap_firings=74, worst forward overlap 1.0. A directly observed literal trigger is a decisive duplicate/drift stop: verdict is negative and the file is NOT CLEARED — DO NOT SUBMIT (retained for review). The chance-corrected readings (rule A 0, rule B 0, rank correlation 0) are recorded beside the literal reading and are NOT used to waive the stop. All measurement gates otherwise held: canary CLEAN, paired A1-A0 delta&gt;0 with 95% CI lower&gt;0, A1 beats the same-instrument reference, emission &gt;= 1000 dots. Note: 0.043575 comes from a different withhold instrument (gems58-pooled-hide-v1) and is not like-for-like with gems61-buffered-hide-v1 (IR-58-S7-02).<br>
+Full card: <a href="downloads/gems61-run_card.json">run_card.json (copy)</a> ·
+source of truth: <code>evidence/gems61/run_card.json</code> ·
+σ receipt: <code>evidence/gems61/sigma.json</code></p>
+
+<h2>Sources (official, for manual review)</h2>
+<ul class="small">
+<li>Problem description, metric and submission format —
+<a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">drivendata.org/competitions/306/competition-doe-gems/page/967/</a> (fetched 2026-10-11)</li>
+<li>Public leaderboard —
+<a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">…/leaderboard/</a></li>
+<li>Competition data tab (login-gated; feature stack mirror pinned by sha256) —
+<a href="https://www.drivendata.org/competitions/306/competition-doe-gems/data/">…/data/</a></li>
+<li>GeoDAWN airborne magnetic and radiometric surveys (USGS) —
+<a href="https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and">usgs.gov</a></li>
+<li>Official reference solution —
+<a href="https://github.com/drivendataorg/gems-prize-reference-solution">github.com/drivendataorg/gems-prize-reference-solution</a></li>
+<li>EPSG:32611 — <a href="https://epsg.io/32611">epsg.io/32611</a> ·
+Tversky index — <a href="https://en.wikipedia.org/wiki/Tversky_index">wikipedia.org</a></li>
+</ul>
+</section>
+<footer>58GEMSDOE · session 7 · generated 2026-10-11T21:00:45Z
+· Core values: Maximize P(Win), Own the Outcome</footer>
+</body></html>

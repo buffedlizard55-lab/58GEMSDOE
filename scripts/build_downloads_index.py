@@ -67,6 +67,15 @@ def collect() -> list[dict]:
     site_verdict = run_card.get("site_verdict", "NOT_OK_TO_SUBMIT")
     current_hashes = {current_tif, current_zip} - {None}
     review_hashes = {review_tif, review_zip} - {None}
+    # session-7 deep-edge candidate (evidence/gems61) — literal uniqueness stop
+    s7_card = load(ROOT / "evidence" / "gems61" / "run_card.json")
+    s7_hashes: set = set()
+    if s7_card.get("raster", {}).get("path"):
+        s7_tif = (ROOT / str(s7_card["raster"]["path"])).resolve()
+        s7_hashes = {s7_tif, s7_tif.with_suffix(".zip")}
+    s7_lit = (s7_card.get("uniqueness", {}).get("readings_final") or
+              s7_card.get("uniqueness", {}).get("readings_pre_gap") or {})
+    s7_n_lit = s7_lit.get("literal_overlap_firings")
 
     rows: list[dict] = []
     for base, prefix, archived in ((DOWNLOADS, "", False), (LEGACY_DOWNLOADS, "legacy/", True)):
@@ -79,7 +88,13 @@ def collect() -> list[dict]:
             is_current = path.resolve() in current_hashes
             is_latest_review = path.resolve() in review_hashes
             is_archived = archived or "archive" in path.relative_to(base).parts
-            if is_latest_review:
+            is_s7 = path.resolve() in s7_hashes
+            if is_s7:
+                label = (REVIEW_ONLY + " (session-7 deep-edge candidate; literal uniqueness stop — "
+                         f"{s7_n_lit} overlap firings)" if s7_n_lit is not None
+                         else REVIEW_ONLY + " (session-7 deep-edge candidate)")
+                kind = "Session-7 deep-edge candidate"
+            elif is_latest_review:
                 if literal_failure:
                     label = (REVIEW_ONLY + f" (literal 3 px overlap {observed_overlap:.4f} "
                              f"> {overlap_limit:.2f}; DO NOT SUBMIT)")

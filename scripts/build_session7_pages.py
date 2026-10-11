@@ -150,6 +150,49 @@ not cleared, and there is no HOLDOUT-DTI result for this artifact.</p>
 </section>"""
 
 
+def deep_edge_notice() -> str:
+    """Session-7 deep-edge sigma-ribbon candidate (parallel lineage; evidence/gems61)."""
+    card_path = ROOT / "evidence" / "gems61" / "run_card.json"
+    if not card_path.is_file():
+        return ""
+    try:
+        card = json.loads(card_path.read_text())
+    except (OSError, json.JSONDecodeError):
+        return ""
+    tif = ROOT / str(card.get("raster", {}).get("path", ""))
+    if not tif.is_file():
+        return ""
+    uni = card.get("uniqueness", {})
+    readings = uni.get("readings_final") or uni.get("readings_pre_gap") or {}
+    hold = card.get("holdout", {})
+    a1 = (hold.get("A1_sigma_ribbon") or {}).get("dti")
+    a0 = (hold.get("A0_single_line") or {}).get("dti")
+    note = card.get("submission", {}).get("note", "")
+    name = card.get("submission", {}).get("name", "")
+    lit = readings.get("literal_overlap_firings", "?")
+    return f"""<section class="s7-alert" role="alert">
+<span class="s7-badge">⛔ NOT OK TO SUBMIT — DO NOT SUBMIT</span>
+<h2>Parallel-lane session-7 candidate: <code>{esc(tif.name)}</code></h2>
+<p>H7-A deep-edge sigma-ribbon (step edges on <code>depth_to_base_surf</code>/<code>cond_surf</code>/<code>tc</code>,
+relief-conditioned σ ribbons). Unique geometry, format-clean (all-finite float32 [0,1], no nodata tag),
+<span class="s7-fail">literal uniqueness stop</span>: {esc(lit)} forward-overlap firings vs 694 witnesses
+(worst 1.0). Not proof of copying; decisive under the active rule. <b>Do not submit.</b></p>
+<p>Measured evidence (labelled HOLDOUT-DTI, catalogue-recovery proxy, not a score): A1 σ-ribbon
+{('%.5f' % a1) if a1 is not None else 'NOT MEASURED'} vs A0 single-line
+{('%.5f' % a0) if a0 is not None else 'NOT MEASURED'}; canary CLEAN. Chance-corrected overlap
+readings (rule A 0, rule B 0, rank correlation 0) are recorded beside the literal reading and do
+not waive it.</p>
+<div>
+<a class="s7-btn" href="downloads/{esc(tif.name)}" download>Download TIFF for audit only — DO NOT SUBMIT</a>
+<a class="s7-btn secondary" href="downloads/{esc(tif.with_suffix('.zip').name)}" download>One-TIFF ZIP — audit only</a>
+<a class="s7-btn secondary" href="gems61.html">Deep-edge evidence page</a>
+<a class="s7-btn secondary" href="downloads/gems61-run_card.json">JSON run card</a>
+</div>
+<p class="s7-small">Run-card verdict <b>{esc(card.get('verdict'))}</b> · name <code>{esc(name)}</code> ·
+note <code>{esc(note)}</code> · slots used 0.</p>
+</section>"""
+
+
 def inherited_unreviewed_notice() -> str:
     """Warn if a separate artifact from a later base update is present."""
     name = "gems58-ml-binary-ridge-20261012T000000Z.tif"
@@ -171,7 +214,7 @@ def build_index(card: dict, audit: dict, tif: Path) -> str:
         state = "PASS — LOCAL ONLY" if gate["ok"] else "NOT CLEARED / FAILED"
         klass = "s7-pass" if gate["ok"] else "s7-fail"
         rows.append(f"<tr><td>{esc(gate['name'])}</td><td class=\"{klass}\">{state}</td><td>{esc(gate['status'])}</td></tr>")
-    body = common_banner(card, audit, tif) + inherited_unreviewed_notice() + f"""
+    body = common_banner(card, audit, tif) + inherited_unreviewed_notice() + deep_edge_notice() + f"""
 <section class="s7-grid">
 <div class="s7-card"><h2>Current decision</h2><p><b>negative</b>. No experiment, slot, or upload
 occurred in this review. A filename/download link is not permission to submit.</p>
