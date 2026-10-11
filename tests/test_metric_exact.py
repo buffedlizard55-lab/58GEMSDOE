@@ -3,6 +3,8 @@ import pytest
 
 from gems58.metric import (ALPHA, BETA, dti_binary, dti_bruteforce, dti_from_components,
                          dti_soft, utility_U)
+from gems57.metric import (ALPHA as SHARED_ALPHA, dti_binary as shared_dti_binary,
+                         kernel as shared_kernel, marginal_accept as shared_marginal_accept)
 
 
 def test_rules_worked_example_numbers():
@@ -61,3 +63,51 @@ def test_U_is_linearisation_sign():
     # Adding a dot that lands on truth (dTP=1, dFP=0) must increase U; a pure FP must decrease it.
     assert utility_U(1.0, 0.0, 0.3) > 0
     assert utility_U(0.0, 1.0, 0.3) < 0
+
+
+def test_redundant_dot_does_not_use_isolated_threshold():
+    """A high self-credit dot can lower DTI when an earlier dot owns the truth credit."""
+    truth = np.zeros((7, 7), bool)
+    truth[3, 3] = True
+    before = np.zeros_like(truth)
+    before[3, 3] = True
+    after = before.copy()
+    after[3, 4] = True  # self-credit 2/3, but the central dot already earns TP=1
+
+    r0 = shared_dti_binary(before, truth)
+    r1 = shared_dti_binary(after, truth)
+    k_self = float(shared_kernel(1.0))
+    assert k_self > SHARED_ALPHA * r0["dti"]  # the isolated-dot shortcut would accept it
+    assert r1["tp"] == pytest.approx(r0["tp"])
+    assert r1["fp"] > r0["fp"]
+    assert r1["dti"] < r0["dti"]
+    assert not shared_marginal_accept(
+        dT=r1["tp"] - r0["tp"], k_self=k_self, T=r0["tp"], M=1.0, n=1, K=1.0
+    )
+
+
+def test_pattern_utility_identity_matches_shared_metric():
+    """Exact setwise ΔTP/ΔFP predict the sign of full DTI change, with interactions."""
+    truth = np.zeros((9, 10), bool)
+    truth[4, 3] = True
+    truth[4, 7] = True
+    before = np.zeros_like(truth)
+    before[4, 3] = True
+    after = before.copy()
+    after[4, 6] = True  # adds credit to the second truth pixel
+    after[4, 4] = True  # redundant/overlapping with credit around the first pixel
+
+    r0 = shared_dti_binary(before, truth)
+    r1 = shared_dti_binary(after, truth)
+    d_tp, d_fp = r1["tp"] - r0["tp"], r1["fp"] - r0["fp"]
+    utility = (1.0 - SHARED_ALPHA * r0["dti"]) * d_tp - SHARED_ALPHA * r0["dti"] * d_fp
+    assert utility > 0
+    assert r1["dti"] > r0["dti"]
+
+    redundant = before.copy()
+    redundant[4, 4] = True
+    r2 = shared_dti_binary(redundant, truth)
+    d_tp2, d_fp2 = r2["tp"] - r0["tp"], r2["fp"] - r0["fp"]
+    utility2 = (1.0 - SHARED_ALPHA * r0["dti"]) * d_tp2 - SHARED_ALPHA * r0["dti"] * d_fp2
+    assert utility2 < 0
+    assert r2["dti"] < r0["dti"]

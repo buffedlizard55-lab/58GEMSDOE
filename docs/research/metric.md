@@ -1,68 +1,54 @@
-# The official metric, transcribed
+# Official DTI metric and exact marginal-utility rule
 
-Source: **DrivenData competition 306, problem description, "Performance metric"**
-<https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/>
+The competition metric below is transcribed from the official [DrivenData problem description, “Performance metric”](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/). The shared implementation and its brute-force tests are under `src/gems57/` and `tests/`.
 
 ```text
 R      = 300 m = 3 pixels at 100 m resolution
-k(d)   = max(1 - d / R, 0)                                    (triangular kernel)
+k(d)   = max(1 - d / R, 0)                           (triangular kernel)
 
-TP_w   = sum_{g in G}  max_{x : d(x,g) <= R}  p(x) * k(d(x,g))
-FP_w   = sum_{x : p(x) > 0}  p(x) * [1 - max_{g in G} k(d(x,g))]
-FN_w   = sum_{g in G}  [1 - max_{x : d(x,g) <= R} p(x) * k(d(x,g))]
+TP_w   = sum over truth cells g of max over predictions x of p(x) k(d(x,g))
+FP_w   = sum over predictions x of p(x) [1 - max over truth cells g of k(d(x,g))]
+FN_w   = |G| - TP_w
 
 alpha  = 0.2      beta = 0.8
-
-DTI    = TP_w / (TP_w + alpha * FP_w + beta * FN_w + eps)
+DTI    = TP_w / (TP_w + alpha FP_w + beta FN_w + epsilon)
 ```
 
-Two organizer rules change what these sums mean in practice:
-
-1. **Known-fault masking.** Pixels on the mapped USGS/INGENIOUS catalogue are removed from the
-   prediction *and* from the truth before the kernel is applied, so a prediction on a mapped fault
-   is inert and cannot radiate credit into the scored domain. Organizer clarification, community
-   thread 11516 (recorded second-hand; see `registry/sources.json` S3).
-2. **The scored truth is faults the catalogue does not contain.** The example submission shipped by
-   the organizers (`data/official/sample_submission.tif`, sha256 `2176d08e…`) is literally the
-   catalogue: 1.0 on the 60,988 mapped pixels, 0 elsewhere inside the footprint, `NaN` outside.
-
-## Collapse to a one-line index
-
-Because `FN_w = |G| - TP_w` exactly,
+Let `T = TP_w`, `F = FP_w`, and `G = |truth|`. Because `FN_w = G − T` and `1 − beta = alpha`,
 
 ```text
-DTI = TP / (TP + alpha*FP + beta*(|G| - TP))
-    = TP / (alpha*(TP + FP) + beta*|G|)                          (A)
+D = T + alpha F + beta(G - T)
+  = alpha(T + F) + beta G
+DTI = T / D
 ```
 
-(A) is the form every script in this repository uses; `scripts/verify_theorems.py` theorem 1 checks
-it to `0.0` absolute difference on a random grid.
+This denominator identity is exact. It does **not** imply that one additional prediction pixel always adds exactly `alpha` to the denominator: max-credit interactions may make its marginal truth credit smaller than its self-credit.
 
-## Why the index is a *distance* filter
+## Exact utility for a pattern change
 
-For one emitted pixel of unit mass the pair `(p, 1-p)` sums to one: the pixel contributes
-`k(d)` to `TP` (via the per-truth maximum) and `1 - k(d)` to `FP`. Adding it therefore moves
-`TP + FP` by exactly **1** and the denominator by exactly **0.2**, wherever it lands. Writing `s`
-for the index before the addition,
+For a proposed change to the prediction pattern, compute exact metric differences under the same truth, visible-fault mask, and scored domain:
 
 ```text
-(T + k) / (D + 0.2)  >=  T / D      <=>      k >= alpha * s         (B)
+DeltaTP = TP_after - TP_before
+DeltaFP = FP_after - FP_before
+s       = DTI_before
+U       = (1 - alpha*s) * DeltaTP - alpha*s * DeltaFP
 ```
 
-At the owner-stated leader `s = 0.3195` this is `k >= 0.0639`, i.e. **within 280.8 m** of a scored
-truth pixel. Nothing about being *on* the trace is worth anything beyond credit 1; being 290 m away
-is worth 0.033 and does not pay. This is why the group's empirical `dot_thin` family located the
-optimum at ≈ 2.4–2.8 px spacing (GEMSDOE32 `docs/research/why-d28-scored-026.md`) and why every
-competitive artifact is binary, sparse and off-catalogue.
+Since `D_after = D_before + alpha(DeltaTP + DeltaFP)`, the change increases DTI exactly when `U > 0` (ties when `U = 0`). `DeltaTP` and `DeltaFP` must be measured after applying the metric's maxima; overlapping predictions do not receive additive truth credit.
 
-## Why binary beats graded
+### The limited isolated-dot shortcut
 
-For the support-scaled family `p_lambda = lambda * b` with `b` binary and `lambda in (0, 1]`,
+For one newly added binary dot with self-credit `k` that captures fresh truth credit, `DeltaTP = k` and its own false-positive mass is `DeltaFP = 1 − k`. Only in this special case does the exact condition reduce to
 
 ```text
-DTI(lambda) = lambda * T / (alpha * lambda * (T + F) + beta * G)
-dDTI/dlambda = alpha * T * G / (alpha*lambda*(T+F) + beta*G)^2  >  0
+U = k - alpha*s > 0    iff    k > alpha*s.
 ```
 
-so the graded raster is strictly dominated by its own thresholded support. **Emit exactly 1.0.**
-Machine check: theorem 2, max abs error `5.55e-17`.
+For a redundant dot, `DeltaTP` can be less than `k`; the shortcut is not sufficient. For an interacting group of ribbon dots, compute the setwise `DeltaTP` and `DeltaFP` with the shared exact metric rather than summing independent dot utilities. The regression test `test_redundant_dot_does_not_use_isolated_threshold` covers the counterexample.
+
+The conditional threshold at any reference index `s` is `k > 0.2s`, or `d < 300(1−0.2s)` metres for the triangular kernel. For context only, the official public board observed on 2026-10-11 listed DARD at 0.3195 (rank 8); this is not the current leader and not a local artifact score. See [`docs/LEADERBOARD.md`](../LEADERBOARD.md). No projected score or local holdout value is implied by this algebra.
+
+## Scope of this repository's holdout
+
+The shared local evaluator scores pooled DTI on buffered whole-component hide-and-recover folds built from the public catalogue. That is a development proxy, not the organizer's private expert-labelled test set. Do not call a proxy DTI a leaderboard prediction or use it to attribute a score to another team's TIFF.

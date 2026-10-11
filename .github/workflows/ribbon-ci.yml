@@ -1,12 +1,31 @@
-name: Ribbon lane CI
+name: Fail-closed repository checks
 on:
   push:
-    paths: ["src/gems58w/**", "scripts/ribbon_*", "tests/test_ribbon_*", "evidence/ribbon/**",
-            "registry/ribbon/**", "docs/ribbon/**", "pyproject.toml", "requirements.txt",
-            ".github/workflows/ribbon-ci.yml"]
+    paths:
+      - "src/gems57/**"
+      - "src/gems58w/**"
+      - "scripts/build_site.py"
+      - "scripts/ribbon_check_site.py"
+      - "tests/**"
+      - "docs/**"
+      - "evidence/run_card.json"
+      - "evidence/ribbon_uniqueness.json"
+      - "pyproject.toml"
+      - "requirements.txt"
+      - ".github/workflows/ribbon-ci.yml"
   pull_request:
-    paths: ["src/gems58w/**", "scripts/ribbon_*", "tests/test_ribbon_*", "evidence/ribbon/**",
-            "registry/ribbon/**", "docs/ribbon/**"]
+    paths:
+      - "src/gems57/**"
+      - "src/gems58w/**"
+      - "scripts/build_site.py"
+      - "scripts/ribbon_check_site.py"
+      - "tests/**"
+      - "docs/**"
+      - "evidence/run_card.json"
+      - "evidence/ribbon_uniqueness.json"
+      - "pyproject.toml"
+      - "requirements.txt"
+      - ".github/workflows/ribbon-ci.yml"
 jobs:
   verify:
     runs-on: ubuntu-latest
@@ -15,13 +34,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: Install
+      - name: Install test dependencies
         run: pip install -r requirements.txt
-      - name: Metric theorems (no feature stack needed)
-        run: PYTHONPATH=src python scripts/ribbon_verify_theorems.py
-      - name: Ribbon-lane tests
-        run: PYTHONPATH=src:. python -m pytest tests/test_ribbon_*.py -q
-      - name: Site renders from the receipts
-        run: PYTHONPATH=src python scripts/ribbon_build_site.py
-      - name: Site QA
-        run: PYTHONPATH=src python scripts/ribbon_check_site.py
+      - name: Run unit and repository-hygiene tests
+        run: PYTHONPATH=src python -m pytest -q
+      - name: Build current fail-closed status site
+        run: python scripts/build_site.py
+      - name: Check archived ribbon pages and current negative gates
+        run: python scripts/ribbon_check_site.py

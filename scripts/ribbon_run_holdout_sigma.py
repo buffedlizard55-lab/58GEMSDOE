@@ -1,7 +1,11 @@
 #!/usr/bin/env python3
-"""EXP-1: measure the across-strike localisation error sigma(x) on the holdout.
+"""ARCHIVED/NO-GO legacy sigma experiment; command-line execution is disabled.
 
-Protocol ``gems58-pooled-hide-v1`` (see ``gems58w.holdout``).  Writes
+The historical notes below use the private ``gems58w`` unbuffered holdout and
+are not promotion-grade. Use the current shared buffered protocol only after
+the pre-placement registry gate clears.
+
+Historical description: measure localisation error on the holdout; writes
 ``evidence/holdout_sigma.json``.
 
     PYTHONPATH=src GEMS_FEATURE_STACK=... python3 scripts/ribbon_run_holdout_sigma.py --threshold 0.8
@@ -76,4 +80,7 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    raise SystemExit(
+        "DEPRECATED/NO-GO: legacy sigma measurement uses the private gems58w holdout "
+        "and is not promotion-grade. Do not run it for current claims."
+    )

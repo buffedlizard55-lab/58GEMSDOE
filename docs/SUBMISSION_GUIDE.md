@@ -3,6 +3,10 @@
 > **DO NOT UPLOAD OR SELECT A WEEKLY SLOT FOR THE CURRENT FILE.**
 > The file below is retained as a research/diagnostic artifact so its findings are auditable. It is not a cleared competition submission.
 
+## Score-attribution note
+
+The official public leaderboard observed on 2026-10-11 UTC showed xiaofanhu at 0.4133 (rank 1), DARD at 0.3195 (rank 8), and extradr19 at 0.2778 (rank 23). These dynamic public rows are not tied to this TIFF. The GEMSDOE32 owner-maintained H33 page says its named artifact has no organizer score and describes 0.2747 as a projection; no receipt/hash crosswalk links 0.2778 to that file. See [`LEADERBOARD.md`](LEADERBOARD.md) and [`research/why-02778.md`](research/why-02778.md).
+
 ## Diagnostic GeoTIFF (not cleared)
 
 - File: [`gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.tif`](downloads/gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.tif)
