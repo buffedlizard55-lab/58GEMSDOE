@@ -31,6 +31,13 @@ def test_writer_receipt_binds_exact_decoded_float32_pixels(tmp_path):
 
     with rasterio.open(path) as written:
         decoded = written.read(1)
+        nodata = written.nodata
+    assert np.isfinite(decoded[footprint]).all()
+    assert np.isnan(decoded[~footprint]).all(), "outside-study cells must match the official null/NaN mask"
+    assert np.isnan(nodata), "the GeoTIFF nodata tag must match sample_submission.tif"
+    assert receipt["validator"]["checks"]["outside_footprint_nan"] is True
+    assert receipt["validator"]["checks"]["nodata_nan"] is True
+    assert receipt["template_report"]["ok"] is True
     expected = hashlib.sha256(np.ascontiguousarray(decoded).tobytes(order="C")).hexdigest()
     assert receipt["decoded_prediction_sha256"] == expected
     assert len(expected) == 64

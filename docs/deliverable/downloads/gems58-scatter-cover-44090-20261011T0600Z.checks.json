@@ -1,203 +1,154 @@
 {
- "validator": {
-  "passed": true,
-  "checks": {
-   "exists": {
-    "ok": true,
-    "detail": "/home/user/58GEMSDOE/docs/ribbon/downloads/gems58-scatter-cover-44090-20261011T0600Z.tif"
-   },
-   "single_band": {
-    "ok": true,
-    "detail": "count=1"
-   },
-   "dtype_float32": {
-    "ok": true,
-    "detail": "float32"
-   },
-   "crs_match": {
-    "ok": true,
-    "detail": "EPSG:32611"
-   },
-   "shape_match": {
-    "ok": true,
-    "detail": "3730x3292"
-   },
-   "transform_match": {
-    "ok": true,
-    "detail": "(100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0)"
-   },
-   "nan_outside_footprint": {
-    "ok": true,
-    "detail": "finite pixels outside the footprint = 0"
-   },
-   "finite_inside_footprint": {
-    "ok": true,
-    "detail": "NaN inside footprint = 0"
-   },
-   "values_in_unit_interval": {
-    "ok": true,
-    "detail": "min=0.000 max=1.000"
-   },
-   "positive_is_exactly_one": {
-    "ok": true,
-    "detail": "unique positives = [1.0]"
-   },
-   "positives_inside_footprint": {
-    "ok": true,
-    "detail": "outside = 0"
-   },
-   "footprint_mask_identical": {
-    "ok": true,
-    "detail": "finite=5167373 footprint=5167373"
-   },
-   "no_positive_on_catalogue": {
-    "ok": true,
-    "detail": "on-catalogue dots = 0"
-   },
-   "positive_count_in_range": {
-    "ok": true,
-    "detail": "n_positives = 44090"
-   },
-   "byte_size_reasonable": {
-    "ok": true,
-    "detail": "0.274 MB"
-   }
+  "validator": {
+    "passed": true,
+    "checks": {
+      "exists": {
+        "ok": true,
+        "detail": "/home/user/58GEMSDOE/docs/ribbon/downloads/gems58-scatter-cover-44090-20261011T0600Z.tif"
+      },
+      "single_band": {
+        "ok": true,
+        "detail": "count=1"
+      },
+      "dtype_float32": {
+        "ok": true,
+        "detail": "float32"
+      },
+      "crs_match": {
+        "ok": true,
+        "detail": "EPSG:32611"
+      },
+      "shape_match": {
+        "ok": true,
+        "detail": "3730x3292"
+      },
+      "transform_match": {
+        "ok": true,
+        "detail": "(100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0)"
+      },
+      "nan_outside_footprint": {
+        "ok": true,
+        "detail": "finite pixels outside the footprint = 0"
+      },
+      "finite_inside_footprint": {
+        "ok": true,
+        "detail": "NaN inside footprint = 0"
+      },
+      "values_in_unit_interval": {
+        "ok": true,
+        "detail": "min=0.000 max=1.000"
+      },
+      "positive_is_exactly_one": {
+        "ok": true,
+        "detail": "unique positives = [1.0]"
+      },
+      "positives_inside_footprint": {
+        "ok": true,
+        "detail": "outside = 0"
+      },
+      "footprint_mask_identical": {
+        "ok": true,
+        "detail": "finite=5167373 footprint=5167373"
+      },
+      "no_positive_on_catalogue": {
+        "ok": true,
+        "detail": "on-catalogue dots = 0"
+      },
+      "positive_count_in_range": {
+        "ok": true,
+        "detail": "n_positives = 44090"
+      },
+      "byte_size_reasonable": {
+        "ok": true,
+        "detail": "0.274 MB"
+      }
+    },
+    "sha256": "b20aa88877d3dc18a60eb33abdcb7b9bbfdc0527dfbe18bc813845e9c0138175",
+    "bytes": 287270,
+    "n_positives": 44090
   },
-  "sha256": "b20aa88877d3dc18a60eb33abdcb7b9bbfdc0527dfbe18bc813845e9c0138175",
-  "bytes": 287270,
-  "n_positives": 44090
- },
- "uniqueness_summary": {
-  "n_checked": 488,
-  "n_skipped": 4,
-  "skipped": [
-   {
-    "name": "1fc3d38da885918711ceef9aebab0fa7b53cf765.tif",
-    "reason": "grid mismatch"
-   },
-   {
-    "name": "51d18ae2082396fba9187cc299da051fd9d6f77e.tif",
-    "reason": "grid mismatch"
-   },
-   {
-    "name": "a5d33edd0f8b35f3f0932e0135096d3172d9e79d.tif",
-    "reason": "grid mismatch"
-   },
-   {
-    "name": "a97c7b2a513225c9f9f2b35736afe5abf4d2a491.tif",
-    "reason": "grid mismatch"
-   }
-  ],
-  "worst_rho": 0.07873239291726745,
-  "worst_rho_name": "173b970707e3ba5e290ee3a09f1815231b7b1088.tif",
-  "worst_forward_overlap": 0.182525,
-  "worst_forward_overlap_name": "173b970707e3ba5e290ee3a09f1815231b7b1088.tif",
-  "n_triggers": 0,
-  "n_dense_priors": 7,
-  "rho_max": 0.9,
-  "overlap_max": 0.7,
-  "buffer_px": 3,
-  "rho_subsample": 200000,
-  "dense_priors": [
-   {
-    "name": "5b7d2fe254a81674793ad5b3a9947a493da02e68.tif",
-    "positives": 5106385,
-    "forward_overlap": 0.01955727975857676
-   },
-   {
-    "name": "1cb4f016b4876391236f4960822171a3820a7597.tif",
-    "positives": 5167373,
-    "forward_overlap": 0.019392058595344288
-   },
-   {
-    "name": "43271a22d715989f177bd7a7c5e032363285fb2c.tif",
-    "positives": 5167373,
-    "forward_overlap": 0.019392058595344288
-   },
-   {
-    "name": "45469b332d0a742da90c159bac511936bb47134a.tif",
-    "positives": 5167373,
-    "forward_overlap": 0.019392058595344288
-   },
-   {
-    "name": "8c3d512092bfd9ea12ab22b259444e934031ab7d.tif",
-    "positives": 5167373,
-    "forward_overlap": 0.019392058595344288
-   },
-   {
-    "name": "916cdeecd661878529afa9e2fa280f632cad956c.tif",
-    "positives": 5167373,
-    "forward_overlap": 0.019392058595344288
-   },
-   {
-    "name": "ae408cde9b9d4ea8aad75068f21d2b4ab8996121.tif",
-    "positives": 5167373,
-    "forward_overlap": 0.019392058595344288
-   }
-  ]
- },
- "holdout": {
-  "pooled": 0.0,
-  "per_fold": {
-   "NW": 0.0,
-   "NE": 0.0,
-   "SW": 0.0,
-   "SE": 0.0
-  }
- },
- "equal_budget_contest": {
-  "n_dots": 44090,
-  "scatter": {
-   "pooled": 0.0,
-   "per_fold": {
-    "NW": 0.0,
-    "NE": 0.0,
-    "SW": 0.0,
-    "SE": 0.0
-   },
-   "tp": 0.0,
-   "fp": 171194.0
+  "uniqueness_summary": {
+    "n_checked": 488,
+    "n_skipped": 4,
+    "skipped": [
+      {
+        "name": "1fc3d38da885918711ceef9aebab0fa7b53cf765.tif",
+        "reason": "grid mismatch"
+      },
+      {
+        "name": "51d18ae2082396fba9187cc299da051fd9d6f77e.tif",
+        "reason": "grid mismatch"
+      },
+      {
+        "name": "a5d33edd0f8b35f3f0932e0135096d3172d9e79d.tif",
+        "reason": "grid mismatch"
+      },
+      {
+        "name": "a97c7b2a513225c9f9f2b35736afe5abf4d2a491.tif",
+        "reason": "grid mismatch"
+      }
+    ],
+    "worst_rho": 0.07873239291726745,
+    "worst_rho_name": "173b970707e3ba5e290ee3a09f1815231b7b1088.tif",
+    "worst_forward_overlap": 0.182525,
+    "worst_forward_overlap_name": "173b970707e3ba5e290ee3a09f1815231b7b1088.tif",
+    "n_triggers": 0,
+    "n_dense_priors": 7,
+    "rho_max": 0.9,
+    "overlap_max": 0.7,
+    "buffer_px": 3,
+    "rho_subsample": 200000,
+    "dense_priors": [
+      {
+        "name": "5b7d2fe254a81674793ad5b3a9947a493da02e68.tif",
+        "positives": 5106385,
+        "forward_overlap": 0.01955727975857676
+      },
+      {
+        "name": "1cb4f016b4876391236f4960822171a3820a7597.tif",
+        "positives": 5167373,
+        "forward_overlap": 0.019392058595344288
+      },
+      {
+        "name": "43271a22d715989f177bd7a7c5e032363285fb2c.tif",
+        "positives": 5167373,
+        "forward_overlap": 0.019392058595344288
+      },
+      {
+        "name": "45469b332d0a742da90c159bac511936bb47134a.tif",
+        "positives": 5167373,
+        "forward_overlap": 0.019392058595344288
+      },
+      {
+        "name": "8c3d512092bfd9ea12ab22b259444e934031ab7d.tif",
+        "positives": 5167373,
+        "forward_overlap": 0.019392058595344288
+      },
+      {
+        "name": "916cdeecd661878529afa9e2fa280f632cad956c.tif",
+        "positives": 5167373,
+        "forward_overlap": 0.019392058595344288
+      },
+      {
+        "name": "ae408cde9b9d4ea8aad75068f21d2b4ab8996121.tif",
+        "positives": 5167373,
+        "forward_overlap": 0.019392058595344288
+      }
+    ]
   },
-  "incumbent_rule": {
-   "pooled": 0.0,
-   "per_fold": {
-    "NW": 0.0,
-    "NE": 0.0,
-    "SW": 0.0,
-    "SE": 0.0
-   },
-   "tp": 0.0,
-   "fp": 167295.0
+  "holdout": {
+    "evidence_class": "LEGACY-DIAGNOSTIC-ONLY; NOT REPORTABLE",
+    "pooled": null,
+    "per_fold": null,
+    "reason": "Historical proxy result suppressed; no valid physical-cluster 95% CI under the current reporting contract."
   },
-  "surface": {
-   "pooled": 0.0,
-   "per_fold": {
-    "NW": 0.0,
-    "NE": 0.0,
-    "SW": 0.0,
-    "SE": 0.0
-   },
-   "tp": 0.0,
-   "fp": 171107.0
+  "catalogue_distance_profile": {
+    "median_px": 28.319604873657227,
+    "mean_px": 34.980220794677734,
+    "frac_le3px": 0.008459968246767974,
+    "frac_le10px": 0.20120208664096167,
+    "on_catalogue": 0
   },
-  "paired_scatter_vs_incumbent": {
-   "mean_point": 0.0,
-   "lo": 0.0,
-   "hi": 0.0,
-   "n": 4
-  },
-  "paired_scatter_vs_surface": {
-   "mean_point": 0.0,
-   "lo": 0.0,
-   "hi": 0.0,
-   "n": 4
-  }
- },
- "catalogue_distance_profile": {
-  "median_px": 28.319604873657227,
-  "mean_px": 34.980220794677734,
-  "frac_le3px": 0.008459968246767974,
-  "frac_le10px": 0.20120208664096167,
-  "on_catalogue": 0
- }
+  "archive_notice": "LEGACY-DIAGNOSTIC-ONLY — historical zero-valued proxy holdout outputs are not reportable HOLDOUT-DTI because the required shared protocol and defensible physical-cluster 95% CI are absent. Do not interpret as competition performance.",
+  "submission_status": "NOT OK TO SUBMIT — DO NOT SUBMIT; archived diagnostic"
 }
