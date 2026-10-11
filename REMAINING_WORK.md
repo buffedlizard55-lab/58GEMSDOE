@@ -78,14 +78,20 @@ This is **not** a duplication claim. The identical degeneracy fires **81** times
 candidate, because those witnesses' 3 px dilations cover 61–100 % of the footprint and overlap every
 nonempty candidate. Both files are in the same position under the literal rule; the two lanes report
 opposite verdicts only because they measured different statistics over different inventories (473
-live-fetched vs 703 pinned+delta). The immediate follow-up is a corrected full screen of the sibling
-deliverable with both readings:
+live-fetched vs 703 pinned+delta). **The corrected full screen has now been run**
+(`evidence/ribbon/sibling_full_inventory.json`): 703 witnesses, complete, verdict **negative**,
+`stop_required` true, **79 literal firings** (54 vacuous at E ≥ 0.99, 25 informative, worst informative
+overlap 0.8496), while the discriminating statistics all pass — byte-unique, pixel-unique, worst ρ
+**0.0900**, worst Jaccard **0.0509**. Its highest chance-corrected lift is **1.000** against
+`5GEMSDOE:data/derived/context_detector_prob_u8.tif` and **0.7143** against this lane's candidate.
 
-```bash
-PYTHONPATH=src python3 scripts/check_uniqueness_registry.py \
-    docs/deliverable/downloads/gems58-novel-scatter-44090-20261011T0630Z.tif \
-    --workers 2 --out ribbon/sibling_full_inventory.json     # ~35 min; started this session
-```
+**Cross-lane screen** (`evidence/ribbon/cross_lane_screen.json`): the two candidates share 3,542 exact
+pixels (Jaccard 0.0436) so neither copies the other, but the overlap is asymmetric — this lane's file
+**clears** the sibling (overlap 0.2998, E 0.0450, lift 0.267) while the sibling **fires** on this
+lane's file (overlap 0.7513, E 0.1295, lift 0.714), because ridge-concentrated emission dilates to
+12.95 % of the footprint and a sparse scatter emission to 4.50 %. So this lane's published reading is
+unchanged by the sibling file joining the inventory, and one owner decision about the literal 0.70 rule
+now governs **both** files.
 
 Also note `rho_subsample`: the sibling emitters pass a subsampled Spearman to `screen_against`. The
 merged implementation accepts it (so their callers keep working) but now records `rho_subsample` and

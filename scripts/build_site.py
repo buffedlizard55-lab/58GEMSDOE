@@ -713,46 +713,96 @@ def gates_html(gates: list[dict]) -> str:
     return "".join(out)
 
 
-def two_lanes_html(sib: dict, inv: dict) -> str:
+def two_lanes_html(sib_dir: dict, sib_inv: dict, inv: dict) -> str:
     """Both lanes' deliverables, with the statistic each clearance was measured in."""
-    d = (ROOT / "docs/deliverable/downloads")
+    d = ROOT / "docs/deliverable/downloads"
     files = sorted(d.glob("*.tif")) if d.is_dir() else []
     if not files:
         return ""
-    rows = []
-    for f in files:
-        rows.append([f"<code>{esc(f.name)}</code>", f"{f.stat().st_size:,} B",
-                     f"<a href='deliverable/index.html'>sibling-lane page</a>"])
-    proto = sib.get("sibling_firings_protocol_direction")
-    rev = sib.get("sibling_firings_reverse_direction")
-    measured = ""
+    rows = [[f"<code>{esc(f.name)}</code>", f"{f.stat().st_size:,} B",
+             f"<code>{esc(sha256(f)[:16])}…</code>",
+             "<a href='deliverable/index.html'>sibling-lane page</a>"] for f in files]
+
+    corrected = ""
+    if sib_inv:
+        si = sib_inv.get("informative_reading", {}) or {}
+        corrected = f"""
+<p class="small"><b>Corrected full screen, now measured (IR-58-UNIQ-06).</b> The sibling deliverable
+was re-screened with the corrected instrument against the same byte-verified inventory:
+<b>{sib_inv.get('registry_rasters_checked')} witnesses, complete scan, verdict
+{esc(sib_inv.get('verdict'))}, stop_required {sib_inv.get('stop_required')}</b>. Byte-unique
+{sib_inv.get('byte_unique_among_checked')}, pixel-unique {sib_inv.get('pixel_unique_among_checked')},
+worst rank correlation {fmt(sib_inv.get('worst_spearman_full_footprint'))} (limit 0.90, 0 firings),
+worst dot-set Jaccard {fmt(sib_inv.get('worst_jaccard_dot_sets'))} (limit 0.50, 0 firings) — and
+<b>{si.get('overlap_firings')} witnesses exceed the literal 0.70 forward-overlap limit</b>
+({si.get('overlap_firings_vacuous')} vacuous with E ≥ 0.99, {si.get('overlap_firings_informative')}
+informative; worst informative overlap {fmt(si.get('worst_forward_overlap_informative'))}). So the
+sibling file is in exactly this file's position under the protocol as written: not cleared by the
+literal rule, and not a copy of anything.
+<code>evidence/ribbon/sibling_full_inventory.json</code></p>"""
+
+    cross = ""
+    if sib_dir and sib_dir.get("a") and sib_dir.get("b"):
+        a, b = sib_dir["a"], sib_dir["b"]
+        cross = f"""
+<p class="small"><b>The two candidates screened against each other</b>
+(<code>evidence/ribbon/cross_lane_screen.json</code>): they share
+{sib_dir.get('exact_common_pixels'):,} exact pixels out of {a.get('dots'):,} and {b.get('dots'):,}
+(dot-set Jaccard {fmt(sib_dir.get('jaccard'))}), so neither is a copy of the other — but the overlap is
+strongly <b>asymmetric</b>, and the asymmetry is geometry rather than reuse:</p>
+{table(['as candidate', 'against', 'overlap', 'chance E', 'lift', 'literal 0.70 limit'], [
+    ['<b>this lane</b> (ribbon, ridge-concentrated)', 'the sibling scatter file',
+     f"<b>{fmt(a.get('as_candidate_overlap'))}</b>", fmt(a.get('witness_E')),
+     fmt(a.get('chance_corrected_lift'), 3),
+     '<span class="pill pass">clears</span>' if not a.get('literal_fires')
+     else '<span class="pill fail">fires</span>'],
+    ['<b>sibling lane</b> (scatter-cover)', 'this lane’s ribbon file',
+     f"<b>{fmt(b.get('as_candidate_overlap'))}</b>", fmt(b.get('witness_E')),
+     fmt(b.get('chance_corrected_lift'), 3),
+     '<span class="pill pass">clears</span>' if not b.get('literal_fires')
+     else '<span class="pill fail">fires</span>'],
+])}
+<p class="small">The ribbon emission is concentrated along ridges, so its 3&nbsp;px dilation covers
+{fmt(100 * (b.get('witness_E') or 0), 2)}&nbsp;% of the footprint and swallows most of a sparse
+scatter emission; the scatter emission's dilation covers
+{fmt(100 * (a.get('witness_E') or 0), 2)}&nbsp;% and catches under a third of the ridge-concentrated
+dots. Two consequences for the owner: this lane's reading is <b>unchanged</b> by the sibling file
+entering the inventory (it does not fire against it, so a ratified lift threshold of 0.50 still leaves
+only this repository's own earlier ribbon files firing), and the sibling's file gains one more
+informative firing — against this lane's candidate. Any chance-corrected rule must be applied to both
+files at the same threshold, or the two lanes will keep reporting opposite verdicts from the same
+registry.</p>"""
+
+    proto = sib_dir.get("sibling_firings_protocol_direction")
+    direction = ""
     if proto is not None:
-        measured = (f"<p class='small'><b>Direction check (IR-58-UNIQ-06).</b> The sibling screen "
-                    f"published &ldquo;worst 3&nbsp;px forward overlap "
-                    f"{fmt(0.3160)} · 0 triggers&rdquo;. That is the <i>reverse</i> statistic — the "
-                    f"fraction of each <i>witness's</i> dots near the candidate's. Re-measured in the "
-                    f"protocol direction (the fraction of the <i>candidate's</i> dots within 3&nbsp;px "
-                    f"of one witness's dots) against the same byte-verified inventory, this file has "
-                    f"<b>{proto} firings</b> (worst {fmt(sib.get('sibling_worst_protocol_overlap'))} "
-                    f"against the plane-filling <code>{esc(sib.get('sibling_worst_protocol_witness'))}"
-                    f"</code>) and <b>{rev}</b> in the reverse direction "
-                    f"(<code>evidence/ribbon/sibling_direction_check.json</code>). This is <b>not</b> a "
-                    f"claim that the file copies anything: the identical degeneracy fires "
-                    f"{(inv.get('informative_reading') or {}).get('overlap_firings')} times on this "
-                    f"session's candidate, because those witnesses' 3&nbsp;px dilations cover 61–100&nbsp;% "
-                    f"of the footprint and overlap every nonempty candidate. It is a claim that a "
-                    f"clearance measured in the wrong direction cannot support a green download banner, "
-                    f"and that both lanes need the same chance-corrected reading.</p>")
+        direction = f"""
+<p class="small"><b>Why the two lanes reported opposite verdicts.</b> The sibling screen published
+&ldquo;worst 3&nbsp;px forward overlap {fmt(0.3160)} · 0 triggers&rdquo; over 473 live-fetched rasters.
+That is the <i>reverse</i> statistic — the fraction of each <i>witness's</i> dots near the candidate's —
+which is what the archived <code>gems58w.screen_against</code> triggered on before this session fixed
+the exchanged directions (IR-58-UNIQ-04). Measured in the protocol direction, the same file had
+<b>{proto} firings</b> over the pinned inventory and <b>{sib_dir.get('sibling_firings_reverse_direction')}
+</b> in the reverse direction — the exact signature of the bug
+(<code>evidence/ribbon/sibling_direction_check.json</code>). This is <b>not</b> a duplication claim
+against either lane: the same degeneracy fires
+{(inv.get('informative_reading') or {}).get('overlap_firings')} times on this session's candidate,
+because those witnesses' 3&nbsp;px dilations cover 61–100&nbsp;% of the footprint and overlap every
+nonempty candidate. It is a claim that a clearance measured in the wrong direction cannot carry a green
+download banner, and that the two inventories are not the same set (473 live-fetched vs
+{inv.get('registry_rasters_checked')} pinned+delta).</p>"""
+
     return ("""<div class="warn-box"><h3 style="margin-top:0">Two lanes published a candidate today —
-this page decides only the one it measured</h3>""" + measured +
-            table(["sibling-lane file", "size", "where it is described"], rows, "kv") +
+this page decides only the one it measured</h3>""" + direction + corrected + cross +
+            table(["sibling-lane file", "size", "sha256 (recomputed here)", "where it is described"],
+                  rows, "kv") +
             """<p class="small">The sibling scatter-cover lane keeps its own page, executive summary and
 receipts under <code>docs/deliverable/</code>; nothing on this page overrides them, and nothing there
 overrides this page. Both lanes agree that <b>no organizer receipt exists</b> and that no slot has been
 used.</p></div>""")
 
 
-def build_index(emi, card, arms, sig, inv, fit, sib, gates, ok) -> str:
+def build_index(emi, card, arms, sig, inv, fit, sib_dir, sib_inv, gates, ok) -> str:
     name = emi["name"]
     ho = emi.get("holdout_dti", {}) or {}
     prof = emi.get("catalogue_distance_profile", {}) or {}
@@ -844,7 +894,7 @@ is the <i>catalogue</i>), {label('USER-REPORTED-SCORE')} (owner-quoted sibling p
     ])
 
     body = head + f"""
-{two_lanes_html(sib, inv)}
+{two_lanes_html(sib_dir, sib_inv, inv)}
 <h2>The download / submit decision — explicit gates</h2>{gates_html(gates)}
 
 {owner_decision_html(inv)}
@@ -1141,6 +1191,15 @@ def build_evidence_index(emi, card, arms, sig, inv, fit) -> str:
         ("evidence/ribbon/shared_metric_crosscheck.json", "HOLDOUT-DTI",
          "The delivered candidate's HOLDOUT-DTI re-derived with the shared gems57 metric (main has "
          "archived the gems58w path), plus the literal brute-force oracle on a bounded tile."),
+        ("evidence/ribbon/sibling_full_inventory.json", "REGISTRY-MEASUREMENT",
+         "The sibling lane's deliverable re-screened with the corrected instrument against the same "
+         "703-witness inventory: verdict, both readings, and the ratification analysis."),
+        ("evidence/ribbon/cross_lane_screen.json", "REGISTRY-MEASUREMENT",
+         "The two candidates screened against each other in the protocol direction, with the chance "
+         "correction: the overlap is asymmetric (0.2998 vs 0.7513) because of geometry, not reuse."),
+        ("evidence/ribbon/sibling_direction_check.json", "REGISTRY-MEASUREMENT",
+         "The measurement behind IR-58-UNIQ-06: the sibling deliverable's published clearance is the "
+         "reverse statistic; in the protocol direction it fires 78 times."),
         ("evidence/ribbon/theorems.json", "PROJECTION",
          "Algebraic properties of the official metric, including why DTI is monotone in emitted mass "
          "on a fixed support (emit 1.0) and the marginal-inclusion bar per assumed score."),
@@ -1212,7 +1271,8 @@ def main(argv: list[str] | None = None) -> int:
     inv = load(RIB / "uniqueness_full_inventory.json")
     fit = load(EV / "live_evidence_fit.json")
     xcheck = load(RIB / "shared_metric_crosscheck.json")
-    sib = load(RIB / "sibling_direction_check.json")
+    sib_dir = load(RIB / "sibling_direction_check.json")
+    sib_inv = load(RIB / "sibling_full_inventory.json")
     if not emi or not card:
         print("evidence/ribbon/emission.json or run_card_v2.json is missing — run "
               "scripts/ribbon_emit_adaptive.py first", file=sys.stderr)
@@ -1225,7 +1285,7 @@ def main(argv: list[str] | None = None) -> int:
         print(f"  {g['id']} {'PASS' if g['ok'] else 'FAIL'} — {g['name']}")
 
     DOCS.mkdir(parents=True, exist_ok=True)
-    (DOCS / "index.html").write_text(build_index(emi, card, arms, sig, inv, fit, sib, gates, ok),
+    (DOCS / "index.html").write_text(build_index(emi, card, arms, sig, inv, fit, sib_dir, sib_inv, gates, ok),
                                      encoding="utf-8")
     (DOCS / "executive-summary.html").write_text(
         build_executive_summary(emi, card, arms, sig, inv, gates, ok), encoding="utf-8")

@@ -11,7 +11,7 @@ is rendered by `scripts/build_site.py` on the
 | Artifact | Status | Decision basis |
 |---|---|---|
 | **`gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif`** (session 3, current candidate) — [TIF](docs/downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif) · [ZIP](docs/downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.zip) | **NOT CLEARED — download for review only** | Format gate 15/15 and holdout measured, but the **literal** 3 px forward-overlap stop fires against 81 of 702 inventory witnesses. Logged as a duplicate and stopped, as the standing prompt requires. [`evidence/ribbon/uniqueness_full_inventory.json`](evidence/ribbon/uniqueness_full_inventory.json), [`evidence/ribbon/run_card_final.json`](evidence/ribbon/run_card_final.json) |
-| **`gems58-novel-scatter-44090-20261011T0630Z.tif`** (sibling-lane deliverable under `docs/deliverable/`) | **NOT CLEARED under the protocol as written — IR-58-UNIQ-06** | Its published screen reports "worst 3 px forward overlap **0.3160**, 0 triggers" over 473 rasters. That is the **reverse** statistic (the witness's dots near the candidate's). Re-measured in the protocol direction against the same byte-verified inventory, **78 witnesses exceed 0.70** (worst 1.0000 against the plane-filling `GEMSDOE2:turbo-simple`) while **0** fire in the reverse direction — the signature of the exchanged-directions bug. [`evidence/ribbon/sibling_direction_check.json`](evidence/ribbon/sibling_direction_check.json) |
+| **`gems58-novel-scatter-44090-20261011T0630Z.tif`** (sibling-lane deliverable under `docs/deliverable/`) | **NOT CLEARED under the protocol as written — IR-58-UNIQ-06** | Its published screen reports "worst 3 px forward overlap **0.3160**, 0 triggers" over 473 rasters — the **reverse** statistic (the witness's dots near the candidate's). Re-screened with the corrected instrument over all 703 witnesses: verdict **negative**, **79 firings** (54 vacuous, 25 informative), while byte-unique / pixel-unique / worst ρ **0.0900** / worst Jaccard **0.0509** all pass. Cross-screened against this lane's file the overlap is asymmetric: this file clears it (0.2998, lift 0.267) and it fires on this file (0.7513, lift 0.714) — geometry, not copying (3,542 shared pixels, Jaccard 0.0436). [`evidence/ribbon/sibling_full_inventory.json`](evidence/ribbon/sibling_full_inventory.json), [`cross_lane_screen.json`](evidence/ribbon/cross_lane_screen.json) |
 | `gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.tif` (session 1/2 diagnostic) — [TIF](docs/downloads/gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.tif) | **NOT CLEARED — audit only** | 100% of its dots lie within 3 px of one full-footprint-positive prior raster, and its recorded scan was 694/695. [`evidence/run_card.json`](evidence/run_card.json), [`evidence/ribbon_uniqueness.json`](evidence/ribbon_uniqueness.json) |
 
 No organizer receipt links a score to any of these files, no slot was used, and nothing was uploaded.
@@ -38,19 +38,29 @@ Download it, verify the hash, and read the caveats on
 [`docs/research/why-the-score-and-how-to-beat-it.md`](docs/research/why-the-score-and-how-to-beat-it.md)
 before deciding whether to submit.
 
-> **Correction measured during the merge (IR-58-UNIQ-06).** The "worst 3 px forward overlap 0.3160 ·
-> 0 triggers" row above is the **reverse** statistic: the fraction of each *witness's* dots within 3 px
-> of the candidate's, which is what the archived `gems58w.screen_against` triggered on before the
-> direction bug was fixed. The protocol's statistic is the fraction of the *candidate's* dots within
-> 3 px of one witness's dots. Re-measured that way against the same byte-verified inventory
-> (702 witnesses), this file has **78 firings** (worst **1.0000**, against the plane-filling
-> `GEMSDOE2:turbo-simple`) and **0** in the reverse direction —
-> [`evidence/ribbon/sibling_direction_check.json`](evidence/ribbon/sibling_direction_check.json). This
+> **Correction measured during the merge, and now fully screened (IR-58-UNIQ-06).** The "worst 3 px
+> forward overlap 0.3160 · 0 triggers" row above is the **reverse** statistic: the fraction of each
+> *witness's* dots within 3 px of the candidate's, which is what the archived `gems58w.screen_against`
+> triggered on before the direction bug was fixed. The protocol's statistic is the fraction of the
+> *candidate's* dots within 3 px of one witness's dots. The corrected full screen over all **703**
+> byte-verified witnesses returns verdict **negative** with **79 firings** (54 vacuous at E ≥ 0.99,
+> 25 informative, worst informative overlap 0.8496), while every discriminating statistic passes by a
+> wide margin: byte-unique, pixel-unique, worst rank correlation **0.0900** (limit 0.90, 0 firings),
+> worst dot-set Jaccard **0.0509** (limit 0.50, 0 firings) —
+> [`evidence/ribbon/sibling_full_inventory.json`](evidence/ribbon/sibling_full_inventory.json). This
 > does **not** mean the file copies anything: the same degeneracy fires on the session-3 candidate
-> (81 firings) because those witnesses overlap every nonempty candidate. It does mean the published
-> "0 triggers / download OK" clearance is not the protocol statistic, and that a corrected full screen
-> with both readings is outstanding:
-> `PYTHONPATH=src python3 scripts/check_uniqueness_registry.py docs/deliverable/downloads/gems58-novel-scatter-44090-20261011T0630Z.tif --workers 2 --out ribbon/sibling_full_inventory.json`.
+> (81 firings) because those witnesses overlap every nonempty candidate, so both lanes' files stand or
+> fall on the same owner decision about the literal 0.70 rule.
+>
+> **Cross-lane screen.** The two candidates share 3,542 exact pixels out of 40,768 and 44,090 (Jaccard
+> 0.0436), so neither is a copy of the other, but the overlap is strongly **asymmetric**: this lane's
+> file has **0.2998** of its dots within 3 px of the sibling's support (E = 0.0450, lift 0.267,
+> **clears**) while the sibling's file has **0.7513** within 3 px of this lane's support (E = 0.1295,
+> lift 0.714, **fires**). Ridge-concentrated emission dilates to 12.95 % of the footprint and swallows a
+> sparse scatter emission whose own dilation covers 4.50 %. Consequence: this lane's reading is
+> unchanged by the sibling file entering the inventory, and any ratified chance-corrected threshold must
+> be applied to **both** files at the same value —
+> [`evidence/ribbon/cross_lane_screen.json`](evidence/ribbon/cross_lane_screen.json).
 
 ### Session-3 candidate — the facts
 
