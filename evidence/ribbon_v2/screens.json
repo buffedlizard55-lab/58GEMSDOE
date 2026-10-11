@@ -1,0 +1,273 @@
+{
+ "generated_utc": "2026-10-11T06:15Z",
+ "inventory": {
+  "paths_listed": 1393,
+  "distinct_blobs": 783,
+  "total_bytes": 1922000000,
+  "repos": 61,
+  "source": "live git trees of all 61 repositories in the organisation, 2026-10-11",
+  "fetched_for_screening": 488,
+  "verification": "git blob id (sha1 of 'blob <len>\\0'+bytes)"
+ },
+ "novel": {
+  "name": "gems58-novel-scatter-44090-20261011T0630Z",
+  "summary": {
+   "n_checked": 473,
+   "n_skipped": 3,
+   "skipped": [
+    {
+     "name": "5GEMSDOE__fixture_labels.tif",
+     "reason": "grid mismatch"
+    },
+    {
+     "name": "5GEMSDOE__proxy_window.tif",
+     "reason": "grid mismatch"
+    },
+    {
+     "name": "GEMSDOE36__GEMS36_FORMAT_TEST_NOT_SUBMISSION.tif",
+     "reason": "grid mismatch"
+    }
+   ],
+   "worst_rho": 0.05573140794018742,
+   "worst_rho_name": "18GEMSDOE__18GEMSDOE_H19-C_20260930T212401Z_c11e495e.tif",
+   "worst_forward_overlap": 0.31603548095819833,
+   "worst_forward_overlap_name": "56GEMSDOE__h56-persist-step-r300-20261009-20261009T185416Z.tif",
+   "n_triggers": 0,
+   "n_dense_priors": 7,
+   "rho_max": 0.9,
+   "overlap_max": 0.7,
+   "buffer_px": 3,
+   "rho_subsample": 200000,
+   "dense_priors": [
+    {
+     "name": "5GEMSDOE__gems-density-probe-20260925T184215Z-9cdae9b4.tif",
+     "positives": 5106385,
+     "forward_overlap": 0.045476398665592194
+    },
+    {
+     "name": "GEMSDOE24__acquisition_block_id_100m.tif",
+     "positives": 5167373,
+     "forward_overlap": 0.04502616706786988
+    },
+    {
+     "name": "GEMSDOE48__GEMSDOE48-unassigned-mass-20261006.tif",
+     "positives": 5167373,
+     "forward_overlap": 0.04502616706786988
+    },
+    {
+     "name": "GEMSDOE48__footprint-mask.tif",
+     "positives": 5167373,
+     "forward_overlap": 0.04502616706786988
+    },
+    {
+     "name": "GEMSDOE48__gemsdoe48-ds-plausibility-20261006T201749Z-95897e3f8125.tif",
+     "positives": 5167373,
+     "forward_overlap": 0.04502616706786988
+    },
+    {
+     "name": "GEMSDOE48__gemsdoe48-ds-unassigned-mass-20261006T201749Z-95897e3f8125.tif",
+     "positives": 5167373,
+     "forward_overlap": 0.04502616706786988
+    },
+    {
+     "name": "GEMSDOE48__gemsdoe48-h48-ds-yager-conflict-20261006-unassigned-diagnostic.tif",
+     "positives": 5167373,
+     "forward_overlap": 0.04502616706786988
+    }
+   ]
+  },
+  "rows": [
+   {
+    "name": "11GEMSDOE__gems-structural-area06-v1.tif",
+    "rho": -0.002658902711855353,
+    "forward_overlap": 0.04339409535231686,
+    "reverse_overlap": 0.16092084372873666,
+    "n_other_positives": 343526,
+    "dense": false,
+    "triggers": []
+   },
+   {
+    "name": "12GEMSDOE__12GEMSDOE_r5-nms3-trace_055e9aac96b8.tif",
+    "rho": 0.0017167605960791618,
+    "forward_overlap": 0.054312171616012074,
+    "reverse_overlap": 0.35579496484463596,
+    "n_other_positives": 103347,
+    "dense": false,
+    "triggers": []
+   },
+   {
+    "name": "12GEMSDOE__12GEMSDOE_r5-nms3-trace_055e9aac96b8_allfinite.tif",
+    "rho": 0.0017167605960791618,
+    "forward_overlap": 0.054312171616012074,
+    "reverse_overlap": 0.35579496484463596,
+    "n_other_positives": 103347,
+    "dense": false,
+    "triggers": []
+   },
+   {
+    "name": "12GEMSDOE__12GEMSDOE_r6-nms3-h28-texture_8721329b55c7.tif",
+    "rho": 0.0003842367138196457,
+    "forward_overlap": 0.05445731371012221,
+    "reverse_overlap": 0.35295985484236786,
+    "n_other_positives": 103347,
+    "dense": false,
+    "triggers": []
+   },
+   {
+    "name": "12GEMSDOE__12GEMSDOE_r6-nms3-h28-texture_8721329b55c7_allfinite.tif",
+    "rho": 0.0003842367138196457,
+    "forward_overlap": 0.05445731371012221,
+    "reverse_overlap": 0.35295985484236786,
+    "n_other_positives": 103347,
+    "dense": false,
+    "triggers": []
+   }
+  ]
+ },
+ "scatter_cover": {
+  "name": "gems58-scatter-cover-44090-20261011T0600Z",
+  "summary": {
+   "n_checked": 488,
+   "n_skipped": 4,
+   "skipped": [
+    {
+     "name": "1fc3d38da885918711ceef9aebab0fa7b53cf765.tif",
+     "reason": "grid mismatch"
+    },
+    {
+     "name": "51d18ae2082396fba9187cc299da051fd9d6f77e.tif",
+     "reason": "grid mismatch"
+    },
+    {
+     "name": "a5d33edd0f8b35f3f0932e0135096d3172d9e79d.tif",
+     "reason": "grid mismatch"
+    },
+    {
+     "name": "a97c7b2a513225c9f9f2b35736afe5abf4d2a491.tif",
+     "reason": "grid mismatch"
+    }
+   ],
+   "worst_rho": 0.07873239291726745,
+   "worst_rho_name": "173b970707e3ba5e290ee3a09f1815231b7b1088.tif",
+   "worst_forward_overlap": 0.182525,
+   "worst_forward_overlap_name": "173b970707e3ba5e290ee3a09f1815231b7b1088.tif",
+   "n_triggers": 0,
+   "n_dense_priors": 7,
+   "rho_max": 0.9,
+   "overlap_max": 0.7,
+   "buffer_px": 3,
+   "rho_subsample": 200000,
+   "dense_priors": [
+    {
+     "name": "5b7d2fe254a81674793ad5b3a9947a493da02e68.tif",
+     "positives": 5106385,
+     "forward_overlap": 0.01955727975857676
+    },
+    {
+     "name": "1cb4f016b4876391236f4960822171a3820a7597.tif",
+     "positives": 5167373,
+     "forward_overlap": 0.019392058595344288
+    },
+    {
+     "name": "43271a22d715989f177bd7a7c5e032363285fb2c.tif",
+     "positives": 5167373,
+     "forward_overlap": 0.019392058595344288
+    },
+    {
+     "name": "45469b332d0a742da90c159bac511936bb47134a.tif",
+     "positives": 5167373,
+     "forward_overlap": 0.019392058595344288
+    },
+    {
+     "name": "8c3d512092bfd9ea12ab22b259444e934031ab7d.tif",
+     "positives": 5167373,
+     "forward_overlap": 0.019392058595344288
+    },
+    {
+     "name": "916cdeecd661878529afa9e2fa280f632cad956c.tif",
+     "positives": 5167373,
+     "forward_overlap": 0.019392058595344288
+    },
+    {
+     "name": "ae408cde9b9d4ea8aad75068f21d2b4ab8996121.tif",
+     "positives": 5167373,
+     "forward_overlap": 0.019392058595344288
+    }
+   ]
+  },
+  "rows": [
+   {
+    "name": "00294d5b5520168dc8bdf3be015b47cdaaf4c0e5.tif",
+    "rho": 0.0036303883102438,
+    "forward_overlap": 0.03889716048069765,
+    "reverse_overlap": 0.2303923792243139,
+    "n_other_positives": 37612,
+    "dense": false,
+    "triggers": []
+   },
+   {
+    "name": "00458fbba7f50cb840ba4fde3d0bc3948d734f66.tif",
+    "rho": 0.002929059179751111,
+    "forward_overlap": 0.02674042375534913,
+    "reverse_overlap": 0.2149693808119755,
+    "n_other_positives": 47905,
+    "dense": false,
+    "triggers": []
+   },
+   {
+    "name": "005deeae99f69056ef2cef99b5d81b74dbca8e45.tif",
+    "rho": -0.005547683674957344,
+    "forward_overlap": 0.005178732671163754,
+    "reverse_overlap": 0.04402358811521887,
+    "n_other_positives": 37654,
+    "dense": false,
+    "triggers": []
+   },
+   {
+    "name": "00bbebbff8a89048b6e0ae24657ec0bdd5c4a4d0.tif",
+    "rho": 0.00038659182938866716,
+    "forward_overlap": 0.021485101184469113,
+    "reverse_overlap": 0.13329553186663642,
+    "n_other_positives": 37654,
+    "dense": false,
+    "triggers": []
+   },
+   {
+    "name": "033c13e3ef317f0db69def3e498bfdb637df28f8.tif",
+    "rho": 0.07041192250609757,
+    "forward_overlap": 0.131923816180325,
+    "reverse_overlap": 0.21301882513041506,
+    "n_other_positives": 45784,
+    "dense": false,
+    "triggers": []
+   }
+  ]
+ },
+ "direct_cross_checks": [
+  {
+   "measured": "forward 3-px overlap of the novel emission with the lane's earlier 38,000-dot file",
+   "value": 0.0,
+   "rule": ">0.70 is a stop condition",
+   "verdict": "pass (0 by construction: the earlier file's"
+  }
+ ],
+ "screens": {
+  "novel": {
+   "checked": 473,
+   "worst_rho": 0.05573140794018742,
+   "worst_rho_name": "18GEMSDOE__18GEMSDOE_H19-C_20260930T212401Z_c11e495e.tif",
+   "worst_forward_overlap": 0.31603548095819833,
+   "worst_forward_overlap_name": "56GEMSDOE__h56-persist-step-r300-20261009-20261009T185416Z.tif",
+   "triggers": 0
+  },
+  "scatter_cover": {
+   "checked": 488,
+   "worst_rho": 0.07873239291726745,
+   "worst_rho_name": "173b970707e3ba5e290ee3a09f1815231b7b1088.tif",
+   "worst_forward_overlap": 0.182525,
+   "worst_forward_overlap_name": "173b970707e3ba5e290ee3a09f1815231b7b1088.tif",
+   "triggers": 0
+  },
+  "note": "The scatter-cover variant passes both stop limits against the 488 externally fetched rasters, but a direct measurement against the lane's own earlier 38,000-dot file gives a 3-px forward overlap of 0.772 (> 0.70). That file is in this repository, not in the fetched example set, which is why the fetched set did not flag it. The novel-mass emission exists to remove exactly this collision, and it does so by construction."
+ }
+}

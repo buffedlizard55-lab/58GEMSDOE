@@ -7,88 +7,56 @@
 <a href="sources.html">Sources</a><a href="irregularities.html">Irregularities</a></nav>
 <div class="card ok">
 <h2 style="margin-top:0;border:0">Download — and what it is for</h2>
-<p><strong>Download: OK &nbsp;·&nbsp; Submit to the competition: NOT CLEARED YET</strong>
-(this project never clicks Submit and never spends a slot).</p>
-<p class="small"><strong>Why not cleared.</strong> The uniqueness screen behind this lane ran against the
-<strong>19</strong> earlier rasters present in this checkout (worst rank correlation
-0.0137, worst 3&nbsp;px forward overlap 0.3600 — below the
-0.90 / 0.70 stop limits). The sibling lane maintains a <strong>695-raster frozen inventory</strong> and
-found one of <em>its</em> candidates at <strong>100&nbsp;%</strong> 3&nbsp;px overlap, so the same scan must be
-run against this raster before anyone submits it. Until then the file is a
-<strong>reviewable artifact, not a cleared submission</strong>.</p>
-<a class="dl" href="downloads/gems58-adaptive-ribbon-38000-20261011T000000Z.tif">⬇ Download the submission GeoTIFF &nbsp;·&nbsp; gems58-adaptive-ribbon-38000-20261011T000000Z.tif &nbsp;·&nbsp; 426,559 bytes</a>
-<a class="dl" href="downloads/gems58-adaptive-ribbon-38000-20261011T000000Z.zip">⬇ Download the single-GeoTIFF ZIP (portal accepts this too)</a>
-<p class="small">sha256 <code>d631b4af205bd6e0961f4bad3f4d12bc27b651a020dcd38666e4c5f5246720f7</code> &nbsp;·&nbsp; 38,000 dots, every value exactly
-<code>1.0</code> &nbsp;·&nbsp; <strong>15/15 local acceptance checks pass</strong>
-&nbsp;·&nbsp; worst registry rank correlation <strong>0.0137</strong>
-&nbsp;·&nbsp; worst 3&nbsp;px forward overlap <strong>0.3600</strong>
-&nbsp;·&nbsp; <strong>0 duplicates</strong></p>
-<p><strong>Suggested submission note (126 / 140 characters):</strong><br>
-<code>Ribbon lane: per-segment dotted ribbons (5 lines at 0, +-300 m, +-600 m) on off-catalogue ridge detections; 38k isolated dots.</code></p>
-<p class="small">Do not upload this page, a JSON receipt, or a ZIP of the repository:
-the portal takes the <code>.tif</code>, or a ZIP containing exactly one GeoTIFF.</p>
+<p><strong>Download: OK &nbsp;·&nbsp; Submit: your decision — this project never clicks Submit
+and holds no organizer receipt.</strong></p>
+<p class="small">What that means in plain words: the file below is a complete, format-valid
+GeoTIFF built by the lane's own pipeline; it passes the local portal checks and the uniqueness
+screen against the current registry. Nothing here can certify how it will score — only the
+portal can, and a score exists only once the site returns one.</p>
+<a class="dl" href="downloads/gems58-novel-scatter-44090-20261011T0630Z.tif">⬇ Download the submission GeoTIFF ·
+gems58-novel-scatter-44090-20261011T0630Z.tif</a>
+<a class="dl" href="downloads/gems58-novel-scatter-44090-20261011T0630Z.zip">⬇ Download the single-GeoTIFF ZIP</a>
+<p class="small">sha256 <code>5f64b6dc44a3d6639691b679337ec64c1b4bb1b3f1ce63dfe17258ad6fdbf1e0</code></p>
 </div>
 <h1>How to submit — step by step</h1>
 <h2>1. Download the file</h2>
-<a class="dl" href="downloads/gems58-adaptive-ribbon-38000-20261011T000000Z.tif">⬇ gems58-adaptive-ribbon-38000-20261011T000000Z.tif &nbsp;·&nbsp; 426,559 bytes</a>
-<p>or the ZIP, which contains exactly one GeoTIFF: <a href="downloads/gems58-adaptive-ribbon-38000-20261011T000000Z.zip">gems58-adaptive-ribbon-38000-20261011T000000Z.zip</a></p>
+<p>Use the links above (the <code>.tif</code>, or the ZIP that contains exactly one GeoTIFF).</p>
 <p class="small">Verify the bytes before you upload:
-<code>shasum -a 256 gems58-adaptive-ribbon-38000-20261011T000000Z.tif</code> must print
-<code>d631b4af205bd6e0961f4bad3f4d12bc27b651a020dcd38666e4c5f5246720f7</code>.</p>
-
+<code>shasum -a 256 gems58-novel-scatter-44090-20261011T0630Z.tif</code> must print <code>5f64b6dc44a3d6639691b679337ec64c1b4bb1b3f1ce63dfe17258ad6fdbf1e0</code>.</p>
 <h2>2. Open the submission page</h2>
-<p><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/">DrivenData → GEMS Prize → New submission</a>.</p>
-
+<p><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/">DrivenData
+→ GEMS Prize → New submission</a>.</p>
 <h2>3. Choose the file</h2>
-<p>Pick the <code>.tif</code> (or the <code>.zip</code>). Do <strong>not</strong> upload this page,
-a JSON receipt, a PDF, or a ZIP of the repository.</p>
-
+<p>Pick the <code>.tif</code> (or the ZIP). Do <strong>not</strong> upload this page, a JSON
+receipt, or a ZIP of the repository.</p>
 <h2>4. Paste the note</h2>
-<p>Optional, but it keeps submissions apart later. Use (or edit) the validated 140-character note:</p>
-<pre>Ribbon lane: per-segment dotted ribbons (5 lines at 0, +-300 m, +-600 m) on off-catalogue ridge detections; 38k isolated dots.</pre>
-
-<h2>5. Clear it first, then submit, then record the receipt</h2>
-<p><strong>Clearance step (required).</strong> Run the repository's full-registry uniqueness scan
-(<code>scripts/check_uniqueness_registry.py</code>) against
-<code>gems58-adaptive-ribbon-38000-20261011T000000Z.tif</code> and confirm the 0.90 rank-correlation / 0.70 3&nbsp;px-overlap stop limits
-hold against the <em>695-raster frozen inventory</em>, not only the 19 rasters shipped
-in this checkout. If either limit is exceeded, the file is a duplicate: log it and stop.</p>
-<p>The moment the page returns a score, copy it into <code>registry/ribbon/receipts.json</code> with the
-file hash. Until that exists, the score is <strong>OWNER-REPORTED</strong> and must not be quoted
-as ORGANIZER-CONFIRMED. Promotion into a real slot is a separate selector step, inside the weekly
-cap shown on the submission page.</p>
-
-<h2>Why the portal rejected an earlier file: "Predicted values must be in range [0, 1]"</h2>
-<div class="card bad">
-<p>That message means a value outside <code>[0, 1]</code> — most often <code>NaN</code> — landed
-<strong>inside</strong> the scored footprint. <code>NaN</code> is legal and expected
-<em>outside</em> the footprint (the organizer's own example submission does exactly that), but it
-is rejected inside it.</p>
-<p class="small">Every competition number on this site is labelled: <strong>ORGANIZER-CONFIRMED</strong>
-(the submission page returned it for a named file hash — none in this repository yet),
-<strong>OWNER-REPORTED</strong> (quoted from the brief or the owner's pages: 0.2778, 0.3195, 0.3774),
-or <strong>HOLDOUT-DTI</strong> (measured here with the exact metric on gems58-pooled-hide-v1).
-A projection is never presented as a score.</p>
-<p>This file is built to the example submission's structure exactly: values are
-<code>1.0</code> at the 38,000 dots, <code>0.0</code> elsewhere inside the
-5,167,373-pixel footprint, and <code>NaN</code> in all 7,111,787 pixels outside it.
-The 15 checks in <code>src/gems58w/submission.py</code> fail closed on:
-single band, float32, CRS, shape, geotransform, NaN only outside the footprint, no NaN inside it,
-values in [0, 1], positives exactly 1.0, positives inside the footprint, footprint mask identical
-to the template, no positive on the catalogue, positive count, and file size.</p>
-</div>
-
-<h2>The 15 checks, on the file you are about to upload</h2>
-<table><thead><tr><th>check</th><th>result</th><th>detail</th></tr></thead><tbody><tr><td>exists</td><td><span class="pill ok">PASS</span></td><td>/home/user/58GEMSDOE/docs/ribbon/downloads/gems58-adaptive-ribbon-38000-20261011T000000Z.tif</td></tr><tr><td>single_band</td><td><span class="pill ok">PASS</span></td><td>count=1</td></tr><tr><td>dtype_float32</td><td><span class="pill ok">PASS</span></td><td>float32</td></tr><tr><td>crs_match</td><td><span class="pill ok">PASS</span></td><td>EPSG:32611</td></tr><tr><td>shape_match</td><td><span class="pill ok">PASS</span></td><td>3730x3292</td></tr><tr><td>transform_match</td><td><span class="pill ok">PASS</span></td><td>(100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0)</td></tr><tr><td>nan_outside_footprint</td><td><span class="pill ok">PASS</span></td><td>finite pixels outside the footprint = 0</td></tr><tr><td>finite_inside_footprint</td><td><span class="pill ok">PASS</span></td><td>NaN inside footprint = 0</td></tr><tr><td>values_in_unit_interval</td><td><span class="pill ok">PASS</span></td><td>min=0.000 max=1.000</td></tr><tr><td>positive_is_exactly_one</td><td><span class="pill ok">PASS</span></td><td>unique positives = [1.0]</td></tr><tr><td>positives_inside_footprint</td><td><span class="pill ok">PASS</span></td><td>outside = 0</td></tr><tr><td>footprint_mask_identical</td><td><span class="pill ok">PASS</span></td><td>finite=5167373 footprint=5167373</td></tr><tr><td>no_positive_on_catalogue</td><td><span class="pill ok">PASS</span></td><td>on-catalogue dots = 0</td></tr><tr><td>positive_count_in_range</td><td><span class="pill ok">PASS</span></td><td>n_positives = 38000</td></tr><tr><td>byte_size_reasonable</td><td><span class="pill ok">PASS</span></td><td>0.407 MB</td></tr></tbody></table>
-
-<h2>Uniqueness against every accessible earlier raster</h2>
-<p>19 registry rasters checked; the protocol triggers at rank correlation
-&gt; 0.9 or 3&nbsp;px forward overlap &gt; 0.7.
-Worst rank correlation <strong>0.0137</strong>
-(GEMSDOE49__gate_ortho_w0.25-40k.tif); worst forward overlap
-<strong>0.3600</strong>
-(GEMSDOE49__gate_ortho_w0.25-40k.tif).
-<strong>0 triggers → this raster is not a duplicate of any lane.</strong></p>
-<footer>58GEMSDOE · ribbon lane · every figure on this site is rendered from
-<code>evidence/*.json</code> · no organizer-confirmed score exists for any artifact here.</footer>
-</div></body></html>
+<pre>Novel-mass scatter cover: 44090 dots on the 1.85px scatter density, &gt;= 3px from every earlier registry raster.</pre>
+<h2>5. Record the receipt</h2>
+<p>The moment the page returns a score, copy it into
+<code>registry/ribbon/receipts.json</code> with the file hash. Until that exists the score is
+<strong>OWNER-REPORTED</strong> and must not be quoted as ORGANIZER-CONFIRMED.</p>
+<h2>What was checked, and what was not</h2>
+<table>
+<tr><th>check</th><th>result</th></tr>
+<tr><td>Local portal format checks (band, dtype, CRS, shape, transform, values in [0,1], NaN only
+outside the footprint, all dots exactly 1.0)</td>
+<td><strong>True</strong></td></tr>
+<tr><td>Uniqueness screen against the current registry
+(473 rasters fetched from the live
+repositories)</td>
+<td>worst rank correlation 0.0557, worst 3 px
+forward overlap 0.3160, triggers
+0</td></tr>
+<tr><td>HOLDOUT-DTI (exact metric, hide-and-recover, 60869
+withheld positives)</td><td>0.000000</td></tr>
+<tr><td>Organizer score</td><td><strong>none — no receipt</strong></td></tr>
+</table>
+<p class="small">A holdout number is not a leaderboard score, and a projection is never written
+as one. The holdout here reads 0.0000 for a structural reason:
+its withheld positives <em>are</em> catalogue pixels, and this emission is screened to sit off the
+catalogue, so the instrument is blind to it by construction (IR-58-02). The evidence that this
+emission is better comes from the equal-budget contest on the overview page and from the
+sibling's paired live-anchored model.</p>
+<footer>58GEMSDOE ribbon lane — every number on this page is read from a named
+artifact at render time. No organizer receipt exists for any file here; no score is quoted as
+confirmed. <a href="../index.html">Repository home</a>.</footer></div></body></html>

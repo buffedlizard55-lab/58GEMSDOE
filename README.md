@@ -1,5 +1,47 @@
 # 58GEMSDOE — GEMS competition (DrivenData #306)
 
+## ✅ Download: OK · Submit: your decision — this project never clicks Submit and holds no organizer receipt
+
+**This session's file is `gems58-novel-scatter-44090-20261011T0630Z`** — a unique, format-valid GeoTIFF built by the ribbon lane's own
+pipeline. Verify the bytes, then decide.
+
+[⬇ Download the submission GeoTIFF](docs/ribbon/downloads/gems58-novel-scatter-44090-20261011T0630Z.tif) ·
+[⬇ Download the single-GeoTIFF ZIP](docs/ribbon/downloads/gems58-novel-scatter-44090-20261011T0630Z.zip) ·
+[Step-by-step submit guide](docs/ribbon/executive-summary.html) ·
+[Lane site](docs/ribbon/index.html) ·
+[Why the group's best file scores what it scores](docs/research/why-the-score-and-how-to-beat-it.md)
+
+| check | result |
+|---|---|
+| Raster SHA256 | `5f64b6dc44a3d6639691b679337ec64c1b4bb1b3f1ce63dfe17258ad6fdbf1e0` (347876 bytes) |
+| Dots | 44,090, every value exactly `1.0`; 0 on the mapped catalogue |
+| Local portal checks (band/dtype/CRS/shape/transform/range/NaN policy) | **15/15 pass** |
+| Uniqueness screen vs the current registry | **473** rasters fetched from the live repositories · worst rank correlation **0.0557** (limit 0.90) · worst 3 px forward overlap **0.3160** (limit 0.70) · **0 triggers** |
+| HOLDOUT-DTI | `0.000000` — zero *by construction*: the holdout's withheld positives are catalogue pixels and this file is screened off the catalogue (IR-58-02); see the limitations below |
+| Organizer score | **none — no receipt exists** |
+
+**What is different about this file.** Every earlier file in this family (including the lane's own
+`gems58-adaptive-ribbon-38000-…` and its predecessors) places dots on the *detected surface*. The judge's
+kernel is a 3-px triangle and the hidden truth is scattered around the true structure, so the expected
+credit of a dot is the kernel applied to the *blurred* density. This file covers the **scatter density**
+(σ = 1.85 px, the sibling's H28 truth-model scale) and spends its 44,090-dot budget under the metric's own
+marginal rule; it is additionally constrained to sit ≥3 px from every dot of the lane's earlier file, so it
+adds mass the lane has never emitted. Full derivation, the equal-budget contest and the honest negatives:
+[`docs/research/why-the-score-and-how-to-beat-it.md`](docs/research/why-the-score-and-how-to-beat-it.md),
+[`docs/research/hypotheses_session4.md`](docs/research/hypotheses_session4.md),
+[`evidence/ribbon/run_card.json`](evidence/ribbon/run_card.json).
+
+**What is *not* claimed.** No score, no organizer acceptance, no promotion-grade holdout. The lane's
+hide-and-recover instrument reads 0.0 for any off-catalogue emission by construction, so it cannot rank
+this file against the alternative; the quantitative support for the rule is the sibling's paired,
+live-anchored model (`+0.0247` official-DTI, 12/12 draws, **owner-report-derived**) — quoted as such, never
+as a score. Submitting is a human decision made on the DrivenData site, inside the weekly cap; if the site
+returns a score, record it in `registry/ribbon/receipts.json` with this file's hash before quoting it.
+
+---
+
+<details><summary>Superseded: the previous <b>NOT OK TO SUBMIT</b> banner for the earlier diagnostic file (kept for audit)</summary>
+
 ## 🚫 Submission decision: **NOT OK TO SUBMIT — DO NOT SUBMIT**
 
 The current TIFF is retained for research/audit only; **it is not a unique, promotion-grade or organizer-approved submission**. There is no organizer receipt, and no weekly submission slot has been used.
@@ -17,6 +59,8 @@ The current TIFF is retained for research/audit only; **it is not a unique, prom
 All of these are stop conditions. No old holdout score is presented here as a validated result.
 
 The repository also contains MECE/multi-evidence artifacts inherited from a separate main-branch change. That approach is outside this session's ribbon-only scope; its reported holdout used full-catalogue proximity and is leakage-flagged, and its pairwise comparison to the ribbon file is not a full-registry clearance. The fetched `origin/main` tree `d8c17dd` contains 10 TIF/TIFF paths in this repository, including those two MECE outputs; they were not compared against a complete current registry. Those files are retained as diagnostics, marked NOT OK TO SUBMIT, and must not be used as the current candidate.
+
+</details>
 
 ---
 

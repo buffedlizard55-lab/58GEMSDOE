@@ -70,8 +70,14 @@ def ribbon_support(field, segs, width=WIDTH, step=LINE_STEP) -> np.ndarray:
     return mask
 
 
-def ribbon_support_adaptive(field, segs, table: dict, dti0: float, max_k: int = 3):
+def ribbon_support_adaptive(field, segs, table: dict, dti0: float, max_k: int = 3,
+                            shift_of=None, along_spacing: int = 1):
     """Per-segment ribbon: sigma -> (n_lines, offsets) via allocation.plan.
+
+    ``shift_of(segment) -> mu`` optionally translates the *whole* ribbon across
+    strike by the stratum's measured signed bias ``mu`` (px), so the emitted
+    lines sit at ``mu + k*R`` instead of ``k*R``.  ``shift_of=None`` reproduces
+    the original symmetric emission exactly.
 
     Returns ``(mask, histogram_of_line_counts, rows)`` where ``rows`` records the
     (block, family, sign, scale, sigma, stratum-used, n_lines, offsets) decision
@@ -83,21 +89,26 @@ def ribbon_support_adaptive(field, segs, table: dict, dti0: float, max_k: int = 
     rows = []
     for s in segs:
         idx = s["idx"]
+        if along_spacing > 1:
+            axis = int(np.argmax(np.var(idx.astype(float), axis=0)))
+            idx = idx[np.argsort(idx[:, axis])][::along_spacing]
         code = max(s["codes"], key=lambda c: c["scale"]) if s["codes"] else {}
         band = code.get("band", "?")
         family = next((f for f, bs in FEAT.FAMILIES.items() if band in bs), "other")
         scale = float(code.get("scale", 0.0))
         sign = int(code.get("sign", 0))
-        blk = holdout.block_of(idx.mean(axis=0))
+        blk = holdout.block_of(s["idx"].mean(axis=0))
         sig, which = SIGMA.sigma_for(family, scale, sign, blk, table)
+        mu = float(shift_of(s)) if shift_of is not None else 0.0
         plan = allocation.plan(sig, dti0, max_k=max_k)
         hist[plan.n_lines] = hist.get(plan.n_lines, 0) + 1
         rows.append(dict(block=blk, family=family, sign=sign, scale=scale,
-                         sigma_px=sig, stratum=which, n_lines=plan.n_lines,
-                         offsets_px=list(plan.offsets), segment_px=int(s["size"])))
+                         sigma_px=sig, shift_px=mu, stratum=which, n_lines=plan.n_lines,
+                         offsets_px=[o + mu for o in plan.offsets], segment_px=int(s["size"])))
         ax = field["ax"][idx[:, 0], idx[:, 1]]
         ay = field["ay"][idx[:, 0], idx[:, 1]]
         for o in plan.offsets:
+            o = o + mu
             if abs(o) < 1e-9:
                 rr, cc = idx[:, 0], idx[:, 1]
             else:
@@ -106,6 +117,29 @@ def ribbon_support_adaptive(field, segs, table: dict, dti0: float, max_k: int = 
             ok = (rr >= 0) & (rr < shape[0]) & (cc >= 0) & (cc < shape[1])
             mask[rr[ok], cc[ok]] = True
     return mask, hist, rows
+
+
+def shift_lookup(table: dict, cap_px: float = 3.0):
+    """``shift_of(segment)`` from the signed-sigma table, with the same fallback chain.
+
+    ``table`` is the ``by_family_sign`` mapping of ``evidence/ribbon_v2/signed_sigma.json``
+    entries (each with a ``mu_mean``).  The shift is capped at ``cap_px`` so a
+    noisy stratum cannot fling the ribbon outside the kernel.
+    """
+    def mu_for(family: str, sign: int) -> float:
+        for key in (f"{family}/{sign}", f"{family}/1", f"{family}/-1"):
+            rec = table.get(key)
+            if rec and abs(float(rec["mu_mean"])) >= 0.0:
+                return float(np.clip(rec["mu_mean"], -cap_px, cap_px))
+        return 0.0
+
+    def shift_of(s) -> float:
+        code = max(s["codes"], key=lambda c: c["scale"]) if s["codes"] else {}
+        band = code.get("band", "?")
+        family = next((f for f, bs in FEAT.FAMILIES.items() if band in bs), "other")
+        return mu_for(family, int(code.get("sign", 0)))
+
+    return shift_of
 
 
 def greedy_isolated(mask: np.ndarray, rank: np.ndarray, budget: int, min_sep: int = 1):
@@ -140,6 +174,17 @@ def main() -> int:
     ap.add_argument("--cat-margin", type=float, default=CAT_MARGIN)
     ap.add_argument("--threshold", type=float, default=THRESHOLD)
     ap.add_argument("--name", default=NAME)
+    ap.add_argument("--shift-json", default=None,
+                    help="evidence/ribbon_v2/signed_sigma.json: translate each ribbon by "
+                         "the stratum's measured signed bias mu")
+    ap.add_argument("--registry-dir", default=None,
+                    help="directory of prior rasters for the uniqueness screen "
+                         "(default: the 19 in-repo cop_ies in data/registry/rasters)")
+    ap.add_argument("--along-spacing", type=int, default=1,
+                    help="keep every Nth pixel along strike (dotted emission)")
+    ap.add_argument("--rho-subsample", type=int, default=None,
+                    help="stride for the registry rank correlation (large inventories; "
+                         "None = exact full-field Spearman)")
     args = ap.parse_args()
 
     t0 = time.time()
@@ -162,7 +207,16 @@ def main() -> int:
         hist, rows = {args.width: len(segs)}, []
         print(f"[plan] fixed {args.width}-line ribbon over {len(segs)} segments", flush=True)
     else:
-        raw, hist, rows = ribbon_support_adaptive(field, segs, table, args.dti0)
+        shift_of = None
+        if args.shift_json:
+            sj = json.loads(Path(args.shift_json).read_text())
+            shift_of = shift_lookup(sj["by_family_sign"])
+            print(f"[plan] signed shift table loaded: "
+                  f"{ {k: round(v['mu_mean'], 3) for k, v in sj['by_family_sign'].items()} }",
+                  flush=True)
+        raw, hist, rows = ribbon_support_adaptive(field, segs, table, args.dti0,
+                                                  shift_of=shift_of,
+                                                  along_spacing=args.along_spacing)
         print(f"[plan] adaptive per-segment ribbon: line-count histogram {hist} "
               f"over {len(segs)} segments", flush=True)
         used = {}
@@ -186,7 +240,9 @@ def main() -> int:
         if not v["ok"]:
             print("   FAIL", k, v["detail"])
 
-    screens, usum = uniqueness.screen_against(dots, REGISTRY)
+    reg_dir = Path(args.registry_dir) if args.registry_dir else REGISTRY
+    screens, usum = uniqueness.screen_against(dots, reg_dir,
+                                              rho_subsample=args.rho_subsample)
     print(f"[unique] checked {usum['n_checked']} rasters | worst rho {usum['worst_rho']:.4f} "
           f"({usum['worst_rho_name']}) | worst forward overlap "
           f"{usum['worst_forward_overlap']:.4f} ({usum['worst_forward_overlap_name']}) | "
