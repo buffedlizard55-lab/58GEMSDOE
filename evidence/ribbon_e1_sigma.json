@@ -347,5 +347,10 @@
    "sgmc-axis": 0.6834809489177489
   },
   "verdict": "PASS - no ridge type exceeds AUC 0.90"
- }
+ },
+ "promotion_grade": false,
+ "audit_status": "LEGACY_HOLDOUT_STRUCTURE_DIAGNOSTIC_NOT_PROMOTION_GRADE",
+ "buffered_whole_component_context_used": false,
+ "current_dti_claim": false,
+ "reporting_note": "Generated with the legacy hide-and-recover split before the buffered whole-component constructor. Not a current buffered-holdout score."
 }

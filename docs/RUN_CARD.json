@@ -1,42 +1,126 @@
 {
-  "run_card_version": "1.0",
-  "date_utc": "2026-10-11",
-  "repo_branch": "arena/494667c7-58gemsdoe",
-  "lane": "ribbon (single method paragraph from brief)",
-  "status": "NO SUBMISSION GENERATED. Competition rasters unavailable in sandbox.",
-  "hypothesis": "H1: a strike-coherent tilt-angle ridge (band 6) finds fault traces missing from the catalogue. Not tested.",
-  "mechanism": "Magnetic contrast across fault zones gives a continuous tilt-angle ridge that is independent of the USGS trace compilation.",
-  "named_non_fault_mimic": "Dikes, lithologic contacts, basalt-flow edges, and flight-line striping parallel to survey lines.",
-  "holdout_dti": {
-    "value": null,
+  "run_card_version": "2.0",
+  "generated_utc": "2026-10-11T02:16:54Z",
+  "lane": "ribbon only \u2014 emission width matched to measured localization error",
+  "submission_status": "NOT_OK_TO_SUBMIT",
+  "human_readable_status": "NOT OK TO SUBMIT \u2014 DO NOT SUBMIT",
+  "hypothesis": "Visible-only catalogue and independent mapped-fault ridge axes may locate uncatalogued faults with a measurable across-strike localization error; ribbon width is tied to that error.",
+  "mechanism": "Fit sigma by source/block on training-only spatial blocks, then emit 1.0-valued dots in a parallel ribbon at 3-pixel along-axis stride; score with exact pooled DTI and promote only after nested outer-block validation.",
+  "named_non_fault_process_that_could_mimic_it": "Digitizing error and map generalization; lithologic contacts and alluvial/graben edges; roads, drainage lineaments, or survey striping aligned with candidate ridges.",
+  "holdout": {
+    "status": "NOT MEASURED for the current buffered/nested instrument",
+    "evidence_class": "NOT A HOLDOUT-DTI CLAIM",
+    "evaluator_version_required": "gems57-pooled-hide-v2",
+    "withheld_positive_pixels": null,
+    "dti": null,
     "ci95": null,
-    "evaluator_version": "gems/metric.py (approximate, unverified against official scorer)",
-    "n_withheld_positives": null,
-    "label": "HOLDOUT-DTI: NOT MEASURED. No holdout run was possible without the feature and label rasters."
+    "legacy_evidence_files": [
+      "evidence/ribbon_e1_sigma.json",
+      "evidence/ribbon_e2_arms.json"
+    ],
+    "legacy_caveat": "Prior E2 is same-cell truth-selected, unbuffered and has an invalid repeated-block bootstrap; do not report it as promotion-grade evidence."
+  },
+  "localization_sigma_table": {
+    "evidence_class": "HOLDOUT-STRUCTURE",
+    "status": "NOT MEASURED for the current promotion-grade buffered/nested instrument",
+    "rows": null,
+    "legacy_evidence_file": "evidence/ribbon_e1_sigma.json",
+    "legacy_values_reportable": false
+  },
+  "per_class_holdout_gains": {
+    "evidence_class": "NOT A REPORTABLE HOLDOUT-DTI CLAIM",
+    "status": "NOT MEASURED for current promotion-grade nested outer blocks",
+    "rows": null,
+    "legacy_evidence_file": "evidence/ribbon_e2_arms.json",
+    "legacy_values_reportable": false
   },
   "leakage_canary": {
-    "status": "NOT RUN on real bands",
-    "threshold_auc": 0.90,
-    "synthetic_self_test": "scripts/check_data.py flagged a planted leaky band on synthetic data (see tests). This is a code test only, not a result."
+    "status": "NOT CLEARED FOR CURRENT BUFFERED INSTRUMENT",
+    "threshold_auc": 0.9,
+    "current_evidence": null,
+    "legacy_record": "evidence/ribbon_e1_sigma.json (not promotion-grade for the revised split)"
   },
   "correlation_overlap_vs_registry": {
-    "status": "NOT RUN",
-    "reason": "Registry rasters (GEMSDOE sites) are unreachable from the sandbox."
+    "evidence_class": "REGISTRY-MEASUREMENT (frozen snapshot only)",
+    "snapshot_generated_utc": "2026-10-10T19:58:45.875405+00:00",
+    "repositories_in_frozen_snapshot": 57,
+    "rasters_in_frozen_snapshot": 695,
+    "current_inventory_complete": false,
+    "freshness_audit": "evidence/registry_freshness_audit.json",
+    "rho_limit": 0.9,
+    "worst_spearman_full_footprint": 0.18964557053051112,
+    "literal_overlap_limit": 0.7,
+    "candidate_dots": 67379,
+    "frozen_worst_dot_overlap": 1.0,
+    "frozen_overlap_witness": "GEMSDOE2:data/evidence/runs/turbo-simple-20260925T042003Z/submission.tif",
+    "preplacement_surface_gate": {
+      "status": "NOT_RUN_FOR_THIS_CANDIDATE",
+      "passed": false,
+      "legacy_surface_report_not_reusable": "registry/uniqueness_surface_pre-placement_summary.json"
+    },
+    "final_dot_gate": {
+      "status": "FROZEN_SCAN_FAILURE_AND_CURRENT_SCOPE_INCOMPLETE",
+      "passed": false,
+      "worst_dot_overlap": 1.0,
+      "overlap_limit": 0.7,
+      "witness": "GEMSDOE2:data/evidence/runs/turbo-simple-20260925T042003Z/submission.tif"
+    }
   },
-  "raster_sha256": null,
+  "raster_sha256": "8b196e6eea06fef0d6cf2c9109091d1e2677a77d6e48d8b04f334a879551687f",
   "validator_output": {
-    "status": "NO RASTER VALIDATED",
-    "code_tests": "pytest: 21 passed (tests/test_metric.py, tests/test_submission.py, tests/test_holdout.py), run 2026-10-11, synthetic data only",
-    "checks_implemented": ["one band", "float32", "CRS EPSG:32611", "transform equals reference", "shape equals reference", "finite inside footprint", "NaN outside footprint", "values in [0,1]", "not constant"]
+    "evidence_class": "LOCAL-FORMAT-PREFLIGHT; NOT ORGANIZER-CONFIRMED",
+    "all_checks_passed": true,
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "dimensions_3730x3292": true,
+      "crs_epsg_32611": true,
+      "transform_matches_sample_submission": true,
+      "no_nan_anywhere": true,
+      "no_inf_anywhere": true,
+      "no_sentinel_values": true,
+      "range_0_1_guaranteed": true,
+      "min_ge_0": true,
+      "max_le_1": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_range_0_1": true,
+      "outside_footprint_zero": true,
+      "zero_dots_on_mapped_catalogue": true
+    },
+    "meta": {
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "count": 1,
+      "nodata": null,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "profile_compress": "deflate"
+    },
+    "caveat": "Internal all-finite/zero-outside policy is not organizer acceptance; template nodata semantics remain an open issue."
   },
-  "submission_name": null,
-  "submission_note": null,
-  "budget": {
-    "experiments_used": 0,
-    "experiments_allowed": 3,
-    "hours_used_approx": "under 1",
-    "hours_allowed": 2
-  },
+  "submission_name": "gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros",
+  "submission_note": "H58b ribbon diagnostic; dots at 1.0; format preflight only; uniqueness and promotion-grade holdout not cleared; DO NOT SUBMIT.",
+  "submission_note_chars": 126,
+  "selector_action": "NOT RUN; no weekly slot selected",
+  "qualification_gaps": [
+    "No current promotion-grade outer-block HOLDOUT-DTI with the required evaluator version, withheld-positive count, and valid 95% CI; legacy E2 is an oracle/selection diagnostic.",
+    "No current buffered-fold feature-alone leakage-canary record is marked promotion-grade.",
+    "Registry inventory is stale/incomplete for current public repository trees.",
+    "The candidate-specific pre-placement surface gate has not passed on a current inventory.",
+    "The final dots literal-dot gate fails: overlap 1.000 > 0.70.",
+    "The frozen registry audit is negative; a byte/pixel-unique file is not sufficient to clear the literal lane gates.",
+    "The current raster receipt is marked diagnostic/non-promotion-grade."
+  ],
   "verdict": "negative",
-  "verdict_reason": "Not evaluated. A negative here means not promoted, not that the hypothesis is false. No submission slot was spent."
+  "verdict_note": "Negative: one or more explicit holdout, registry, or format gates is not cleared. Do not upload or select a slot."
 }

@@ -1,17 +1,20 @@
 # 58GEMSDOE — GEMS competition (DrivenData #306)
 
-**Purpose of this repo**: produce unique, validated, high-scoring GeoTIFF
-submissions for the [DOE GEMS competition](https://www.drivendata.org/competitions/306/competition-doe-gems/),
-with every number labelled and every claim traceable to evidence JSON in
-`evidence/`.
+## 🚫 Submission decision: **NOT OK TO SUBMIT — DO NOT SUBMIT**
 
-**➡ The current submission file lives at
-[`docs/downloads/`](docs/downloads/) and on the site:
-<https://buffedlizard55-lab.github.io/58GEMSDOE/> — the green DOWNLOAD button
-at the top of that page is always the file to submit. Read
-[docs/executive-summary.html](https://buffedlizard55-lab.github.io/58GEMSDOE/executive-summary.html)
-for the 60-second submission instructions (fixes the portal error
-"Predicted values must be in range [0, 1]").**
+The current TIFF is retained for research/audit only; **it is not a unique, promotion-grade or organizer-approved submission**. There is no organizer receipt, and no weekly submission slot has been used.
+
+[Download the diagnostic GeoTIFF (NOT CLEARED; DO NOT SUBMIT)](docs/downloads/gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.tif) · [Submission guide](docs/SUBMISSION_GUIDE.md) · [Current run card](evidence/run_card.json) · [GitHub Pages site](https://buffedlizard55-lab.github.io/58GEMSDOE/)
+
+### Why it is blocked
+
+- The recorded frozen-registry report finds **100%** of the candidate’s dots within 3 px of one prior full-footprint-positive raster. The literal stop limit is **>70%**. The candidate’s lower rank correlation does not override that independent stop rule. Evidence: `evidence/ribbon_uniqueness.json`.
+- The frozen scan is **695 rasters from 57 pinned repository snapshots**, generated at `2026-10-10T19:58:45.875405Z`; it is not a current/exhaustive public inventory. Newer default-branch trees contain TIFs in 58/59/60/61GEMSDOE, and GEMSDOE52 has 88 TIFF paths added since its pinned tree. No complete scan of those artifacts was made. Evidence: `evidence/registry_freshness_audit.json`.
+- A literal pre-placement surface comparison for this candidate against a current inventory is not available. The old pre-placement report is a different candidate and excluded dense priors; it cannot be used as clearance.
+- The old holdout output is not promotion-grade: per-segment acceptance saw the same cell’s withheld truth, σ was fit on scored folds, the earlier bootstrap resampled repeated physical blocks as independent, and the split had no new buffer. A buffered shared holdout constructor and toy tests were added, but **no experiment was rerun**.
+- The TIFF has a recorded **local format/range preflight** only; that is not a registry clearance, portal acceptance, or organizer score. The local all-finite/zero-outside export policy also differs from the sample’s NaN footprint behavior; see `docs/IRREGULARITIES.md`.
+
+All of these are stop conditions. No old holdout score is presented here as a validated result.
 
 ---
 
@@ -73,14 +76,14 @@ for the 60-second submission instructions (fixes the portal error
 >    cap shown on the submission page.
 >
 > Before implementing, generate 3–5 candidate geological hypotheses we haven't
-> tried yet, each naming: the specific layer(s) involved, the physical
-> signature being targeted, why it should catch a fault missing from the
-> USGS/INGENIOUS catalogue rather than one already in it, and how it differs
-> from anything already implemented. Rank them by expected DTI improvement and
-> implementation cost. Validate the top candidate on the spatially-blocked
-> holdout before touching a weekly submission slot. If a candidate can't be
-> validated without new external data, name the specific free, official source
-> and check it's obtainable before proposing the idea as viable.
+> tried yet, each naming: the specific layer(s), the physical signature being
+> targeted, why it should catch a fault missing from the USGS/INGENIOUS
+> catalogue rather than one already in it, and how it differs from anything
+> already implemented. Rank them by expected DTI improvement and implementation
+> cost. Validate the top candidate on the spatially-blocked holdout before
+> touching a weekly submission slot. If a candidate can't be validated without
+> new external data, name the specific free, official source and check it's
+> obtainable before proposing the idea as viable.
 >
 > Work line by line verifying from official verified trusted sources, provide
 > links for manual review. No manual input. Flag any irregularities for
@@ -92,76 +95,64 @@ for the 60-second submission instructions (fixes the portal error
 
 ---
 
-## Current status (this session, ribbon lane)
+## Current review card (2026-10-11 UTC)
 
-| Item | Value | Label |
+| Check | Finding | Label / artifact |
 |---|---|---|
-| σ(cat-axis), pooled | 2.9 px RMS (2.55–3.16 by block) | HOLDOUT-STRUCTURE |
-| σ(sgmc-axis), pooled | 3.2 px RMS (3.01–3.49 by block) | HOLDOUT-STRUCTURE |
-| Leakage canary | PASS (max single-feature AUC 0.630 / 0.683 < 0.90) | holdout instrument |
-| Tight baseline, pooled | 0.1573 (22,641 withheld px) | HOLDOUT-DTI |
-| Ribbon (per-segment exact-U selection), pooled | **0.3583** | HOLDOUT-DTI |
-| Paired ribbon − tight | **+0.2010**, CI95 [0.1910, 0.2108] | HOLDOUT-DTI |
-| Per-class gains (ribbon-only − tight-only) | cat-axis +0.1785, sgmc-axis +0.0983 | HOLDOUT-DTI |
-| Live rule as shipped (no oracle), pooled | 0.1309 (blanket variant: 0.1252) | HOLDOUT-DTI |
-| Uniqueness, 695/695 registry rasters | max ρ 0.190 (<0.90); literal overlap gate negative — see `evidence/ribbon_uniqueness.json` + IR-58-UNIQ-01 | REGISTRY-MEASUREMENT |
-| Submission raster + receipt | `docs/downloads/gems58-ribbon-concordant-*zeros.tif/.json` | local validator output |
-| Run card verdict | negative on the literal overlap gate (dense-prior degeneracy; drift forensic attached) | `evidence/run_card.json` |
+| Diagnostic raster | `docs/downloads/gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.tif`; SHA256 `8b196e6eea06fef0d6cf2c9109091d1e2677a77d6e48d8b04f334a879551687f` | LOCAL-RASTER / local preflight only |
+| Grid | One float32 band, EPSG:32611, 3730×3292, 100 m, transform `(100,0,243350,0,-100,4508550)` | LOCAL-GRID check against the bridged sample; official origin not independently authenticated here |
+| Format/range | Recorded local validator passed for finite values in [0,1], zeros outside the local footprint, and zero on mapped catalogue | LOCAL-FORMAT-PREFLIGHT; not portal acceptance |
+| Literal final-dot overlap | 1.0 with the `GEMSDOE2` full-footprint-positive witness; strict stop limit 0.70 | REGISTRY-MEASUREMENT, frozen snapshot only; blocks candidate |
+| Spearman rank correlation | Worst recorded value 0.1896456, below 0.90 | REGISTRY-MEASUREMENT, frozen snapshot only; does not cure overlap failure |
+| Registry freshness | 695 unique rasters across 57 pinned snapshots, but current default branches contain unscanned/changed TIFs | REGISTRY-FRESHNESS-AUDIT; incomplete/current scope false |
+| Pre-placement current surface | Not checked for this candidate under a current literal inventory | NOT CLEARED |
+| Promotion-grade HOLDOUT-DTI | Not run with the new buffered split; legacy result is disqualified for promotion due same-cell truth selection and invalid block bootstrap | NOT MEASURED for current instrument |
+| Organizer score | No receipt | NOT AVAILABLE |
+| Final status | **NOT OK TO SUBMIT — DO NOT SUBMIT** | `evidence/run_card.json` |
 
-Reference receipts (ORGANIZER-CONFIRMED, copied from prior sites' pages only):
-`h33-h33-2-b2-...-zeros: 0.2778` (GEMSDOE32), `dotted-h19-5-d2-8: 0.2600`,
-`h27-4-solo-d28: 0.2708`, `h36-1-rung30: 0.2710`,
-`anderson-geothermal-pinn: 0.2750`. Current known leaderboard high: **0.3195**
-(unverified here; see the leaderboard link below). No projection in this repo
-is a score.
+The number of positive raster pixels is a raster fact, not a score. No current leaderboard point or performance claim is reported.
 
-## Layout
+## Ranked new hypotheses
 
-- `src/gems57/` — shared template package (metric, holdout, evaluator, writer,
-  validator, uniqueness gates), restored verbatim from the pinned sibling
-  template (57GEMSDOE) and hash-tracked by `evaluate_holdout.implementation_hashes`.
-- `data/official|bridge/` — hash-pinned competition bridge rasters
-  (`existing_faults` ≡ public `labels`, `sample_submission`).
-- `data/external/sgmc_faults_100m.tif` — pinned SGMC fault raster (independent public mapping).
-- `scripts/ribbon_lane.py` + `scripts/run_ribbon_experiments.py` — E1 σ fit +
-  canary, E2 arms (exact metric).
-- `scripts/build_ribbon_emission.py` — E3 live emission through the fail-closed writer.
-- `scripts/fetch_registry_sparse.py`, `scripts/check_uniqueness_registry.py` — registry restore + scan.
-- `scripts/build_site.py` — run card + site builder (all numbers injected from evidence).
-- `docs/` — GitHub Pages site (index + executive summary + downloads).
-- `docs/research/hypotheses_new.md` — 5 ranked new hypotheses with sources.
+`docs/research/hypotheses_new.md` records four testable, ranked ribbon-lane hypotheses, each with layers, physical signature, an explicit non-fault mimic, novelty caveats, official sources, and verified availability limits. They are untested. The candidate with the best qualitative rationale must still clear the full holdout, leakage, uniqueness and three-experiment budget before any slot decision.
 
-## Reproduce
+## Repository map
+
+- `src/gems57/` — shared metric, buffered holdout, exact shared evaluator, fail-closed writer/validator, and literal uniqueness gate.
+- `data/bridge/`, `data/official/`, `data/external/` — local input bridge and pinned derivative layers; check `evidence/verify_grid.json`/hashes for scope. Do not describe the official origin as independently authenticated solely from local hashes.
+- `scripts/run_ribbon_experiments.py` — E1/E2 diagnostic implementation; shared evaluator and buffered holdout are wired in. Its current per-segment selector remains same-cell truth-dependent and is explicitly not promotion-grade.
+- `scripts/build_ribbon_emission.py` — gated E3 emitter; it currently refuses to write because there is no reviewed `evidence/ribbon_qualification.json` or promotion-grade E1/E2. It verifies both registry-phase receipts and the exact prediction fingerprint before writing.
+- `scripts/check_uniqueness_registry.py` — shared literal registry check; only as current as the supplied/indexed inventory.
+- `scripts/build_site.py` — regenerates the explicit status, site, and run card from recorded evidence.
+- `scripts/run_ribbon_lane.py`, `scripts/uniqueness_check.py`, `scripts/check_data.py`, `scripts/make_submission.py`, `src/gems58/`, and `gems/` — legacy/private implementations, deprecated or disabled for new promotion work.
+- `docs/SUBMISSION_GUIDE.md`, `docs/SOURCES.md`, `docs/IRREGULARITIES.md`, and `docs/research/hypotheses_new.md` — user-facing status, official source register, audit log, and hypotheses.
+
+## Safe verification
+
+Install declared dependencies and run tests:
 
 ```bash
-pip install -r requirements.txt
-python3 scripts/run_ribbon_experiments.py      # E1+E2 (writes evidence JSONs)
-python3 scripts/build_ribbon_emission.py       # E3 (writes docs/downloads/*)
-python3 scripts/fetch_registry_sparse.py       # restore 695 registry rasters (git protocol)
-python3 scripts/check_uniqueness_registry.py docs/downloads/<candidate>-zeros.tif
-python3 scripts/build_site.py                  # run card + site
-python3 -m pytest tests/test_metric.py         # shared metric oracle tests
+python -m pip install -r requirements.txt
+PYTHONPATH=src python -m pytest -q
 ```
 
-## Verification pointers (official sources)
+Tests use synthetic grids and local code. **They do not validate competition performance, clear registry uniqueness, or constitute a submission receipt.** No E1/E2/E3 experiment was rerun in this review; the updated buffered-context tests are not an experiment.
 
-- Competition & rules: https://www.drivendata.org/competitions/306/competition-doe-gems/ ·
-  problem: https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/ ·
-  data tab (login): https://www.drivendata.org/competitions/306/competition-doe-gems/data/
-- Reference solution: https://github.com/drivendataorg/gems-prize-reference-solution
-- GeoDAWN airborne mag+radiometric survey (USGS): https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and
-- INGENIOUS (GBCGE): https://gbcge.org/current-projects/ingenious/ ·
-  OpenEI GDR submission 1391: https://gdr.openei.org/submissions/1391
-- Grid CRS: https://epsg.io/32611 · Metric family: https://en.wikipedia.org/wiki/Tversky_index
-- Leaderboard: https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/
+For any future run, follow the run card, exact experiment/time budget, current inventory refresh, pre-placement surface check, final-dot check, shared evaluator, and separate selector process. Read the [official source register](docs/SOURCES.md) first.
 
-## Irregularities log
+## Official review links
 
-See `docs/research/irregularities.md`.
+- [Competition homepage](https://www.drivendata.org/competitions/306/competition-doe-gems/)
+- [Problem description, metric and format](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/)
+- [Official rules, September 2026](https://docs.nlr.gov/docs/fy26osti/96647.pdf)
+- [Official data tab (login required)](https://www.drivendata.org/competitions/306/competition-doe-gems/data/)
+- [DrivenData reference solution](https://github.com/drivendataorg/gems-prize-reference-solution)
+- [USGS GeoDAWN data release](https://data.usgs.gov/datacatalog/data/USGS:657e1d85d34e23d3533209f7)
+- [USGS ComCat API](https://earthquake.usgs.gov/fdsnws/event/1/)
+- [USGS 3DEP products](https://www.usgs.gov/3d-elevation-program/about-3dep-products-services)
+- [2026 SGMC GeMS product](https://ngmdb.usgs.gov/Prodesc/proddesc_119417.htm)
+- [DOE GDR nationwide heat-flow / well collection](https://gdr.openei.org/submissions/1704)
 
----
+## Archived sibling work
 
-## Earlier sibling attempts (archived)
-
-- Session without sandbox data: no submission generated; run card `docs/RUN_CARD.json` (verdict negative, not evaluated).
-- Geophysical-ridge ribbon v1 (`src/gems58`, root `gems/` approximation): raster archived at `docs/downloads/archive/58GEMSDOE-ribbon-lane-v1-20261011.tif`; holdout DTI 0.0368 (CI 0.006-0.068); uniqueness HOLD (12/25 flags exceed chance by >0.08); run card `registry/RUN_CARD.json`. Full README preserved verbatim at `docs/research/README_sibling_session_0124041b.md`. **Superseded by the current submission below.**
+The earlier geophysical-ridge v1 TIFF remains under `docs/downloads/archive/` with its archived run card in `registry/RUN_CARD.json`. It is historical research only. Neither that artifact nor the current diagnostic TIFF is a cleared competition submission.

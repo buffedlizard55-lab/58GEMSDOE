@@ -3,10 +3,10 @@
 
 Experiments (lane budget: 3 total, E3 is the emission build)
   E1  sigma table + leakage canary on the shared hide-and-recover holdout.
-  E2  arms on the same cells: tight-all (baseline), ribbon (sigma-adaptive by
-      block x type), ribbon-pool (sigma = global pool, ignores block/type).
-      Pooled exact DTI, spatial-block bootstrap CIs, per-class gains.
-      All numbers: gems57.holdout score_cell (shared evaluator, exact).
+  E2  oracle/diagnostic arms on buffered whole-component cells. The legacy
+      per-segment selector consults the same cell's withheld truth, so its DTI
+      is not promotion-grade; a future nested outer-block run is required.
+      Scoring delegates to gems57.evaluate_holdout (shared exact evaluator).
 
 Run:  python3 scripts/run_ribbon_experiments.py
 Writes: evidence/ribbon_e1_sigma.json, evidence/ribbon_e2_arms.json
@@ -26,8 +26,9 @@ sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from gems57.grid import load_grid
-from gems57.holdout import FOLD_NAMES, build_holdout, score_cell
-from gems57.metric import ALPHA, BETA, EPS, RADIUS_PX, kernel
+from gems57.holdout import FOLD_NAMES, build_buffered_holdout_context
+from gems57.evaluate_holdout import evaluate as evaluate_holdout, pooled_summary
+from gems57.metric import ALPHA, BETA, EPS, RADIUS_PX
 
 import ribbon_lane as rl
 
@@ -41,15 +42,16 @@ BLOCK_PX = 200        # 20 km spatial blocks for the paired bootstrap
 CTX = None   # module-global HoldoutContext (Grid is a frozen dataclass)
 
 
-def cell_hidden(grid, cell):
-    return CTX.hidden_by_cell[cell.key]
+def cell_visible(cell):
+    """Buffered, visible-only catalogue context for a holdout cell."""
+    return CTX.visible(cell.key)
 
 
 def cell_axes(grid, sgmc, cell, cache):
     """Axis segments for one cell from visible-only sources (cached per cell)."""
     if cell.key in cache:
         return cache[cell.key]
-    visible = grid.catalogue & ~cell_hidden(grid, cell)
+    visible = cell_visible(cell)
     out = []
     for kind in rl.RIDGE_TYPES:
         axes = rl.axis_mask_for_type(kind, visible, sgmc)
@@ -167,65 +169,28 @@ def crop_emission_from_choices(cell, choices) -> np.ndarray:
     return m
 
 
+def evaluate_cell(cell, emission, block_side=BLOCK_PX):
+    """Score one crop through the shared template evaluator, not a lane-local metric."""
+    p = np.asarray(emission, bool)
+    if p.shape == CTX.grid.shape:
+        p = p[cell.bbox]
+    if p.shape != cell.active.shape:
+        raise ValueError('emission crop does not match holdout cell')
+    truth = np.zeros(cell.active.shape, dtype=bool)
+    truth[cell.truth_yx] = True
+    zeros = np.zeros_like(truth)
+    fold = dict(truth=truth, region=np.ones_like(truth),
+                visible=zeros, masked_known=zeros)
+    origin = (int(cell.bbox[0].start), int(cell.bbox[1].start))
+    return evaluate_holdout(
+        p.astype(np.float32), fold, cell.active, block_side=block_side,
+        origin=origin, global_shape=CTX.grid.shape)
+
+
 def block_terms(cell, choices, block_px=BLOCK_PX):
-    """Per-spatial-block (tp, fp, fn, n_truth) contributions of one arm/cell.
-
-    tp contribution per truth pixel = its accumulated credit under the arm;
-    fp contribution per dot = 1 - k_self.  Blocks are indexed on the full grid.
-    """
-    # rebuild exact credit/dots by re-running the metric arithmetic on the crop
-    H, W = cell.k_dg.shape
-    m = crop_emission_from_choices(cell, choices)
-    n_truth = cell.n_truth
-    if n_truth == 0:
-        return np.empty((0, 4))
-    oy, ox = cell.bbox[0].start, cell.bbox[1].start
-    GY = (cell.truth_yx[0].astype(np.int64) + oy) // block_px
-    GX = (cell.truth_yx[1].astype(np.int64) + ox) // block_px
-    ncid = GY * ((grid.shape[1] + block_px - 1) // block_px) + GX
-    ys, xs = np.nonzero(m)
-    DY = (ys.astype(np.int64) + oy) // block_px
-    DX = (xs.astype(np.int64) + ox) // block_px
-    ncid_p = DY * ((grid.shape[1] + block_px - 1) // block_px) + DX
-    n_blocks = ((grid.shape[0] + block_px - 1) // block_px) * ((grid.shape[1] + block_px - 1) // block_px)
-    # exact per-truth credit and per-dot fp from the shared kernel arithmetic
-    from gems57.metric import kernel as _k
-    ty, tx = cell.truth_yx
-    credit = np.zeros(n_truth)
-    if len(ys):
-        tr = cKDTree_query(cell, ty, tx, ys, xs)
-        credit = tr
-    fp_dot = 1.0 - cell.k_dg[ys, xs] if len(ys) else np.empty(0)
-    terms = np.zeros((n_blocks, 4))
-    np.add.at(terms[:, 0], ncid, credit)
-    np.add.at(terms[:, 1], ncid_p, fp_dot)
-    np.add.at(terms[:, 2], ncid, 1.0 - credit)
-    np.add.at(terms[:, 3], ncid, 1.0)
+    """Exact pooled terms from the shared evaluator on globally aligned blocks."""
+    _, terms = evaluate_cell(cell, crop_emission_from_choices(cell, choices), block_side=block_px)
     return terms
-
-
-def cKDTree_query(cell, ty, tx, ys, xs):
-    """Per-truth-pixel kernel credit for the crop emission (max over dots)."""
-    from scipy.spatial import cKDTree
-    tree = cKDTree(np.stack([ty, tx], 1).astype(np.float64))
-    hits = tree.query_ball_point(np.stack([ys, xs], 1).astype(np.float64), RADIUS_PX)
-    credit = np.zeros(len(ty))
-    di = np.repeat(np.arange(len(ys)), np.fromiter((len(h) for h in hits), np.int64, len(hits)))
-    gi = np.fromiter((g for h in hits for g in h), np.int64, int(di.size))
-    if len(gi) == 0:
-        return credit
-    d = np.hypot(ty[gi] - ys[di], tx[gi] - xs[di])
-    w = rl.kernel(d)
-    order = np.argsort(gi, kind="stable")
-    gi_s, w_s = gi[order], w[order]
-    uniq, start = np.unique(gi_s, return_index=True)
-    credit[uniq] = np.maximum.reduceat(w_s, start)
-    return credit
-
-
-def pooled_from_terms(t: np.ndarray) -> float:
-    tp, fp, fn = t[:, 0].sum(), t[:, 1].sum(), t[:, 2].sum()
-    return float(tp / (tp + ALPHA * fp + BETA * fn + EPS))
 
 
 def main() -> int:
@@ -236,14 +201,14 @@ def main() -> int:
     print(f"grid: catalogue px={int(grid.catalogue.sum())} footprint px={int(grid.footprint.sum())}", flush=True)
 
     global CTX
-    CTX = build_holdout(grid, seeds=SEEDS, modes=(MODE,))
+    CTX = build_buffered_holdout_context(grid, seeds=SEEDS)
     cells = CTX.cells
     rng = np.random.default_rng(2026)
 
     # ---------------- E1 ----------------
     seg_records, sigma_rows, canary_rows = [], [], []
     for cell in cells:
-        visible = grid.catalogue & ~cell_hidden(grid, cell)
+        visible = cell_visible(cell)
         axsegs = []
         axis_rasters = {}
         for kind in rl.RIDGE_TYPES:
@@ -282,8 +247,14 @@ def main() -> int:
     e1 = dict(
         experiment="E1-sigma-and-canary",
         evidence_class="HOLDOUT-STRUCTURE",
+        promotion_grade=False,
+        buffered_whole_component_context_used=True,
+        holdout_status="buffered whole-component feature context; E1 diagnostics only, not an untouched outer-block promotion evaluation",
         instrument=dict(kind="hide-and-recover", seeds=list(SEEDS), mode=MODE, folds=list(FOLD_NAMES),
-                        evaluator="gems57.holdout (shared)", alpha=ALPHA, beta=BETA,
+                        constructor="gems57.holdout.build_buffered_holdout_context",
+                        feature_buffer_px=3, quadrant_boundary_px=12,
+                        evaluator_version="gems57-pooled-hide-v2",
+                        evaluator="gems57.evaluate_holdout (shared)", alpha=ALPHA, beta=BETA,
                         triangular_radius_px=RADIUS_PX),
         ridge_types={
             "cat-axis": dict(source="skeleton of the visible catalogue only (per fold)",
@@ -296,6 +267,7 @@ def main() -> int:
         sigma_pooled_by_type=pooled_sigma,
         sigma_by_cell=sigma_rows,
         leakage_canary=dict(
+            evidence_class="BUFFERED-FEATURE-ALONE-CANARY",
             rule="feature alone on the holdout; AUC > 0.90 means leakage until proven otherwise",
             per_cell=canary_rows, max_auc_by_type=max_auc,
             verdict=("PASS - no ridge type exceeds AUC 0.90"
@@ -323,16 +295,16 @@ def main() -> int:
         sig = {k: sigma_by_cell_type[(cell.key, k)] for k in rl.RIDGE_TYPES}
         state, ch = run_arm_on_cell(cell, axsegs, sig, ("tight",), DTI0_ASSUMED)
         store["tight"][cell.key] = ch
-        r = score_cell(cell, crop_emission_from_choices(cell, ch))
+        r = evaluate_cell(cell, crop_emission_from_choices(cell, ch))[0]
         per_cell_meta.setdefault("tight", {})[cell.key] = dict(dti=r["dti"], dots=int(r["n_emitted"]))
-        print(f"E2-tight {cell.key}: dots={r['n_emitted']} dti={r['dti']:.4f}", flush=True)
+        print(f"E2-tight {cell.key}: emitted={r['n_emitted']} | raw DTI suppressed (oracle diagnostic; not reportable)", flush=True)
     tp = sum(v["tp"] for v in [])  # placeholder no-op
     tp = fp = fn = 0.0
     for cell in cells:
-        r = score_cell(cell, crop_emission_from_choices(cell, store["tight"][cell.key]))
+        r = evaluate_cell(cell, crop_emission_from_choices(cell, store["tight"][cell.key]))[0]
         tp += r["tp"]; fp += r["fp"]; fn += r["fn"]
     dti0 = float(tp / (tp + ALPHA * fp + BETA * fn + EPS))
-    print(f"E2: DTI0 tight baseline pooled = {dti0:.4f} (HOLDOUT-DTI)", flush=True)
+    print("E2: pooled raw DTI suppressed; oracle/selection diagnostic is not reportable.", flush=True)
 
     arms_out = {"tight": dict(pooled_dti=dti0, per_cell=per_cell_meta["tight"])}
     for arm in ("ribbon", "ribbon-pool"):
@@ -345,41 +317,33 @@ def main() -> int:
                 sig = {k: sigma_pool for k in rl.RIDGE_TYPES}
             state, ch = run_arm_on_cell(cell, axsegs, sig, None, dti0)
             store[arm][cell.key] = ch
-            r = score_cell(cell, crop_emission_from_choices(cell, ch))
+            r = evaluate_cell(cell, crop_emission_from_choices(cell, ch))[0]
             per_cell_meta[arm][cell.key] = dict(dti=r["dti"], dots=int(r["n_emitted"]))
             tp += r["tp"]; fp += r["fp"]; fn += r["fn"]
-            print(f"E2-{arm} {cell.key}: dots={r['n_emitted']} dti={r['dti']:.4f}", flush=True)
+            print(f"E2-{arm} {cell.key}: emitted={r['n_emitted']} | raw DTI suppressed (oracle diagnostic; not reportable)", flush=True)
         pooled = float(tp / (tp + ALPHA * fp + BETA * fn + EPS))
         arms_out[arm] = dict(pooled_dti=pooled, per_cell=per_cell_meta[arm])
-        print(f"E2-{arm}: pooled HOLDOUT-DTI = {pooled:.4f}", flush=True)
+        print(f"E2-{arm}: pooled raw DTI suppressed (oracle diagnostic; not reportable)", flush=True)
 
     # paired spatial-block bootstrap: ribbon vs tight, and ribbon vs ribbon-pool
     def block_stack(arm):
-        stacks = []
-        for cell in cells:
-            stacks.append(block_terms(cell, store[arm][cell.key]))
-        return np.concatenate(stacks, 0)
+        # Sum all seeds/folds into the same physical 20 km cells before resampling;
+        # repeated copies of one geographic block are not independent clusters.
+        stacks = [block_terms(cell, store[arm][cell.key]) for cell in cells]
+        if not stacks:
+            raise ValueError('no holdout cells to aggregate')
+        return np.sum(np.stack(stacks, axis=0), axis=0)
 
     T = {a: block_stack(a) for a in ARMS}
-    rng_b = np.random.default_rng(520810)
-    nz = np.where(T["tight"][:, 3] + T["tight"][:, 1] + T["ribbon"][:, 1] > 0)[0]
-    nb = len(nz)
-    picks = rng_b.integers(0, nb, size=(1000, nb))
-    from gems57.evaluate_holdout import from_terms
-    boot_r = from_terms(T["ribbon"][nz][picks].sum(axis=1))
-    boot_t = from_terms(T["tight"][nz][picks].sum(axis=1))
-    boot_p = from_terms(T["ribbon-pool"][nz][picks].sum(axis=1))
-    delta_rt = boot_r - boot_t
-    delta_rp = boot_r - boot_p
+    bootstrap = pooled_summary(T, draws=1000, seed=520810, candidate='ribbon')
     paired = dict(
-        evidence_class="HOLDOUT-DTI",
-        method="paired percentile bootstrap over physical 20 km blocks (pooled terms)",
-        blocks=int(nb), draws=1000, seed=520810,
-        ribbon_minus_tight=dict(delta=float(arms_out["ribbon"]["pooled_dti"] - arms_out["tight"]["pooled_dti"]),
-                                ci95=[float(np.quantile(delta_rt, 0.025)), float(np.quantile(delta_rt, 0.975))]),
-        ribbon_minus_ribbonpool=dict(delta=float(arms_out["ribbon"]["pooled_dti"] - arms_out["ribbon-pool"]["pooled_dti"]),
-                                     ci95=[float(np.quantile(delta_rp, 0.025)), float(np.quantile(delta_rp, 0.975))]),
-        caveat="Conditional on fitted folds, catalogue labels and fixed patterns; not a leaderboard interval.",
+        evidence_class="HOLDOUT-DTI (oracle diagnostic; not promotion-grade)",
+        method="shared evaluate_holdout pooled physical 20 km blocks; repeated folds merged before paired resampling",
+        blocks=bootstrap["bootstrap"]["clusters"], draws=bootstrap["bootstrap"]["draws"],
+        seed=bootstrap["bootstrap"]["seed"],
+        ribbon_minus_tight=bootstrap["paired_differences"]["tight"],
+        ribbon_minus_ribbonpool=bootstrap["paired_differences"]["ribbon-pool"],
+        caveat="Conditional on fitted folds. Segment configurations are accepted using the same cell's withheld truth; CI does not remove selection leakage and is not a leaderboard interval.",
     )
 
     # per-class gains (class-restricted emissions, exact evaluator)
@@ -390,7 +354,7 @@ def main() -> int:
             tp = fp = fn = 0.0
             for cell in cells:
                 sub = {k: v for k, v in store[arm][cell.key].items() if k[0] == kind}
-                r = score_cell(cell, crop_emission_from_choices(cell, sub))
+                r = evaluate_cell(cell, crop_emission_from_choices(cell, sub))[0]
                 tp += r["tp"]; fp += r["fp"]; fn += r["fn"]
             stats[arm] = float(tp / (tp + ALPHA * fp + BETA * fn + EPS))
         n_dots = int(sum(v["n_dots"] for cell in cells for k, v in store["ribbon"][cell.key].items() if k[0] == kind))
@@ -399,29 +363,87 @@ def main() -> int:
                                  gain=stats["ribbon"] - stats["tight"],
                                  n_dots_ribbon=n_dots, n_dots_tight=n_dots_t,
                                  evidence_class="HOLDOUT-DTI (class-restricted emission)")
-        print(f"E2 class {kind}: ribbon-only {stats['ribbon']:.4f} vs tight-only {stats['tight']:.4f} "
-              f"gain {stats['ribbon'] - stats['tight']:+.4f}", flush=True)
+        print(f"E2 class {kind}: per-class raw DTI/gain suppressed (oracle diagnostic; not reportable)", flush=True)
 
     mix = {}
     for cell in cells:
         for (kind, _sid), v in store["ribbon"][cell.key].items():
             mix[f"{kind}|{v['cfg']}"] = mix.get(f"{kind}|{v['cfg']}", 0) + 1
 
+    n_withheld_positive_pixels = int(sum(c.n_truth for c in cells))
+    legacy_score_label = "LEGACY HOLDOUT-DTI DIAGNOSTIC — INVALID/NOT REPORTABLE"
+    evaluator_version = "gems57-pooled-hide-v2 (shared arithmetic; E2 selection remains oracle/leaky)"
+    score_limitation = (
+        "Patterns were accepted using the same cell's withheld truth and sigma was fitted on scored folds. "
+        "The legacy interval is not a promotion-grade independent 95% CI."
+    )
+    for arm_record in arms_out.values():
+        arm_record.update(evidence_class=legacy_score_label,
+                          evaluator_version=evaluator_version,
+                          withheld_positive_pixels=n_withheld_positive_pixels,
+                          absolute_ci95=None, ci95_reportable=False,
+                          score_claim_allowed=False, reporting_limitation=score_limitation)
+        for cell_record in arm_record.get("per_cell", {}).values():
+            cell_record.update(evidence_class=legacy_score_label,
+                               evaluator_version=evaluator_version,
+                               withheld_positive_pixels=n_withheld_positive_pixels,
+                               ci95=None, ci95_reportable=False,
+                               score_claim_allowed=False, reporting_limitation=score_limitation)
+    for class_record in class_gains.values():
+        class_record.update(evidence_class=legacy_score_label,
+                            evaluator_version=evaluator_version,
+                            withheld_positive_pixels=n_withheld_positive_pixels,
+                            ci95=None, ci95_reportable=False,
+                            score_claim_allowed=False, reporting_limitation=score_limitation)
+    paired.update(evidence_class=legacy_score_label,
+                  evaluator_version=evaluator_version,
+                  withheld_positive_pixels=n_withheld_positive_pixels,
+                  ci95_reportable=False, score_claim_allowed=False,
+                  reporting_limitation=score_limitation)
     e2 = dict(
         experiment="E2-ribbon-arms",
-        evidence_class="HOLDOUT-DTI",
+        evidence_class=legacy_score_label,
+        promotion_grade=False,
+        validation_limitations=[
+            "per-segment exact_accept consults the same cell's withheld truth",
+            "sigma is fitted on the scored draw rather than an untouched outer block",
+            "an outer spatial-block evaluation with train-only tuning is still required",
+        ],
+        buffered_whole_component_context_used=True,
         instrument=dict(kind="hide-and-recover", seeds=list(SEEDS), mode=MODE,
-                        evaluator="gems57.holdout score_cell (shared, exact)",
+                        constructor="gems57.holdout.build_buffered_holdout_context",
+                        feature_buffer_px=3, quadrant_boundary_px=12,
+                        evaluator_version="gems57-pooled-hide-v2",
+                        evaluator="gems57.evaluate_holdout.evaluate (shared exact; buffered split)",
                         alpha=ALPHA, beta=BETA, triangular_radius_px=RADIUS_PX),
-        dti0_reference=dict(value=dti0, arm="tight", evidence_class="HOLDOUT-DTI"),
+        dti0_reference=dict(value=dti0, arm="tight", evidence_class=legacy_score_label,
+                            evaluator_version=evaluator_version,
+                            withheld_positive_pixels=n_withheld_positive_pixels,
+                            ci95=None, ci95_reportable=False, score_claim_allowed=False,
+                            reporting_limitation=score_limitation),
         dti0_assumed_for_ordering=DTI0_ASSUMED,
         arms=arms_out,
+        absolute_score_intervals_diagnostic_only=dict(
+            evidence_class=legacy_score_label,
+            evaluator_version=evaluator_version,
+            withheld_positive_pixels=n_withheld_positive_pixels,
+            values=bootstrap["scores"],
+            ci95_reportable=False, score_claim_allowed=False,
+            reporting_limitation=score_limitation),
         paired_bootstrap=paired,
         per_class_gains=class_gains,
         config_mix_ribbon=mix,
         pattern_rule=dict(stride_px=rl.STRIDE_PX,
                           note="along-line stride = 3 px (kernel radius); parallel lines spaced 2*|offset| px"),
-        withheld_positive_pixels=int(sum(c.n_truth for c in cells)),
+        withheld_positive_pixels=n_withheld_positive_pixels,
+        reporting_contract=dict(
+            score_claim_allowed=False,
+            evidence_class=legacy_score_label,
+            evaluator_version=evaluator_version,
+            withheld_positive_pixels=n_withheld_positive_pixels,
+            absolute_arm_ci95_reportable=False,
+            paired_ci95_reportable=False,
+            reason=score_limitation),
         elapsed_s=time.time() - t_start,
     )
     (ROOT / "evidence" / "ribbon_e2_arms.json").write_text(json.dumps(e2, indent=1, default=float) + "\n")
