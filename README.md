@@ -45,7 +45,7 @@ scripts/fetch_data.py  public-link downloader with audit log (no login bypass)
 scripts/check_data.py  inventory and per-band leakage canary
 scripts/make_submission.py  prob.npy -> validated GeoTIFF
 tests/                 metric (incl. brute-force cross-check), submission, holdout
-docs/                  index.html (Pages), SUBMISSION_GUIDE, SOURCES, IRREGULARITIES, HYPOTHESES,
+docs/                  SUBMISSION_GUIDE, SOURCES, IRREGULARITIES, HYPOTHESES,
                        ANALYSIS_H33, LEADERBOARD, RUN_CARD.json, AI_USAGE, MISSION
 index.html             GitHub Pages landing page (executive summary, submission steps, flags)
 ```
