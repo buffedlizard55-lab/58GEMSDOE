@@ -1,6 +1,6 @@
 {
  "evidence_class": "HOLDOUT-DTI",
- "generated_utc": "2026-10-11T06:21:49Z",
+ "generated_utc": "2026-10-11T18:26:28Z",
  "purpose": "Re-derive the delivered candidate's HOLDOUT-DTI with the shared gems57 metric, because main has archived the gems58w path that produced the original receipt.",
  "candidate": "docs/downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif",
  "candidate_sha256": "ecf833f8ea7a6698636b48b0dcd0d03aa925d603753e60e03d9d1660922711dd",

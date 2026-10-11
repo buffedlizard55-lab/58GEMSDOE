@@ -1,0 +1,259 @@
+{
+ "evidence_class": "PUBLIC-SIBLING-INVENTORY",
+ "question": "of the witnesses flagged by the literal forward-overlap rule, how many are dense rasters for which that rule is degenerate (it returns 1.00 for every candidate, random or not)?",
+ "footprint_pixels": 5167373,
+ "degenerate_threshold_frac_of_footprint": 0.5,
+ "n_witnesses": 694,
+ "n_flagged_literal": 81,
+ "n_flagged_degenerate": 53,
+ "n_flagged_informative": 28,
+ "worst_spearman_among_flagged": 0.04218196958032218,
+ "worst_jaccard_among_flagged": 0.01031810501443869,
+ "worst_spearman_among_informative_flagged": 0.009862196463524035,
+ "worst_jaccard_among_informative_flagged": 0.01031810501443869,
+ "informative_flagged": [
+  {
+   "repo": "GEMSDOE3",
+   "submission": "GEMSDOE3:docs/downloads/coverage-v3-wide-20260925T054019Z-0ac095a7ed.tif",
+   "their_dots": 624025,
+   "forward": 0.7818,
+   "jaccard": 0.0103,
+   "spearman": 0.0099
+  },
+  {
+   "repo": "15GEMSDOE",
+   "submission": "15GEMSDOE:docs/downloads/gems-cleanup-a-20260928T195952Z-curv_scarp.tif",
+   "their_dots": 362327,
+   "forward": 0.8569,
+   "jaccard": 0.0101,
+   "spearman": 0.008
+  },
+  {
+   "repo": "13GEMSDOE",
+   "submission": "13GEMSDOE:docs/downloads/archive/13gems-r8-ensemble-20260930T014614Z_allfinite.tif",
+   "their_dots": 452679,
+   "forward": 0.8616,
+   "jaccard": 0.01,
+   "spearman": 0.0079
+  },
+  {
+   "repo": "13GEMSDOE",
+   "submission": "13GEMSDOE:docs/downloads/archive/13gems-r8-ensemble-20260930T014614Z.tif",
+   "their_dots": 452679,
+   "forward": 0.8616,
+   "jaccard": 0.01,
+   "spearman": 0.0079
+  },
+  {
+   "repo": "55GEMSDOE",
+   "submission": "55GEMSDOE:evidence/parallel_session_16/tensor-continuous-1875224px-20261009T202053Z-nan.tif",
+   "their_dots": 1875224,
+   "forward": 0.8007,
+   "jaccard": 0.0091,
+   "spearman": 0.0075
+  },
+  {
+   "repo": "55GEMSDOE",
+   "submission": "55GEMSDOE:evidence/parallel_session_16/tensor-continuous-1875224px-20261009T202053Z-zeros.tif",
+   "their_dots": 1875224,
+   "forward": 0.8007,
+   "jaccard": 0.0091,
+   "spearman": 0.0075
+  },
+  {
+   "repo": "13GEMSDOE",
+   "submission": "13GEMSDOE:docs/downloads/archive/13gems-r6-ensemble-20260929T182914Z_allfinite.tif",
+   "their_dots": 344041,
+   "forward": 0.7887,
+   "jaccard": 0.0087,
+   "spearman": 0.0035
+  },
+  {
+   "repo": "13GEMSDOE",
+   "submission": "13GEMSDOE:docs/downloads/archive/13gems-r6-ensemble-20260929T182914Z.tif",
+   "their_dots": 344041,
+   "forward": 0.7887,
+   "jaccard": 0.0087,
+   "spearman": 0.0035
+  },
+  {
+   "repo": "GEMSDOE50",
+   "submission": "GEMSDOE50:docs/downloads/gemsdoe50-h59-topo-lineament-scatter-180k-20261007T170212Z-nan.tif",
+   "their_dots": 180000,
+   "forward": 0.7274,
+   "jaccard": 0.0082,
+   "spearman": 0.0035
+  },
+  {
+   "repo": "GEMSDOE50",
+   "submission": "GEMSDOE50:docs/downloads/gemsdoe50-h59-topo-lineament-scatter-180k-20261007T170212Z-allfinite.tif",
+   "their_dots": 180000,
+   "forward": 0.7274,
+   "jaccard": 0.0082,
+   "spearman": 0.0035
+  },
+  {
+   "repo": "13GEMSDOE",
+   "submission": "13GEMSDOE:docs/downloads/archive/13gems-composite-20260928T040920Z.tif",
+   "their_dots": 338755,
+   "forward": 0.7999,
+   "jaccard": 0.0079,
+   "spearman": 0.001
+  },
+  {
+   "repo": "13GEMSDOE",
+   "submission": "13GEMSDOE:docs/downloads/archive/13gems-composite-20260928T040920Z_allfinite.tif",
+   "their_dots": 338755,
+   "forward": 0.7999,
+   "jaccard": 0.0079,
+   "spearman": 0.001
+  },
+  {
+   "repo": "13GEMSDOE",
+   "submission": "13GEMSDOE:docs/downloads/archive/13gems-composite-20260929T183221Z_allfinite.tif",
+   "their_dots": 507776,
+   "forward": 0.8666,
+   "jaccard": 0.0078,
+   "spearman": -0.0003
+  },
+  {
+   "repo": "13GEMSDOE",
+   "submission": "13GEMSDOE:docs/downloads/archive/13gems-composite-20260929T183221Z.tif",
+   "their_dots": 507776,
+   "forward": 0.8666,
+   "jaccard": 0.0078,
+   "spearman": -0.0003
+  },
+  {
+   "repo": "13GEMSDOE",
+   "submission": "13GEMSDOE:docs/downloads/13gems_20261001_r11-greedy-mp_v2_nan-outside.tif",
+   "their_dots": 272853,
+   "forward": 0.836,
+   "jaccard": 0.0076,
+   "spearman": 0.0007
+  },
+  {
+   "repo": "13GEMSDOE",
+   "submission": "13GEMSDOE:docs/downloads/13gems_20261001_r11-greedy-mp_v2_zerofill.tif",
+   "their_dots": 272853,
+   "forward": 0.836,
+   "jaccard": 0.0076,
+   "spearman": 0.0007
+  },
+  {
+   "repo": "13GEMSDOE",
+   "submission": "13GEMSDOE:docs/downloads/archive/13gems-r11-greedy-mp.tif",
+   "their_dots": 272853,
+   "forward": 0.836,
+   "jaccard": 0.0076,
+   "spearman": 0.0007
+  },
+  {
+   "repo": "13GEMSDOE",
+   "submission": "13GEMSDOE:docs/downloads/archive/13gems-r11-greedy-mp_allfinite.tif",
+   "their_dots": 272853,
+   "forward": 0.836,
+   "jaccard": 0.0076,
+   "spearman": 0.0007
+  },
+  {
+   "repo": "13GEMSDOE",
+   "submission": "13GEMSDOE:docs/downloads/13gems_20261001_r14-union-tips10-lat6_zerofill.tif",
+   "their_dots": 192231,
+   "forward": 0.7592,
+   "jaccard": 0.0073,
+   "spearman": 0.0008
+  },
+  {
+   "repo": "13GEMSDOE",
+   "submission": "13GEMSDOE:docs/downloads/13gems_20261001_r14-union-tips10-lat6_nan-outside.tif",
+   "their_dots": 192231,
+   "forward": 0.7592,
+   "jaccard": 0.0073,
+   "spearman": 0.0008
+  }
+ ],
+ "degenerate_examples": [
+  {
+   "repo": "GEMSDOE2",
+   "submission": "GEMSDOE2:data/evidence/runs/turbo-simple-20260925T042003Z/submission.tif",
+   "their_dots": 5167373,
+   "coverage": 1.0,
+   "forward": 1.0,
+   "jaccard": 0.0085
+  },
+  {
+   "repo": "GEMSDOE2",
+   "submission": "GEMSDOE2:data/evidence/runs/turbo-simple-20260925T043629Z/submission.tif",
+   "their_dots": 5167373,
+   "coverage": 1.0,
+   "forward": 1.0,
+   "jaccard": 0.0085
+  },
+  {
+   "repo": "GEMSDOE48",
+   "submission": "GEMSDOE48:docs/downloads/diagnostics/GEMSDOE48-H56-OWDS-B2xH33D-20261007-1f7b5a4f18db-unassigned-mtheta.tif",
+   "their_dots": 5167373,
+   "coverage": 1.0,
+   "forward": 1.0,
+   "jaccard": 0.0085
+  },
+  {
+   "repo": "GEMSDOE48",
+   "submission": "GEMSDOE48:docs/downloads/diagnostics/GEMSDOE48-H53-DS-RadEdge-B2xH33D-20261007-4c01fcf2ad8c-radiometric-edge-coherence.tif",
+   "their_dots": 5139250,
+   "coverage": 0.9946,
+   "forward": 0.9996,
+   "jaccard": 0.0083
+  },
+  {
+   "repo": "GEMSDOE48",
+   "submission": "GEMSDOE48:docs/downloads/gemsdoe48-ds-plausibility-20261006T201749Z-95897e3f8125.tif",
+   "their_dots": 5167373,
+   "coverage": 1.0,
+   "forward": 1.0,
+   "jaccard": 0.0085
+  },
+  {
+   "repo": "57GEMSDOE",
+   "submission": "57GEMSDOE:docs/downloads/gems57-h57g-width-normalized-b1329dc0f248-RESEARCH-DO-NOT-SUBMIT.tif",
+   "their_dots": 5106385,
+   "coverage": 0.9882,
+   "forward": 1.0,
+   "jaccard": 0.0086
+  },
+  {
+   "repo": "GEMSDOE48",
+   "submission": "GEMSDOE48:docs/downloads/gemsdoe48-ds48-mtheta.tif",
+   "their_dots": 5167373,
+   "coverage": 1.0,
+   "forward": 1.0,
+   "jaccard": 0.0085
+  },
+  {
+   "repo": "GEMSDOE4",
+   "submission": "GEMSDOE4:data/evidence/newfault/proxy_only46/prob_raw.tif",
+   "their_dots": 5167373,
+   "coverage": 1.0,
+   "forward": 1.0,
+   "jaccard": 0.0085
+  },
+  {
+   "repo": "GEMSDOE48",
+   "submission": "GEMSDOE48:docs/downloads/gemsdoe48-ds-unassigned-mass-20261006T201749Z-95897e3f8125.tif",
+   "their_dots": 5167373,
+   "coverage": 1.0,
+   "forward": 1.0,
+   "jaccard": 0.0085
+  },
+  {
+   "repo": "GEMSDOE48",
+   "submission": "GEMSDOE48:docs/downloads/diagnostics/gemsdoe48-h56b-mtheta-126ca59c2801.tif",
+   "their_dots": 5167373,
+   "coverage": 1.0,
+   "forward": 1.0,
+   "jaccard": 0.0085
+  }
+ ],
+ "reading": "Under the literal rule the artifact is a duplicate of 81 witnesses. 53 of them are dense rasters whose dots cover >= 50% of the study footprint, so their forward test is 1.00 for every candidate and cannot discriminate. The remaining 28 are informative; against them the worst dot-set Jaccard is reported above. Deciding whether to treat the degenerate witnesses as duplicates is the owner's call, not a measurement this script can make."
+}

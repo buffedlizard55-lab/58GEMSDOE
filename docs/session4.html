@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Evidence and run card — 58GEMSDOE (GEMS competition #306)</title>
+<link rel="stylesheet" href="assets/site.css">
+<style>
+.gates{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:.6rem;margin:.8rem 0}
+.gate{border:1px solid #d7dee6;border-left:5px solid #999;border-radius:8px;padding:.55rem .7rem;background:#fbfcfd}
+.gate.pass{border-left-color:#1d7a45;background:#f2fbf5}
+.gate.fail{border-left-color:#a11212;background:#fdf3f3}
+.gate h4{margin:0 0 .25rem;font-size:.95rem}
+.gate p{margin:0;font-size:.83rem;color:#41505f}
+.pill{display:inline-block;padding:.1em .55em;border-radius:999px;font-size:.76rem;font-weight:700;color:#fff}
+.pill.pass{background:#1d7a45}.pill.fail{background:#a11212}.pill.info{background:#2f5f8f}.pill.warn{background:#8a6d1a}
+.warn-box{border:1px solid #e0c46a;border-left:5px solid #8a6d1a;background:#fffbea;border-radius:8px;padding:.7rem .9rem;margin:.8rem 0}
+.bad-box{border:1px solid #e0a3a3;border-left:5px solid #a11212;background:#fff6f6;border-radius:8px;padding:.7rem .9rem;margin:.8rem 0}
+.ok-box{border:1px solid #9ed3b3;border-left:5px solid #1d7a45;background:#f4fcf7;border-radius:8px;padding:.7rem .9rem;margin:.8rem 0}
+.small{font-size:.85rem;color:#41505f}
+.dlrow{display:flex;flex-wrap:wrap;gap:.6rem;margin:.8rem 0}
+.num{font-variant-numeric:tabular-nums}
+nav a{margin-right:.9rem}
+footer{margin-top:2rem;border-top:1px solid #d7dee6;padding-top:.6rem;font-size:.82rem;color:#41505f}
+table{max-width:100%}
+</style>
+</head><body>
+<header><h1>58GEMSDOE — DOE GEMS competition #306</h1>
+<p>Geothermal fault detection, northwestern Great Basin (NV) · ribbon lane · session 4 · every figure on this page is rendered from <code>evidence/ribbon_v3/*.json</code> at build time</p>
+<nav class="small"><a href="index.html">Status &amp; download</a> · <a href="executive-summary.html">How to submit</a> · <a href="session4.html" style="font-weight:700">Evidence &amp; run card</a> · <a href="sources.html">Sources</a> · <a href="evidence.html">Evidence index</a> · <a href="ribbon/index.html">Ribbon archive</a></nav></header>
+<div class="bad-box"><h3 style="margin-top:0">Verdict: negative / NOT OK TO SUBMIT — DO NOT SUBMIT</h3></div><h2>1 · σ(x) by data block, feature resolution and ridge type</h2><table class="num"><thead><tr><th>stratum</th><th>matched components</th><th>median σ across (px)</th><th>median σ isotropic</th><th>median σ along</th><th>p25</th><th>p75</th></tr></thead><tbody><tr><td><b>σ isotropic</b></td><td>1,425</td><td>5.90</td><td>6.45</td><td>3.31</td><td>9.50</td><td>7.47</td></tr><tr><td><b>σ across strike</b></td><td>1,425</td><td>4.30</td><td>4.96</td><td>2.38</td><td>7.01</td><td>5.94</td></tr><tr><td><b>σ along strike</b></td><td>1,425</td><td>2.80</td><td>3.61</td><td>1.28</td><td>5.15</td><td>4.66</td></tr><tr><td>data block = NE</td><td>244</td><td>4.33</td><td>5.76</td><td>3.01</td><td>2.54</td><td>7.15</td></tr><tr><td>data block = NW</td><td>828</td><td>4.31</td><td>6.00</td><td>2.82</td><td>2.35</td><td>7.14</td></tr><tr><td>data block = SE</td><td>140</td><td>5.06</td><td>7.52</td><td>3.29</td><td>2.93</td><td>7.32</td></tr><tr><td>data block = SW</td><td>213</td><td>3.90</td><td>5.02</td><td>2.46</td><td>2.09</td><td>6.16</td></tr><tr><td>feature resolution = 1.5px</td><td>116</td><td>5.09</td><td>7.75</td><td>3.63</td><td>2.97</td><td>7.65</td></tr><tr><td>feature resolution = 3px</td><td>331</td><td>4.67</td><td>6.75</td><td>3.82</td><td>2.55</td><td>7.50</td></tr><tr><td>feature resolution = 6px</td><td>978</td><td>4.09</td><td>5.38</td><td>2.29</td><td>2.23</td><td>6.76</td></tr><tr><td>ridge type = gravity/crest</td><td>45</td><td>6.06</td><td>8.08</td><td>3.00</td><td>3.82</td><td>8.49</td></tr><tr><td>ridge type = gravity/trough</td><td>235</td><td>5.07</td><td>6.37</td><td>2.46</td><td>2.78</td><td>7.51</td></tr><tr><td>ridge type = magnetic/crest</td><td>248</td><td>4.34</td><td>6.24</td><td>3.38</td><td>2.57</td><td>7.07</td></tr><tr><td>ridge type = magnetic/trough</td><td>337</td><td>3.02</td><td>4.15</td><td>1.94</td><td>1.20</td><td>5.73</td></tr><tr><td>ridge type = subsurface/trough</td><td>27</td><td>4.47</td><td>5.48</td><td>1.28</td><td>3.81</td><td>8.38</td></tr><tr><td>ridge type = topographic/crest</td><td>527</td><td>4.56</td><td>6.44</td><td>3.31</td><td>2.72</td><td>7.24</td></tr><tr><td>type × resolution = gravity/crest/6px</td><td>40</td><td>6.03</td><td>7.89</td><td>2.81</td><td>3.89</td><td>8.52</td></tr><tr><td>type × resolution = gravity/trough/6px</td><td>235</td><td>5.07</td><td>6.37</td><td>2.46</td><td>2.78</td><td>7.51</td></tr><tr><td>type × resolution = magnetic/crest/1.5px</td><td>11</td><td>5.85</td><td>10.03</td><td>6.70</td><td>4.90</td><td>6.87</td></tr><tr><td>type × resolution = magnetic/crest/3px</td><td>68</td><td>4.51</td><td>6.87</td><td>3.64</td><td>2.86</td><td>9.34</td></tr><tr><td>type × resolution = magnetic/crest/6px</td><td>169</td><td>4.14</td><td>5.71</td><td>2.96</td><td>2.43</td><td>6.56</td></tr><tr><td>type × resolution = magnetic/trough/1.5px</td><td>17</td><td>4.74</td><td>6.75</td><td>4.26</td><td>2.45</td><td>5.73</td></tr><tr><td>type × resolution = magnetic/trough/3px</td><td>64</td><td>5.08</td><td>7.10</td><td>3.57</td><td>2.30</td><td>8.16</td></tr><tr><td>type × resolution = magnetic/trough/6px</td><td>256</td><td>2.71</td><td>3.28</td><td>1.22</td><td>0.95</td><td>5.03</td></tr><tr><td>type × resolution = subsurface/trough/6px</td><td>27</td><td>4.47</td><td>5.48</td><td>1.28</td><td>3.81</td><td>8.38</td></tr><tr><td>type × resolution = topographic/crest/1.5px</td><td>87</td><td>5.33</td><td>7.69</td><td>3.61</td><td>3.14</td><td>8.23</td></tr><tr><td>type × resolution = topographic/crest/3px</td><td>195</td><td>4.37</td><td>6.66</td><td>3.83</td><td>2.55</td><td>7.10</td></tr><tr><td>type × resolution = topographic/crest/6px</td><td>245</td><td>4.29</td><td>5.84</td><td>3.03</td><td>2.77</td><td>6.93</td></tr><tr><td><b>σ used on block NE</b> (fitted on the other three blocks)</td><td>1,181</td><td>4.30</td><td>—</td><td>—</td><td>2.37</td><td>7.00</td></tr><tr><td><b>σ used on block NW</b> (fitted on the other three blocks)</td><td>597</td><td>4.28</td><td>—</td><td>—</td><td>2.41</td><td>6.83</td></tr><tr><td><b>σ used on block SE</b> (fitted on the other three blocks)</td><td>1,285</td><td>4.25</td><td>—</td><td>—</td><td>2.31</td><td>6.99</td></tr><tr><td><b>σ used on block SW</b> (fitted on the other three blocks)</td><td>1,212</td><td>4.35</td><td>—</td><td>—</td><td>2.43</td><td>7.19</td></tr></tbody></table><p class='small'>σ(x) is the distance from a withheld fault segment to the nearest candidate ridge, split into across-strike and along-strike components against the ridge's own normal. A component counts only when ≥ 60&nbsp;% of its pixels lie within 15&nbsp;px of a ridge — an unmatched component is a <i>detection</i> failure, not an offset, and is excluded from the scale. Values are pixels (1&nbsp;px = 100&nbsp;m); the scoring kernel radius is 3&nbsp;px. Cross-fitting is leave-one-block-out, so no block contributes to the σ used to emit on itself.</p><h2>2 · Ribbon geometries at an equal dot budget</h2><table class="num"><thead><tr><th>arm</th><th>geometry</th><th>HOLDOUT-DTI (pooled)</th><th>95 % CI</th><th>dots (4 folds)</th><th>TP_w</th><th>FP_w</th><th>Δ vs best</th></tr></thead><tbody><tr><td><b>R5_d3</b></td><td>5 parallel dotted lines at 0, ±3, ±6 px (kernel-radius spacing)</td><td><b>0.059635</b></td><td>0.050889 – 0.067546</td><td>176,360</td><td>5027</td><td>172977</td><td>—</td></tr><tr><td><b>R3_d3</b></td><td>3 parallel dotted lines at 0, ±3 px (kernel-radius spacing)</td><td><b>0.056444</b></td><td>0.048133 – 0.064191</td><td>176,360</td><td>4760</td><td>173378</td><td>-0.018338</td></tr><tr><td><b>R5_d2</b></td><td>5 parallel dotted lines at 0, ±2, ±4 px</td><td><b>0.049679</b></td><td>0.042314 – 0.056574</td><td>176,360</td><td>4180</td><td>173086</td><td>-0.011573</td></tr><tr><td><b>R3_d2</b></td><td>3 parallel dotted lines at 0, ±2 px</td><td><b>0.049121</b></td><td>0.041406 – 0.056224</td><td>176,359</td><td>4138</td><td>173597</td><td>-0.011015</td></tr><tr><td><b>R7_d2</b></td><td>7 parallel dotted lines at 0, ±2, ±4, ±6 px</td><td><b>0.047101</b></td><td>0.038905 – 0.054801</td><td>176,360</td><td>3961</td><td>173028</td><td>-0.008995</td></tr><tr><td><b>T1</b></td><td>single tight dotted line on the ridge centreline</td><td><b>0.044854</b></td><td>0.037729 – 0.051681</td><td>176,360</td><td>3779</td><td>174023</td><td>-0.006748</td></tr><tr><td><b>ADAPT</b></td><td>per-segment width = cross-fitted σ, lines at 3 px spacing</td><td><b>0.038106</b></td><td>0.030865 – 0.045480</td><td>176,358</td><td>3199</td><td>173085</td><td>not measured</td></tr></tbody></table><p class='small'><span class="pill info">HOLDOUT-DTI</span> Equal budget: every arm emits the same 44,090 dots per fold (total 1,234,517) on the same ridge segments at ridge threshold 0.5; they differ only in the across-strike line offsets and the along-strike dot stride, which is fitted so each arm lands on the shared budget. Evaluator <code>gems57-pooled-hide-v2</code>, protocol <code>gems58-pooled-hide-v1</code>; the CI is a paired percentile bootstrap over physical 20&nbsp;km spatial blocks, resampled identically for every arm.</p><h2>3 · Simulated gain per σ class (idealised, equal dot density)</h2><table class="num"><thead><tr><th>σ class</th><th>T1</th><th>R3_d2</th><th>R5_d2</th><th>R7_d2</th><th>R3_d3</th><th>R5_d3</th><th>R3_d1</th><th>R5_d1</th><th>best − tight</th></tr></thead><tbody><tr><td>σ = 0.25 px</td><td><b>0.9677</b></td><td>0.3594</td><td>0.2220</td><td>0.1606</td><td>0.3594</td><td>0.2220</td><td>0.3601</td><td>0.2225</td><td>0.00000</td></tr><tr><td>σ = 0.50 px</td><td><b>0.9676</b></td><td>0.3444</td><td>0.2125</td><td>0.1537</td><td>0.3424</td><td>0.2112</td><td>0.3563</td><td>0.2201</td><td>0.00000</td></tr><tr><td>σ = 1.00 px</td><td><b>0.9362</b></td><td>0.3340</td><td>0.2060</td><td>0.1489</td><td>0.3126</td><td>0.1924</td><td>0.3471</td><td>0.2196</td><td>0.00000</td></tr><tr><td>σ = 1.50 px</td><td><b>0.8413</b></td><td>0.3283</td><td>0.2058</td><td>0.1488</td><td>0.3054</td><td>0.1880</td><td>0.3197</td><td>0.2144</td><td>0.00000</td></tr><tr><td>σ = 2.00 px</td><td><b>0.7352</b></td><td>0.3121</td><td>0.2048</td><td>0.1487</td><td>0.3012</td><td>0.1877</td><td>0.2851</td><td>0.2021</td><td>0.00000</td></tr><tr><td>σ = 2.50 px</td><td><b>0.6426</b></td><td>0.2893</td><td>0.2010</td><td>0.1484</td><td>0.2911</td><td>0.1874</td><td>0.2521</td><td>0.1861</td><td>0.00000</td></tr><tr><td>σ = 3.00 px</td><td><b>0.5667</b></td><td>0.2651</td><td>0.1942</td><td>0.1472</td><td>0.2762</td><td>0.1862</td><td>0.2236</td><td>0.1698</td><td>0.00000</td></tr><tr><td>σ = 4.00 px</td><td><b>0.4547</b></td><td>0.2220</td><td>0.1754</td><td>0.1409</td><td>0.2422</td><td>0.1791</td><td>0.1801</td><td>0.1413</td><td>0.00000</td></tr><tr><td>σ = 5.00 px</td><td><b>0.3782</b></td><td>0.1884</td><td>0.1557</td><td>0.1310</td><td>0.2109</td><td>0.1673</td><td>0.1496</td><td>0.1194</td><td>0.00000</td></tr><tr><td>σ = 6.00 px</td><td><b>0.3234</b></td><td>0.1627</td><td>0.1383</td><td>0.1202</td><td>0.1851</td><td>0.1540</td><td>0.1277</td><td>0.1028</td><td>0.00000</td></tr><tr><td>σ = 8.00 px</td><td><b>0.2507</b></td><td>0.1272</td><td>0.1113</td><td>0.1005</td><td>0.1471</td><td>0.1293</td><td>0.0985</td><td>0.0801</td><td>0.00000</td></tr></tbody></table><p class='small'>The idealised 1-D companion: a straight fault at across-strike offset δ ~ half-Normal(0, σ) from the detected ridge, every ribbon emitted at the <i>same dot density on the ground</i> (|U|/s fixed, so the FP charge is identical and only TP differs). Under that constraint the tight line wins at every σ, because a dot's along-strike reach (±3 px) is free coverage on a line while an across-strike offset is not. The holdout disagrees, and the reason is segment length: real ridge segments are short, so the stride cannot be raised to pay for extra lines. <span class="pill warn">PROJECTION</span> — model arithmetic, not a measured score.</p><h2>4 · Gates</h2><div class="gates">
+<div class="gate pass"><h4>G1 · Portal format (local preflight, bytes re-hashed)</h4><p><span class="pill pass">PASS</span></p><p>15/15 local format/range checks pass; the sha256 recomputed from the bytes on disk matches the receipt; template report ok=True (problems: []); no NaN anywhere (all-finite zeros export: 0 outside the footprint), values in [0,1], single-band float32, EPSG:32611, 3730x3292, transform identical to sample_submission.tif; on-catalogue dots = True.</p></div>
+<div class="gate fail"><h4>G2 · Uniqueness — public inventory scan (literal protocol gate)</h4><p><span class="pill fail">OPEN</span></p><p>None sha256-verified witnesses from <code>registry/registry_v3_index.json</code>; missing/invalid 0; inventory complete None. Worst rank correlation 0.0543 (limit 0.90); worst 3&nbsp;px forward overlap <b>1.0000</b> (limit 0.70); worst dot-set Jaccard 0.0242; byte-unique True, pixel-unique True; duplicate_count 81; verdict negative.</p></div>
+<div class="gate fail"><h4>G2i · Uniqueness — chance-corrected reading (informational)</h4><p><span class="pill fail">OPEN</span></p><p>Open by construction: this is the standing owner decision, never claimed by a script. Of the 81 witnesses flagged by the literal rule, <b>53 are dense rasters whose dots cover ≥ 50&nbsp;% of the 5,167,373-pixel footprint</b>, so their forward-overlap test returns 1.00 for every candidate including a random one and cannot discriminate. The other 28 are informative, and against them the worst dot-set Jaccard is 0.0103 and the worst footprint rank correlation 0.0422 — both essentially zero, i.e. near-disjoint and uncorrelated. Read the other way: the artifact is not a copy of anything in the inventory in substance, and the flag comes entirely from a test that is degenerate against dense rasters. Ratifying this reading is the owner's call.</p></div>
+<div class="gate pass"><h4>G3 · Leakage canary (single-feature AUC)</h4><p><span class="pill pass">PASS</span></p><p>max AUC over 20 feature groups and all folds 0.8950 vs the 0.90 leakage limit; groups flagged as leaking: 0. <span class="pill info">HOLDOUT-DTI</span></p></div>
+<div class="gate pass"><h4>G4 · Holdout evidence recorded and labelled</h4><p><span class="pill pass">PASS</span></p><p>HOLDOUT-DTI 0.038249 (95&nbsp;% paired physical spatial-block CI 0.032263–0.043873, 1000 draws over 644 20&nbsp;km blocks); 60869 withheld positives; protocol gems58-pooled-hide-v1 / evaluator gems57-pooled-hide-v2. This measures recovery of <i>catalogue</i> truth, not the organizer's private new-fault truth.</p></div>
+<div class="gate fail"><h4>G5 · Organizer receipt for this raster</h4><p><span class="pill fail">OPEN</span></p><p>No DrivenData submission receipt exists for this raster, so no ORGANIZER-CONFIRMED score can be quoted for it. This gate can only be closed by the owner's selector step and is never claimed here.</p></div>
+</div><h2>5 · Uniqueness screen</h2><pre class='small'>{
+ &quot;informative_reading&quot;: {
+  &quot;rasters_with_chance_measurement&quot;: 0,
+  &quot;rasters_saturated&quot;: 0,
+  &quot;rasters_informative&quot;: 0,
+  &quot;saturated_threshold_E&quot;: 0.99,
+  &quot;worst_forward_overlap_informative&quot;: null,
+  &quot;worst_forward_overlap_informative_submission&quot;: null,
+  &quot;worst_chance_corrected_lift&quot;: null,
+  &quot;worst_chance_corrected_lift_submission&quot;: null,
+  &quot;overlap_firings&quot;: 81,
+  &quot;overlap_firings_informative&quot;: 0,
+  &quot;overlap_firings_vacuous&quot;: 81,
+  &quot;overlap_firings_informative_submissions&quot;: [],
+  &quot;lane_drift_evidence&quot;: &quot;undetermined (no chance-coverage measurement on the rows)&quot;,
+  &quot;note&quot;: &quot;The literal 0.70 forward-overlap rule is reported unchanged. This reading only states whether a firing is supported by a witness that could have failed to fire: a witness whose 3-px dilation covers &gt;= 99% of the footprint overlaps every nonempty candidate, so its firing cannot distinguish drift from chance.&quot;
+ },
+ &quot;my_file&quot;: null,
+ &quot;evidence_class&quot;: &quot;REGISTRY-MEASUREMENT&quot;,
+ &quot;my_dots&quot;: 43867,
+ &quot;candidate_decoded_sha256&quot;: &quot;dbe64fec3c57a0c65d8731aa244e689d68d141bef1ac06d53c1821997beb5780&quot;,
+ &quot;candidate_file_sha256&quot;: null,
+ &quot;rho_limit&quot;: 0.9,
+ &quot;overlap_limit&quot;: 0.7,
+ &quot;jaccard_limit&quot;: 0.5,
+ &quot;registry_rasters_expected&quot;: 694,
+ &quot;registry_rasters_checked&quot;: 694,
+ &quot;complete_accessible_scan&quot;: false,
+ &quot;missing_or_invalid&quot;: 0,
+ &quot;source_errors&quot;: [],
+ &quot;worst_spearman_full_footprint&quot;: 0.054296310339110435,
+ &quot;worst_rho_submission&quot;: &quot;GEMSDOE40:docs/downloads/gemsdoe40-h8-asa-spi-depthkde-20261006T035031Z-b845d3ad449e-zeros.tif&quot;,
+ &quot;worst_dot_overlap&quot;: 1.0,
+ &quot;worst_overlap_submission&quot;: &quot;GEMSDOE2:data/evidence/runs/turbo-simple-20260925T042003Z/submission.tif&quot;,
+ &quot;worst_jaccard_dot_sets&quot;: 0.02417858169746713,
+ &quot;worst_jaccard_submission&quot;: &quot;GEMSDOE2:data/evidence/runs/structure-consensus-v1/submission.tif&quot;,
+ &quot;byte_unique_among_checked&quot;: true,
+ &quot;pixel_unique_among_checked&quot;: true,
+ &quot;duplicate_count&quot;: 81,
+ &quot;unique&quot;: false,
+ &quot;jaccard_diagnostic_only&quot;: true,
+ &quot;verdict&quot;: &quot;negative&quot;,
+ &quot;stop_required&quot;: true,
+ &quot;candidate_rank_variation&quot;: true,
+ &quot;scope&quot;: &quot;All hash-verified accessible entries in the indexed public owner-repository inventory; not a complete organizer registry. External/private/unlinked/inaccessible files may be absent. Reverse overlap is diagnostic only.&quot;,
+ &quot;seconds&quot;: 443.4
+}</pre><h2>6 · Second reading of the uniqueness scan</h2><pre class='small'>{
+ &quot;evidence_class&quot;: &quot;PUBLIC-SIBLING-INVENTORY&quot;,
+ &quot;question&quot;: &quot;of the witnesses flagged by the literal forward-overlap rule, how many are dense rasters for which that rule is degenerate (it returns 1.00 for every candidate, random or not)?&quot;,
+ &quot;footprint_pixels&quot;: 5167373,
+ &quot;degenerate_threshold_frac_of_footprint&quot;: 0.5,
+ &quot;n_witnesses&quot;: 694,
+ &quot;n_flagged_literal&quot;: 81,
+ &quot;n_flagged_degenerate&quot;: 53,
+ &quot;n_flagged_informative&quot;: 28,
+ &quot;worst_spearman_among_flagged&quot;: 0.04218196958032218,
+ &quot;worst_jaccard_among_flagged&quot;: 0.01031810501443869,
+ &quot;worst_spearman_among_informative_flagged&quot;: 0.009862196463524035,
+ &quot;worst_jaccard_among_informative_flagged&quot;: 0.01031810501443869,
+ &quot;informative_flagged&quot;: [
+  {
+   &quot;repo&quot;: &quot;GEMSDOE3&quot;,
+   &quot;submission&quot;: &quot;GEMSDOE3:docs/downloads/coverage-v3-wide-20260925T054019Z-0ac095a7ed.tif&quot;,
+   &quot;their_dots&quot;: 624025,
+   &quot;forward&quot;: 0.7818,
+   &quot;jaccard&quot;: 0.0103,
+   &quot;spearman&quot;: 0.0099
+  },
+  {
+   &quot;repo&quot;: &quot;15GEMSDOE&quot;,
+   &quot;submission&quot;: &quot;15GEMSDOE:docs/downloads/gems-cleanup-a-20260928T195952Z-curv_scarp.tif&quot;,
+   &quot;their_dots&quot;: 362327,
+   &quot;forward&quot;: 0.8569,
+   &quot;jaccard&quot;: 0.0101,
+   &quot;spearman&quot;: 0.008
+  },
+  {
+   &quot;repo&quot;: &quot;13GEMSDOE&quot;,
+   &quot;submission&quot;: &quot;13GEMSDOE:docs/downloads/archive/13gems-r8-ensemble-20260930T014614Z_allfinite.tif&quot;,
+   &quot;their_dots&quot;: 452679,
+   &quot;forward&quot;: 0.8616,
+   &quot;jaccard&quot;: 0.01,
+   &quot;spearman&quot;: 0.0079
+  },
+  {
+   &quot;repo&quot;: &quot;13GEMSDOE&quot;,
+   &quot;submission&quot;: &quot;13GEMSDOE:docs/downloads/archive/13gems-r8-ensemble-20260930T014614Z.tif&quot;,
+   &quot;their_dots&quot;: 452679,
+   &quot;forward&quot;: 0.8616,
+   &quot;jaccard&quot;: 0.01,
+   &quot;spearman&quot;: 0.0079
+  },
+  {
+   &quot;repo&quot;: &quot;55GEMSDOE&quot;,
+   &quot;submission&quot;: &quot;55GEMSDOE:evidence/parallel_session_16/tensor-continuous-1875224px-20261009T202053Z-nan.tif&quot;,
+   &quot;their_dots&quot;: 1875224,
+   &quot;forward&quot;: 0.8007,
+   &quot;jaccard&quot;: 0.0091,
+   &quot;spearman&quot;: 0.0075
+  },
+  {
+   &quot;repo&quot;: &quot;55GEMSDOE&quot;,
+   &quot;submission&quot;: &quot;55GEMSDOE:evidence/parallel_session_16/tensor-continuous-1875224px-20261009T202053Z-zeros.tif&quot;,
+   &quot;their_dots&quot;: 1875224,
+   &quot;forward&quot;: 0.8007,
+   &quot;jaccard&quot;: 0.0091,
+   &quot;spearman&quot;: 0.0075
+  },
+  {
+   &quot;repo&quot;: &quot;13GEMSDOE&quot;,
+   &quot;submission&quot;: &quot;13GEMSDOE:docs/downloads/archive/13gems-r6-ensemble-20260929T182914Z_allfinite.tif&quot;,
+   &quot;their_dots&quot;: 344041,
+   &quot;forward&quot;: 0.7887,
+   &quot;jaccard&quot;: 0.0087,
+   &quot;spearman&quot;: 0.0035
+  },
+  {
+   &quot;repo&quot;: &quot;13GEMSDOE&quot;,
+   &quot;submission&quot;: &quot;13GEMSDOE:docs/downloads/archive/13gems-r6-ensemble-20260929T182914Z.tif&quot;,
+   &quot;their_dots&quot;: 344041,
+   &quot;forward&quot;: 0.7887,
+   &quot;jaccard&quot;: 0.0087,
+   &quot;spearman&quot;: 0.0035
+  },
+  {
+   &quot;repo&quot;: &quot;GEMSDOE50&quot;,
+   &quot;submission&quot;: &quot;GEMSDOE50:docs/downloads/gemsdoe50-h59-topo-lineament-scatter-180k-20261007T170212Z-nan.tif&quot;,
+   &quot;their_dots&quot;: 180000,
+   &quot;forward&quot;: 0.7274,
+   &quot;jaccard&quot;: 0.0082,
+   &quot;spearman&quot;: 0.0035
+  },
+  {
+   &quot;repo&quot;: &quot;GEMSDOE50&quot;,
+   &quot;submission&quot;: &quot;GEMSDOE50:docs/downloads/gemsdoe50-h59-topo-lineament-scatter-180k-20261007T170212Z-allfinite.tif&quot;,
+   &quot;their_dots&quot;: 180000,
+   &quot;forward&quot;: 0.7274,
+   &quot;jaccard&quot;: 0.0082,
+   &quot;spearman&quot;: 0.0035
+  },
+  {
+   &quot;repo&quot;: &quot;13GEMSDOE&quot;,
+   &quot;submission&quot;: &quot;13GEMSDOE:docs/downloads/archive/13gems-composite-20260928T040920Z.tif&quot;,
+   &quot;their_dots&quot;: 338755,
+   &quot;forward&quot;: 0.7999,
+   &quot;jaccard&quot;: 0.0079,
+   &quot;spearman&quot;: 0.001
+  },
+  {
+   &quot;repo&quot;: &quot;13GEMSDOE&quot;,
+   &quot;submission&quot;: &quot;13GEMSDOE:docs/downloads/archive/13gems-composite-20260928T040920Z_allfinite.tif&quot;,
+   &quot;their_dots&quot;: 338755,
+   &quot;forward&quot;: 0.7999,
+   &quot;jaccard&quot;: 0.0079,
+   &quot;spearman&quot;: 0.001
+  },
+  {
+   &quot;repo&quot;: &quot;13GEMSDOE&quot;,
+   &quot;submission&quot;: &quot;13GEMSDOE:docs/downloads/archive/13gems-composite-20260929T183221Z_allfinite.tif&quot;,
+   &quot;their_dots&quot;: 507776,
+   &quot;forward&quot;: 0.8666,
+   &quot;jaccard&quot;: 0.0078,
+   &quot;spearman&quot;: -0.0003
+  },
+  {
+   &quot;repo&quot;: &quot;13GEMSDOE&quot;,
+   &quot;submission&quot;: &quot;13GEMSDOE:docs/downloads/archive/13gems-composite-20260929T183221Z.tif&quot;,
+   &quot;their_dots&quot;: 507776,
+   &quot;forward&quot;: 0.8666,
+   &quot;jaccard&quot;: 0.0078,
+   &quot;spearman&quot;: -0.0003
+  },
+  {
+   &quot;repo&quot;: &quot;13GEMSDOE&quot;,
+   &quot;submission&quot;: &quot;13GEMSDOE:docs/downloads/13gems_20261001_r11-greedy-mp_v2_nan-outside.tif&quot;,
+   &quot;their_dots&quot;: 272853,
+   &quot;forward&quot;: 0.836,
+   &quot;jaccard&quot;: 0.0076,
+   &quot;spearman&quot;: 0.0007
+  },
+  {
+   &quot;repo&quot;: &quot;13GEMSDOE&quot;,
+   &quot;submission&quot;: &quot;13GEMSDOE:docs/downloads/13gems_20261001_r11-greedy-mp_v2_zerofill.tif&quot;,
+   &quot;their_dots&quot;: 272853,
+   &quot;forward&quot;: 0.836,
+   &quot;jaccard&quot;: 0.0076,
+   &quot;spearman&quot;: 0.0007
+  },
+  {
+   &quot;repo&quot;: &quot;13GEMSDOE&quot;,
+   &quot;submission&quot;: &quot;13GEMSDOE:docs/downloads/archive/13gems-r11-greedy-mp.tif&quot;,
+   &quot;their_dots&quot;: 272853,
+   &quot;forward&quot;: 0.836,
+   &quot;jaccard&quot;: 0.0076,
+   &quot;spearman&quot;: 0.0007
+  },
+  {
+   &quot;repo&quot;: &quot;13GEMSDOE&quot;,
+   &quot;submission&quot;: &quot;13GEMSDOE:docs/downloads/archive/13gems-r11-greedy-mp_allfinite.tif&quot;,
+   &quot;their_dots&quot;: 272853,
+   &quot;forward&quot;: 0.836,
+   &quot;jaccard&quot;: 0.0076,
+   &quot;spearman&quot;: 0.0007
+  },
+  {
+   &quot;repo&quot;: &quot;13GEMSDOE&quot;,
+   &quot;submission&quot;: &quot;13GEMSDOE:docs/downloads/13gems_20261001_r14-union-tips10-lat6_zerofill.tif&quot;,
+   &quot;their_dots&quot;: 192231,
+   &quot;forward&quot;: 0.7592,
+   &quot;jaccard&quot;: 0.0073,
+   &quot;spearman&quot;: 0.0008
+  },
+  {
+   &quot;repo&quot;: &quot;13GEMSDOE&quot;,
+   &quot;submission&quot;: &quot;13GEMSDOE:docs/downloads/13gems_20261001_r14-union-tips10-lat6_nan-outside.tif&quot;,
+   &quot;their_dots&quot;: 192231,
+   &quot;forward&quot;: 0.7592,
+   &quot;jaccard&quot;: 0.0073,
+   &quot;spearman&quot;: 0.0008
+  }
+ ],
+ &quot;degenerate_examples&quot;: [
+  {
+   &quot;repo&quot;: &quot;GEMSDOE2&quot;,
+   &quot;submission&quot;: &quot;GEMSDOE2:data/evidence/runs/turbo-simple-20260925T042003Z/submission.tif&quot;,
+   &quot;their_dots&quot;: 5167373,
+   &quot;coverage&quot;: 1.0,
+   &quot;forward&quot;: 1.0,
+   &quot;jaccard&quot;: 0.0085
+  },
+  {
+   &quot;repo&quot;: &quot;GEMSDOE2&quot;,
+   &quot;submission&quot;: &quot;GEMSDOE2:data/evidence/runs/turbo-simple-20260925T043629Z/submission.tif&quot;,
+   &quot;their_dots&quot;: 5167373,
+   &quot;coverage&quot;: 1.0,
+   &quot;forward&quot;: 1.0,
+   &quot;jaccard&quot;: 0.0085
+  },
+  {
+   &quot;repo&quot;: &quot;GEMSDOE48&quot;,
+   &quot;submission&quot;: &quot;GEMSDOE48:docs/downloads/diagnostics/GEMSDOE48-H56-OWDS-B2xH33D-20261007-1f7b5a4f18db-unassigned-mtheta.tif&quot;,
+   &quot;their_dots&quot;: 5167373,
+   &quot;coverage&quot;: 1.0,
+   &quot;forward&quot;: 1.0,
+   &quot;jaccard&quot;: 0.0085
+  },
+  {
+   &quot;repo&quot;: &quot;GEMSDOE48&quot;,
+   &quot;submission&quot;: &quot;GEMSDOE48:docs/downloads/diagnostics/GEMSDOE48-H53-DS-RadEdge-B2xH33D-20261007-4c01fcf2ad8c-radiometric-edge-coherence.tif&quot;,
+   &quot;t</pre><footer>Generated by <code>scripts/build_site_v3.py</code> from the receipts in <code>evidence/ribbon_v3/</code>. Nothing on this site is an organizer-confirmed score: no DrivenData submission receipt exists for any raster in this repository. Sources and dated checks: <a href="sources.html">sources.html</a>. Official pages: <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">problem &amp; metric</a> · <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">leaderboard</a> · <a href="https://docs.nlr.gov/docs/fy26osti/96647.pdf">rules</a>.</footer></body></html>

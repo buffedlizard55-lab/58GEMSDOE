@@ -233,6 +233,41 @@ These commands test and render evidence only; they do not create an experimental
 
 ---
 
+## Session-4 owner prompt (verbatim)
+
+The full verbatim request that opened session 4 is stored in
+[`SESSION4_PROMPT.md`](SESSION4_PROMPT.md) and is the starting point for every future session. Its
+binding elements, restated:
+
+* **Generate a unique TIF submission; do not copy a previous submission except for learning and
+  education.** It must be *obvious* whether the generated TIF is OK to download and submit — so the
+  download banner on the site is generated from evidence and is never hand-set to green.
+* **Lane: ribbon width matched to the measured localisation error.** Measure the across-strike
+  distance from each candidate ridge to the nearest withheld segment, fit σ(x) by data block ×
+  feature resolution × ridge type, then choose per segment the number and offset of parallel dotted
+  lines (spacing near the 3-px kernel radius) that maximise
+  `U = (1 − 0.2·DTI₀)·TP − 0.2·DTI₀·FP` under the **exact** metric. Tight line where σ < ~0.5 px;
+  ribbon about ±σ wide where σ is 2–3 px. Emit included dots at exactly `1.0`.
+* **Parallel-run protocol:** stay in the lane; stop and log a duplicate if rank correlation > 0.90
+  with any registry raster or > 70 % of dots fall within 3 px of one registry raster's dots (checked
+  on the pre-placement surface *and* on the final dots). Reuse the template's cached feature stack,
+  `gems57.evaluate_holdout` and `gems57.submission_writer`; fix shared tools once, never fork them.
+* **Labelling:** every number is either `HOLDOUT-DTI` (evaluator version, withheld-positive count,
+  95 % CI) or `ORGANIZER-CONFIRMED` (from a submission receipt). A projection is never a score.
+* **Leakage canary:** test each feature alone on the holdout first; AUC > 0.90 is leakage until
+  explained.
+* **Run card:** one JSON card with hypothesis, mechanism, named non-fault mimic, HOLDOUT-DTI + CI,
+  correlation/overlap vs the registry, raster sha256, validator output (no NaN inside the footprint,
+  values in [0, 1], CRS/shape/transform match), submission name + note ≤ 140 characters, and an
+  unmistakable `promote` / `negative` verdict. Negative results are deliverables.
+* **Budget:** at most three experiments or two hours. Do not pick submissions — promotion to a real
+  slot is a separate selector step inside the weekly cap.
+* **Site:** the TIF must be one obvious download, and the executive-summary subpage must explain
+  exactly how to submit it. The owner's portal rejection `Predicted values must be in range [0, 1]`
+  is answered by the shared template's all-finite zeros export (0 outside the footprint, never NaN).
+* **Core values:** Maximize P(Win) and Own the Outcome — report the actual result, including a
+  negative one, and flag irregularities rather than smoothing them over.
+
 ## Standing prompt (embedded summary; the full operating contract is in `PROMPT.md`)
 
 > **Mission:** maximize the probability of winning the DOE GEMS Prize and own the outcome. The target is faults indicative of geothermal resources, not geothermal vents. Stay exclusively in the **ribbon-width/localization-error lane**. Current artifact status is **NOT OK TO SUBMIT — DO NOT SUBMIT**.

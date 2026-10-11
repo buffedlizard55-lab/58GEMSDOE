@@ -56,6 +56,36 @@ jobs:
           # the deliverable and its hash must be reachable from the first screen
           grep -q "big-btn" docs/index.html
           grep -q "gems58-ribbon-sigma-adaptive" docs/index.html
+      - name: Build the session-4 owner-facing site (ribbon lane)
+        run: |
+          # Same fail-closed contract as build_site.py above, for the session-4
+          # pages: --strict exits 2 whenever a gate other than the organizer
+          # receipt is open, and the rendered banner must agree with that.  It runs
+          # last, so docs/index.html and docs/executive-summary.html ship from here.
+          set +e
+          python scripts/build_site_v3.py --strict
+          code=$?
+          set -e
+          echo "strict exit code: $code"
+          if [ "$code" -eq 0 ]; then
+            grep -q "OK TO DOWNLOAD AND SUBMIT" docs/index.html
+            grep -q "OK TO DOWNLOAD AND SUBMIT" docs/executive-summary.html
+            grep -q "OK TO DOWNLOAD AND SUBMIT" docs/session4.html
+          elif [ "$code" -eq 2 ]; then
+            grep -q "NOT OK TO SUBMIT" docs/index.html
+            grep -q "DO NOT SUBMIT" docs/index.html
+            grep -q "NOT OK TO SUBMIT" docs/executive-summary.html
+            grep -q "NOT OK TO SUBMIT" docs/session4.html
+          else
+            echo "build_site_v3.py failed to render from the receipts"; exit 1
+          fi
+          # the deliverable must be one obvious click on the first and second screen
+          grep -q "big-btn" docs/index.html
+          grep -q "big-btn" docs/executive-summary.html
+          grep -q "Download the GeoTIFF" docs/index.html
+          grep -q "Download the GeoTIFF" docs/executive-summary.html
+          # the archive must still name the raster it refuses to promote
+          grep -q "gems58-ribbon-sigma-adaptive" docs/index.html
       - name: Re-derive the delivered HOLDOUT-DTI with the shared gems57 metric
         run: PYTHONPATH=src python scripts/crosscheck_shared_metric.py
       - name: Check archived ribbon pages and current negative gates
