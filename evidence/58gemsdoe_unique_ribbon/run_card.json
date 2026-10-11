@@ -1,0 +1,93 @@
+{
+  "timestamp": "20261011T182511Z",
+  "submission_name": "58GEMSDOE-ribbon-sparse-unique",
+  "submission_note": "Ribbon lane: sparse boundary dots (15000 dots at 1.0), uniqueness-filtered",
+  "file": "58GEMSDOE-ribbon-sparse-unique-20261011T182511Z.tif",
+  "sha256": "b4cd208015892a19bb2de36585a6f5ff8203dd78b95d49d6b88c8d4c927c1448",
+  "bytes": 49139380,
+  "n_dots": 15000,
+  "method": "ribbon_lane_sparse",
+  "hypothesis": "Ribbon lane: sparse adaptive dotted ribbons calibrated to measured localization error",
+  "mechanism": "Sparse emission (15,000 dots) placed along catalogue fault boundaries to avoid uniqueness violations with broad registry witnesses. All dots emitted at exactly 1.0, no dots on mapped catalogue faults.",
+  "non_fault_mimic": "Drainage channels, alluvial-fan fronts, terrace margins, road cuts, and erosion features",
+  "holdout_dti": "NOT MEASURED",
+  "evaluator_version": "NOT MEASURED",
+  "withheld_positive_count": 0,
+  "ci95": null,
+  "uniqueness_screen": {
+    "status": "NOT SCREENED",
+    "message": "Registry scan required before submission"
+  },
+  "surface_gate": {
+    "status": "NOT SCREENED",
+    "message": "Pre-placement surface comparison required"
+  },
+  "leakage_canary": {
+    "status": "NOT RUN",
+    "message": "Feature-alone AUC tests required"
+  },
+  "format_validation": {
+    "file": "/home/user/58GEMSDOE/docs/downloads/58GEMSDOE-ribbon-sparse-unique-20261011T182511Z.tif",
+    "bytes": 49139380,
+    "sha256": "b4cd208015892a19bb2de36585a6f5ff8203dd78b95d49d6b88c8d4c927c1448",
+    "meta": {
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "count": 1,
+      "nodata": null,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "profile_compress": null
+    },
+    "band_description": [
+      null
+    ],
+    "n_finite": 12279160,
+    "n_nan": 0,
+    "n_infinite": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.0012215819442644715,
+    "emitted_positive_pixels": 15000,
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "dimensions_3730x3292": true,
+      "crs_epsg_32611": true,
+      "transform_matches_sample_submission": true,
+      "no_nan_anywhere": true,
+      "no_inf_anywhere": true,
+      "no_sentinel_values": true,
+      "range_0_1_guaranteed": true,
+      "min_ge_0": true,
+      "max_le_1": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_range_0_1": true,
+      "outside_footprint_zero": true,
+      "zero_dots_on_mapped_catalogue": true
+    },
+    "all_checks_passed": true,
+    "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+    "on_catalogue_positive_pixels": 0,
+    "in_footprint_positive_pixels": 15000,
+    "footprint_fraction": 0.0029028289616406635
+  },
+  "verdict": "negative",
+  "promote": false,
+  "slots_used": 0,
+  "notes": [
+    "This is a sparse emission designed to avoid uniqueness violations.",
+    "Proper holdout, surface gate, and registry scan are required before promotion.",
+    "The file passes format validation but is NOT OK TO SUBMIT until all gates clear."
+  ]
+}

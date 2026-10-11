@@ -91,6 +91,20 @@ def test_legacy_ribbon_pages_are_red_and_do_not_say_download_ok():
         assert "NOT CLEARED" in text or "NOT OK TO SUBMIT" in text, page
 
 
+def test_sparse_session_artifact_pages_are_archived_and_never_recommend_a_slot():
+    readme = (ROOT / "docs" / "downloads" / "README.md").read_text()
+    page = (ROOT / "docs" / "downloads" / "executive-summary.html").read_text()
+    for text in (readme, page):
+        assert "ARCHIVED" in text and "DO NOT SUBMIT" in text
+        assert "RATIFIED-UNIQ-v1" in text and "cannot" in text.lower() and "waive" in text.lower()
+        assert "NOT MEASURED" in text or "not measured" in text
+        assert "slot" in text.lower()
+        assert "organizer" in text.lower() and "score" in text.lower()
+    assert "Select a weekly slot" not in page
+    assert "select a weekly slot" not in readme.lower()
+    assert "should pass due to sparse emission" not in readme.lower()
+
+
 def test_legacy_submission_and_site_builders_fail_closed():
     for script in (
         "scripts/ribbon_build_submission.py", "scripts/ribbon_build_site.py",

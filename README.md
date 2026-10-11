@@ -1,9 +1,10 @@
 # 58GEMSDOE — DOE GEMS Prize Challenge
 
-**Current decision: NOT OK TO SUBMIT — DO NOT SUBMIT.** This repository's active lane is ribbon-width
-calibration against localization error for already-detected geophysical ridges. No experiment or new
-candidate was run in this review. Read [`PROMPT.md`](PROMPT.md), this README, and
-[`REMAINING_WORK.md`](REMAINING_WORK.md) before any future research.
+**Current decision for this ribbon review: NOT OK TO SUBMIT — DO NOT SUBMIT.** This review is scoped
+to ribbon-width calibration against localization error for already-detected geophysical ridges; it is
+not a review or clearance of artifacts from other lanes. No new experiment or candidate was run in
+this review. Read [`PROMPT.md`](PROMPT.md), this README, and [`REMAINING_WORK.md`](REMAINING_WORK.md)
+before any future ribbon research.
 
 The long-range research objective remains **Maximize P(Win)** through defensible localization-error
 improvements. That objective is not a score forecast or permission to bypass the literal uniqueness,
@@ -28,6 +29,10 @@ G1 local-format PASS and G2P/G3/G4/G5 FAIL. Current promotion-grade HOLDOUT-DTI,
 count, and defensible 95% CI are **NOT MEASURED**.
 - Do not upload the TIFF, select a submission slot, or treat a download link as permission. No slot was
 selected or used in this review.
+
+Other sessions/lanes may leave artifacts in the repository. This ribbon review neither qualifies them
+nor transfers clearance to them. The downloads index gives each file its own verdict; no artifact in
+this review has an organizer-confirmed score receipt.
 
 The live status pages are generated from the shared evaluator by `scripts/build_site.py`:
 [`docs/index.html`](docs/index.html), [`docs/executive-summary.html`](docs/executive-summary.html),
