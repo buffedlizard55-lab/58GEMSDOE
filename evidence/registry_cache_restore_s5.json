@@ -1,0 +1,78 @@
+{
+  "evidence_class": "REGISTRY-MEASUREMENT",
+  "generated_utc": "2026-10-11T15:40:05Z",
+  "index": "registry/registry_merged.json",
+  "index_rasters": 703,
+  "restored": 695,
+  "already_cached": 0,
+  "errors": [
+    {
+      "repo": "58GEMSDOE(this-repo)",
+      "blob": null,
+      "sources": [
+        "58GEMSDOE(this-repo):docs/downloads/archive/58GEMSDOE-ribbon-lane-v1-20261011.tif"
+      ],
+      "error": "gh api failed rc=1: gh: Not Found (HTTP 404)"
+    },
+    {
+      "repo": "58GEMSDOE(this-repo)",
+      "blob": null,
+      "sources": [
+        "58GEMSDOE(this-repo):docs/downloads/gems58-mece-hybrid-20261011T015838Z-513210e2-zeros.tif"
+      ],
+      "error": "gh api failed rc=1: gh: Not Found (HTTP 404)"
+    },
+    {
+      "repo": "58GEMSDOE(this-repo)",
+      "blob": null,
+      "sources": [
+        "58GEMSDOE(this-repo):docs/downloads/gems58-mece-sgmc-catkernel-20261011T015429Z-b324aa01-zeros.tif"
+      ],
+      "error": "gh api failed rc=1: gh: Not Found (HTTP 404)"
+    },
+    {
+      "repo": "58GEMSDOE(this-repo)",
+      "blob": null,
+      "sources": [
+        "58GEMSDOE(this-repo):docs/downloads/gems58-prox-dot36k-20261011T030218Z-e7bbfea83853-zeros.tif"
+      ],
+      "error": "gh api failed rc=1: gh: Not Found (HTTP 404)"
+    },
+    {
+      "repo": "58GEMSDOE(this-repo)",
+      "blob": null,
+      "sources": [
+        "58GEMSDOE(this-repo):docs/downloads/gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.tif"
+      ],
+      "error": "gh api failed rc=1: gh: Not Found (HTTP 404)"
+    },
+    {
+      "repo": "58GEMSDOE(this-repo)",
+      "blob": null,
+      "sources": [
+        "58GEMSDOE(this-repo):docs/downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif"
+      ],
+      "error": "gh api failed rc=1: gh: Not Found (HTTP 404)"
+    },
+    {
+      "repo": "58GEMSDOE(this-repo)",
+      "blob": null,
+      "sources": [
+        "58GEMSDOE(this-repo):docs/ribbon/downloads/gems58-adaptive-ribbon-38000-20261011T000000Z.tif"
+      ],
+      "error": "gh api failed rc=1: gh: Not Found (HTTP 404)"
+    },
+    {
+      "repo": "58GEMSDOE(this-repo)",
+      "blob": null,
+      "sources": [
+        "58GEMSDOE(this-repo):evidence/gems58-ribbon-sigma168-w3-38000-M1-CONTROL-20261011T000000Z.tif"
+      ],
+      "error": "gh api failed rc=1: gh: Not Found (HTTP 404)"
+    }
+  ],
+  "n_errors": 8,
+  "complete": false,
+  "seconds": 105.2,
+  "note": "Cache restore only; no scoring, fitting or promotion performed here."
+}

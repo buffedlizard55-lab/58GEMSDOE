@@ -55,7 +55,7 @@ jobs:
           fi
           # the deliverable and its hash must be reachable from the first screen
           grep -q "big-btn" docs/index.html
-          grep -q "gems58-ribbon-sigma-adaptive" docs/index.html
+          grep -q "gems58-concordance-ribbon" docs/index.html
       - name: Re-derive the delivered HOLDOUT-DTI with the shared gems57 metric
         run: PYTHONPATH=src python scripts/crosscheck_shared_metric.py
       - name: Check archived ribbon pages and current negative gates
