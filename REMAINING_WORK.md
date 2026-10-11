@@ -1,3 +1,97 @@
+# Remaining work and limitations — 58GEMSDOE
+
+> **Session 3 (2026-10-11 UTC) is the current state; session 1's list is preserved verbatim below it.**
+> Read the standing prompt in `README.md` first — every session must.
+
+## S3.0 Where the work stands right now
+
+| Item | State |
+|---|---|
+| Delivered candidate | `docs/downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif`, sha256 `ecf833f8ea7a6698636b48b0dcd0d03aa925d603753e60e03d9d1660922711dd`, 433,419 B, 40,768 dots at exactly 1.0, NaN outside the footprint exactly like `sample_submission.tif`, 0 dots on the catalogue |
+| Local portal preflight | **15/15 pass** (`evidence/ribbon/emission.json` → `validator`) |
+| HOLDOUT-DTI of the delivered bytes | **0.043651** pooled; NW 0.046854 / NE 0.036240 / SW 0.056175 / SE 0.033176; 60,869 withheld positives; `gems58-pooled-hide-v1`; evaluator `gems58w.metric/v1`; interval 0.033176–0.056175 (min–max over 4 blocks — no bootstrap CI is claimed, because a 4-block bootstrap resamples repeated physical blocks as independent) |
+| Uniqueness, local witnesses (corrected instrument) | 27 witnesses incl. this repo's own 8: worst ρ **0.1824**, worst 3 px forward overlap **0.6027** (both vs this repo's own earlier ribbon file), 0 informative firings, 0 saturated, drift `none` |
+| Uniqueness, public inventory (gate G3) | `PYTHONPATH=src python3 scripts/check_uniqueness_registry.py <candidate> --workers 2 --out ribbon/uniqueness_full_inventory.json` over 703 byte-verified rasters (695/695 pinned + current-tree delta). **If this receipt is missing or negative, the site banner must read NOT OK** — `scripts/build_site.py` exits 2 in that case and CI can assert it. |
+| Site | `python3 scripts/build_site.py` → `docs/index.html` (banner + download at the top), `docs/executive-summary.html` (7-step how-to-submit), `docs/submit.html` (portal checklist + the range-error fix), `docs/RUN_CARD.json` |
+| Slots used | **0**. The agent never uploads or selects. |
+
+## S3.1 Remaining work, in priority order
+
+1. **Close gate G3 and re-run the site builder.** The full-inventory scan is the governing uniqueness
+   clearance. After it lands: `python3 scripts/build_site.py` (expect exit 0 and a green banner), then
+   update the `Uniqueness — public inventory` row in the README banner with the worst ρ / worst
+   overlap / duplicate count from `evidence/ribbon/uniqueness_full_inventory.json`.
+2. **The owner's selector step.** Only the owner can spend a slot. If they do, copy the score from the
+   submission page into `registry/submissions_seen.csv` with the date and the file's sha256 — that is
+   the first ORGANIZER-CONFIRMED number this lane will ever have, and it retroactively validates or
+   kills every projection in `docs/LEADERBOARD.md`.
+3. **Coverage is the only lever that matters.** The leader's 0.4133 implies ≈0.36 weighted coverage;
+   this surface reaches 0.0561 on catalogue truth, and the calibrated per-stratum credit k̂
+   (0.000–0.035) sits entirely below the marginal-inclusion bar α·0.4133 = 0.0827. Ribbon geometry is
+   worth +0.005 HOLDOUT-DTI at equal budget; coverage is worth ~6×. Any next session should spend its
+   three experiments on *detection*, not on emission geometry.
+4. **Aeroradiometric + 1 m lidar evidence (owner download required).** The stack has no eK/eU/eTh/total
+   count and no lidar derivative, although page 968 says GeoDAWN acquired both. Links are verified in
+   `evidence/organizer_confirmed.json`; the sandbox cannot fetch binaries. If the owner drops the
+   products into `data/external/`, hypothesis H58-R3 (K-metasomatism / silicification / Fe-oxide
+   staining + scarp morphology) becomes testable and is the highest-value untried idea in the repo.
+5. **Cross-fitted supervised detector with per-stratum detection rate.** The ridge field is unsupervised
+   and its detection rate at ≤300 m is 11.6–13.6 % of withheld truth. A supervised detector trained on
+   visible faults with block cross-fitting, emitting where its calibrated detection rate exceeds the
+   marginal bar, is the obvious coverage play. Session 2's PROX arm (0.2147 vs GF 0.0689 on the
+   detached contest) says proximity-to-catalogue dominates geophysics *on the holdout*, which is
+   exactly the trap IR-58-02 describes — do not read that as a live-score predictor.
+6. **Directional σ (an error tensor instead of a scalar).** σ is currently isotropic across strike.
+   Along-strike error and dip-dependent expression are unmodelled; a 2×2 tensor per stratum would let
+   `allocation.plan` place lines anisotropically.
+7. **Regenerate the ribbon subsite.** `docs/ribbon/` still describes the v1 38,000-dot file and was
+   built by `scripts/ribbon_build_site.py` from `evidence/ribbon/run_card.json`. It is now an archive;
+   the main site is authoritative. Either re-point that builder at `run_card_v2.json` (its expected
+   schema differs: `raster_bytes`, `registry`, `catalogue_distance_profile`, `validator.checks`) or
+   leave it clearly labelled as the v1 archive.
+8. **`scripts/chance_coverage.py` is stale** (hardcodes `~/.cache/gems-data/sample_submission.tif` and
+   an old CSV schema) and `scripts/chance_corrected_uniqueness.py` is hardcoded to one candidate and
+   `row["file"]`. Rewrite or delete; neither is used by the current pipeline.
+
+## S3.2 Limitations of everything above
+
+- **No organizer receipt exists**, so no score is claimed anywhere. HOLDOUT-DTI measures recovery of
+  catalogue truth; the competition scores new faults whose provenance the organizers will not
+  disclose (thread 11527). The two are not the same quantity and no bridge between them is measurable
+  locally.
+- **The mandated holdout cannot score an off-catalogue file** (IR-58-02): withheld truth *is*
+  catalogue, so a full-catalogue 3 px margin gives HOLDOUT-DTI exactly 0. The delivered file drops
+  only *on*-catalogue dots (inert per thread 11516), which is why its HOLDOUT-DTI is non-zero.
+- **σ is large and censored.** Pooled median 6.88 px with an estimator that floors at 0.5 and caps at
+  6.0 px; components whose nearest withheld segment is beyond the search window are recorded as
+  unreachable. The lane's "tight line where σ < 0.5 px" branch is unreachable by construction
+  (IR-58-SIGMA-01).
+- **The adaptive plan barely adapts.** 5,794 of 6,286 segments got 5 lines and 492 got 3; AD was
+  *identical* to a uniform 5-line ribbon (pooled delta 0.000000). The measured gain is "ribbon vs
+  tight line", not "per-segment adaptivity".
+- **Live-score calibration is a measured dead end** (IR-58-LIVE-01): R² = −1.27, no covariate above
+  |Spearman| 0.258 over 66 verified rasters, because subset membership is undisclosed. The 40,768-dot
+  budget is the median of the owner-reported ≥0.24 family — a family match, not a calibrated optimum.
+- **The witness inventory is a public sibling-repository inventory**, not an organizer registry: 703
+  byte-verified rasters from 56 reachable clones' current default branches plus this repository's own
+  working tree. Private, renamed or deleted repositories are out of scope by construction.
+- **Two CPUs, ~3 GB RAM.** The full scan takes ~30–40 minutes at `--workers 2`; anything wider
+  thrashes. The feature stack must be streamed, never loaded twice.
+
+## S3.3 Do not re-run (measured negatives)
+
+- Two-parameter catalogue-proximity calibration of live scores (R² = −1.27).
+- SGMC-differential as held-out truth: provenance unverified (GeMS link HTTP 500, the sibling file is
+  a ~1 px dilation carried by 5+ repos) and `gemsdoe29-sgmc-off-catalogue-44k` scored **0.0512** ≈ random.
+- Unheld-budget density sweeps (+0.025 claimed vs +0.0006 at equal budget).
+- Blurring a belief field before a max-coverage emitter (sibling H34, negative).
+- CTX (distance-to-catalogue as a feature): the model collapses onto the catalogue (IR-58-CTX-01).
+- Any catalogue margin on the delivered file: it zeroes the holdout by construction (IR-58-02).
+- Re-introducing the 90° across-strike bug in `src/gems58w/ridges.py`, the swapped overlap directions
+  in `src/gems58w/uniqueness.py`, or a private fork of any `src/gems57/` tool.
+
+---
+
 # Remaining work and limitations — 58GEMSDOE session 1 (2026-10-11)
 
 **Status of the delivered artifact**

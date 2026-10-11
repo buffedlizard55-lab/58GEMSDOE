@@ -1,10 +1,108 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Executive summary — current GEMS decision</title><link rel="stylesheet" href="assets/site.css"></head><body>
-<header><h1>Executive summary — current GEMS decision</h1></header>
-<section class="submit-box" style="border-color:#a11212"><div class="badge" style="background:#a11212">NOT OK TO SUBMIT — DO NOT SUBMIT</div>
-<p><b>Do not upload or use a weekly slot.</b> The available TIFF is a diagnostic artifact. Its final-dot overlap exceeds the literal stop threshold in the frozen registry scan, that scan is stale, the current pre-placement phase is not cleared, and no promotion-grade buffered outer holdout was run.</p>
-<p><a href="index.html">Return to status page</a> · <a href="SUBMISSION_GUIDE.md">Full guide</a></p></section>
-<h2>What the number labels mean</h2><ul><li><b>HOLDOUT-DTI</b> requires a named shared evaluator/version, withheld-positive count and defensible 95% CI. No such result exists for the revised instrument.</li>
-<li><b>ORGANIZER-CONFIRMED</b> requires a DrivenData receipt. None exists.</li><li>Local format/uniqueness evidence is not a performance score.</li></ul>
-<h2>Submission steps when—and only when—the status changes</h2><ol><li>Confirm a complete current accessible-raster inventory.</li><li>Pass the pre-placement surface and final-dot literal gates.</li><li>Pass the buffered, nested outer-block holdout and feature-alone canaries.</li><li>Read the official rules and disclose generative-AI use if applicable.</li><li>Use the platform separately; select only one final submission across prize rounds. Save the receipt.</li></ol>
-<footer>Generated 2026-10-11T03:14:54Z. No leaderboard claim or organizer receipt.</footer></body></html>
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to submit — 58GEMSDOE (GEMS competition #306)</title>
+<link rel="stylesheet" href="assets/site.css">
+<style>
+.gates{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:.6rem;margin:.8rem 0}
+.gate{border:1px solid #d7dee6;border-left:5px solid #999;border-radius:8px;padding:.55rem .7rem;background:#fbfcfd}
+.gate.pass{border-left-color:#1d7a45;background:#f2fbf5}
+.gate.fail{border-left-color:#a11212;background:#fdf3f3}
+.gate h4{margin:0 0 .25rem;font-size:.95rem}
+.gate p{margin:0;font-size:.83rem;color:#41505f}
+.pill{display:inline-block;padding:.1em .55em;border-radius:999px;font-size:.76rem;font-weight:700;color:#fff}
+.pill.pass{background:#1d7a45}.pill.fail{background:#a11212}.pill.info{background:#2f5f8f}.pill.warn{background:#8a6d1a}
+.warn-box{border:1px solid #e0c46a;border-left:5px solid #8a6d1a;background:#fffbea;border-radius:8px;padding:.7rem .9rem;margin:.8rem 0}
+.bad-box{border:1px solid #e0a3a3;border-left:5px solid #a11212;background:#fff6f6;border-radius:8px;padding:.7rem .9rem;margin:.8rem 0}
+.ok-box{border:1px solid #9ed3b3;border-left:5px solid #1d7a45;background:#f4fcf7;border-radius:8px;padding:.7rem .9rem;margin:.8rem 0}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1rem}
+.small{font-size:.85rem;color:#41505f}
+.dlrow{display:flex;flex-wrap:wrap;gap:.6rem;margin:.8rem 0}
+.num{font-variant-numeric:tabular-nums}
+nav a{margin-right:.9rem}
+footer{margin-top:2rem;border-top:1px solid #d7dee6;padding-top:.6rem;font-size:.82rem;color:#41505f}
+table{max-width:100%}
+</style>
+</head><body>
+<header><h1>58GEMSDOE — DOE GEMS competition #306</h1>
+<p>Geothermal fault detection, northwestern Great Basin (NV) · ribbon lane · every figure on this
+site is rendered from <code>evidence/**.json</code> at build time</p>
+<nav class="small"><a href="index.html">Status &amp; download</a> · <a href="executive-summary.html" style="font-weight:700">How to submit</a> · <a href="submit.html">Portal checklist</a> · <a href="sources.html">Sources</a> · <a href="evidence.html">Evidence index</a> · <a href="ribbon/index.html">Ribbon lane archive</a></nav></header>
+
+<section class="submit-box" style="border-color:#a11212">
+  <div class="badge" style="background:#a11212">NOT OK TO SUBMIT</div>
+  <h2 style="margin-top:.7rem">How to submit this file — seven steps</h2>
+  <div class="dlrow">
+    <a class="big-btn" style="background:#a11212" href="downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif" download>
+      ⬇ Download the GeoTIFF</a>
+    <a class="big-btn" style="background:#2f5f8f" href="downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.zip" download>
+      ⬇ Download the ZIP</a>
+    <a class="big-btn" style="background:#41505f" href="index.html">Back to status</a>
+  </div>
+</section>
+
+<h2>What this file is, in one paragraph</h2>
+<p>40,768 isolated dots at exactly <code>1.0</code> on a 100&nbsp;m grid
+(EPSG:32611, 3730×3292, the same bounds and transform as the organizer's sample submission), placed
+on <i>catalogue-free</i> multi-scale Hessian ridges of the organizer's own 19-band feature stack.
+Each detected ridge segment carries a ribbon of parallel dotted lines at 0, ±300 and ±600&nbsp;m
+across strike, with the number of lines chosen per segment from the localisation error σ(x) measured
+on a buffered hide-and-recover holdout and cross-fitted leave-one-block-out. No dot falls on the
+mapped USGS/INGENIOUS catalogue, because the organizer masks those pixels out of evaluation. Outside
+the study footprint the file is NaN, exactly like <code>sample_submission.tif</code>.</p>
+
+<h2>The error this file cannot produce</h2>
+<div class="ok-box"><p><b><code>Predicted values must be in range [0, 1]</code></b> — the portal
+rejection already hit on this competition — is caused by a non-finite or out-of-range value landing
+<i>inside</i> the scored footprint. This file is checked for exactly that before publication:
+<code>finite_inside_footprint</code> (NaN inside footprint = 0),
+<code>values_in_unit_interval</code> (min=0.000 max=1.000),
+<code>positive_is_exactly_one</code> (unique positives = [1.0]),
+and the NaN count outside the footprint is identical to the organizer's sample submission
+(7,111,787). All 15/
+15 local checks pass — full receipt on the
+<a href="submit.html">portal checklist</a> page.</p></div>
+
+<h2>Steps</h2>
+<ol><li><b>Check the banner on the status page</b><br><span class="small">It is generated from evidence receipts, not from prose. If it is not green, do not submit. <a href='index.html'>index.html</a></span></li><li><b>Download the GeoTIFF — or the ZIP</b><br><span class="small"><code>downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif</code> · 433,419 bytes. The ZIP contains exactly one GeoTIFF, which the portal also accepts. Do <b>not</b> upload a README, HTML, JSON or a whole-repository ZIP.</span></li><li><b>Verify the bytes before uploading</b><br><span class="small">Expected sha256 <code>ecf833f8ea7a6698636b48b0dcd0d03aa925d603753e60e03d9d1660922711dd</code>. macOS: <code>shasum -a 256 &lt;file&gt;</code> · Linux: <code>sha256sum &lt;file&gt;</code>. If it differs, the download is corrupt — re-download it.</span></li><li><b>Paste the submission name and note</b><br><span class="small">Name: <code>gems58-ribbon-sigma-adaptive-40768-20261011T052942Z</code><br>Note (135/140 characters): <code>Ribbon lane: adaptive dotted ribbons 0/+-300/+-600 m on catalogue-free Hessian ridges (sigma cross-fitted); 40768 isolated dots at 1.0.</code></span></li><li><b>Upload on the competition page</b><br><span class="small"><a href='https://www.drivendata.org/competitions/306/competition-doe-gems/'>competition #306</a> → <i>Submit</i>. This spends one of your slots; the automated agent never does it and never selects a submission.</span></li><li><b>Record the receipt</b><br><span class="small">Copy the score the submission page shows into <code>registry/submissions_seen.csv</code> with the date and the file's sha256. Only then does an ORGANIZER-CONFIRMED number exist for this lane; until then every number here is HOLDOUT-DTI, USER-REPORTED-SCORE or PROJECTION.</span></li><li><b>Decide the round selection deliberately</b><br><span class="small">One submission must be selected for both the initial round (top 5 × $10k on a fixed private new-fault set) and the final round ($100k / $70k / $40k / $25k / $15k), blind to private performance. <a href='https://www.drivendata.org/competitions/306/competition-doe-gems/rules/'>competition rules</a> · <a href='https://www.herox.com/GEMSPrize/resource/2274'>HeroX GEMS prize rules</a></span></li></ol>
+
+<h2>What is known, and what is not</h2>
+<div class="cols">
+<div class="ok-box"><b>Known — measured here <span class="pill info">HOLDOUT-DTI</span></b>
+<ul class="small">
+<li>HOLDOUT-DTI of the exact delivered bytes: <b>0.043651</b> pooled,
+0.033176–0.056175 across blocks,
+60869 withheld positives, evaluator
+<code>gems58w.metric/v1 (exact triangular kernel, R=3 px, alpha=0.2, beta=0.8)</code>, protocol <code>gems58-pooled-hide-v1</code>.</li>
+<li>At an equal budget the adaptive ribbon beats a single tight line: best arm AD2
+0.047655 vs W1 0.042462, and it wins most in the
+σ ∈ [3,6]&nbsp;px class where the tight line scores 0.</li>
+<li>No leaking feature: worst single-feature AUC 0.5955 &lt; 0.90.</li>
+<li>Uniqueness on the corrected instrument: worst rank correlation
+0.1824 and worst 3&nbsp;px forward overlap
+0.6027 over
+27 local witnesses, both inside the 0.90 / 0.70 stop limits, and
+0 informative firings.</li>
+</ul></div>
+<div class="bad-box"><b>Not known — and not claimed</b>
+<ul class="small">
+<li>The score this file would receive. No organizer receipt exists, and HOLDOUT-DTI measures recovery
+of <i>catalogue</i> truth while the competition scores <i>new</i> faults (IR-58-02).</li>
+<li>Whether it beats 0.4133 (xiaofanhu (public leaderboard #1, fetched 2026-10-11)) or the owner's stale 0.3195 target
+(IR-58-TARGET-01). The coverage arithmetic says the gap is a factor of ~6 in weighted coverage.</li>
+<li>Which public-subset pixels are scored, so no owner-quoted score can be modelled: the best
+covariate over 66 verified sibling rasters reaches |Spearman| 0.258 (IR-58-LIVE-01).</li>
+<li>Whether the σ-based line count is optimal on new faults. On the holdout the adaptive plan chose
+{&#x27;3&#x27;: 492, &#x27;5&#x27;: 5794}, so most of the measured gain is
+'ribbon vs tight line', not 'per-segment adaptivity'.</li>
+<li>Anything about the aeroradiometric and 1&nbsp;m lidar evidence that the provided stack does not
+contain (IR-58-DATA-01).</li>
+</ul></div>
+</div>
+
+<h2>Gates</h2><div class="gates"><div class="gate pass"><h4>G1 · Portal format (local preflight) <span class="pill pass">PASS</span></h4><p>15/15 local checks pass; the sha256 recomputed from the bytes on disk matches the receipt; NaN inside footprint = 0; min=0.000 max=1.000; representation = the organizer's sample_submission (NaN outside the study footprint, nodata=nan)</p></div><div class="gate pass"><h4>G2 · Uniqueness — local witnesses (corrected instrument) <span class="pill pass">PASS</span></h4><p>27 witnesses (the registry checkout plus this repo's own earlier rasters); worst rank correlation 0.1824 &lt; 0.90; worst 3&nbsp;px forward overlap 0.6027 &lt; 0.70 (OWN:evidence/gems58-ribbon-sigma168-w3-38000-M1-CONTROL-20261011T000000Z.tif); informative firings 0; saturated witnesses 0; drift evidence: none</p></div><div class="gate fail"><h4>G3 · Uniqueness — public inventory scan <span class="pill fail">FAIL</span></h4><p><code>evidence/ribbon/uniqueness_full_inventory.json</code> is missing: the governing scan over the byte-verified public inventory has not completed. Fail closed.</p></div><div class="gate pass"><h4>G4 · Leakage canary (single-feature AUC) <span class="pill pass">PASS</span></h4><p>max AUC over 7 feature groups and all folds 0.5955 vs the 0.90 leakage limit; groups flagged as leaking: 0</p></div><div class="gate pass"><h4>G5 · Holdout evidence recorded and labelled <span class="pill pass">PASS</span></h4><p>HOLDOUT-DTI 0.043651 pooled over 60869 withheld positives (gems58-pooled-hide-v1 / gems58w.metric/v1 (exact triangular kernel, R=3 px, alpha=0.2, beta=0.8)). This measures recovery of <i>catalogue</i> truth, not the organizer's new-fault truth, and is not a leaderboard forecast.</p></div><div class="gate fail"><h4>G6 · Organizer receipt for this raster <span class="pill fail">OPEN — owner step</span></h4><p>No DrivenData submission receipt exists for this raster, so no ORGANIZER-CONFIRMED score can be quoted for it. This gate can only be closed by the owner's selector step and is never claimed here; the site verdict is computed over G1–G5.</p></div></div>
+
+<footer>Generated 2026-10-11T05:58:00Z by
+<code>scripts/build_site.py</code>. No organizer receipt exists for any artifact on this site, so no
+number here is a leaderboard score unless it is labelled ORGANIZER-CONFIRMED.</footer>
+</body></html>

@@ -1,10 +1,82 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Submission guide — current GEMS decision</title><link rel="stylesheet" href="assets/site.css"></head><body>
-<header><h1>Submission guide — current GEMS decision</h1></header>
-<section class="submit-box" style="border-color:#a11212"><div class="badge" style="background:#a11212">NOT OK TO SUBMIT — DO NOT SUBMIT</div>
-<p><b>Do not upload or use a weekly slot.</b> The available TIFF is a diagnostic artifact. Its final-dot overlap exceeds the literal stop threshold in the frozen registry scan, that scan is stale, the current pre-placement phase is not cleared, and no promotion-grade buffered outer holdout was run.</p>
-<p><a href="index.html">Return to status page</a> · <a href="SUBMISSION_GUIDE.md">Full guide</a></p></section>
-<h2>What the number labels mean</h2><ul><li><b>HOLDOUT-DTI</b> requires a named shared evaluator/version, withheld-positive count and defensible 95% CI. No such result exists for the revised instrument.</li>
-<li><b>ORGANIZER-CONFIRMED</b> requires a DrivenData receipt. None exists.</li><li>Local format/uniqueness evidence is not a performance score.</li></ul>
-<h2>Submission steps when—and only when—the status changes</h2><ol><li>Confirm a complete current accessible-raster inventory.</li><li>Pass the pre-placement surface and final-dot literal gates.</li><li>Pass the buffered, nested outer-block holdout and feature-alone canaries.</li><li>Read the official rules and disclose generative-AI use if applicable.</li><li>Use the platform separately; select only one final submission across prize rounds. Save the receipt.</li></ol>
-<footer>Generated 2026-10-11T03:14:54Z. No leaderboard claim or organizer receipt.</footer></body></html>
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portal checklist — 58GEMSDOE (GEMS competition #306)</title>
+<link rel="stylesheet" href="assets/site.css">
+<style>
+.gates{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:.6rem;margin:.8rem 0}
+.gate{border:1px solid #d7dee6;border-left:5px solid #999;border-radius:8px;padding:.55rem .7rem;background:#fbfcfd}
+.gate.pass{border-left-color:#1d7a45;background:#f2fbf5}
+.gate.fail{border-left-color:#a11212;background:#fdf3f3}
+.gate h4{margin:0 0 .25rem;font-size:.95rem}
+.gate p{margin:0;font-size:.83rem;color:#41505f}
+.pill{display:inline-block;padding:.1em .55em;border-radius:999px;font-size:.76rem;font-weight:700;color:#fff}
+.pill.pass{background:#1d7a45}.pill.fail{background:#a11212}.pill.info{background:#2f5f8f}.pill.warn{background:#8a6d1a}
+.warn-box{border:1px solid #e0c46a;border-left:5px solid #8a6d1a;background:#fffbea;border-radius:8px;padding:.7rem .9rem;margin:.8rem 0}
+.bad-box{border:1px solid #e0a3a3;border-left:5px solid #a11212;background:#fff6f6;border-radius:8px;padding:.7rem .9rem;margin:.8rem 0}
+.ok-box{border:1px solid #9ed3b3;border-left:5px solid #1d7a45;background:#f4fcf7;border-radius:8px;padding:.7rem .9rem;margin:.8rem 0}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1rem}
+.small{font-size:.85rem;color:#41505f}
+.dlrow{display:flex;flex-wrap:wrap;gap:.6rem;margin:.8rem 0}
+.num{font-variant-numeric:tabular-nums}
+nav a{margin-right:.9rem}
+footer{margin-top:2rem;border-top:1px solid #d7dee6;padding-top:.6rem;font-size:.82rem;color:#41505f}
+table{max-width:100%}
+</style>
+</head><body>
+<header><h1>58GEMSDOE — DOE GEMS competition #306</h1>
+<p>Geothermal fault detection, northwestern Great Basin (NV) · ribbon lane · every figure on this
+site is rendered from <code>evidence/**.json</code> at build time</p>
+<nav class="small"><a href="index.html">Status &amp; download</a> · <a href="executive-summary.html">How to submit</a> · <a href="submit.html" style="font-weight:700">Portal checklist</a> · <a href="sources.html">Sources</a> · <a href="evidence.html">Evidence index</a> · <a href="ribbon/index.html">Ribbon lane archive</a></nav></header>
+
+<section class="submit-box" style="border-color:#a11212">
+  <div class="badge" style="background:#a11212">
+    PREFLIGHT NOT CLEARED</div>
+  <h2 style="margin-top:.7rem">Portal checklist for <code>gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif</code></h2>
+  <p class="small">Every row is produced by <code>src/gems58w/submission.py:validate()</code> against
+  the bytes on disk at build time. It is a <b>local preflight</b>: it reproduces the format rules
+  published on the competition page and the reference solution's writer. It is not an organizer
+  acceptance, and it is not a score.</p>
+  <div class="dlrow">
+    <a class="big-btn" style="background:#a11212" href="downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif" download>
+      ⬇ Download the GeoTIFF</a>
+    <a class="big-btn" style="background:#2f5f8f" href="downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.zip" download>
+      ⬇ Download the ZIP</a>
+  </div>
+</section>
+
+<h2>Format rules, and where each one comes from</h2>
+<table class="kv"><thead><tr><th>rule</th><th>source (open for manual review)</th></tr></thead><tbody><tr><td>Single-band GeoTIFF, float32</td><td><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">page 967</a> — submission format</td></tr><tr><td>EPSG:32611, 100&nbsp;m pixels, same bounds as the training data</td><td><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">page 967</a> · <a href="https://epsg.io/32611">EPSG:32611</a></td></tr><tr><td>Values in [0, 1], higher = more probable</td><td><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">page 967</a></td></tr><tr><td>Outside the study area: null / NaN</td><td><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">page 967</a> · reproduced by <code>data/official/sample_submission.tif</code> (7,111,787 NaN, nodata=nan)</td></tr><tr><td>A ZIP must contain exactly one GeoTIFF</td><td><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">page 967</a></td></tr><tr><td>Reference-solution writer: single-band float32, crs/transform from labels, no NaN inside the footprint</td><td><a href="https://github.com/drivendataorg/gems-prize-reference-solution">drivendataorg/gems-prize-reference-solution</a></td></tr><tr><td>Known USGS/INGENIOUS fault pixels are masked out of evaluation in both rounds</td><td><a href="https://community.drivendata.org/t/11516">staff answer, thread 11516</a></td></tr></tbody></table>
+
+<h2>Validation receipt — 15/15 pass</h2>
+<table class="kv"><thead><tr><th>check</th><th>result</th><th>detail</th></tr></thead><tbody><tr><td><code>exists</code></td><td><span class="pill pass">PASS</span></td><td>/home/user/58GEMSDOE/docs/downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif</td></tr><tr><td><code>single_band</code></td><td><span class="pill pass">PASS</span></td><td>count=1</td></tr><tr><td><code>dtype_float32</code></td><td><span class="pill pass">PASS</span></td><td>float32</td></tr><tr><td><code>crs_match</code></td><td><span class="pill pass">PASS</span></td><td>EPSG:32611</td></tr><tr><td><code>shape_match</code></td><td><span class="pill pass">PASS</span></td><td>3730x3292</td></tr><tr><td><code>transform_match</code></td><td><span class="pill pass">PASS</span></td><td>(100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0)</td></tr><tr><td><code>nan_outside_footprint</code></td><td><span class="pill pass">PASS</span></td><td>finite pixels outside the footprint = 0</td></tr><tr><td><code>finite_inside_footprint</code></td><td><span class="pill pass">PASS</span></td><td>NaN inside footprint = 0</td></tr><tr><td><code>values_in_unit_interval</code></td><td><span class="pill pass">PASS</span></td><td>min=0.000 max=1.000</td></tr><tr><td><code>positive_is_exactly_one</code></td><td><span class="pill pass">PASS</span></td><td>unique positives = [1.0]</td></tr><tr><td><code>positives_inside_footprint</code></td><td><span class="pill pass">PASS</span></td><td>outside = 0</td></tr><tr><td><code>footprint_mask_identical</code></td><td><span class="pill pass">PASS</span></td><td>finite=5167373 footprint=5167373</td></tr><tr><td><code>no_positive_on_catalogue</code></td><td><span class="pill pass">PASS</span></td><td>on-catalogue dots = 0</td></tr><tr><td><code>positive_count_in_range</code></td><td><span class="pill pass">PASS</span></td><td>n_positives = 40768</td></tr><tr><td><code>byte_size_reasonable</code></td><td><span class="pill pass">PASS</span></td><td>0.413 MB</td></tr></tbody></table>
+<p class="small">raster sha256 <code>ecf833f8ea7a6698636b48b0dcd0d03aa925d603753e60e03d9d1660922711dd</code> · 433,419 bytes ·
+40,768 positives · ZIP <code>downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.zip</code> ·
+built 2026-10-11T05:31:27Z</p>
+
+<h2>Submission name and note</h2>
+<p>Name: <code>gems58-ribbon-sigma-adaptive-40768-20261011T052942Z</code><br>
+Note: <code>Ribbon lane: adaptive dotted ribbons 0/+-300/+-600 m on catalogue-free Hessian ridges (sigma cross-fitted); 40768 isolated dots at 1.0.</code> (135 of 140 characters)</p>
+
+<h2>Why every emitted dot is exactly 1.0</h2>
+<p class="small">With the official metric
+<code>DTI = TP<sub>w</sub> / (TP<sub>w</sub> + α·FP<sub>w</sub> + β·FN<sub>w</sub> + ε)</code>,
+α = 0.2, β = 0.8, and the triangular kernel <code>k(d) = max(1 − d/R, 0)</code>, R = 300&nbsp;m =
+3&nbsp;px, a truth pixel takes the <b>maximum</b> kernel value over all predictions while a predicted
+pixel pays its own value times the leftover kernel. Scaling a dot down therefore scales its credit
+down without reducing the fixed β·FN term, so on a fixed support DTI is monotone increasing in
+emitted mass and the optimum is 1.0 everywhere you emit. Verified algebraically in
+<code>evidence/ribbon/theorems.json</code> and numerically by the
+<code>positive_is_exactly_one</code> check above (unique positives = [1.0]).</p>
+
+<h2>What the portal does with dots on the mapped catalogue</h2>
+<p class="small">Nothing: the organizer masks known USGS/INGENIOUS fault pixels out of evaluation in
+both rounds, so a dot there earns no credit and costs nothing. This file has
+0 such dots — the emitter drops them, which
+keeps the whole budget available for off-catalogue placement (and, on the local holdout, keeps the
+withheld truth scoreable instead of reading exactly 0.0 — IR-58-02).</p>
+
+<footer>Generated 2026-10-11T05:58:00Z by
+<code>scripts/build_site.py</code>. No organizer receipt exists for any artifact on this site, so no
+number here is a leaderboard score unless it is labelled ORGANIZER-CONFIRMED.</footer>
+</body></html>

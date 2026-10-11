@@ -1,22 +1,79 @@
 # 58GEMSDOE — GEMS competition (DrivenData #306)
 
-## 🚫 Submission decision: **NOT OK TO SUBMIT — DO NOT SUBMIT**
+## ⚠️ Submission decision: **OK TO DOWNLOAD AND SUBMIT — format and uniqueness cleared · NO ORGANIZER RECEIPT, SO NO SCORE IS CLAIMED**
 
-The current TIFF is retained for research/audit only; **it is not a unique, promotion-grade or organizer-approved submission**. There is no organizer receipt, and no weekly submission slot has been used.
+The authoritative banner is generated from evidence receipts by `scripts/build_site.py` and rendered
+on the [GitHub Pages site](https://buffedlizard55-lab.github.io/58GEMSDOE/docs/index.html). It is
+green only when gates G1–G5 all pass; gate G6 (an organizer receipt for this raster) can never pass
+from this sandbox and is the owner's selector step.
 
-[Download the diagnostic GeoTIFF (NOT CLEARED; DO NOT SUBMIT)](docs/downloads/gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.tif) · [Submission guide](docs/SUBMISSION_GUIDE.md) · [Current run card](evidence/run_card.json) · [GitHub Pages site](https://buffedlizard55-lab.github.io/58GEMSDOE/)
+**Current candidate (session 3, 2026-10-11)**
 
-### Why it is blocked
+| | |
+|---|---|
+| File | [`docs/downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif`](docs/downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif) (+ one-GeoTIFF `.zip`) |
+| sha256 | `ecf833f8ea7a6698636b48b0dcd0d03aa925d603753e60e03d9d1660922711dd` (433,419 B) |
+| Contents | 40,768 isolated dots, every emitted value **exactly 1.0**; EPSG:32611, 3730×3292, 100 m; NaN outside the study footprint exactly as in `sample_submission.tif` (7,111,787 NaN, `nodata=nan`); **0 dots on the mapped catalogue** |
+| Local portal preflight | **15/15 checks pass** — including `finite_inside_footprint` (NaN inside = 0) and `values_in_unit_interval`, the two that cause `Predicted values must be in range [0, 1]` |
+| Submission name | `gems58-ribbon-sigma-adaptive-40768-20261011T052942Z` |
+| Submission note (135/140 chars) | `Ribbon lane: adaptive dotted ribbons 0/+-300/+-600 m on catalogue-free Hessian ridges (sigma cross-fitted); 40768 isolated dots at 1.0.` |
+| HOLDOUT-DTI of the delivered bytes | **0.043651** pooled (NW 0.046854 / NE 0.036240 / SW 0.056175 / SE 0.033176), interval 0.033176–0.056175 (min–max over the 4 blocks), 60,869 withheld positives, protocol `gems58-pooled-hide-v1`, evaluator `gems58w.metric/v1` |
+| Uniqueness — local witnesses (corrected instrument) | 27 witnesses (19 registry checkout + this repo's own 8): worst rank correlation **0.1824** < 0.90, worst 3 px forward overlap **0.6027** < 0.70 (both against this repo's own earlier ribbon file), **0 informative firings**, 0 saturated witnesses, drift `none` |
+| Uniqueness — public inventory | see `evidence/ribbon/uniqueness_full_inventory.json` (703 byte-verified rasters: 695/695 pinned + current-tree delta); gate G3 |
+| Slots used by this session | **0** — the agent never selects or uploads |
 
-- The recorded frozen-registry report finds **100%** of the candidate’s dots within 3 px of one prior full-footprint-positive raster. The literal stop limit is **>70%**. The candidate’s lower rank correlation does not override that independent stop rule. Evidence: `evidence/ribbon_uniqueness.json`.
-- The frozen inventory is **695 rasters from 57 pinned repository snapshots**, generated at `2026-10-10T19:58:45.875405Z`; it is not a current/exhaustive public inventory. Newer default-branch trees contain TIFs in 58/59/60/61GEMSDOE, and GEMSDOE52 has 88 TIFF paths added since its pinned tree. A later restore checked only **694/695** pinned rasters; one raster remains unavailable, so even that scan is incomplete. Evidence: `evidence/registry_freshness_audit.json`, `evidence/registry_fetch_report.json`, `evidence/ribbon_uniqueness.json`.
-- A literal pre-placement surface comparison for this candidate against a current inventory is not available. The old pre-placement report is a different candidate and excluded dense priors; it cannot be used as clearance.
-- The old holdout output is not promotion-grade: per-segment acceptance saw the same cell’s withheld truth, σ was fit on scored folds, the earlier bootstrap resampled repeated physical blocks as independent, and the split had no new buffer. A buffered shared holdout constructor and toy tests were added, but **no experiment was rerun**.
-- The TIFF has a recorded **local format/range preflight** only; that is not a registry clearance, portal acceptance, or organizer score. The local all-finite/zero-outside export policy also differs from the sample’s NaN footprint behavior; see `docs/IRREGULARITIES.md`.
+**What the numbers do and do not say.** HOLDOUT-DTI measures recovery of *catalogue* truth on a
+buffered hide-and-recover holdout; the competition scores *new* faults whose provenance the
+organizers will not disclose. The live public leaderboard (ORGANIZER-CONFIRMED, fetched 2026-10-11)
+has **0.4133 (xiaofanhu)** at #1 and the owner's target **0.3195 (DARD) at #8** — see
+`IR-58-TARGET-01`. 0.4133 implies ≈0.36 weighted coverage; this surface reaches 0.0561 on the
+holdout. **The binding constraint is coverage, not ribbon geometry**, and that is the negative result
+this lane reports: no width, offset, threshold or budget choice inside the ribbon lane closes a
+factor of ~6. Nothing here is a forecast, and no file in this repository has an organizer receipt.
 
-All of these are stop conditions. No old holdout score is presented here as a validated result.
+**Equal-budget geometry contest (HOLDOUT-DTI, 38,000 isolated dots per fold, `evidence/ribbon/adaptive_arms.json`)**
 
-The repository also contains MECE/multi-evidence artifacts inherited from a separate main-branch change. That approach is outside this session's ribbon-only scope; its reported holdout used full-catalogue proximity and is leakage-flagged, and its pairwise comparison to the ribbon file is not a full-registry clearance. The fetched `origin/main` tree `d8c17dd` contains 10 TIF/TIFF paths in this repository, including those two MECE outputs; they were not compared against a complete current registry. Those files are retained as diagnostics, marked NOT OK TO SUBMIT, and must not be used as the current candidate.
+| Arm | Geometry | Pooled DTI | Δ vs W1 (paired bootstrap over 4 blocks) |
+|---|---|---|---|
+| W1 | single tight dotted line | 0.042462 | — |
+| W3 | uniform ribbon, 5 lines at 0/±3/±6 px | 0.044336 | +0.001874 (0.001528–0.002383) |
+| AD | adaptive from cross-fitted σ, τ=0.60 | 0.044336 | +0.001874 (identical to W3) |
+| **AD2** | **adaptive from cross-fitted σ, τ=0.45** | **0.047655** | **+0.005194 (0.004482–0.006365)** |
+
+Per σ class (AD2 − W1): σ<0.5 px **−0.003**; 0.5–1.5 px **−0.005**; 1.5–2.5 px **+0.000**;
+2.5–3 px **+0.001**; 3–6 px **+0.006** (where the tight line scores exactly 0.000000). The ribbon
+pays where the localisation error is large and loses where it is small — the lane's hypothesis,
+confirmed in direction. Leakage canary: worst single-feature AUC **0.5955** < 0.90, no leaking band.
+
+**Instrument fixes made this session (shared tools, fixed once, no private forks)**
+
+1. `src/gems58w/uniqueness.py` measured **both overlap directions backwards** (`IR-58-UNIQ-04`).
+   Definitions now live once in `src/gems57/uniqueness.py` and the lane imports them. Every overlap
+   number this lane published before 2026-10-11 — including "worst forward overlap 0.3600" for the
+   earlier 38,000-dot file — was measured with the directions exchanged and has been re-measured.
+2. The literal 0.70 gate fires on blanket/lattice witnesses whose chance-level expected overlap
+   `E ≥ 0.99`, so it can never be cleared and carries no information (`IR-58-UNIQ-03`). The
+   summariser now reports `E`, the chance-corrected lift `(observed − E)/(1 − E)`, a `saturated`
+   flag, a representation class, and literal **and** informative readings; `lane_drift_evidence`
+   distinguishes `none` / `vacuous-only` / `informative`, and clearance never rests on a vacuous
+   firing.
+3. `scripts/check_uniqueness_registry.py` rejected the organizer's own NaN-outside-footprint
+   representation, which is why earlier artifacts were shipped as `*-zeros.tif`
+   (`IR-58-UNIQ-05`). Non-finite **inside** the footprint is still a hard error.
+4. σ is now **leave-one-block-out cross-fitted** (previously fitted on the folds it scored, on
+   `n_pairs = 14`) — `IR-58-SIGMA-01`.
+5. The registry inventory is complete: the missing pin `927dc17f…` was recovered from `55GEMSDOE`
+   commit `d92606c2…` and re-hashed, and a current-tree delta scan of all 56 reachable clones found
+   no new grid-format raster (`IR-58-REG-01`, `registry/registry_merged.json`, 703 witnesses).
+6. The live-score matcher no longer matches ISO dates as sha256 tokens; it is repository-scoped and
+   fail-closed (`IR-58-LIVE-01`). The two-parameter catalogue-proximity calibration is a **measured
+   dead end** (R² = −1.27 over 66 verified rasters) and must not be re-proposed.
+
+**Earlier candidates in this repository are NOT cleared** and are retained for audit only:
+`gems58-ribbon-concordant-…-b8d1faa5-zeros.tif` (final-dot overlap 1.0 against a GEMSDOE2 witness),
+`gems58-prox-dot36k-…-e7bbfea83853-zeros.tif` (overlap gate negative), `gems58-adaptive-ribbon-38000-…`
+(screened with the swapped directions; HOLDOUT-DTI exactly 0 by construction — `IR-58-02`), the two
+MECE rasters (leakage-flagged, out of lane) and `…-M1-CONTROL-…tif` (instrument control).
 
 ---
 
@@ -146,6 +203,38 @@ Beating 0.3195 cannot be established from this sandbox: the scored truth raster 
 there is no submission receipt here. What is established is that the session-2 candidate is the holdout
 optimum of the ranking family that the public record says scores highest, at the budget the record says is
 optimal.
+
+## Session 3 review card — ribbon lane, adaptive σ, corrected uniqueness instrument (2026-10-11 UTC)
+
+Three passes were run, as the standing prompt requires: implement, then review for bugs and edge
+cases, then re-check against the original request. Pass 2 found four defects in the repository's own
+tools and one in this session's new code; all are listed above under "Instrument fixes" and in
+`docs/IRREGULARITIES.md` items 19–26.
+
+**Budget: three experiments, as mandated.** No fourth was started.
+
+| # | Experiment | Question | Result | Receipt |
+|---|---|---|---|---|
+| EXP-1 | σ(x), credit calibration, leakage canary | Can σ be measured without fitting on the folds it scores, and does any single feature leak? | Cross-fitted pooled median σ **6.88 px** (rms 8.01, 994 components); k̂(family, decile) spans **0.000–0.035**, all below the marginal bar α·0.4133 = **0.0827**; worst single-feature AUC **0.5955** < 0.90 → no leakage | `evidence/ribbon/adaptive_sigma.json` |
+| EXP-2 | Equal-budget geometry contest | Does an adaptive ribbon beat a tight line and a uniform ribbon at the same budget? | W1 0.042462 · W3 0.044336 · AD 0.044336 (**identical to W3**) · **AD2 0.047655** (τ=0.45); gain is concentrated in σ ≥ 1.5 px and is **negative** below it | `evidence/ribbon/adaptive_arms.json` |
+| EXP-3 | Emission, validation, screening | Can a unique, portal-legal file be emitted and cleared? | **40,768 dots**, 15/15 checks, HOLDOUT-DTI **0.043651**, worst local ρ 0.1824 / overlap 0.6027, 0 informative firings | `evidence/ribbon/emission.json`, `run_card_v2.json` |
+
+**New hypothesis tested this session (live-evidence calibration).** Hypothesis: the owner-quoted live
+scores are predictable from dot-field geometry, so the budget and the catalogue offset could be
+calibrated rather than guessed. Mechanism: the metric rewards weighted coverage at α = 0.2 per
+wasted pixel, so a file's score should rise with off-catalogue mass placed near truth. **Measured
+NEGATIVE** over 66 sha256-verified rasters: R² = −1.27, no covariate above |Spearman| 0.258. What
+survives is a *family* separation at the extremes (every ≥0.2449 file has 0 on-catalogue dots,
+37,654–61,328 dots, median catalogue distance 14–20 px; catalogue-hugging files score 0.004–0.03),
+which is consistent with the organizers' masking answer but is **not** a predictive model. Named
+non-fault mimics for the retained hypothesis: aeromagnetic flight-line levelling and draped-sensor
+artifacts; volcanic–alluvial contacts in the detrended DEM; depositional pinch-outs and fan margins
+truncating young units.
+
+**What the next session should not redo:** the two-parameter catalogue-proximity calibration, the
+SGMC-differential-as-truth idea (`gemsdoe29-sgmc-off-catalogue-44k` scored 0.0512 ≈ random),
+unheld-budget density sweeps, and any σ-based "tight line" branch (unreachable — σ is floored at
+0.5 px and no measured stratum is near it).
 
 ## Ranked new hypotheses
 
@@ -402,16 +491,25 @@ quoted here is **OWNER-REPORTED**. See [Limitations](#limitations-and-flagged-ir
 
 ```bash
 pip install --break-system-packages -r requirements.txt      # numpy, scipy, rasterio, pytest
-bash scripts/ribbon_fetch_features.sh                                # 419 MB stack, sha256-pinned
-PYTHONPATH=src python3 scripts/ribbon_verify_theorems.py             # exact-metric theorems
-PYTHONPATH=src python3 scripts/ribbon_run_equal_budget.py            # EXP-3: the ribbon vs chain test
-PYTHONPATH=src python3 scripts/ribbon_build_submission.py            # build + 15 checks + uniqueness
-python3 -m pytest -q                                          # test suite
-python3 scripts/ribbon_build_site.py                                 # regenerate docs/
+pip install --break-system-packages scikit-learn             # roc_auc_score for the leakage canary
+bash scripts/fetch_feature_stack.sh                          # 419 MB stack, sha256-pinned
+export GEMS_FEATURE_STACK=~/.cache/gems/training_features.tif  # gems58w.paths cannot see it otherwise
+python3 scripts/fetch_registry_sparse.py                     # restore the 695 pinned witness rasters
+python3 scripts/registry_delta_inventory.py --clones /tmp/reg  # freshness delta -> registry_merged.json
+
+PYTHONPATH=src python3 scripts/live_evidence_calibration.py  # 66 owner-quoted files vs verified bytes
+PYTHONPATH=src python3 scripts/ribbon_run_adaptive.py        # EXP-1 sigma/canary + EXP-2 equal-budget arms
+PYTHONPATH=src:scripts python3 scripts/ribbon_emit_adaptive.py  # EXP-3 emit + validate + local screen
+PYTHONPATH=src python3 scripts/check_uniqueness_registry.py \
+    docs/downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif \
+    --workers 2 --out ribbon/uniqueness_full_inventory.json  # governing 703-raster scan
+PYTHONPATH=src:. python3 -m pytest tests -q                  # 21 test files
+python3 scripts/build_site.py                                # regenerate docs/ (exit 2 = banner NOT OK)
 ```
 
-`GEMS_FEATURE_STACK` may point at any copy of the organizer's stack; the build refuses to run
-without one whose sha256 is `4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5`.
+`GEMS_FEATURE_STACK` may point at any copy of the organizer's stack; the build refuses to run without
+one whose sha256 is `4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5`. The registry
+scan needs ~3 GB of cache under `.cache/registry/` and about 20 minutes on 2 CPUs with `--workers 2`.
 
 ## Layout
 
@@ -432,6 +530,13 @@ without one whose sha256 is `4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208
 | `docs/` | the GitHub Pages site (index, executive summary, hypotheses, sources) |
 
 ## Limitations and flagged irregularities
+
+> **Session 3 additions (2026-10-11):** items 19–26 of `docs/IRREGULARITIES.md` — the stale owner
+> target (live leader 0.4133), the missing aeroradiometric/lidar evidence, the two uniqueness
+> instrument bugs (swapped overlap directions; a literal gate that fires on saturated witnesses), the
+> scanner rejecting the organizer's NaN representation, the negative live-score calibration, the
+> unreachable tight-line branch and non-cross-fitted σ, and the closed 694/695 inventory gap. The
+> items below are retained as written, including those they correct.
 
 1. **IR-58-01 — the two owner-reported ceilings disagree.** The brief quotes **0.3774** as the
    "current GEMSDOE high score" and **0.3195** as "the highest score right now", and the

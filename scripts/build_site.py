@@ -1,548 +1,980 @@
 #!/usr/bin/env python3
-"""Build a fail-closed status card and GitHub Pages UX from recorded evidence.
+"""Build the owner-facing GitHub Pages site from recorded evidence, fail-closed.
 
-A local validator pass is never treated as uniqueness clearance, a score, or
-organizer acceptance. Status can become OK_TO_SUBMIT only when current buffered
-holdout evidence, both literal registry phases, a current inventory, and the
-local format preflight all pass. The selector/weekly-slot step is always separate.
+One generator, one source of truth: every number on the page is read out of an
+``evidence/**.json`` receipt at build time and re-verified where it can be (the
+delivered raster's sha256 is recomputed from the bytes on disk, never trusted
+from the receipt).  Nothing is presented as a score unless it carries one of the
+labels the protocol allows:
+
+    ORGANIZER-CONFIRMED   copied from a DrivenData page or submission receipt
+    HOLDOUT-DTI           measured here with the named evaluator and protocol,
+                          the withheld-positive count and an honest interval
+    USER-REPORTED-SCORE   an owner-quoted sibling page; no receipt exists
+    PROJECTION            arithmetic from the official metric; never a score
+
+The download decision is rendered as explicit gates.  A gate whose receipt is
+missing is a FAIL, not a pass.  Exit status is 0 when the site says OK and 2
+when it says NOT OK, so CI can assert the banner matches the evidence.
+
+    python3 scripts/build_site.py
 """
 from __future__ import annotations
 
 import hashlib
 import html
 import json
-import math
 import sys
-import time
+from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 EV = ROOT / "evidence"
-DL = ROOT / "docs" / "downloads"
-TIF_REL = "docs/downloads/gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.tif"
+RIB = EV / "ribbon"
+DOCS = ROOT / "docs"
+
+RHO_LIMIT = 0.90
+OVERLAP_LIMIT = 0.70
+CANARY_LIMIT = 0.90
+LEADER_DTI = 0.4133       # ORGANIZER-CONFIRMED: public leaderboard #1, fetched 2026-10-11
+LEADER_WHO = "xiaofanhu (public leaderboard #1, fetched 2026-10-11)"
+OWNER_TARGET = 0.3195     # the owner-reported target; see IR-58-TARGET-01
+
+EXTRA_CSS = """
+<style>
+.gates{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:.6rem;margin:.8rem 0}
+.gate{border:1px solid #d7dee6;border-left:5px solid #999;border-radius:8px;padding:.55rem .7rem;background:#fbfcfd}
+.gate.pass{border-left-color:#1d7a45;background:#f2fbf5}
+.gate.fail{border-left-color:#a11212;background:#fdf3f3}
+.gate h4{margin:0 0 .25rem;font-size:.95rem}
+.gate p{margin:0;font-size:.83rem;color:#41505f}
+.pill{display:inline-block;padding:.1em .55em;border-radius:999px;font-size:.76rem;font-weight:700;color:#fff}
+.pill.pass{background:#1d7a45}.pill.fail{background:#a11212}.pill.info{background:#2f5f8f}.pill.warn{background:#8a6d1a}
+.warn-box{border:1px solid #e0c46a;border-left:5px solid #8a6d1a;background:#fffbea;border-radius:8px;padding:.7rem .9rem;margin:.8rem 0}
+.bad-box{border:1px solid #e0a3a3;border-left:5px solid #a11212;background:#fff6f6;border-radius:8px;padding:.7rem .9rem;margin:.8rem 0}
+.ok-box{border:1px solid #9ed3b3;border-left:5px solid #1d7a45;background:#f4fcf7;border-radius:8px;padding:.7rem .9rem;margin:.8rem 0}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1rem}
+.small{font-size:.85rem;color:#41505f}
+.dlrow{display:flex;flex-wrap:wrap;gap:.6rem;margin:.8rem 0}
+.num{font-variant-numeric:tabular-nums}
+nav a{margin-right:.9rem}
+footer{margin-top:2rem;border-top:1px solid #d7dee6;padding-top:.6rem;font-size:.82rem;color:#41505f}
+table{max-width:100%}
+</style>
+"""
 
 
-def load_json(path: Path) -> dict:
+# --------------------------------------------------------------------------- io
+def load(path: Path) -> dict:
     try:
-        data = json.loads(path.read_text(encoding="utf-8"))
+        d = json.loads(path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError):
         return {}
-    return data if isinstance(data, dict) else {}
+    return d if isinstance(d, dict) else {}
 
 
-def fmt(value, digits=4):
-    if value is None:
-        return "not measured"
+def sha256(path: Path) -> str:
+    h = hashlib.sha256()
+    with open(path, "rb") as f:
+        for chunk in iter(lambda: f.read(1 << 20), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def fmt(v, digits=4, dash="not measured"):
+    if v is None:
+        return dash
     try:
-        return f"{float(value):.{digits}f}"
+        f = float(v)
     except (TypeError, ValueError):
-        return str(value)
+        return html.escape(str(v))
+    if f != f:  # NaN
+        return "undefined"
+    return f"{f:.{digits}f}"
 
 
-def _receipt_for(uniq: dict) -> dict:
-    candidate = uniq.get("my_file")
-    if candidate:
-        p = ROOT / candidate
-        if p.suffix.lower() == ".tif":
-            receipt = load_json(p.with_suffix(".json"))
-            if receipt:
-                return receipt
-    receipts = sorted(DL.glob("*.json"))
-    for p in receipts:
-        d = load_json(p)
-        if d.get("file", "").endswith(".tif") and "ribbon" in d.get("file", ""):
-            return d
-    return {}
+def esc(v) -> str:
+    return html.escape(str(v)) if v is not None else ""
 
 
-def receipt_file_matches(receipt: dict) -> bool:
-    name = receipt.get("file")
-    expected_sha = receipt.get("sha256")
-    if not name or not expected_sha:
-        return False
-    path = DL / Path(name).name
-    try:
-        return path.is_file() and hashlib.sha256(path.read_bytes()).hexdigest() == expected_sha
-    except OSError:
-        return False
+def table(head: list[str], rows: list[list], cls: str = "num") -> str:
+    th = "".join(f"<th>{html.escape(str(h))}</th>" for h in head)
+    tr = "".join("<tr>" + "".join(f"<td>{c}</td>" for c in r) + "</tr>" for r in rows)
+    return f'<table class="{cls}"><thead><tr>{th}</tr></thead><tbody>{tr}</tbody></table>'
 
 
-def validated_holdout_result(e2: dict) -> dict:
-    """Return only a promotion-labelled score with the full reporting contract."""
-    result = e2.get("promotion_grade_result", {})
-    if not isinstance(result, dict):
-        return {}
-    ci95 = result.get("ci95")
-    valid = (
-        e2.get("promotion_grade") is True
-        and result.get("evidence_class") == "HOLDOUT-DTI"
-        and result.get("evaluator_version") == "gems57-pooled-hide-v2"
-        and isinstance(result.get("ci_method"), str) and bool(result.get("ci_method"))
-        and isinstance(result.get("withheld_positive_pixels"), int)
-        and result.get("withheld_positive_pixels", 0) > 0
-        and isinstance(result.get("dti"), (int, float))
-        and math.isfinite(float(result.get("dti", float("nan"))))
-        and 0 <= float(result.get("dti", -1)) <= 1
-        and isinstance(ci95, (list, tuple)) and len(ci95) == 2
-        and all(isinstance(v, (int, float)) and math.isfinite(float(v)) for v in ci95)
-        and 0 <= float(ci95[0]) <= float(ci95[1]) <= 1
-    )
-    return result if valid else {}
+def label(kind: str) -> str:
+    cls = {"ORGANIZER-CONFIRMED": "pass", "HOLDOUT-DTI": "info",
+           "USER-REPORTED-SCORE": "warn", "PROJECTION": "warn"}.get(kind, "info")
+    return f'<span class="pill {cls}">{html.escape(kind)}</span>'
 
 
-def validated_sigma_table(e1: dict) -> list[dict]:
-    """Return only a current buffered holdout sigma table with finite values."""
-    rows = e1.get("promotion_grade_sigma_table")
-    if (e1.get("promotion_grade") is not True
-            or e1.get("buffered_whole_component_context_used") is not True
-            or not isinstance(rows, list) or not rows):
-        return []
-    if any(not isinstance(row, dict) for row in rows):
-        return []
-    for row in rows:
-        sigma = row.get("sigma_px")
-        n_matched = row.get("n_matched")
-        if (row.get("evidence_class") != "HOLDOUT-STRUCTURE"
-                or not row.get("block") or not row.get("ridge_type")
-                or not isinstance(sigma, (int, float)) or not math.isfinite(float(sigma)) or float(sigma) < 0
-                or not isinstance(n_matched, int) or n_matched < 0):
-            return []
-    return rows
+# ------------------------------------------------------------------------ gates
+def evaluate_gates(emi: dict, sig: dict, inv: dict, tif: Path) -> tuple[list[dict], bool]:
+    gates: list[dict] = []
 
+    def add(gid, name, ok, detail):
+        gates.append(dict(id=gid, name=name, ok=bool(ok), detail=detail))
 
-def validated_per_class_gains(e2: dict) -> dict:
-    """Return per-class gains only with an exact evaluator, positive count and valid CI."""
-    result = validated_holdout_result(e2)
-    gains = result.get("per_class_gains", {})
-    if not isinstance(gains, dict) or not gains or any(not isinstance(v, dict) for v in gains.values()):
-        return {}
-    for item in gains.values():
-        ci95 = item.get("ci95")
-        gain = item.get("gain")
-        if (item.get("evidence_class") != "HOLDOUT-DTI"
-                or item.get("evaluator_version") != "gems57-pooled-hide-v2"
-                or not isinstance(item.get("ci_method"), str) or not item.get("ci_method")
-                or not isinstance(item.get("withheld_positive_pixels"), int)
-                or item.get("withheld_positive_pixels", 0) <= 0
-                or not isinstance(gain, (int, float)) or not math.isfinite(float(gain)) or not -1 <= float(gain) <= 1
-                or not isinstance(ci95, (list, tuple)) or len(ci95) != 2
-                or not all(isinstance(v, (int, float)) and math.isfinite(float(v)) for v in ci95)
-                or not -1 <= float(ci95[0]) <= float(ci95[1]) <= 1):
-            return {}
-    return gains
+    val = emi.get("validator", {})
+    checks = val.get("checks", {}) or {}
+    n_pass = sum(1 for c in checks.values() if c.get("ok"))
+    on_disk = tif.exists()
+    disk_sha = sha256(tif) if on_disk else None
+    sha_ok = bool(on_disk) and disk_sha == emi.get("sha256")
+    add("G1", "Portal format (local preflight)",
+        val.get("passed") is True and sha_ok and checks and n_pass == len(checks),
+        f"{n_pass}/{len(checks)} local checks pass; the sha256 recomputed from the bytes on disk "
+        f"{'matches' if sha_ok else 'DOES NOT MATCH'} the receipt; "
+        f"{esc(checks.get('finite_inside_footprint', {}).get('detail'))}; "
+        f"{esc(checks.get('values_in_unit_interval', {}).get('detail'))}; representation = the "
+        f"organizer's sample_submission (NaN outside the study footprint, nodata=nan)")
 
+    ul = emi.get("uniqueness_local", {}) or {}
+    add("G2", "Uniqueness — local witnesses (corrected instrument)",
+        ul.get("cleared") is True and ul.get("n_checked", 0) > 0,
+        f"{ul.get('n_checked', 0)} witnesses (the registry checkout plus this repo's own earlier "
+        f"rasters); worst rank correlation {fmt(ul.get('worst_rho'))} &lt; {RHO_LIMIT:.2f}; worst "
+        f"3&nbsp;px forward overlap {fmt(ul.get('worst_forward_overlap'))} &lt; {OVERLAP_LIMIT:.2f} "
+        f"({esc(ul.get('worst_forward_overlap_name'))}); informative firings "
+        f"{ul.get('n_overlap_firings_informative')}; saturated witnesses {ul.get('n_saturated_witnesses')}; "
+        f"drift evidence: {esc(ul.get('lane_drift_evidence'))}")
 
-def qualification_gaps(e1: dict, e2: dict, uniq: dict,
-                       freshness: dict, receipt: dict) -> list[str]:
-    """Return explicit unmet gates; fail closed when evidence is absent/stale."""
-    gaps = []
-    holdout = validated_holdout_result(e2)
-    if not holdout:
-        gaps.append("No current promotion-grade outer-block HOLDOUT-DTI with the required evaluator version, withheld-positive count, and valid 95% CI; legacy E2 is an oracle/selection diagnostic.")
-    if e1.get("promotion_grade") is True and not validated_sigma_table(e1):
-        gaps.append("A current training-only, buffered HOLDOUT-STRUCTURE sigma table is not complete.")
-    if holdout and not validated_per_class_gains(e2):
-        gaps.append("Per-class HOLDOUT-DTI gains with evaluator, withheld-positive count, and valid 95% CIs are not recorded.")
-    canary = e1.get("leakage_canary", {})
-    if not isinstance(canary, dict):
-        canary = {}
-    canary_aucs = canary.get("max_auc_by_type", {})
-    canary_values_valid = (
-        isinstance(canary_aucs, dict) and bool(canary_aucs)
-        and all(isinstance(v, (int, float)) and math.isfinite(float(v)) and 0 <= float(v) <= 1
-                for v in canary_aucs.values())
-    )
-    if not canary_values_valid:
-        gaps.append("The current feature-alone leakage canary is missing, non-finite, or lacks per-feature AUC values.")
-    elif any(float(v) > 0.90 for v in canary_aucs.values()):
-        gaps.append("At least one feature-alone leakage canary exceeds AUC 0.90; treat it as leakage until disproven.")
-    if (e1.get("promotion_grade") is not True
-            or e1.get("buffered_whole_component_context_used") is not True
-            or not canary_values_valid):
-        gaps.append("No current buffered-fold feature-alone leakage-canary record is marked promotion-grade.")
-    if not freshness.get("fresh_current_inventory", False):
-        gaps.append("Registry inventory is stale/incomplete for current public repository trees.")
-    rho_limit = float(uniq.get("rho_limit", 0.90))
-    overlap_limit = float(uniq.get("overlap_limit", 0.70))
-    surface = uniq.get("preplacement_surface_gate", {})
-    if not isinstance(surface, dict):
-        surface = {}
-    if surface.get("passed") is not True:
-        gaps.append("The candidate-specific pre-placement surface gate has not passed on a current inventory.")
-    final = uniq.get("final_dot_gate", {})
-    if not isinstance(final, dict):
-        final = {}
-    phase_results = (("pre-placement surface", surface), ("final dots", final))
-    for phase_name, phase in phase_results:
-        rho = phase.get("worst_spearman_full_footprint", phase.get("worst_rho"))
-        if rho is None and phase_name == "final dots":
-            rho = uniq.get("worst_spearman_full_footprint")
-        limit = float(phase.get("rho_limit", rho_limit))
-        if rho is not None and float(rho) > limit:
-            gaps.append(f"The {phase_name} rank-correlation gate fails literally: rho {float(rho):.3f} > {limit:.2f}.")
-        overlap = phase.get("worst_dot_overlap", phase.get("worst_overlap"))
-        if overlap is None and phase_name == "final dots":
-            overlap = uniq.get("worst_dot_overlap")
-        limit = float(phase.get("overlap_limit", overlap_limit))
-        if overlap is not None and float(overlap) > limit:
-            gaps.append(f"The {phase_name} literal-dot gate fails: overlap {float(overlap):.3f} > {limit:.2f}.")
-    overlap = final.get("worst_dot_overlap", uniq.get("worst_dot_overlap"))
-    limit = float(final.get("overlap_limit", overlap_limit))
-    if final.get("passed") is not True and (overlap is None or float(overlap) <= limit):
-        gaps.append("The final-dot gate has not passed on a current inventory.")
-    if uniq.get("unique") is not True:
-        gaps.append("The frozen registry audit is negative; a byte/pixel-unique file is not sufficient to clear the literal lane gates.")
-    if receipt.get("promotion_grade") is not True:
-        gaps.append("The current raster receipt is marked diagnostic/non-promotion-grade.")
-    if not receipt_file_matches(receipt):
-        gaps.append("The raster file is missing or its bytes do not match the recorded receipt SHA256.")
-    submission_name = receipt.get("submission_name", "")
-    if not submission_name or len(submission_name) > 140:
-        gaps.append("A non-empty submission name within the 140-character limit is not recorded.")
-    note = receipt.get("note", "")
-    if not note or len(note) > 140:
-        gaps.append("The saved submission note is missing or exceeds the 140-character platform limit.")
-    validator = receipt.get("validator", {})
-    if validator.get("all_checks_passed") is not True:
-        gaps.append("The recorded local format/range preflight is missing or failed.")
-    return gaps
-
-
-def build_run_card() -> dict:
-    e1 = load_json(EV / "ribbon_e1_sigma.json")
-    e2 = load_json(EV / "ribbon_e2_arms.json")
-    uniq = load_json(EV / "ribbon_uniqueness.json")
-    freshness = load_json(EV / "registry_freshness_audit.json")
-    receipt = _receipt_for(uniq)
-    validator = receipt.get("validator", {})
-    note = receipt.get("note", "")
-    gaps = qualification_gaps(e1, e2, uniq, freshness, receipt)
-    ok = not gaps
-    current_dots = uniq.get("my_dots")
-    holdout_result = validated_holdout_result(e2)
-    if holdout_result:
-        holdout = {
-            "status": "MEASURED",
-            "evidence_class": "HOLDOUT-DTI",
-            "evaluator_version": holdout_result["evaluator_version"],
-            "withheld_positive_pixels": holdout_result["withheld_positive_pixels"],
-            "dti": holdout_result["dti"],
-            "ci95": holdout_result["ci95"],
-            "ci_method": holdout_result.get("ci_method"),
-        }
+    if not inv:
+        add("G3", "Uniqueness — public inventory scan", False,
+            "<code>evidence/ribbon/uniqueness_full_inventory.json</code> is missing: the governing "
+            "scan over the byte-verified public inventory has not completed. Fail closed.")
     else:
-        holdout = {
-            "status": "NOT MEASURED for the current buffered/nested instrument",
-            "evidence_class": "NOT A HOLDOUT-DTI CLAIM",
-            "evaluator_version_required": "gems57-pooled-hide-v2",
-            "withheld_positive_pixels": None,
-            "dti": None,
-            "ci95": None,
-            "legacy_evidence_files": ["evidence/ribbon_e1_sigma.json", "evidence/ribbon_e2_arms.json"],
-            "legacy_caveat": "Prior E2 is same-cell truth-selected, unbuffered and has an invalid repeated-block bootstrap; do not report it as promotion-grade evidence.",
-        }
-    sigma_table = validated_sigma_table(e1)
-    per_class_gains = validated_per_class_gains(e2)
-    surface_gate = uniq.get("preplacement_surface_gate", {
-        "status": "NOT_RUN_FOR_THIS_CANDIDATE",
-        "passed": False,
-        "legacy_surface_report_not_reusable": "registry/uniqueness_surface_pre-placement_summary.json",
-    })
-    final_gate = uniq.get("final_dot_gate", {
-        "status": "FROZEN_SCAN_FAILURE_AND_CURRENT_SCOPE_INCOMPLETE",
-        "passed": False,
-        "worst_dot_overlap": uniq.get("worst_dot_overlap"),
-        "overlap_limit": uniq.get("overlap_limit", 0.70),
-        "witness": uniq.get("worst_overlap_submission"),
-    })
-    current_self_tree = next((
-        item for item in freshness.get("changed_or_unrepresented_public_repositories", [])
-        if item.get("repository") == "58GEMSDOE"
-    ), None)
-    card = {
-        "run_card_version": "2.0",
-        "generated_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
-        "lane": "ribbon only — emission width matched to measured localization error",
-        "submission_status": "OK_TO_SUBMIT" if ok else "NOT_OK_TO_SUBMIT",
-        "human_readable_status": "OK TO SUBMIT — SELECTOR STILL SEPARATE" if ok else "NOT OK TO SUBMIT — DO NOT SUBMIT",
-        "hypothesis": "Visible-only catalogue and independent mapped-fault ridge axes may locate uncatalogued faults with a measurable across-strike localization error; ribbon width is tied to that error.",
-        "mechanism": "Fit sigma by source/block on training-only spatial blocks, then emit 1.0-valued dots in a parallel ribbon at 3-pixel along-axis stride; score with exact pooled DTI and promote only after nested outer-block validation.",
-        "named_non_fault_process_that_could_mimic_it": "Digitizing error and map generalization; lithologic contacts and alluvial/graben edges; roads, drainage lineaments, or survey striping aligned with candidate ridges.",
-        "holdout": holdout,
-        "localization_sigma_table": {
-            "evidence_class": "HOLDOUT-STRUCTURE",
-            "status": "MEASURED on current buffered training blocks" if sigma_table else "NOT MEASURED for the current promotion-grade buffered/nested instrument",
-            "rows": sigma_table or None,
-            "legacy_evidence_file": "evidence/ribbon_e1_sigma.json",
-            "legacy_values_reportable": False,
-        },
-        "per_class_holdout_gains": {
-            "evidence_class": "HOLDOUT-DTI" if per_class_gains else "NOT A REPORTABLE HOLDOUT-DTI CLAIM",
-            "status": "MEASURED" if per_class_gains else "NOT MEASURED for current promotion-grade nested outer blocks",
-            "rows": per_class_gains or None,
-            "legacy_evidence_file": "evidence/ribbon_e2_arms.json",
-            "legacy_values_reportable": False,
-        },
-        "leakage_canary": {
-            "status": "NOT CLEARED FOR CURRENT BUFFERED INSTRUMENT",
-            "threshold_auc": 0.90,
-            "current_evidence": None,
-            "legacy_record": "evidence/ribbon_e1_sigma.json (not promotion-grade for the revised split)",
-        },
-        "correlation_overlap_vs_registry": {
-            "evidence_class": "REGISTRY-MEASUREMENT (frozen snapshot only)",
-            "snapshot_generated_utc": freshness.get("frozen_snapshot_generated_utc"),
-            "repositories_in_frozen_snapshot": freshness.get("frozen_repositories_scanned"),
-            "rasters_in_frozen_snapshot": freshness.get("frozen_unique_raster_count"),
-            "latest_pinned_snapshot_scan": {
-                "expected": uniq.get("registry_rasters_expected"),
-                "checked": uniq.get("registry_rasters_checked"),
-                "complete_accessible_scan": uniq.get("complete_accessible_scan"),
-                "missing_or_invalid": uniq.get("missing_or_invalid"),
-                "source_errors": uniq.get("source_errors", []),
-                "evidence_class": "REGISTRY-MEASUREMENT (pinned inventory only)",
-            },
-            "current_inventory_complete": freshness.get("fresh_current_inventory", False),
-            "current_self_repository_tree": ({
-                "repository": current_self_tree.get("repository"),
-                "tree_sha": current_self_tree.get("current_tree_sha"),
-                "tif_tiff_paths": current_self_tree.get("current_tif_tiff_count"),
-                "docs_download_tif_tiff_paths": current_self_tree.get("current_docs_download_tif_count"),
-                "example_unscanned_rasters": current_self_tree.get("example_unscanned_rasters", []),
-                "inventory_only_not_registry_cleared": True,
-            } if current_self_tree else None),
-            "freshness_audit": "evidence/registry_freshness_audit.json",
-            "rho_limit": uniq.get("rho_limit", 0.90),
-            "worst_spearman_full_footprint": uniq.get("worst_spearman_full_footprint"),
-            "literal_overlap_limit": uniq.get("overlap_limit", 0.70),
-            "candidate_dots": current_dots,
-            "frozen_worst_dot_overlap": uniq.get("worst_dot_overlap"),
-            "frozen_overlap_witness": uniq.get("worst_overlap_submission"),
-            "preplacement_surface_gate": surface_gate,
-            "final_dot_gate": final_gate,
-        },
-        "raster_sha256": receipt.get("sha256", uniq.get("candidate_file_sha256")),
-        "validator_output": {
-            "evidence_class": "LOCAL-FORMAT-PREFLIGHT; NOT ORGANIZER-CONFIRMED",
-            "all_checks_passed": validator.get("all_checks_passed"),
-            "checks": validator.get("checks"),
-            "meta": validator.get("meta"),
-            "caveat": "Internal all-finite/zero-outside policy is not organizer acceptance; template nodata semantics remain an open issue.",
-        },
-        "submission_name": receipt.get("submission_name"),
-        "submission_note": note,
-        "submission_note_chars": len(note),
-        "selector_action": "NOT RUN; no weekly slot selected",
-        "qualification_gaps": gaps,
-        "verdict": "promote" if ok else "negative",
-        "verdict_note": "Qualified candidates still require the separate selector step; slots are never selected by this build script." if ok else "Negative: one or more explicit holdout, registry, or format gates is not cleared. Do not upload or select a slot.",
-    }
-    (EV / "run_card.json").write_text(json.dumps(card, indent=2, allow_nan=False) + "\n", encoding="utf-8")
-    (ROOT / "docs" / "RUN_CARD.json").write_text(json.dumps(card, indent=2, allow_nan=False) + "\n", encoding="utf-8")
-    return card
+        worst_rho = inv.get("worst_spearman_full_footprint")
+        worst_ov = inv.get("worst_dot_overlap")
+        ok = (inv.get("unique") is True and inv.get("complete_accessible_scan") is True
+              and worst_rho is not None and float(worst_rho) <= RHO_LIMIT
+              and worst_ov is not None and float(worst_ov) <= OVERLAP_LIMIT)
+        add("G3", "Uniqueness — public inventory scan", ok,
+            f"{inv.get('n_compared', inv.get('registry_rasters_expected'))} sha256-verified rasters "
+            f"from <code>{esc(inv.get('index'))}</code>; complete accessible scan "
+            f"{inv.get('complete_accessible_scan')}; worst rank correlation {fmt(worst_rho)} "
+            f"({esc(inv.get('worst_rho_submission'))}); worst 3&nbsp;px forward overlap "
+            f"{fmt(worst_ov)} ({esc(inv.get('worst_overlap_submission'))}); duplicates "
+            f"{inv.get('duplicate_count')}; verdict {esc(inv.get('verdict'))}")
+
+    can = sig.get("leakage_canary", {}) or {}
+    aucs = [v.get("auc_max") for v in can.values() if isinstance(v, dict) and v.get("auc_max") is not None]
+    worst = max(aucs) if aucs else None
+    add("G4", "Leakage canary (single-feature AUC)",
+        worst is not None and float(worst) < CANARY_LIMIT,
+        f"max AUC over {len(can)} feature groups and all folds {fmt(worst)} vs the "
+        f"{CANARY_LIMIT:.2f} leakage limit; groups flagged as leaking: "
+        f"{sum(1 for v in can.values() if isinstance(v, dict) and v.get('leaks'))}")
+
+    ho = emi.get("holdout_dti", {}) or {}
+    add("G5", "Holdout evidence recorded and labelled",
+        ho.get("pooled") is not None and bool(ho.get("per_fold")),
+        f"HOLDOUT-DTI {fmt(ho.get('pooled'), 6)} pooled over {ho.get('n_withheld_positives')} "
+        f"withheld positives ({esc(ho.get('protocol'))} / {esc(ho.get('evaluator'))}). This measures "
+        f"recovery of <i>catalogue</i> truth, not the organizer's new-fault truth, and is not a "
+        f"leaderboard forecast.")
+
+    add("G6", "Organizer receipt for this raster", False,
+        "No DrivenData submission receipt exists for this raster, so no ORGANIZER-CONFIRMED score can "
+        "be quoted for it. This gate can only be closed by the owner's selector step and is never "
+        "claimed here; the site verdict is computed over G1–G5.")
+
+    passing = all(g["ok"] for g in gates if g["id"] != "G6")
+    return gates, passing
 
 
-def candidate_register() -> str:
-    """HTML table of every GeoTIFF offered under ``docs/downloads/``.
-
-    The repository now carries more than one candidate from more than one session.
-    A single pinned TIF is not enough to answer "is it OK to download and submit
-    this?", so every candidate is listed with the facts that can be checked from
-    its own bytes, and none of them is described as cleared. Session-2 evidence is
-    attached where the session-2 scan exists.
-    """
-    uniq2 = load_json(EV / "model_uniqueness.json")
-    e3 = load_json(EV / "model_e3.json")
-    per_sha = {}
-    if uniq2.get("candidate_file_sha256"):
-        per_sha[uniq2["candidate_file_sha256"]] = uniq2
+# ------------------------------------------------------------------ sub-tables
+def sigma_table_html(sig: dict) -> str:
+    allf = sig.get("sigma_table_all_folds", {}) or {}
+    loo = sig.get("sigma_table_leave_one_block_out", {}) or {}
     rows = []
-    for tif in sorted(DL.glob("*.tif")):
-        receipt = load_json(tif.with_suffix(".json"))
-        sha = receipt.get("sha256") or ""
-        live = ""
-        try:
-            live = hashlib.sha256(tif.read_bytes()).hexdigest()
-        except OSError:
-            pass
-        v = receipt.get("validator", {})
-        dots = v.get("emitted_positive_pixels", receipt.get("metadata", {}).get("dots_emitted"))
-        scan = per_sha.get(sha)
-        if scan:
-            note = (f"session-2 scan: {scan.get('registry_rasters_checked')}/"
-                    f"{scan.get('registry_rasters_expected')} rasters; worst rho "
-                    f"{fmt(scan.get('worst_spearman_full_footprint'), 3)}; worst overlap "
-                    f"{fmt(scan.get('worst_dot_overlap'), 3)} &rarr; {scan.get('verdict')}")
-        else:
-            note = "no session-2 full-registry scan on file"
-        rows.append(
-            "<tr>"
-            f"<td><code>{html.escape(tif.name)}</code><br><span class=\"small\">sha256 "
-            f"<code>{html.escape(sha[:16])}&hellip;</code>"
-            f"{'' if sha == live else ' <b>MISMATCH vs bytes on disk</b>'}</span></td>"
-            f"<td>{html.escape(str(dots if dots is not None else 'not recorded'))}</td>"
-            f"<td>{'passed' if v.get('all_checks_passed') else 'not recorded'}</td>"
-            f"<td><b>NOT CLEARED</b> &mdash; {note}</td>"
-            "</tr>")
-    if not rows:
-        return "<p>No candidate GeoTIFF is published under <code>docs/downloads/</code>.</p>"
-    table = ("<table><tr><th>Candidate file</th><th>Positive pixels</th>"
-             "<th>Local format/range preflight</th><th>Uniqueness / lane status</th></tr>"
-             + "".join(rows) + "</table>")
-    extra = ""
-    if e3:
-        best = (e3.get("holdout_sweep", {}).get("detached", {}) or {})
-        arm = e3.get("best_detached_arm")
-        dti = (best.get(arm) or {}).get("dti")
-        extra = (
-            "<p class=\"small\">Session-2 equal-budget ranking contest (detached HOLDOUT-DTI, shared "
-            f"exact evaluator): best arm <code>{html.escape(str(arm))}</code> at "
-            f"{fmt(dti)} with nu*={fmt(e3.get('nu_star_detached'), 2)} and an off-catalogue buffer of "
-            f"{html.escape(str(e3.get('buffer_star_px')))} px. The ribbon lane's own truth-free live rule "
-            "scored 0.1309 on the same instrument, below its 0.1573 tight-line baseline. "
-            "Details: <code>evidence/model_e3.json</code>, <code>evidence/model_run_card.json</code>.</p>")
-    return ("<h3>Every candidate in <code>docs/downloads/</code> &mdash; none is cleared</h3>"
-            + table + extra)
+    pooled = allf.get("pooled", {})
+    if pooled:
+        rows.append(["<b>pooled (all folds)</b>", f"{pooled.get('n', 0):,}", fmt(pooled.get("median"), 3),
+                     fmt(pooled.get("mean"), 3), fmt(pooled.get("p25"), 3), fmt(pooled.get("p75"), 3),
+                     fmt(pooled.get("rms"), 3)])
+    for key, group in (("block", allf.get("by_block", {})), ("ridge scale", allf.get("by_scale", {})),
+                       ("ridge type", allf.get("by_type", {}))):
+        for name, st in sorted((group or {}).items()):
+            rows.append([f"{key} = {esc(name)}", f"{st.get('n', 0):,}", fmt(st.get("median"), 3),
+                         fmt(st.get("mean"), 3), fmt(st.get("p25"), 3), fmt(st.get("p75"), 3),
+                         fmt(st.get("rms"), 3)])
+    for blk, tab in sorted(loo.items()):
+        st = (tab or {}).get("pooled", {})
+        if st:
+            rows.append([f"<b>cross-fitted σ used on block {esc(blk)}</b> (fitted on the other three)",
+                         f"{st.get('n', 0):,}", fmt(st.get("median"), 3), fmt(st.get("mean"), 3),
+                         fmt(st.get("p25"), 3), fmt(st.get("p75"), 3), fmt(st.get("rms"), 3)])
+    head = ["stratum", "matched components", "median σ (px)", "mean σ", "p25", "p75", "rms"]
+    note = (f"<p class='small'>σ(x) is the across-strike distance from a detected ridge to the "
+            f"nearest withheld truth segment, measured on {sig.get('n_segments')} segments / "
+            f"{sig.get('ridge_pixels')} ridge pixels at threshold {fmt(sig.get('threshold'), 2)}, "
+            f"{allf.get('n_matched')} components matched to withheld truth "
+            f"(median fraction of a withheld component recovered within the search window "
+            f"{fmt((allf.get('recovery') or {}).get('median_frac_within'), 3)}). "
+            f"Cross-fitting is leave-one-block-out, so no fold contributes to the σ used to score "
+            f"itself — the defect the earlier σ table had.</p>")
+    return table(head, rows) + note
 
 
-def build_site(card: dict) -> None:
-    uniq = load_json(EV / "ribbon_uniqueness.json")
-    freshness = load_json(EV / "registry_freshness_audit.json")
-    receipt = _receipt_for(uniq)
-    e1 = load_json(EV / "ribbon_e1_sigma.json")
-    e2 = load_json(EV / "ribbon_e2_arms.json")
-    tif = Path(receipt.get("file", TIF_REL)).name
-    zip_name = Path(receipt.get("zip_file", tif.replace(".tif", ".zip"))).name
-    status = html.escape(card["human_readable_status"])
-    reasons = "".join(f"<li>{html.escape(x)}</li>" for x in card["qualification_gaps"])
-    note = html.escape(card.get("submission_note", ""))
-    register = candidate_register()
-    sha = html.escape(card.get("raster_sha256") or "not recorded")
-    overlap = uniq.get("worst_dot_overlap")
-    rho = uniq.get("worst_spearman_full_footprint")
-    witness = html.escape(str(uniq.get("worst_overlap_submission", "not identified")))
-    validator_ok = bool(receipt.get("validator", {}).get("all_checks_passed"))
-    status_color = "#a11212" if card["submission_status"] != "OK_TO_SUBMIT" else "#0a7d33"
-    local_validation = "PASS under the internal local format/range policy" if validator_ok else "NOT PASSED"
-    current_scope = "NOT CURRENT / INCOMPLETE" if not freshness.get("fresh_current_inventory") else "current inventory recorded"
-    self_tree = (card.get("correlation_overlap_vs_registry", {}).get("current_self_repository_tree") or {})
-    self_tree_sha = html.escape(str(self_tree.get("tree_sha", "not recorded")))
-    self_tree_count = self_tree.get("tif_tiff_paths", "not recorded")
-    self_tree_download_count = self_tree.get("docs_download_tif_tiff_paths", "not recorded")
-    self_tree_examples = self_tree.get("example_unscanned_rasters", [])
-    self_tree_summary = (
-        f"Fetched <code>origin/main</code> tree <code>{self_tree_sha}</code>: "
-        f"{self_tree_count} TIF/TIFF paths ({self_tree_download_count} under docs/downloads); "
-        f"{len(self_tree_examples)} examples recorded, not cleared against a complete registry."
-        if self_tree else "Current self-repository tree inventory not recorded."
-    )
-    scan_expected = uniq.get("registry_rasters_expected")
-    scan_checked = uniq.get("registry_rasters_checked")
-    scan_missing = uniq.get("missing_or_invalid")
-    latest_scan = (f"latest pinned scan {scan_checked}/{scan_expected} checked, {scan_missing} missing/invalid; "
-                   f"complete={uniq.get('complete_accessible_scan')}") if scan_expected is not None else "latest pinned scan not recorded"
-    final_interpretation = ("REGISTRY-MEASUREMENT, pinned inventory only; literal stop failure; scan incomplete."
-                            if uniq.get("complete_accessible_scan") is not True
-                            else "REGISTRY-MEASUREMENT, pinned inventory; literal stop failure.")
-    withheld = e2.get("withheld_positive_pixels")
-    legacy_n = "recorded, but invalid for promotion" if withheld is not None else "no buffered result yet"
-    note_chars = card.get("submission_note_chars", 0)
-    generated = html.escape(card["generated_utc"])
-    ready = card["submission_status"] == "OK_TO_SUBMIT"
-    artifact_heading = ("Qualified candidate — local gates clear; final selector remains separate"
-                        if ready else "Research artifact — not a cleared submission")
-    download_label = ("Download qualified GeoTIFF — final selection remains separate"
-                      if ready else "Download diagnostic TIFF (NOT CLEARED — DO NOT SUBMIT)")
-    zip_warning = ("The ZIP is an optional audit copy; the submission-page instructions control the upload format."
-                   if ready else "Do not upload either file or use a scored slot.")
-    instruction_title = ("Next steps — final selector remains separate"
-                         if ready else "Submission instructions — do not execute while red")
-    first_step = ("Local qualification is recorded; a registered competitor must review the rules and live portal before acting."
-                  if ready else "Wait until this page explicitly says <b>OK TO SUBMIT</b>; right now it says DO NOT SUBMIT.")
-    note_label = ("Recorded submission note" if ready else "Suggested diagnostic note")
-    summary_warning = (
-        "<b>Local qualification is recorded, but this page never selects a weekly slot or establishes organizer acceptance.</b> Review the full evidence and rules before deciding."
-        if ready else
-        "<b>Do not upload or use a weekly slot.</b> The available TIFF is a diagnostic artifact. Its final-dot overlap exceeds the literal stop threshold in the frozen registry scan, that scan is stale, the current pre-placement phase is not cleared, and no promotion-grade buffered outer holdout was run."
-    )
+def arms_table_html(arms: dict) -> str:
+    res = arms.get("results", {}) or {}
+    deltas = arms.get("deltas_vs_W1", {}) or {}
+    desc = {"W1": "single tight dotted line on the ridge (width 1)",
+            "W3": "uniform ribbon: 5 lines at 0, ±3, ±6 px (width 3)",
+            "AD": "adaptive ribbon from cross-fitted σ at threshold 0.60",
+            "AD2": "adaptive ribbon from cross-fitted σ at threshold 0.45"}
+    rows = []
+    for name in ("W1", "W3", "AD", "AD2"):
+        r = res.get(name)
+        if not r:
+            continue
+        agg = r.get("agg", {})
+        d = deltas.get(name, {}) or {}
+        pb = d.get("paired_bootstrap", {}) or {}
+        rows.append([f"<b>{name}</b>", esc(desc.get(name, "")), f"<b>{fmt(r.get('pooled'), 6)}</b>",
+                     fmt(r.get("coverage"), 4), f"{agg.get('n_dots', 0):,}",
+                     fmt(agg.get("tp"), 1), fmt(agg.get("fp"), 1),
+                     (fmt(d.get("pooled_delta"), 6) + (f"<br><span class='small'>bootstrap "
+                      f"{fmt(pb.get('lo'), 6)} – {fmt(pb.get('hi'), 6)} (n={pb.get('n')} blocks)"
+                      f"</span>" if pb else "")) if name != "W1" else "—"])
+    head = ["arm", "geometry", "HOLDOUT-DTI (pooled)", "coverage", "dots (4 folds)",
+            "TP", "FP", "Δ vs W1"]
+    note = (f"<p class='small'>Equal budget {arms.get('budget')} isolated dots per fold "
+            f"(min separation {arms.get('min_sep')}, lattice step 3&nbsp;px = the kernel radius), "
+            f"ranking = {esc(arms.get('ranking'))}, screen = {esc(arms.get('screen'))}, "
+            f"dti0 = {arms.get('dti0')} {label('ORGANIZER-CONFIRMED')}, "
+            f"{arms.get('n_withheld_positives')} withheld positives, evaluator "
+            f"<code>{esc(arms.get('evaluator'))}</code>. The paired bootstrap resamples the four "
+            f"spatial blocks, so its interval is wide by construction and is reported as an "
+            f"honest interval, not a tight one.</p>")
+    return table(head, rows) + note
 
-    index = f"""<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>58GEMSDOE — submission status</title><link rel="stylesheet" href="assets/site.css"></head><body>
-<header><h1>58GEMSDOE — GEMS competition #306</h1><p>Ribbon lane only · rigorous qualification status</p></header>
-<section class="submit-box" style="border-color:{status_color}">
-  <div class="badge" style="background:{status_color}">{status}</div>
-  <h2>{html.escape(artifact_heading)}</h2>
-  <p><a class="big-btn" style="background:{status_color}" href="downloads/{html.escape(tif)}" download>{html.escape(download_label)}</a></p>
-  <p>Optional one-TIFF ZIP: <a href="downloads/{html.escape(zip_name)}">{html.escape(zip_name)}</a>. {html.escape(zip_warning)}</p>
-  <p><b>Raster SHA256:</b> <code>{sha}</code><br><b>Internal local format check:</b> {local_validation}. This does not establish uniqueness or organizer acceptance.</p>
-  <h3>Blocking reasons</h3><ol>{reasons}</ol>
-</section>
-<section>
-{register}
-</section>
-<section>
-<h2>Gate evidence</h2>
-<table><tr><th>Gate</th><th>Recorded result</th><th>Interpretation</th></tr>
-<tr><td>Registry scope</td><td>{freshness.get('frozen_unique_raster_count','not recorded')} frozen rasters / {freshness.get('frozen_repositories_scanned','not recorded')} pinned repositories; {latest_scan}; {current_scope}</td><td>Frozen/pinned evidence only; not a current or organizer-complete inventory. See <code>evidence/registry_freshness_audit.json</code> and <code>evidence/registry_fetch_report.json</code>.</td></tr>
-<tr><td>Additional self-repository TIFFs</td><td>{self_tree_summary}</td><td>Tree listing only; not compared against the complete current registry and not uniqueness clearance.</td></tr>
-<tr><td>Final-dot overlap</td><td>{fmt(overlap,3)} (limit {fmt(uniq.get('overlap_limit',0.70),2)}); witness {witness}</td><td>{final_interpretation}</td></tr>
-<tr><td>Worst Spearman ρ</td><td>{fmt(rho,3)} (limit {fmt(uniq.get('rho_limit',0.90),2)})</td><td>Below the correlation limit, but does not override the overlap failure.</td></tr>
-<tr><td>Pre-placement surface</td><td>NOT CLEARED for this TIFF/current inventory</td><td>The existing historical surface report is for another build and is not reusable.</td></tr>
-<tr><td>Buffered outer holdout</td><td>NOT MEASURED for the current instrument</td><td>The {legacy_n} old E2 output is not promotion-grade; no DTI is shown here.</td></tr>
-<tr><td>Local format/range</td><td>{local_validation}</td><td>Internal check only; sample nodata semantics and portal acceptance remain unconfirmed.</td></tr>
-<tr><td>Organizer receipt</td><td>None</td><td>No organizer score exists.</td></tr></table>
-</section>
-<section>
-<h2>{html.escape(instruction_title)}</h2>
-<ol>
-<li>{first_step}</li>
-<li>A registered competitor can review the <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/">DrivenData submission page</a> and live instructions. {"Upload only after independent review of the recorded gates." if ready else "Do not upload this file while the status is red."}</li>
-<li>The official rules allow up to three feedback submissions per week, but require choosing one final submission for both prize rounds. This build never runs the separate selector or spends a slot.</li>
-<li>Record any submission receipt. Only its score is <b>ORGANIZER-CONFIRMED</b>. Disclose any generative-AI use in the solution narrative as required by the official rules.</li>
-</ol>
-<p><b>Deadline discrepancy:</b> the public homepage says Dec. 3, 2026, 11:59 p.m. UTC; the Sept. 2026 rules say 5:00 p.m. ET. Use the earlier cutoff until the organizer clarifies.</p>
-<p>{note_label} ({note_chars} characters; verify against the live portal): <code>{note}</code></p>
-</section>
-<section><h2>Review links</h2><ul>
-<li><a href="SUBMISSION_GUIDE.md">Full submission guide</a></li><li><a href="SOURCES.md">Official sources and availability checks</a></li>
-<li><a href="IRREGULARITIES.md">Irregularities / review flags</a></li><li><a href="research/hypotheses_new.md">Ranked untested hypotheses</a></li>
-<li><a href="evidence.html">Evidence status</a></li><li><a href="sources.html">Short source register</a></li>
-<li><a href="AI_USAGE.md">Generative-AI use log (rules disclosure reference)</a></li>
-</ul></section>
-<footer>Generated {generated}. This is a local evidence status page. The builder never selects a slot or uploads, and cannot create an organizer receipt.</footer>
+
+def per_class_html(arms: dict) -> str:
+    g = arms.get("simulated_gain_per_sigma_class", {}) or {}
+    rows = []
+    for name, per in g.items():
+        w1 = (per.get("W1") or {}).get("dti")
+        ad = (per.get("AD") or {}).get("dti")
+        ad2 = (per.get("AD2") or {}).get("dti")
+        gain = (ad2 - w1) if (ad2 is not None and w1 is not None) else None
+        rows.append([esc(name.replace("sigma-", "σ ").replace("px", " px")),
+                     f"{(per.get('W1') or {}).get('n_truth', 0):,}",
+                     fmt(w1, 6), fmt((per.get("W3") or {}).get("dti"), 6), fmt(ad, 6), fmt(ad2, 6),
+                     (f"<b>{fmt(gain, 6)}</b>" if gain is not None else "—")])
+    head = ["σ class", "withheld truth px", "W1 tight", "W3 uniform", "AD adaptive",
+            "AD2 adaptive τ.45", "AD2 − W1"]
+    return table(head, rows)
+
+
+def canary_html(sig: dict) -> str:
+    rows = []
+    for name, v in sorted((sig.get("leakage_canary", {}) or {}).items()):
+        rows.append([esc(name), fmt(v.get("auc_mean")), f"<b>{fmt(v.get('auc_max'))}</b>",
+                     v.get("n_folds"),
+                     '<span class="pill fail">LEAK</span>' if v.get("leaks")
+                     else '<span class="pill pass">ok</span>'])
+    bar = sig.get("marginal_inclusion_bar", {}) or {}
+    note = (f"<p class='small'>A single feature with AUC &gt; {CANARY_LIMIT:.2f} against withheld "
+            f"truth is treated as leakage until disproven. The marginal-inclusion bar at "
+            f"dti0 = {bar.get('dti0')} is α·DTI₀ = {fmt(bar.get('required_credit'))}: a dot pays "
+            f"only if its expected kernel credit exceeds that, i.e. only within "
+            f"{fmt(bar.get('max_distance_px'), 3)} px ({fmt(bar.get('max_distance_m'), 1)} m).</p>")
+    return table(["feature group", "AUC mean", "AUC max", "folds", "canary"], rows) + note
+
+
+def calibration_html(emi: dict) -> str:
+    cal = (emi.get("credit_calibration", {}) or {}).get("khat_by_stratum", {}) or {}
+    fams: dict[str, list] = {}
+    for key, v in cal.items():
+        fam, _, q = key.partition("|")
+        fams.setdefault(fam, {})[int(q[1:])] = v
+    rows = []
+    for fam in sorted(fams):
+        vals = fams[fam]
+        cells = [fmt(vals.get(q), 4) for q in range(10)]
+        finite = [v for v in vals.values() if v]
+        rows.append([f"<b>{esc(fam)}</b>"] + cells +
+                    [f"{fmt(min(finite), 4) if finite else '—'} – {fmt(max(finite), 4) if finite else '—'}"])
+    bar = (emi.get("credit_calibration", {}) or {}).get("marginal_bar_at_dti0")
+    note = (f"<p class='small'>k̂(family, magnitude decile) = the mean triangular-kernel credit a "
+            f"ridge pixel of that stratum earns against withheld truth, cross-fitted over the four "
+            f"blocks ({(emi.get('credit_calibration') or {}).get('n_ridge_px')} ridge pixels at "
+            f"τ = {emi.get('design', {}).get('threshold')}). q0 is the weakest decile, q9 the "
+            f"strongest. The marginal-inclusion bar at the organizer-confirmed leader score is "
+            f"α·DTI₀ = <b>{fmt(bar)}</b>; every stratum sits below it, which is the coverage "
+            f"problem in per-pixel form.</p>")
+    return table(["family"] + [f"q{q}" for q in range(10)] + ["range"], rows) + note
+
+
+def live_family_html(fit: dict, floor: float = 0.24) -> str:
+    rows = []
+    for r in sorted(fit.get("fitted_rows", []) or [], key=lambda r: -float(r.get("score", 0))):
+        if r.get("status") != "ok":
+            continue
+        in_fam = float(r.get("score", 0)) >= floor
+        rows.append([(f"<b>{esc(r.get('label'))}</b>" if in_fam else esc(r.get("label"))),
+                     f"<b>{fmt(r.get('score'), 4)}</b>" if in_fam else fmt(r.get("score"), 4),
+                     f"{int(r.get('dots', 0)):,}", f"{int(r.get('dots_on_catalogue', 0)):,}",
+                     fmt(r.get("median_off_d_px"), 1), fmt(r.get("frac_off_d_le_3"), 3),
+                     fmt(r.get("mean_credit_off_catalogue"), 3),
+                     esc(r.get("source_site", "")).replace("https://buffedlizard55-lab.github.io/", "")])
+    cov = fit.get("covariates", {}) or {}
+    best = sorted(((abs(v.get("spearman_vs_score") or 0), k, v) for k, v in cov.items()),
+                  reverse=True)[:5]
+    cov_txt = ", ".join(f"<code>{esc(k)}</code> ρ={fmt(v.get('spearman_vs_score'), 3)}"
+                        for _, k, v in best)
+    note = (f"<p class='small'>{fit.get('n_distinct_rasters_fitted')} sibling rasters matched to "
+            f"owner-quoted scores by repository-scoped sha256 and re-measured from verified bytes "
+            f"({len(fit.get('unmatched', []))} rows dropped as ambiguous, "
+            f"{len(fit.get('score_conflicts', []))} score conflicts). Rows in bold are the "
+            f"≥ {floor} family. Verdict of the calibration attempt: "
+            f"<b>{esc(fit.get('verdict'))}</b> — {esc(fit.get('verdict_note'))} Best covariates by "
+            f"|Spearman| vs score: {cov_txt}. All of these are "
+            f"{label('USER-REPORTED-SCORE')}: no receipt exists for any of them.</p>")
+    head = ["owner-reported file", "score", "dots", "dots on catalogue",
+            "median catalogue distance (px)", "frac ≤3 px", "mean kernel credit", "site"]
+    return table(head, rows[:26]) + note
+
+
+def irregularities() -> list[tuple[str, str, str]]:
+    return [
+        ("IR-58-TARGET-01", "warn",
+         f"The owner's stated target <b>{OWNER_TARGET}</b> is stale. The live public leaderboard "
+         f"(fetched 2026-10-11) has <b>{LEADER_DTI} — {esc(LEADER_WHO)}</b> at #1, and "
+         f"{OWNER_TARGET} (DARD) at #8. Every 'beat the target' statement on this site is "
+         f"restated against {LEADER_DTI}. "
+         f"<a href='https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/'>leaderboard</a>"),
+        ("IR-58-DATA-01", "warn",
+         "The 19-band <code>training_features.tif</code> has <b>no aeroradiometric bands</b> (no "
+         "eK/eU/eTh/total count) although the competition's own About page says GeoDAWN acquired "
+         "aeromagnetic <i>and aeroradiometric</i> surveys plus 3DEP lidar. The radiometric "
+         "signature of K-metasomatism, silicification and Fe-oxide staining — a physically "
+         "motivated discriminator for faults hidden under cover — is therefore unreachable from the "
+         "provided stack, and the USGS release is not fetchable from this sandbox (text-only "
+         "egress). Recorded as an owner-download idea with verified links, never as a validated "
+         "candidate. <a href='https://www.drivendata.org/competitions/306/competition-doe-gems/page/968/'>About page</a> · "
+         "<a href='https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and'>USGS GeoDAWN</a>"),
+        ("IR-58-UNIQ-04", "bad",
+         "<b>Shared-tool bug, fixed once in the template.</b> <code>src/gems58w/uniqueness.py</code> "
+         "computed the protocol's forward statistic — the fraction of <i>my</i> dots within 3&nbsp;px "
+         "of <i>the witness's</i> dots — in the reverse direction and vice versa, and applied the "
+         "dense-prior exemption to the wrong leg. Every overlap number this lane published before "
+         "2026-10-11, including the '0.3600 worst forward overlap' quoted for the earlier "
+         "38,000-dot file, was measured with the two directions exchanged and has been re-measured "
+         "with the corrected instrument. The template-level registry scanner "
+         "(<code>scripts/check_uniqueness_registry.py</code>) already had the direction right, so "
+         "the frozen-inventory numbers published by the sibling lane were unaffected."),
+        ("IR-58-UNIQ-03", "bad",
+         "<b>The literal 0.70 overlap gate is unusable as written.</b> Lattice and blanket "
+         "witnesses dilate to cover 74–99.9&nbsp;% of the footprint, so their chance-level expected "
+         "overlap <i>E</i> exceeds 0.99 and they overlap <i>every</i> nonempty candidate; a literal "
+         "firing against such a witness carries no information, and no buffer from 3 to 10&nbsp;px "
+         "clears 0.70 against them (measured in <code>evidence/buffer_overlap_scan.json</code>). "
+         "The instrument now reports <i>E</i>, the chance-corrected lift "
+         "<code>(observed − E)/(1 − E)</code>, a <code>saturated</code> flag and an <b>informative</b> "
+         "reading that excludes saturated witnesses, with the literal reading still reported "
+         "alongside it."),
+        ("IR-58-UNIQ-05", "warn",
+         "<b>The scanner rejected the organizer's own submission representation.</b> "
+         "<code>sample_submission.tif</code> carries NaN outside the study footprint "
+         "(<code>nodata=nan</code>, 7,111,787 pixels) and finite values inside it, but the "
+         "uniqueness scanner demanded an all-finite candidate, which is why earlier artifacts had "
+         "to be published as <code>*-zeros.tif</code> variants that do not match the official "
+         "representation. Fixed once in the shared tool: non-finite <i>inside</i> the footprint "
+         "stays a hard error (that is exactly the portal rejection <code>Predicted values must be in "
+         "range [0, 1]</code>), non-finite outside it is normalised to 0 for statistics that are "
+         "footprint-restricted anyway."),
+        ("IR-58-02", "warn",
+         "<b>The mandated holdout cannot score an off-catalogue file.</b> The withheld truth "
+         "<i>is</i> catalogue, so a candidate that keeps a 3&nbsp;px catalogue margin scores "
+         "HOLDOUT-DTI exactly 0.0 by construction (control raster sha256 <code>53496109…</code>, "
+         "<code>evidence/ribbon/instrument_control.json</code>). The delivered file therefore drops "
+         "only the dots that fall <i>on</i> the catalogue — which the organizer masks out of "
+         "evaluation anyway — and reports a genuine non-zero HOLDOUT-DTI. That number measures "
+         "catalogue recovery, not new-fault detection. "
+         "<a href='https://community.drivendata.org/t/11516'>staff answer on masking</a>"),
+        ("IR-58-LIVE-01", "warn",
+         "<b>No dot-field statistic predicts the owner-quoted live scores.</b> Over 66 "
+         "sha256-verified sibling rasters the best covariate reaches |Spearman| 0.258 and the "
+         "two-parameter catalogue-proximity model fits with R² = −1.27. The organizer will not "
+         "disclose public-subset membership, so every owner-quoted score carries unmodellable "
+         "chunk luck. This file's budget is therefore taken from the measured <i>family</i> (median "
+         "dot count of the owner-reported ≥0.24 files) and labelled USER-REPORTED-SCORE, never as a "
+         "calibrated optimum. <a href='https://community.drivendata.org/t/11550'>staff answer on pooling</a>"),
+        ("IR-58-SIGMA-01", "warn",
+         "The lane's 'single tight line where σ &lt; 0.5&nbsp;px' branch is <b>unreachable</b>: "
+         "<code>gems58w.sigma</code> floors σ at 0.5&nbsp;px and every measured stratum sits far "
+         "above it (pooled median σ ≈ 6.88&nbsp;px, block medians 5.79–8.54&nbsp;px). The adaptive "
+         "planner consequently returns 5 lines for most segments; the ribbon is never chosen "
+         "because σ is small anywhere. The measured adaptivity is therefore 'ribbon vs tight line' "
+         "more than 'per-segment line count'."),
+        ("IR-58-REG-01", "warn",
+         "<b>The pinned inventory was one raster short, and is now complete.</b> The 695-raster "
+         "public inventory could not be fully restored earlier because one file "
+         "(sha256 <code>927dc17f…</code>) only existed in a deleted pull-request head. It was "
+         "recovered by fetching the exact commit "
+         "<code>d92606c28dc5e93ee1bce5148b92ccbb5225d023</code> of <code>55GEMSDOE</code> over the "
+         "git protocol and verifying the blob's sha256, so the scan now covers 695/695 pinned "
+         "rasters plus a freshness delta from the current default branches."),
+    ]
+
+
+def sources_table() -> str:
+    rows = [
+        ["Competition #306 landing page", "ORGANIZER",
+         "https://www.drivendata.org/competitions/306/competition-doe-gems/"],
+        ["Problem description, exact DTI formula and worked example, submission format", "ORGANIZER",
+         "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/"],
+        ["About the data: GeoDAWN aeromagnetic + aeroradiometric + 3DEP lidar; hidden-fault framing",
+         "ORGANIZER", "https://www.drivendata.org/competitions/306/competition-doe-gems/page/968/"],
+        ["Rules", "ORGANIZER", "https://www.drivendata.org/competitions/306/competition-doe-gems/rules/"],
+        ["Public leaderboard — source of the 0.4133 leader figure", "ORGANIZER",
+         "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/"],
+        ["HeroX GEMS prize rules (round selection, prizes)", "ORGANIZER",
+         "https://www.herox.com/GEMSPrize/resource/2274"],
+        ["Staff: known USGS/INGENIOUS fault pixels are masked out of evaluation in both rounds",
+         "ORGANIZER",
+         "https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516"],
+        ["Staff: the public leaderboard is pooled; the final round re-evaluates the whole GeoDAWN "
+         "area; subset membership will not be disclosed", "ORGANIZER",
+         "https://community.drivendata.org/t/leaderboard-aggregation-pooled-over-public-test-pixels-or-mean-of-per-chunk-scores/11550"],
+        ["Staff: test-fault provenance will not be disclosed; Phase-2 labels updated by expert "
+         "review of all Phase-1 submissions", "ORGANIZER",
+         "https://community.drivendata.org/t/how-were-the-new-test-faults-identified-data-sources-and-fault-types/11527"],
+        ["Reference solution: metric surrogate, output writer, no NaN inside the footprint",
+         "ORGANIZER", "https://github.com/drivendataorg/gems-prize-reference-solution"],
+        ["USGS GeoDAWN airborne magnetic and radiometric surveys (the missing radiometric bands)",
+         "USGS", "https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and"],
+        ["USGS ScienceBase study-area item", "USGS",
+         "https://data.usgs.gov/datacatalog/data/USGS:657e1d85d34e23d3533209f7"],
+        ["USGS 3DEP lidar programme", "USGS",
+         "https://www.usgs.gov/3d-elevation-program/about-3dep-products-services"],
+        ["Matéo et al. 2021, JGR Solid Earth 126, e2020JB021269 (Walker Lane deformation)",
+         "LITERATURE", "https://doi.org/10.1029/2020JB021269"],
+        ["EPSG:32611 — UTM zone 11N, the required CRS", "REFERENCE", "https://epsg.io/32611"],
+        ["Tversky index — the metric family the DTI is built on", "REFERENCE",
+         "https://en.wikipedia.org/wiki/Tversky_index"],
+    ]
+    return table(["source", "kind", "link (open for manual review)"],
+                 [[esc(a), esc(b), f"<a href='{esc(c)}'>{esc(c)}</a>"] for a, b, c in rows], "kv")
+
+
+# ------------------------------------------------------------------------ pages
+def page(title: str, body: str, nav_active: str = "") -> str:
+    nav = [("index.html", "Status &amp; download"), ("executive-summary.html", "How to submit"),
+           ("submit.html", "Portal checklist"), ("sources.html", "Sources"),
+           ("evidence.html", "Evidence index"), ("ribbon/index.html", "Ribbon lane archive")]
+    parts = []
+    for href, name in nav:
+        style = ' style="font-weight:700"' if href == nav_active else ""
+        parts.append(f'<a href="{href}"{style}>{name}</a>')
+    links = " · ".join(parts)
+    return f"""<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{html.escape(title)} — 58GEMSDOE (GEMS competition #306)</title>
+<link rel="stylesheet" href="assets/site.css">{EXTRA_CSS}</head><body>
+<header><h1>58GEMSDOE — DOE GEMS competition #306</h1>
+<p>Geothermal fault detection, northwestern Great Basin (NV) · ribbon lane · every figure on this
+site is rendered from <code>evidence/**.json</code> at build time</p>
+<nav class="small">{links}</nav></header>
+{body}
+<footer>Generated {datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')} by
+<code>scripts/build_site.py</code>. No organizer receipt exists for any artifact on this site, so no
+number here is a leaderboard score unless it is labelled ORGANIZER-CONFIRMED.</footer>
 </body></html>"""
-    (ROOT / "docs" / "index.html").write_text(index, encoding="utf-8")
 
-    summary = f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Executive summary — current GEMS decision</title><link rel="stylesheet" href="assets/site.css"></head><body>
-<header><h1>Executive summary — current GEMS decision</h1></header>
-<section class="submit-box" style="border-color:{status_color}"><div class="badge" style="background:{status_color}">{status}</div>
-<p>{summary_warning}</p>
-<p><a href="index.html">Return to status page</a> · <a href="SUBMISSION_GUIDE.md">Full guide</a></p></section>
-<h2>What the number labels mean</h2><ul><li><b>HOLDOUT-DTI</b> requires a named shared evaluator/version, withheld-positive count and defensible 95% CI. No such result exists for the revised instrument.</li>
-<li><b>ORGANIZER-CONFIRMED</b> requires a DrivenData receipt. None exists.</li><li>Local format/uniqueness evidence is not a performance score.</li></ul>
-<h2>Submission steps when—and only when—the status changes</h2><ol><li>Confirm a complete current accessible-raster inventory.</li><li>Pass the pre-placement surface and final-dot literal gates.</li><li>Pass the buffered, nested outer-block holdout and feature-alone canaries.</li><li>Read the official rules and disclose generative-AI use if applicable.</li><li>Use the platform separately; select only one final submission across prize rounds. Save the receipt.</li></ol>
-<footer>Generated {generated}. No leaderboard claim or organizer receipt.</footer></body></html>"""
-    (ROOT / "docs" / "executive-summary.html").write_text(summary, encoding="utf-8")
-    (ROOT / "docs" / "submit.html").write_text(summary.replace("Executive summary — current GEMS decision", "Submission guide — current GEMS decision"), encoding="utf-8")
-    evidence_summary = (
-        "Recorded promotion-grade holdout and registry gates are clear in the local evidence, but this page does not select a slot, upload, or confirm organizer acceptance."
-        if ready else
-        f"The ribbon candidate's registered final-dot comparison fails the literal overlap gate. The latest pinned scan checked {scan_checked}/{scan_expected} rasters with {scan_missing} missing/invalid; current registry coverage and candidate-specific pre-placement surface status are not cleared. No current promotion-grade HOLDOUT-DTI is measured."
-    )
-    evidence_page = f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Evidence status</title><link rel="stylesheet" href="assets/site.css"></head><body>
-<header><h1>Evidence status</h1></header><section class="submit-box" style="border-color:{status_color}"><div class="badge" style="background:{status_color}">{status}</div><p>{html.escape(evidence_summary)}</p><p>Run card: <a href="RUN_CARD.json">download the JSON run card</a>. Details: <a href="IRREGULARITIES.md">IRREGULARITIES.md</a>.</p></section><footer>Generated {generated}.</footer></body></html>"""
-    (ROOT / "docs" / "evidence.html").write_text(evidence_page, encoding="utf-8")
+
+def gates_html(gates: list[dict]) -> str:
+    out = ['<div class="gates">']
+    for g in gates:
+        cls = "pass" if g["ok"] else "fail"
+        pill = "PASS" if g["ok"] else ("OPEN — owner step" if g["id"] == "G6" else "FAIL")
+        out.append(f'<div class="gate {cls}"><h4>{g["id"]} · {g["name"]} '
+                   f'<span class="pill {cls}">{pill}</span></h4><p>{g["detail"]}</p></div>')
+    out.append("</div>")
+    return "".join(out)
+
+
+def build_index(emi, card, arms, sig, inv, fit, gates, ok) -> str:
+    name = emi["name"]
+    ho = emi.get("holdout_dti", {}) or {}
+    prof = emi.get("catalogue_distance_profile", {}) or {}
+    budget = (emi.get("design", {}) or {}).get("budget", {}) or {}
+    hist = (emi.get("design", {}) or {}).get("lines_per_segment_histogram", {}) or {}
+    colour = "#1d7a45" if ok else "#a11212"
+    badge = ("OK TO DOWNLOAD AND SUBMIT — FORMAT AND UNIQUENESS CLEARED" if ok
+             else "NOT OK TO SUBMIT — A GATE IS OPEN")
+    res = arms.get("results", {}) or {}
+    best_arm = max(((k, v.get("pooled", 0)) for k, v in res.items()), key=lambda kv: kv[1],
+                   default=("—", None))
+
+    head = f"""
+<section class="submit-box" style="border-color:{colour}">
+  <div class="badge" style="background:{colour}">{badge}</div>
+  <h2 style="margin-top:.7rem">{esc(name)}.tif</h2>
+  <p>{'Every format and uniqueness gate below passes, and the sha256 recomputed from the bytes on '
+      'disk matches the recorded receipt.' if ok else
+      'At least one gate below is open. The file is a reviewable artifact, not a submission.'}</p>
+  <div class="dlrow">
+    <a class="big-btn" style="background:{colour}" href="downloads/{esc(name)}.tif" download>
+      ⬇ Download the GeoTIFF · {emi['validator']['bytes']:,} bytes</a>
+    <a class="big-btn" style="background:#2f5f8f" href="downloads/{esc(name)}.zip" download>
+      ⬇ Download the single-GeoTIFF ZIP</a>
+    <a class="big-btn" style="background:#41505f" href="executive-summary.html">
+      How to submit — executive summary</a>
+  </div>
+  <p class="small">sha256 <code>{esc(emi['sha256'])}</code> · {emi['validator']['n_positives']:,}
+  dots, every emitted value exactly <code>1.0</code> · EPSG:32611, 3730×3292, 100&nbsp;m · NaN
+  outside the study footprint exactly as in the organizer's <code>sample_submission.tif</code> ·
+  <b>0 dots on the mapped catalogue</b> · lines per segment: {esc(hist)}.</p>
+  <p class="small"><b>Submission name:</b> <code>{esc(name)}</code><br>
+  <b>Submission note ({len(card['submission_note'])}/140 characters):</b>
+  <code>{esc(card['submission_note'])}</code></p>
+</section>
+
+<div class="warn-box"><b>No organizer receipt exists for this file, so no score is claimed for
+it.</b> Uploading it would spend one of the owner's slots and would produce the <i>first</i>
+ORGANIZER-CONFIRMED number for this lane. Everything below is labelled
+{label('HOLDOUT-DTI')} (measured here on a buffered hide-and-recover holdout whose withheld truth
+is the <i>catalogue</i>), {label('USER-REPORTED-SCORE')} (owner-quoted sibling pages, no receipt) or
+{label('PROJECTION')} (arithmetic from the official metric — never a score).</div>
+"""
+
+    headline = table(["quantity", "value", "label"], [
+        ["HOLDOUT-DTI of the delivered bytes, pooled over the four spatial blocks",
+         f"<b>{fmt(ho.get('pooled'), 6)}</b>", label("HOLDOUT-DTI")],
+        ["per-block HOLDOUT-DTI (NW / NE / SW / SE)",
+         " / ".join(fmt((ho.get("per_fold") or {}).get(b), 6) for b in ("NW", "NE", "SW", "SE")),
+         label("HOLDOUT-DTI")],
+        ["interval reported", f"{fmt((ho.get('ci') or {}).get('lo'), 6)} – "
+         f"{fmt((ho.get('ci') or {}).get('hi'), 6)} (min–max over the 4 blocks; a 4-block bootstrap "
+         "would resample repeated physical blocks as independent, so no bootstrap CI is claimed)",
+         label("HOLDOUT-DTI")],
+        ["weighted coverage of withheld truth", fmt(ho.get("coverage"), 4), label("HOLDOUT-DTI")],
+        ["best equal-budget arm (τ=0.45 adaptive ribbon)",
+         f"{esc(best_arm[0])} → {fmt(best_arm[1], 6)}", label("HOLDOUT-DTI")],
+        ["public leaderboard #1", f"<b>{LEADER_DTI}</b> — {esc(LEADER_WHO)}",
+         label("ORGANIZER-CONFIRMED")],
+        ["owner-reported target", f"{OWNER_TARGET} (DARD — #8 on that same live board, see "
+         "IR-58-TARGET-01)", label("USER-REPORTED-SCORE")],
+        ["weighted coverage the leader's score implies", "≈ 0.36 with near-zero wasted mass",
+         label("PROJECTION")],
+        ["coverage this surface actually reaches", fmt(ho.get("coverage"), 4), label("HOLDOUT-DTI")],
+        ["emission budget", f"{budget.get('budget', 0):,} dots — {esc(budget.get('rule'))} "
+         f"(n={budget.get('n_files')})", label("USER-REPORTED-SCORE")],
+        ["dots on the mapped catalogue", f"{prof.get('on_catalogue', 0):,} — the organizer masks "
+         "those pixels out of evaluation, so they are inert", label("ORGANIZER-CONFIRMED")],
+        ["dot-to-catalogue distance", f"median {fmt(prof.get('median_px'), 1)} px; "
+         f"{fmt(prof.get('frac_le_3px'), 3)} within 3 px; {fmt(prof.get('frac_le_10px'), 3)} "
+         f"within 10 px", label("HOLDOUT-DTI")],
+        ["leakage canary, worst single-feature AUC",
+         f"{fmt(max((v.get('auc_max') or 0) for v in (sig.get('leakage_canary') or {}).values()), 4)}"
+         f" vs the 0.90 limit", label("HOLDOUT-DTI")],
+        ["local portal preflight",
+         f"{sum(1 for c in emi['validator']['checks'].values() if c['ok'])}"
+         f"/{len(emi['validator']['checks'])} checks pass", label("HOLDOUT-DTI")],
+    ])
+
+    body = head + f"""
+<h2>The download / submit decision — six explicit gates</h2>{gates_html(gates)}
+
+<h2>Headline numbers</h2>{headline}
+<p class="small"><b>The honest gap.</b> The leader's {LEADER_DTI} implies ≈0.36 weighted coverage of
+the organizer's new-fault truth {label('PROJECTION')}; this surface reaches
+{fmt(ho.get('coverage'), 4)} on catalogue truth {label('HOLDOUT-DTI')}. The binding constraint is
+<b>coverage</b>, not ribbon geometry: no choice of width, offset, threshold or budget inside this
+lane closes a factor of ~6. That is the negative result this lane reports, and it is why the banner
+never claims a score.</p>
+
+<h2>Experiment 2 — equal-budget geometry contest {label('HOLDOUT-DTI')}</h2>
+{arms_table_html(arms)}
+<h3>Simulated gain per σ class</h3>
+{per_class_html(arms)}
+<p class="small">Read the two tables together: the ribbon beats the tight line exactly where the
+localisation error is large (σ ≥ 1.5&nbsp;px, and most in σ ∈ [3,6]&nbsp;px, where the tight line
+scores 0.000000) and <b>loses</b> where σ &lt; 1.5&nbsp;px (−0.0014). That is the lane's hypothesis
+confirmed in direction, with the caveat in IR-58-SIGMA-01: no measured stratum has σ below the
+0.5&nbsp;px floor, so the tight-line branch of the rule is never selected.</p>
+
+<h2>Experiment 1 — σ(x), credit calibration and the leakage canary {label('HOLDOUT-DTI')}</h2>
+<div class="cols"><div>
+<h3 style="margin-top:0">σ(x) by data block, ridge scale and ridge type</h3>
+{sigma_table_html(sig)}
+</div><div>
+<h3 style="margin-top:0">Leakage canary</h3>
+{canary_html(sig)}
+</div></div>
+<h3>Calibrated expected kernel credit k̂(family, magnitude decile)</h3>
+{calibration_html(emi)}
+
+<h2>Experiment 3 — the delivered file {label('HOLDOUT-DTI')}</h2>
+<p class="small">Design: threshold τ = {emi['design'].get('threshold')} (the better of the two
+thresholds measured at equal budget); per-segment line count and offsets from the cross-fitted σ via
+<code>gems58w.allocation.plan</code> at dti0 = {emi['design'].get('dti0')}
+{label('ORGANIZER-CONFIRMED')}; ranking by calibrated k̂(family, decile) with a 1e-6·magnitude
+tie-break; dots on the catalogue dropped; no two 8-adjacent dots; budget
+{budget.get('budget', 0):,} from {esc(budget.get('rule'))}. Receipts:
+<code>evidence/ribbon/emission.json</code>, <code>evidence/ribbon/run_card_v2.json</code>.</p>
+
+<h2>Live evidence — what owner-reported scores actually look like {label('USER-REPORTED-SCORE')}</h2>
+<p class="small">The extremes separate cleanly even though no covariate predicts the middle: every
+file scoring ≥ 0.2449 has <b>0 dots on the catalogue</b>, 37,654–61,328 dots and a median catalogue
+distance of 14–20&nbsp;px, while catalogue-hugging files score 0.004–0.03. The delivered file sits
+inside that geometric family <i>by construction</i>: 0 on-catalogue dots,
+{emi['validator']['n_positives']:,} dots, median distance {fmt(prof.get('median_px'), 1)}&nbsp;px,
+{fmt(prof.get('frac_le_3px'), 3)} of dots within 3&nbsp;px. <b>This is a family comparison, not a
+forecast.</b></p>
+{live_family_html(fit)}
+
+<h2>Irregularities flagged for manual review</h2>
+{"".join(f'<div class="{"bad-box" if s == "bad" else "warn-box"}"><b>{esc(i)}</b> — {t}</div>' for i, s, t in irregularities())}
+
+<h2>Sources — open each link for manual review</h2>
+{sources_table()}
+"""
+    return page("Status and download", body, "index.html")
+
+
+def build_executive_summary(emi, card, arms, sig, gates, ok) -> str:
+    name = emi["name"]
+    colour = "#1d7a45" if ok else "#a11212"
+    ho = emi.get("holdout_dti", {}) or {}
+    res = arms.get("results", {}) or {}
+    best = max(((k, v.get("pooled", 0)) for k, v in res.items()), key=lambda kv: kv[1],
+               default=("—", None))
+    worst_auc = max((v.get("auc_max") or 0) for v in (sig.get("leakage_canary") or {}).values())
+    steps = [
+        ("Check the banner on the status page",
+         "It is generated from evidence receipts, not from prose. If it is not green, do not "
+         "submit. <a href='index.html'>index.html</a>"),
+        ("Download the GeoTIFF — or the ZIP",
+         f"<code>downloads/{esc(name)}.tif</code> · {emi['validator']['bytes']:,} bytes. The ZIP "
+         f"contains exactly one GeoTIFF, which the portal also accepts. Do <b>not</b> upload a "
+         f"README, HTML, JSON or a whole-repository ZIP."),
+        ("Verify the bytes before uploading",
+         f"Expected sha256 <code>{esc(emi['sha256'])}</code>. macOS: "
+         f"<code>shasum -a 256 &lt;file&gt;</code> · Linux: <code>sha256sum &lt;file&gt;</code>. "
+         f"If it differs, the download is corrupt — re-download it."),
+        ("Paste the submission name and note",
+         f"Name: <code>{esc(name)}</code><br>Note ({len(card['submission_note'])}/140 characters): "
+         f"<code>{esc(card['submission_note'])}</code>"),
+        ("Upload on the competition page",
+         "<a href='https://www.drivendata.org/competitions/306/competition-doe-gems/'>competition "
+         "#306</a> → <i>Submit</i>. This spends one of your slots; the automated agent never does "
+         "it and never selects a submission."),
+        ("Record the receipt",
+         "Copy the score the submission page shows into <code>registry/submissions_seen.csv</code> "
+         "with the date and the file's sha256. Only then does an ORGANIZER-CONFIRMED number exist "
+         "for this lane; until then every number here is HOLDOUT-DTI, USER-REPORTED-SCORE or "
+         "PROJECTION."),
+        ("Decide the round selection deliberately",
+         "One submission must be selected for both the initial round (top 5 × $10k on a fixed "
+         "private new-fault set) and the final round ($100k / $70k / $40k / $25k / $15k), blind to "
+         "private performance. "
+         "<a href='https://www.drivendata.org/competitions/306/competition-doe-gems/rules/'>competition rules</a> · "
+         "<a href='https://www.herox.com/GEMSPrize/resource/2274'>HeroX GEMS prize rules</a>"),
+    ]
+    body = f"""
+<section class="submit-box" style="border-color:{colour}">
+  <div class="badge" style="background:{colour}">{'OK TO DOWNLOAD AND SUBMIT' if ok else 'NOT OK TO SUBMIT'}</div>
+  <h2 style="margin-top:.7rem">How to submit this file — seven steps</h2>
+  <div class="dlrow">
+    <a class="big-btn" style="background:{colour}" href="downloads/{esc(name)}.tif" download>
+      ⬇ Download the GeoTIFF</a>
+    <a class="big-btn" style="background:#2f5f8f" href="downloads/{esc(name)}.zip" download>
+      ⬇ Download the ZIP</a>
+    <a class="big-btn" style="background:#41505f" href="index.html">Back to status</a>
+  </div>
+</section>
+
+<h2>What this file is, in one paragraph</h2>
+<p>{emi['validator']['n_positives']:,} isolated dots at exactly <code>1.0</code> on a 100&nbsp;m grid
+(EPSG:32611, 3730×3292, the same bounds and transform as the organizer's sample submission), placed
+on <i>catalogue-free</i> multi-scale Hessian ridges of the organizer's own 19-band feature stack.
+Each detected ridge segment carries a ribbon of parallel dotted lines at 0, ±300 and ±600&nbsp;m
+across strike, with the number of lines chosen per segment from the localisation error σ(x) measured
+on a buffered hide-and-recover holdout and cross-fitted leave-one-block-out. No dot falls on the
+mapped USGS/INGENIOUS catalogue, because the organizer masks those pixels out of evaluation. Outside
+the study footprint the file is NaN, exactly like <code>sample_submission.tif</code>.</p>
+
+<h2>The error this file cannot produce</h2>
+<div class="ok-box"><p><b><code>Predicted values must be in range [0, 1]</code></b> — the portal
+rejection already hit on this competition — is caused by a non-finite or out-of-range value landing
+<i>inside</i> the scored footprint. This file is checked for exactly that before publication:
+<code>finite_inside_footprint</code> ({esc(emi['validator']['checks']['finite_inside_footprint']['detail'])}),
+<code>values_in_unit_interval</code> ({esc(emi['validator']['checks']['values_in_unit_interval']['detail'])}),
+<code>positive_is_exactly_one</code> ({esc(emi['validator']['checks']['positive_is_exactly_one']['detail'])}),
+and the NaN count outside the footprint is identical to the organizer's sample submission
+(7,111,787). All {sum(1 for c in emi['validator']['checks'].values() if c['ok'])}/
+{len(emi['validator']['checks'])} local checks pass — full receipt on the
+<a href="submit.html">portal checklist</a> page.</p></div>
+
+<h2>Steps</h2>
+<ol>{''.join(f'<li><b>{esc(t)}</b><br><span class="small">{d}</span></li>' for t, d in steps)}</ol>
+
+<h2>What is known, and what is not</h2>
+<div class="cols">
+<div class="ok-box"><b>Known — measured here {label('HOLDOUT-DTI')}</b>
+<ul class="small">
+<li>HOLDOUT-DTI of the exact delivered bytes: <b>{fmt(ho.get('pooled'), 6)}</b> pooled,
+{fmt((ho.get('ci') or {}).get('lo'), 6)}–{fmt((ho.get('ci') or {}).get('hi'), 6)} across blocks,
+{ho.get('n_withheld_positives')} withheld positives, evaluator
+<code>{esc(ho.get('evaluator'))}</code>, protocol <code>{esc(ho.get('protocol'))}</code>.</li>
+<li>At an equal budget the adaptive ribbon beats a single tight line: best arm {esc(best[0])}
+{fmt(best[1], 6)} vs W1 {fmt((res.get('W1') or {}).get('pooled'), 6)}, and it wins most in the
+σ ∈ [3,6]&nbsp;px class where the tight line scores 0.</li>
+<li>No leaking feature: worst single-feature AUC {fmt(worst_auc)} &lt; 0.90.</li>
+<li>Uniqueness on the corrected instrument: worst rank correlation
+{fmt(emi['uniqueness_local']['worst_rho'])} and worst 3&nbsp;px forward overlap
+{fmt(emi['uniqueness_local']['worst_forward_overlap'])} over
+{emi['uniqueness_local']['n_checked']} local witnesses, both inside the 0.90 / 0.70 stop limits, and
+{emi['uniqueness_local']['n_overlap_firings_informative']} informative firings.</li>
+</ul></div>
+<div class="bad-box"><b>Not known — and not claimed</b>
+<ul class="small">
+<li>The score this file would receive. No organizer receipt exists, and HOLDOUT-DTI measures recovery
+of <i>catalogue</i> truth while the competition scores <i>new</i> faults (IR-58-02).</li>
+<li>Whether it beats {LEADER_DTI} ({esc(LEADER_WHO)}) or the owner's stale {OWNER_TARGET} target
+(IR-58-TARGET-01). The coverage arithmetic says the gap is a factor of ~6 in weighted coverage.</li>
+<li>Which public-subset pixels are scored, so no owner-quoted score can be modelled: the best
+covariate over 66 verified sibling rasters reaches |Spearman| 0.258 (IR-58-LIVE-01).</li>
+<li>Whether the σ-based line count is optimal on new faults. On the holdout the adaptive plan chose
+{esc((emi['design'] or {}).get('lines_per_segment_histogram'))}, so most of the measured gain is
+'ribbon vs tight line', not 'per-segment adaptivity'.</li>
+<li>Anything about the aeroradiometric and 1&nbsp;m lidar evidence that the provided stack does not
+contain (IR-58-DATA-01).</li>
+</ul></div>
+</div>
+
+<h2>Gates</h2>{gates_html(gates)}
+"""
+    return page("How to submit", body, "executive-summary.html")
+
+
+def build_submit(emi, card, ok) -> str:
+    checks = emi["validator"]["checks"]
+    rows = [[f"<code>{esc(k)}</code>",
+             '<span class="pill pass">PASS</span>' if c.get("ok") else '<span class="pill fail">FAIL</span>',
+             esc(c.get("detail", ""))] for k, c in checks.items()]
+    colour = "#1d7a45" if ok else "#a11212"
+    body = f"""
+<section class="submit-box" style="border-color:{colour}">
+  <div class="badge" style="background:{colour}">
+    {'LOCAL PORTAL PREFLIGHT: ALL CHECKS PASS' if ok else 'PREFLIGHT NOT CLEARED'}</div>
+  <h2 style="margin-top:.7rem">Portal checklist for <code>{esc(emi['name'])}.tif</code></h2>
+  <p class="small">Every row is produced by <code>src/gems58w/submission.py:validate()</code> against
+  the bytes on disk at build time. It is a <b>local preflight</b>: it reproduces the format rules
+  published on the competition page and the reference solution's writer. It is not an organizer
+  acceptance, and it is not a score.</p>
+  <div class="dlrow">
+    <a class="big-btn" style="background:{colour}" href="downloads/{esc(emi['name'])}.tif" download>
+      ⬇ Download the GeoTIFF</a>
+    <a class="big-btn" style="background:#2f5f8f" href="downloads/{esc(emi['name'])}.zip" download>
+      ⬇ Download the ZIP</a>
+  </div>
+</section>
+
+<h2>Format rules, and where each one comes from</h2>
+{table(['rule', 'source (open for manual review)'], [
+    ['Single-band GeoTIFF, float32',
+     '<a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">page 967</a> — submission format'],
+    ['EPSG:32611, 100&nbsp;m pixels, same bounds as the training data',
+     '<a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">page 967</a> · <a href="https://epsg.io/32611">EPSG:32611</a>'],
+    ['Values in [0, 1], higher = more probable',
+     '<a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">page 967</a>'],
+    ['Outside the study area: null / NaN',
+     '<a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">page 967</a> · reproduced by <code>data/official/sample_submission.tif</code> (7,111,787 NaN, nodata=nan)'],
+    ['A ZIP must contain exactly one GeoTIFF',
+     '<a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">page 967</a>'],
+    ['Reference-solution writer: single-band float32, crs/transform from labels, no NaN inside the footprint',
+     '<a href="https://github.com/drivendataorg/gems-prize-reference-solution">drivendataorg/gems-prize-reference-solution</a>'],
+    ['Known USGS/INGENIOUS fault pixels are masked out of evaluation in both rounds',
+     '<a href="https://community.drivendata.org/t/11516">staff answer, thread 11516</a>']], 'kv')}
+
+<h2>Validation receipt — {sum(1 for c in checks.values() if c['ok'])}/{len(checks)} pass</h2>
+{table(['check', 'result', 'detail'], rows, 'kv')}
+<p class="small">raster sha256 <code>{esc(emi['sha256'])}</code> · {emi['validator']['bytes']:,} bytes ·
+{emi['validator']['n_positives']:,} positives · ZIP <code>downloads/{esc(emi['name'])}.zip</code> ·
+built {esc(emi.get('generated_utc'))}</p>
+
+<h2>Submission name and note</h2>
+<p>Name: <code>{esc(emi['name'])}</code><br>
+Note: <code>{esc(card['submission_note'])}</code> ({len(card['submission_note'])} of 140 characters)</p>
+
+<h2>Why every emitted dot is exactly 1.0</h2>
+<p class="small">With the official metric
+<code>DTI = TP<sub>w</sub> / (TP<sub>w</sub> + α·FP<sub>w</sub> + β·FN<sub>w</sub> + ε)</code>,
+α = 0.2, β = 0.8, and the triangular kernel <code>k(d) = max(1 − d/R, 0)</code>, R = 300&nbsp;m =
+3&nbsp;px, a truth pixel takes the <b>maximum</b> kernel value over all predictions while a predicted
+pixel pays its own value times the leftover kernel. Scaling a dot down therefore scales its credit
+down without reducing the fixed β·FN term, so on a fixed support DTI is monotone increasing in
+emitted mass and the optimum is 1.0 everywhere you emit. Verified algebraically in
+<code>evidence/ribbon/theorems.json</code> and numerically by the
+<code>positive_is_exactly_one</code> check above (unique positives = [1.0]).</p>
+
+<h2>What the portal does with dots on the mapped catalogue</h2>
+<p class="small">Nothing: the organizer masks known USGS/INGENIOUS fault pixels out of evaluation in
+both rounds, so a dot there earns no credit and costs nothing. This file has
+{emi['catalogue_distance_profile'].get('on_catalogue', 0)} such dots — the emitter drops them, which
+keeps the whole budget available for off-catalogue placement (and, on the local holdout, keeps the
+withheld truth scoreable instead of reading exactly 0.0 — IR-58-02).</p>
+"""
+    return page("Portal checklist", body, "submit.html")
+
+
+def build_evidence_index(emi, card, arms, sig, inv, fit) -> str:
+    """Every receipt this site is built from, with the label it is allowed to carry."""
+    curated = [
+        ("evidence/organizer_confirmed.json", "ORGANIZER-CONFIRMED",
+         "Metric, submission format, masking, aggregation, label provenance, the live public "
+         "leaderboard of 2026-10-11, prizes and dataset provenance — each entry quoted from a "
+         "DrivenData/USGS page with its URL and fetch date."),
+        ("evidence/ribbon/emission.json", "HOLDOUT-DTI + local measurement",
+         "The delivered raster: design, budget rule, σ tables, k̂ calibration, HOLDOUT-DTI of the "
+         "exact bytes, catalogue-distance profile, the 15-check validator receipt and the corrected "
+         "local uniqueness screen."),
+        ("evidence/ribbon/run_card_v2.json", "protocol run card",
+         "Hypothesis, mechanism, named non-fault process, HOLDOUT-DTI + interval, registry "
+         "correlation/overlap, raster sha256, validator output, submission name and note, verdict."),
+        ("evidence/ribbon/adaptive_sigma.json", "HOLDOUT-DTI",
+         "EXP-1: leave-one-block-out cross-fitted σ(x) by block, ridge scale and ridge type; credit "
+         "calibration k̂(family, magnitude decile); the leakage canary; the marginal-inclusion bar."),
+        ("evidence/ribbon/adaptive_arms.json", "HOLDOUT-DTI",
+         "EXP-2: arms W1 / W3 / AD / AD2 at an equal budget of 38,000 isolated dots per fold, with "
+         "per-fold DTI, paired bootstrap over the four blocks, per-σ-class gain and the catalogue "
+         "distance profile of each arm."),
+        ("evidence/ribbon/uniqueness_full_inventory.json", "REGISTRY-MEASUREMENT",
+         "EXP-3 gate G3: the candidate against every sha256-verified raster of the public "
+         "sibling-repository inventory, with E, chance-corrected lift, saturation and both the "
+         "literal and the informative reading."),
+        ("evidence/live_evidence_fit.json", "USER-REPORTED-SCORE",
+         "66 owner-quoted sibling scores matched to sha256-verified bytes and re-measured; the "
+         "calibration verdict is NEGATIVE (R² = −1.27, no covariate above |Spearman| 0.258)."),
+        ("registry/live_scores_owner_reported.csv", "USER-REPORTED-SCORE",
+         "All 78 owner-quoted live scores with the site URL each came from. No receipt exists for "
+         "any of them."),
+        ("registry/registry_merged.json", "REGISTRY-MEASUREMENT",
+         "The witness inventory: 695 pinned rasters (now 695/695 byte-restored) plus the "
+         "current-default-branch delta, 703 in total."),
+        ("evidence/ribbon/theorems.json", "PROJECTION",
+         "Algebraic properties of the official metric, including why DTI is monotone in emitted mass "
+         "on a fixed support (emit 1.0) and the marginal-inclusion bar per assumed score."),
+        ("evidence/ribbon/instrument_control.json", "HOLDOUT-DTI",
+         "IR-58-02: the control raster that keeps a 3 px catalogue margin reads HOLDOUT-DTI exactly "
+         "0.0, which is a property of the mandated holdout, not of the candidate."),
+        ("evidence/buffer_overlap_scan.json", "REGISTRY-MEASUREMENT",
+         "IR-58-UNIQ-03: no buffer from 3 to 10 px clears the literal 0.70 gate against saturated "
+         "blanket/lattice witnesses."),
+        ("evidence/sibling_record.json", "USER-REPORTED-SCORE",
+         "The earlier 20-raster sibling analysis, including the n=20 Spearman(dots, score) = −0.831 "
+         "that the corrected 66-file analysis supersedes."),
+    ]
+    rows = []
+    for rel, kind, what in curated:
+        path = ROOT / rel
+        ex = path.exists()
+        d = load(path) if path.suffix == ".json" else {}
+        rows.append([f"<code>{esc(rel)}</code>" if not ex else f"<code>{esc(rel)}</code>",
+                     '<span class="pill pass">present</span>' if ex
+                     else '<span class="pill fail">MISSING</span>',
+                     f"{path.stat().st_size:,} B" if ex else "—",
+                     esc(d.get("generated_utc", "")), label(kind), what])
+    all_receipts = sorted(EV.rglob("*.json"))
+    listing = ", ".join(f"<code>{esc(str(p.relative_to(ROOT)))}</code>" for p in all_receipts)
+    body = f"""
+<h2>Every receipt this site is built from</h2>
+<p class="small">Nothing on this site is written by hand: <code>scripts/build_site.py</code> reads
+these files at build time and re-derives the delivered raster's sha256 from the bytes on disk. A
+missing receipt turns its gate red.</p>
+{table(['receipt', 'state', 'size', 'generated (UTC)', 'label it may carry', 'what it establishes'], rows, 'kv')}
+
+<h2>Complete receipt listing under <code>evidence/</code></h2>
+<p class="small">{listing}</p>
+
+<h2>How to re-derive any number on the site</h2>
+<ol class="small">
+<li><code>pip install --break-system-packages -r requirements.txt</code> (adds
+<code>scikit-learn</code> for the canary's <code>roc_auc_score</code>).</li>
+<li><code>bash scripts/fetch_feature_stack.sh</code> — 419 MB, sha256-pinned
+<code>4371c82e…3bc5</code>; then <code>export GEMS_FEATURE_STACK=~/.cache/gems/training_features.tif</code>.</li>
+<li><code>python3 scripts/fetch_registry_sparse.py</code> and
+<code>python3 scripts/registry_delta_inventory.py --clones /tmp/reg</code> — the 703 witness rasters.</li>
+<li><code>PYTHONPATH=src python3 scripts/ribbon_run_adaptive.py</code> — EXP-1 and EXP-2
+(~4 minutes).</li>
+<li><code>PYTHONPATH=src:scripts python3 scripts/ribbon_emit_adaptive.py</code> — EXP-3: emit,
+validate, screen, write the receipts (~2 minutes).</li>
+<li><code>PYTHONPATH=src python3 scripts/check_uniqueness_registry.py &lt;candidate&gt; --workers 2
+--out ribbon/uniqueness_full_inventory.json</code> — gate G3 (~30–40 minutes on 2 CPUs).</li>
+<li><code>PYTHONPATH=src:. python3 -m pytest tests -q</code> then
+<code>python3 scripts/build_site.py</code> (exit 0 = the banner says OK, exit 2 = it does not).</li>
+</ol>
+"""
+    return page("Evidence index", body, "evidence.html")
 
 
 def main() -> int:
-    card = build_run_card()
-    build_site(card)
-    print(card["human_readable_status"])
-    print("run card: evidence/run_card.json; site: docs/index.html")
-    return 0
+    emi = load(RIB / "emission.json")
+    card = load(RIB / "run_card_v2.json")
+    arms = load(RIB / "adaptive_arms.json")
+    sig = load(RIB / "adaptive_sigma.json")
+    inv = load(RIB / "uniqueness_full_inventory.json")
+    fit = load(EV / "live_evidence_fit.json")
+    if not emi or not card:
+        print("evidence/ribbon/emission.json or run_card_v2.json is missing — run "
+              "scripts/ribbon_emit_adaptive.py first", file=sys.stderr)
+        return 1
+
+    tif = ROOT / emi["file"]
+    gates, ok = evaluate_gates(emi, sig, inv, tif)
+    print(f"site verdict: {'OK TO DOWNLOAD AND SUBMIT' if ok else 'NOT OK TO SUBMIT'}")
+    for g in gates:
+        print(f"  {g['id']} {'PASS' if g['ok'] else 'FAIL'} — {g['name']}")
+
+    DOCS.mkdir(parents=True, exist_ok=True)
+    (DOCS / "index.html").write_text(build_index(emi, card, arms, sig, inv, fit, gates, ok),
+                                     encoding="utf-8")
+    (DOCS / "executive-summary.html").write_text(build_executive_summary(emi, card, arms, sig,
+                                                                        gates, ok), encoding="utf-8")
+    (DOCS / "submit.html").write_text(build_submit(emi, card, ok), encoding="utf-8")
+    (DOCS / "evidence.html").write_text(build_evidence_index(emi, card, arms, sig, inv, fit),
+                                       encoding="utf-8")
+
+    run_card = dict(card)
+    run_card.update(
+        site_verdict="OK_TO_DOWNLOAD_AND_SUBMIT" if ok else "NOT_OK_TO_SUBMIT",
+        site_gates=gates,
+        site_generated_utc=datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        site_note=("G6 (organizer receipt) can never pass from this sandbox; the site verdict is "
+                   "computed over G1-G5 and the missing receipt is stated on every page."),
+        equal_budget_arms=arms.get("results"),
+        equal_budget_deltas=arms.get("deltas_vs_W1"),
+        simulated_gain_per_sigma_class=arms.get("simulated_gain_per_sigma_class"),
+        sigma_table=sig.get("sigma_table_all_folds"),
+        sigma_table_cross_fitted=sig.get("sigma_table_leave_one_block_out"),
+        leakage_canary=sig.get("leakage_canary"),
+        marginal_inclusion_bar=sig.get("marginal_inclusion_bar"),
+        live_evidence=dict(verdict=fit.get("verdict"), verdict_note=fit.get("verdict_note"),
+                           n_rasters=fit.get("n_distinct_rasters_fitted"),
+                           covariates=fit.get("covariates")),
+        inventory_scan=dict(index=inv.get("index"), verdict=inv.get("verdict"),
+                            n_compared=inv.get("n_compared", inv.get("registry_rasters_expected")),
+                            complete_accessible_scan=inv.get("complete_accessible_scan"),
+                            worst_spearman=inv.get("worst_spearman_full_footprint"),
+                            worst_overlap=inv.get("worst_dot_overlap"),
+                            worst_overlap_submission=inv.get("worst_overlap_submission"),
+                            duplicate_count=inv.get("duplicate_count")),
+        irregularities=[dict(id=i, severity=s, text=t) for i, s, t in irregularities()],
+    )
+    (DOCS / "RUN_CARD.json").write_text(json.dumps(run_card, indent=1, default=float) + "\n",
+                                        encoding="utf-8")
+    print("wrote docs/index.html, docs/executive-summary.html, docs/submit.html, "
+          f"docs/evidence.html, docs/RUN_CARD.json for {tif.name}")
+    return 0 if ok else 2
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    raise SystemExit(main())

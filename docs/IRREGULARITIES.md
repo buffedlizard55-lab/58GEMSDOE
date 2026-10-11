@@ -134,3 +134,131 @@ This file records observed issues, not assumptions. **Current submit decision: N
     place mass *beside* the catalogue. Action: CTX is reported as a negative result (it is still in the
     evidence as an arm), the PROX family is used instead, and the collapse is flagged so that a future
     lane does not re-derive it.
+
+19. **IR-58-TARGET-01 — the owner's target score is stale, and the live leader is 0.4133.**
+    The standing brief says "beat 0.3195". The live public leaderboard, read with `fetch_page` on
+    2026-10-11 (<https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/>),
+    has **0.4133 (xiaofanhu, 16 submissions)** at rank 1 and **0.3195 (DARD) at rank 8**. The two
+    figures the brief quoted as conflicting tops (0.3774, 0.3195) are not rank 1 on the live table.
+    Consequence: every margin, every "beat the target" statement and the marginal-inclusion bar
+    (α·DTI₀ = 0.2 × 0.4133 = **0.0827**, i.e. a dot only pays within **2.752 px = 275 m**) are
+    recomputed against 0.4133 in this session's evidence. Recorded verbatim in
+    `evidence/organizer_confirmed.json` and `docs/LEADERBOARD.md`. Also corrected: the previous
+    version of `docs/LEADERBOARD.md` claimed the leaderboard was unreachable from this sandbox —
+    that is true only for `bash` egress, not for `fetch_page`.
+
+20. **IR-58-DATA-01 — the delivered feature stack contains no aeroradiometric bands, although the
+    organizers say they were acquired.**
+    Page 968 (<https://www.drivendata.org/competitions/306/competition-doe-gems/page/968/>) states
+    that GeoDAWN combines USGS EarthMRI and DOE Office of Geothermal **aeromagnetic and
+    aeroradiometric** surveys with coordinated **3DEP lidar**, and that "most faults in the GeoDAWN
+    region of Nevada are more subtle, and many are hidden below the surface, requiring geophysical
+    data to detect". The 19 bands actually delivered in `training_features.tif`
+    (sha256 `4371c82e…123bc5`, verified locally) are cond_surf, depth_to_base_surf, det_elev(+slope),
+    geod_dilaterate/shearrate/2ndinv, iso_grav_anom(+slope/hg/vg), deq/ieq_n100a15, rtp/tmi/tmi_hg/
+    tmi_vg/tc, mag_anom and earthquake density/distance — **no eK, eU, eTh or total-count channel and
+    no 1 m lidar derivative**. Potassium metasomatism, silicification and Fe-oxide staining are the
+    classic radiometric expression of a hidden fault, and scarp morphology is the classic 1 m lidar
+    one, so the physically strongest discriminator named by the organizers is absent from the data
+    they provided. The releases exist and are linked
+    (<https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and>,
+    <https://data.usgs.gov/datacatalog/data/USGS:657e1d85d34e23d3533209f7>,
+    <https://www.usgs.gov/3d-elevation-program/about-3dep-products-services>) but **cannot be fetched
+    from this sandbox**: `bash` egress is limited to github.com/codeload/api.github.com/pypi, and
+    `fetch_page` returns text only, so no binary product can be retrieved or verified. Action:
+    recorded as an **owner-download hypothesis with verified links** (H58-R3), never as a validated
+    candidate, and no number in this repository is derived from it.
+
+21. **IR-58-UNIQ-04 — the lane's uniqueness screen measured both overlap directions backwards.**
+    The parallel-run protocol defines the stop statistic as "more than 70 % of **my** dots within
+    3 px of **one** registry raster's dots", and requires it to be checked on the pre-placement
+    surface *and* on the final dots. `src/gems58w/uniqueness.py` computed the fraction of *their*
+    dots within 3 px of *mine* and called that `forward_overlap`, naming the protocol's actual
+    statistic `reverse_overlap`; the dense-prior exemption was consequently applied to the wrong leg.
+    The definitions now live once, in `src/gems57/uniqueness.py`, and the lane module imports them
+    (no private fork). Consequence: **every overlap number this lane published before 2026-10-11 was
+    measured with the two directions exchanged** — including the "worst 3 px forward overlap 0.3600"
+    quoted for the earlier 38,000-dot ribbon file — and has been re-measured with the corrected
+    instrument in `evidence/ribbon/emission.json`. The template-level registry scanner
+    (`scripts/check_uniqueness_registry.py`, `_near(support)[my_support].mean()`) already had the
+    direction right, so the sibling lane's frozen-inventory numbers were unaffected. Regression test:
+    `tests/test_uniqueness_informative.py::test_forward_overlap_is_my_dots_near_theirs`.
+
+22. **IR-58-UNIQ-03 — the literal 0.70 gate cannot be cleared by any candidate, so a literal firing
+    is not evidence of duplication.**
+    Extends IR-58-UNIQ-01/02 with a decisive measurement: for a blanket or lattice witness the
+    *chance-level* expected overlap `E` — the fraction of the footprint within 3 px of the witness's
+    dots — is ≥ 0.99, so **every** nonempty candidate overlaps it by more than 0.70 and the gate
+    fires on information-free witnesses (`evidence/buffer_overlap_scan.json`: worst 0.99997, no buffer
+    from 3 to 10 px clears 0.70). The shared summariser now reports, per witness, `E`, the
+    chance-corrected lift `(observed − E)/(1 − E)`, a `saturated` flag (`E ≥ SATURATED_E = 0.99`), a
+    representation class, and two readings side by side: the **literal** one the protocol names and
+    an **informative** one that excludes saturated witnesses. `lane_drift_evidence` distinguishes
+    `none` / `vacuous-only` / `informative`, and a file can only be `cleared` when no *informative*
+    witness fires — a vacuous firing is labelled, never used as clearance and never used as
+    condemnation. Verified by `tests/test_uniqueness_informative.py` (7 tests, synthetic blanket and
+    sparse witnesses built from footprint-safe blocks).
+
+23. **IR-58-UNIQ-05 — the shared scanner rejected the organizer's own submission representation.**
+    `data/official/sample_submission.tif` carries **7,111,787 NaN pixels outside the study footprint**
+    with `nodata=nan` and finite values inside it, which is exactly what page 967 requires ("outside
+    the study area: null/NaN"). `scripts/check_uniqueness_registry.py:_init` demanded an all-finite
+    candidate, so earlier artifacts had to be published as `*-zeros.tif` variants that do **not**
+    match the official representation. Fixed once in the shared tool: a non-finite value **inside**
+    the footprint stays a hard error (that is precisely the portal rejection
+    `Predicted values must be in range [0, 1]` the owner already hit), a non-finite value **outside**
+    it is normalised to 0 for statistics that are footprint-restricted anyway, and the receipt
+    records both counts. The delivered candidate uses the official representation
+    (NaN outside, 0 inside, 1.0 at dots).
+
+24. **IR-58-LIVE-01 — no dot-field statistic predicts the owner-quoted live scores.**
+    78 owner-quoted scores (`registry/live_scores_owner_reported.csv`) were matched to registry
+    rasters and re-measured from sha256-verified bytes. The first attempt was garbage because the
+    matcher used `re.findall(r"[0-9a-f]{8,}")` on the label, which also matches ISO dates
+    (`20261003`), collapsing 78 labels onto 33 rasters with up to 102 "matches" each and producing
+    R² = −0.999. The matcher is now repository-scoped and fail-closed (hash tokens ≥ 10 hex chars
+    with ≥ 3 letters, repository inferred from the quoted site URL, ambiguous rows dropped, rasters
+    with conflicting quoted scores excluded): **66 distinct rasters measured, 12 rows dropped, 0
+    score conflicts**. Result (`evidence/live_evidence_fit.json`, verdict **NEGATIVE**): the
+    two-parameter catalogue-proximity model `s = κM′/(0.2n′ + 0.8G)` fits with **R² = −1.27** and G
+    pinned at its search bound, and **no covariate reaches |Spearman| 0.30** (best: median
+    off-catalogue distance +0.258, frac ≤5 px −0.235, dots on catalogue −0.211). The earlier
+    session-2 claim `Spearman(dots, score) = −0.831` is an n=20 artifact; over the corrected 66
+    files it weakens to +0.044 and must not be reused. Because the organizers will not disclose
+    public-subset membership (thread 11550), this is unfixable locally. Action: the emission budget
+    is taken from the measured **family** (median dot count of the owner-reported ≥ 0.24 files =
+    **40,768**, n = 12) and labelled USER-REPORTED-SCORE, never as a calibrated optimum, and no
+    holdout-calibrated credit bar is used to set a live budget.
+
+25. **IR-58-SIGMA-01 — the lane's tight-line branch is unreachable, and σ was previously fitted on
+    the folds it scored.**
+    `gems58w.sigma` floors σ at 0.5 px, and every measured stratum sits far above it: pooled median
+    σ **6.88 px** (rms 8.01, 994 matched components), block medians NW 7.08 / NE 6.79 / SW 5.79 /
+    SE 8.54. The rule "single tight line where σ < ~0.5 px" can therefore never fire, and the
+    adaptive planner returned 5 lines for 5,794 of 6,286 segments and 3 lines for 492
+    (`evidence/ribbon/emission.json`). Separately, the published `evidence/ribbon/holdout_sigma.json`
+    table rests on **n_pairs = 14** and was fitted on the same folds it scored. Both defects are
+    fixed for this session's numbers: σ is now **leave-one-block-out cross-fitted** (the table used
+    to score block *b* is fitted on the other three) and reported with per-stratum counts in
+    `evidence/ribbon/adaptive_sigma.json`. Honest reading of the equal-budget contest: the gain is
+    "ribbon beats tight line where σ is large" (+0.0045 in σ ∈ [3,6] px, where the tight line scores
+    exactly 0) and "ribbon loses where σ is small" (−0.0014 below 1.5 px) — not "per-segment
+    adaptivity", which was measured at exactly 0.000000 against a uniform 5-line ribbon
+    (`AD_vs_W3` pooled delta 0.0, `evidence/ribbon/adaptive_arms.json`).
+
+26. **IR-58-REG-01 — the pinned inventory was one raster short; it is now complete (and item 14's
+    claim needed re-verification).**
+    `registry/registry_refreshed.json` pins 695 rasters over 57 repository snapshots
+    (generated 2026-10-10T19:58:45Z). Item 14 states that the missing pin `927dc17f…`
+    (`55GEMSDOE:docs/downloads/gems55-tensor_full-n16000-sep3-20261009T211747Z-nan.tif`, blob
+    `3b4dca15…`) had already been fetched and cached. **It had not:** the cache on disk at the start
+    of this session held 694 rasters and that pin was absent, so every "complete inventory" claim in
+    this repository was, until now, qualified by one missing witness. It was recovered today by
+    `git fetch --depth 1 origin d92606c28dc5e93ee1bce5148b92ccbb5225d023` in a fresh clone of
+    `55GEMSDOE` followed by `git cat-file blob 3b4dca15…`, and the decoded bytes were verified to
+    hash to the pin (1,516,449 B), so the cache now holds **695/695 pinned rasters**. A freshness delta (`scripts/registry_delta_inventory.py`) then walked the **current**
+    default branches of all 56 reachable clones plus this repository's own working tree: it found
+    **no** new grid-format raster in any sibling repository and 8 in this one, giving the merged
+    witness inventory `registry/registry_merged.json` (**703 rasters, all byte-verified**). The
+    freshness caveat in the README banner is therefore closed for the reachable public trees; it
+    remains true that this is a public *sibling-repository* inventory, not an organizer registry.

@@ -35,9 +35,38 @@ The public competition homepage states **Dec. 3, 2026, 11:59 p.m. UTC**. Appendi
 - Frozen public-raster manifest: `registry/registry_refreshed.json`, generated `2026-10-10T19:58:45.875405Z`, 57 repository snapshots, 695 unique raster blobs. See `evidence/registry_freshness_audit.json`: subsequent GitHub tree checks found unrepresented or changed repositories and new TIFFs. This scan is **not current/exhaustive**.
 - The current candidate’s legacy frozen-snapshot report is `evidence/ribbon_uniqueness.json`. It has a literal 3-pixel dot-overlap failure; it is not a uniqueness clearance.
 
+## Session 3 verification log (2026-10-11) — what changed
+
+`bash` egress in this sandbox is limited to github.com / codeload / api.github.com / pypi, but the
+`fetch_page` tool reaches DrivenData, the community forum and GitHub. Everything below was read with
+`fetch_page` on 2026-10-11 and is recorded verbatim in
+[`evidence/organizer_confirmed.json`](../evidence/organizer_confirmed.json) with its URL
+(register rows S17–S24 in [`registry/sources.csv`](../registry/sources.csv)).
+
+| What was verified | Source | Consequence for this repository |
+|---|---|---|
+| The **live public leaderboard**: rank 1 = **0.4133 (xiaofanhu, 16 submissions)**; 0.3418, 0.3361, 0.3333, 0.3300, 0.3262, 0.3261, then **0.3195 (DARD) at rank 8** | [leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/) | The owner's target 0.3195 is stale (IR-58-TARGET-01); the marginal-inclusion bar is recomputed at α·0.4133 = 0.0827 |
+| **Known USGS/INGENIOUS fault pixels are masked out of evaluation in both rounds** (staff) | [thread 11516](https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516) | Dots on the catalogue are inert, so the emitter drops only *on*-catalogue dots and keeps a non-zero HOLDOUT-DTI (IR-58-02) |
+| The public leaderboard is **pooled** over public-subset pixels; the final round re-evaluates the **whole GeoDAWN area**; **subset membership will not be disclosed** (staff) | [thread 11550](https://community.drivendata.org/t/leaderboard-aggregation-pooled-over-public-test-pixels-or-mean-of-per-chunk-scores/11550) | No owner-quoted score can be modelled; the budget comes from the measured family, not a fit (IR-58-LIVE-01) |
+| **Test-fault provenance will not be disclosed**; Phase-2 labels are updated by expert review of all Phase-1 submissions (staff) | [thread 11527](https://community.drivendata.org/t/how-were-the-new-test-faults-identified-data-sources-and-fault-types/11527) | No local held-out truth set exists; the mandated holdout can only score catalogue recovery |
+| The **reference solution**: Tversky α 0.2 / β 0.8 binary surrogate, `labels.tif` ≡ `existing_faults.tif`, writer emits single-band float32 with crs/transform from labels and **no NaN inside the footprint** | [drivendataorg/gems-prize-reference-solution](https://github.com/drivendataorg/gems-prize-reference-solution) (cloned) | Grounds the writer and the NaN rule; the shared scanner was fixed to accept the official NaN-outside-footprint representation (IR-58-UNIQ-05) |
+| GeoDAWN acquired **aeromagnetic *and* aeroradiometric** surveys plus coordinated **3DEP lidar**; "most faults … are more subtle, and many are hidden below the surface" | [page 968](https://www.drivendata.org/competitions/306/competition-doe-gems/page/968/) | The delivered 19-band stack has **no** radiometric or 1 m lidar channel (IR-58-DATA-01); recorded as an owner-download hypothesis only |
+| The one missing registry pin `927dc17f…` was recovered from `55GEMSDOE` commit `d92606c2…` and re-hashed to the pin | git protocol | The witness inventory is now 695/695 pinned + a current-tree delta = 703 byte-verified rasters (IR-58-REG-01) |
+
 ## Claims deliberately not made
 
-- No current public leaderboard number or competitor score was checked.
-- No organizer score/receipt was obtained. No number in the local run evidence is `ORGANIZER-CONFIRMED`.
-- No raw GeoDAWN, SGMC 2026, 3DEP DEM, or GDR archive was downloaded in this review.
-- No organizer confirmation was obtained for the deadline discrepancy, NaN/mask behavior, or whether any candidate file is accepted.
+- ~~No current public leaderboard number or competitor score was checked.~~ **Superseded 2026-10-11:**
+  the live public leaderboard was read and is recorded as ORGANIZER-CONFIRMED (see above). Sibling
+  *submission-page* scores remain USER-REPORTED-SCORE: they were quoted by the owner, matched to
+  verified bytes where possible, and no receipt exists for any of them.
+- No organizer score/receipt was obtained **for any file in this repository**. Gate G6 on the site
+  can never pass from this sandbox, and no local number is presented as ORGANIZER-CONFIRMED.
+- No raw GeoDAWN, SGMC 2026, 3DEP DEM or GDR archive was downloaded; none is fetchable from this
+  sandbox (binary egress is blocked), so no number here is derived from them.
+- No organizer confirmation was obtained for the deadline discrepancy, and no candidate file has been
+  accepted by the portal: the 15-check preflight is a local reproduction of the published format
+  rules, not an acceptance.
+- The frozen inventory is a **public sibling-repository** inventory, not an organizer registry. Its
+  freshness caveat is now closed for the 56 reachable clones' current default branches
+  (`scripts/registry_delta_inventory.py` found no new grid-format raster in any of them) but not for
+  repositories that are private, renamed or deleted.

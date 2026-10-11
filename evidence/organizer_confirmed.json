@@ -1,0 +1,92 @@
+{
+ "evidence_class": "ORGANIZER-CONFIRMED",
+ "definition": "Every entry below was read directly from a DrivenData / USGS page by fetch_page on the stated date and is quoted, not inferred. Nothing in this file is a projection, a holdout number, or an owner-quoted sibling score. A number becomes ORGANIZER-CONFIRMED for THIS repository only when it is copied from a submission-page receipt; no such receipt exists yet.",
+ "fetched_utc": "2026-10-11",
+ "fetched_by": "fetch_page (bash egress cannot reach drivendata.org from this sandbox)",
+ "metric": {
+  "name": "Distance-weighted Tversky index (DTI)",
+  "formula": "DTI = TP_w / (TP_w + alpha*FP_w + beta*FN_w + eps)",
+  "alpha": 0.2,
+  "beta": 0.8,
+  "kernel": "k(d) = max(1 - d/R, 0), R = 300 m = 3 px at 100 m pixels",
+  "TP_w": "sum over truth pixels g of max over predicted pixels x with d(x,g) <= R of p(x)*k(d)",
+  "FP_w": "sum over predicted pixels x with p(x) > 0 of p(x) * (1 - max over truth g of k(d))",
+  "FN_w": "|G| - TP_w",
+  "worked_example_on_page": 0.6,
+  "source": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+  "matches_repository_implementation": "src/gems57/metric.py and src/gems58w/metric.py (evaluator gems58w.metric/v1)"
+ },
+ "submission_format": {
+  "container": "single-band GeoTIFF (.tif), or a .zip containing exactly one GeoTIFF",
+  "dtype": "float32",
+  "crs": "EPSG:32611 (UTM zone 11N)",
+  "pixel_size_m": 100,
+  "bounds": "same as the training data",
+  "outside_study_area": "null / NaN",
+  "value_range": "[0, 1], higher = more probable",
+  "reference_writer": "https://github.com/drivendataorg/gems-prize-reference-solution (single-band float32, crs/transform from labels, averaged sigmoid in [0,1], no NaN inside the footprint)",
+  "source": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/"
+ },
+ "masking": {
+  "statement": "Known USGS/INGENIOUS fault pixels are masked out of evaluation in both rounds.",
+  "consequence_for_this_lane": "A dot placed on the mapped catalogue earns no credit and costs nothing; it is inert. A catalogue margin is therefore a budget choice, not a rule.",
+  "source": "https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516",
+  "quoted_from": "competition staff"
+ },
+ "aggregation": {
+  "statement": "The public leaderboard is a single pooled index over public-subset pixels; the final round re-evaluates on the whole GeoDAWN area; chunking and subset membership will not be disclosed.",
+  "consequence_for_this_lane": "Every owner-quoted sibling score carries unmodellable chunk luck, so no dot-field statistic can be calibrated against them (measured: best |Spearman| 0.258 over 66 sha256-verified rasters, evidence/live_evidence_fit.json).",
+  "source": "https://community.drivendata.org/t/leaderboard-aggregation-pooled-over-public-test-pixels-or-mean-of-per-chunk-scores/11550",
+  "quoted_from": "competition staff"
+ },
+ "label_provenance": {
+  "statement": "The organizers will not disclose how the new test faults were identified; Phase-2 labels are updated by expert review of all Phase-1 submissions.",
+  "consequence_for_this_lane": "No held-out truth set can be reconstructed locally, and the mandated hide-and-recover holdout can only score catalogue recovery (IR-58-02).",
+  "source": "https://community.drivendata.org/t/how-were-the-new-test-faults-identified-data-sources-and-fault-types/11527",
+  "quoted_from": "competition staff"
+ },
+ "public_leaderboard_2026_10_11": {
+  "source": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
+  "chunk": "0 of 3 (the first page of the live table)",
+  "rows": [
+   {"rank": 1, "score": 0.4133, "team": "xiaofanhu", "submissions": 16},
+   {"rank": 2, "score": 0.3418, "team": "JerryDataWorks"},
+   {"rank": 3, "score": 0.3361, "team": "alexoktaba"},
+   {"rank": 4, "score": 0.3333, "team": "joeyfezster"},
+   {"rank": 5, "score": 0.33, "team": "Batik Shirt Brothers"},
+   {"rank": 6, "score": 0.3262, "team": "nchuzhoy"},
+   {"rank": 7, "score": 0.3261, "team": "kinghorton42"},
+   {"rank": 8, "score": 0.3195, "team": "DARD"},
+   {"rank": "9+", "score": "0.3129 down to 0.2797", "team": "further rows on the same page"}
+  ],
+  "supersedes": "the owner-reported target 0.3195, which is rank 8 on the live board, not rank 1 (IR-58-TARGET-01)"
+ },
+ "prizes_and_rounds": {
+  "initial_round": "top 5 x $10,000 on a fixed private new-fault set",
+  "final_round": "$100,000 / $70,000 / $40,000 / $25,000 / $15,000",
+  "selection": "one submission must be selected for both rounds, blind to private performance",
+  "source": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/ and https://www.herox.com/GEMSPrize/resource/2274"
+ },
+ "dataset_provenance": {
+  "surveys": "USGS EarthMRI + DOE Office of Geothermal aeromagnetic AND aeroradiometric surveys, plus coordinated 3DEP lidar, over northwestern/western Nevada and eastern California (Walker Lane / western Great Basin)",
+  "study_area_item": "https://data.usgs.gov/datacatalog/data/USGS:657e1d85d34e23d3533209f7",
+  "geodawn_release": "https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and",
+  "quoted_statement": "Most faults in the GeoDAWN region of Nevada are more subtle, and many are hidden below the surface, requiring geophysical data to detect.",
+  "caveat_quoted_from_page_967": "portions of the existing fault data may be misaligned from the true location of the surface fault",
+  "literature": [
+   "Matteo et al. 2021, JGR Solid Earth 126, e2020JB021269, https://doi.org/10.1029/2020JB021269",
+   "Hermant, Kiersnowski & Bellanger 2025, Stanford Geothermal Workshop, https://pangea.stanford.edu/ERE/db/GeoConf/papers/SGW/2025/Hermant.pdf"
+  ],
+  "irregularity": "the delivered 19-band training_features.tif contains no aeroradiometric bands (no eK/eU/eTh/total count) although the About page states they were acquired, and the USGS release is not fetchable from this sandbox (IR-58-DATA-01)"
+ },
+ "rules": {
+  "competition_rules_page": "https://www.drivendata.org/competitions/306/competition-doe-gems/rules/",
+  "stated_content": "participation is subject to https://www.herox.com/GEMSPrize/resource/2274; the page states no submission cap",
+  "external_data": "external data is allowed if it is publicly available and freely usable, and must be declared (page 967)"
+ },
+ "not_present_here": {
+  "organizer_receipt_for_any_file_in_this_repository": "none",
+  "submission_slots_used_by_this_session": 0,
+  "note": "Gate G6 on the site can therefore never pass from this sandbox; it is the owner's selector step."
+ }
+}

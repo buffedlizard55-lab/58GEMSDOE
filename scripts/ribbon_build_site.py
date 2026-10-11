@@ -110,7 +110,18 @@ def main() -> int:
     dl_tif = f"downloads/{name}.tif"
     dl_zip = f"downloads/{name}.zip"
 
-    banner = f"""<div class="card ok">
+    banner = f"""<div class="card warn">
+<h2 style="margin-top:0;border:0">This is the v1 lane archive — the current candidate is on the main site</h2>
+<p><strong>Do not download from this page.</strong> The file described below was built in the first
+ribbon-lane session, was screened with a uniqueness instrument whose two overlap directions were
+exchanged (<code>IR-58-UNIQ-04</code>, fixed 2026-10-11), and keeps a 3&nbsp;px catalogue margin,
+which makes its HOLDOUT-DTI exactly 0 by construction (<code>IR-58-02</code>). The current candidate,
+its corrected uniqueness screen, its cross-fitted &sigma; table and the download decision live on
+<a href="../index.html"><strong>the main status page</strong></a>
+(&nbsp;<a href="../executive-summary.html">how to submit</a>&nbsp;). This page is retained so the v1
+measurements stay reviewable.</p>
+</div>
+<div class="card ok">
 <h2 style="margin-top:0;border:0">Download — and what it is for</h2>
 <p><strong>Download: OK &nbsp;·&nbsp; Submit to the competition: NOT CLEARED YET</strong>
 (this project never clicks Submit and never spends a slot).</p>
