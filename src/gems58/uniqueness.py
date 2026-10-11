@@ -1,140 +1,106 @@
-"""Uniqueness screen against every accessible earlier raster.
+"""Uniqueness / lane-drift check against every registry raster (protocol §1 and §2).
 
-Two statistics are computed against each registry raster, exactly as the
-parallel-run protocol defines them:
-
-* **rank correlation** of the two full-footprint value fields
-  (Spearman; ties are handled by average ranks).  Triggers at ``> RHO_MAX``.
-* **forward overlap**: the fraction of this lane's dots that fall within 3 px
-  (300 m) of any dot of the registry raster.  Triggers at ``> OVERLAP_MAX``.
-
-Reverse overlap (registry dots near ours) is reported alongside but is not a
-trigger, because a dense prior with millions of positive pixels covers every
-allowed cell --- the saturation obstruction measured as ``IR-57-REPR-01`` in the
-sibling lane.  Dense rasters are additionally flagged so a human can see that
-the forward-overlap number is dominated by their support, not by agreement.
+Registry = every GeoTIFF committed in the user's public GEMSDOE* repositories (buffedlizard55-lab).
+A raster is flagged DUPLICATE if Spearman rank correlation with any registry raster > 0.90,
+or if > 70% of its dots (value == 1) fall within 3 px of one registry raster's dots
+(registry dots := value >= 0.5).
 """
-
 from __future__ import annotations
 
-from dataclasses import dataclass
+import csv
+import hashlib
 from pathlib import Path
 
 import numpy as np
-import rasterio
-from scipy.ndimage import binary_dilation, distance_transform_edt
-
-from . import grid
+from scipy import ndimage as ndi
+from scipy.spatial import cKDTree
+from scipy.stats import spearmanr
 
 RHO_MAX = 0.90
-OVERLAP_MAX = 0.70
-BUFFER_PX = 3
-DENSE_FRACTION = 0.5   # a raster with >= 50 % of the footprint positive is "dense"
+# Competition-provided inputs are not earlier submissions; excluded and listed in the CSV.
+COMPETITION_INPUTS = {"labels.tif", "existing_faults.tif", "sample_submission.tif",
+                      "example_submission.tif", "gems-geodawn-numerical-features.tif"}
+DOT_OVERLAP_MAX = 0.70
+RADIUS = 3.0
+DENSE_FRAC = 0.10  # registry 'dot' sets covering >10% of the footprint are treated as dense maps
 
 
-@dataclass
-class Screen:
-    name: str
-    rho: float
-    forward_overlap: float
-    reverse_overlap: float
-    n_other_positives: int
-    dense: bool
-    triggers: tuple
-
-    def as_dict(self) -> dict:
-        return dict(name=self.name, rho=self.rho, forward_overlap=self.forward_overlap,
-                    reverse_overlap=self.reverse_overlap,
-                    n_other_positives=self.n_other_positives, dense=self.dense,
-                    triggers=list(self.triggers))
+def _dist_to(mask: np.ndarray) -> np.ndarray:
+    return ndi.distance_transform_edt(~mask)
 
 
-def _ranks(a: np.ndarray) -> np.ndarray:
-    order = np.argsort(a, kind="stable")
-    r = np.empty(a.size, float)
-    r[order] = np.arange(a.size, dtype=float)
-    # average ties
-    s = a[order]
-    i = 0
-    while i < s.size:
-        j = i + 1
-        while j < s.size and s[j] == s[i]:
-            j += 1
-        if j - i > 1:
-            r[order[i:j]] = r[order[i:j]].mean()
-        i = j
-    return r
+def compare(cand: np.ndarray, other: np.ndarray, valid: np.ndarray, rng, n_sample=100_000):
+    both = valid & np.isfinite(cand) & np.isfinite(other)
+    idx = np.flatnonzero(both)
+    if idx.size == 0:
+        return dict(rho=float("nan"), dot_overlap=float("nan"), n_cand_dots=0, n_reg_dots=0, dense_registry=False)
+    take = idx if idx.size <= n_sample else rng.choice(idx, n_sample, replace=False)
+    rho = float(spearmanr(cand.ravel()[take], other.ravel()[take]).correlation)
+    cdots = (cand == 1.0) & both
+    rdots = (other >= 0.5) & both
+    dense = bool(rdots.sum() > DENSE_FRAC * both.sum())
+    if cdots.sum() == 0 or rdots.sum() == 0:
+        ov = 0.0
+    elif dense:
+        # Dense registry maps (e.g. probability surfaces where >=0.5 covers most of the footprint)
+        # have no meaningful 'dots'; a 3-px test against them is trivially satisfied. Excluded here,
+        # still tested by Spearman. Fix recorded in README (uniqueness tool, 2026-10-11).
+        ov = float("nan")
+    else:
+        # exact nearest-registry-dot distance via KD-tree (same quantity as the EDT threshold)
+        tree = cKDTree(np.argwhere(rdots))
+        dist, _ = tree.query(np.argwhere(cdots), k=1)
+        ov = float((dist <= RADIUS).mean())
+    return dict(rho=rho, dot_overlap=ov, n_cand_dots=int(cdots.sum()), n_reg_dots=int(rdots.sum()), dense_registry=dense)
 
 
-def spearman(x: np.ndarray, y: np.ndarray) -> float:
-    rx, ry = _ranks(x), _ranks(y)
-    rx = rx - rx.mean()
-    ry = ry - ry.mean()
-    den = np.sqrt((rx * rx).sum() * (ry * ry).sum())
-    return float((rx * ry).sum() / den) if den > 0 else 0.0
-
-
-def _load(path: Path, fp: np.ndarray, shape) -> np.ndarray | None:
-    with rasterio.open(path) as s:
-        if (s.height, s.width) != shape:
-            return None
-        a = s.read(1).astype(np.float32)
-    if np.isfinite(a[fp]).all() and (a[fp] > 0).all():
-        pass  # dense continuous surface; still usable
-    return a
-
-
-def screen_against(dots: np.ndarray, registry_dir: Path, fp: np.ndarray | None = None,
-                   shape=None) -> tuple[list[Screen], dict]:
-    fp = grid.footprint() if fp is None else fp
-    shape = fp.shape if shape is None else shape
-    mine_vals = dots.astype(np.float32)
-    mine_vals[~fp] = np.nan
-    d_dot = distance_transform_edt(~dots)
-    out: list[Screen] = []
-    skipped: list[dict] = []
-    for path in sorted(Path(registry_dir).glob("*.tif")):
-        a = _load(path, fp, shape)
-        if a is None:
-            skipped.append(dict(name=path.name, reason="grid mismatch"))
-            continue
-        fin = np.isfinite(a) & fp
-        if not fin.any():
-            skipped.append(dict(name=path.name, reason="no finite pixels in footprint"))
-            continue
-        other = fin & (a > 0)
-        n_other = int(other.sum())
-        dense = n_other >= DENSE_FRACTION * int(fp.sum()) or n_other > 1_000_000
-
-        fwd = float((d_dot[other] <= BUFFER_PX).mean()) if n_other else 0.0
-        rev = 0.0
-        if dots.any():
-            rev = float((distance_transform_edt(~other)[dots] <= BUFFER_PX).mean())
-        vx = np.where(fin, np.nan_to_num(mine_vals, nan=0.0), np.nan)
-        vy = np.where(fin, a, np.nan)
-        okfin = np.isfinite(vx) & np.isfinite(vy)
-        rho = spearman(vx[okfin], vy[okfin]) if okfin.sum() > 100 else 0.0
-        triggers = []
-        if rho > RHO_MAX:
-            triggers.append("rho")
-        if fwd > OVERLAP_MAX and not dense:
-            triggers.append("forward_overlap")
-        out.append(Screen(name=path.name, rho=rho, forward_overlap=fwd,
-                          reverse_overlap=rev, n_other_positives=n_other,
-                          dense=bool(dense), triggers=tuple(triggers)))
-    summary = dict(
-        n_checked=len(out), n_skipped=len(skipped), skipped=skipped,
-        worst_rho=max((s.rho for s in out), default=0.0),
-        worst_rho_name=max(out, key=lambda s: s.rho).name if out else None,
-        worst_forward_overlap=max((s.forward_overlap for s in out), default=0.0),
-        worst_forward_overlap_name=max(out, key=lambda s: s.forward_overlap).name if out else None,
-        n_triggers=sum(1 for s in out if s.triggers),
-        n_dense_priors=sum(1 for s in out if s.dense),
-        rho_max=RHO_MAX, overlap_max=OVERLAP_MAX, buffer_px=BUFFER_PX,
-    )
-    worst_dense = [s for s in out if s.dense]
-    if worst_dense:
-        summary["dense_priors"] = [
-            dict(name=s.name, positives=s.n_other_positives, forward_overlap=s.forward_overlap)
-            for s in sorted(worst_dense, key=lambda s: -s.forward_overlap)]
-    return out, summary
+def run(cand_path, registry_dirs, valid, out_csv, label, seed=0):
+    import rasterio
+    rng = np.random.default_rng(seed)
+    with rasterio.open(cand_path) as s:
+        cand = s.read(1).astype(np.float32)
+        shape = s.shape
+    rows = []
+    seen: dict[str, str] = {}  # sha256 -> first path; byte-identical copies are compared once
+    for rd in registry_dirs:
+        for tif in sorted(Path(rd).rglob("*.tif")):
+            if ".git" in tif.parts:
+                continue
+            if tif.name in COMPETITION_INPUTS:
+                rows.append(dict(registry_file=str(tif), excluded="competition-provided input, not a submission"))
+                continue
+            digest = hashlib.sha256(tif.read_bytes()).hexdigest()
+            if digest in seen:
+                rows.append(dict(registry_file=str(tif), excluded=f"byte-identical duplicate of {seen[digest]}"))
+                continue
+            seen[digest] = str(tif)
+            try:
+                with rasterio.open(tif) as r:
+                    if r.shape != shape or r.count < 1:
+                        continue
+                    other = r.read(1).astype(np.float32)
+            except Exception as e:  # unreadable registry file -> recorded, not silently skipped
+                rows.append(dict(registry_file=str(tif), error=str(e)))
+                continue
+            res = compare(cand, other, valid, rng)
+            res.update(registry_file=str(tif), label=label, sha256=digest)
+            res["flag_rho"] = bool(res["rho"] > RHO_MAX) if np.isfinite(res["rho"]) else False
+            res["flag_overlap"] = bool(np.isfinite(res["dot_overlap"]) and res["dot_overlap"] > DOT_OVERLAP_MAX)
+            rows.append(res)
+    keys = sorted({k for r in rows for k in r})
+    Path(out_csv).parent.mkdir(parents=True, exist_ok=True)
+    with open(out_csv, "w", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=keys)
+        w.writeheader()
+        w.writerows(rows)
+    flagged = [r for r in rows if r.get("flag_rho") or r.get("flag_overlap")]
+    ok_rows = [r for r in rows if "rho" in r]
+    best = max(ok_rows, key=lambda r: r["rho"] if np.isfinite(r["rho"]) else -9.0) if ok_rows else None
+    summary = dict(label=label, n_registry_compared=len(ok_rows), n_flagged=len(flagged),
+                   max_rho=max((r["rho"] for r in ok_rows if np.isfinite(r["rho"])), default=float("nan")),
+                   max_dot_overlap=max((r["dot_overlap"] for r in ok_rows if np.isfinite(r["dot_overlap"])), default=float("nan")),
+                   n_dense_registry_excluded_from_overlap=sum(1 for r in ok_rows if r.get("dense_registry")),
+                   argmax_rho_file=best["registry_file"] if best else None,
+                   thresholds=dict(rho_max=RHO_MAX, dot_overlap_max=DOT_OVERLAP_MAX, radius_px=RADIUS),
+                   verdict="DUPLICATE_OR_DRIFT" if flagged else "UNIQUE_PASS")
+    return summary

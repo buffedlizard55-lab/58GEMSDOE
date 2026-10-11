@@ -1,66 +1,46 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Overview — 58GEMSDOE ribbon lane</title>
-<link rel="stylesheet" href="assets/site.css"></head><body><div class="wrap">
-<nav><a href="index.html">Overview</a><a href="executive-summary.html">How to submit</a>
-<a href="hypotheses.html">Hypotheses</a><a href="research.html">Research</a>
-<a href="sources.html">Sources</a><a href="irregularities.html">Irregularities</a></nav>
-<div class="card ok">
-<h2 style="margin-top:0;border:0">Download — and what it is for</h2>
-<p><strong>Download: OK &nbsp;·&nbsp; Submit to the competition: YOUR DECISION</strong>
-(this project never clicks Submit and never spends a slot).</p>
-<a class="dl" href="downloads/gems58-adaptive-ribbon-38000-20261011T000000Z.tif">⬇ Download the submission GeoTIFF &nbsp;·&nbsp; gems58-adaptive-ribbon-38000-20261011T000000Z.tif &nbsp;·&nbsp; 426,559 bytes</a>
-<a class="dl" href="downloads/gems58-adaptive-ribbon-38000-20261011T000000Z.zip">⬇ Download the single-GeoTIFF ZIP (portal accepts this too)</a>
-<p class="small">sha256 <code>d631b4af205bd6e0961f4bad3f4d12bc27b651a020dcd38666e4c5f5246720f7</code> &nbsp;·&nbsp; 38,000 dots, every value exactly
-<code>1.0</code> &nbsp;·&nbsp; <strong>15/15 local acceptance checks pass</strong>
-&nbsp;·&nbsp; worst registry rank correlation <strong>0.0137</strong>
-&nbsp;·&nbsp; worst 3&nbsp;px forward overlap <strong>0.3600</strong>
-&nbsp;·&nbsp; <strong>0 duplicates</strong></p>
-<p><strong>Suggested submission note (126 / 140 characters):</strong><br>
-<code>Ribbon lane: per-segment dotted ribbons (5 lines at 0, +-300 m, +-600 m) on off-catalogue ridge detections; 38k isolated dots.</code></p>
-<p class="small">Do not upload this page, a JSON receipt, or a ZIP of the repository:
-the portal takes the <code>.tif</code>, or a ZIP containing exactly one GeoTIFF.</p>
-</div>
-<h1>58GEMSDOE — the ribbon lane</h1>
-<p>One lane of a parallel run on the
-<a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">DOE GEMS Prize</a>.
-The lane is fixed by the standing prompt: <em>match the emission width to the measured
-localisation error.</em>
-<a href="executive-summary.html">Full submit guide →</a></p>
-
-<div class="card">
-<h3 style="margin-top:0">Why the group's best file scores what it scores</h3>
-<p>With <code>R = 300 m = 3 px</code>, <code>α = 0.2</code>, <code>β = 0.8</code> and
-<code>FN = |G| − TP</code>, the official index collapses to</p>
-<pre>DTI = TP / (0.2·(TP + FP) + 0.8·|G|)</pre>
-<p>so <strong>every emitted pixel of unit mass moves the denominator by exactly 0.2 and the
-numerator by its kernel credit</strong>. One dot pays if and only if its credit exceeds
-<code>0.2 · DTI₀</code>. At the leader <strong>0.3195 (OWNER-REPORTED)</strong> that is
-<code>0.0639</code> — <strong>within 281 m</strong> of a scored truth pixel. The metric is a
-distance filter, not a precision filter. That is why the top file is <em>binary, sparse and
-off-catalogue</em>, and why dense parallel chains that hug the catalogue spend mass for nothing.
-Machine-checked in <a href="research.html">Research</a>.</p>
-</div>
-
-<div class="card">
-<h3 style="margin-top:0">What this lane measured</h3>
-<table><thead><tr><th>measurement</th><th>value</th></tr></thead><tbody><tr><td>ridge detections within 300 m of withheld truth</td><td>13.6%</td></tr><tr><td>RMS localisation error σ of those detections</td><td>1.70 px = 170 m</td></tr><tr><td>equal-budget holdout DTI, tight single line</td><td>0.039363</td></tr><tr><td>equal-budget holdout DTI, 3-line ribbon (±300 m)</td><td>0.039929</td></tr><tr><td>delivered dots on the mapped catalogue</td><td>0</td></tr><tr><td>delivered median distance to the catalogue</td><td>21.9 px</td></tr></tbody></table>
-<p class="small">σ_detect = 1.70 px is inside the kernel but well above
-one pixel, so the lane's rule selects a <strong>ribbon</strong>: dotted lines on the kernel-radius
-lattice, which the per-segment plan resolves to 5 lines at 0, ±300 m, ±600 m. The exact metric ranks
-the ribbon above the tight line at equal dot budget — the pooled margin is
-<strong>+0.0006 DTI</strong>,
-concentrated in the badly-localised strata (see Research), not the +0.025 an unheld-budget sweep appears to show.</p>
-</div>
-
-<div class="card warn">
-<h3 style="margin-top:0">Honest gap</h3>
-<p>Detection is <strong>13.6%</strong>
-of the withheld catalogue target. A file that reaches
-<strong>0.3195</strong> needs weighted coverage of roughly <strong>45 %</strong> of the hidden
-faults. <strong>The binding constraint is coverage, not emission geometry.</strong> No emission
-rule in this lane closes that gap, and this repository does not claim it does.</p>
-</div>
-<footer>58GEMSDOE · ribbon lane · every figure on this site is rendered from
-<code>evidence/*.json</code> · no organizer-confirmed score exists for any artifact here.</footer>
-</div></body></html>
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>58GEMSDOE — submission status</title><link rel="stylesheet" href="assets/site.css"></head><body>
+<header><h1>58GEMSDOE — GEMS competition #306</h1><p>Ribbon lane only · rigorous qualification status</p></header>
+<section class="submit-box" style="border-color:#a11212">
+  <div class="badge" style="background:#a11212">NOT OK TO SUBMIT — DO NOT SUBMIT</div>
+  <h2>Research artifact — not a cleared submission</h2>
+  <p><a class="big-btn" style="background:#a11212" href="downloads/gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.tif" download>Download diagnostic TIFF (NOT CLEARED — DO NOT SUBMIT)</a></p>
+  <p>Optional one-TIFF ZIP: <a href="downloads/gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.zip">gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.zip</a>. Do not upload either file or use a scored slot.</p>
+  <p><b>Raster SHA256:</b> <code>8b196e6eea06fef0d6cf2c9109091d1e2677a77d6e48d8b04f334a879551687f</code><br><b>Internal local format check:</b> PASS under the internal local format/range policy. This does not establish uniqueness or organizer acceptance.</p>
+  <h3>Blocking reasons</h3><ol><li>No current promotion-grade outer-block HOLDOUT-DTI with the required evaluator version, withheld-positive count, and valid 95% CI; legacy E2 is an oracle/selection diagnostic.</li><li>No current buffered-fold feature-alone leakage-canary record is marked promotion-grade.</li><li>Registry inventory is stale/incomplete for current public repository trees.</li><li>The candidate-specific pre-placement surface gate has not passed on a current inventory.</li><li>The final dots literal-dot gate fails: overlap 1.000 &gt; 0.70.</li><li>The frozen registry audit is negative; a byte/pixel-unique file is not sufficient to clear the literal lane gates.</li><li>The current raster receipt is marked diagnostic/non-promotion-grade.</li></ol>
+</section>
+<section>
+<h3>Every candidate in <code>docs/downloads/</code> &mdash; none is cleared</h3><table><tr><th>Candidate file</th><th>Positive pixels</th><th>Local format/range preflight</th><th>Uniqueness / lane status</th></tr><tr><td><code>gems58-mece-hybrid-20261011T015838Z-513210e2-zeros.tif</code><br><span class="small">sha256 <code>9b48fd661a9b7834&hellip;</code></span></td><td>not recorded</td><td>not recorded</td><td><b>NOT CLEARED</b> &mdash; no session-2 full-registry scan on file</td></tr><tr><td><code>gems58-mece-sgmc-catkernel-20261011T015429Z-b324aa01-zeros.tif</code><br><span class="small">sha256 <code>6a5f3695b566b5da&hellip;</code></span></td><td>35000</td><td>not recorded</td><td><b>NOT CLEARED</b> &mdash; no session-2 full-registry scan on file</td></tr><tr><td><code>gems58-prox-dot36k-20261011T030218Z-e7bbfea83853-zeros.tif</code><br><span class="small">sha256 <code>aac8aa8a021ee309&hellip;</code></span></td><td>36394</td><td>passed</td><td><b>NOT CLEARED</b> &mdash; session-2 scan: 695/695 rasters; worst rho 0.140; worst overlap 1.000 &rarr; negative</td></tr><tr><td><code>gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.tif</code><br><span class="small">sha256 <code>8b196e6eea06fef0&hellip;</code></span></td><td>67379</td><td>passed</td><td><b>NOT CLEARED</b> &mdash; no session-2 full-registry scan on file</td></tr></table><p class="small">Session-2 equal-budget ranking contest (detached HOLDOUT-DTI, shared exact evaluator): best arm <code>PROX|buf3|nu3.0</code> at 0.2147 with nu*=3.00 and an off-catalogue buffer of 3 px. The ribbon lane's own truth-free live rule scored 0.1309 on the same instrument, below its 0.1573 tight-line baseline. Details: <code>evidence/model_e3.json</code>, <code>evidence/model_run_card.json</code>.</p>
+</section>
+<section>
+<h2>Gate evidence</h2>
+<table><tr><th>Gate</th><th>Recorded result</th><th>Interpretation</th></tr>
+<tr><td>Registry scope</td><td>695 frozen rasters / 57 pinned repositories; latest pinned scan 694/695 checked, 1 missing/invalid; complete=False; NOT CURRENT / INCOMPLETE</td><td>Frozen/pinned evidence only; not a current or organizer-complete inventory. See <code>evidence/registry_freshness_audit.json</code> and <code>evidence/registry_fetch_report.json</code>.</td></tr>
+<tr><td>Additional self-repository TIFFs</td><td>Fetched <code>origin/main</code> tree <code>d8c17dd9043304175d6bcc3deec5308b79966ca4</code>: 10 TIF/TIFF paths (4 under docs/downloads); 4 examples recorded, not cleared against a complete registry.</td><td>Tree listing only; not compared against the complete current registry and not uniqueness clearance.</td></tr>
+<tr><td>Final-dot overlap</td><td>1.000 (limit 0.70); witness GEMSDOE2:data/evidence/runs/turbo-simple-20260925T042003Z/submission.tif</td><td>REGISTRY-MEASUREMENT, pinned inventory only; literal stop failure; scan incomplete.</td></tr>
+<tr><td>Worst Spearman ρ</td><td>0.190 (limit 0.90)</td><td>Below the correlation limit, but does not override the overlap failure.</td></tr>
+<tr><td>Pre-placement surface</td><td>NOT CLEARED for this TIFF/current inventory</td><td>The existing historical surface report is for another build and is not reusable.</td></tr>
+<tr><td>Buffered outer holdout</td><td>NOT MEASURED for the current instrument</td><td>The recorded, but invalid for promotion old E2 output is not promotion-grade; no DTI is shown here.</td></tr>
+<tr><td>Local format/range</td><td>PASS under the internal local format/range policy</td><td>Internal check only; sample nodata semantics and portal acceptance remain unconfirmed.</td></tr>
+<tr><td>Organizer receipt</td><td>None</td><td>No organizer score exists.</td></tr></table>
+</section>
+<section>
+<h2>Submission instructions — do not execute while red</h2>
+<ol>
+<li>Wait until this page explicitly says <b>OK TO SUBMIT</b>; right now it says DO NOT SUBMIT.</li>
+<li>A registered competitor can review the <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/">DrivenData submission page</a> and live instructions. Do not upload this file while the status is red.</li>
+<li>The official rules allow up to three feedback submissions per week, but require choosing one final submission for both prize rounds. This build never runs the separate selector or spends a slot.</li>
+<li>Record any submission receipt. Only its score is <b>ORGANIZER-CONFIRMED</b>. Disclose any generative-AI use in the solution narrative as required by the official rules.</li>
+</ol>
+<p><b>Deadline discrepancy:</b> the public homepage says Dec. 3, 2026, 11:59 p.m. UTC; the Sept. 2026 rules say 5:00 p.m. ET. Use the earlier cutoff until the organizer clarifies.</p>
+<p>Suggested diagnostic note (126 characters; verify against the live portal): <code>H58b ribbon diagnostic; dots at 1.0; format preflight only; uniqueness and promotion-grade holdout not cleared; DO NOT SUBMIT.</code></p>
+</section>
+<section><h2>Review links</h2><ul>
+<li><a href="SUBMISSION_GUIDE.md">Full submission guide</a></li><li><a href="SOURCES.md">Official sources and availability checks</a></li>
+<li><a href="IRREGULARITIES.md">Irregularities / review flags</a></li><li><a href="research/hypotheses_new.md">Ranked untested hypotheses</a></li>
+<li><a href="evidence.html">Evidence status</a></li><li><a href="sources.html">Short source register</a></li>
+<li><a href="AI_USAGE.md">Generative-AI use log (rules disclosure reference)</a></li>
+</ul></section>
+<footer>Generated 2026-10-11T03:14:54Z. This is a local evidence status page. The builder never selects a slot or uploads, and cannot create an organizer receipt.</footer>
+</body></html>

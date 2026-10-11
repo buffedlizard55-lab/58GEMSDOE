@@ -1,0 +1,263 @@
+{
+  "experiment": "E2",
+  "evaluator": "gems.metric (58GEMSDOE, verified vs rules worked example + brute force)",
+  "holdout_dti_nested_lobo": {
+    "value": 0.03684686100843731,
+    "n_withheld_positives": 60988,
+    "n_blocks": 4,
+    "jackknife_se": 0.00974790000803063,
+    "ci95_t": [
+      0.005824692643605203,
+      0.06786902937326941
+    ],
+    "tcrit_df3": 3.1824463052837078,
+    "note": "4 spatial blocks; CI is wide and low-power",
+    "evidence_class": "LEGACY HOLDOUT-DTI DIAGNOSTIC \u2014 INVALID/NOT REPORTABLE",
+    "evaluator_version": "unversioned legacy gems.metric",
+    "score_claim_allowed": false,
+    "ci95_reportable": false,
+    "ci95_limitation": "Historical jackknife interval does not satisfy the current promotion-grade protocol and is not reportable as a validated 95% CI."
+  },
+  "per_block": [
+    {
+      "block": 0,
+      "TP": 3205.5661389303727,
+      "FP": 135670.48524600267,
+      "n_truth": 29340,
+      "DTI0_other_blocks": 0.020373827645906197,
+      "dti": 0.06255103685848601,
+      "dots": 141119,
+      "selection": {
+        "grav-coarse200m": {
+          "frac": 0.01,
+          "config": "D3o+1",
+          "U_other_blocks": 469.65676136078,
+          "sigma_other_blocks": 4.2072071410343606,
+          "n_dots": 32650
+        },
+        "grav-fine100m": {
+          "frac": 0.01,
+          "config": "D3o+1",
+          "U_other_blocks": 662.5646691696795,
+          "sigma_other_blocks": 3.77173995280777,
+          "n_dots": 48888
+        },
+        "mag-coarse200m": {
+          "frac": 0.01,
+          "config": "D1o+1",
+          "U_other_blocks": 58.9208125934925,
+          "sigma_other_blocks": 3.5662512273300253,
+          "n_dots": 16285
+        },
+        "mag-fine100m": {
+          "frac": 0.005,
+          "config": "D1o+1",
+          "U_other_blocks": -38.27053017263847,
+          "sigma_other_blocks": 3.377021722986119,
+          "n_dots": 5990
+        },
+        "topo-coarse200m": {
+          "frac": 0.01,
+          "config": "D3o+1",
+          "U_other_blocks": 1306.9615125875112,
+          "sigma_other_blocks": 3.147716400540743,
+          "n_dots": 40894
+        },
+        "topo-fine100m": {
+          "frac": 0.01,
+          "config": "D3o-1",
+          "U_other_blocks": 336.76541759787233,
+          "sigma_other_blocks": 4.166476169499205,
+          "n_dots": 21446
+        }
+      },
+      "evidence_class": "LEGACY HOLDOUT-DTI BLOCK DIAGNOSTIC \u2014 INVALID/NOT REPORTABLE",
+      "evaluator_version": "unversioned legacy gems.metric",
+      "score_claim_allowed": false,
+      "ci95": null,
+      "ci95_reportable": false
+    },
+    {
+      "block": 1,
+      "TP": 1517.3727206749882,
+      "FP": 189471.24911779165,
+      "n_truth": 12566,
+      "DTI0_other_blocks": 0.02765909066567086,
+      "dti": 0.03144779752261018,
+      "dots": 194251,
+      "selection": {
+        "grav-coarse200m": {
+          "frac": 0.01,
+          "config": "D3o+1",
+          "U_other_blocks": 680.6059152400326,
+          "sigma_other_blocks": 3.308134058329786,
+          "n_dots": 32650
+        },
+        "grav-fine100m": {
+          "frac": 0.01,
+          "config": "D3o+1",
+          "U_other_blocks": 1023.9175831923246,
+          "sigma_other_blocks": 3.330232801081487,
+          "n_dots": 48888
+        },
+        "mag-coarse200m": {
+          "frac": 0.01,
+          "config": "D3o+1",
+          "U_other_blocks": 1317.2680937269818,
+          "sigma_other_blocks": 3.3663802757039605,
+          "n_dots": 46678
+        },
+        "mag-fine100m": {
+          "frac": 0.01,
+          "config": "D3o+1",
+          "U_other_blocks": 967.6727470324927,
+          "sigma_other_blocks": 4.097805616558811,
+          "n_dots": 45451
+        },
+        "topo-coarse200m": {
+          "frac": 0.01,
+          "config": "D3o+1",
+          "U_other_blocks": 1486.5659465016126,
+          "sigma_other_blocks": 3.2781806420058204,
+          "n_dots": 40894
+        },
+        "topo-fine100m": {
+          "frac": 0.01,
+          "config": "D3o+1",
+          "U_other_blocks": 595.5411814443407,
+          "sigma_other_blocks": 3.8767546569423845,
+          "n_dots": 21636
+        }
+      },
+      "evidence_class": "LEGACY HOLDOUT-DTI BLOCK DIAGNOSTIC \u2014 INVALID/NOT REPORTABLE",
+      "evaluator_version": "unversioned legacy gems.metric",
+      "score_claim_allowed": false,
+      "ci95": null,
+      "ci95_reportable": false
+    },
+    {
+      "block": 2,
+      "TP": 1452.9460135237507,
+      "FP": 189613.76833844185,
+      "n_truth": 9403,
+      "DTI0_other_blocks": 0.026483657112552482,
+      "dti": 0.0317682827988853,
+      "dots": 194251,
+      "selection": {
+        "grav-coarse200m": {
+          "frac": 0.01,
+          "config": "D3o+1",
+          "U_other_blocks": 866.1336539019485,
+          "sigma_other_blocks": 3.5500096789970894,
+          "n_dots": 32650
+        },
+        "grav-fine100m": {
+          "frac": 0.01,
+          "config": "D3o+1",
+          "U_other_blocks": 1236.0314713861715,
+          "sigma_other_blocks": 3.5500096789970894,
+          "n_dots": 48888
+        },
+        "mag-coarse200m": {
+          "frac": 0.01,
+          "config": "D3o+1",
+          "U_other_blocks": 975.2968628504939,
+          "sigma_other_blocks": 3.380490921847296,
+          "n_dots": 46678
+        },
+        "mag-fine100m": {
+          "frac": 0.01,
+          "config": "D3o+1",
+          "U_other_blocks": 931.1625587072315,
+          "sigma_other_blocks": 4.097805616558811,
+          "n_dots": 45451
+        },
+        "topo-coarse200m": {
+          "frac": 0.01,
+          "config": "D3o+1",
+          "U_other_blocks": 1692.9205582526465,
+          "sigma_other_blocks": 3.6651887668823764,
+          "n_dots": 40894
+        },
+        "topo-fine100m": {
+          "frac": 0.01,
+          "config": "D3o+1",
+          "U_other_blocks": 551.681766248309,
+          "sigma_other_blocks": 4.244611947411474,
+          "n_dots": 21636
+        }
+      },
+      "evidence_class": "LEGACY HOLDOUT-DTI BLOCK DIAGNOSTIC \u2014 INVALID/NOT REPORTABLE",
+      "evaluator_version": "unversioned legacy gems.metric",
+      "score_claim_allowed": false,
+      "ci95": null,
+      "ci95_reportable": false
+    },
+    {
+      "block": 3,
+      "TP": 868.3666587233665,
+      "FP": 190130.42121627927,
+      "n_truth": 9679,
+      "DTI0_other_blocks": 0.03018326624664588,
+      "dti": 0.018900974263700448,
+      "dots": 194251,
+      "selection": {
+        "grav-coarse200m": {
+          "frac": 0.01,
+          "config": "D3o+1",
+          "U_other_blocks": 903.8928620436184,
+          "sigma_other_blocks": 3.9390521102974034,
+          "n_dots": 32650
+        },
+        "grav-fine100m": {
+          "frac": 0.01,
+          "config": "D3o+1",
+          "U_other_blocks": 1260.1772506923971,
+          "sigma_other_blocks": 3.684678165446103,
+          "n_dots": 48888
+        },
+        "mag-coarse200m": {
+          "frac": 0.01,
+          "config": "D3o+1",
+          "U_other_blocks": 1206.8523168435272,
+          "sigma_other_blocks": 3.3663802757039605,
+          "n_dots": 46678
+        },
+        "mag-fine100m": {
+          "frac": 0.01,
+          "config": "D3o+1",
+          "U_other_blocks": 877.9735345383001,
+          "sigma_other_blocks": 3.878145206753831,
+          "n_dots": 45451
+        },
+        "topo-coarse200m": {
+          "frac": 0.01,
+          "config": "D3o+1",
+          "U_other_blocks": 1756.6941404872668,
+          "sigma_other_blocks": 3.878145206753831,
+          "n_dots": 40894
+        },
+        "topo-fine100m": {
+          "frac": 0.01,
+          "config": "D3o+1",
+          "U_other_blocks": 635.9958575401704,
+          "sigma_other_blocks": 4.244611947411474,
+          "n_dots": 21636
+        }
+      },
+      "evidence_class": "LEGACY HOLDOUT-DTI BLOCK DIAGNOSTIC \u2014 INVALID/NOT REPORTABLE",
+      "evaluator_version": "unversioned legacy gems.metric",
+      "score_claim_allowed": false,
+      "ci95": null,
+      "ci95_reportable": false
+    }
+  ],
+  "seconds": 480.4,
+  "audit_status": "LEGACY_DIAGNOSTIC_INVALID_FOR_CURRENT_REPORTING",
+  "promotion_grade": false,
+  "evidence_class": "LEGACY HOLDOUT-DTI DIAGNOSTIC \u2014 INVALID/NOT REPORTABLE",
+  "evaluator_version": "unversioned legacy gems.metric",
+  "score_claim_allowed": false,
+  "ci95_reportable": false,
+  "reporting_limitation": "Historical private metric and unbuffered protocol; do not cite as current promotion-grade evidence or an organizer score."
+}

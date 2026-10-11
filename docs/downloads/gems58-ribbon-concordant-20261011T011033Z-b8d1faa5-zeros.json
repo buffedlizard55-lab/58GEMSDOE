@@ -1,0 +1,230 @@
+{
+  "file": "gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.tif",
+  "sha256": "8b196e6eea06fef0d6cf2c9109091d1e2677a77d6e48d8b04f334a879551687f",
+  "bytes": 184413,
+  "submission_name": "gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros",
+  "note": "H58b ribbon diagnostic; dots at 1.0; format preflight only; uniqueness and promotion-grade holdout not cleared; DO NOT SUBMIT.",
+  "note_chars": 126,
+  "validator": {
+    "file": "docs/downloads/gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.tif",
+    "bytes": 184413,
+    "sha256": "8b196e6eea06fef0d6cf2c9109091d1e2677a77d6e48d8b04f334a879551687f",
+    "meta": {
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "count": 1,
+      "nodata": null,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "profile_compress": "deflate"
+    },
+    "band_description": [
+      null
+    ],
+    "n_finite": 12279160,
+    "n_nan": 0,
+    "n_infinite": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.005487264599651098,
+    "emitted_positive_pixels": 67379,
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "dimensions_3730x3292": true,
+      "crs_epsg_32611": true,
+      "transform_matches_sample_submission": true,
+      "no_nan_anywhere": true,
+      "no_inf_anywhere": true,
+      "no_sentinel_values": true,
+      "range_0_1_guaranteed": true,
+      "min_ge_0": true,
+      "max_le_1": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_range_0_1": true,
+      "outside_footprint_zero": true,
+      "zero_dots_on_mapped_catalogue": true
+    },
+    "all_checks_passed": true,
+    "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+    "on_catalogue_positive_pixels": 0,
+    "in_footprint_positive_pixels": 67379,
+    "footprint_fraction": 0.013039314173759085
+  },
+  "template_report": {
+    "path": "docs/downloads/gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.tif",
+    "bytes": 184413,
+    "sha256": "8b196e6eea06fef0d6cf2c9109091d1e2677a77d6e48d8b04f334a879551687f",
+    "bands": 1,
+    "dtype": "float32",
+    "crs": "EPSG:32611",
+    "width": 3292,
+    "height": 3730,
+    "bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+    ],
+    "ref_bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+    ],
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "nodata": null,
+    "blocksize": [
+      256,
+      256
+    ],
+    "fixture_grid": false,
+    "has_validity_mask": false,
+    "nan_pixels": 0,
+    "infinity_pixels": 0,
+    "n_nan": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.005487264599651098,
+    "n_nonzero": 67379,
+    "mass": 67379.0,
+    "mass_outside_footprint": 0,
+    "problems": [],
+    "ok": true,
+    "validation_class": "local on-disk template/range check; not organizer upload acceptance"
+  },
+  "zip_file": "gems58-ribbon-concordant-20261011T011033Z-b8d1faa5-zeros.zip",
+  "zip_sha256": "2d03286315dfdf60bdcc1e9b4dfccc3c6ccdae0d8aad3f31660be219fec77385",
+  "approved_for_weekly_slot": false,
+  "promoted": false,
+  "submission_slots_used": 0,
+  "status": "local format/range preflight only; registry scope, organizer acceptance, and slot approval are separate and may fail",
+  "metadata": {
+    "lane": "ribbon (emission width = measured localization error)",
+    "live_rule": "cat-axis ribbons blanket; sgmc-axis ribbons within 8 px (sigma-match cap) of catalogue",
+    "sigma_table": [
+      {
+        "block": "NW",
+        "ridge_type": "cat-axis",
+        "sigma_px": 3.0206379670509547,
+        "n_matched": 700,
+        "evidence_class": "LEGACY HOLDOUT-STRUCTURE DIAGNOSTIC \u2014 NOT PROMOTION-GRADE",
+        "reportable_for_current_instrument": false
+      },
+      {
+        "block": "NW",
+        "ridge_type": "sgmc-axis",
+        "sigma_px": 3.0497543370384825,
+        "n_matched": 533,
+        "evidence_class": "LEGACY HOLDOUT-STRUCTURE DIAGNOSTIC \u2014 NOT PROMOTION-GRADE",
+        "reportable_for_current_instrument": false
+      },
+      {
+        "block": "NE",
+        "ridge_type": "cat-axis",
+        "sigma_px": 2.700016467508443,
+        "n_matched": 805,
+        "evidence_class": "LEGACY HOLDOUT-STRUCTURE DIAGNOSTIC \u2014 NOT PROMOTION-GRADE",
+        "reportable_for_current_instrument": false
+      },
+      {
+        "block": "NE",
+        "ridge_type": "sgmc-axis",
+        "sigma_px": 3.0628331242320153,
+        "n_matched": 779,
+        "evidence_class": "LEGACY HOLDOUT-STRUCTURE DIAGNOSTIC \u2014 NOT PROMOTION-GRADE",
+        "reportable_for_current_instrument": false
+      },
+      {
+        "block": "SW",
+        "ridge_type": "cat-axis",
+        "sigma_px": 3.1584326308097874,
+        "n_matched": 1701,
+        "evidence_class": "LEGACY HOLDOUT-STRUCTURE DIAGNOSTIC \u2014 NOT PROMOTION-GRADE",
+        "reportable_for_current_instrument": false
+      },
+      {
+        "block": "SW",
+        "ridge_type": "sgmc-axis",
+        "sigma_px": 3.391555103172113,
+        "n_matched": 432,
+        "evidence_class": "LEGACY HOLDOUT-STRUCTURE DIAGNOSTIC \u2014 NOT PROMOTION-GRADE",
+        "reportable_for_current_instrument": false
+      },
+      {
+        "block": "SE",
+        "ridge_type": "cat-axis",
+        "sigma_px": 2.9330323428739775,
+        "n_matched": 1687,
+        "evidence_class": "LEGACY HOLDOUT-STRUCTURE DIAGNOSTIC \u2014 NOT PROMOTION-GRADE",
+        "reportable_for_current_instrument": false
+      },
+      {
+        "block": "SE",
+        "ridge_type": "sgmc-axis",
+        "sigma_px": 3.356516833995336,
+        "n_matched": 990,
+        "evidence_class": "LEGACY HOLDOUT-STRUCTURE DIAGNOSTIC \u2014 NOT PROMOTION-GRADE",
+        "reportable_for_current_instrument": false
+      }
+    ],
+    "dots": 67379,
+    "dots_by_type": {
+      "cat-axis": 38912,
+      "sgmc-axis": 29910
+    },
+    "segments": {
+      "cat-axis": 7212,
+      "sgmc-axis": 3797,
+      "sgmc-axis-dropped": 4963
+    },
+    "pattern_counts": {
+      "cat-axis|ribbon2o3": 7212,
+      "sgmc-axis|ribbon2o3": 3797
+    },
+    "diagnostic_only": true,
+    "promotion_grade": false,
+    "submission_status": "NOT_OK_TO_SUBMIT",
+    "validation_limitations": [
+      "recorded validator covers internal local format/range policy only, not organizer acceptance",
+      "legacy E2 patterns were selected using the same withheld labels they were scored on",
+      "legacy block bootstrap did not merge repeated physical blocks before resampling",
+      "literal frozen-registry overlap gate fails; current registry scope is incomplete",
+      "candidate-specific current pre-placement surface gate is not cleared"
+    ],
+    "evidence": {
+      "claim_status": "LEGACY_DIAGNOSTIC_NOT_PROMOTION_GRADE",
+      "holdout_numbers_reportable": false,
+      "ci95_reportable": false,
+      "reason": "The archived per-arm and per-class DTI values are omitted from this candidate receipt because same-cell truth selected the patterns and the legacy interval is not a valid physical-block CI."
+    },
+    "legacy_holdout_scores": "omitted \u2014 invalid oracle diagnostics; not reportable as HOLDOUT-DTI",
+    "sigma_table_status": "Legacy fit on scored folds; diagnostic only, not promotion evidence."
+  },
+  "submission_status": "NOT_OK_TO_SUBMIT",
+  "diagnostic_only": true,
+  "promotion_grade": false,
+  "approval_blockers": [
+    "literal final-dot gate fails in frozen scan: 1.0 overlap exceeds 0.70",
+    "current public raster inventory is stale/incomplete",
+    "candidate-specific literal pre-placement surface gate not cleared",
+    "legacy same-cell truth-selected holdout is not promotion-grade"
+  ]
+}

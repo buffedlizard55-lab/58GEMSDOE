@@ -1,0 +1,356 @@
+{
+ "experiment": "E1-sigma-and-canary",
+ "evidence_class": "HOLDOUT-STRUCTURE",
+ "instrument": {
+  "kind": "hide-and-recover",
+  "seeds": [
+   20,
+   21
+  ],
+  "mode": "all",
+  "folds": [
+   "NW",
+   "NE",
+   "SW",
+   "SE"
+  ],
+  "evaluator": "gems57.holdout (shared)",
+  "alpha": 0.2,
+  "beta": 0.8,
+  "triangular_radius_px": 3.0
+ },
+ "ridge_types": {
+  "cat-axis": {
+   "source": "skeleton of the visible catalogue only (per fold)",
+   "feature_resolution": "100 m competition catalogue (INGENIOUS-detail digitising)"
+  },
+  "sgmc-axis": {
+   "source": "skeleton of SGMC minus the visible catalogue",
+   "feature_resolution": "100 m grid; SGMC compiled at ~1:250k source scale"
+  }
+ },
+ "match_cap_px": 8.0,
+ "sigma_shrink_pseudo_k": 8.0,
+ "sigma_pool_px": 3.0769717872189113,
+ "sigma_pooled_by_type": {
+  "cat-axis": {
+   "n_segments": 12145,
+   "n_matched": 4893,
+   "sigma_raw_px": 2.9903566217276722,
+   "matched_fraction": 0.4028818443804035,
+   "evidence_class": "HOLDOUT-STRUCTURE"
+  },
+  "sgmc-axis": {
+   "n_segments": 17674,
+   "n_matched": 2734,
+   "sigma_raw_px": 3.22618592510739,
+   "matched_fraction": 0.1546905058277696,
+   "evidence_class": "HOLDOUT-STRUCTURE"
+  }
+ },
+ "sigma_by_cell": [
+  {
+   "cell": "draw20_foldNW_all",
+   "fold": 0,
+   "seed": 20,
+   "n_truth": 1925,
+   "per_type": {
+    "cat-axis": {
+     "n_segments": 1027,
+     "n_matched": 350,
+     "sigma_raw_px": 3.0040347595662062,
+     "sigma_px": 3.0041257113579367,
+     "median_across_px": 1.0,
+     "matched_fraction": 0.34079844206426485
+    },
+    "sgmc-axis": {
+     "n_segments": 1488,
+     "n_matched": 271,
+     "sigma_raw_px": 3.013347136715545,
+     "sigma_px": 3.013196870265262,
+     "median_across_px": 1.639266692943677,
+     "matched_fraction": 0.1821236559139785
+    }
+   },
+   "sigma_pool_px": 3.008102160272238,
+   "n_matched_total": 621
+  },
+  {
+   "cell": "draw20_foldNE_all",
+   "fold": 1,
+   "seed": 20,
+   "n_truth": 2360,
+   "per_type": {
+    "cat-axis": {
+     "n_segments": 1223,
+     "n_matched": 379,
+     "sigma_raw_px": 2.548026178312837,
+     "sigma_px": 2.5541331766986555,
+     "median_across_px": 1.229536286617233,
+     "matched_fraction": 0.3098937040065413
+    },
+    "sgmc-axis": {
+     "n_segments": 3280,
+     "n_matched": 385,
+     "sigma_raw_px": 3.0795402880756755,
+     "sigma_px": 3.074632237243627,
+     "median_across_px": 1.9742906085355654,
+     "matched_fraction": 0.1173780487804878
+    }
+   },
+   "sigma_pool_px": 2.828382607488538,
+   "n_matched_total": 764
+  },
+  {
+   "cell": "draw20_foldSW_all",
+   "fold": 2,
+   "seed": 20,
+   "n_truth": 3780,
+   "per_type": {
+    "cat-axis": {
+     "n_segments": 2083,
+     "n_matched": 871,
+     "sigma_raw_px": 3.157506954528762,
+     "sigma_px": 3.158144768219822,
+     "median_across_px": 2.0,
+     "matched_fraction": 0.41814690350456074
+    },
+    "sgmc-axis": {
+     "n_segments": 1491,
+     "n_matched": 214,
+     "sigma_raw_px": 3.494834887423334,
+     "sigma_px": 3.485535082236648,
+     "median_across_px": 2.293143249178301,
+     "matched_fraction": 0.14352783366867874
+    }
+   },
+   "sigma_pool_px": 3.226832757797685,
+   "n_matched_total": 1085
+  },
+  {
+   "cell": "draw20_foldSE_all",
+   "fold": 3,
+   "seed": 20,
+   "n_truth": 3253,
+   "per_type": {
+    "cat-axis": {
+     "n_segments": 1754,
+     "n_matched": 847,
+     "sigma_raw_px": 2.8850828298819255,
+     "sigma_px": 2.886743608007891,
+     "median_across_px": 1.7013079452397828,
+     "matched_fraction": 0.4828962371721779
+    },
+    "sgmc-axis": {
+     "n_segments": 2580,
+     "n_matched": 482,
+     "sigma_raw_px": 3.338928868863853,
+     "sigma_px": 3.334524530727237,
+     "median_across_px": 2.114827200592171,
+     "matched_fraction": 0.1868217054263566
+    }
+   },
+   "sigma_pool_px": 3.05747887826701,
+   "n_matched_total": 1329
+  },
+  {
+   "cell": "draw21_foldNW_all",
+   "fold": 0,
+   "seed": 21,
+   "n_truth": 1919,
+   "per_type": {
+    "cat-axis": {
+     "n_segments": 1006,
+     "n_matched": 350,
+     "sigma_raw_px": 3.036663157108048,
+     "sigma_px": 3.0371502227439726,
+     "median_across_px": 1.2957825585724918,
+     "matched_fraction": 0.34791252485089463
+    },
+    "sgmc-axis": {
+     "n_segments": 1492,
+     "n_matched": 262,
+     "sigma_raw_px": 3.087160603942444,
+     "sigma_px": 3.0863118038117032,
+     "median_across_px": 1.5316513561490754,
+     "matched_fraction": 0.17560321715817695
+    }
+   },
+   "sigma_pool_px": 3.0583834133785257,
+   "n_matched_total": 612
+  },
+  {
+   "cell": "draw21_foldNE_all",
+   "fold": 1,
+   "seed": 21,
+   "n_truth": 2365,
+   "per_type": {
+    "cat-axis": {
+     "n_segments": 1230,
+     "n_matched": 426,
+     "sigma_raw_px": 2.8439799338875713,
+     "sigma_px": 2.84589975831823,
+     "median_across_px": 1.4142135623730954,
+     "matched_fraction": 0.3463414634146341
+    },
+    "sgmc-axis": {
+     "n_segments": 3265,
+     "n_matched": 394,
+     "sigma_raw_px": 3.053122903103053,
+     "sigma_px": 3.0510340112204037,
+     "median_across_px": 1.7611195466210074,
+     "matched_fraction": 0.12067381316998468
+    }
+   },
+   "sigma_pool_px": 2.946324072307387,
+   "n_matched_total": 820
+  },
+  {
+   "cell": "draw21_foldSW_all",
+   "fold": 2,
+   "seed": 21,
+   "n_truth": 3786,
+   "per_type": {
+    "cat-axis": {
+     "n_segments": 2092,
+     "n_matched": 830,
+     "sigma_raw_px": 3.1584299565248948,
+     "sigma_px": 3.158720493399753,
+     "median_across_px": 2.0,
+     "matched_fraction": 0.3967495219885277
+    },
+    "sgmc-axis": {
+     "n_segments": 1496,
+     "n_matched": 218,
+     "sigma_raw_px": 3.301501541685877,
+     "sigma_px": 3.297575124107578,
+     "median_across_px": 2.351718581515657,
+     "matched_fraction": 0.14572192513368984
+    }
+   },
+   "sigma_pool_px": 3.1887198512424613,
+   "n_matched_total": 1048
+  },
+  {
+   "cell": "draw21_foldSE_all",
+   "fold": 3,
+   "seed": 21,
+   "n_truth": 3253,
+   "per_type": {
+    "cat-axis": {
+     "n_segments": 1730,
+     "n_matched": 840,
+     "sigma_raw_px": 2.977786117659537,
+     "sigma_px": 2.979321077740064,
+     "median_across_px": 1.744787393267246,
+     "matched_fraction": 0.48554913294797686
+    },
+    "sgmc-axis": {
+     "n_segments": 2582,
+     "n_matched": 508,
+     "sigma_raw_px": 3.382184523351557,
+     "sigma_px": 3.378509137263435,
+     "median_across_px": 2.3596762194664347,
+     "matched_fraction": 0.1967467079783114
+    }
+   },
+   "sigma_pool_px": 3.136314057457223,
+   "n_matched_total": 1348
+  }
+ ],
+ "leakage_canary": {
+  "rule": "feature alone on the holdout; AUC > 0.90 means leakage until proven otherwise",
+  "per_cell": [
+   {
+    "cell": "draw20_foldNW_all",
+    "kind": "cat-axis",
+    "auc_distance_to_ridge": 0.6048929021645022
+   },
+   {
+    "cell": "draw20_foldNW_all",
+    "kind": "sgmc-axis",
+    "auc_distance_to_ridge": 0.6834809489177489
+   },
+   {
+    "cell": "draw20_foldNE_all",
+    "kind": "cat-axis",
+    "auc_distance_to_ridge": 0.5824845254237289
+   },
+   {
+    "cell": "draw20_foldNE_all",
+    "kind": "sgmc-axis",
+    "auc_distance_to_ridge": 0.6668795607344633
+   },
+   {
+    "cell": "draw20_foldSW_all",
+    "kind": "cat-axis",
+    "auc_distance_to_ridge": 0.6108730758377425
+   },
+   {
+    "cell": "draw20_foldSW_all",
+    "kind": "sgmc-axis",
+    "auc_distance_to_ridge": 0.5359727583774251
+   },
+   {
+    "cell": "draw20_foldSE_all",
+    "kind": "cat-axis",
+    "auc_distance_to_ridge": 0.6247791607746696
+   },
+   {
+    "cell": "draw20_foldSE_all",
+    "kind": "sgmc-axis",
+    "auc_distance_to_ridge": 0.6013975694230966
+   },
+   {
+    "cell": "draw21_foldNW_all",
+    "kind": "cat-axis",
+    "auc_distance_to_ridge": 0.5997155080771235
+   },
+   {
+    "cell": "draw21_foldNW_all",
+    "kind": "sgmc-axis",
+    "auc_distance_to_ridge": 0.67100268021539
+   },
+   {
+    "cell": "draw21_foldNE_all",
+    "kind": "cat-axis",
+    "auc_distance_to_ridge": 0.5925545214940099
+   },
+   {
+    "cell": "draw21_foldNE_all",
+    "kind": "sgmc-axis",
+    "auc_distance_to_ridge": 0.6758000817477097
+   },
+   {
+    "cell": "draw21_foldSW_all",
+    "kind": "cat-axis",
+    "auc_distance_to_ridge": 0.6088826298644128
+   },
+   {
+    "cell": "draw21_foldSW_all",
+    "kind": "sgmc-axis",
+    "auc_distance_to_ridge": 0.5307358777953866
+   },
+   {
+    "cell": "draw21_foldSE_all",
+    "kind": "cat-axis",
+    "auc_distance_to_ridge": 0.6300254421559586
+   },
+   {
+    "cell": "draw21_foldSE_all",
+    "kind": "sgmc-axis",
+    "auc_distance_to_ridge": 0.5846982764627523
+   }
+  ],
+  "max_auc_by_type": {
+   "cat-axis": 0.6300254421559586,
+   "sgmc-axis": 0.6834809489177489
+  },
+  "verdict": "PASS - no ridge type exceeds AUC 0.90"
+ },
+ "promotion_grade": false,
+ "audit_status": "LEGACY_HOLDOUT_STRUCTURE_DIAGNOSTIC_NOT_PROMOTION_GRADE",
+ "buffered_whole_component_context_used": false,
+ "current_dti_claim": false,
+ "reporting_note": "Generated with the legacy hide-and-recover split before the buffered whole-component constructor. Not a current buffered-holdout score."
+}

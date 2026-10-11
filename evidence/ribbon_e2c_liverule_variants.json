@@ -1,0 +1,84 @@
+{
+ "evidence_class": "HOLDOUT-DTI",
+ "experiment": "E2c-live-rule-variants",
+ "evaluator": "gems57.holdout score_cell (shared, exact)",
+ "withheld_positive_pixels": 22641,
+ "arms": {
+  "R1-cataxis": {
+   "pooled_dti": 0.10828272030301936,
+   "per_cell": {
+    "draw20_foldNW_all": {
+     "dti": 0.07130011634082947,
+     "dots": 5201
+    },
+    "draw20_foldNE_all": {
+     "dti": 0.058160219773962234,
+     "dots": 6322
+    },
+    "draw20_foldSW_all": {
+     "dti": 0.14130131932781217,
+     "dots": 9710
+    },
+    "draw20_foldSE_all": {
+     "dti": 0.12197635747143336,
+     "dots": 7748
+    },
+    "draw21_foldNW_all": {
+     "dti": 0.08451736448579157,
+     "dots": 5190
+    },
+    "draw21_foldNE_all": {
+     "dti": 0.06496173040052827,
+     "dots": 6335
+    },
+    "draw21_foldSW_all": {
+     "dti": 0.14164171653419888,
+     "dots": 9755
+    },
+    "draw21_foldSE_all": {
+     "dti": 0.12320751609644327,
+     "dots": 7719
+    }
+   }
+  },
+  "R2-concordant": {
+   "pooled_dti": 0.1309466329193189,
+   "per_cell": {
+    "draw20_foldNW_all": {
+     "dti": 0.17551354217700077,
+     "dots": 11130
+    },
+    "draw20_foldNE_all": {
+     "dti": 0.07758191555625941,
+     "dots": 11286
+    },
+    "draw20_foldSW_all": {
+     "dti": 0.1411175505678941,
+     "dots": 12100
+    },
+    "draw20_foldSE_all": {
+     "dti": 0.12681725378667907,
+     "dots": 8472
+    },
+    "draw21_foldNW_all": {
+     "dti": 0.179535972089074,
+     "dots": 11095
+    },
+    "draw21_foldNE_all": {
+     "dti": 0.0827442739025108,
+     "dots": 11316
+    },
+    "draw21_foldSW_all": {
+     "dti": 0.14057920271034774,
+     "dots": 12139
+    },
+    "draw21_foldSE_all": {
+     "dti": 0.1260735342058149,
+     "dots": 8443
+    }
+   }
+  }
+ },
+ "match_cap_px": 8.0,
+ "note": "R2 concordance filter = sgmc axis within 8 px (the sigma-match cap) of the VISIBLE catalogue; live-computable"
+}

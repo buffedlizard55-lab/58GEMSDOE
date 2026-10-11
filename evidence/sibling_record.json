@@ -1,0 +1,458 @@
+{
+ "evidence_class": "REGISTRY-MEASUREMENT + USER-REPORTED-SCORE",
+ "caveat": "Scores are as quoted by the owner on the sibling pages, not organizer receipts. At least one attribution in the owner's own record is known to be wrong (registry/submissions_seen.csv, GEMSDOE32). Every raster statistic below was recomputed from sha256-verified bytes.",
+ "footprint_pixels": 5167373,
+ "kernel_cone_sum_S": 9.380297810508184,
+ "n_paired": 20,
+ "n_measured": 20,
+ "rows": [
+  {
+   "file": "8GEMSDOE_Hedge-v2_submission.tif",
+   "sha256": "052688eafbc7a55d90caab72252a50304fe5caa8ecf973f8e791b4ae910f0792",
+   "status": "ok",
+   "score_as_quoted": 0.1563,
+   "score_label": "USER-REPORTED-SCORE",
+   "score_source": "8GEMSDOE page",
+   "dots": 227507,
+   "dots_per_footprint_pct": 4.4028,
+   "value_min": 1.0,
+   "value_max": 1.0,
+   "value_mean": 1.0,
+   "n_unique_values": 1,
+   "mean_kernel_credit_vs_public_catalogue": 0.3267005954122732,
+   "frac_dots_within_3px_of_catalogue": 0.3936098669491488,
+   "implied_T_if_T_equals_M_per_K": {
+    "60988": 14737.8,
+    "100000": 19615.9,
+    "142000": 24867.5
+   }
+  },
+  {
+   "file": "gems7-lidarscarp-ridge-top2pct-36c3a3f341c8.tif",
+   "sha256": "36c3a3f341c8306dfb5610f61acfec635a7cb8a3ef6ef00380ca083d2f9745fe",
+   "status": "ok",
+   "score_as_quoted": 0.1461,
+   "score_label": "USER-REPORTED-SCORE",
+   "score_source": "7GEMSDOE page",
+   "dots": 76859,
+   "dots_per_footprint_pct": 1.4874,
+   "value_min": 1.0,
+   "value_max": 1.0,
+   "value_mean": 1.0,
+   "n_unique_values": 1,
+   "mean_kernel_credit_vs_public_catalogue": 0.10613859935816546,
+   "frac_dots_within_3px_of_catalogue": 0.2135859170689184,
+   "implied_T_if_T_equals_M_per_K": {
+    "60988": 9374.1,
+    "100000": 13933.8,
+    "142000": 18842.8
+   }
+  },
+  {
+   "file": "12GEMSDOE_r7-nms3-dem10-scarp_0c9199f14e62.tif",
+   "sha256": "0c9199f14e625d7b2539a0a045803b74d6494ce568d185abecc193fe7e93c6f2",
+   "status": "ok",
+   "score_as_quoted": 0.1294,
+   "score_label": "USER-REPORTED-SCORE",
+   "score_source": "12GEMSDOE page",
+   "dots": 103347,
+   "dots_per_footprint_pct": 2.0,
+   "value_min": 1.0,
+   "value_max": 1.0,
+   "value_mean": 1.0,
+   "n_unique_values": 1,
+   "mean_kernel_credit_vs_public_catalogue": 0.10535618670280215,
+   "frac_dots_within_3px_of_catalogue": 0.21809051060988707,
+   "implied_T_if_T_equals_M_per_K": {
+    "60988": 8988.1,
+    "100000": 13026.6,
+    "142000": 17374.5
+   }
+  },
+  {
+   "file": "gems19-h19-4-multiline-corroborated-openness-thermal-pop-20260930-691e4dfa-nan.tif",
+   "sha256": "89109a3bd2cd3b12e7a0f388113c519843acfc9c4f46825affefc3e63dd99b22",
+   "status": "ok",
+   "score_as_quoted": 0.1894,
+   "score_label": "USER-REPORTED-SCORE",
+   "score_source": "19GEMSDOE page",
+   "dots": 123779,
+   "dots_per_footprint_pct": 2.3954,
+   "value_min": 1.0,
+   "value_max": 1.0,
+   "value_mean": 1.0,
+   "n_unique_values": 1,
+   "mean_kernel_credit_vs_public_catalogue": 0.08661991344269554,
+   "frac_dots_within_3px_of_catalogue": 0.18474862456474847,
+   "implied_T_if_T_equals_M_per_K": {
+    "60988": 13929.7,
+    "100000": 19840.7,
+    "142000": 26204.6
+   }
+  },
+  {
+   "file": "gems19-h19-5-powerlaw-budget-multiline-corroborated-20260930-e27054cf-nan.tif",
+   "sha256": "ec1f9b56b83ce33cad781ceb9f104b18fb4f2ff785263a4e89616af4aabdee8d",
+   "status": "ok",
+   "score_as_quoted": 0.1922,
+   "score_label": "USER-REPORTED-SCORE",
+   "score_source": "19GEMSDOE page",
+   "dots": 121131,
+   "dots_per_footprint_pct": 2.3442,
+   "value_min": 1.0,
+   "value_max": 1.0,
+   "value_mean": 1.0,
+   "n_unique_values": 1,
+   "mean_kernel_credit_vs_public_catalogue": 0.08750432162154202,
+   "frac_dots_within_3px_of_catalogue": 0.18601348952786653,
+   "implied_T_if_T_equals_M_per_K": {
+    "60988": 14033.8,
+    "100000": 20032.3,
+    "142000": 26490.2
+   }
+  },
+  {
+   "file": "gems49-gate_ortho_w0.25-40k-20261006T213721Z-nan.tif",
+   "sha256": "c58fe0551e120678fff190239146985d0b2f7255255535fb5fb637a05cb40af3",
+   "status": "ok",
+   "score_as_quoted": 0.2376,
+   "score_label": "USER-REPORTED-SCORE",
+   "score_source": "GEMSDOE49 page",
+   "dots": 40000,
+   "dots_per_footprint_pct": 0.7741,
+   "value_min": 1.0,
+   "value_max": 1.0,
+   "value_mean": 1.0,
+   "n_unique_values": 1,
+   "mean_kernel_credit_vs_public_catalogue": 0.0,
+   "frac_dots_within_3px_of_catalogue": 0.0,
+   "implied_T_if_T_equals_M_per_K": {
+    "60988": 13493.4,
+    "100000": 20908.8,
+    "142000": 28892.2
+   }
+  },
+  {
+   "file": "GEMSDOE33-h33d-analog-tip-stepover-r30-20261004-cb490425926e-nanoutside.tif",
+   "sha256": "bc3af2a5fcb4b49bc5845a2d7dc3da23daf41ce75e4c64da3337c0c8c93cc12c",
+   "status": "ok",
+   "score_as_quoted": 0.2632,
+   "score_label": "USER-REPORTED-SCORE",
+   "score_source": "GEMSDOE33 page",
+   "dots": 41865,
+   "dots_per_footprint_pct": 0.8102,
+   "value_min": 1.0,
+   "value_max": 1.0,
+   "value_mean": 1.0,
+   "n_unique_values": 1,
+   "mean_kernel_credit_vs_public_catalogue": 0.05398683888591056,
+   "frac_dots_within_3px_of_catalogue": 0.13120745252597635,
+   "implied_T_if_T_equals_M_per_K": {
+    "60988": 15045.4,
+    "100000": 23259.8,
+    "142000": 32103.3
+   }
+  },
+  {
+   "file": "gemsdoe36-anderson-geothermal-pinn-38854-20261004T230000Z-9b9ea4e6-nan.tif",
+   "sha256": "96d451d5ffc819fc3834052f22ab66190621f206c0bf8990446082a3363dc2ef",
+   "status": "ok",
+   "score_as_quoted": 0.275,
+   "score_label": "USER-REPORTED-SCORE",
+   "score_source": "GEMSDOE36 page",
+   "dots": 38854,
+   "dots_per_footprint_pct": 0.7519,
+   "value_min": 1.0,
+   "value_max": 1.0,
+   "value_mean": 1.0,
+   "n_unique_values": 1,
+   "mean_kernel_credit_vs_public_catalogue": 0.007432685320315397,
+   "frac_dots_within_3px_of_catalogue": 0.04305862974211149,
+   "implied_T_if_T_equals_M_per_K": {
+    "60988": 15554.3,
+    "100000": 24137.0,
+    "142000": 33377.0
+   }
+  },
+  {
+   "file": "gemsdoe31-h27-4-solo-d28-20261004-8acb75e1-nan.tif",
+   "sha256": "07b6db440535404bb41ec8ddc797713e200d308e3da35937393efde5eb84bc40",
+   "status": "ok",
+   "score_as_quoted": 0.2708,
+   "score_label": "USER-REPORTED-SCORE",
+   "score_source": "GEMSDOE31 page",
+   "dots": 40199,
+   "dots_per_footprint_pct": 0.7779,
+   "value_min": 1.0,
+   "value_max": 1.0,
+   "value_mean": 1.0,
+   "n_unique_values": 1,
+   "mean_kernel_credit_vs_public_catalogue": 0.033851118777271934,
+   "frac_dots_within_3px_of_catalogue": 0.10338565635961093,
+   "implied_T_if_T_equals_M_per_K": {
+    "60988": 15389.6,
+    "100000": 23841.2,
+    "142000": 32940.1
+   }
+  },
+  {
+   "file": "gems28-h36-1-rung30-blind-r1-20261003-b531dae0a36f-nan.tif",
+   "sha256": "5556aa1438fd67376b60d5ffc99228ec09dcc11a8408298a743ccb88d6163641",
+   "status": "ok",
+   "score_as_quoted": 0.271,
+   "score_label": "USER-REPORTED-SCORE",
+   "score_source": "GEMSDOE28 page",
+   "dots": 37660,
+   "dots_per_footprint_pct": 0.7288,
+   "value_min": 1.0,
+   "value_max": 1.0,
+   "value_mean": 1.0,
+   "n_unique_values": 1,
+   "mean_kernel_credit_vs_public_catalogue": 0.033470000514836305,
+   "frac_dots_within_3px_of_catalogue": 0.10331917153478491,
+   "implied_T_if_T_equals_M_per_K": {
+    "60988": 15263.4,
+    "100000": 23721.2,
+    "142000": 32826.8
+   }
+  },
+  {
+   "file": "gems28-h32-1-prethin-tip-euler-d2-8-20261003-31e35eee884e-nan.tif",
+   "sha256": "04d31922f5c1ea4016984fc470ab2b0ff8e266c615792f0e86020da3b940d3ff",
+   "status": "ok",
+   "score_as_quoted": 0.2649,
+   "score_label": "USER-REPORTED-SCORE",
+   "score_source": "GEMSDOE28 page",
+   "dots": 42294,
+   "dots_per_footprint_pct": 0.8185,
+   "value_min": 1.0,
+   "value_max": 1.0,
+   "value_mean": 1.0,
+   "n_unique_values": 1,
+   "mean_kernel_credit_vs_public_catalogue": 0.06279934084626707,
+   "frac_dots_within_3px_of_catalogue": 0.14841348654655506,
+   "implied_T_if_T_equals_M_per_K": {
+    "60988": 15165.3,
+    "100000": 23432.7,
+    "142000": 32333.4
+   }
+  },
+  {
+   "file": "gems28-h38-1-hf-euler-r30-r1-20261003-56a9f473edc7-nan.tif",
+   "sha256": "81d5b87bc8424f162a8f56aa9aac8fbe630c61646b9cac24d5ebbdc1b1951783",
+   "status": "ok",
+   "score_as_quoted": 0.2707,
+   "score_label": "USER-REPORTED-SCORE",
+   "score_source": "GEMSDOE28 page",
+   "dots": 37860,
+   "dots_per_footprint_pct": 0.7327,
+   "value_min": 1.0,
+   "value_max": 1.0,
+   "value_mean": 1.0,
+   "n_unique_values": 1,
+   "mean_kernel_credit_vs_public_catalogue": 0.03329319121470511,
+   "frac_dots_within_3px_of_catalogue": 0.10277337559429477,
+   "implied_T_if_T_equals_M_per_K": {
+    "60988": 15257.3,
+    "100000": 23705.7,
+    "142000": 32801.3
+   }
+  },
+  {
+   "file": "GEMSDOE30__d28-poisson300m-offcat-44090.tif",
+   "sha256": "8cf893ead5667df21d3288a9968c35fd5385c425b029d82ee71d311715b129fd",
+   "status": "ok",
+   "score_as_quoted": 0.26,
+   "score_label": "USER-REPORTED-SCORE",
+   "score_source": "GEMSDOE30 page",
+   "dots": 44090,
+   "dots_per_footprint_pct": 0.8532,
+   "value_min": 1.0,
+   "value_max": 1.0,
+   "value_mean": 1.0,
+   "n_unique_values": 1,
+   "mean_kernel_credit_vs_public_catalogue": 0.08969791616528815,
+   "frac_dots_within_3px_of_catalogue": 0.18251304150601044,
+   "implied_T_if_T_equals_M_per_K": {
+    "60988": 14978.2,
+    "100000": 23092.7,
+    "142000": 31828.7
+   }
+  },
+  {
+   "file": "gems24-h25-1-dotted-h19-5-d2-8-20261002-e56ea318af89-nan.tif",
+   "sha256": "91eae1ca42ec845eaa8c2ba32da49806e24751743459b8a10017c479bbe639b8",
+   "status": "ok",
+   "score_as_quoted": 0.26,
+   "score_label": "USER-REPORTED-SCORE",
+   "score_source": "GEMSDOE25 page",
+   "dots": 44090,
+   "dots_per_footprint_pct": 0.8532,
+   "value_min": 1.0,
+   "value_max": 1.0,
+   "value_mean": 1.0,
+   "n_unique_values": 1,
+   "mean_kernel_credit_vs_public_catalogue": 0.08969791616528815,
+   "frac_dots_within_3px_of_catalogue": 0.18251304150601044,
+   "implied_T_if_T_equals_M_per_K": {
+    "60988": 14978.2,
+    "100000": 23092.7,
+    "142000": 31828.7
+   }
+  },
+  {
+   "file": "gems24-h25-1-dotted-h19-5-d1-5-20261002-989f59505db1-nan.tif",
+   "sha256": "68d0e2e4fcc594f9a23f56c44b885fee733d026d39be55e18ad2a07289525310",
+   "status": "ok",
+   "score_as_quoted": 0.2477,
+   "score_label": "USER-REPORTED-SCORE",
+   "score_source": "GEMSDOE24 page",
+   "dots": 60069,
+   "dots_per_footprint_pct": 1.1625,
+   "value_min": 1.0,
+   "value_max": 1.0,
+   "value_mean": 1.0,
+   "n_unique_values": 1,
+   "mean_kernel_credit_vs_public_catalogue": 0.09017694678711877,
+   "frac_dots_within_3px_of_catalogue": 0.18566981304832775,
+   "implied_T_if_T_equals_M_per_K": {
+    "60988": 15061.2,
+    "100000": 22791.8,
+    "142000": 31114.5
+   }
+  },
+  {
+   "file": "gems27-topo-gap-closure-t-v2-on-d1-5-20261002-5512495c6bd1-nan.tif",
+   "sha256": "33003374335d84bf885f2d8f5e9dd4c57044c8ec58fa6a0d7fa581e8bc41c11d",
+   "status": "ok",
+   "score_as_quoted": 0.2449,
+   "score_label": "USER-REPORTED-SCORE",
+   "score_source": "GEMSDOE27 page",
+   "dots": 61328,
+   "dots_per_footprint_pct": 1.1868,
+   "value_min": 1.0,
+   "value_max": 1.0,
+   "value_mean": 1.0,
+   "n_unique_values": 1,
+   "mean_kernel_credit_vs_public_catalogue": 0.08950695545063538,
+   "frac_dots_within_3px_of_catalogue": 0.18472801982781112,
+   "implied_T_if_T_equals_M_per_K": {
+    "60988": 14952.6,
+    "100000": 22595.8,
+    "142000": 30824.5
+   }
+  },
+  {
+   "file": "gems29-wormrank-d28-20261003-59dcaf6dd11d-nan.tif",
+   "sha256": "7036b8dfcb76444e7bb51b02fa770156a0c7b345ce1d40fb820d8d65f31c8995",
+   "status": "ok",
+   "score_as_quoted": 0.256,
+   "score_label": "USER-REPORTED-SCORE",
+   "score_source": "GEMSDOE29 page",
+   "dots": 41338,
+   "dots_per_footprint_pct": 0.8,
+   "value_min": 1.0,
+   "value_max": 1.0,
+   "value_mean": 1.0,
+   "n_unique_values": 1,
+   "mean_kernel_credit_vs_public_catalogue": 0.08896634316790303,
+   "frac_dots_within_3px_of_catalogue": 0.18005225216507814,
+   "implied_T_if_T_equals_M_per_K": {
+    "60988": 14606.8,
+    "100000": 22596.5,
+    "142000": 31198.1
+   }
+  },
+  {
+   "file": "gems29-refd28-repro-20261003-1cc7dc534d51-nan.tif",
+   "sha256": "5f963b8bca5ec226ddc7caaadec239c6be6d28aa567f890033be04d04bfd5e32",
+   "status": "ok",
+   "score_as_quoted": 0.26,
+   "score_label": "USER-REPORTED-SCORE",
+   "score_source": "GEMSDOE29 page",
+   "dots": 44090,
+   "dots_per_footprint_pct": 0.8532,
+   "value_min": 1.0,
+   "value_max": 1.0,
+   "value_mean": 1.0,
+   "n_unique_values": 1,
+   "mean_kernel_credit_vs_public_catalogue": 0.08969791616528815,
+   "frac_dots_within_3px_of_catalogue": 0.18251304150601044,
+   "implied_T_if_T_equals_M_per_K": {
+    "60988": 14978.2,
+    "100000": 23092.7,
+    "142000": 31828.7
+   }
+  },
+  {
+   "file": "gems29-wormrank-d28-20261003-73a8c4d12139-nan.tif",
+   "sha256": "ed30785ce0cac24c820bbb915f1dd75eeed84bac7ec277ef5e21a5f6a3c2974c",
+   "status": "ok",
+   "score_as_quoted": 0.256,
+   "score_label": "USER-REPORTED-SCORE",
+   "score_source": "GEMSDOE29 page",
+   "dots": 41349,
+   "dots_per_footprint_pct": 0.8002,
+   "value_min": 1.0,
+   "value_max": 1.0,
+   "value_mean": 1.0,
+   "n_unique_values": 1,
+   "mean_kernel_credit_vs_public_catalogue": 0.0889839520892611,
+   "frac_dots_within_3px_of_catalogue": 0.18002853757043702,
+   "implied_T_if_T_equals_M_per_K": {
+    "60988": 14607.4,
+    "100000": 22597.1,
+    "142000": 31198.7
+   }
+  },
+  {
+   "file": "gemsdoe32-h33-h33-2-b2-20261004T220000Z-e5eb6e7e-nan.tif",
+   "sha256": "baeae3219bba6a19bc8cfe79224e28555c50184b7c1ca65c2a822f54807c77dd",
+   "status": "ok",
+   "score_as_quoted": 0.2778,
+   "score_label": "USER-REPORTED-SCORE",
+   "score_source": "user prompt; the GEMSDOE32 page itself says NO ORGANISER SCORE EXISTS -- see registry/submissions_seen.csv",
+   "dots": 37654,
+   "dots_per_footprint_pct": 0.7287,
+   "value_min": 1.0,
+   "value_max": 1.0,
+   "value_mean": 1.0,
+   "n_unique_values": 1,
+   "mean_kernel_credit_vs_public_catalogue": 0.007381365942465168,
+   "frac_dots_within_3px_of_catalogue": 0.04278429914484517,
+   "implied_T_if_T_equals_M_per_K": {
+    "60988": 15646.0,
+    "100000": 24316.1,
+    "142000": 33650.1
+   }
+  }
+ ],
+ "summary": {
+  "small_budget": {
+   "n_rasters": 13,
+   "dots_range": [
+    37654,
+    44090
+   ],
+   "score_range": [
+    0.2376,
+    0.2778
+   ],
+   "median_score": 0.2632
+  },
+  "large_budget": {
+   "n_rasters": 7,
+   "dots_range": [
+    60069,
+    227507
+   ],
+   "score_range": [
+    0.1294,
+    0.2477
+   ],
+   "median_score": 0.1894
+  },
+  "spearman_dots_vs_score": -0.8306300100579143,
+  "note": "All rasters at or below ~44k positive pixels out-score every raster above 50k; the metric's alpha*n term makes the dot budget, not the dot values, the first-order lever."
+ }
+}

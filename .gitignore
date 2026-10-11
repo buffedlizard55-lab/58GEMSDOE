@@ -1,6 +1,13 @@
+# registry raster cache (restorable via scripts/fetch_registry_sparse.py; pinned by sha256 in registry/)
 .cache/
+# python
 __pycache__/
 *.pyc
 .pytest_cache/
-data/official/training_features.tif
-data/official/gems-geodawn-numerical-features.tif
+# large non-pinned artifacts
+*.npy
+*.npz
+submissions/
+# NOTE: pinned small competition-bridge rasters under data/ are intentionally
+# tracked (sha256-verified template restore); the validated submission TIF is
+# intentionally tracked under docs/downloads/ (it is the one-click deliverable).
