@@ -125,6 +125,18 @@ def main() -> int:
     sigma = load(EV / "sigma.json")
     patw = load(EV / "pattern_weighted.json")
     readings = load(EV / "uniqueness_readings.json")
+    rd = readings or {}
+    rule_a = (rd.get("rule_a", {}) or {})
+    rule_b = (rd.get("rule_b", {}) or {})
+    e_strict = (rd.get("e_strict_variant", {}) or {})
+    rule_a_n = int(rule_a.get("n") or 0)
+    rule_b_n = int(rule_b.get("n") or 0)
+    e_strict_n = int(e_strict.get("n") or 0)
+    rule_a_worst = rule_a.get("worst")
+    rule_a_labels = sorted({(f.get("source") or f.get("witness") or "")
+                            for f in (rule_a.get("firings") or [])})
+    rule_a_detail = (" against " + ", ".join(f"<code>{esc(x)}</code>" for x in rule_a_labels[:3])) \
+        if rule_a_labels else ""
     digest = sha256(tif)
     note = emit.get("note", "")
     emit_screen = load(EV / f"{name}.screen.json")
@@ -168,12 +180,14 @@ def main() -> int:
          bool((readings.get("governing", {}) or {}).get("cleared")),
          f"{readings.get('n_witnesses_screened')} rasters screened, {readings.get('n_pinned')} byte-verified "
          f"against their recorded sha256 pins ({readings.get('pin_size_mismatches')} mismatches). "
-         f"Chance-corrected lift &gt; 0.50: <b>-{(readings.get('lift', {}) or {}).get('n')}</b> firings "
-         f"(max lift {fmt(readings.get('max_chance_corrected_lift'), 4)}). "
-         f"Firings against witnesses with E ≤ 0.61: <b>{(readings.get('e_threshold', {}) or {}).get('n')}</b>. "
+         f"<b>Rule A</b> (forward overlap &gt; 0.70 against a witness with E &lt; 0.70): <b>{rule_a_n}</b> "
+         f"firing(s), worst {fmt(rule_a_worst, 4)}{rule_a_detail}. "
+         f"<b>Rule B</b> (chance-corrected lift &gt; 0.50 against a witness with E &lt; 0.99): "
+         f"<b>{rule_b_n}</b> firing(s), max lift {fmt(readings.get('max_chance_corrected_lift'), 4)}. "
          f"Rank correlation {fmt((readings.get('rho', {}) or {}).get('worst'))} &lt; 0.90 → 0 firings; "
-         f"dot-set Jaccard {fmt((readings.get('jaccard', {}) or {}).get('worst'))} &lt; 0.50 → 0 firings. "
-         f"Both resolutions the owner proposed for the literal rule agree: not a duplicate"),
+         f"dot-set Jaccard {fmt((readings.get('jaccard', {}) or {}).get('worst'))} &lt; 0.50 → 0 firings; "
+         f"byte/pixel identity 0. Pre-ratification readings beside the verdict: literal {lit_fire} firings, "
+         f"E ≤ 0.61 variant {e_strict_n} firing(s)."),
         ("Uniqueness — literal protocol reading (reported, not satisfiable)",
          lit_fire == 0,
          f"{lit_fire} literal firings, all against witnesses whose own 3 px dilation covers "
@@ -181,7 +195,7 @@ def main() -> int:
          f"footprint ({readings.get('literal', {}).get('n_vacuous')} of them at 1.000, i.e. plane-filling "
          f"surfaces that overlap <i>every</i> nonempty file). The literal rule therefore cannot be "
          f"satisfied by any emitter in this repository family; it is reported in full and the two "
-         f"resolutions the owner proposed for it decide the verdict above"),
+         f"ratified RATIFIED-UNIQ-v1 readings decide the verdict above"),
         ("Leakage canary — single-family AUC against withheld truth",
          bool(sigma.get("canary")),
          f"max AUC over families and folds "
@@ -285,12 +299,15 @@ against the recorded pins, {screen.get('pin_size_mismatches')} mismatches).</p>
 <table><thead><tr><th>witness</th><th>their dots</th><th>our dots within 3 px</th>
 <th>their own coverage E (chance)</th><th>chance-corrected lift</th><th>reading</th></tr></thead>
 <tbody>{worst_html}</tbody></table>
-<p class="small">The literal rule fires on <b>{lit_fire}</b> witnesses. {n_sat} witnesses are near-plane-filling: their
-own 3 px dilation covers ≥ 99 % of the scored footprint, so they overlap <i>every</i> nonempty
-footprint-respecting file and a firing carries no information about duplication. The largest overlap against a
-witness that <i>can</i> discriminate is <b>{fmt(wf_disc)}</b> → <b>{disc_fire} discriminating firings</b>. Maximum
-chance-corrected lift {fmt(info.get('max_chance_corrected_lift'), 3)} ≤ 0.50, so both resolutions the owner
-proposed for the literal rule give the same verdict: not a duplicate.</p></section>
+<p class="small">The literal pre-ratification rule fires on <b>{lit_fire}</b> witnesses; {n_sat} of them are
+near-plane-filling (their own 3 px dilation covers ≥ 99 % of the scored footprint, so they overlap <i>every</i>
+nonempty footprint-respecting file and the firing carries no information about duplication). Under the ratified
+<b>RATIFIED-UNIQ-v1</b> (PROMPT.md item 1): <b>rule A</b> — forward overlap &gt; 0.70 against a witness whose own
+chance expectation is E &lt; 0.70 — fires on <b>{rule_a_n}</b> witness raster(s), worst <b>{fmt(rule_a_worst, 4)}</b>{rule_a_detail};
+<b>rule B</b> — chance-corrected lift &gt; 0.50 against a witness with E &lt; 0.99 — fires on <b>{rule_b_n}</b>
+(maximum lift {fmt(readings.get('max_chance_corrected_lift'), 3)}). The pre-ratification variant the owner had
+proposed (E ≤ 0.61) fires on <b>{e_strict_n}</b>. Rank correlation and dot-set Jaccard have zero firings.
+Governing verdict: <b>{'UNIQUE' if cleared else 'DUPLICATE — logged as a duplicate and stopped'}</b>.</p></section>
 
 <section class="card"><h2>Measured localization error σ(x) — the number that sets the ribbon width</h2>
 <p class="small">Across-strike distance from an <i>associated</i> candidate lineament to the nearest withheld fault
@@ -386,49 +403,48 @@ holdout probe are not an organizer score.</p>
         css.write_text(css.read_text() + "\n" + CSS)
 
     # ---------------------------------------------- front-door injection
+    if cleared:
+        verdict_par = ("Uniqueness: no informative firing under RATIFIED-UNIQ-v1 over "
+                       f"{screen.get('n_screened')} byte-verified witnesses.")
+    else:
+        verdict_par = ("<b>Uniqueness verdict (RATIFIED-UNIQ-v1): DUPLICATE.</b> Rule A fires on "
+                       f"{rule_a_n} witness raster(s) whose own 3 px dilation covers "
+                       f"{fmt(min((f.get('E') or 0) for f in (rule_a.get('firings') or [{}])), 3)}–"
+                       f"{fmt(max((f.get('E') or 0) for f in (rule_a.get('firings') or [{}])), 3)} of the scored "
+                       f"footprint (worst forward overlap <b>{fmt(rule_a_worst, 4)}</b>){rule_a_detail}, so by the "
+                       "standing instruction the file is logged as a duplicate and <b>must not be submitted</b>. "
+                       "Rule B (chance-corrected lift), rank correlation and dot-set Jaccard all have zero firings, "
+                       f"and the pre-ratification E ≤ 0.61 variant has {e_strict_n} firing(s); the download stays "
+                       "available for the owner's review.")
     box = f"""<section class="s5{' ' if cleared else ' bad'}">
   <div class="badge">{'✅ OK TO DOWNLOAD AND SUBMIT' if cleared else '⛔ NOT CLEARED — DO NOT SUBMIT'}</div>
-  <h2>Current deliverable — session 5: <code>{esc(name)}.tif</code></h2>
-  <p>Lineaments from a four-family (magnetic, gravity, topographic, subsurface) structural field, ranked
-  with a cross-family agreement bonus and emitted as dotted multi-line ribbons at the measured
-  localization error (σ = 2–4 px), <b>0 dots on the mapped catalogue</b>, every value exactly <code>1.0</code>,
-  all {verify.get('passed')}/{verify.get('total')} independent format checks passed, and 0 discriminating
-  uniqueness firings over {screen.get('n_screened')} byte-verified registry witnesses.
-  Read the <a href="gems60.html">full deliverable page</a> for the gates, the σ table and the exact-metric
-  pattern selection. <b>Not verified: its leaderboard value</b> (no organizer receipt; the local holdout is
+  <h2>Session-5 candidate: <code>{esc(name)}.tif</code></h2>
+  <p>Lineaments from a four-family (magnetic, gravity, topographic, subsurface) structural field, ranked with a
+  cross-family agreement bonus and emitted as dotted multi-line ribbons at the measured localization error
+  (σ = 2–4 px), <b>0 dots on the mapped catalogue</b>, every value exactly <code>1.0</code>,
+  {verify.get('passed')}/{verify.get('total')} independent format checks passed.
+  {verdict_par}
+  Read the <a href="gems60.html">full deliverable page</a> for the gates, the σ table, the pattern selection and
+  both uniqueness readings. <b>Not verified: its leaderboard value</b> (no organizer receipt; the local holdout is
   structurally blind to off-catalogue files).</p>
   <div class="dlrow">
-    <a class="big-btn" href="downloads/{esc(tif.name)}" download>⬇ Download the GeoTIFF · {tif.stat().st_size:,} bytes</a>
+    <a class="big-btn{' sec' if not cleared else ''}" href="downloads/{esc(tif.name)}" download>⬇ Download the GeoTIFF · {tif.stat().st_size:,} bytes{' (review only)' if not cleared else ''}</a>
     <a class="big-btn sec" href="downloads/{esc(zip_path.name)}" download>⬇ ZIP (one GeoTIFF)</a>
     <a class="big-btn sec" style="background:#41505f" href="executive-summary.html">How to submit</a>
     <a class="big-btn sec" style="background:#41505f" href="gems60.html">Gates &amp; evidence</a>
   </div>
   <p class="small">sha256 <code>{esc(digest)}</code> · submission name <code>{esc(name)}</code> ·
-  note <code>{esc(note)}</code> ({emit.get('note_chars')}/140 characters).</p>
+  note <code>{esc(note)}</code> ({emit.get('note_chars')}/140 characters) · this box follows the ratified
+  protocol in <code>PROMPT.md</code> item 1 and turns green only when the governing readings clear.</p>
   <p class="small">Not restricted to agreeing cells: measured mean agreeing families
   {fmt(geom.get('mean_families'), 2)}, {fmt((geom.get('on_2families_frac') or 0) * 100, 1)} % of dots on
   ≥ 2-family cells, {fmt((geom.get('on_3families_frac') or 0) * 100, 1)} % on ≥ 3-family cells — the agreement
   count is a ranking weight, not a gate, because its holdout test came back negative (see the page).</p>
-  <p class="small">Audit continuity: the previous lane's artifacts lower on this page remain
-  <b>NOT OK TO SUBMIT</b> under the protocol as written and are retained for review — they are superseded by the
-  file in this box, which is cleared under both resolutions the owner proposed for the literal rule.</p>
 </section>"""
     for page_name in ("index.html", "executive-summary.html"):
         inject(DOCS / page_name, box)
-    counts = rewrite_featured(DOCS / "executive-summary.html", [
-        ('<div class="badge" style="background:#a11212">NOT OK TO SUBMIT — REVIEW ARTIFACT ONLY</div>',
-         f'<div class="badge" style="background:#12703f">{"OK TO DOWNLOAD AND SUBMIT — SESSION-5 CANDIDATE" if cleared else "NOT OK TO SUBMIT — DO NOT SUBMIT"}</div>'),
-        ('<a class="big-btn" style="background:#a11212" href="downloads/',
-         '<a class="big-btn" style="background:#12703f" href="downloads/'),
-        ("gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif", f"{name}.tif"),
-        ("gems58-ribbon-sigma-adaptive-40768-20261011T052942Z", name),
-        ("ecf833f8ea7a6698636b48b0dcd0d03aa925d603753e60e03d9d1660922711dd", digest),
-        ("433,419 bytes", f"{tif.stat().st_size:,} bytes"),
-        ("40,768", f"{geom.get('n_dots'):,}"),
-    ])
     print(f"wrote {out} ({out.stat().st_size:,} bytes) — cleared={cleared}")
-    print(f"injected front-door box into index.html and executive-summary.html; "
-          f"featured-value replacements: {counts}")
+    print("injected the session-5 front-door box into index.html and executive-summary.html (featured blocks are left to build_site.py)")
     if args.strict and not cleared:
         return 2
     return 0
