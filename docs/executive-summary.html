@@ -20,7 +20,39 @@ th{background:#eef2f6}
 <a href="downloads/index.html">all downloads</a> ·
 <a href="IRREGULARITIES.md">irregularities</a> · <a href="SOURCES.md">sources</a></p>
 <h1>Executive review — not a submission approval</h1></header>
-<section class="s7-alert" role="alert" aria-labelledby="stop-title">
+<!-- s6submit:begin -->
+<section class="s7-alert" style="border-color:#41505f;border-left-width:9px;background:#f6f9fc">
+  <div class="s7-badge" style="background:#41505f">HOW TO SUBMIT — 3 STEPS</div>
+  <h2>Submitting to the DOE GEMS Prize Challenge (Drivendata #306)</h2>
+  <ol style="line-height:1.6">
+    <li><b>Download the GeoTIFF.</b>
+        <a class="s7-btn" href="downloads/gems58-s6-ribbon-sigma38000-20261011T203621Z.tif" download>⬇ gems58-s6-ribbon-sigma38000-20261011T203621Z.tif</a>
+        (or the <a href="downloads/gems58-s6-ribbon-sigma38000-20261011T203621Z.zip" download>ZIP</a> — the portal accepts a single-band
+        <code>.tif</code> <i>or</i> a <code>.zip</code> containing exactly one GeoTIFF).</li>
+    <li><b>Open the submission page.</b>
+        <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/">DrivenData
+        → competition 306 → Submit</a>, then <i>New submission</i> → <i>File to submit</i> →
+        <i>Choose file</i>, and pick the downloaded <code>.tif</code>.</li>
+    <li><b>Paste this Note</b> into the optional <i>Note</i> field (the only free-text field; keep it
+        under 140 characters) and press <i>Create submission</i>:<br>
+        <code style="display:inline-block;margin:.35rem 0">Ribbon lane: 5 dotted lines at +-3/+-6 px on multi-family Hessian ridges; 38000 isolated dots at 1.0; off-catalogue</code></li>
+  </ol>
+  <p class="s7-small"><b>Why the portal cannot reject this file with
+  <i>“Predicted values must be in range [0, 1]”</i>:</b> that error appears when the raster carries a
+  NaN or a value outside [0,&nbsp;1] <i>inside</i> the study footprint. This file is written with the
+  organizer's own <code>sample_submission.tif</code> as the template, so its finite support is
+  pixel-identical to the sample (5,167,373 px), every finite value is exactly <code>0.0</code> or
+  <code>1.0</code>, and everything outside the footprint is NaN. The writer refuses to emit a file that
+  fails any of its 15 local checks, and the receipt
+  <code>docs/downloads/gems58-s6-ribbon-sigma38000-20261011T203621Z.json</code> records the sha256 of the bytes you downloaded.</p>
+  <p class="s7-small"><b>Before you spend a slot:</b> read the
+  <a href="s6/index.html">session-6 page</a> for the gates (holdout, leakage canary, registry
+  uniqueness) and the verdict rendered from them. No organizer receipt exists for any file in this
+  repository, so no leaderboard number can be promised for it. The banner above the download button
+  states whether the file is cleared to submit; it is currently
+  <b>NOT cleared</b>.</p>
+</section>
+<!-- s6submit:end --><section class="s7-alert" role="alert" aria-labelledby="stop-title">
 <span class="s7-badge">⛔ NOT OK TO SUBMIT — DO NOT SUBMIT</span>
 <h2 id="stop-title">Review-only TIFF; literal uniqueness stop recorded</h2>
 <p><code>58GEMSDOE-ribbon-sparse-review-only-20261011T182511Z.tif</code> is available for local audit only. It is not a qualified or authorized

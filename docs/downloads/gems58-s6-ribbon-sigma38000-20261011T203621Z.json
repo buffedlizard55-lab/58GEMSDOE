@@ -1,0 +1,23 @@
+{
+ "file": "gems58-s6-ribbon-sigma38000-20261011T203621Z.tif",
+ "sha256": "22a0bd670a4c2013d48da7fae8640024e20cb2fb777e06b5d4b55899db6033c5",
+ "bytes": 405065,
+ "zip_file": "gems58-s6-ribbon-sigma38000-20261011T203621Z.zip",
+ "zip_sha256": "a724fa0e3ba02fa489b074d13dc0f44c90f9abd4cef39394e02036bdf1778c26",
+ "zip_bytes": 323845,
+ "submission_name": "gems58-s6-ribbon-sigma38000-20261011T203621Z",
+ "note": "Ribbon lane: 5 dotted lines at +-3/+-6 px on multi-family Hessian ridges; 38000 isolated dots at 1.0; off-catalogue",
+ "note_chars": 115,
+ "n_dots": 38000,
+ "validator_passed": true,
+ "holdout_dti": 0.05806051391085962,
+ "evaluator": "gems57.metric/shared",
+ "protocol": "gems58-pooled-hide-v1",
+ "withheld_positive_pixels": 60869,
+ "uniqueness_verdict": "DUPLICATE",
+ "run_card_verdict": "negative",
+ "approved_for_weekly_slot": false,
+ "promoted": false,
+ "submission_slots_used": 0,
+ "status": "local format/range preflight and registry screen only; organizer acceptance and slot approval are separate decisions and are not claimed"
+}

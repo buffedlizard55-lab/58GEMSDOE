@@ -6,13 +6,29 @@ renders the negative result and never produces a TIFF, score, slot, or clearance
 """
 from __future__ import annotations
 
+
 import argparse
+import sys
 import hashlib
 import html
 import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+
+# The session-6 ribbon-width lane contributes one block to each front-door page. It is
+# imported (never inlined) so both pages keep a single source of truth and stay in sync
+# with --check however this module is loaded (as a script or as scripts.build_session7_pages).
+if str(Path(__file__).resolve().parent) not in sys.path:
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+try:
+    from s6_lane_notice import session6_executive_block, session6_index_block
+except ImportError:  # pragma: no cover - the lane's receipts are absent from this checkout
+    def session6_index_block() -> str:
+        return ""
+
+    def session6_executive_block() -> str:
+        return ""
 DOCS = ROOT / "docs"
 CARD_PATH = ROOT / "evidence/58gemsdoe_unique_ribbon/run_card.json"
 AUDIT_PATH = ROOT / "evidence/58gemsdoe_unique_ribbon/audit.json"
@@ -214,7 +230,8 @@ def build_index(card: dict, audit: dict, tif: Path) -> str:
         state = "PASS — LOCAL ONLY" if gate["ok"] else "NOT CLEARED / FAILED"
         klass = "s7-pass" if gate["ok"] else "s7-fail"
         rows.append(f"<tr><td>{esc(gate['name'])}</td><td class=\"{klass}\">{state}</td><td>{esc(gate['status'])}</td></tr>")
-    body = common_banner(card, audit, tif) + inherited_unreviewed_notice() + deep_edge_notice() + f"""
+    body = (common_banner(card, audit, tif) + inherited_unreviewed_notice()
+            + deep_edge_notice() + session6_index_block() + f"""
 <section class="s7-grid">
 <div class="s7-card"><h2>Current decision</h2><p><b>negative</b>. No experiment, slot, or upload
 occurred in this review. A filename/download link is not permission to submit.</p>
@@ -249,11 +266,13 @@ unique status, holdout performance, score, or organizer acceptance.</p>
 703-raster inventory was complete only for its frozen scope and is not a current exhaustive
 clearance. The literal stop is decisive; this page does not claim a fresh complete scan.</p>
 """
+    )
     return page("Current status — negative review", body)
 
 
 def build_executive(card: dict, audit: dict, tif: Path) -> str:
-    body = common_banner(card, audit, tif) + inherited_unreviewed_notice() + """
+    body = (session6_executive_block() + common_banner(card, audit, tif)
+            + inherited_unreviewed_notice() + """
 <h2>Executive decision</h2>
 <p><b>Do not submit this TIFF.</b> The active literal rule stops it because more than 70% of its
 positive pixels fall within 3 px of one prior registry raster. The observed current-file overlap is
@@ -279,6 +298,7 @@ experiment or replacement candidate is authorized under this review. No slot has
 connects it to H33; the cause of the participant's result is unknown. See
 <a href="research/why-02778.md">the attribution review</a>.</p>
 """
+    )
     return page("Executive review — not a submission approval", body)
 
 

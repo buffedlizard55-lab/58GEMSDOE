@@ -1,0 +1,46 @@
+{
+ "evidence_class": "REGISTRY-MEASUREMENT",
+ "screened_file": "gems58-s6-ribbon-sigma38000-20261011T203621Z.tif",
+ "sha256": "22a0bd670a4c2013d48da7fae8640024e20cb2fb777e06b5d4b55899db6033c5",
+ "bytes": 405065,
+ "witnesses_screened": 692,
+ "witnesses_errored": 0,
+ "pinned_witnesses": 703,
+ "worst": {
+  "forward_overlap": 1.0,
+  "lift": 0.47563366806294544,
+  "rank_corr": 0.05627853232643554,
+  "jaccard": 0.031829184914167453
+ },
+ "firings": {
+  "literal": 81,
+  "ruleA": 1,
+  "ruleB": 0,
+  "rank_corr": 0,
+  "jaccard": 0
+ },
+ "byte_identical": false,
+ "shape": {
+  "n_dots": 38000,
+  "max_component_px": 1,
+  "clustering_vs_random": 7.082269033215747,
+  "median_distance_to_catalogue_px": 21.213203435596427,
+  "frac_within_3px_of_catalogue": 0.011657894736842105,
+  "quadrant_counts": {
+   "NW": 17350,
+   "NE": 10151,
+   "SW": 4190,
+   "SE": 6309
+  },
+  "footprint_frac_covered_by_own_3px_dilation": 0.12697612500587824
+ },
+ "limits": {
+  "literal_overlap": 0.7,
+  "ruleA_E": 0.7,
+  "ruleB_lift": 0.5,
+  "rank_corr": 0.9,
+  "jaccard": 0.5
+ },
+ "wall_seconds": 594.8,
+ "verdict": "DUPLICATE"
+}

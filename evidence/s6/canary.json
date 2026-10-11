@@ -1,0 +1,29 @@
+{
+ "evidence_class": "HOLDOUT-LEAKAGE-CANARY",
+ "protocol": "gems58-pooled-hide-v1",
+ "auc_by_band": {
+  "mag_anom": 0.49601245101778757,
+  "rtp": 0.4883437933385009,
+  "tmi_hg": 0.5114691556600645,
+  "geod_2ndinv": 0.5890492868884243,
+  "iso_grav_anom_slope": 0.5368540144345375,
+  "tc": 0.4772093711367932,
+  "geod_shearrate": 0.576997704533991,
+  "geod_dilaterate": 0.5389939304614385,
+  "tmi_vg": 0.4847564155204419,
+  "deq_n100a15": 0.5884395925400714,
+  "iso_grav_anom_vg": 0.5312771726079437,
+  "det_elev": 0.4695019389554666,
+  "iso_grav_anom": 0.4344110934695494,
+  "tmi": 0.4957993885005491,
+  "depth_to_base_surf": 0.5019778106517384,
+  "ieq_n100a15": 0.6063740165275084,
+  "cond_surf": 0.4690160366513447,
+  "iso_grav_anom_hg": 0.510124485081381,
+  "det_elev_slope": 0.5776869777453555
+ },
+ "max_auc": 0.6063740165275084,
+ "limit": 0.9,
+ "verdict": "clean",
+ "wall_seconds": 81.7
+}

@@ -1,0 +1,664 @@
+{
+ "session": "58GEMSDOE session 6, 2026-10-11 (ribbon lane)",
+ "hypothesis": "Matching the across-strike emission width to the MEASURED localisation error of the candidate ridge field pays more than any single fixed width: because the measured sigma is 3-9 px (i.e. of the same order as the 3-px scoring kernel radius), the true trace is usually NOT under the ridge centreline, so a tight line systematically misses it while a ribbon of parallel dotted lines spaced at the kernel radius spans the error; and because the Tversky penalty for a false positive is only alpha=0.2, spanning the error costs far less than the credit it recovers.",
+ "mechanism": "19 organizer bands x 3 Hessian ridge scales (150/300/600 m) -> non-maximum-suppressed centrelines -> per-segment (block, family/sign, scale) stratum -> sigma from the holdout table -> K parallel dotted lines at +-3 and +-6 px across strike, one dot every 3 px along strike -> thin to strictly isolated pixels -> emit at exactly 1.0. Width choice evaluated with the shared exact metric, never a Normal approximation.",
+ "non_fault_process_that_could_mimic_it": "Basin-and-Range alluvial-fan and terrace edges, and lithologic contacts in the magnetic/gravity fields (e.g. the edges of Tertiary volcanic packages against basin fill), produce continuous curvilinear ridges in every one of the families used; a Hessian ridge operator cannot distinguish a buried lithologic contact from a fault, so a 'ribbon' placed on one is a confident, well-localised line on a non-fault structure. The seismic and geodetic bands add a second mimic: strain-rate and earthquake-density gradients are smooth regional fields whose contours are also lineaments.",
+ "holdout": {
+  "evidence_class": "HOLDOUT-DTI",
+  "dti": 0.05806051391085962,
+  "evaluator": "gems57.metric/shared",
+  "protocol": "gems58-pooled-hide-v1",
+  "withheld_positive_pixels": 60869,
+  "alpha": 0.2,
+  "beta": 0.8,
+  "kernel": "triangular, R=300 m = 3 px",
+  "blocks": {
+   "NW": 0.06404445753845737,
+   "NE": 0.06185163182337339,
+   "SW": 0.05324784169839192,
+   "SE": 0.04628580540472791
+  },
+  "interval_min_max": [
+   0.04628580540472791,
+   0.06404445753845737
+  ],
+  "ci_note": "min-max over the four physical spatial blocks; a four-block bootstrap would resample repeated physical blocks as independent, so no bootstrap 95% CI is claimed",
+  "uniform_random_control_at_same_budget": 0.05273740806191818,
+  "gain_over_random": 0.0053231058489414396,
+  "coverage": 0.07587300359113565,
+  "credit_per_dot": 0.030383643786768656,
+  "arms": {
+   "uniform_K5_s3_p3": 0.05806051391085962,
+   "adaptive_K(sigma)": 0.056778574308668964
+  },
+  "chosen_arm": "uniform_K5_s3_p3",
+  "budget_dots": 38000
+ },
+ "sigma_table": {
+  "pooled_median_px": 5.739440431835514,
+  "pooled_p25_p75": [
+   3.2725085903862094,
+   9.367260995228618
+  ],
+  "best_stratum": "magnetic/trough/6px median 3.09 px (n=250)",
+  "by_block": {
+   "NE": {
+    "n": 255,
+    "median": 5.789645930452052,
+    "mean": 6.634183050058267,
+    "p25": 3.1862800627228745,
+    "p75": 10.19582513046743,
+    "rms": 7.70731538732468
+   },
+   "NW": {
+    "n": 866,
+    "median": 5.825046135268401,
+    "mean": 6.390853244467726,
+    "p25": 3.4641016151377544,
+    "p75": 9.193389408759579,
+    "rms": 7.378387510870228
+   },
+   "SE": {
+    "n": 145,
+    "median": 7.0756778750381475,
+    "mean": 7.11706200166515,
+    "p25": 3.8823610435825353,
+    "p75": 10.35615758860399,
+    "rms": 8.096991583920731
+   },
+   "SW": {
+    "n": 221,
+    "median": 4.68187996428785,
+    "mean": 5.441100186662219,
+    "p25": 2.6917063396418124,
+    "p75": 7.899367063252599,
+    "rms": 6.479761402644871
+   }
+  },
+  "by_scale": {
+   "1.5px": {
+    "n": 176,
+    "median": 7.339939371359742,
+    "mean": 7.5833336847306665,
+    "p25": 4.692270646202932,
+    "p75": 10.32236530106147,
+    "rms": 8.307040221670816
+   },
+   "3px": {
+    "n": 349,
+    "median": 6.6562418492386195,
+    "mean": 7.023480128199943,
+    "p25": 3.926040384846834,
+    "p75": 9.908673886137246,
+    "rms": 7.8984428215096445
+   },
+   "6px": {
+    "n": 962,
+    "median": 5.123475382979799,
+    "mean": 5.898951585980591,
+    "p25": 2.759825968056706,
+    "p75": 8.899274835469317,
+    "rms": 7.001715754745679
+   }
+  },
+  "by_type": {
+   "gravity/crest": {
+    "n": 49,
+    "median": 8.077747210701755,
+    "mean": 8.225811718586233,
+    "p25": 5.678908345800274,
+    "p75": 11.363684848381414,
+    "rms": 8.942643643957043
+   },
+   "gravity/trough": {
+    "n": 233,
+    "median": 6.244997998398398,
+    "mean": 6.893599115906309,
+    "p25": 3.669695718539436,
+    "p75": 10.530906893520616,
+    "rms": 7.895635368217107
+   },
+   "magnetic/crest": {
+    "n": 265,
+    "median": 6.06217782649107,
+    "mean": 6.725811029345818,
+    "p25": 3.537971364964723,
+    "p75": 10.155458302476227,
+    "rms": 7.6895704607466975
+   },
+   "magnetic/trough": {
+    "n": 336,
+    "median": 4.063527573185615,
+    "mean": 4.8480189995885,
+    "p25": 1.6072046718751298,
+    "p75": 7.119071547153984,
+    "rms": 6.083245727064165
+   },
+   "subsurface/trough": {
+    "n": 25,
+    "median": 5.123475382979799,
+    "mean": 6.653390461337682,
+    "p25": 3.9107694443752146,
+    "p75": 9.288311325140176,
+    "rms": 7.623308513595021
+   },
+   "topographic/crest": {
+    "n": 572,
+    "median": 6.235773231519628,
+    "mean": 6.7114671701946325,
+    "p25": 3.9207344588823796,
+    "p75": 9.280835929093609,
+    "rms": 7.57725986591671
+   }
+  },
+  "n_matched_components": 1487,
+  "reading": "sigma exceeds the 3-px kernel radius in every stratum except magnetic/trough/6px, so the lane's 'single tight line below 0.5 px' branch never triggers and the measured error, not the lane's hoped-for 2-3 px, sets the ribbon half-width at +-6 px"
+ },
+ "simulated_gain_per_class": {
+  "n_classes": 40,
+  "positive": 17,
+  "negative": 23,
+  "dti0_for_U": 0.05348843032598391,
+  "marginal_bar": 0.010697686065196783,
+  "note": "stratum-local equal-budget comparison; it disagrees with the global comparison because at a fixed budget a 5-line ribbon can only be bought by dropping other segments",
+  "classes": {
+   "NW/topographic/crest/3px": {
+    "n_segments": 710,
+    "sigma_px": 6.0,
+    "K": 5,
+    "dti_K1": 0.00568,
+    "dti_ribbon": 0.007688,
+    "U": 13.758,
+    "positive": true
+   },
+   "NE/topographic/crest/3px": {
+    "n_segments": 457,
+    "sigma_px": 6.0,
+    "K": 5,
+    "dti_K1": 0.003188,
+    "dti_ribbon": 0.005187,
+    "U": 35.0138,
+    "positive": true
+   },
+   "NW/topographic/crest/1.5px": {
+    "n_segments": 447,
+    "sigma_px": 6.0,
+    "K": 5,
+    "dti_K1": 0.00274,
+    "dti_ribbon": 0.005434,
+    "U": 58.4436,
+    "positive": true
+   },
+   "NW/topographic/crest/6px": {
+    "n_segments": 401,
+    "sigma_px": 5.483,
+    "K": 5,
+    "dti_K1": 0.005534,
+    "dti_ribbon": 0.006977,
+    "U": 57.9904,
+    "positive": true
+   },
+   "NE/topographic/crest/6px": {
+    "n_segments": 304,
+    "sigma_px": 5.483,
+    "K": 5,
+    "dti_K1": 0.003152,
+    "dti_ribbon": 0.005114,
+    "U": 96.1451,
+    "positive": true
+   },
+   "NW/magnetic/crest/6px": {
+    "n_segments": 275,
+    "sigma_px": 5.394,
+    "K": 5,
+    "dti_K1": 0.004105,
+    "dti_ribbon": 0.003499,
+    "U": -36.721,
+    "positive": false
+   },
+   "NE/topographic/crest/1.5px": {
+    "n_segments": 256,
+    "sigma_px": 6.0,
+    "K": 5,
+    "dti_K1": 0.000299,
+    "dti_ribbon": 0.000686,
+    "U": -23.9915,
+    "positive": false
+   },
+   "NW/magnetic/crest/3px": {
+    "n_segments": 254,
+    "sigma_px": 6.0,
+    "K": 5,
+    "dti_K1": 0.00135,
+    "dti_ribbon": 0.001884,
+    "U": -15.5088,
+    "positive": false
+   },
+   "SE/topographic/crest/3px": {
+    "n_segments": 236,
+    "sigma_px": 6.0,
+    "K": 5,
+    "dti_K1": 0.001165,
+    "dti_ribbon": 0.002329,
+    "U": 20.8104,
+    "positive": true
+   },
+   "NW/magnetic/trough/3px": {
+    "n_segments": 210,
+    "sigma_px": 6.0,
+    "K": 5,
+    "dti_K1": 0.002585,
+    "dti_ribbon": 0.002515,
+    "U": -32.0461,
+    "positive": false
+   },
+   "SW/topographic/crest/3px": {
+    "n_segments": 209,
+    "sigma_px": 6.0,
+    "K": 5,
+    "dti_K1": 0.002456,
+    "dti_ribbon": 0.005139,
+    "U": 99.842,
+    "positive": true
+   },
+   "NW/magnetic/trough/6px": {
+    "n_segments": 202,
+    "sigma_px": 3.088,
+    "K": 3,
+    "dti_K1": 0.003906,
+    "dti_ribbon": 0.00208,
+    "U": -84.2093,
+    "positive": false
+   },
+   "NW/gravity/trough/6px": {
+    "n_segments": 199,
+    "sigma_px": 6.0,
+    "K": 5,
+    "dti_K1": 0.002789,
+    "dti_ribbon": 0.002699,
+    "U": -0.6005,
+    "positive": false
+   },
+   "SE/magnetic/crest/6px": {
+    "n_segments": 183,
+    "sigma_px": 5.394,
+    "K": 5,
+    "dti_K1": 0.003167,
+    "dti_ribbon": 0.003318,
+    "U": 8.6314,
+    "positive": true
+   },
+   "SE/topographic/crest/1.5px": {
+    "n_segments": 176,
+    "sigma_px": 6.0,
+    "K": 5,
+    "dti_K1": 0.001119,
+    "dti_ribbon": 0.001683,
+    "U": -4.8846,
+    "positive": false
+   },
+   "SE/magnetic/crest/3px": {
+    "n_segments": 171,
+    "sigma_px": 6.0,
+    "K": 5,
+    "dti_K1": 0.000768,
+    "dti_ribbon": 0.001247,
+    "U": -0.1797,
+    "positive": false
+   },
+   "NE/magnetic/crest/6px": {
+    "n_segments": 155,
+    "sigma_px": 5.394,
+    "K": 5,
+    "dti_K1": 0.001163,
+    "dti_ribbon": 0.000711,
+    "U": -18.0003,
+    "positive": false
+   },
+   "SW/topographic/crest/1.5px": {
+    "n_segments": 152,
+    "sigma_px": 6.0,
+    "K": 5,
+    "dti_K1": 0.002701,
+    "dti_ribbon": 0.003166,
+    "U": -3.5793,
+    "positive": false
+   },
+   "SE/topographic/crest/6px": {
+    "n_segments": 135,
+    "sigma_px": 5.483,
+    "K": 5,
+    "dti_K1": 0.001926,
+    "dti_ribbon": 0.004095,
+    "U": 97.5629,
+    "positive": true
+   },
+   "NW/magnetic/trough/1.5px": {
+    "n_segments": 130,
+    "sigma_px": 6.0,
+    "K": 5,
+    "dti_K1": 0.001086,
+    "dti_ribbon": 0.001894,
+    "U": 17.8288,
+    "positive": true
+   },
+   "NE/magnetic/crest/3px": {
+    "n_segments": 129,
+    "sigma_px": 6.0,
+    "K": 5,
+    "dti_K1": 0.000901,
+    "dti_ribbon": 0.000939,
+    "U": -15.2539,
+    "positive": false
+   },
+   "NW/magnetic/crest/1.5px": {
+    "n_segments": 125,
+    "sigma_px": 6.0,
+    "K": 5,
+    "dti_K1": 0.000487,
+    "dti_ribbon": 0.000909,
+    "U": -3.0566,
+    "positive": false
+   },
+   "SW/topographic/crest/6px": {
+    "n_segments": 111,
+    "sigma_px": 5.483,
+    "K": 5,
+    "dti_K1": 0.001566,
+    "dti_ribbon": 0.002137,
+    "U": 19.084,
+    "positive": true
+   },
+   "SW/magnetic/crest/6px": {
+    "n_segments": 83,
+    "sigma_px": 5.394,
+    "K": 5,
+    "dti_K1": 0.001085,
+    "dti_ribbon": 0.00018,
+    "U": -43.3768,
+    "positive": false
+   },
+   "NE/gravity/trough/6px": {
+    "n_segments": 82,
+    "sigma_px": 6.0,
+    "K": 5,
+    "dti_K1": 0.001254,
+    "dti_ribbon": 0.00094,
+    "U": -15.2635,
+    "positive": false
+   },
+   "SE/magnetic/crest/1.5px": {
+    "n_segments": 71,
+    "sigma_px": 6.0,
+    "K": 5,
+    "dti_K1": 0.000346,
+    "dti_ribbon": 0.000581,
+    "U": -2.3747,
+    "positive": false
+   },
+   "SW/magnetic/crest/3px": {
+    "n_segments": 71,
+    "sigma_px": 6.0,
+    "K": 5,
+    "dti_K1": 0.000504,
+    "dti_ribbon": 0.001183,
+    "U": 19.7562,
+    "positive": true
+   },
+   "NE/magnetic/crest/1.5px": {
+    "n_segments": 67,
+    "sigma_px": 6.0,
+    "K": 5,
+    "dti_K1": 0.000351,
+    "dti_ribbon": 0.000408,
+    "U": -9.6724,
+    "positive": false
+   },
+   "SE/gravity/trough/6px": {
+    "n_segments": 51,
+    "sigma_px": 6.0,
+    "K": 5,
+    "dti_K1": 0.000418,
+    "dti_ribbon": 0.000291,
+    "U": -4.7556,
+    "positive": false
+   },
+   "NW/gravity/crest/6px": {
+    "n_segments": 37,
+    "sigma_px": 6.0,
+    "K": 5,
+    "dti_K1": 0.00052,
+    "dti_ribbon": 0.001109,
+    "U": 27.9505,
+    "positive": true
+   },
+   "SW/magnetic/trough/6px": {
+    "n_segments": 36,
+    "sigma_px": 3.088,
+    "K": 3,
+    "dti_K1": 0.000951,
+    "dti_ribbon": 0.0,
+    "U": -45.9682,
+    "positive": false
+   },
+   "SW/gravity/trough/6px": {
+    "n_segments": 34,
+    "sigma_px": 6.0,
+    "K": 5,
+    "dti_K1": 0.000603,
+    "dti_ribbon": 0.001141,
+    "U": 27.3502,
+    "positive": true
+   },
+   "NW/gravity/crest/3px": {
+    "n_segments": 27,
+    "sigma_px": 6.0,
+    "K": 5,
+    "dti_K1": 0.000192,
+    "dti_ribbon": 0.000364,
+    "U": 4.0849,
+    "positive": true
+   },
+   "NE/magnetic/trough/3px": {
+    "n_segments": 26,
+    "sigma_px": 6.0,
+    "K": 5,
+    "dti_K1": 0.000113,
+    "dti_ribbon": 0.0,
+    "U": -8.6504,
+    "positive": false
+   },
+   "NE/magnetic/trough/6px": {
+    "n_segments": 26,
+    "sigma_px": 3.088,
+    "K": 3,
+    "dti_K1": 0.000547,
+    "dti_ribbon": 0.00081,
+    "U": 14.9219,
+    "positive": true
+   },
+   "SW/magnetic/crest/1.5px": {
+    "n_segments": 25,
+    "sigma_px": 6.0,
+    "K": 5,
+    "dti_K1": 0.000232,
+    "dti_ribbon": 0.000515,
+    "U": 8.6458,
+    "positive": true
+   },
+   "NE/gravity/crest/6px": {
+    "n_segments": 23,
+    "sigma_px": 6.0,
+    "K": 5,
+    "dti_K1": 0.00051,
+    "dti_ribbon": 0.000416,
+    "U": -4.9362,
+    "positive": false
+   },
+   "NW/subsurface/trough/6px": {
+    "n_segments": 22,
+    "sigma_px": 5.123,
+    "K": 5,
+    "dti_K1": 0.000442,
+    "dti_ribbon": 0.000343,
+    "U": -4.0213,
+    "positive": false
+   },
+   "SE/gravity/crest/6px": {
+    "n_segments": 21,
+    "sigma_px": 6.0,
+    "K": 5,
+    "dti_K1": 0.000302,
+    "dti_ribbon": 0.00024,
+    "U": -4.9162,
+    "positive": false
+   },
+   "NW/topographic/trough/1.5px": {
+    "n_segments": 20,
+    "sigma_px": 6.0,
+    "K": 5,
+    "dti_K1": 0.0,
+    "dti_ribbon": 0.0,
+    "U": -5.1777,
+    "positive": false
+   }
+  }
+ },
+ "leakage_canary": {
+  "max_auc": 0.6063740165275084,
+  "limit": 0.9,
+  "verdict": "clean",
+  "worst_band": "ieq_n100a15"
+ },
+ "registry": {
+  "witnesses_screened": 692,
+  "pinned_witnesses": 703,
+  "firings": {
+   "literal": 81,
+   "ruleA": 1,
+   "ruleB": 0,
+   "rank_corr": 0,
+   "jaccard": 0
+  },
+  "worst": {
+   "forward_overlap": 1.0,
+   "lift": 0.47563366806294544,
+   "rank_corr": 0.05627853232643554,
+   "jaccard": 0.031829184914167453
+  },
+  "byte_identical": false,
+  "ruleA_detail": [
+   {
+    "source": "GEMSDOE3:docs/downloads/coverage-v3-wide-20260925T054019Z-0ac095a7ed.tif",
+    "forward_overlap": 0.7475526315789474,
+    "chance_E": 0.6625879339463205,
+    "lift": 0.2518128608332271,
+    "shared_pixels": 5526,
+    "jaccard": 0.008417377635000205,
+    "rank_corr": 0.011083056189375622
+   }
+  ],
+  "literal_reading": "81 of 692 witnesses have >70% of this file's dots within 3 px of their dots; 54 of them have a chance level of exactly 1.000 (their own 3 px dilation covers the whole scored footprint, so they fire on every non-empty candidate) and 26 more have chance level 0.72-0.99",
+  "discriminating_statistics": "all pass: worst chance-corrected lift 0.4756 < 0.50, worst rank correlation 0.0563 < 0.90, worst dot-set Jaccard 0.0318 < 0.50, bytes and decoded pixels unique, 5,526 shared pixels with the single rule-A witness = 0.9% of its 624,025 dots",
+  "verdict": "DUPLICATE"
+ },
+ "raster": {
+  "file": "gems58-s6-ribbon-sigma38000-20261011T203621Z.tif",
+  "sha256": "22a0bd670a4c2013d48da7fae8640024e20cb2fb777e06b5d4b55899db6033c5",
+  "bytes": 405065,
+  "n_dots": 38000,
+  "max_8connected_component_px": 1,
+  "dots_on_catalogue": 0,
+  "collar_px": 2,
+  "median_distance_to_catalogue_px": 21.213203435596427,
+  "frac_within_3px_of_catalogue": 0.011657894736842105,
+  "quadrant_counts": {
+   "NW": 17350,
+   "NE": 10151,
+   "SW": 4190,
+   "SE": 6309
+  },
+  "footprint_frac_covered_by_own_3px_dilation": 0.12697612500587824
+ },
+ "validator": {
+  "passed": true,
+  "checks": {
+   "exists": {
+    "ok": true,
+    "detail": "/home/user/58GEMSDOE/docs/downloads/gems58-s6-ribbon-sigma38000-20261011T203621Z.tif"
+   },
+   "single_band": {
+    "ok": true,
+    "detail": "count=1"
+   },
+   "dtype_float32": {
+    "ok": true,
+    "detail": "float32"
+   },
+   "crs_match": {
+    "ok": true,
+    "detail": "EPSG:32611"
+   },
+   "shape_match": {
+    "ok": true,
+    "detail": "3730x3292"
+   },
+   "transform_match": {
+    "ok": true,
+    "detail": "(100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0)"
+   },
+   "nan_outside_footprint": {
+    "ok": true,
+    "detail": "finite pixels outside the footprint = 0"
+   },
+   "finite_inside_footprint": {
+    "ok": true,
+    "detail": "NaN inside footprint = 0"
+   },
+   "values_in_unit_interval": {
+    "ok": true,
+    "detail": "min=0.000 max=1.000"
+   },
+   "positive_is_exactly_one": {
+    "ok": true,
+    "detail": "unique positives = [1.0]"
+   },
+   "positives_inside_footprint": {
+    "ok": true,
+    "detail": "outside = 0"
+   },
+   "footprint_mask_identical": {
+    "ok": true,
+    "detail": "finite=5167373 footprint=5167373"
+   },
+   "no_positive_on_catalogue": {
+    "ok": true,
+    "detail": "on-catalogue dots = 0"
+   },
+   "positive_count_in_range": {
+    "ok": true,
+    "detail": "n_positives = 38000"
+   },
+   "byte_size_reasonable": {
+    "ok": true,
+    "detail": "0.386 MB"
+   }
+  },
+  "crs_shape_transform": "EPSG:32611, 3730x3292, (100,0,243350,0,-100,4508550) \u2014 matches the organizer sample",
+  "nan_inside_footprint": 0,
+  "values_in_unit_interval": true,
+  "all_emitted_values_exactly_one": true
+ },
+ "submission": {
+  "name": "gems58-s6-ribbon-sigma38000-20261011T203621Z",
+  "note": "Ribbon lane: 5 dotted lines at +-3/+-6 px on multi-family Hessian ridges; 38000 isolated dots at 1.0; off-catalogue",
+  "note_chars": 115,
+  "note_limit": 140,
+  "slot_used": false,
+  "organizer_receipt": "NONE"
+ },
+ "verdict": "negative",
+ "verdict_reason": "the standing uniqueness instruction (RATIFIED-UNIQ-v1 rule A, and the literal 70% reading in this session's prompt) fires: 1 informative rule-A witness (GEMSDOE3 coverage-v3-wide, forward overlap 0.7476 at chance level 0.6626) and 81 literal firings. The file is therefore logged as a duplicate and NOT cleared for submission, exactly as every previous session's candidate was. Every discriminating statistic clears by a wide margin, so this is a threshold artefact of plane-filling witnesses, not copying.",
+ "promote": false,
+ "submission_slots_used": 0
+}
