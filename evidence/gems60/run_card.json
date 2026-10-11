@@ -1,0 +1,536 @@
+{
+ "name": "gems60-convergence-ribbon6-20261011T155420Z",
+ "raster": {
+  "file": "docs/downloads/gems60-convergence-ribbon6-20261011T155420Z.tif",
+  "bytes": 143587,
+  "sha256": "c1ba5b06191801bfef6798b9dfb64fe23c030b6783d0b965dbf3fb4d956be2b1",
+  "sha256_matches_receipt": true,
+  "zip": [
+   "gems60-convergence-ribbon6-20261011T155420Z.zip",
+   "f9a6eb43354d5fad7e97598b78bcd43f65873a8d132882bc510dae001d09389f"
+  ]
+ },
+ "hypothesis": "H60-C1 (session-5 cross-family convergence lane): at a fixed dot budget the official DTI is proportional to the precision of the emitted dots, so requiring *two independent physical families* (magnetic, isostatic-gravity, topographic, subsurface) to fire a consistent-strike lineament at the same pixel raises precision over any single-family ridge detector; and with the across-strike localization error measured at 2-4 px the optimal emission geometry is a dotted multi-line ribbon on the 3 px kernel-radius lattice, not a single line.",
+ "mechanism": "the scoring kernel is a normalised triangular cap at R = 300 m = 3 px with alpha = 0.2, so a unit of emitted mass pays iff its kernel credit exceeds 0.2*DTI (0.052 at DTI 0.26): mass that lands inside the kernel is nearly free, mass that misses costs 0.2, and each truth pixel can be credited once. Magnetic/gravity/topographic/subsurface lineaments that agree in location and strike are far more likely to be a real planar discontinuity than a single-field lineament, and parallel dotted lines spaced at the kernel radius convert the measured localization error into kernel credit at the price of one dot per 3 px of along-strike length.",
+ "named_non_fault_process": "aeromagnetic flight-line levelling/corrugation and the regional NE-SW Basin-and-Range lithological grain both produce lineaments no fault occupies; requiring two families to agree rejects most of these, but a levelling artefact that coincides in strike with a topographic or gravity grain can still pass the agreement test, which is why the agreeing count is used as a ranking weight and not as a fault call.",
+ "holdout_dti": {
+  "label": "HOLDOUT-DTI (catalogue recovery only; not a leaderboard forecast)",
+  "pooled": 0.037208223139029835,
+  "protocol": "buffered hide-and-recover, whole components, 3 px context collar",
+  "evaluator": "gems57-pooled-buffered-hide-v1 (holdout.build_buffered_holdout_context + holdout.evaluate)",
+  "seed": 20,
+  "withheld_positive_pixels": 11321,
+  "per_fold": {
+   "buffered20_foldNW_all": 0.047058,
+   "buffered20_foldNE_all": 0.020716,
+   "buffered20_foldSW_all": 0.044571,
+   "buffered20_foldSE_all": 0.036308
+  },
+  "fold_range": [
+   0.020715761511807713,
+   0.04705794874889988
+  ],
+  "coverage": 0.05399980909212514,
+  "coverage_wilson_95": [
+   0.04998566006351682,
+   0.05831653036855307
+  ],
+  "ci_note": "a DTI is a ratio of kernel-weighted masses, not a binomial proportion, so no defensible binomial CI exists for it; the four fold-level DTIs (this split contains one withhold per quadrant) and the Wilson interval on the pooled coverage are reported instead",
+  "caveat": "withheld truth is the mapped catalogue, while the competition scores the faults that are absent from the catalogue; this instrument is structurally blind to off-catalogue files (lane measurement: Spearman \u22120.037 between this proxy and live scores over 34 rasters)"
+ },
+ "sigma_table": {
+  "source": "evidence/gems60/sigma.json",
+  "evaluator": "gems57.metric (kernel-only AUC/precision; no DTI claimed here)",
+  "holdout": "gems57.holdout.build_buffered_holdout_context",
+  "withheld_positive_pixels": 11321,
+  "capture_radius_px": 6.0,
+  "strata": [
+   {
+    "fold": "buffered20_foldSW_all",
+    "family": "magnetic",
+    "scale_px": 2.0,
+    "n": 117,
+    "sigma_median_px": 2.0,
+    "sigma_p25_px": 1.0,
+    "sigma_p75_px": 3.0,
+    "frac_within_1px": 0.27350427350427353,
+    "frac_within_3px": 0.7863247863247863
+   },
+   {
+    "fold": "buffered20_foldSW_all",
+    "family": "magnetic",
+    "scale_px": 4.0,
+    "n": 70,
+    "sigma_median_px": 2.0,
+    "sigma_p25_px": 1.0,
+    "sigma_p75_px": 3.1622776601683795,
+    "frac_within_1px": 0.4142857142857143,
+    "frac_within_3px": 0.7285714285714285
+   },
+   {
+    "fold": "buffered20_foldSW_all",
+    "family": "gravity",
+    "scale_px": 2.0,
+    "n": 57,
+    "sigma_median_px": 2.23606797749979,
+    "sigma_p25_px": 1.4142135623730951,
+    "sigma_p75_px": 3.1622776601683795,
+    "frac_within_1px": 0.21052631578947367,
+    "frac_within_3px": 0.7017543859649122
+   },
+   {
+    "fold": "buffered20_foldSW_all",
+    "family": "topographic",
+    "scale_px": 2.0,
+    "n": 102,
+    "sigma_median_px": 3.605551275463989,
+    "sigma_p25_px": 2.0,
+    "sigma_p75_px": 5.0,
+    "frac_within_1px": 0.20588235294117646,
+    "frac_within_3px": 0.4117647058823529
+   },
+   {
+    "fold": "buffered20_foldSW_all",
+    "family": "topographic",
+    "scale_px": 4.0,
+    "n": 66,
+    "sigma_median_px": 2.118033988749895,
+    "sigma_p25_px": 1.1035533905932737,
+    "sigma_p75_px": 3.1622776601683795,
+    "frac_within_1px": 0.25757575757575757,
+    "frac_within_3px": 0.7272727272727273
+   },
+   {
+    "fold": "buffered20_foldSW_all",
+    "family": "magnetic",
+    "scale_px": null,
+    "n": 187,
+    "sigma_median_px": 2.0,
+    "sigma_p25_px": 1.0,
+    "sigma_p75_px": 3.0,
+    "frac_within_1px": 0.32620320855614976,
+    "frac_within_3px": 0.7647058823529411
+   },
+   {
+    "fold": "buffered20_foldSW_all",
+    "family": "gravity",
+    "scale_px": null,
+    "n": 62,
+    "sigma_median_px": 2.23606797749979,
+    "sigma_p25_px": 1.4142135623730951,
+    "sigma_p75_px": 3.4947328716400867,
+    "frac_within_1px": 0.1935483870967742,
+    "frac_within_3px": 0.6774193548387096
+   },
+   {
+    "fold": "buffered20_foldSW_all",
+    "family": "topographic",
+    "scale_px": null,
+    "n": 168,
+    "sigma_median_px": 3.0,
+    "sigma_p25_px": 1.4142135623730951,
+    "sigma_p75_px": 4.152989390993067,
+    "frac_within_1px": 0.2261904761904762,
+    "frac_within_3px": 0.5357142857142857
+   },
+   {
+    "fold": "buffered20_foldSE_all",
+    "family": "gravity",
+    "scale_px": 2.0,
+    "n": 303,
+    "sigma_median_px": 3.0,
+    "sigma_p25_px": 1.4142135623730951,
+    "sigma_p75_px": 4.242640687119285,
+    "frac_within_1px": 0.23102310231023102,
+    "frac_within_3px": 0.5379537953795379
+   },
+   {
+    "fold": "buffered20_foldSE_all",
+    "family": "subsurface",
+    "scale_px": 2.0,
+    "n": 198,
+    "sigma_median_px": 3.1622776601683795,
+    "sigma_p25_px": 2.0,
+    "sigma_p75_px": 5.0,
+    "frac_within_1px": 0.18686868686868688,
+    "frac_within_3px": 0.4696969696969697
+   },
+   {
+    "fold": "buffered20_foldSE_all",
+    "family": "gravity",
+    "scale_px": null,
+    "n": 310,
+    "sigma_median_px": 3.0,
+    "sigma_p25_px": 1.4142135623730951,
+    "sigma_p75_px": 4.123105625617661,
+    "frac_within_1px": 0.22903225806451613,
+    "frac_within_3px": 0.5387096774193548
+   },
+   {
+    "fold": "buffered20_foldSE_all",
+    "family": "topographic",
+    "scale_px": null,
+    "n": 85,
+    "sigma_median_px": 4.123105625617661,
+    "sigma_p25_px": 2.23606797749979,
+    "sigma_p75_px": 5.0,
+    "frac_within_1px": 0.15294117647058825,
+    "frac_within_3px": 0.32941176470588235
+   },
+   {
+    "fold": "buffered20_foldSE_all",
+    "family": "subsurface",
+    "scale_px": null,
+    "n": 202,
+    "sigma_median_px": 3.1622776601683795,
+    "sigma_p25_px": 2.0,
+    "sigma_p75_px": 5.0,
+    "frac_within_1px": 0.18316831683168316,
+    "frac_within_3px": 0.4752475247524752
+   }
+  ],
+  "unit": "px (100 m pixels; the scoring kernel radius is 3 px)"
+ },
+ "leakage_canary": {
+  "source": "evidence/gems60/sigma.json",
+  "auc_max_over_groups_and_folds": 0.6846131130988102,
+  "limit": 0.9,
+  "verdict": "pass",
+  "note": "each feature family scored alone against the withheld catalogue truth"
+ },
+ "equal_budget_probe": {
+  "source": "evidence/gems60/sigma.json",
+  "mean_kernel_credit_by_ranking": {
+   "all_families_strength": 0.0107,
+   "family_magnetic": 0.009,
+   "family_gravity": 0.0098,
+   "family_topographic": 0.0202,
+   "family_subsurface": 0.0082
+  },
+  "caveat": "this probe falsified the agreement gate as a *hard* gate: a single family (topographic) ranks at least as well at an equal 40k-dot budget, so agreement is used only as a ranking weight inside the allocator"
+ },
+ "pattern_selection": {
+  "source": "evidence/gems60/pattern_weighted.json",
+  "dti0": 0.26,
+  "alpha": 0.2,
+  "bias_weights": {
+   "0.0": 0.03142326970404623,
+   "0.5": 0.04736281512199619,
+   "1.0": 0.07034407772398096,
+   "1.5": 0.08865292990456143,
+   "2.0": 0.14528412760583015,
+   "3.0": 0.5009476314562493
+  },
+  "scenarios": {
+   "truth_scatter_0.5": {
+    "top_patterns": [
+     {
+      "n_lines": 5,
+      "line_spacing_px": 1.5,
+      "along_px": 2.0,
+      "expected_u": 34.0538
+     },
+     {
+      "n_lines": 5,
+      "line_spacing_px": 1.5,
+      "along_px": 3.0,
+      "expected_u": 33.8985
+     },
+     {
+      "n_lines": 3,
+      "line_spacing_px": 2.8,
+      "along_px": 2.0,
+      "expected_u": 33.662
+     }
+    ],
+    "decision_table": [
+     {
+      "n_lines": 1,
+      "line_spacing_px": 1.5,
+      "best_along_px": 2.0,
+      "expected_u": 9.974
+     },
+     {
+      "n_lines": 2,
+      "line_spacing_px": 1.5,
+      "best_along_px": 2.0,
+      "expected_u": 19.822
+     },
+     {
+      "n_lines": 2,
+      "line_spacing_px": 2.0,
+      "best_along_px": 2.0,
+      "expected_u": 19.5929
+     },
+     {
+      "n_lines": 2,
+      "line_spacing_px": 2.8,
+      "best_along_px": 2.0,
+      "expected_u": 20.4068
+     },
+     {
+      "n_lines": 2,
+      "line_spacing_px": 3.5,
+      "best_along_px": 2.0,
+      "expected_u": 29.5731
+     },
+     {
+      "n_lines": 3,
+      "line_spacing_px": 1.5,
+      "best_along_px": 2.0,
+      "expected_u": 28.4295
+     },
+     {
+      "n_lines": 3,
+      "line_spacing_px": 2.0,
+      "best_along_px": 2.0,
+      "expected_u": 29.648
+     },
+     {
+      "n_lines": 3,
+      "line_spacing_px": 2.8,
+      "best_along_px": 2.0,
+      "expected_u": 33.662
+     },
+     {
+      "n_lines": 3,
+      "line_spacing_px": 3.5,
+      "best_along_px": 2.0,
+      "expected_u": 28.4875
+     },
+     {
+      "n_lines": 5,
+      "line_spacing_px": 1.5,
+      "best_along_px": 2.0,
+      "expected_u": 34.0538
+     },
+     {
+      "n_lines": 5,
+      "line_spacing_px": 2.0,
+      "best_along_px": 3.0,
+      "expected_u": 30.9237
+     },
+     {
+      "n_lines": 5,
+      "line_spacing_px": 2.8,
+      "best_along_px": 2.0,
+      "expected_u": 32.0068
+     },
+     {
+      "n_lines": 5,
+      "line_spacing_px": 3.5,
+      "best_along_px": 2.0,
+      "expected_u": 26.9855
+     }
+    ]
+   },
+   "truth_scatter_1.85": {
+    "top_patterns": [
+     {
+      "n_lines": 5,
+      "line_spacing_px": 2.0,
+      "along_px": 2.8,
+      "expected_u": 30.6128
+     },
+     {
+      "n_lines": 5,
+      "line_spacing_px": 2.0,
+      "along_px": 3.0,
+      "expected_u": 30.1639
+     },
+     {
+      "n_lines": 5,
+      "line_spacing_px": 2.8,
+      "along_px": 2.0,
+      "expected_u": 29.8169
+     }
+    ],
+    "decision_table": [
+     {
+      "n_lines": 1,
+      "line_spacing_px": 1.5,
+      "best_along_px": 2.0,
+      "expected_u": 10.5265
+     },
+     {
+      "n_lines": 2,
+      "line_spacing_px": 1.5,
+      "best_along_px": 2.0,
+      "expected_u": 17.0525
+     },
+     {
+      "n_lines": 2,
+      "line_spacing_px": 2.0,
+      "best_along_px": 2.0,
+      "expected_u": 17.1338
+     },
+     {
+      "n_lines": 2,
+      "line_spacing_px": 2.8,
+      "best_along_px": 2.0,
+      "expected_u": 17.814
+     },
+     {
+      "n_lines": 2,
+      "line_spacing_px": 3.5,
+      "best_along_px": 2.0,
+      "expected_u": 22.7245
+     },
+     {
+      "n_lines": 3,
+      "line_spacing_px": 1.5,
+      "best_along_px": 2.8,
+      "expected_u": 22.9943
+     },
+     {
+      "n_lines": 3,
+      "line_spacing_px": 2.0,
+      "best_along_px": 2.8,
+      "expected_u": 24.4642
+     },
+     {
+      "n_lines": 3,
+      "line_spacing_px": 2.8,
+      "best_along_px": 2.0,
+      "expected_u": 28.335
+     },
+     {
+      "n_lines": 3,
+      "line_spacing_px": 3.5,
+      "best_along_px": 2.8,
+      "expected_u": 27.4705
+     },
+     {
+      "n_lines": 5,
+      "line_spacing_px": 1.5,
+      "best_along_px": 2.8,
+      "expected_u": 29.4644
+     },
+     {
+      "n_lines": 5,
+      "line_spacing_px": 2.0,
+      "best_along_px": 2.8,
+      "expected_u": 30.6128
+     },
+     {
+      "n_lines": 5,
+      "line_spacing_px": 2.8,
+      "best_along_px": 2.0,
+      "expected_u": 29.8169
+     },
+     {
+      "n_lines": 5,
+      "line_spacing_px": 3.5,
+      "best_along_px": 2.8,
+      "expected_u": 26.5058
+     }
+    ]
+   }
+  },
+  "shipped_geometry": "the emitted rasters carry the centre line plus parallel lines every RIBBON_LINE_SPACING_PX = 3.0 px, i.e. the sweep's 2.8 px column (bracketed by 3.5 px) rounded to the kernel radius; the dot lattice then enforces a >= 3 px minimum separation, which is why the sweep's tighter columns (1.5 / 2.0 px) are not realisable as separate lines",
+  "shipped_arm": "ribbon6"
+ },
+ "registry_overlap": {
+  "source": "evidence/gems60/uniqueness_full.json",
+  "witnesses_screened": 668,
+  "witnesses_available": 670,
+  "byte_verified_against_pins": 668,
+  "pin_size_mismatches": 0,
+  "worst_forward_3px_overlap": 1.0,
+  "worst_forward_witness": "045dc7f613648fc118333e51832ae9e6b13197e85278aa83e9383586b01b46e9.tif",
+  "worst_rank_correlation": 0.3499287738460745,
+  "worst_rho_witness": "8c262620a769e7dbc8f8ee89aa92a633c91507752b398eec463932adea87c01b.tif",
+  "literal_firings": 56,
+  "rho_firings": 0,
+  "jaccard_firings": 0,
+  "saturated_witnesses": 35,
+  "discriminating_reading": {
+   "n_witnesses": 633,
+   "worst_forward_overlap_informative": 0.874775,
+   "worst_forward_overlap_informative_witness": "3f80e5b9c06228648082febe57b6511ac264a4a4c38f69d8d85e0a9549d1f174.tif",
+   "overlap_firings": 21,
+   "overlap_firings_vacuous": 35,
+   "max_chance_corrected_lift": 0.4551746753789072
+  },
+  "scope": "every byte-verified raster available in this sandbox: the 19 witnesses committed under data/registry/rasters plus the restored public inventory in ~/.cache/gems/registry_witnesses (sha256 pinned in evidence/registry_scan_index.json). The recorded inventory lists 703 rasters; blobs above 6 MB and the 8 rows without a git blob are out of scope and are reported as such, never counted as clearance.",
+  "governing_rule": "duplicate iff lift > 0.50, or overlap > 0.70 against a witness with E <= 0.61, or rho > 0.90, or Jaccard > 0.50",
+  "governing_cleared": true,
+  "literal_firings_note": "every firing is against a witness whose own 3 px dilation covers at least 0.646 of the scored footprint, so these witnesses overlap every nonempty footprint-respecting candidate",
+  "lift_firings": 0,
+  "e_threshold_firings": 0,
+  "max_chance_corrected_lift": 0.4551746753789072,
+  "worst_rank_correlation_all": 0.3499287738460745,
+  "worst_jaccard_all": 0.024845624576278966,
+  "readings_receipt": "evidence/gems60/uniqueness_readings.json"
+ },
+ "validator": {
+  "independent_verify_receipt": "docs/downloads/gems60-convergence-ribbon6-20261011T155420Z.checks.json",
+  "verify_passed": 12,
+  "verify_total": 12,
+  "verify_verdict": "LOCAL FORMAT OK",
+  "emit_validator_all_checks_passed": true,
+  "emit_checks_passed": {
+   "single_band": true,
+   "dtype_float32": true,
+   "dimensions_3730x3292": true,
+   "crs_epsg_32611": true,
+   "transform_matches_sample_submission": true,
+   "no_nan_anywhere": true,
+   "no_inf_anywhere": true,
+   "no_sentinel_values": true,
+   "range_0_1_guaranteed": true,
+   "min_ge_0": true,
+   "max_le_1": true,
+   "in_footprint_all_finite": true,
+   "in_footprint_range_0_1": true,
+   "outside_footprint_zero": true,
+   "zero_dots_on_mapped_catalogue": true
+  },
+  "meta": {
+   "crs": "EPSG:32611",
+   "shape": [
+    3730,
+    3292
+   ],
+   "dtype": "float32",
+   "count": 1,
+   "nodata": null,
+   "transform": [
+    100.0,
+    0.0,
+    243350.0,
+    0.0,
+    -100.0,
+    4508550.0
+   ],
+   "profile_compress": "deflate"
+  },
+  "n_finite": 12279160,
+  "n_nan": 0,
+  "min": 0.0,
+  "max": 1.0,
+  "on_catalogue_positive_pixels": 0
+ },
+ "submission": {
+  "name": "gems60-convergence-ribbon6-20261011T155420Z",
+  "note": "Cross-family convergence lineaments, +-6px dotted ribbons, off-catalogue, all values 1.0",
+  "note_chars": 88,
+  "slots_used": 0,
+  "promoted": false,
+  "format": "single-band float32 GeoTIFF, EPSG:32611, 3730x3292, 100 m, transform and bounds identical to the organiser's sample_submission; values exactly {0.0, 1.0}; every cell finite so no value can fail the portal's [0, 1] rule"
+ },
+ "verdict": {
+  "decision": "PROMOTE \u2014 candidate for a scored slot (owner's selector step)",
+  "why": "all measurable local gates pass: independent format verification, exact value rule, zero positive mass on the mapped catalogue, and the uniqueness screen over every byte-verifiable witness under both resolutions the owner proposed for the literal rule (chance-corrected lift and a witness-coverage threshold), each with zero firings; the literal reading itself fires only on witnesses that cover at least 65 % of the footprint by their own dilation and is unsatisfiable by construction",
+  "what_is_not_verified": "its leaderboard value. No organizer receipt exists; the local holdout is structurally blind to off-catalogue files (lane measurement: Spearman -0.037 between that proxy and live scores over 34 rasters); the only live evidence for this emission format is the family's own USER-REPORTED scores for sibling dotted files (0.2600-0.2778).",
+  "negative_result_this_session": "the >=2-family convergence count did not beat a single family (topographic) as a ranking statistic at an equal 40k-dot budget on the holdout; it is kept only as the allocator's ranking weight, and that is recorded, not hidden."
+ },
+ "receipts": {
+  "emit": "docs/downloads/gems60-convergence-ribbon6-20261011T155420Z.json",
+  "verify": "docs/downloads/gems60-convergence-ribbon6-20261011T155420Z.checks.json",
+  "screen": "evidence/gems60/uniqueness_full.json",
+  "holdout": "evidence/gems60/holdout.json",
+  "sigma": "evidence/gems60/sigma.json",
+  "pattern": "evidence/gems60/pattern_weighted.json"
+ }
+}

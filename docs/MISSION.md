@@ -14,7 +14,7 @@ surface.
 Its 15/15 local format checks do not establish portal acceptance. The reported `[0,1]` rejection is
 unresolved because no portal response or receipt is tied to the candidate's SHA-256.
 
-The candidate-matched 702-raster scan recorded 81 literal 3-px forward-overlap triggers
+The candidate-matched 703-raster scan recorded 83 literal 3-px forward-overlap triggers
 (27 informative, 54 saturated/vacuous), `unique: false`, and `stop_required: true`. It applies only
 to the indexed public-inventory snapshot; it does not certify an organizer-wide inventory. The
 separate freshness audit is not current clearance. There is no qualifying pre-placement surface

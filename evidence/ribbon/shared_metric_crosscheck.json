@@ -1,9 +1,9 @@
 {
  "evidence_class": "HOLDOUT-DTI",
- "generated_utc": "2026-10-11T06:21:49Z",
+ "generated_utc": "2026-10-11T16:31:37Z",
  "purpose": "Re-derive the delivered candidate's HOLDOUT-DTI with the shared gems57 metric, because main has archived the gems58w path that produced the original receipt.",
- "candidate": "docs/downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif",
- "candidate_sha256": "ecf833f8ea7a6698636b48b0dcd0d03aa925d603753e60e03d9d1660922711dd",
+ "candidate": "docs/downloads/gems58-concordance-ribbon-40768-20261011T160514Z.tif",
+ "candidate_sha256": "f709b6f12d5188e34aa3aed3b83d785b97a232224692dcdfffedaa009dee9d0d",
  "n_dots": 40768,
  "protocol": "gems58-pooled-hide-v1",
  "lane_evaluator": "gems58w.metric/v1 (exact triangular kernel, R=3 px, alpha=0.2, beta=0.8)",
@@ -11,13 +11,13 @@
  "per_fold": [
   {
    "fold": "NW",
-   "lane_gems58w": 0.046853621649599934,
-   "shared_gems57_binary": 0.046853621649599934,
-   "shared_gems57_exact": 0.046853621649599934,
+   "lane_gems58w": 0.04287290633199657,
+   "shared_gems57_binary": 0.04287290633199657,
+   "shared_gems57_exact": 0.04287290633199657,
    "abs_delta_binary": 0.0,
    "abs_delta_exact": 0.0,
    "n_truth": 29307,
-   "n_dots": 37377,
+   "n_dots": 37588,
    "tile_oracle": {
     "window": [
      1005,
@@ -26,24 +26,24 @@
      968
     ],
     "n_truth": 303,
-    "n_dots": 125,
-    "fast_dti": 0.07839862564278495,
-    "bruteforce_dti": 0.07839862564278498,
-    "abs_delta": 2.7755575615628914e-17,
-    "tp_delta": 0.0,
-    "fp_delta": 4.263256414560601e-14,
-    "fn_delta": 1.1368683772161603e-13
+    "n_dots": 133,
+    "fast_dti": 0.15057300424481157,
+    "bruteforce_dti": 0.15057300424481163,
+    "abs_delta": 5.551115123125783e-17,
+    "tp_delta": 3.552713678800501e-14,
+    "fp_delta": 5.684341886080802e-14,
+    "fn_delta": 3.410605131648481e-13
    }
   },
   {
    "fold": "NE",
-   "lane_gems58w": 0.03624001389985945,
-   "shared_gems57_binary": 0.03624001389985945,
-   "shared_gems57_exact": 0.03624001389985945,
+   "lane_gems58w": 0.02950441046193968,
+   "shared_gems57_binary": 0.02950441046193968,
+   "shared_gems57_exact": 0.02950441046193968,
    "abs_delta_binary": 0.0,
    "abs_delta_exact": 0.0,
    "n_truth": 12554,
-   "n_dots": 36436,
+   "n_dots": 36416,
    "tile_oracle": {
     "window": [
      379,
@@ -52,9 +52,9 @@
      2363
     ],
     "n_truth": 21,
-    "n_dots": 277,
-    "fast_dti": 0.05831243393251071,
-    "bruteforce_dti": 0.05831243393251071,
+    "n_dots": 291,
+    "fast_dti": 0.05524019255236298,
+    "bruteforce_dti": 0.05524019255236298,
     "abs_delta": 0.0,
     "tp_delta": 0.0,
     "fp_delta": 0.0,
@@ -63,13 +63,13 @@
   },
   {
    "fold": "SW",
-   "lane_gems58w": 0.056175312121074475,
-   "shared_gems57_binary": 0.056175312121074475,
-   "shared_gems57_exact": 0.056175312121074475,
+   "lane_gems58w": 0.06033878673135997,
+   "shared_gems57_binary": 0.06033878673135997,
+   "shared_gems57_exact": 0.06033878673135998,
    "abs_delta_binary": 0.0,
-   "abs_delta_exact": 0.0,
+   "abs_delta_exact": 6.938893903907228e-18,
    "n_truth": 9360,
-   "n_dots": 36446,
+   "n_dots": 36818,
    "tile_oracle": {
     "window": [
      2400,
@@ -78,24 +78,24 @@
      1467
     ],
     "n_truth": 278,
-    "n_dots": 63,
-    "fast_dti": 0.01681027095569329,
-    "bruteforce_dti": 0.016810270955693294,
-    "abs_delta": 3.469446951953614e-18,
-    "tp_delta": 8.881784197001252e-16,
-    "fp_delta": 0.0,
-    "fn_delta": 0.0
+    "n_dots": 77,
+    "fast_dti": 0.043669079338882116,
+    "bruteforce_dti": 0.043669079338882144,
+    "abs_delta": 2.7755575615628914e-17,
+    "tp_delta": 3.552713678800501e-15,
+    "fp_delta": 1.4210854715202004e-14,
+    "fn_delta": 5.684341886080802e-14
    }
   },
   {
    "fold": "SE",
-   "lane_gems58w": 0.03317565183059279,
-   "shared_gems57_binary": 0.03317565183059279,
-   "shared_gems57_exact": 0.03317565183059279,
+   "lane_gems58w": 0.03552328317787829,
+   "shared_gems57_binary": 0.03552328317787829,
+   "shared_gems57_exact": 0.03552328317787829,
    "abs_delta_binary": 0.0,
    "abs_delta_exact": 0.0,
    "n_truth": 9648,
-   "n_dots": 35957,
+   "n_dots": 36204,
    "tile_oracle": {
     "window": [
      2904,
@@ -104,21 +104,21 @@
      1879
     ],
     "n_truth": 167,
-    "n_dots": 36,
-    "fast_dti": 0.008192671300042273,
-    "bruteforce_dti": 0.008192671300042274,
-    "abs_delta": 1.734723475976807e-18,
-    "tp_delta": 0.0,
+    "n_dots": 16,
+    "fast_dti": 0.028954717810247638,
+    "bruteforce_dti": 0.028954717810247645,
+    "abs_delta": 6.938893903907228e-18,
+    "tp_delta": 8.881784197001252e-16,
     "fp_delta": 0.0,
-    "fn_delta": 2.842170943040401e-14
+    "fn_delta": 0.0
    }
   }
  ],
  "pooled": {
-  "lane_gems58w": 0.043651085789432324,
-  "shared_gems57_binary": 0.043651085789432324,
-  "shared_gems57_exact": 0.043651085789432324,
-  "recorded_in_emission_json": 0.043651085789432324,
+  "lane_gems58w": 0.04183053842555015,
+  "shared_gems57_binary": 0.04183053842555015,
+  "shared_gems57_exact": 0.04183053842555015,
+  "recorded_in_emission_json": 0.04183053842555015,
   "abs_delta_lane_vs_shared": 0.0,
   "abs_delta_shared_vs_recorded": 0.0,
   "per_fold_abs_delta_vs_recorded": {
@@ -130,5 +130,5 @@
  },
  "tolerance": 1e-12,
  "verdict": "AGREE",
- "interpretation": "The shared gems57 implementation reproduces the archived gems58w numbers to within 0.000e+00 per fold and 0.000e+00 pooled, and the literal brute-force transcription of the published equations reproduces the shared fast path to within 2.776e-17 on a bounded tile. The reported HOLDOUT-DTI is therefore a property of the official metric, not of the archived copy that computed it. This says nothing about whether the number is a good forecast: the withheld truth is catalogue truth (IR-58-02) and no organizer receipt exists."
+ "interpretation": "The shared gems57 implementation reproduces the archived gems58w numbers to within 6.939e-18 per fold and 0.000e+00 pooled, and the literal brute-force transcription of the published equations reproduces the shared fast path to within 5.551e-17 on a bounded tile. The reported HOLDOUT-DTI is therefore a property of the official metric, not of the archived copy that computed it. This says nothing about whether the number is a good forecast: the withheld truth is catalogue truth (IR-58-02) and no organizer receipt exists."
 }

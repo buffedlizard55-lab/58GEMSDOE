@@ -1,0 +1,106 @@
+{
+  "evidence_class": "SESSION-VERIFICATION (no score, no slot, no upload)",
+  "session": "session-4 (2026-10-11 UTC)",
+  "branch": "arena/5ed16038-58gemsdoe",
+  "experiments_run": 0,
+  "slots_used": 0,
+  "checked_utc": "2026-10-11",
+  "candidate_checked": {
+    "file": "docs/downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif",
+    "sha256": "ecf833f8ea7a6698636b48b0dcd0d03aa925d603753e60e03d9d1660922711dd",
+    "bytes": 433419,
+    "format_recheck": {
+      "method": "rasterio read of file vs data/official/sample_submission.tif",
+      "count": 1,
+      "dtype": "float32",
+      "crs": "EPSG:32611",
+      "width": 3292,
+      "height": 3730,
+      "transform_equals_sample_submission": true,
+      "crs_equals_sample_submission": true,
+      "shape_equals_sample_submission": true,
+      "nodata": null,
+      "finite_cells": 5167373,
+      "nan_cells": 7111787,
+      "nan_pattern_equals_sample_submission": true,
+      "min_finite": 0.0,
+      "max_finite": 1.0,
+      "values_outside_0_1": 0,
+      "ones": 40768,
+      "zeros": 5126605,
+      "other_values": 0
+    }
+  },
+  "site_gate_recheck": {
+    "command": "PYTHONPATH=src python scripts/build_site.py --strict",
+    "exit_code": 2,
+    "verdict": "NOT OK TO SUBMIT",
+    "G1": "PASS - portal format (local preflight)",
+    "G2": "PASS - uniqueness, local witnesses (corrected instrument)",
+    "G3": "FAIL - uniqueness, public inventory scan (literal protocol gate: 81 literal firings)",
+    "G3i": "FAIL - chance-corrected reading (needs owner ratification)",
+    "G4": "PASS - leakage canary (single-feature AUC)",
+    "G5": "PASS - holdout evidence recorded and labelled",
+    "G5i": "PASS - HOLDOUT-DTI re-derived with shared gems57 metric",
+    "G6": "FAIL - organizer receipt for this raster (none exists)",
+    "side_effect": "only site_generated_utc timestamps changed (7 files); deterministic otherwise"
+  },
+  "tests": {
+    "command": "PYTHONPATH=src python -m pytest -q",
+    "result": "all tests passed (118-test suite per README)"
+  },
+  "official_leaderboard_observation": {
+    "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
+    "evidence_label": "PUBLIC-LEADERBOARD SNAPSHOT (dynamic; not ORGANIZER-CONFIRMED for any file)",
+    "ranks_fetched": "1-49 (page 1-2 of 3)",
+    "rows": [
+      {"rank": 1, "participant": "xiaofanhu", "public_dti": 0.4133},
+      {"rank": 2, "participant": "cfld__", "public_dti": 0.3585},
+      {"rank": 3, "participant": "JerryDataWorks", "public_dti": 0.3418},
+      {"rank": 4, "participant": "alexoktaba", "public_dti": 0.3361},
+      {"rank": 5, "participant": "joeyfezster", "public_dti": 0.3333},
+      {"rank": 6, "participant": "Batik Shirt Brothers", "public_dti": 0.3300},
+      {"rank": 7, "participant": "nchuzhoy", "public_dti": 0.3262},
+      {"rank": 8, "participant": "kinghorton42", "public_dti": 0.3261},
+      {"rank": 9, "participant": "DARD", "public_dti": 0.3195},
+      {"rank": 23, "participant": "extradr19", "public_dti": 0.2778}
+    ],
+    "not_on_board": ["0.3774 (quoted by the requester; no row with this value in ranks 1-49)"],
+    "irregularity": "DARD is rank 9 on this fetch; earlier repo records say rank 8 (IR-58-S4-02)."
+  },
+  "h33_attribution_check": {
+    "owner_page": "https://buffedlizard55-lab.github.io/GEMSDOE32/docs/index.html",
+    "owner_page_text": "NO ORGANISER SCORE EXISTS for this or any artifact in this repository; projected live DTI 0.2747 (a MODEL, not a score)",
+    "official_board_row_for_0.2778": "extradr19 (rank 23)",
+    "conclusion": "No receipt or hash crosswalk ties 0.2778 to gemsdoe32-h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros.tif. The attribution in the request is not supported."
+  },
+  "rules_check": {
+    "url": "https://docs.nlr.gov/docs/fy26osti/96647.pdf",
+    "facts_verified": [
+      "Section 3.2: submit a single GeoTIFF with a single raster layer at 100-meter resolution covering the entire GeoDAWN study area",
+      "Section 3.2: three submissions per week",
+      "Section 3.2: generative-AI use must be disclosed in the narrative (not in the word count)",
+      "Section 1.1: evaluation uses a distance-weighted Tversky index",
+      "Section 3.2: public-board scores may differ from the private final scores"
+    ],
+    "note": "docs/SOURCES.md cites the three-per-week limit as section 3.4; the fetched PDF places it in section 3.2 (IR-58-S4-03)."
+  },
+  "decision": {
+    "new_candidate_generated": false,
+    "reason": "PROMPT.md protocol item 6 and REMAINING_WORK.md forbid starting another candidate experiment while the literal 3 px uniqueness stop is open against the complete inventory. Prior sessions measured that this literal stop fires on any ridge-based emitter (81 firings against the session-3 candidate, 79 against the sibling-lane file). A new file produced by the same method would hit the same gate, so generating it would only manufacture another file that cannot be cleared.",
+    "download_status": "NOT OK TO SUBMIT - DO NOT SUBMIT (unchanged)",
+    "owner_decision_needed": "Ratify or reject a chance-corrected uniqueness rule (see REMAINING_WORK.md S3.1 item 1). Only the owner or a separate selector step may change the gate."
+  },
+  "run_card": {
+    "hypothesis": "No new hypothesis tested this session. Verification of the registered ribbon candidate and of the public record only.",
+    "mechanism": "not applicable (0 experiments)",
+    "named_non_fault_process": "the flight-line and magnetic-noise artefacts already named in docs/research/hypotheses_session3_adaptive_ribbon.md",
+    "holdout_dti": "HOLDOUT-DTI 0.043651 for the registered candidate (evaluator gems58w.metric/v1 and shared gems57.metric cross-check; 60,869 withheld positives; interval 0.033176-0.056175 min-max over four blocks; no bootstrap CI claimed). Re-verified in session 3, not re-run here.",
+    "surface_and_final_registry_results": "G2 local pass; G3 literal fail (81 firings); G3i chance-corrected fail pending owner ratification",
+    "raster_sha256": "ecf833f8ea7a6698636b48b0dcd0d03aa925d603753e60e03d9d1660922711dd",
+    "validator_output": "format recheck above: float32, EPSG:32611, shape and transform equal to sample_submission, NaN pattern equal to sample_submission, all finite values in [0,1], no NaN inside the footprint",
+    "submission_name": "gems58-ribbon-sigma-adaptive-40768-20261011T052942Z",
+    "submission_note": "Ribbon lane: adaptive dotted ribbons 0/+-300/+-600 m on catalogue-free Hessian ridges (sigma cross-fitted); 40768 isolated dots at 1.0.",
+    "verdict": "negative"
+  }
+}

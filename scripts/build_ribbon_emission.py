@@ -30,7 +30,7 @@ from gems57.holdout import FOLD_NAMES, quadrant_ids
 from gems57.submission_writer import write_submission
 
 import ribbon_lane as rl
-import build_site as gate_validation
+import qualification_gates as gate_validation
 
 MAX_NAME = 140
 

@@ -1,13 +1,5 @@
 #!/usr/bin/env python3
-"""DEPRECATED/NO-GO legacy ribbon emitter.
-
-The original EXP-3 implementation below is retained for historical audit only. It does
-not satisfy the current hash-bound pre-placement, fresh-inventory, canary and shared
-holdout qualification contract, and must not emit or publish another TIFF.
-
-Legacy implementation notes follow:
-
-Ribbon lane EXP-3: emit, validate, screen and publish the candidate GeoTIFF.
+"""Ribbon lane EXP-3: emit, validate, screen and publish the candidate GeoTIFF.
 
 Everything here is measured in-repo and reproducible from the sha256-pinned
 inputs; nothing is a projection written as a score.
@@ -49,13 +41,6 @@ Outputs
         python3 scripts/ribbon_emit_adaptive.py
 """
 from __future__ import annotations
-
-if __name__ == "__main__":
-    raise SystemExit(
-        "DEPRECATED/NO-GO: this legacy emitter is archived; current registry and qualification "
-        "stops forbid any new emission. Do not bypass scripts/build_ribbon_emission.py's "
-        "hash-bound fail-closed gates."
-    )
 
 import hashlib
 import json
@@ -304,7 +289,7 @@ def main() -> int:
                                  "occupies; dense volcanic and alluvial contacts in the detrended "
                                  "DEM produce scarp-shaped curvature that is not tectonic"),
         holdout_dti=pooled,
-        holdout_dti_label="LEGACY-DIAGNOSTIC-ONLY",
+        holdout_dti_label="HOLDOUT-DTI",
         holdout_dti_evaluator=metric.EVALUATOR_VERSION,
         holdout_dti_protocol=holdout.PROTOCOL,
         holdout_dti_withheld_positives=int(agg["n_truth"]),

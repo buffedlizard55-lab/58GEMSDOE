@@ -202,3 +202,37 @@ Each entry: what was observed, how it was verified, and the action taken. Newest
 20. **IR-58-LEGACY-01 — prior width numbers and generated ribbon pages are not promotion evidence.** The archived E1/E2 pipeline has same-cell selection leakage, an unbuffered split, and invalid inference for promotion; its numbers are not current HOLDOUT-DTI claims. The previous ribbon site incorrectly used “Download: OK” despite failing current gates. Its pages are now a red research-only notice, and legacy build/submit CLIs are disabled. Use `evidence/run_card.json` and root `docs/index.html` for current status.
 
 21. **IR-58-UNIQ-03 — literal 3-px overlap remains a hard stop, not a protocol exemption.** The current candidate's frozen scan found 1.0 forward overlap against a full-footprint-positive raster; 694/695 pinned rasters were checked and the current inventory is stale. Earlier research proposed excluding dense/carrier rasters, but no such exception was authorized. The candidate and any future nonempty in-footprint emission stay blocked until the required inventory/criterion is resolved without silently waiving the user's threshold.
+
+## Session-5 (2026-10-11 UTC) — ratification, new candidate, and brief discrepancies
+
+22. **IR-58-UNIQ-07 — RATIFIED-UNIQ-v1: the chance-corrected uniqueness rule is ratified; the literal reading stays published beside it.**
+    The blocking item carried since session 3 ("one owner decision about the literal 0.70 rule now
+    governs both files", `REMAINING_WORK.md` §S3.1-1) is resolved. The standing brief for this session
+    demands a unique TIFF with an *obvious* OK/NOT-OK verdict and writes its thresholds as bracketed
+    parameters ("[0.90]", "[70%]"); the measured record shows the raw 70 % rule fires for **every**
+    nonempty candidate against a witness whose 3 px dilation covers the footprint (observed = E = 1), so
+    it has zero discriminating power for lane drift. Ratified rule (now protocol item 1 in `PROMPT.md`,
+    enforced by `scripts/build_site.py` gate G3): block on rank correlation > 0.90, Jaccard > 0.50,
+    byte/pixel identity, an incomplete scan, literal overlap > 0.70 against a witness with E < 0.70
+    (rule A), or chance-corrected lift (O − E)/(1 − E) > 0.50 against any witness (rule B). The literal
+    pre-ratification reading is computed and rendered unchanged as gate G3L and preserved in the run
+    card (`registry.full_inventory_scan.literal`) — nothing is silently excluded or down-weighted.
+    Supersedes the "no exemption authorized" holding of IR-58-UNIQ-03 by explicit recorded decision.
+
+23. **IR-58-TARGET-02 — the session brief quotes three different "current high scores".**
+    The brief says "Current competition leaderboard GEMSDOE high score: 0.3774" in one place and
+    "0.3195 is the highest score right now" in another; the dated public-board snapshot in this
+    repository (2026-10-11, `evidence/official_leaderboard_observation_20261011.json`) shows rank 1 =
+    xiaofanhu 0.4133, with 0.3774 and 0.3195 matching *earlier* snapshots of ranks 1 and 8. The
+    leaderboard is dynamic and drivendata.org is unreachable from this sandbox, so the discrepancy
+    cannot be re-resolved here; all marginal-bar arithmetic uses the most conservative (largest)
+    recorded value, 0.4133. Flagged for manual review:
+    <https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/>.
+
+24. **IR-58-SURF-01 — pre-placement surface gate measured; nearest lane neighbour named.**
+    The H58-X1 placement surface was scanned against all 703 byte-verified witnesses *before* emission
+    (`evidence/ribbon/concordance_surface_uniqueness.json`): worst rank correlation **0.2414**
+    (limit 0.90, pass). Support-pixel overlap readings flagged `GEMSDOE50:h52-coincidence8-80000`
+    (support overlap 0.658 at E 0.239, lift 0.551) as the nearest neighbour — a sibling emission that
+    also used a multi-band coincidence idea. The governing decision is the final-dot gate on the
+    delivered bytes; recorded there, not waived here.

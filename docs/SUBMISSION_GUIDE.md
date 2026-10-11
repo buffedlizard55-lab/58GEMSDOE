@@ -5,10 +5,16 @@
 
 ## Current downloadable candidate
 
-- TIFF: [`gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif`](downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif)
-- ZIP: [`gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.zip`](downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.zip)
-- SHA-256: `ecf833f8ea7a6698636b48b0dcd0d03aa925d603753e60e03d9d1660922711dd`
+Named by [`evidence/ribbon/emission.json`](../evidence/ribbon/emission.json); the rendered status is
+[`docs/RUN_CARD.json`](RUN_CARD.json) (`site_verdict: NOT_OK_TO_SUBMIT`).
+
+- TIFF: [`gems58-concordance-ribbon-40768-20261011T160514Z.tif`](downloads/gems58-concordance-ribbon-40768-20261011T160514Z.tif)
+- ZIP: [`gems58-concordance-ribbon-40768-20261011T160514Z.zip`](downloads/gems58-concordance-ribbon-40768-20261011T160514Z.zip)
+- SHA-256: `f709b6f12d5188e34aa3aed3b83d785b97a232224692dcdfffedaa009dee9d0d` (427,919 bytes)
 - Recorded positive pixels: 40,768.
+- The session-3 diagnostic `gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif`
+  (`ecf833f8…2711dd`) is retained beside it as an archived artifact, with its own audit receipt in
+  [`evidence/ribbon/archive-s3/`](../evidence/ribbon/archive-s3/).
 
 Both files are available **for review and reproducibility only**. The directory index at
 [`downloads/`](downloads/index.html) labels each TIFF/ZIP separately. Do not upload this candidate,
@@ -17,12 +23,15 @@ select a weekly slot, or infer eligibility from the existence of a download butt
 ## What local validation establishes — and what it does not
 
 The candidate's emission receipt records 15/15 checks in a local format/range preflight. A separate
-[on-disk TIFF/ZIP audit](../evidence/ribbon/file_audit.json) records 11/11 checks for the decoded
+[on-disk TIFF/ZIP audit](../evidence/ribbon/file_audit.json) records 10/10 checks for the decoded
 float32 grid, official-sample alignment, in-footprint `[0,1]` values, NaN outside mask, pixel count,
-file hash and ZIP round-trip. This is local artifact verification only—not portal validation,
-uniqueness clearance, organizer scoring, or submit authorization. Neither receipt is an organizer
-response. The final-dot registry scan independently records 81 literal overlap
-triggers and a hard stop. The candidate-specific pre-placement surface gate, current inventory
+file hash and ZIP round-trip, and publishes the decoded-pixel SHA-256 it computed. That emission
+receipt records no decoded-pixel hash of its own, so the audit reports the binding as computed rather
+than claiming a verified match; it is not a silent pass. This is local artifact verification only—not
+portal validation, uniqueness clearance, organizer scoring, or submit authorization. Neither receipt
+is an organizer response. The final-dot registry scan independently records 83 literal overlap
+triggers (29 informative, 54 against witnesses whose 3 px dilation covers ≥ 99 % of the footprint)
+over 703 indexed rasters, and a hard stop. The candidate-specific pre-placement surface gate, current inventory
 freshness clearance, promotion-grade leakage canary and shared-evaluator holdout qualification are
 not cleared. See the [current irregularities log](IRREGULARITIES.md) and [status page](index.html).
 

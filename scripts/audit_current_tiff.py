@@ -18,12 +18,39 @@ import numpy as np
 import rasterio
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_TIF = ROOT / "docs/downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif"
 DEFAULT_SAMPLE = ROOT / "data/official/sample_submission.tif"
 DEFAULT_OUTPUT = ROOT / "evidence/ribbon/file_audit.json"
-DEFAULT_EXPECTED_SHA256 = "ecf833f8ea7a6698636b48b0dcd0d03aa925d603753e60e03d9d1660922711dd"
-DEFAULT_EXPECTED_DECODED_SHA256 = "420cb56fcddb0b26d568d7eb61c477275671d230712c54ef03fbc9f4e5d3008d"
-DEFAULT_EXPECTED_POSITIVES = 40768
+EMISSION_RECEIPT = ROOT / "evidence" / "ribbon" / "emission.json"
+
+
+def current_candidate() -> dict:
+    """Read the current candidate identity from the emission receipt, never hard-code it.
+
+    A hard-coded file name silently audits a superseded artifact after another lane
+    emits, so the default target is whatever ``evidence/ribbon/emission.json`` names.
+    """
+    try:
+        emi = json.loads(EMISSION_RECEIPT.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise SystemExit(f"cannot read {EMISSION_RECEIPT.relative_to(ROOT)}: {exc}")
+    tif = emi.get("file")
+    if not tif:
+        raise SystemExit("the emission receipt does not name a candidate file")
+    validator = emi.get("validator", {}) or {}
+    return {
+        "tif": (ROOT / str(tif)).resolve(),
+        "zip": (ROOT / str(emi["zip"])).resolve() if emi.get("zip") else None,
+        "expected_sha256": emi.get("sha256"),
+        "expected_decoded_sha256": emi.get("decoded_prediction_sha256"),
+        "expected_positives": validator.get("n_positives"),
+    }
+
+
+DEFAULT_CANDIDATE = current_candidate()
+DEFAULT_TIF = DEFAULT_CANDIDATE["tif"]
+DEFAULT_EXPECTED_SHA256 = DEFAULT_CANDIDATE["expected_sha256"]
+DEFAULT_EXPECTED_DECODED_SHA256 = DEFAULT_CANDIDATE["expected_decoded_sha256"]
+DEFAULT_EXPECTED_POSITIVES = DEFAULT_CANDIDATE["expected_positives"]
 
 
 def sha256_bytes(data: bytes) -> str:
@@ -88,12 +115,21 @@ def audit_candidate(tif: Path, sample: Path, zip_path: Path,
             inside_values, np.array([0.0, 1.0], dtype=inside_values.dtype)),
         "outside_footprint_nan_like_sample": bool(
             np.isnan(sample_array[~footprint]).all() and np.isnan(outside).all()),
-        "positive_pixel_count_matches_record": expected_positives is None or positives == expected_positives,
-        "tiff_sha256_matches_record": expected_sha256 is None or file_sha256 == expected_sha256,
-        "decoded_pixel_sha256_matches_record": (
-            expected_decoded_sha256 is None or decoded_sha256 == expected_decoded_sha256),
+        "positive_pixel_count_matches_record": expected_positives is not None and positives == expected_positives,
+        "tiff_sha256_matches_record": expected_sha256 is not None and file_sha256 == expected_sha256,
         "zip_contains_exactly_this_tiff_and_roundtrips": bool(zip_roundtrip),
     }
+    # A decoded-pixel comparison is only a check when the receipt actually records one;
+    # publishing a computed hash is not the same as verifying a recorded binding.
+    decoded_binding = {
+        "recorded_in_receipt": expected_decoded_sha256 is not None,
+        "recorded": expected_decoded_sha256,
+        "computed": decoded_sha256,
+        "matches": (decoded_sha256 == expected_decoded_sha256
+                    if expected_decoded_sha256 is not None else None),
+    }
+    if expected_decoded_sha256 is not None:
+        checks["decoded_pixel_sha256_matches_record"] = bool(decoded_binding["matches"])
     return {
         "evidence_class": "LOCAL-FILE-AUDIT",
         "generated_utc": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
@@ -109,6 +145,7 @@ def audit_candidate(tif: Path, sample: Path, zip_path: Path,
         "candidate_metadata": meta,
         "sample_metadata": sample_meta,
         "zip_members": names,
+        "decoded_pixel_binding": decoded_binding,
         "checks": checks,
         "all_checks_passed": all(checks.values()),
         "scope_note": (

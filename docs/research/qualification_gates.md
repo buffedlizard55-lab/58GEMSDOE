@@ -86,6 +86,6 @@ removes the staged artifact. This pipeline is not being run now.
 
 ## Current machine-readable status
 
-The latest generated status is [`../../evidence/site_status.json`](../../evidence/site_status.json).
+The latest generated status is [`../../docs/RUN_CARD.json`](../../docs/RUN_CARD.json) (`site_verdict`, per-gate results and the inventory scan it cites). The pre-emission contract itself lives in [`../../scripts/qualification_gates.py`](../../scripts/qualification_gates.py) and is exercised by `tests/test_qualification_gates.py`.
 It records `NOT_OK_TO_SUBMIT`, local format preflight separately from portal acceptance, the final-dot
 stop, `H58-U1` as not validated, and no experiment/slot/upload action.

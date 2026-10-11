@@ -1,13 +1,13 @@
 {
   "evidence_class": "LOCAL-FILE-AUDIT",
-  "generated_utc": "2026-10-11T16:31:09Z",
-  "file": "docs/downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif",
-  "zip_file": "docs/downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.zip",
+  "generated_utc": "2026-10-11T17:43:15Z",
+  "file": "docs/downloads/gems58-concordance-ribbon-40768-20261011T160514Z.tif",
+  "zip_file": "docs/downloads/gems58-concordance-ribbon-40768-20261011T160514Z.zip",
   "sample_file": "data/official/sample_submission.tif",
-  "sha256": "ecf833f8ea7a6698636b48b0dcd0d03aa925d603753e60e03d9d1660922711dd",
-  "decoded_prediction_sha256": "420cb56fcddb0b26d568d7eb61c477275671d230712c54ef03fbc9f4e5d3008d",
-  "zip_sha256": "c41c819f5465b54ec2935703fa1b9a05b53dcb2735e7e751b4378476441cb115",
-  "bytes": 433419,
+  "sha256": "f709b6f12d5188e34aa3aed3b83d785b97a232224692dcdfffedaa009dee9d0d",
+  "decoded_prediction_sha256": "59ea2a0c4390ec814ae419fdf0a7a3744b6f879c491ee3bc84999324f27e7e6d",
+  "zip_sha256": "9f94456cc513deb7f39e421ad211e60dd3a0e388885cd9349eed467f8781ac4f",
+  "bytes": 427919,
   "positive_pixels": 40768,
   "inside_unique_values": [
     0.0,
@@ -50,8 +50,14 @@
     "nodata_is_nan": true
   },
   "zip_members": [
-    "gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif"
+    "gems58-concordance-ribbon-40768-20261011T160514Z.tif"
   ],
+  "decoded_pixel_binding": {
+    "recorded_in_receipt": false,
+    "recorded": null,
+    "computed": "59ea2a0c4390ec814ae419fdf0a7a3744b6f879c491ee3bc84999324f27e7e6d",
+    "matches": null
+  },
   "checks": {
     "single_band_float32": true,
     "crs_shape_transform_match_sample": true,
@@ -62,7 +68,6 @@
     "outside_footprint_nan_like_sample": true,
     "positive_pixel_count_matches_record": true,
     "tiff_sha256_matches_record": true,
-    "decoded_pixel_sha256_matches_record": true,
     "zip_contains_exactly_this_tiff_and_roundtrips": true
   },
   "all_checks_passed": true,

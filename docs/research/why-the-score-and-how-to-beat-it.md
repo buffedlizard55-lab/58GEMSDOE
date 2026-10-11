@@ -15,10 +15,13 @@ to H33. The owner-side 0.2747 value is a projection, not a score. See the curren
 
 ## Current candidate status
 
-**NOT OK TO SUBMIT — DO NOT UPLOAD OR SELECT A SLOT.** The recorded candidate's 702-raster final-dot
-scan reports 81 literal overlap triggers and `stop_required: true`; inventory freshness is not
-cleared, no candidate-specific pre-placement receipt exists, and no promotion-grade shared-evaluator
-holdout qualifies the candidate. The reported portal `[0,1]` rejection is unresolved. A local
+**NOT OK TO SUBMIT — DO NOT UPLOAD OR SELECT A SLOT.** The current candidate
+(`gems58-concordance-ribbon-40768-20261011T160514Z.tif`, named by `evidence/ribbon/emission.json`)
+has a 703-raster final-dot scan reporting 83 literal overlap triggers (29 informative, 54 against
+near-plane-filling witnesses) and `stop_required: true`; inventory freshness is not cleared, no
+candidate-specific pre-placement receipt exists, and no promotion-grade shared-evaluator holdout
+qualifies the candidate. The archived session-3 diagnostic (`ecf833f8…2711dd`) has its own 702-raster
+scan with 81 triggers and the same verdict. The reported portal `[0,1]` rejection is unresolved. A local
 preflight pass or agreement with the sample TIFF's outside-footprint NaNs is not portal acceptance.
 
 Do not treat any legacy numeric value here as current `HOLDOUT-DTI`. The top ranked width hypothesis

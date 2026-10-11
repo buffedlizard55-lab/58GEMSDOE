@@ -123,5 +123,5 @@ proposals in this review.
    result is valid.
 
 **Current disposition:** H58-U1 is the ranked first hypothesis, but it is **not validated**. The
-existing 81 literal final-dot firings and the missing fresh-inventory / pre-placement / qualification
+existing 83 literal final-dot firings and the missing fresh-inventory / pre-placement / qualification
 receipts prohibit the holdout run. Do not waive the stop to obtain a result.

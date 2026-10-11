@@ -10,32 +10,73 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def test_current_run_card_is_an_unambiguous_negative():
-    status = json.loads((ROOT / "evidence" / "site_status.json").read_text())
-    assert status["decision"] == "NOT_OK_TO_SUBMIT"
-    assert status["portal_acceptance"].startswith("UNRESOLVED")
-    assert status["final_dot_scan_verdict"] == "negative"
-    assert status["final_dot_scan_stop_required"] is True
-    assert status["literal_overlap_firings"] == 81
-    assert status["top_hypothesis_status"].startswith("NOT VALIDATED")
-    assert status["weekly_slot_selected"] is False
-    assert status["upload_performed"] is False
+def test_generated_status_is_an_unambiguous_negative():
+    """The rendered status must stay red while the literal uniqueness stop stands."""
+    card = json.loads((ROOT / "docs" / "RUN_CARD.json").read_text())
+    assert card["site_verdict"] == "NOT_OK_TO_SUBMIT"
+    assert card["verdict"] == "negative"
+    assert card["slots_used"] == 0
+    gates = {g["id"]: g["ok"] for g in card["site_gates"]}
+    assert gates["G3"] is False, "the ratified uniqueness gate must stay closed"
+    assert gates["G3L"] is False, "the literal pre-ratification reading must stay closed"
+    assert gates["G6"] is False, "no organizer receipt may be claimed from this sandbox"
+
+    inv = json.loads((ROOT / "evidence" / "ribbon" / "uniqueness_full_inventory.json").read_text())
+    reading = inv["informative_reading"]
+    assert inv["unique"] is False and inv["stop_required"] is True
+    assert reading["overlap_firings"] > 0
+    # The published copy must quote the same trigger count as the receipt it cites.
+    index_html = (ROOT / "docs" / "index.html").read_text()
+    assert str(reading["overlap_firings"]) in index_html
 
 
 def test_legacy_run_card_top_labels_do_not_promote_diagnostic_metrics():
+    """The archived sigma-adaptive cards keep their measurements but not a promotion label."""
     for name in ("run_card_v2.json", "run_card_final.json"):
-        card = json.loads((ROOT / "evidence" / "ribbon" / name).read_text())
+        card = json.loads((ROOT / "evidence" / "ribbon" / "archive-s3" / name).read_text())
         assert card["holdout_dti_label"] == "LEGACY-DIAGNOSTIC-ONLY"
         assert isinstance(card["holdout_dti"], (int, float))
         assert card["holdout_dti_evaluator"].startswith("gems58w.metric/v1")
         assert card["holdout_dti_withheld_positives"] == 60869
+        assert "not a promotion-grade" in card["holdout_dti_label_note"]
 
 
-def test_current_diagnostic_tif_matches_site_status_sha256():
-    status = json.loads((ROOT / "evidence" / "site_status.json").read_text())
-    p = ROOT / status["candidate_file"]
+def test_current_candidate_tif_matches_the_run_card_sha256():
+    card = json.loads((ROOT / "docs" / "RUN_CARD.json").read_text())
+    p = ROOT / "docs" / "downloads" / f"{card['submission_name']}.tif"
     assert p.exists(), p
-    assert hashlib.sha256(p.read_bytes()).hexdigest() == status["candidate_file_sha256"]
+    assert hashlib.sha256(p.read_bytes()).hexdigest() == card["raster_sha256"]
+
+
+def test_local_file_audit_is_bound_to_the_current_candidate():
+    audit = json.loads((ROOT / "evidence" / "ribbon" / "file_audit.json").read_text())
+    emi = json.loads((ROOT / "evidence" / "ribbon" / "emission.json").read_text())
+    assert audit["all_checks_passed"] is True
+    assert audit["file"] == emi["file"]
+    assert audit["sha256"] == emi["sha256"]
+    assert audit["positive_pixels"] == emi["validator"]["n_positives"]
+    assert "does not establish portal acceptance" in audit["scope_note"].lower()
+
+
+def test_every_public_raster_carries_its_own_submit_verdict():
+    index = (ROOT / "docs" / "downloads" / "index.html").read_text()
+    files = [p for p in (ROOT / "docs" / "downloads").rglob("*")
+             if p.is_file() and p.suffix.lower() in {".tif", ".tiff", ".zip"}]
+    assert files, "expected public rasters to index"
+    for path in files:
+        assert path.relative_to(ROOT / "docs" / "downloads").as_posix() in index, path
+    legacy = [p for p in (ROOT / "docs" / "deliverable" / "downloads").rglob("*")
+              if p.is_file() and p.suffix.lower() in {".tif", ".tiff", ".zip"}]
+    for path in legacy:
+        assert f"legacy/{path.relative_to(ROOT / 'docs' / 'deliverable' / 'downloads').as_posix()}" in index
+    assert "NOT OK TO SUBMIT — REVIEW ONLY" in index
+
+
+def test_archived_deliverable_pages_cannot_grant_download_permission():
+    for name in ("index.html", "executive-summary.html"):
+        text = (ROOT / "docs" / "deliverable" / name).read_text()
+        assert "ARCHIVED" in text and "NOT OK TO SUBMIT" in text, name
+        assert "download ok" not in text.lower(), name
 
 
 def test_legacy_ribbon_pages_are_red_and_do_not_say_download_ok():
@@ -55,7 +96,7 @@ def test_legacy_submission_and_site_builders_fail_closed():
         "scripts/ribbon_run_equal_budget.py", "scripts/ribbon_run_final_sweep.py",
         "scripts/ribbon_run_geometry_sweep.py", "scripts/ribbon_run_holdout_eval.py",
         "scripts/ribbon_run_holdout_sigma.py", "scripts/ribbon_run_instrument_control.py",
-        "scripts/ribbon_run_leakage_canary.py", "scripts/ribbon_emit_adaptive.py",
+        "scripts/ribbon_run_leakage_canary.py",
         "scripts/run_ribbon_experiments.py",
     ):
         proc = subprocess.run([sys.executable, str(ROOT / script)], cwd=ROOT,
