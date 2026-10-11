@@ -209,7 +209,7 @@ The earlier ranked, untried ribbon-width proposals are in
 Run tests in an environment with `requirements.txt` installed:
 
 ```bash
-PYTHONPATH=src python -m pytest -q          # 118 tests, all pass
+PYTHONPATH=src python -m pytest -q          # 123 tests, all pass (session 4 count)
 python scripts/build_site.py                # renders docs/ from the receipts (exit 0)
 python scripts/build_site.py --strict       # exits 2 while any gate G1-G5 is open
 PYTHONPATH=src python scripts/crosscheck_shared_metric.py  # re-derive the DTI with gems57 (21 s)
