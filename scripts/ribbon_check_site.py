@@ -60,8 +60,20 @@ def main() -> int:
         errors.append("missing current root status page docs/index.html")
     else:
         body = root_index.read_text(encoding="utf-8")
-        if "NOT CLEARED" not in body and "DO NOT SUBMIT" not in body:
-            errors.append("root status page has no negative submission status")
+        # The banner must match the current run card, whichever way it points.
+        try:
+            site_card = json.loads((DOCS / "RUN_CARD.json").read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as exc:
+            site_card = {}
+            errors.append(f"cannot read docs/RUN_CARD.json: {exc}")
+        verdict = site_card.get("site_verdict")
+        if verdict == "OK_TO_DOWNLOAD_AND_SUBMIT":
+            if "OK TO DOWNLOAD AND SUBMIT" not in body:
+                errors.append("run card says OK but the root page lacks the green banner")
+        else:
+            if "NOT CLEARED" not in body and "DO NOT SUBMIT" not in body \
+                    and "NOT OK TO SUBMIT" not in body:
+                errors.append("root status page has no negative submission status")
         if "LEADERBOARD.md" not in body:
             errors.append("root status page does not link the score-attribution record")
 

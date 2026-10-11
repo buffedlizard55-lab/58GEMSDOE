@@ -1,0 +1,2126 @@
+{
+ "run_card": {
+  "generated_utc": "2026-10-11T16:08:13Z",
+  "session": "session-5 (branch arena/d7d3ba0a-58gemsdoe)",
+  "hypothesis": "H58-X1 cross-family concordance ribbon: emit sigma-adaptive parallel dotted ribbons only on Hessian ridges where at least two independent organizer data families (magnetic, gravity, topographic, subsurface, geodetic, seismic) agree within 1 px.",
+  "mechanism": "a real fault juxtaposes density and magnetization and leaves a scarp, so its trace expresses in several independently acquired grids at once; acquisition artifacts are single-family. Gating on >=2-family agreement reallocates the fixed dot budget from guaranteed-false single-family lineaments to multi-evidence structures.",
+  "named_non_fault_mimic": "coincident basin-edge expressions: an alluvial-fan contact at a range front can carry both a topographic lineament and a gravity gradient without being an active fault; also any two-family coincidence produced by the basin geometry itself rather than faulting. Flight-line levelling (magnetic-only) and roads (topographic-only) are suppressed by construction.",
+  "holdout_dti": {
+   "promotion_grade": {
+    "value": 0.043575334754236986,
+    "per_fold": {
+     "NW": 0.04670810463603169,
+     "NE": 0.02940197247662162,
+     "SW": 0.05422430336313382,
+     "SE": 0.04302451828015162
+    },
+    "label": "HOLDOUT-DTI, evaluator gems58w.metric/v1 (exact triangular kernel, R=3 px, alpha=0.2, beta=0.8), protocol gems58-pooled-hide-v1, 60988 withheld positives, interval = min-max over the four spatial blocks (0.029402-0.054224); no bootstrap over 4 blocks. Ranking cross-fitted leave-one-block-out (EXP-2 arm C2).",
+    "control_R0": 0.04010480496417232,
+    "delta_vs_R0": 0.0034705297900646664
+   },
+   "delivered_bytes_diagnostic": {
+    "value": 0.04183053842555015,
+    "per_fold": {
+     "NW": 0.04287290633199657,
+     "NE": 0.02950441046193968,
+     "SW": 0.06033878673135997,
+     "SE": 0.03552328317787829
+    },
+    "ci": {
+     "lo": 0.02950441046193968,
+     "hi": 0.06033878673135997,
+     "note": "min-max over the four spatial blocks; no bootstrap over 4 blocks"
+    },
+    "label": "DIAGNOSTIC: the production ranking consulted the full catalogue, so this number is not promotion-grade. Promotion-grade HOLDOUT-DTI is EXP-2 arm C2 (cross-fitted): pooled 0.043575, evidence/ribbon/concordance_arms.json. Withheld truth is catalogue-based proxy truth, not the organizer's private expert faults; neither number is a leaderboard forecast."
+   }
+  },
+  "correlation_overlap_vs_registry": {
+   "pre_placement_surface": {
+    "receipt": "evidence/ribbon/concordance_surface_uniqueness.json",
+    "worst_rank_correlation": 0.24137210315444652,
+    "limit": 0.9,
+    "passed": true,
+    "note": "rank correlation is the statistic defined for a continuous pre-placement surface; support-pixel overlap readings are published in the receipt and flagged GEMSDOE50:h52-coincidence8 as the nearest lane neighbour, decided at the final-dot gate"
+   },
+   "final_dot_gate": "evidence/ribbon/uniqueness_full_inventory.json (governing; written by scripts/check_uniqueness_registry.py over the 703-witness byte-verified inventory)"
+  },
+  "raster_sha256": "f709b6f12d5188e34aa3aed3b83d785b97a232224692dcdfffedaa009dee9d0d",
+  "validator": {
+   "passed": true,
+   "checks_passed": 15,
+   "checks_total": 15,
+   "no_nan_inside_footprint": true,
+   "values_in_unit_interval": true,
+   "crs_shape_transform_match": true
+  },
+  "submission_name": "gems58-concordance-ribbon-40768-20261011T160514Z",
+  "submission_note": "Ribbon lane H58-X1: 2-family-concordant Hessian ridges, sigma-adaptive dotted ribbons 0/\u00b1300/\u00b1600 m; 40768 isolated dots at 1.0.",
+  "verdict": "negative",
+  "slots_used": 0,
+  "experiments_this_session": 3,
+  "budget_note": "3 experiments (sigma+canary, equal-budget arms, emission+screens); within the 3-experiment / 2-hour cap.",
+  "verdict_reason": "RATIFIED-UNIQ-v1 fired: rule A (literal > 0.70 overlap vs a witness with E < 0.70) fired 9 time(s), rule B (chance-corrected lift > 0.50) fired 3 time(s) (max lift 0.5741, max vs another repository 0.5624), over 703 byte-verified witnesses (complete=True, byte_unique=True, pixel_unique=True, rho firings=0, jaccard firings=0). The lane logs this as a duplicate and stops; the file is a reviewable artifact, not a cleared submission. The literal pre-ratification reading is preserved in registry.full_inventory_scan.literal.",
+  "finalized_by": "scripts/build_site.py gates (RATIFIED-UNIQ-v1); synchronized from docs/RUN_CARD.json after the complete 703-witness final-dot scan",
+  "registry": {
+   "full_inventory_scan": {
+    "receipt": "evidence/ribbon/uniqueness_full_inventory.json",
+    "index": "registry/registry_merged.json",
+    "verdict": "negative",
+    "stop_required": true,
+    "rasters_checked": 703,
+    "complete_accessible_scan": true,
+    "literal": {
+     "worst_forward_overlap": 1.0,
+     "worst_overlap_submission": "GEMSDOE2:data/evidence/runs/turbo-simple-20260925T042003Z/submission.tif",
+     "firings": 83,
+     "vacuous_firings": 54,
+     "informative_firings": 29
+    },
+    "informative": {
+     "worst_forward_overlap": 0.8754415227629513,
+     "worst_submission": "13GEMSDOE:docs/downloads/archive/13gems-r8-ensemble-20260930T014614Z.tif",
+     "worst_chance_corrected_lift": 0.5740848599322936,
+     "saturated_threshold_E": 0.99
+    },
+    "rank_correlation": {
+     "worst": 0.2823334549607636,
+     "limit": 0.9,
+     "firings": 0,
+     "worst_submission": "58GEMSDOE(this-repo):docs/downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif"
+    },
+    "jaccard": {
+     "worst": 0.16822121928504907,
+     "limit": 0.5,
+     "worst_submission": "58GEMSDOE(this-repo):docs/downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif"
+    },
+    "byte_unique": true,
+    "pixel_unique": true
+   }
+  },
+  "site_verdict": "NOT_OK_TO_SUBMIT",
+  "site_gates": [
+   {
+    "id": "G1",
+    "name": "Portal format (local preflight)",
+    "ok": true,
+    "detail": "15/15 local checks pass; the sha256 recomputed from the bytes on disk matches the receipt; NaN inside footprint = 0; min=0.000 max=1.000; representation = the organizer's sample_submission (NaN outside the study footprint, nodata=nan)"
+   },
+   {
+    "id": "G2",
+    "name": "Uniqueness \u2014 local witnesses (corrected instrument)",
+    "ok": true,
+    "detail": "31 witnesses (the registry checkout plus this repo's own earlier rasters); worst rank correlation 0.2823 &lt; 0.90; worst 3&nbsp;px forward overlap 0.6292 &lt; 0.70 (OWN:docs/downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif); informative firings 0; saturated witnesses 0; drift evidence: none"
+   },
+   {
+    "id": "G3",
+    "name": "Uniqueness \u2014 public inventory scan (ratified chance-corrected gate RATIFIED-UNIQ-v1)",
+    "ok": false,
+    "detail": "703 sha256-verified rasters from <code>registry/registry_merged.json</code>; complete accessible scan True; missing/invalid 0. Byte-unique True, pixel-unique True; worst rank correlation 0.2823 (limit 0.90, 0 firings); worst Jaccard 0.1682 (limit 0.50, 0 firings). <b>Ratified overlap rule:</b> rule A (literal &gt; 0.70 vs witnesses with E &lt; 0.70): <b>9</b> firings; rule B (chance-corrected lift &gt; 0.50 vs any witness): <b>3</b> firings (max lift 0.574; max vs another repository 0.562). The literal pre-ratification reading is reported unchanged in G3L below and in the run card."
+   },
+   {
+    "id": "G3L",
+    "name": "Uniqueness \u2014 literal pre-ratification reading (reported, not governing)",
+    "ok": false,
+    "detail": "<b>Literal reading:</b> worst 3&nbsp;px forward overlap <b>1.0000</b> vs the 0.70 limit \u2192 <b>83 firings</b>, of which 54 are against witnesses whose 3&nbsp;px dilation covers \u2265 99&nbsp;% of the footprint (E \u2265 0.99: they overlap <i>every</i> nonempty candidate and carry no information) and 29 are against broader dot fields (smallest E among non-saturated firings 0.5343). Scan verdict as recorded: negative; stop_required True. The literal rule fires for every nonempty candidate against a witness whose dilation covers the footprint, so it cannot discriminate lane drift; RATIFIED-UNIQ-v1 (G3) governs since 2026-10-11 and this reading stays published beside it."
+   },
+   {
+    "id": "G4",
+    "name": "Leakage canary (single-feature AUC)",
+    "ok": true,
+    "detail": "max AUC over 8 feature groups and all folds 0.5666 vs the 0.90 leakage limit; groups flagged as leaking: 0"
+   },
+   {
+    "id": "G5",
+    "name": "Holdout evidence recorded and labelled",
+    "ok": true,
+    "detail": "HOLDOUT-DTI 0.041831 pooled over 60869 withheld positives (gems58-pooled-hide-v1 / gems58w.metric/v1 (exact triangular kernel, R=3 px, alpha=0.2, beta=0.8)). This measures recovery of <i>catalogue</i> truth, not the organizer's new-fault truth, and is not a leaderboard forecast."
+   },
+   {
+    "id": "G5i",
+    "name": "HOLDOUT-DTI re-derived with the shared gems57 metric",
+    "ok": true,
+    "detail": "verdict AGREE: per-fold and pooled deltas between the archived <code>gems58w</code> evaluator and the shared <code>gems57.metric</code> are 0.000; the shared pooled value 0.041830538 equals the recorded receipt value; the literal brute-force transcription of the published equations reproduces the shared fast path on a bounded tile. So the number is a property of the official metric, not of the archived copy that computed it."
+   },
+   {
+    "id": "G6",
+    "name": "Organizer receipt for this raster",
+    "ok": false,
+    "detail": "No DrivenData submission receipt exists for this raster, so no ORGANIZER-CONFIRMED score can be quoted for it. This gate can only be closed by the owner's selector step and is never claimed here; the site verdict is computed over G1\u2013G5."
+   }
+  ],
+  "site_generated_utc": "2026-10-11T16:26:38Z",
+  "site_note": "G6 (organizer receipt) can never pass from this sandbox; the site verdict is computed over G1-G5 and the missing receipt is stated on every page.",
+  "equal_budget_arms": {
+   "R0": {
+    "cfg": {
+     "tau": 0.45,
+     "gated": false
+    },
+    "n_segments": 6286,
+    "support_px": 1022719,
+    "dots_per_fold": {
+     "NW": 38000,
+     "NE": 38000,
+     "SW": 38000,
+     "SE": 38000
+    },
+    "lines_histogram": {
+     "3": 492,
+     "5": 5794
+    },
+    "pooled": 0.04010480496417232,
+    "per_fold": {
+     "NW": 0.05032031281493624,
+     "NE": 0.019939433714879117,
+     "SW": 0.0448326293815171,
+     "SE": 0.03789291035162411
+    },
+    "coverage": 0.052322222139163314,
+    "agg": {
+     "tp": 3184.801339388732,
+     "fp": 150399.020075262,
+     "fn": 57684.19866061126,
+     "n_truth": 60869,
+     "n_dots": 152000
+    }
+   },
+   "C1": {
+    "cfg": {
+     "tau": 0.45,
+     "gated": true
+    },
+    "n_segments": 3517,
+    "support_px": 512599,
+    "dots_per_fold": {
+     "NW": 38000,
+     "NE": 38000,
+     "SW": 38000,
+     "SE": 38000
+    },
+    "lines_histogram": {
+     "5": 3517
+    },
+    "pooled": 0.04091068867748319,
+    "per_fold": {
+     "NW": 0.04551497767327118,
+     "NE": 0.029241121582760616,
+     "SW": 0.050542904020481574,
+     "SE": 0.03549972560856362
+    },
+    "coverage": 0.05335406788877009,
+    "agg": {
+     "tp": 3247.6087583215467,
+     "fp": 150190.84847849782,
+     "fn": 57621.39124167846,
+     "n_truth": 60869,
+     "n_dots": 152000
+    }
+   },
+   "C2": {
+    "cfg": {
+     "tau": 0.35,
+     "gated": true
+    },
+    "n_segments": 5108,
+    "support_px": 850846,
+    "dots_per_fold": {
+     "NW": 38000,
+     "NE": 38000,
+     "SW": 38000,
+     "SE": 38000
+    },
+    "lines_histogram": {
+     "5": 5108
+    },
+    "pooled": 0.043575334754236986,
+    "per_fold": {
+     "NW": 0.04670810463603169,
+     "NE": 0.02940197247662162,
+     "SW": 0.05422430336313382,
+     "SE": 0.04302451828015162
+    },
+    "coverage": 0.05686045908917047,
+    "agg": {
+     "tp": 3461.0392842987176,
+     "fp": 150195.80017853391,
+     "fn": 57407.96071570127,
+     "n_truth": 60869,
+     "n_dots": 152000
+    }
+   }
+  },
+  "equal_budget_deltas": null,
+  "simulated_gain_per_sigma_class": {
+   "sigma<0.5px": {
+    "sigma_px": 0.25,
+    "n_lines": 1,
+    "offsets": [
+     0.0
+    ],
+    "U_plan": 0.0,
+    "U_single_line_credit": 0.9335184860264694,
+    "note": "U per dot of the chosen plan vs credit of a single tight line; legacy Normal-model simulation, not a holdout claim"
+   },
+   "0.5-1px": {
+    "sigma_px": 0.75,
+    "n_lines": 3,
+    "offsets": [
+     -3.0,
+     0.0,
+     3.0
+    ],
+    "U_plan": 0.0077777077264145995,
+    "U_single_line_credit": 0.8005353865915684,
+    "note": "U per dot of the chosen plan vs credit of a single tight line; legacy Normal-model simulation, not a holdout claim"
+   },
+   "1-2px": {
+    "sigma_px": 1.5,
+    "n_lines": 3,
+    "offsets": [
+     -3.0,
+     0.0,
+     3.0
+    ],
+    "U_plan": 0.1280936357030535,
+    "U_single_line_credit": 0.6095496998174732,
+    "note": "U per dot of the chosen plan vs credit of a single tight line; legacy Normal-model simulation, not a holdout claim"
+   },
+   "2-3px": {
+    "sigma_px": 2.5,
+    "n_lines": 3,
+    "offsets": [
+     -3.0,
+     0.0,
+     3.0
+    ],
+    "U_plan": 0.24789363020831134,
+    "U_single_line_credit": 0.4286014121478368,
+    "note": "U per dot of the chosen plan vs credit of a single tight line; legacy Normal-model simulation, not a holdout claim"
+   },
+   ">3px": {
+    "sigma_px": 6.0,
+    "n_lines": 5,
+    "offsets": [
+     -6.0,
+     -3.0,
+     0.0,
+     3.0,
+     6.0
+    ],
+    "U_plan": 0.29996596325400937,
+    "U_single_line_credit": 0.20471324730329418,
+    "note": "U per dot of the chosen plan vs credit of a single tight line; legacy Normal-model simulation, not a holdout claim"
+   }
+  },
+  "sigma_table": {
+   "n_matched": 1295,
+   "pooled": {
+    "n": 1295,
+    "median": 5.977229519373731,
+    "mean": 6.4092079135698246,
+    "p25": 3.175518047742145,
+    "p75": 9.602204666397482,
+    "rms": 7.492416224873769
+   },
+   "recovery": {
+    "n_components_withheld": 1295,
+    "median_frac_within": 1.0
+   },
+   "by_block": {
+    "NE": {
+     "n": 205,
+     "median": 6.5404722901161945,
+     "mean": 6.664889515457569,
+     "p25": 3.3007176253210853,
+     "p75": 9.917584915998336,
+     "rms": 7.717045887562324
+    },
+    "NW": {
+     "n": 751,
+     "median": 6.095395487894625,
+     "mean": 6.559447913931461,
+     "p25": 3.3733969799779517,
+     "p75": 9.677647569969237,
+     "rms": 7.622104492860498
+    },
+    "SE": {
+     "n": 119,
+     "median": 6.3552253216458725,
+     "mean": 6.614474682828247,
+     "p25": 3.1306764468042667,
+     "p75": 9.835237118237341,
+     "rms": 7.631056075339419
+    },
+    "SW": {
+     "n": 220,
+     "median": 5.090976321610082,
+     "mean": 5.547063758113777,
+     "p25": 2.2565636922384122,
+     "p75": 8.603959205828325,
+     "rms": 6.7176846193482005
+    }
+   },
+   "by_scale": {
+    "1.5px": {
+     "n": 31,
+     "median": 8.033264176742437,
+     "mean": 8.447239991733104,
+     "p25": 6.25033307360399,
+     "p75": 10.944997750551783,
+     "rms": 8.94153763601727
+    },
+    "3px": {
+     "n": 178,
+     "median": 6.571750948901933,
+     "mean": 7.05885568260941,
+     "p25": 3.833083046406915,
+     "p75": 10.128280152242748,
+     "rms": 7.9579564276407275
+    },
+    "6px": {
+     "n": 1086,
+     "median": 5.826099311354076,
+     "mean": 6.2445520228588585,
+     "p25": 2.8639776557080854,
+     "p75": 9.380247930525123,
+     "rms": 7.367331899857413
+    }
+   },
+   "by_type": {
+    "gravity/crest": {
+     "n": 33,
+     "median": 6.260990336999411,
+     "mean": 7.329582875432044,
+     "p25": 4.782258880487337,
+     "p75": 11.057841655086472,
+     "rms": 8.208231436232799
+    },
+    "gravity/trough": {
+     "n": 203,
+     "median": 7.31057073315377,
+     "mean": 6.905706771280775,
+     "p25": 3.507818037784794,
+     "p75": 9.78724720433162,
+     "rms": 7.8696700035045275
+    },
+    "magnetic/crest": {
+     "n": 356,
+     "median": 6.558470225812281,
+     "mean": 6.916031042341361,
+     "p25": 3.783982177845905,
+     "p75": 9.94281711580188,
+     "rms": 7.889271712366476
+    },
+    "magnetic/trough": {
+     "n": 476,
+     "median": 4.1527848096601225,
+     "mean": 5.055227184029673,
+     "p25": 1.639255648784498,
+     "p75": 7.733544952914652,
+     "rms": 6.355587501800074
+    },
+    "subsurface/trough": {
+     "n": 31,
+     "median": 8.401007265615421,
+     "mean": 7.565143054741756,
+     "p25": 4.193418166302571,
+     "p75": 11.073734436094625,
+     "rms": 8.528986811333375
+    },
+    "topographic/crest": {
+     "n": 195,
+     "median": 7.893034904268446,
+     "mean": 7.907614356798366,
+     "p25": 5.5236183506205165,
+     "p75": 10.531298380646623,
+     "rms": 8.513494132233442
+    }
+   },
+   "by_type_scale": {
+    "gravity/crest/3px": {
+     "n": 10,
+     "median": 7.479345591312613,
+     "mean": 7.367121324117943,
+     "p25": 3.8028122359200625,
+     "p75": 10.849012278847463,
+     "rms": 8.376303477326397
+    },
+    "gravity/crest/6px": {
+     "n": 23,
+     "median": 6.0048999599836606,
+     "mean": 7.313261810786003,
+     "p25": 4.860947247289362,
+     "p75": 10.506904412763143,
+     "rms": 8.134073501694797
+    },
+    "gravity/trough/6px": {
+     "n": 203,
+     "median": 7.31057073315377,
+     "mean": 6.905706771280775,
+     "p25": 3.507818037784794,
+     "p75": 9.78724720433162,
+     "rms": 7.8696700035045275
+    },
+    "magnetic/crest/1.5px": {
+     "n": 19,
+     "median": 8.033264176742437,
+     "mean": 8.57574919221599,
+     "p25": 5.837665678111591,
+     "p75": 12.066457827467257,
+     "rms": 9.178193965685294
+    },
+    "magnetic/crest/3px": {
+     "n": 67,
+     "median": 6.056401571890688,
+     "mean": 6.749346644394245,
+     "p25": 3.454411799746837,
+     "p75": 9.341189843914076,
+     "rms": 7.681051308782865
+    },
+    "magnetic/crest/6px": {
+     "n": 270,
+     "median": 6.4653370438247,
+     "mean": 6.840598486100023,
+     "p25": 3.641474206054416,
+     "p75": 9.806769165763388,
+     "rms": 7.842006560124786
+    },
+    "magnetic/trough/3px": {
+     "n": 61,
+     "median": 6.511528238439882,
+     "mean": 7.089842923834551,
+     "p25": 3.7013511046643495,
+     "p75": 10.304876330673562,
+     "rms": 8.044087645344986
+    },
+    "magnetic/trough/6px": {
+     "n": 408,
+     "median": 3.6382884618763596,
+     "mean": 4.708866939437412,
+     "p25": 1.3853398121629128,
+     "p75": 7.046038044804099,
+     "rms": 6.0311592632927855
+    },
+    "subsurface/trough/6px": {
+     "n": 31,
+     "median": 8.401007265615421,
+     "mean": 7.565143054741756,
+     "p25": 4.193418166302571,
+     "p75": 11.073734436094625,
+     "rms": 8.528986811333375
+    },
+    "topographic/crest/3px": {
+     "n": 39,
+     "median": 6.899275324264136,
+     "mean": 7.3545728478367005,
+     "p25": 4.942167657707624,
+     "p75": 9.699701072044041,
+     "rms": 8.075655689647009
+    },
+    "topographic/crest/6px": {
+     "n": 151,
+     "median": 7.989216870688676,
+     "mean": 8.005438830279338,
+     "p25": 5.920094421029191,
+     "p75": 10.586549126408684,
+     "rms": 8.593602389683651
+    }
+   },
+   "by_block_scale": {
+    "NE/3px": {
+     "n": 27,
+     "median": 6.642665127793212,
+     "mean": 7.18642973164757,
+     "p25": 3.5319350631068085,
+     "p75": 10.220072233698371,
+     "rms": 8.256020633407532
+    },
+    "NE/6px": {
+     "n": 175,
+     "median": 6.502746672423452,
+     "mean": 6.57243630669621,
+     "p25": 3.1892229772969323,
+     "p75": 9.757037381912916,
+     "rms": 7.630351590005023
+    },
+    "NW/1.5px": {
+     "n": 21,
+     "median": 9.67714104596649,
+     "mean": 8.95301493743282,
+     "p25": 6.300307734628556,
+     "p75": 11.958260743101398,
+     "rms": 9.413678391537072
+    },
+    "NW/3px": {
+     "n": 107,
+     "median": 6.260990336999411,
+     "mean": 6.9253104441046025,
+     "p25": 3.777366579306812,
+     "p75": 9.916105277664148,
+     "rms": 7.843407967289525
+    },
+    "NW/6px": {
+     "n": 623,
+     "median": 5.962000884388944,
+     "mean": 6.415929136688999,
+     "p25": 3.210590790682054,
+     "p75": 9.537250509075957,
+     "rms": 7.515308272250558
+    },
+    "SE/3px": {
+     "n": 14,
+     "median": 7.510123048746551,
+     "mean": 6.486721193778228,
+     "p25": 3.1487458027072632,
+     "p75": 8.82180886180647,
+     "rms": 7.160502964062103
+    },
+    "SE/6px": {
+     "n": 101,
+     "median": 6.047625194388561,
+     "mean": 6.566277579598485,
+     "p25": 3.0498994725159108,
+     "p75": 9.867877177995275,
+     "rms": 7.64965369422988
+    },
+    "SW/3px": {
+     "n": 30,
+     "median": 7.995515802187009,
+     "mean": 7.687346483930095,
+     "p25": 4.975945200123647,
+     "p75": 10.34430624827683,
+     "rms": 8.429801198076227
+    },
+    "SW/6px": {
+     "n": 187,
+     "median": 4.509249752822894,
+     "mean": 5.192990670888719,
+     "p25": 1.9671970972962676,
+     "p75": 8.40490939655654,
+     "rms": 6.399935467531941
+    }
+   },
+   "unreachable": {
+    "gravity/crest": {
+     "n": 33,
+     "median": 6.260990336999411,
+     "mean": 7.329582875432044,
+     "p25": 4.782258880487337,
+     "p75": 11.057841655086472,
+     "rms": 8.208231436232799
+    },
+    "gravity/trough": {
+     "n": 203,
+     "median": 7.31057073315377,
+     "mean": 6.905706771280775,
+     "p25": 3.507818037784794,
+     "p75": 9.78724720433162,
+     "rms": 7.8696700035045275
+    },
+    "magnetic/crest": {
+     "n": 356,
+     "median": 6.558470225812281,
+     "mean": 6.916031042341361,
+     "p25": 3.783982177845905,
+     "p75": 9.94281711580188,
+     "rms": 7.889271712366476
+    },
+    "magnetic/trough": {
+     "n": 476,
+     "median": 4.1527848096601225,
+     "mean": 5.055227184029673,
+     "p25": 1.639255648784498,
+     "p75": 7.733544952914652,
+     "rms": 6.355587501800074
+    },
+    "subsurface/trough": {
+     "n": 31,
+     "median": 8.401007265615421,
+     "mean": 7.565143054741756,
+     "p25": 4.193418166302571,
+     "p75": 11.073734436094625,
+     "rms": 8.528986811333375
+    },
+    "topographic/crest": {
+     "n": 195,
+     "median": 7.893034904268446,
+     "mean": 7.907614356798366,
+     "p25": 5.5236183506205165,
+     "p75": 10.531298380646623,
+     "rms": 8.513494132233442
+    }
+   }
+  },
+  "sigma_table_cross_fitted": {
+   "NW": {
+    "n_matched": 544,
+    "pooled": {
+     "n": 544,
+     "median": 5.899566503556212,
+     "mean": 6.201799383658812,
+     "p25": 2.7337317318317167,
+     "p75": 9.359613929151417,
+     "rms": 7.3095997889233555
+    },
+    "recovery": {
+     "n_components_withheld": 544,
+     "median_frac_within": 1.0
+    },
+    "by_block": {
+     "NE": {
+      "n": 205,
+      "median": 6.5404722901161945,
+      "mean": 6.664889515457569,
+      "p25": 3.3007176253210853,
+      "p75": 9.917584915998336,
+      "rms": 7.717045887562324
+     },
+     "SE": {
+      "n": 119,
+      "median": 6.3552253216458725,
+      "mean": 6.614474682828247,
+      "p25": 3.1306764468042667,
+      "p75": 9.835237118237341,
+      "rms": 7.631056075339419
+     },
+     "SW": {
+      "n": 220,
+      "median": 5.090976321610082,
+      "mean": 5.547063758113777,
+      "p25": 2.2565636922384122,
+      "p75": 8.603959205828325,
+      "rms": 6.7176846193482005
+     }
+    },
+    "by_scale": {
+     "1.5px": {
+      "n": 10,
+      "median": 7.564345703771016,
+      "mean": 7.3851126057637,
+      "p25": 5.573007448448112,
+      "p75": 8.288907356123694,
+      "rms": 7.858242781567517
+     },
+     "3px": {
+      "n": 71,
+      "median": 7.08900333290712,
+      "mean": 7.260113999792711,
+      "p25": 3.9496381300316754,
+      "p75": 10.131853336275718,
+      "rms": 8.127536532191117
+     },
+     "6px": {
+      "n": 463,
+      "median": 5.442001894099691,
+      "mean": 6.013951716344437,
+      "p25": 2.5495097567963922,
+      "p75": 9.130919449179661,
+      "rms": 7.1633967811123735
+     }
+    },
+    "by_type": {
+     "gravity/crest": {
+      "n": 12,
+      "median": 9.032598921611704,
+      "mean": 8.13888561493411,
+      "p25": 4.939309503089818,
+      "p75": 11.06516992373637,
+      "rms": 8.88266956685614
+     },
+     "gravity/trough": {
+      "n": 87,
+      "median": 7.14142842854285,
+      "mean": 6.554970748049368,
+      "p25": 2.9562313813501797,
+      "p75": 9.385340402472213,
+      "rms": 7.507265993511142
+     },
+     "magnetic/crest": {
+      "n": 167,
+      "median": 5.442001894099691,
+      "mean": 6.504442234740445,
+      "p25": 3.338528649147512,
+      "p75": 9.322857656692172,
+      "rms": 7.5294034676753885
+     },
+     "magnetic/trough": {
+      "n": 179,
+      "median": 3.484660262185848,
+      "mean": 4.7170317724784825,
+      "p25": 1.0188745216627708,
+      "p75": 7.829582620151228,
+      "rms": 6.101097174190579
+     },
+     "subsurface/trough": {
+      "n": 12,
+      "median": 5.717337036947724,
+      "mean": 6.33068680787181,
+      "p25": 4.226049570037051,
+      "p75": 8.586964695623408,
+      "rms": 7.136443133050894
+     },
+     "topographic/crest": {
+      "n": 86,
+      "median": 8.281455433416909,
+      "mean": 7.999777748974216,
+      "p25": 5.934914950921926,
+      "p75": 10.517620005182195,
+      "rms": 8.590725225340032
+     }
+    },
+    "by_type_scale": {
+     "gravity/trough/6px": {
+      "n": 87,
+      "median": 7.14142842854285,
+      "mean": 6.554970748049368,
+      "p25": 2.9562313813501797,
+      "p75": 9.385340402472213,
+      "rms": 7.507265993511142
+     },
+     "magnetic/crest/3px": {
+      "n": 35,
+      "median": 5.852349955359813,
+      "mean": 6.500462278225903,
+      "p25": 3.09011698716873,
+      "p75": 9.211055049589067,
+      "rms": 7.514728151756275
+     },
+     "magnetic/crest/6px": {
+      "n": 125,
+      "median": 5.437390678561211,
+      "mean": 6.492856514342211,
+      "p25": 3.4412360080584268,
+      "p75": 9.50630043177469,
+      "rms": 7.545179267446703
+     },
+     "magnetic/trough/3px": {
+      "n": 12,
+      "median": 9.60202214651285,
+      "mean": 9.061338920361331,
+      "p25": 7.755966070553441,
+      "p75": 10.643726136642686,
+      "rms": 9.588756229731677
+     },
+     "magnetic/trough/6px": {
+      "n": 167,
+      "median": 3.0983866769659336,
+      "mean": 4.40486598939708,
+      "p25": 0.9671688098155751,
+      "p75": 6.784016945111783,
+      "rms": 5.7698655906871155
+     },
+     "subsurface/trough/6px": {
+      "n": 12,
+      "median": 5.717337036947724,
+      "mean": 6.33068680787181,
+      "p25": 4.226049570037051,
+      "p75": 8.586964695623408,
+      "rms": 7.136443133050894
+     },
+     "topographic/crest/3px": {
+      "n": 17,
+      "median": 6.5404722901161945,
+      "mean": 7.052531425622175,
+      "p25": 4.83045891539648,
+      "p75": 8.594571930391103,
+      "rms": 7.693540719115364
+     },
+     "topographic/crest/6px": {
+      "n": 66,
+      "median": 8.4326625779075,
+      "mean": 8.202353564993025,
+      "p25": 5.958612384764312,
+      "p75": 10.825201321508212,
+      "rms": 8.788708846226346
+     }
+    },
+    "by_block_scale": {
+     "NE/3px": {
+      "n": 27,
+      "median": 6.642665127793212,
+      "mean": 7.18642973164757,
+      "p25": 3.5319350631068085,
+      "p75": 10.220072233698371,
+      "rms": 8.256020633407532
+     },
+     "NE/6px": {
+      "n": 175,
+      "median": 6.502746672423452,
+      "mean": 6.57243630669621,
+      "p25": 3.1892229772969323,
+      "p75": 9.757037381912916,
+      "rms": 7.630351590005023
+     },
+     "SE/3px": {
+      "n": 14,
+      "median": 7.510123048746551,
+      "mean": 6.486721193778228,
+      "p25": 3.1487458027072632,
+      "p75": 8.82180886180647,
+      "rms": 7.160502964062103
+     },
+     "SE/6px": {
+      "n": 101,
+      "median": 6.047625194388561,
+      "mean": 6.566277579598485,
+      "p25": 3.0498994725159108,
+      "p75": 9.867877177995275,
+      "rms": 7.64965369422988
+     },
+     "SW/3px": {
+      "n": 30,
+      "median": 7.995515802187009,
+      "mean": 7.687346483930095,
+      "p25": 4.975945200123647,
+      "p75": 10.34430624827683,
+      "rms": 8.429801198076227
+     },
+     "SW/6px": {
+      "n": 187,
+      "median": 4.509249752822894,
+      "mean": 5.192990670888719,
+      "p25": 1.9671970972962676,
+      "p75": 8.40490939655654,
+      "rms": 6.399935467531941
+     }
+    },
+    "unreachable": {
+     "gravity/crest": {
+      "n": 12,
+      "median": 9.032598921611704,
+      "mean": 8.13888561493411,
+      "p25": 4.939309503089818,
+      "p75": 11.06516992373637,
+      "rms": 8.88266956685614
+     },
+     "gravity/trough": {
+      "n": 87,
+      "median": 7.14142842854285,
+      "mean": 6.554970748049368,
+      "p25": 2.9562313813501797,
+      "p75": 9.385340402472213,
+      "rms": 7.507265993511142
+     },
+     "magnetic/crest": {
+      "n": 167,
+      "median": 5.442001894099691,
+      "mean": 6.504442234740445,
+      "p25": 3.338528649147512,
+      "p75": 9.322857656692172,
+      "rms": 7.5294034676753885
+     },
+     "magnetic/trough": {
+      "n": 179,
+      "median": 3.484660262185848,
+      "mean": 4.7170317724784825,
+      "p25": 1.0188745216627708,
+      "p75": 7.829582620151228,
+      "rms": 6.101097174190579
+     },
+     "subsurface/trough": {
+      "n": 12,
+      "median": 5.717337036947724,
+      "mean": 6.33068680787181,
+      "p25": 4.226049570037051,
+      "p75": 8.586964695623408,
+      "rms": 7.136443133050894
+     },
+     "topographic/crest": {
+      "n": 86,
+      "median": 8.281455433416909,
+      "mean": 7.999777748974216,
+      "p25": 5.934914950921926,
+      "p75": 10.517620005182195,
+      "rms": 8.590725225340032
+     }
+    }
+   },
+   "NE": {
+    "n_matched": 1090,
+    "pooled": {
+     "n": 1090,
+     "median": 5.929335281613786,
+     "mean": 6.361121006792771,
+     "p25": 3.1192111771602558,
+     "p75": 9.442159181823229,
+     "rms": 7.449412649468156
+    },
+    "recovery": {
+     "n_components_withheld": 1090,
+     "median_frac_within": 1.0
+    },
+    "by_block": {
+     "NW": {
+      "n": 751,
+      "median": 6.095395487894625,
+      "mean": 6.559447913931461,
+      "p25": 3.3733969799779517,
+      "p75": 9.677647569969237,
+      "rms": 7.622104492860498
+     },
+     "SE": {
+      "n": 119,
+      "median": 6.3552253216458725,
+      "mean": 6.614474682828247,
+      "p25": 3.1306764468042667,
+      "p75": 9.835237118237341,
+      "rms": 7.631056075339419
+     },
+     "SW": {
+      "n": 220,
+      "median": 5.090976321610082,
+      "mean": 5.547063758113777,
+      "p25": 2.2565636922384122,
+      "p75": 8.603959205828325,
+      "rms": 6.7176846193482005
+     }
+    },
+    "by_scale": {
+     "1.5px": {
+      "n": 28,
+      "median": 8.216632088371219,
+      "mean": 8.563287339330216,
+      "p25": 6.275320404116274,
+      "p75": 11.391573874178379,
+      "rms": 9.062141885543854
+     },
+     "3px": {
+      "n": 151,
+      "median": 6.511528238439882,
+      "mean": 7.036044428807886,
+      "p25": 3.924598483589107,
+      "p75": 10.049985901990299,
+      "rms": 7.903475586737236
+     },
+     "6px": {
+      "n": 911,
+      "median": 5.670672071203768,
+      "mean": 6.181566567676052,
+      "p25": 2.81486879597134,
+      "p75": 9.305930181912181,
+      "rms": 7.315724062105496
+     }
+    },
+    "by_type": {
+     "gravity/crest": {
+      "n": 27,
+      "median": 6.0048999599836606,
+      "mean": 6.936664450375322,
+      "p25": 4.363156034610207,
+      "p75": 10.07458912298533,
+      "rms": 7.807631828991043
+     },
+     "gravity/trough": {
+      "n": 163,
+      "median": 7.31057073315377,
+      "mean": 6.985941974133599,
+      "p25": 3.607458638689491,
+      "p75": 10.036642859742809,
+      "rms": 7.951620943458019
+     },
+     "magnetic/crest": {
+      "n": 288,
+      "median": 6.6356813663698695,
+      "mean": 6.9924006074493334,
+      "p25": 3.8247989203611152,
+      "p75": 10.043824627665934,
+      "rms": 7.963431843366949
+     },
+     "magnetic/trough": {
+      "n": 433,
+      "median": 4.281744192888376,
+      "mean": 5.112929184784531,
+      "p25": 1.7419766814227708,
+      "p75": 7.859592602437397,
+      "rms": 6.400872256229173
+     },
+     "subsurface/trough": {
+      "n": 28,
+      "median": 7.897517353063722,
+      "mean": 7.607592947877447,
+      "p25": 3.947585837421529,
+      "p75": 11.740617190556687,
+      "rms": 8.635796257170341
+     },
+     "topographic/crest": {
+      "n": 150,
+      "median": 7.7216069000367415,
+      "mean": 7.704073248621259,
+      "p25": 5.390268471518361,
+      "p75": 10.120410320279522,
+      "rms": 8.292995192018239
+     }
+    },
+    "by_type_scale": {
+     "gravity/crest/6px": {
+      "n": 20,
+      "median": 5.875494700303765,
+      "mean": 7.035523763957753,
+      "p25": 4.572707457548772,
+      "p75": 10.216779254301684,
+      "rms": 7.863038094805535
+     },
+     "gravity/trough/6px": {
+      "n": 163,
+      "median": 7.31057073315377,
+      "mean": 6.985941974133599,
+      "p25": 3.607458638689491,
+      "p75": 10.036642859742809,
+      "rms": 7.951620943458019
+     },
+     "magnetic/crest/1.5px": {
+      "n": 17,
+      "median": 9.67714104596649,
+      "mean": 8.908034874624809,
+      "p25": 7.329888998291361,
+      "p75": 12.174654911833116,
+      "rms": 9.498087062588338
+     },
+     "magnetic/crest/3px": {
+      "n": 52,
+      "median": 5.960757390218129,
+      "mean": 6.7794786401364755,
+      "p25": 3.778855198443531,
+      "p75": 9.313947908667833,
+      "rms": 7.653008412584327
+     },
+     "magnetic/crest/6px": {
+      "n": 219,
+      "median": 6.444424896365692,
+      "mean": 6.8942552182177606,
+      "p25": 3.7123681140338602,
+      "p75": 9.941440353998164,
+      "rms": 7.904880553972292
+     },
+     "magnetic/trough/3px": {
+      "n": 59,
+      "median": 6.511528238439882,
+      "mean": 7.092316136891396,
+      "p25": 3.7194151007979315,
+      "p75": 10.22688394788289,
+      "rms": 7.998047304838179
+     },
+     "magnetic/trough/6px": {
+      "n": 367,
+      "median": 3.6571847095819483,
+      "mean": 4.748941893682171,
+      "p25": 1.4232216552259804,
+      "p75": 7.18347948315492,
+      "rms": 6.071139437583469
+     },
+     "subsurface/trough/6px": {
+      "n": 28,
+      "median": 7.897517353063722,
+      "mean": 7.607592947877447,
+      "p25": 3.947585837421529,
+      "p75": 11.740617190556687,
+      "rms": 8.635796257170341
+     },
+     "topographic/crest/3px": {
+      "n": 32,
+      "median": 7.42847619991411,
+      "mean": 7.299799651124392,
+      "p25": 4.776760014989987,
+      "p75": 9.655462012001285,
+      "rms": 8.053857054264142
+     },
+     "topographic/crest/6px": {
+      "n": 114,
+      "median": 7.862560992687617,
+      "mean": 7.774315401564357,
+      "p25": 5.4807052823099776,
+      "p75": 10.120410320279522,
+      "rms": 8.331826921802193
+     }
+    },
+    "by_block_scale": {
+     "NW/1.5px": {
+      "n": 21,
+      "median": 9.67714104596649,
+      "mean": 8.95301493743282,
+      "p25": 6.300307734628556,
+      "p75": 11.958260743101398,
+      "rms": 9.413678391537072
+     },
+     "NW/3px": {
+      "n": 107,
+      "median": 6.260990336999411,
+      "mean": 6.9253104441046025,
+      "p25": 3.777366579306812,
+      "p75": 9.916105277664148,
+      "rms": 7.843407967289525
+     },
+     "NW/6px": {
+      "n": 623,
+      "median": 5.962000884388944,
+      "mean": 6.415929136688999,
+      "p25": 3.210590790682054,
+      "p75": 9.537250509075957,
+      "rms": 7.515308272250558
+     },
+     "SE/3px": {
+      "n": 14,
+      "median": 7.510123048746551,
+      "mean": 6.486721193778228,
+      "p25": 3.1487458027072632,
+      "p75": 8.82180886180647,
+      "rms": 7.160502964062103
+     },
+     "SE/6px": {
+      "n": 101,
+      "median": 6.047625194388561,
+      "mean": 6.566277579598485,
+      "p25": 3.0498994725159108,
+      "p75": 9.867877177995275,
+      "rms": 7.64965369422988
+     },
+     "SW/3px": {
+      "n": 30,
+      "median": 7.995515802187009,
+      "mean": 7.687346483930095,
+      "p25": 4.975945200123647,
+      "p75": 10.34430624827683,
+      "rms": 8.429801198076227
+     },
+     "SW/6px": {
+      "n": 187,
+      "median": 4.509249752822894,
+      "mean": 5.192990670888719,
+      "p25": 1.9671970972962676,
+      "p75": 8.40490939655654,
+      "rms": 6.399935467531941
+     }
+    },
+    "unreachable": {
+     "gravity/crest": {
+      "n": 27,
+      "median": 6.0048999599836606,
+      "mean": 6.936664450375322,
+      "p25": 4.363156034610207,
+      "p75": 10.07458912298533,
+      "rms": 7.807631828991043
+     },
+     "gravity/trough": {
+      "n": 163,
+      "median": 7.31057073315377,
+      "mean": 6.985941974133599,
+      "p25": 3.607458638689491,
+      "p75": 10.036642859742809,
+      "rms": 7.951620943458019
+     },
+     "magnetic/crest": {
+      "n": 288,
+      "median": 6.6356813663698695,
+      "mean": 6.9924006074493334,
+      "p25": 3.8247989203611152,
+      "p75": 10.043824627665934,
+      "rms": 7.963431843366949
+     },
+     "magnetic/trough": {
+      "n": 433,
+      "median": 4.281744192888376,
+      "mean": 5.112929184784531,
+      "p25": 1.7419766814227708,
+      "p75": 7.859592602437397,
+      "rms": 6.400872256229173
+     },
+     "subsurface/trough": {
+      "n": 28,
+      "median": 7.897517353063722,
+      "mean": 7.607592947877447,
+      "p25": 3.947585837421529,
+      "p75": 11.740617190556687,
+      "rms": 8.635796257170341
+     },
+     "topographic/crest": {
+      "n": 150,
+      "median": 7.7216069000367415,
+      "mean": 7.704073248621259,
+      "p25": 5.390268471518361,
+      "p75": 10.120410320279522,
+      "rms": 8.292995192018239
+     }
+    }
+   },
+   "SW": {
+    "n_matched": 1075,
+    "pooled": {
+     "n": 1075,
+     "median": 6.260990336999411,
+     "mean": 6.585646717477108,
+     "p25": 3.3378109969845378,
+     "p75": 9.72718161219712,
+     "rms": 7.641289711331455
+    },
+    "recovery": {
+     "n_components_withheld": 1075,
+     "median_frac_within": 1.0
+    },
+    "by_block": {
+     "NE": {
+      "n": 205,
+      "median": 6.5404722901161945,
+      "mean": 6.664889515457569,
+      "p25": 3.3007176253210853,
+      "p75": 9.917584915998336,
+      "rms": 7.717045887562324
+     },
+     "NW": {
+      "n": 751,
+      "median": 6.095395487894625,
+      "mean": 6.559447913931461,
+      "p25": 3.3733969799779517,
+      "p75": 9.677647569969237,
+      "rms": 7.622104492860498
+     },
+     "SE": {
+      "n": 119,
+      "median": 6.3552253216458725,
+      "mean": 6.614474682828247,
+      "p25": 3.1306764468042667,
+      "p75": 9.835237118237341,
+      "rms": 7.631056075339419
+     }
+    },
+    "by_scale": {
+     "1.5px": {
+      "n": 28,
+      "median": 8.216632088371219,
+      "mean": 8.686430819028166,
+      "p25": 6.275320404116274,
+      "p75": 11.391573874178379,
+      "rms": 9.14504720622729
+     },
+     "3px": {
+      "n": 148,
+      "median": 6.426610395455693,
+      "mean": 6.93145889855792,
+      "p25": 3.5992860976786845,
+      "p75": 10.041755896138282,
+      "rms": 7.858859737187322
+     },
+     "6px": {
+      "n": 899,
+      "median": 6.03876367037713,
+      "mean": 6.463286141678009,
+      "p25": 3.198242818463512,
+      "p75": 9.674052868117613,
+      "rms": 7.553007755169942
+     }
+    },
+    "by_type": {
+     "gravity/crest": {
+      "n": 29,
+      "median": 6.0048999599836606,
+      "mean": 7.2361423869534995,
+      "p25": 4.782258880487337,
+      "p75": 11.057841655086472,
+      "rms": 8.128745833453538
+     },
+     "gravity/trough": {
+      "n": 181,
+      "median": 7.416198487095663,
+      "mean": 7.066831142920758,
+      "p25": 3.6181361349331636,
+      "p75": 10.023410098364728,
+      "rms": 8.028347936907174
+     },
+     "magnetic/crest": {
+      "n": 307,
+      "median": 6.7556560665037475,
+      "mean": 6.940822521792229,
+      "p25": 3.8805625989461485,
+      "p75": 9.805378463335394,
+      "rms": 7.8961455318573135
+     },
+     "magnetic/trough": {
+      "n": 368,
+      "median": 4.358898943540674,
+      "mean": 5.221204879800648,
+      "p25": 1.8993047191855932,
+      "p75": 7.814106241805767,
+      "rms": 6.492307817779812
+     },
+     "subsurface/trough": {
+      "n": 24,
+      "median": 8.624075591327195,
+      "mean": 7.909990007374835,
+      "p25": 4.226049570037051,
+      "p75": 11.740617190556687,
+      "rms": 8.802953151249186
+     },
+     "topographic/crest": {
+      "n": 165,
+      "median": 7.989216870688676,
+      "mean": 8.104605281178126,
+      "p25": 5.930975517419988,
+      "p75": 10.751196923790284,
+      "rms": 8.720012514924369
+     }
+    },
+    "by_type_scale": {
+     "gravity/crest/6px": {
+      "n": 22,
+      "median": 5.875494700303765,
+      "mean": 7.141721223563272,
+      "p25": 4.821603063888349,
+      "p75": 9.79232949074127,
+      "rms": 7.973899154036561
+     },
+     "gravity/trough/6px": {
+      "n": 181,
+      "median": 7.416198487095663,
+      "mean": 7.066831142920758,
+      "p25": 3.6181361349331636,
+      "p75": 10.023410098364728,
+      "rms": 8.028347936907174
+     },
+     "magnetic/crest/1.5px": {
+      "n": 18,
+      "median": 8.855202611354464,
+      "mean": 8.913201237157445,
+      "p25": 6.607708852651751,
+      "p75": 12.120556369650187,
+      "rms": 9.411244989216557
+     },
+     "magnetic/crest/3px": {
+      "n": 55,
+      "median": 6.056401571890688,
+      "mean": 6.684969168965099,
+      "p25": 3.3940426281326896,
+      "p75": 9.341189843914076,
+      "rms": 7.610098664328043
+     },
+     "magnetic/crest/6px": {
+      "n": 234,
+      "median": 6.591121984494479,
+      "mean": 6.849237553967096,
+      "p25": 3.792572646693848,
+      "p75": 9.749373782359932,
+      "rms": 7.834190461838235
+     },
+     "magnetic/trough/3px": {
+      "n": 54,
+      "median": 6.027650354097492,
+      "mean": 6.732621735887026,
+      "p25": 3.529811401884315,
+      "p75": 10.128280152242748,
+      "rms": 7.748073638513637
+     },
+     "magnetic/trough/6px": {
+      "n": 307,
+      "median": 3.865804501581067,
+      "mean": 4.903100365065103,
+      "p25": 1.5788662295417795,
+      "p75": 7.18347948315492,
+      "rms": 6.207659737567706
+     },
+     "subsurface/trough/6px": {
+      "n": 24,
+      "median": 8.624075591327195,
+      "mean": 7.909990007374835,
+      "p25": 4.226049570037051,
+      "p75": 11.740617190556687,
+      "rms": 8.802953151249186
+     },
+     "topographic/crest/3px": {
+      "n": 31,
+      "median": 7.39509972887452,
+      "mean": 7.438731063967436,
+      "p25": 5.190798903228275,
+      "p75": 9.699701072044041,
+      "rms": 8.16929586245245
+     },
+     "topographic/crest/6px": {
+      "n": 131,
+      "median": 8.268917704270613,
+      "mean": 8.217303646574031,
+      "p25": 5.952938135295826,
+      "p75": 10.847971279889098,
+      "rms": 8.810693500311535
+     }
+    },
+    "by_block_scale": {
+     "NE/3px": {
+      "n": 27,
+      "median": 6.642665127793212,
+      "mean": 7.18642973164757,
+      "p25": 3.5319350631068085,
+      "p75": 10.220072233698371,
+      "rms": 8.256020633407532
+     },
+     "NE/6px": {
+      "n": 175,
+      "median": 6.502746672423452,
+      "mean": 6.57243630669621,
+      "p25": 3.1892229772969323,
+      "p75": 9.757037381912916,
+      "rms": 7.630351590005023
+     },
+     "NW/1.5px": {
+      "n": 21,
+      "median": 9.67714104596649,
+      "mean": 8.95301493743282,
+      "p25": 6.300307734628556,
+      "p75": 11.958260743101398,
+      "rms": 9.413678391537072
+     },
+     "NW/3px": {
+      "n": 107,
+      "median": 6.260990336999411,
+      "mean": 6.9253104441046025,
+      "p25": 3.777366579306812,
+      "p75": 9.916105277664148,
+      "rms": 7.843407967289525
+     },
+     "NW/6px": {
+      "n": 623,
+      "median": 5.962000884388944,
+      "mean": 6.415929136688999,
+      "p25": 3.210590790682054,
+      "p75": 9.537250509075957,
+      "rms": 7.515308272250558
+     },
+     "SE/3px": {
+      "n": 14,
+      "median": 7.510123048746551,
+      "mean": 6.486721193778228,
+      "p25": 3.1487458027072632,
+      "p75": 8.82180886180647,
+      "rms": 7.160502964062103
+     },
+     "SE/6px": {
+      "n": 101,
+      "median": 6.047625194388561,
+      "mean": 6.566277579598485,
+      "p25": 3.0498994725159108,
+      "p75": 9.867877177995275,
+      "rms": 7.64965369422988
+     }
+    },
+    "unreachable": {
+     "gravity/crest": {
+      "n": 29,
+      "median": 6.0048999599836606,
+      "mean": 7.2361423869534995,
+      "p25": 4.782258880487337,
+      "p75": 11.057841655086472,
+      "rms": 8.128745833453538
+     },
+     "gravity/trough": {
+      "n": 181,
+      "median": 7.416198487095663,
+      "mean": 7.066831142920758,
+      "p25": 3.6181361349331636,
+      "p75": 10.023410098364728,
+      "rms": 8.028347936907174
+     },
+     "magnetic/crest": {
+      "n": 307,
+      "median": 6.7556560665037475,
+      "mean": 6.940822521792229,
+      "p25": 3.8805625989461485,
+      "p75": 9.805378463335394,
+      "rms": 7.8961455318573135
+     },
+     "magnetic/trough": {
+      "n": 368,
+      "median": 4.358898943540674,
+      "mean": 5.221204879800648,
+      "p25": 1.8993047191855932,
+      "p75": 7.814106241805767,
+      "rms": 6.492307817779812
+     },
+     "subsurface/trough": {
+      "n": 24,
+      "median": 8.624075591327195,
+      "mean": 7.909990007374835,
+      "p25": 4.226049570037051,
+      "p75": 11.740617190556687,
+      "rms": 8.802953151249186
+     },
+     "topographic/crest": {
+      "n": 165,
+      "median": 7.989216870688676,
+      "mean": 8.104605281178126,
+      "p25": 5.930975517419988,
+      "p75": 10.751196923790284,
+      "rms": 8.720012514924369
+     }
+    }
+   },
+   "SE": {
+    "n_matched": 1176,
+    "pooled": {
+     "n": 1176,
+     "median": 5.97355266045275,
+     "mean": 6.388436871442484,
+     "p25": 3.176068588385268,
+     "p75": 9.508742394434384,
+     "rms": 7.478243991909248
+    },
+    "recovery": {
+     "n_components_withheld": 1176,
+     "median_frac_within": 1.0
+    },
+    "by_block": {
+     "NE": {
+      "n": 205,
+      "median": 6.5404722901161945,
+      "mean": 6.664889515457569,
+      "p25": 3.3007176253210853,
+      "p75": 9.917584915998336,
+      "rms": 7.717045887562324
+     },
+     "NW": {
+      "n": 751,
+      "median": 6.095395487894625,
+      "mean": 6.559447913931461,
+      "p25": 3.3733969799779517,
+      "p75": 9.677647569969237,
+      "rms": 7.622104492860498
+     },
+     "SW": {
+      "n": 220,
+      "median": 5.090976321610082,
+      "mean": 5.547063758113777,
+      "p25": 2.2565636922384122,
+      "p75": 8.603959205828325,
+      "rms": 6.7176846193482005
+     }
+    },
+    "by_scale": {
+     "1.5px": {
+      "n": 27,
+      "median": 8.4,
+      "mean": 8.472225360722483,
+      "p25": 6.25033307360399,
+      "p75": 10.944997750551783,
+      "rms": 8.979011649802176
+     },
+     "3px": {
+      "n": 164,
+      "median": 6.526000264278038,
+      "mean": 7.107696431655973,
+      "p25": 3.9466127250929963,
+      "p75": 10.227614039732735,
+      "rms": 8.02236025726929
+     },
+     "6px": {
+      "n": 985,
+      "median": 5.781094414691646,
+      "mean": 6.211562904858145,
+      "p25": 2.81650356074554,
+      "p75": 9.357483636106451,
+      "rms": 7.337769186068696
+     }
+    },
+    "by_type": {
+     "gravity/crest": {
+      "n": 31,
+      "median": 6.260990336999411,
+      "mean": 7.445935738928319,
+      "p25": 4.3814986435000325,
+      "p75": 11.072498192386266,
+      "rms": 8.349608044219785
+     },
+     "gravity/trough": {
+      "n": 178,
+      "median": 7.238783985260023,
+      "mean": 6.839820168411588,
+      "p25": 3.4939601037108217,
+      "p75": 9.759631968617878,
+      "rms": 7.804033173685461
+     },
+     "magnetic/crest": {
+      "n": 306,
+      "median": 6.810209593620899,
+      "mean": 7.043906571514042,
+      "p25": 3.8748800098008944,
+      "p75": 10.182703940270144,
+      "rms": 8.003341275843168
+     },
+     "magnetic/trough": {
+      "n": 448,
+      "median": 4.124598648765303,
+      "mean": 4.998245532907108,
+      "p25": 1.5963243251094053,
+      "p75": 7.592137546423811,
+      "rms": 6.297530687861329
+     },
+     "subsurface/trough": {
+      "n": 29,
+      "median": 8.549853799919621,
+      "mean": 7.749575850998517,
+      "p25": 4.258680973771531,
+      "p75": 11.674507169343759,
+      "rms": 8.721846267760982
+     },
+     "topographic/crest": {
+      "n": 184,
+      "median": 7.887536362047518,
+      "mean": 7.853818769715661,
+      "p25": 5.50171787920007,
+      "p75": 10.527637843880438,
+      "rms": 8.467094272216046
+     }
+    },
+    "by_type_scale": {
+     "gravity/crest/3px": {
+      "n": 10,
+      "median": 7.479345591312613,
+      "mean": 7.367121324117943,
+      "p25": 3.8028122359200625,
+      "p75": 10.849012278847463,
+      "rms": 8.376303477326397
+     },
+     "gravity/crest/6px": {
+      "n": 21,
+      "median": 6.0048999599836606,
+      "mean": 7.483466412647547,
+      "p25": 4.9396356140913875,
+      "p75": 11.08715472968606,
+      "rms": 8.336865888822311
+     },
+     "gravity/trough/6px": {
+      "n": 178,
+      "median": 7.238783985260023,
+      "mean": 6.839820168411588,
+      "p25": 3.4939601037108217,
+      "p75": 9.759631968617878,
+      "rms": 7.804033173685461
+     },
+     "magnetic/crest/1.5px": {
+      "n": 15,
+      "median": 9.67714104596649,
+      "mean": 8.654991976525642,
+      "p25": 5.751320891741042,
+      "p75": 12.066457827467257,
+      "rms": 9.305458062785988
+     },
+     "magnetic/crest/3px": {
+      "n": 59,
+      "median": 6.474803234313527,
+      "mean": 6.930445800087443,
+      "p25": 3.9496381300316754,
+      "p75": 9.5109120511022,
+      "rms": 7.8669082321986945
+     },
+     "magnetic/crest/6px": {
+      "n": 232,
+      "median": 6.772196771387845,
+      "mean": 6.968595814785572,
+      "p25": 3.783982177845905,
+      "p75": 10.10629223158122,
+      "rms": 7.9465028616691855
+     },
+     "magnetic/trough/3px": {
+      "n": 58,
+      "median": 6.339300352059432,
+      "mean": 7.012016589705089,
+      "p25": 3.62371691928145,
+      "p75": 10.364894293412611,
+      "rms": 8.010977013749521
+     },
+     "magnetic/trough/6px": {
+      "n": 383,
+      "median": 3.588175023601831,
+      "mean": 4.647329051137694,
+      "p25": 1.378825217568768,
+      "p75": 6.916154144672417,
+      "rms": 5.960222336114198
+     },
+     "subsurface/trough/6px": {
+      "n": 29,
+      "median": 8.549853799919621,
+      "mean": 7.749575850998517,
+      "p25": 4.258680973771531,
+      "p75": 11.674507169343759,
+      "rms": 8.721846267760982
+     },
+     "topographic/crest/3px": {
+      "n": 37,
+      "median": 6.899275324264136,
+      "mean": 7.470209111955297,
+      "p25": 5.053876400018768,
+      "p75": 10.024968827881711,
+      "rms": 8.186228700024884
+     },
+     "topographic/crest/6px": {
+      "n": 142,
+      "median": 7.8954458746861,
+      "mean": 7.904012122165251,
+      "p25": 5.628769363656767,
+      "p75": 10.538208656840602,
+      "rms": 8.505592051418258
+     }
+    },
+    "by_block_scale": {
+     "NE/3px": {
+      "n": 27,
+      "median": 6.642665127793212,
+      "mean": 7.18642973164757,
+      "p25": 3.5319350631068085,
+      "p75": 10.220072233698371,
+      "rms": 8.256020633407532
+     },
+     "NE/6px": {
+      "n": 175,
+      "median": 6.502746672423452,
+      "mean": 6.57243630669621,
+      "p25": 3.1892229772969323,
+      "p75": 9.757037381912916,
+      "rms": 7.630351590005023
+     },
+     "NW/1.5px": {
+      "n": 21,
+      "median": 9.67714104596649,
+      "mean": 8.95301493743282,
+      "p25": 6.300307734628556,
+      "p75": 11.958260743101398,
+      "rms": 9.413678391537072
+     },
+     "NW/3px": {
+      "n": 107,
+      "median": 6.260990336999411,
+      "mean": 6.9253104441046025,
+      "p25": 3.777366579306812,
+      "p75": 9.916105277664148,
+      "rms": 7.843407967289525
+     },
+     "NW/6px": {
+      "n": 623,
+      "median": 5.962000884388944,
+      "mean": 6.415929136688999,
+      "p25": 3.210590790682054,
+      "p75": 9.537250509075957,
+      "rms": 7.515308272250558
+     },
+     "SW/3px": {
+      "n": 30,
+      "median": 7.995515802187009,
+      "mean": 7.687346483930095,
+      "p25": 4.975945200123647,
+      "p75": 10.34430624827683,
+      "rms": 8.429801198076227
+     },
+     "SW/6px": {
+      "n": 187,
+      "median": 4.509249752822894,
+      "mean": 5.192990670888719,
+      "p25": 1.9671970972962676,
+      "p75": 8.40490939655654,
+      "rms": 6.399935467531941
+     }
+    },
+    "unreachable": {
+     "gravity/crest": {
+      "n": 31,
+      "median": 6.260990336999411,
+      "mean": 7.445935738928319,
+      "p25": 4.3814986435000325,
+      "p75": 11.072498192386266,
+      "rms": 8.349608044219785
+     },
+     "gravity/trough": {
+      "n": 178,
+      "median": 7.238783985260023,
+      "mean": 6.839820168411588,
+      "p25": 3.4939601037108217,
+      "p75": 9.759631968617878,
+      "rms": 7.804033173685461
+     },
+     "magnetic/crest": {
+      "n": 306,
+      "median": 6.810209593620899,
+      "mean": 7.043906571514042,
+      "p25": 3.8748800098008944,
+      "p75": 10.182703940270144,
+      "rms": 8.003341275843168
+     },
+     "magnetic/trough": {
+      "n": 448,
+      "median": 4.124598648765303,
+      "mean": 4.998245532907108,
+      "p25": 1.5963243251094053,
+      "p75": 7.592137546423811,
+      "rms": 6.297530687861329
+     },
+     "subsurface/trough": {
+      "n": 29,
+      "median": 8.549853799919621,
+      "mean": 7.749575850998517,
+      "p25": 4.258680973771531,
+      "p75": 11.674507169343759,
+      "rms": 8.721846267760982
+     },
+     "topographic/crest": {
+      "n": 184,
+      "median": 7.887536362047518,
+      "mean": 7.853818769715661,
+      "p25": 5.50171787920007,
+      "p75": 10.527637843880438,
+      "rms": 8.467094272216046
+     }
+    }
+   }
+  },
+  "leakage_canary": {
+   "geodetic": {
+    "auc_max": 0.5616550490806934,
+    "leaks": false
+   },
+   "gravity": {
+    "auc_max": 0.5411739706718262,
+    "leaks": false
+   },
+   "magnetic": {
+    "auc_max": 0.5157277026354912,
+    "leaks": false
+   },
+   "seismic": {
+    "auc_max": 0.5502629157921777,
+    "leaks": false
+   },
+   "subsurface": {
+    "auc_max": 0.5170135986860803,
+    "leaks": false
+   },
+   "topographic": {
+    "auc_max": 0.5666104054896044,
+    "leaks": false
+   },
+   "combined_ungated": {
+    "auc_max": 0.5493019060306945,
+    "leaks": false
+   },
+   "combined_gated": {
+    "auc_max": 0.5317940927996764,
+    "leaks": false
+   }
+  },
+  "marginal_inclusion_bar": {
+   "rule": "a unit of emitted mass pays iff its kernel credit exceeds alpha*DTI0",
+   "alpha": 0.2,
+   "dti0": 0.4133,
+   "bar": 0.08266000000000001,
+   "dti0_label": "public leaderboard #1 recorded 2026-10-11 (evidence/official_leaderboard_observation_20261011.json)"
+  },
+  "live_evidence": {
+   "verdict": "NEGATIVE",
+   "verdict_note": "The two-parameter catalogue-proximity model does not explain the owner-quoted live scores of 66 sha256-verified rasters (R^2 < 0, Spearman ~ 0), and no dot-field summary statistic reaches |Spearman| 0.30. Two organizer-confirmed facts explain why the evidence is this weak: (1) the public leaderboard pools only an undisclosed public subset of the region (thread 11550, 'We are not providing any information on the chunking / subsets'), so each quoted score carries chunk-luck noise we cannot model; (2) the Initial Prize Round is scored on the private subset, which no quoted score here measures. Consequence for the lane: the emission rule cannot be calibrated from live evidence, so it is set by the exact-metric marginal-inclusion bar and by the holdout-measured sigma, and no projection is written as a score.",
+   "n_rasters": 66,
+   "covariates": {
+    "dots": {
+     "spearman_vs_score": 0.04439199701163317,
+     "pearson_vs_score": -0.21281710767826933,
+     "n": 66
+    },
+    "dots_off_catalogue": {
+     "spearman_vs_score": 0.04867835024204934,
+     "pearson_vs_score": -0.20137457030662165,
+     "n": 66
+    },
+    "mean_credit_off_catalogue": {
+     "spearman_vs_score": 0.03361695529935538,
+     "pearson_vs_score": -0.16192919865183364,
+     "n": 66
+    },
+    "M_off_catalogue": {
+     "spearman_vs_score": -0.027207049787116584,
+     "pearson_vs_score": -0.24215934347466136,
+     "n": 66
+    },
+    "frac_off_d_le_1": {
+     "spearman_vs_score": 0.0787913670803025,
+     "pearson_vs_score": -0.1341165810256217,
+     "n": 66
+    },
+    "frac_off_d_le_2": {
+     "spearman_vs_score": 0.16425664345687188,
+     "pearson_vs_score": -0.08860957221019584,
+     "n": 66
+    },
+    "frac_off_d_le_3": {
+     "spearman_vs_score": -0.17375782896148273,
+     "pearson_vs_score": -0.279238306679681,
+     "n": 66
+    },
+    "frac_off_d_le_5": {
+     "spearman_vs_score": -0.23452047931192854,
+     "pearson_vs_score": -0.3592798690316955,
+     "n": 66
+    },
+    "frac_off_d_le_10": {
+     "spearman_vs_score": -0.23042879211723938,
+     "pearson_vs_score": -0.3890685083698613,
+     "n": 66
+    },
+    "median_off_d_px": {
+     "spearman_vs_score": 0.2576317603978035,
+     "pearson_vs_score": 0.29757169277224643,
+     "n": 66
+    },
+    "dots_on_catalogue": {
+     "spearman_vs_score": -0.21091917443484687,
+     "pearson_vs_score": -0.20627987766414618,
+     "n": 66
+    }
+   }
+  },
+  "inventory_scan": {
+   "index": "registry/registry_merged.json",
+   "verdict": "negative",
+   "n_compared": 703,
+   "complete_accessible_scan": true,
+   "worst_spearman": 0.2823334549607636,
+   "worst_overlap": 1.0,
+   "worst_overlap_submission": "GEMSDOE2:data/evidence/runs/turbo-simple-20260925T042003Z/submission.tif",
+   "duplicate_count": 83
+  },
+  "irregularities": [
+   {
+    "id": "IR-58-TARGET-01",
+    "severity": "warn",
+    "text": "The owner's stated target <b>0.3195</b> is stale. The live public leaderboard (fetched 2026-10-11) has <b>0.4133 \u2014 xiaofanhu (public leaderboard #1, fetched 2026-10-11)</b> at #1, and 0.3195 (DARD) at #8. Every 'beat the target' statement on this site is restated against 0.4133. <a href='https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/'>leaderboard</a>"
+   },
+   {
+    "id": "IR-58-DATA-01",
+    "severity": "warn",
+    "text": "The 19-band <code>training_features.tif</code> has <b>no aeroradiometric bands</b> (no eK/eU/eTh/total count) although the competition's own About page says GeoDAWN acquired aeromagnetic <i>and aeroradiometric</i> surveys plus 3DEP lidar. The radiometric signature of K-metasomatism, silicification and Fe-oxide staining \u2014 a physically motivated discriminator for faults hidden under cover \u2014 is therefore unreachable from the provided stack, and the USGS release is not fetchable from this sandbox (text-only egress). Recorded as an owner-download idea with verified links, never as a validated candidate. <a href='https://www.drivendata.org/competitions/306/competition-doe-gems/page/968/'>About page</a> \u00b7 <a href='https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and'>USGS GeoDAWN</a>"
+   },
+   {
+    "id": "IR-58-UNIQ-04",
+    "severity": "bad",
+    "text": "<b>Shared-tool bug, fixed once in the template.</b> <code>src/gems58w/uniqueness.py</code> computed the protocol's forward statistic \u2014 the fraction of <i>my</i> dots within 3&nbsp;px of <i>the witness's</i> dots \u2014 in the reverse direction and vice versa, and applied the dense-prior exemption to the wrong leg. Every overlap number this lane published before 2026-10-11, including the '0.3600 worst forward overlap' quoted for the earlier 38,000-dot file, was measured with the two directions exchanged and has been re-measured with the corrected instrument. The template-level registry scanner (<code>scripts/check_uniqueness_registry.py</code>) already had the direction right, so the frozen-inventory numbers published by the sibling lane were unaffected."
+   },
+   {
+    "id": "IR-58-UNIQ-03",
+    "severity": "bad",
+    "text": "<b>The literal 0.70 overlap gate is unusable as written.</b> Lattice and blanket witnesses dilate to cover 74\u201399.9&nbsp;% of the footprint, so their chance-level expected overlap <i>E</i> exceeds 0.99 and they overlap <i>every</i> nonempty candidate; a literal firing against such a witness carries no information, and no buffer from 3 to 10&nbsp;px clears 0.70 against them (measured in <code>evidence/buffer_overlap_scan.json</code>). The instrument now reports <i>E</i>, the chance-corrected lift <code>(observed \u2212 E)/(1 \u2212 E)</code>, a <code>saturated</code> flag and an <b>informative</b> reading that excludes saturated witnesses, with the literal reading still reported alongside it."
+   },
+   {
+    "id": "IR-58-UNIQ-05",
+    "severity": "warn",
+    "text": "<b>The scanner rejected the organizer's own submission representation.</b> <code>sample_submission.tif</code> carries NaN outside the study footprint (<code>nodata=nan</code>, 7,111,787 pixels) and finite values inside it, but the uniqueness scanner demanded an all-finite candidate, which is why earlier artifacts had to be published as <code>*-zeros.tif</code> variants that do not match the official representation. Fixed once in the shared tool: non-finite <i>inside</i> the footprint stays a hard error (that is exactly the portal rejection <code>Predicted values must be in range [0, 1]</code>), non-finite outside it is normalised to 0 for statistics that are footprint-restricted anyway."
+   },
+   {
+    "id": "IR-58-02",
+    "severity": "warn",
+    "text": "<b>The mandated holdout cannot score an off-catalogue file.</b> The withheld truth <i>is</i> catalogue, so a candidate that keeps a 3&nbsp;px catalogue margin scores HOLDOUT-DTI exactly 0.0 by construction (control raster sha256 <code>53496109\u2026</code>, <code>evidence/ribbon/instrument_control.json</code>). The delivered file therefore drops only the dots that fall <i>on</i> the catalogue \u2014 which the organizer masks out of evaluation anyway \u2014 and reports a genuine non-zero HOLDOUT-DTI. That number measures catalogue recovery, not new-fault detection. <a href='https://community.drivendata.org/t/11516'>staff answer on masking</a>"
+   },
+   {
+    "id": "IR-58-LIVE-01",
+    "severity": "warn",
+    "text": "<b>No dot-field statistic predicts the owner-quoted live scores.</b> Over 66 sha256-verified sibling rasters the best covariate reaches |Spearman| 0.258 and the two-parameter catalogue-proximity model fits with R\u00b2 = \u22121.27. The organizer will not disclose public-subset membership, so every owner-quoted score carries unmodellable chunk luck. This file's budget is therefore taken from the measured <i>family</i> (median dot count of the owner-reported \u22650.24 files) and labelled USER-REPORTED-SCORE, never as a calibrated optimum. <a href='https://community.drivendata.org/t/11550'>staff answer on pooling</a>"
+   },
+   {
+    "id": "IR-58-SIGMA-01",
+    "severity": "warn",
+    "text": "The lane's 'single tight line where \u03c3 &lt; 0.5&nbsp;px' branch is <b>unreachable</b>: <code>gems58w.sigma</code> floors \u03c3 at 0.5&nbsp;px and every measured stratum sits far above it (pooled median \u03c3 \u2248 6.88&nbsp;px, block medians 5.79\u20138.54&nbsp;px). The adaptive planner consequently returns 5 lines for most segments; the ribbon is never chosen because \u03c3 is small anywhere. The measured adaptivity is therefore 'ribbon vs tight line' more than 'per-segment line count'."
+   },
+   {
+    "id": "IR-58-UNIQ-06",
+    "severity": "bad",
+    "text": "<b>The sibling lane's published clearance is the reverse statistic.</b> <code>docs/deliverable/downloads/gems58-novel-scatter-44090-20261011T0630Z.tif</code> is offered with a green banner on the strength of &ldquo;worst 3&nbsp;px forward overlap 0.3160 \u00b7 0 triggers&rdquo; over 473 rasters. Re-measured in the protocol direction against the same byte-verified inventory it has <b>78 firings</b> (worst 1.0000 against a plane-filling witness) and <b>0</b> in the reverse direction \u2014 the signature of the exchanged-directions bug (IR-58-UNIQ-04) that this session fixed in the shared tool. Not an accusation of duplication: the same degeneracy fires 81 times on this session's candidate. The irregularity is that the two lanes report opposite verdicts from the same registry because they measured different statistics, and that the two inventories are not the same set (473 live-fetched vs 703 pinned+delta). <code>evidence/ribbon/sibling_direction_check.json</code>"
+   },
+   {
+    "id": "IR-58-REG-01",
+    "severity": "warn",
+    "text": "<b>The pinned inventory was one raster short, and is now complete.</b> The 695-raster public inventory could not be fully restored earlier because one file (sha256 <code>927dc17f\u2026</code>) only existed in a deleted pull-request head. It was recovered by fetching the exact commit <code>d92606c28dc5e93ee1bce5148b92ccbb5225d023</code> of <code>55GEMSDOE</code> over the git protocol and verifying the blob's sha256, so the scan now covers 695/695 pinned rasters plus a freshness delta from the current default branches."
+   }
+  ],
+  "uniqueness_rule": {
+   "name": "RATIFIED-UNIQ-v1 (ratified 2026-10-11, session 5)",
+   "statement": "an overlap firing blocks iff the witness could have failed to fire: literal forward 3 px overlap > 0.70 against a witness with chance expectation E < 0.70 (rule A), or chance-corrected lift (O - E)/(1 - E) > 0.50 against any witness (rule B); rank correlation > 0.90, Jaccard > 0.50, byte/pixel identity and an incomplete scan block unchanged. The literal pre-ratification reading is computed and published beside it, never deleted.",
+   "rationale": "the literal 70 % rule fires for every nonempty candidate against a witness whose 3 px dilation covers the footprint (observed = E = 1), so it has zero discriminating power for lane drift; the lift form preserves the 70 % intent exactly when E = 0. Recorded as IR-58-UNIQ-07 in docs/research/irregularities.md."
+  },
+  "supersedes": "evidence/ribbon/run_card_v2.json (whose verdict was computed before the governing inventory scan existed)",
+  "ratification_analysis": {
+   "e_limit": 0.7,
+   "lift_limit": 0.5,
+   "n_witnesses": 703,
+   "n_discriminating": 627,
+   "worst_overlap_discriminating": 0.8153698979591837,
+   "worst_overlap_discriminating_submission": "13GEMSDOE:docs/downloads/archive/13gems-r6-ensemble-20260929T182914Z.tif",
+   "worst_overlap_discriminating_E": 0.6455732922705599,
+   "rule_a_firings": 9,
+   "rule_a_submissions": [
+    "GEMSDOE3:docs/downloads/coverage-v3-wide-20260925T054019Z-0ac095a7ed.tif",
+    "GEMSDOE50:docs/downloads/gemsdoe50-h59-topo-lineament-scatter-180k-20261007T170212Z-nan.tif",
+    "13GEMSDOE:docs/downloads/archive/13gems-r6-ensemble-20260929T182914Z.tif",
+    "GEMSDOE22:docs/downloads/gems22-h23-b-dti-optimal-emission-10pct-20261002-86176698-nan.tif",
+    "13GEMSDOE:docs/downloads/archive/13gems-toporef-holdoutref_allfinite.tif",
+    "13GEMSDOE:docs/downloads/archive/13gems-r6-ensemble-20260929T182914Z_allfinite.tif",
+    "GEMSDOE22:docs/downloads/gems22-h23-b-dti-optimal-emission-10pct-20261002-86176698-allfinite.tif",
+    "13GEMSDOE:docs/downloads/archive/13gems-toporef-holdoutref.tif",
+    "GEMSDOE50:docs/downloads/gemsdoe50-h59-topo-lineament-scatter-180k-20261007T170212Z-allfinite.tif"
+   ],
+   "rule_b_firings": 3,
+   "rule_b_submissions": [
+    "GEMSDOE50:docs/downloads/gems50-h52-coincidence8-80000-20261007T032938Z.tif",
+    "GEMSDOE50:docs/downloads/gems50-h52-coincidence8-80000-20261007T032938Z-nanoutside.tif",
+    "58GEMSDOE(this-repo):docs/downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif"
+   ],
+   "rule_b_self_only": false,
+   "max_lift": 0.5740848599322936,
+   "max_lift_other_repo": 0.5623984867353732,
+   "max_lift_other_repo_submission": "GEMSDOE50:docs/downloads/gems50-h52-coincidence8-80000-20261007T032938Z.tif",
+   "worst_overlap_sparse": 0.6667974882260597,
+   "worst_overlap_sparse_submission": "GEMSDOE50:docs/downloads/gems50-h52-coincidence8-80000-20261007T032938Z.tif",
+   "max_lift_firings": 1.0,
+   "e_limit_with_zero_firings": 0.5
+  }
+ },
+ "site_gates": [
+  {
+   "id": "G1",
+   "name": "Portal format (local preflight)",
+   "ok": true,
+   "detail": "15/15 local checks pass; the sha256 recomputed from the bytes on disk matches the receipt; NaN inside footprint = 0; min=0.000 max=1.000; representation = the organizer's sample_submission (NaN outside the study footprint, nodata=nan)"
+  },
+  {
+   "id": "G2",
+   "name": "Uniqueness \u2014 local witnesses (corrected instrument)",
+   "ok": true,
+   "detail": "31 witnesses (the registry checkout plus this repo's own earlier rasters); worst rank correlation 0.2823 &lt; 0.90; worst 3&nbsp;px forward overlap 0.6292 &lt; 0.70 (OWN:docs/downloads/gems58-ribbon-sigma-adaptive-40768-20261011T052942Z.tif); informative firings 0; saturated witnesses 0; drift evidence: none"
+  },
+  {
+   "id": "G3",
+   "name": "Uniqueness \u2014 public inventory scan (ratified chance-corrected gate RATIFIED-UNIQ-v1)",
+   "ok": false,
+   "detail": "703 sha256-verified rasters from <code>registry/registry_merged.json</code>; complete accessible scan True; missing/invalid 0. Byte-unique True, pixel-unique True; worst rank correlation 0.2823 (limit 0.90, 0 firings); worst Jaccard 0.1682 (limit 0.50, 0 firings). <b>Ratified overlap rule:</b> rule A (literal &gt; 0.70 vs witnesses with E &lt; 0.70): <b>9</b> firings; rule B (chance-corrected lift &gt; 0.50 vs any witness): <b>3</b> firings (max lift 0.574; max vs another repository 0.562). The literal pre-ratification reading is reported unchanged in G3L below and in the run card."
+  },
+  {
+   "id": "G3L",
+   "name": "Uniqueness \u2014 literal pre-ratification reading (reported, not governing)",
+   "ok": false,
+   "detail": "<b>Literal reading:</b> worst 3&nbsp;px forward overlap <b>1.0000</b> vs the 0.70 limit \u2192 <b>83 firings</b>, of which 54 are against witnesses whose 3&nbsp;px dilation covers \u2265 99&nbsp;% of the footprint (E \u2265 0.99: they overlap <i>every</i> nonempty candidate and carry no information) and 29 are against broader dot fields (smallest E among non-saturated firings 0.5343). Scan verdict as recorded: negative; stop_required True. The literal rule fires for every nonempty candidate against a witness whose dilation covers the footprint, so it cannot discriminate lane drift; RATIFIED-UNIQ-v1 (G3) governs since 2026-10-11 and this reading stays published beside it."
+  },
+  {
+   "id": "G4",
+   "name": "Leakage canary (single-feature AUC)",
+   "ok": true,
+   "detail": "max AUC over 8 feature groups and all folds 0.5666 vs the 0.90 leakage limit; groups flagged as leaking: 0"
+  },
+  {
+   "id": "G5",
+   "name": "Holdout evidence recorded and labelled",
+   "ok": true,
+   "detail": "HOLDOUT-DTI 0.041831 pooled over 60869 withheld positives (gems58-pooled-hide-v1 / gems58w.metric/v1 (exact triangular kernel, R=3 px, alpha=0.2, beta=0.8)). This measures recovery of <i>catalogue</i> truth, not the organizer's new-fault truth, and is not a leaderboard forecast."
+  },
+  {
+   "id": "G5i",
+   "name": "HOLDOUT-DTI re-derived with the shared gems57 metric",
+   "ok": true,
+   "detail": "verdict AGREE: per-fold and pooled deltas between the archived <code>gems58w</code> evaluator and the shared <code>gems57.metric</code> are 0.000; the shared pooled value 0.041830538 equals the recorded receipt value; the literal brute-force transcription of the published equations reproduces the shared fast path on a bounded tile. So the number is a property of the official metric, not of the archived copy that computed it."
+  },
+  {
+   "id": "G6",
+   "name": "Organizer receipt for this raster",
+   "ok": false,
+   "detail": "No DrivenData submission receipt exists for this raster, so no ORGANIZER-CONFIRMED score can be quoted for it. This gate can only be closed by the owner's selector step and is never claimed here; the site verdict is computed over G1\u2013G5."
+  }
+ ],
+ "site_verdict": "NOT_OK_TO_SUBMIT"
+}

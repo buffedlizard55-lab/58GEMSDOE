@@ -1,4 +1,70 @@
-# Remaining work — current status (2026-10-11 UTC)
+# Session 5 (2026-10-11 UTC) — current status: NEGATIVE verdict, gate ratified, candidate blocked
+
+This section supersedes everything below it as the current status. Three experiments were run
+(the full budget): EXP-1 σ-fit + leakage canary on the concordance surface, EXP-2 cross-fitted
+arms (R0 incumbent / C1 / C2), EXP-3 emission + both uniqueness phases.
+
+## S5.0 What happened
+
+1. **Gate ratified** (owner decision executed per the standing "resolve the scope/meaning of the
+   gate" instruction): **RATIFIED-UNIQ-v1** — block on ρ > 0.90, Jaccard > 0.50, byte/pixel
+   duplicate, incomplete scan, rule A (literal O > 0.70 vs a witness with E < 0.70), or rule B
+   (chance-corrected lift > 0.50 vs any witness with E < 0.99). The literal reading is always
+   published beside it (gate G3L). Recorded in `PROMPT.md` protocol item 1 and IR-58-UNIQ-07.
+2. **New candidate emitted**: `docs/downloads/gems58-concordance-ribbon-40768-20261011T160514Z.tif`
+   (sha256 `f709b6f1…9d0d`), hypothesis H58-X1 multi-family concordance gate (≥ 2 independent
+   feature families agreeing, τ = 0.35, τ_family = 0.30, 1-px dilation). Validator 15/15,
+   cross-fitted HOLDOUT-DTI **0.043575** (C2) vs incumbent 0.040105, canary clean (0.5666),
+   shared-metric crosscheck delta exactly 0.0, surface gate passed (worst ρ 0.2414 / 703).
+3. **Final-dot gate FIRED → verdict negative.** Complete 703-witness scan
+   (`evidence/ribbon/uniqueness_full_inventory.json`): rule A 9× (broad coverage ensembles,
+   E 0.53–0.68, worst O 0.8154), rule B 3× — `GEMSDOE50:h52-coincidence8-80000` (lift **0.5624**,
+   another repository) and this repo's own session-3 file (lift 0.5741). Logged as a duplicate and
+   stopped, exactly as the prompt requires. **No defensible reading clears the file** (literal,
+   ratified, or rule-A-only), so the negative is robust.
+4. Site rebuilt from receipts: red banner "NOT OK TO SUBMIT — DO NOT SUBMIT" on
+   `docs/index.html` / `executive-summary.html` / `submit.html`; `docs/RUN_CARD.json` verdict
+   `negative`, `slots_used: 0`. Session-3 receipts archived verbatim in
+   `evidence/ribbon/archive-s3/`.
+
+## S5.1 Next work, in priority order
+
+1. **The structural problem is now measured, not speculative:** the registry contains broad
+   coverage-ensemble witnesses whose 3-px dilation covers 53–68 % of the footprint
+   (13GEMSDOE r6-ensemble, GEMSDOE3 coverage-v3-wide, GEMSDOE22 h23-b, GEMSDOE50 h59). ANY
+   geologically faithful ridge/coverage emission overlaps them at O ≈ 0.70–0.85 and trips rule A,
+   even though its lift vs them is below 0.50 (0.48 at worst — i.e. barely above chance). The
+   next session should present the owner with this exact trade-off: either (a) accept that
+   ridge-type emissions are permanently blocked by rule A and pivot the lane to **sparse,
+   high-selectivity emissions** (≤ ~15 k dots in low-E regions — measured E for sparse scatter
+   witnesses is ~0.13–0.24, leaving lift headroom), or (b) ratify rule A with a lift floor
+   (e.g. fire only when lift > 0.35 TOO) — a decision that must be taken BEFORE the next
+   candidate is designed, not after a scan.
+2. **Pre-register a sparse variant of H58-X1**: top-k concordance pixels with k ≈ 10–15 k,
+   min-separation ≥ 3 px, placed only where predicted overlap-E vs the 9 rule-A witnesses is
+   low; simulate the final-dot gate from cached witness dilations BEFORE emitting (all witness
+   masks are already in `.cache/registry/`). The surface and arms machinery
+   (`scripts/ribbon_run_concordance.py`, `scripts/ribbon_emit_concordance.py`) is reusable as-is.
+3. **Port `src/gems58w` onto `src/gems57`** (still pending from session 3): the metric is
+   crosschecked identical (delta 0.0), so this is pure deduplication, not science.
+4. External data (H58-R3 InSAR/seismicity) remains the highest-upside unblocked idea if the
+   owner drops products into `data/external/` (sandbox cannot fetch them).
+5. No slot was used in any session. Slot selection remains a separate owner/selector step.
+
+## S5.2 Limitations
+
+- HOLDOUT-DTI uses catalogue-based proxy truth, not the organizer's private expert faults; CI is
+  the min–max over 4 spatial blocks (no bootstrap over 4 repeated physical blocks).
+- The witness registry covers public sibling repositories only; private submissions are invisible.
+- Rule-B saturation guard (E < 0.99) was added during this session after observing the lift
+  statistic degenerate to ~1.0 vs a saturated witness; it does not change any verdict (the two
+  real rule-B firings stand). Recorded in IR-58-UNIQ-07.
+- σ pooled median is still 6.88 px (IR-58-SIGMA-01), so the "single tight line where σ < 0.5 px"
+  branch of the lane remains unreachable on this data.
+
+---
+
+# Pre-session-5 status (2026-10-11 UTC, superseded — kept as record)
 
 This file supersedes the old “session 1” queue. No scientific experiment or new TIFF was run in the latest review; no weekly slot was selected.
 

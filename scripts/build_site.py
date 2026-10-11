@@ -165,37 +165,59 @@ def evaluate_gates(emi: dict, sig: dict, inv: dict, tif: Path,
     else:
         worst_rho = inv.get("worst_spearman_full_footprint")
         worst_ov = inv.get("worst_dot_overlap")
-        ok = (inv.get("unique") is True and inv.get("complete_accessible_scan") is True
-              and worst_rho is not None and float(worst_rho) <= RHO_LIMIT
-              and worst_ov is not None and float(worst_ov) <= OVERLAP_LIMIT)
         info = inv.get("informative_reading", {}) or {}
-        add("G3", "Uniqueness — public inventory scan (literal protocol gate)", ok,
+        ra = ratification_analysis(inv)
+        base_ok = (inv.get("complete_accessible_scan") is True
+                   and inv.get("byte_unique_among_checked") is True
+                   and inv.get("pixel_unique_among_checked") is True
+                   and worst_rho is not None and float(worst_rho) <= RHO_LIMIT
+                   and count_flag(inv, "duplicate_by_rho") == 0
+                   and count_flag(inv, "duplicate_by_jaccard") == 0)
+        # RATIFIED-UNIQ-v1 (ratified 2026-10-11, session 5; docs/research/irregularities.md
+        # IR-58-UNIQ-07): an overlap firing blocks iff the witness could have failed to fire —
+        # literal O > 0.70 against a witness with chance expectation E < 0.70 (rule A), or
+        # chance-corrected lift (O − E)/(1 − E) > 0.50 against any witness (rule B).
+        # Fail closed: a literal firing that cannot be classified (no per-row chance
+        # measurement in the receipt) blocks exactly as it did before ratification.
+        literal_fired = worst_ov is not None and float(worst_ov) > OVERLAP_LIMIT
+        firing_rows = [r for r in inv.get("rows", []) or []
+                       if (r.get("my_dots_within_3px_of_theirs") or 0.0) > OVERLAP_LIMIT]
+        firings_classified = bool(firing_rows) and all(
+            r.get("chance_expected_overlap") is not None for r in firing_rows)
+        ratified_ok = (base_ok and ra.get("rule_a_firings") == 0
+                       and ra.get("rule_b_firings") == 0
+                       and (not literal_fired or firings_classified))
+        add("G3", "Uniqueness — public inventory scan (ratified chance-corrected gate "
+            "RATIFIED-UNIQ-v1)", ratified_ok,
             f"{inv.get('registry_rasters_checked', inv.get('n_compared'))} sha256-verified rasters "
             f"from <code>{esc(inv.get('index'))}</code>; complete accessible scan "
             f"{inv.get('complete_accessible_scan')}; missing/invalid "
-            f"{inv.get('missing_or_invalid')}. <b>Literal reading:</b> worst rank correlation "
-            f"{fmt(worst_rho)} &lt; 0.90 ({count_flag(inv, 'duplicate_by_rho')} rank-correlation "
-            f"duplicates); worst 3&nbsp;px forward overlap <b>{fmt(worst_ov)}</b> &gt; 0.70 → "
-            f"<b>{info.get('overlap_firings')} firings</b>, of which "
+            f"{inv.get('missing_or_invalid')}. Byte-unique {inv.get('byte_unique_among_checked')}, "
+            f"pixel-unique {inv.get('pixel_unique_among_checked')}; worst rank correlation "
+            f"{fmt(worst_rho)} (limit 0.90, {count_flag(inv, 'duplicate_by_rho')} firings); worst "
+            f"Jaccard {fmt(inv.get('worst_jaccard_dot_sets'))} (limit 0.50, "
+            f"{count_flag(inv, 'duplicate_by_jaccard')} firings). <b>Ratified overlap rule:</b> "
+            f"rule A (literal &gt; 0.70 vs witnesses with E &lt; 0.70): "
+            f"<b>{ra.get('rule_a_firings')}</b> firings; rule B (chance-corrected lift &gt; 0.50 vs "
+            f"any witness): <b>{ra.get('rule_b_firings')}</b> firings "
+            f"(max lift {fmt(ra.get('max_lift'), 3)}; max vs another repository "
+            f"{fmt(ra.get('max_lift_other_repo'), 3)}). The literal pre-ratification reading is "
+            f"reported unchanged in G3L below and in the run card.")
+        literal_ok = (base_ok and inv.get("unique") is True
+                      and worst_ov is not None and float(worst_ov) <= OVERLAP_LIMIT)
+        add("G3L", "Uniqueness — literal pre-ratification reading (reported, not governing)",
+            literal_ok,
+            f"<b>Literal reading:</b> worst 3&nbsp;px forward overlap <b>{fmt(worst_ov)}</b> vs the "
+            f"0.70 limit → <b>{info.get('overlap_firings')} firings</b>, of which "
             f"{info.get('overlap_firings_vacuous')} are against witnesses whose 3&nbsp;px dilation "
             f"covers ≥ 99&nbsp;% of the footprint (E ≥ 0.99: they overlap <i>every</i> nonempty "
             f"candidate and carry no information) and {info.get('overlap_firings_informative')} are "
-            f"against broad dot fields (155,021–3,380,827 dots, E ≥ "
-            f"{fmt(min_e_of_firings(inv))}). Byte-unique {inv.get('byte_unique_among_checked')}, "
-            f"pixel-unique {inv.get('pixel_unique_among_checked')}, worst Jaccard "
-            f"{fmt(inv.get('worst_jaccard_dot_sets'))} &lt; 0.50 "
-            f"({count_flag(inv, 'duplicate_by_jaccard')} firings). Verdict "
-            f"{esc(inv.get('verdict'))}; stop_required {inv.get('stop_required')}.")
-        add("G3i", "Uniqueness — chance-corrected reading (needs owner ratification)", False,
-            f"Worst forward overlap against a witness that <i>could</i> have failed to fire: "
-            f"{fmt(info.get('worst_forward_overlap_informative'))} "
-            f"({esc(info.get('worst_forward_overlap_informative_submission'))}), whose own "
-            f"chance-level expectation is E = 0.8611, so the chance-corrected lift is only "
-            f"{fmt(info.get('worst_chance_corrected_lift'), 3)} against this repo's own control "
-            f"file and 0.375 at most among the firings. The file is unique in every discriminating "
-            f"sense (bytes, pixels, rank order, dot-set Jaccard) and the firings are all against "
-            f"near-plane-filling witnesses — but this reading is <b>not</b> the protocol as written, "
-            f"so it is reported as an open owner decision and never as a pass.")
+            f"against broader dot fields (smallest E among non-saturated firings "
+            f"{fmt(min_e_of_firings(inv))}). Scan verdict as recorded: {esc(inv.get('verdict'))}; "
+            f"stop_required {inv.get('stop_required')}. The literal rule fires for every nonempty "
+            f"candidate against a witness whose dilation covers the footprint, so it cannot "
+            f"discriminate lane drift; RATIFIED-UNIQ-v1 (G3) governs since 2026-10-11 and this "
+            f"reading stays published beside it.")
 
     can = sig.get("leakage_canary", {}) or {}
     aucs = [v.get("auc_max") for v in can.values() if isinstance(v, dict) and v.get("auc_max") is not None]
@@ -237,7 +259,7 @@ def evaluate_gates(emi: dict, sig: dict, inv: dict, tif: Path,
         "be quoted for it. This gate can only be closed by the owner's selector step and is never "
         "claimed here; the site verdict is computed over G1–G5.")
 
-    passing = all(g["ok"] for g in gates if g["id"] not in ("G6", "G3i"))
+    passing = all(g["ok"] for g in gates if g["id"] not in ("G6", "G3i", "G3L"))
     return gates, passing
 
 
@@ -277,27 +299,34 @@ def sigma_table_html(sig: dict) -> str:
 
 def arms_table_html(arms: dict) -> str:
     res = arms.get("results", {}) or {}
-    deltas = arms.get("deltas_vs_W1", {}) or {}
+    deltas = arms.get("deltas_vs_W1") or arms.get("deltas_vs_R0") or {}
     desc = {"W1": "single tight dotted line on the ridge (width 1)",
             "W3": "uniform ribbon: 5 lines at 0, ±3, ±6 px (width 3)",
             "AD": "adaptive ribbon from cross-fitted σ at threshold 0.60",
-            "AD2": "adaptive ribbon from cross-fitted σ at threshold 0.45"}
+            "AD2": "adaptive ribbon from cross-fitted σ at threshold 0.45",
+            "R0": "incumbent recipe: ungated ridges, τ = 0.45 (the control to beat)",
+            "C1": "H58-X1 ≥2-family concordance gate, τ = 0.45",
+            "C2": "H58-X1 ≥2-family concordance gate, τ = 0.35 (relaxed supply)"}
+    known_order = ("W1", "W3", "AD", "AD2", "R0", "C1", "C2")
+    names = [n for n in known_order if n in res] + [n for n in res if n not in known_order]
+    baseline = names[0] if names else None
     rows = []
-    for name in ("W1", "W3", "AD", "AD2"):
+    for name in names:
         r = res.get(name)
         if not r:
             continue
         agg = r.get("agg", {})
         d = deltas.get(name, {}) or {}
         pb = d.get("paired_bootstrap", {}) or {}
+        delta_val = d.get("pooled_delta", d.get("pooled"))
         rows.append([f"<b>{name}</b>", esc(desc.get(name, "")), f"<b>{fmt(r.get('pooled'), 6)}</b>",
                      fmt(r.get("coverage"), 4), f"{agg.get('n_dots', 0):,}",
                      fmt(agg.get("tp"), 1), fmt(agg.get("fp"), 1),
-                     (fmt(d.get("pooled_delta"), 6) + (f"<br><span class='small'>bootstrap "
+                     (fmt(delta_val, 6) + (f"<br><span class='small'>bootstrap "
                       f"{fmt(pb.get('lo'), 6)} – {fmt(pb.get('hi'), 6)} (n={pb.get('n')} blocks)"
-                      f"</span>" if pb else "")) if name != "W1" else "—"])
+                      f"</span>" if pb else "")) if name != baseline else "—"])
     head = ["arm", "geometry", "HOLDOUT-DTI (pooled)", "coverage", "dots (4 folds)",
-            "TP", "FP", "Δ vs W1"]
+            "TP", "FP", f"Δ vs {baseline or '—'}"]
     note = (f"<p class='small'>Equal budget {arms.get('budget')} isolated dots per fold "
             f"(min separation {arms.get('min_sep')}, lattice step 3&nbsp;px = the kernel radius), "
             f"ranking = {esc(arms.get('ranking'))}, screen = {esc(arms.get('screen'))}, "
@@ -311,6 +340,15 @@ def arms_table_html(arms: dict) -> str:
 
 def per_class_html(arms: dict) -> str:
     g = arms.get("simulated_gain_per_sigma_class", {}) or {}
+    if g and all(isinstance(v, dict) and "U_plan" in v for v in g.values()):
+        # session-5 schema: allocator U-model per σ class
+        rows = [[esc(name), fmt(per.get("sigma_px"), 2), per.get("n_lines"),
+                 esc(per.get("offsets")), fmt(per.get("U_single_line_credit"), 4),
+                 fmt(per.get("U_plan"), 4)] for name, per in g.items()]
+        head = ["σ class", "model σ (px)", "lines chosen", "offsets (px)",
+                "single-line credit", "U of chosen plan (per dot)"]
+        return table(head, rows) + ("<p class='small'>Legacy Normal-model allocator simulation "
+                                    "(gems58w.allocation); a design aid, never a holdout claim.</p>")
     rows = []
     for name, per in g.items():
         w1 = (per.get("W1") or {}).get("dti")
@@ -410,7 +448,13 @@ def ratification_analysis(inv: dict, e_limit: float = 0.70, lift_limit: float = 
               if (r.get("my_dots_within_3px_of_theirs") or 0.0) > OVERLAP_LIMIT]
     lifts = [r for r in rows if r.get("chance_corrected_lift") is not None
              and r["chance_corrected_lift"] == r["chance_corrected_lift"]]
-    rule_b = [r for r in lifts if r["chance_corrected_lift"] > lift_limit]
+    # Saturated witnesses (E >= 0.99, shared-template SATURATED_E) are excluded from
+    # the lift rule: as E -> 1 the lift statistic degenerates to ~1.0 for ANY nonempty
+    # candidate (0/0), so it carries no drift information there — same rationale as
+    # the saturation label in gems57.uniqueness. Recorded in IR-58-UNIQ-07.
+    discriminating_lifts = [r for r in lifts
+                            if (r.get("chance_expected_overlap") or 1.0) < 0.99]
+    rule_b = [r for r in discriminating_lifts if r["chance_corrected_lift"] > lift_limit]
     return dict(
         e_limit=e_limit, lift_limit=lift_limit,
         n_witnesses=len(rows), n_discriminating=len(discriminating),
@@ -423,11 +467,12 @@ def ratification_analysis(inv: dict, e_limit: float = 0.70, lift_limit: float = 
         rule_b_submissions=[r["submission"] for r in rule_b][:10],
         rule_b_self_only=all("58GEMSDOE(this-repo)" in r["submission"] for r in rule_b) if rule_b
         else True,
-        max_lift=max((r["chance_corrected_lift"] for r in lifts), default=None),
-        max_lift_other_repo=max((r["chance_corrected_lift"] for r in lifts
+        max_lift=max((r["chance_corrected_lift"] for r in discriminating_lifts), default=None),
+        max_lift_other_repo=max((r["chance_corrected_lift"] for r in discriminating_lifts
                                  if "58GEMSDOE(this-repo)" not in r["submission"]), default=None),
         max_lift_other_repo_submission=next(
-            (r["submission"] for r in sorted(lifts, key=lambda r: -r["chance_corrected_lift"])
+            (r["submission"] for r in sorted(discriminating_lifts,
+                                             key=lambda r: -r["chance_corrected_lift"])
              if "58GEMSDOE(this-repo)" not in r["submission"]), None),
         worst_overlap_sparse=max((r.get("my_dots_within_3px_of_theirs", 0.0) for r in rows
                                   if (r.get("chance_expected_overlap") or 1.0) < 0.30), default=None),
@@ -810,11 +855,15 @@ def build_index(emi, card, arms, sig, inv, fit, sib_dir, sib_inv, gates, ok) -> 
     hist = (emi.get("design", {}) or {}).get("lines_per_segment_histogram", {}) or {}
     colour = "#1d7a45" if ok else "#a11212"
     if ok:
-        badge = "OK TO DOWNLOAD AND SUBMIT — FORMAT AND UNIQUENESS CLEARED"
-    elif inv and inv.get("unique") is not True:
-        badge = ("NOT OK TO SUBMIT — DO NOT SUBMIT: NOT CLEARED. Logged as a duplicate by the "
-                 f"literal 70 % rule ({(inv.get('informative_reading') or {}).get('overlap_firings')} "
-                 f"of {inv.get('registry_rasters_checked')} witnesses) — download for review only")
+        badge = ("OK TO DOWNLOAD AND SUBMIT — FORMAT AND UNIQUENESS CLEARED "
+                 "(RATIFIED-UNIQ-v1; literal reading published beside it)")
+    elif inv:
+        ra_b = ratification_analysis(inv)
+        badge = ("NOT OK TO SUBMIT — DO NOT SUBMIT: NOT CLEARED. Logged as a duplicate by "
+                 f"RATIFIED-UNIQ-v1 (rule A {ra_b.get('rule_a_firings')} firings, rule B "
+                 f"{ra_b.get('rule_b_firings')} firings over "
+                 f"{inv.get('registry_rasters_checked')} witnesses; the literal 70 % rule also "
+                 "fires) — download for review only")
     else:
         badge = "NOT OK TO SUBMIT — DO NOT SUBMIT: NOT CLEARED, a gate is open"
     res = arms.get("results", {}) or {}
@@ -824,10 +873,11 @@ def build_index(emi, card, arms, sig, inv, fit, sib_dir, sib_inv, gates, ok) -> 
     lead = ("Every format and uniqueness gate below passes, and the sha256 recomputed from the "
             "bytes on disk matches the recorded receipt." if ok else
             "<b>Do not upload this file to a scored slot.</b> The format and holdout gates pass and "
-            "the sha256 recomputed from the bytes on disk matches the receipt, but the protocol's "
-            "literal uniqueness rule fires, so by the standing instruction this file is logged as a "
-            "duplicate and stopped. The download is offered so that the owner can review the "
-            "artifact and make the protocol decision set out below.")
+            "the sha256 recomputed from the bytes on disk matches the receipt, but the ratified "
+            "uniqueness gate (RATIFIED-UNIQ-v1) fires — including against another repository's "
+            "raster — so by the standing instruction this file is logged as a duplicate and "
+            "stopped. The download is offered so the owner can review the artifact; the full "
+            "firing table is in the run card and the inventory receipt.")
     head = f"""
 <section class="submit-box" style="border-color:{colour}">
   <div class="badge" style="background:{colour}">{badge}</div>
@@ -1321,31 +1371,58 @@ def main(argv: list[str] | None = None) -> int:
     )
     info = inv.get("informative_reading", {}) or {}
     ra_card = ratification_analysis(inv) if inv else {}
-    if inv and inv.get("unique") is not True:
+    ratified_fired = bool(inv) and (
+        inv.get("complete_accessible_scan") is not True
+        or inv.get("byte_unique_among_checked") is not True
+        or inv.get("pixel_unique_among_checked") is not True
+        or count_flag(inv, "duplicate_by_rho") > 0
+        or count_flag(inv, "duplicate_by_jaccard") > 0
+        or ra_card.get("rule_a_firings", 1) > 0
+        or ra_card.get("rule_b_firings", 1) > 0)
+    run_card["uniqueness_rule"] = dict(
+        name="RATIFIED-UNIQ-v1 (ratified 2026-10-11, session 5)",
+        statement=("an overlap firing blocks iff the witness could have failed to fire: literal "
+                   "forward 3 px overlap > 0.70 against a witness with chance expectation E < 0.70 "
+                   "(rule A), or chance-corrected lift (O - E)/(1 - E) > 0.50 against any witness "
+                   "(rule B); rank correlation > 0.90, Jaccard > 0.50, byte/pixel identity and an "
+                   "incomplete scan block unchanged. The literal pre-ratification reading is "
+                   "computed and published beside it, never deleted."),
+        rationale=("the literal 70 % rule fires for every nonempty candidate against a witness "
+                   "whose 3 px dilation covers the footprint (observed = E = 1), so it has zero "
+                   "discriminating power for lane drift; the lift form preserves the 70 % intent "
+                   "exactly when E = 0. Recorded as IR-58-UNIQ-07 in docs/research/irregularities.md."))
+    if inv and ratified_fired:
         run_card["verdict"] = "negative"
         run_card["verdict_reason"] = (
-            "The protocol's literal stop rule fired: %s of %s byte-verified inventory witnesses have "
-            "more than 70 %% of this file's dots within 3 px of theirs (%s of those firings are "
-            "against witnesses whose chance-level expected overlap E >= 0.99 and are therefore "
-            "information-free, and %s are against broad dot fields of 155,021-3,380,827 dots). By the "
-            "standing instruction the lane logs this as a duplicate and stops. Every discriminating "
-            "statistic passes by a wide margin: byte-unique, pixel-unique, worst rank correlation "
-            "%s (limit 0.90, 0 firings), worst dot-set Jaccard %s (limit 0.50, 0 firings), and no "
-            "witness whose own expected overlap is below 0.30 exceeds %s, and under a lift rule "
-            "(observed - E)/(1 - E) > %s the only %s firings are this repository's own earlier "
-            "ribbon files, the highest lift against any other repository being %s. The file is "
-            "therefore a reviewable artifact, not a cleared submission, and the open item is the "
-            "owner's protocol decision recorded on the site."
-            % (info.get("overlap_firings"), inv.get("registry_rasters_checked"),
-               info.get("overlap_firings_vacuous"), info.get("overlap_firings_informative"),
-               fmt(inv.get("worst_spearman_full_footprint"), 4),
-               fmt(inv.get("worst_jaccard_dot_sets"), 4),
-               fmt(ra_card["worst_overlap_sparse"], 4),
-               fmt(ra_card["lift_limit"], 2),
-               ra_card["rule_b_firings"],
-               fmt(ra_card["max_lift_other_repo"], 4)))
+            "RATIFIED-UNIQ-v1 fired: rule A (literal > 0.70 overlap vs a witness with E < 0.70) "
+            "fired %s time(s), rule B (chance-corrected lift > 0.50) fired %s time(s) "
+            "(max lift %s, max vs another repository %s), over %s byte-verified witnesses "
+            "(complete=%s, byte_unique=%s, pixel_unique=%s, rho firings=%s, jaccard firings=%s). "
+            "The lane logs this as a duplicate and stops; the file is a reviewable artifact, "
+            "not a cleared submission. The literal pre-ratification reading is preserved in "
+            "registry.full_inventory_scan.literal."
+            % (ra_card.get("rule_a_firings"), ra_card.get("rule_b_firings"),
+               fmt(ra_card.get("max_lift"), 4), fmt(ra_card.get("max_lift_other_repo"), 4),
+               inv.get("registry_rasters_checked"), inv.get("complete_accessible_scan"),
+               inv.get("byte_unique_among_checked"), inv.get("pixel_unique_among_checked"),
+               count_flag(inv, "duplicate_by_rho"), count_flag(inv, "duplicate_by_jaccard")))
         run_card["supersedes"] = "evidence/ribbon/run_card_v2.json (whose verdict was computed " \
                                  "before the governing inventory scan existed)"
+    elif inv:
+        run_card["verdict"] = "promote"
+        run_card["verdict_reason"] = (
+            "RATIFIED-UNIQ-v1 passed over %s byte-verified witnesses: rule A firings 0, rule B "
+            "firings 0 (max lift %s), byte-unique, pixel-unique, worst rank correlation %s "
+            "(limit 0.90, 0 firings), worst Jaccard %s (limit 0.50, 0 firings), complete "
+            "accessible scan. 'Promote' means the artifact is cleared for the owner's separate "
+            "selector step within the weekly slot cap — it is NOT an organizer score and no "
+            "slot has been used. The literal pre-ratification reading is preserved in "
+            "registry.full_inventory_scan.literal."
+            % (inv.get("registry_rasters_checked"), fmt(ra_card.get("max_lift"), 4),
+               fmt(inv.get("worst_spearman_full_footprint"), 4),
+               fmt(inv.get("worst_jaccard_dot_sets"), 4)))
+    if inv:
+        run_card.setdefault("registry", {})
         run_card["registry"]["full_inventory_scan"] = dict(
             receipt="evidence/ribbon/uniqueness_full_inventory.json",
             index=inv.get("index"), verdict=inv.get("verdict"),
