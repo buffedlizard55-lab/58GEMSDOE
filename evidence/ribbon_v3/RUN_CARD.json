@@ -1,0 +1,140 @@
+{
+ "run_card_version": "1.0",
+ "session": {
+  "id": "ribbon-lane-session-4",
+  "lane": "ribbon",
+  "assigned": "match emission width to the measured localization error",
+  "repo": "buffedlizard55-lab/58GEMSDOE",
+  "branch": "arena/75ccbb49-58gemsdoe",
+  "wall_clock_budget_hours": 2.0,
+  "wall_clock_actual_hours": 6.5,
+  "over_budget_reason": "two wrong starts before the right harness: the greedy exact-U sweep was intractable at this arm count and the budget-filling sweep was written with a per-segment full-grid boolean AND, which made it quadratic.",
+  "experiment_budget": 3,
+  "experiments_run": 3
+ },
+ "question": "Does emitting parallel dotted lines at the measured across-strike sigma beat a single tight line, at an equal dot budget, under the exact GEMS metric?",
+ "answer": "Yes on the holdout, no in the idealised model, and the disagreement is explained. At an identical 44,090-dot budget per fold, five lines at 0/+/-3/+/-6 px score 0.059635 HOLDOUT-DTI against 0.044854 for the tight line, a relative gain of 33.0 %. The analytic model predicted the opposite because it assumed an infinitely long fault, where the along-strike dot stride can be raised without limit to pay for the extra lines; real ridge segments are short, so it cannot.",
+ "datasets": {
+  "features": "organizer geodawn numerical stack, 19 usable bands, 3730x3292 at 100 m",
+  "ridge_field": "gems58w.extract cached ridge field v2 (hessian, 3 scales, non-max suppressed)",
+  "truth": "USGS/Qfaults-derived mapped-fault catalogue, 3,199 components",
+  "protocol": "gems58-pooled-hide-v1 (20 km physical block holdout)",
+  "evaluator": "gems57-pooled-hide-v2 (pooled hide-and-recover, exact GEMS DTI)",
+  "withheld_positive_pixels": 60869,
+  "inventory": "registry/registry_merged.json, 703 pinned public sibling rasters, 694 restored and sha256-verified this session, 9 unrestorable"
+ },
+ "experiments": [
+  {
+   "id": "EXP-1",
+   "name": "sigma table",
+   "status": "complete",
+   "what": "measured the across-strike and along-strike distance from every withheld catalogue component to the nearest candidate ridge, split by data block, feature resolution and ridge type, cross-fitted leave-one-block-out",
+   "finding": "pooled median across-strike sigma 4.30 px (p25 2.38, p75 7.01, 1,425 matched components); sigma falls slowly as feature resolution coarsens (5.09 px at 1.5 px to 4.09 px at 6 px) and gravity crests localise worst (6.06 px). Because every block sits within +-1 px of the pooled median, block-to-block variation carries almost no information.",
+   "artifact": "evidence/ribbon_v3/sigma_table.json"
+  },
+  {
+   "id": "EXP-2",
+   "name": "equal-budget geometry sweep",
+   "status": "complete",
+   "what": "seven ribbon geometries, each fitted to the SAME 44,090-dot budget per fold and the same ridge segments, scored with the exact metric",
+   "finding": "ranked HOLDOUT-DTI R5_d3 0.059635 > R3_d3 0.056444 > R5_d2 0.049679 > R3_d2 0.049121 > R7_d2 0.047101 > T1 0.044854 > ADAPT 0.038106",
+   "artifact": "evidence/ribbon_v3/exp3_equal_budget.json",
+   "note": "the per-segment sigma-adaptive width (ADAPT) ranks LAST, so the sigma stratification measured in EXP-1 does not transfer to individual segments: it describes classes, not instances."
+  },
+  {
+   "id": "EXP-3",
+   "name": "emission, validation and uniqueness screen",
+   "status": "complete",
+   "what": "emitted the winning geometry on the catalogue-free domain, scored the delivered bytes on all four folds against an empty control, validated the file, and screened it against all 694 restored public rasters",
+   "finding": "delivered-bytes HOLDOUT-DTI 0.038249 (95 % CI 0.032263-0.043873), 43867 dots, 0 on the catalogue, median distance to it 20.6 px",
+   "artifacts": [
+    "docs/downloads/gems58-s4-ribbon-r5-d3-44090-20261011T175553Z.tif",
+    "evidence/ribbon_v3/exp3_emission.json",
+    "evidence/ribbon_v3/uniqueness.json",
+    "evidence/ribbon_v3/leakage_canary.json"
+   ]
+  }
+ ],
+ "leakage_canary": {
+  "worst_single_feature_auc": 0.894977,
+  "limit": 0.9,
+  "n_leaking": 0,
+  "verdict": "PASS: no feature alone separates withheld truth above the limit. The worst is 0.8950, close enough to the 0.90 tripwire that it should be re-run if the feature set changes."
+ },
+ "gates": [
+  {
+   "id": "G1",
+   "name": "Portal format (local preflight, bytes re-hashed)",
+   "status": "PASS"
+  },
+  {
+   "id": "G2",
+   "name": "Uniqueness \u2014 public inventory scan (RATIFIED-UNIQ-v1)",
+   "status": "OPEN"
+  },
+  {
+   "id": "G2L",
+   "name": "Uniqueness \u2014 literal >70% reading (hard stop under the current brief)",
+   "status": "OPEN"
+  },
+  {
+   "id": "G2i",
+   "name": "Uniqueness \u2014 chance-corrected reading (informational)",
+   "status": "OPEN"
+  },
+  {
+   "id": "G3",
+   "name": "Leakage canary (single-feature AUC)",
+   "status": "PASS"
+  },
+  {
+   "id": "G4",
+   "name": "Holdout evidence recorded and labelled",
+   "status": "PASS"
+  },
+  {
+   "id": "G5",
+   "name": "Organizer receipt for this raster",
+   "status": "OPEN"
+  }
+ ],
+ "verdict": "NOT OK TO SUBMIT",
+ "blocking_gate": [
+  "G2",
+  "G2L"
+ ],
+ "stop_conditions_hit": [
+  "literal uniqueness rule: 81 of 694 witnesses show > 70 % of my dots within 3 px of theirs, which under the standing instruction means log the duplicate and stop."
+ ],
+ "second_reading": {
+  "n_flagged_literal": 81,
+  "n_flagged_degenerate": 53,
+  "n_flagged_informative": 28,
+  "worst_jaccard_among_flagged": 0.01031810501443869,
+  "worst_spearman_among_flagged": 0.04218196958032218,
+  "note": "open owner decision, never closed by a script"
+ },
+ "proven": [
+  "ribbon width beats a tight line at an equal dot budget on catalogue holdout",
+  "the delivered file is unique in bytes and in pixels among all 694 checked rasters",
+  "no single feature leaks withheld truth above the 0.90 AUC tripwire"
+ ],
+ "not_proven": [
+  "that the holdout gain transfers to the organizer's private new-fault truth",
+  "that any of this beats the public leaderboard: no organizer receipt exists, so no ORGANIZER-CONFIRMED score can be quoted",
+  "that the artifact is not a duplicate under the literal rule"
+ ],
+ "dead_ends": [
+  "lazy CELF greedy over (segment, offset) arms: intractable at ~3.5k arms",
+  "per-segment full-grid boolean AND in the budget fill: quadratic, ~10 min/fold",
+  "equal-dot-density simulation as the decision rule: it is a stride artifact",
+  "per-segment sigma as a width selector: loses to a fixed 5-line ribbon"
+ ],
+ "cost": {
+  "peak_rss_mb": 430,
+  "ci_minutes": null,
+  "note": "CI runs pytest then both site builders on ubuntu-latest; the uniqueness screen and the leakage canary are run by hand because they need the restored registry cache, which is not committed"
+ },
+ "next_action": "Owner decides the uniqueness reading (S3.1): the 53 degenerate dense witnesses score 1.00 against every candidate and cannot discriminate, while the 28 informative ones show a worst dot-set Jaccard of 0.0103. Until that is ratified the banner stays NOT OK and the artifact must not be submitted.",
+ "generated_utc": "2026-10-11T18:43:16Z"
+}

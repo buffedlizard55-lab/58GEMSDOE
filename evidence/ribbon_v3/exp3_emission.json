@@ -1,0 +1,377 @@
+{
+ "chosen_arm": "R5_d3",
+ "arm_scores": {
+  "T1": 0.0448538224578382,
+  "R3_d2": 0.04912118321729978,
+  "R5_d2": 0.04967897662633105,
+  "R3_d3": 0.05644432421805447,
+  "R5_d3": 0.05963536597301499,
+  "R7_d2": 0.04710135972780684,
+  "ADAPT": 0.0381061741373012
+ },
+ "deployable_arms": [
+  "T1",
+  "R3_d2",
+  "R5_d2",
+  "R3_d3",
+  "R5_d3",
+  "R7_d2",
+  "ADAPT"
+ ],
+ "budget": 44090,
+ "threshold": 0.5,
+ "min_px": 8,
+ "line_step": 3.0,
+ "note_exact_u": "EXACT_U ranks (segment, offset) arms by the fold's own withheld truth, so it is a diagnostic upper reference, not a deployable rule; it is reported, not emitted.",
+ "dots": 44090,
+ "segments_used": 2901,
+ "stride": 26,
+ "stride_rule": "fit to the budget over all segments",
+ "offsets": [
+  -6.0,
+  -3.0,
+  0.0,
+  3.0,
+  6.0
+ ],
+ "arms_offered": 5013,
+ "holdout": {
+  "summary": {
+   "evidence_class": "HOLDOUT-DTI",
+   "evaluator_version": "gems57-pooled-hide-v2",
+   "alpha": 0.2,
+   "beta": 0.8,
+   "triangular_radius_m": 300.0,
+   "pooled": true,
+   "scores": {
+    "delivered": {
+     "evidence_class": "HOLDOUT-DTI",
+     "evaluator_version": "gems57-pooled-hide-v2",
+     "dti": 0.03824886661971998,
+     "ci95": [
+      0.03226271806802174,
+      0.04387346258476532
+     ],
+     "withheld_positive_pixels": 60869,
+     "tpw": 3098.3812242984327,
+     "fpw": 158454.77363973088,
+     "fnw": 57770.61877570156
+    },
+    "empty_control": {
+     "evidence_class": "HOLDOUT-DTI",
+     "evaluator_version": "gems57-pooled-hide-v2",
+     "dti": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ],
+     "withheld_positive_pixels": 60869,
+     "tpw": 0.0,
+     "fpw": 0.0,
+     "fnw": 60869.0
+    }
+   },
+   "best_comparable_control": "empty_control",
+   "paired_differences": {
+    "empty_control": {
+     "evidence_class": "HOLDOUT-DTI",
+     "evaluator_version": "gems57-pooled-hide-v2",
+     "delta": 0.03824886661971998,
+     "ci95": [
+      0.03226271806802174,
+      0.04387346258476532
+     ],
+     "withheld_positive_pixels": 60869
+    }
+   },
+   "bootstrap": {
+    "method": "paired physical spatial-cluster percentile",
+    "clusters": 644,
+    "draws": 1000,
+    "seed": 520810,
+    "confidence": 0.95,
+    "caveat": "Conditional on fitted folds, catalogue labels and fixed budgets; not a leaderboard interval."
+   },
+   "implementation_sha256": {
+    "evaluate_holdout.py": "ad86640b46f3c5fc6b1aceec4c4bfc82d03e35008b37ab2a8ad6076e6810ff3a",
+    "holdout.py": "5434549bee01086ce224360707fd96df228c2b4c441a9f0e2761ad311752e167",
+    "metric.py": "4afe10cbaa229948520c75194b1ebc32676e72544f05582f0725092b097b4d7f",
+    "spatial.py": "fad7b09db9efc512247b9a176a7e7ce8631e287592b4e07902d0b9c38bed00f8"
+   }
+  },
+  "per_fold": {
+   "NW": {
+    "tp": 1428.5743259650424,
+    "fp": 40441.95085255665,
+    "fn": 27878.42567403496,
+    "n_truth": 29307,
+    "n_emitted": 41175,
+    "dti": 0.044895900963320176
+   },
+   "NE": {
+    "tp": 600.0626171245641,
+    "fp": 39504.17883264063,
+    "fn": 11953.937382875436,
+    "n_truth": 12554,
+    "n_emitted": 39813,
+    "dti": 0.03321861232281527
+   },
+   "SW": {
+    "tp": 629.3821668989599,
+    "fp": 39335.50987497742,
+    "fn": 8730.61783310104,
+    "n_truth": 9360,
+    "n_emitted": 39641,
+    "dti": 0.04065519312128627
+   },
+   "SE": {
+    "tp": 440.36211430986646,
+    "fp": 39173.134079556185,
+    "fn": 9207.637885690134,
+    "n_truth": 9648,
+    "n_emitted": 39379,
+    "dti": 0.028154166634160784
+   }
+  }
+ },
+ "receipt": {
+  "file": "gems58-s4-ribbon-r5-d3-44090-20261011T175553Z.tif",
+  "sha256": "a08e412320bdf11d2d055dcec34033c17219f2cdba978150543429927505988d",
+  "bytes": 148857,
+  "submission_name": "gems58-s4-ribbon-r5-d3-44090-20261011T175553Z",
+  "note": "Ribbon lane: R5_d3 parallel dotted lines on catalogue-free Hessian ridges, width from cross-fitted sigma; 44090 dots at 1.0, all-finite zero",
+  "note_chars": 140,
+  "validator": {
+   "file": "/home/user/58GEMSDOE/docs/downloads/gems58-s4-ribbon-r5-d3-44090-20261011T175553Z.tif",
+   "bytes": 148857,
+   "sha256": "a08e412320bdf11d2d055dcec34033c17219f2cdba978150543429927505988d",
+   "meta": {
+    "crs": "EPSG:32611",
+    "shape": [
+     3730,
+     3292
+    ],
+    "dtype": "float32",
+    "count": 1,
+    "nodata": null,
+    "transform": [
+     100.0,
+     0.0,
+     243350.0,
+     0.0,
+     -100.0,
+     4508550.0
+    ],
+    "profile_compress": "deflate"
+   },
+   "band_description": [
+    null
+   ],
+   "n_finite": 12279160,
+   "n_nan": 0,
+   "n_infinite": 0,
+   "min": 0.0,
+   "max": 1.0,
+   "mean": 0.003572475630789995,
+   "emitted_positive_pixels": 43867,
+   "checks": {
+    "single_band": true,
+    "dtype_float32": true,
+    "dimensions_3730x3292": true,
+    "crs_epsg_32611": true,
+    "transform_matches_sample_submission": true,
+    "no_nan_anywhere": true,
+    "no_inf_anywhere": true,
+    "no_sentinel_values": true,
+    "range_0_1_guaranteed": true,
+    "min_ge_0": true,
+    "max_le_1": true,
+    "in_footprint_all_finite": true,
+    "in_footprint_range_0_1": true,
+    "outside_footprint_zero": true,
+    "zero_dots_on_mapped_catalogue": true
+   },
+   "all_checks_passed": true,
+   "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+   "on_catalogue_positive_pixels": 0,
+   "in_footprint_positive_pixels": 43867,
+   "footprint_fraction": 0.008489226537352733
+  },
+  "template_report": {
+   "path": "/home/user/58GEMSDOE/docs/downloads/gems58-s4-ribbon-r5-d3-44090-20261011T175553Z.tif",
+   "bytes": 148857,
+   "sha256": "a08e412320bdf11d2d055dcec34033c17219f2cdba978150543429927505988d",
+   "bands": 1,
+   "dtype": "float32",
+   "crs": "EPSG:32611",
+   "width": 3292,
+   "height": 3730,
+   "bounds": [
+    243350.0,
+    4135550.0,
+    572550.0,
+    4508550.0
+   ],
+   "ref_bounds": [
+    243350.0,
+    4135550.0,
+    572550.0,
+    4508550.0
+   ],
+   "transform": [
+    100.0,
+    0.0,
+    243350.0,
+    0.0,
+    -100.0,
+    4508550.0
+   ],
+   "nodata": null,
+   "blocksize": [
+    256,
+    256
+   ],
+   "fixture_grid": false,
+   "has_validity_mask": false,
+   "nan_pixels": 0,
+   "infinity_pixels": 0,
+   "n_nan": 0,
+   "min": 0.0,
+   "max": 1.0,
+   "mean": 0.003572475630789995,
+   "n_nonzero": 43867,
+   "mass": 43867.0,
+   "mass_outside_footprint": 0,
+   "problems": [],
+   "ok": true,
+   "validation_class": "local on-disk template/range check; not organizer upload acceptance"
+  },
+  "zip_file": "gems58-s4-ribbon-r5-d3-44090-20261011T175553Z.zip",
+  "zip_sha256": "3ed83d065e428a353ccf70f978351b5123e1b39a5c39a2ba150620a848f4d4d7",
+  "approved_for_weekly_slot": false,
+  "promoted": false,
+  "submission_slots_used": 0,
+  "status": "local format/range preflight only; registry scope, organizer acceptance, and slot approval are separate and may fail",
+  "metadata": {
+   "lane": "ribbon-width-vs-localisation-error",
+   "session": 4,
+   "arm": "R5_d3",
+   "protocol": "gems58-pooled-hide-v1",
+   "holdout_dti": 0.03824886661971998
+  }
+ },
+ "stats": {
+  "n_dots": 43867,
+  "footprint_fraction": 0.008489226537352733,
+  "on_catalogue": 0,
+  "median_distance_to_catalogue_px": 20.615528128088304,
+  "frac_within_3px_of_catalogue": 0.08863154535299883,
+  "frac_beyond_10px": 0.7163471402192992
+ },
+ "validate": {
+  "file": "/home/user/58GEMSDOE/docs/downloads/gems58-s4-ribbon-r5-d3-44090-20261011T175553Z.tif",
+  "bytes": 148857,
+  "sha256": "a08e412320bdf11d2d055dcec34033c17219f2cdba978150543429927505988d",
+  "meta": {
+   "crs": "EPSG:32611",
+   "shape": [
+    3730,
+    3292
+   ],
+   "dtype": "float32",
+   "count": 1,
+   "nodata": null,
+   "transform": [
+    100.0,
+    0.0,
+    243350.0,
+    0.0,
+    -100.0,
+    4508550.0
+   ],
+   "profile_compress": "deflate"
+  },
+  "band_description": [
+   null
+  ],
+  "n_finite": 12279160,
+  "n_nan": 0,
+  "n_infinite": 0,
+  "min": 0.0,
+  "max": 1.0,
+  "mean": 0.003572475630789995,
+  "emitted_positive_pixels": 43867,
+  "checks": {
+   "single_band": true,
+   "dtype_float32": true,
+   "dimensions_3730x3292": true,
+   "crs_epsg_32611": true,
+   "transform_matches_sample_submission": true,
+   "no_nan_anywhere": true,
+   "no_inf_anywhere": true,
+   "no_sentinel_values": true,
+   "range_0_1_guaranteed": true,
+   "min_ge_0": true,
+   "max_le_1": true,
+   "in_footprint_all_finite": true,
+   "in_footprint_range_0_1": true,
+   "outside_footprint_zero": true,
+   "zero_dots_on_mapped_catalogue": true
+  },
+  "all_checks_passed": true,
+  "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+  "on_catalogue_positive_pixels": 0,
+  "in_footprint_positive_pixels": 43867,
+  "footprint_fraction": 0.008489226537352733
+ },
+ "format_report": {
+  "path": "/home/user/58GEMSDOE/docs/downloads/gems58-s4-ribbon-r5-d3-44090-20261011T175553Z.tif",
+  "bytes": 148857,
+  "sha256": "a08e412320bdf11d2d055dcec34033c17219f2cdba978150543429927505988d",
+  "bands": 1,
+  "dtype": "float32",
+  "crs": "EPSG:32611",
+  "width": 3292,
+  "height": 3730,
+  "bounds": [
+   243350.0,
+   4135550.0,
+   572550.0,
+   4508550.0
+  ],
+  "ref_bounds": [
+   243350.0,
+   4135550.0,
+   572550.0,
+   4508550.0
+  ],
+  "transform": [
+   100.0,
+   0.0,
+   243350.0,
+   0.0,
+   -100.0,
+   4508550.0
+  ],
+  "nodata": null,
+  "blocksize": [
+   256,
+   256
+  ],
+  "fixture_grid": false,
+  "has_validity_mask": false,
+  "nan_pixels": 0,
+  "infinity_pixels": 0,
+  "n_nan": 0,
+  "min": 0.0,
+  "max": 1.0,
+  "mean": 0.003572475630789995,
+  "n_nonzero": 43867,
+  "mass": 43867.0,
+  "mass_outside_footprint": 0,
+  "problems": [],
+  "ok": true,
+  "validation_class": "local on-disk template/range check; not organizer upload acceptance"
+ },
+ "seconds": 26.1
+}

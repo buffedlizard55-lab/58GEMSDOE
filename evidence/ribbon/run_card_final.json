@@ -138,7 +138,7 @@
    "id": "G5i",
    "name": "HOLDOUT-DTI re-derived with the shared gems57 metric",
    "ok": true,
-   "detail": "verdict AGREE: per-fold and pooled deltas between the archived <code>gems58w</code> evaluator and the shared <code>gems57.metric</code> are 0.000; the shared pooled value 0.041830538 equals the recorded receipt value; the literal brute-force transcription of the published equations reproduces the shared fast path on a bounded tile. So the number is a property of the official metric, not of the archived copy that computed it."
+   "detail": "verdict AGREE: per-fold and pooled deltas between the archived <code>gems58w</code> evaluator and the shared <code>gems57.metric</code> are 0.000; the shared pooled value 0.043651086 equals the recorded receipt value; the literal brute-force transcription of the published equations reproduces the shared fast path on a bounded tile. So the number is a property of the official metric, not of the archived copy that computed it."
   },
   {
    "id": "G6",
@@ -154,7 +154,7 @@
    "detail": "NOT QUALIFIED: evidence/ribbon_qualification.json is absent; submission_status is not OK_TO_SUBMIT; candidate file/pixel hashes are missing or invalid. Historical HOLDOUT-DTI is diagnostic, not a 95% CI."
   }
  ],
- "site_generated_utc": "2026-10-11T18:26:04Z",
+ "site_generated_utc": "2026-10-11T18:43:16Z",
  "site_note": "G6 (organizer receipt) can never pass from this sandbox; the site verdict is computed over G1-G5 and the missing receipt is stated on every page.",
  "equal_budget_arms": {
   "R0": {
