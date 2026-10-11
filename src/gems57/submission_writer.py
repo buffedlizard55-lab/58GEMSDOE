@@ -15,6 +15,7 @@ import zipfile
 from pathlib import Path
 
 import numpy as np
+import rasterio
 
 from . import gates, grid
 from .validate import assert_submittable, validate
@@ -91,6 +92,13 @@ def write_submission(path, prediction, sample, footprint, *, note, name,
             raise ValueError('on-disk positive support changed during serialization')
         local_validation['file'] = str(path)
         report['path'] = str(path)
+        # Bind qualification to the exact decoded float32 pixels, independently
+        # of TIFF compression, metadata ordering, or the input array's dtype.
+        with rasterio.open(tmp_tif) as written:
+            decoded = written.read(1)
+        decoded_prediction_sha256 = hashlib.sha256(
+            np.ascontiguousarray(decoded).tobytes(order='C')
+        ).hexdigest()
 
         # A submission ZIP contains ONLY the one TIFF; evidence stays adjacent.
         with zipfile.ZipFile(tmp_zip, 'w', compression=zipfile.ZIP_DEFLATED) as z:
@@ -104,6 +112,7 @@ def write_submission(path, prediction, sample, footprint, *, note, name,
         receipt = dict(
             file=path.name,
             sha256=report['sha256'],
+            decoded_prediction_sha256=decoded_prediction_sha256,
             bytes=tmp_tif.stat().st_size,
             submission_name=name,
             note=note,

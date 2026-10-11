@@ -1,3 +1,34 @@
+# Session 6 (2026-10-11 UTC) — merge reconciliation: verification tooling, no new candidate
+
+This section records what the session-6 review branch added on top of session 5. **No experiment,
+holdout, emission, slot, or upload occurred**, and no verdict changed: the current candidate is still
+`gems58-concordance-ribbon-40768-20261011T160514Z.tif`, still **negative** (83 literal overlap
+triggers over 703 indexed rasters, `unique: false`, `stop_required: true`), and
+`evidence/ribbon_qualification.json` is still absent.
+
+## S6.0 Added, and what each item does *not* establish
+
+| Item | Status |
+|---|---|
+| [`scripts/audit_current_tiff.py`](scripts/audit_current_tiff.py) → [`evidence/ribbon/file_audit.json`](evidence/ribbon/file_audit.json) | Independent on-disk audit of the **current** candidate, read from `evidence/ribbon/emission.json` rather than a hard-coded name: 10/10 checks pass (Float32/sample grid, NaN-outside mask, in-footprint `[0,1]`, 40,768 positives, file hash, ZIP round-trip) and the decoded-pixel SHA-256 is published. That receipt records no decoded hash of its own, so the binding is reported as *computed*, not claimed as verified. Local file verification only — not portal acceptance, uniqueness, holdout qualification, or eligibility. The session-3 file's 11/11 receipt is archived verbatim at `evidence/ribbon/archive-s3/file_audit_sigma_adaptive.json`. |
+| [`scripts/build_downloads_index.py`](scripts/build_downloads_index.py) → [`docs/downloads/index.html`](docs/downloads/index.html) | Every public TIFF/ZIP (19 files, including `docs/deliverable/downloads/`) carries its own submit verdict; all 19 read **NOT OK TO SUBMIT — REVIEW ONLY**. A download link is never permission to use a slot. |
+| [`scripts/qualification_gates.py`](scripts/qualification_gates.py) + hardened [`scripts/build_ribbon_emission.py`](scripts/build_ribbon_emission.py) | Hash-bound pre-emission contract: fresh inventory bound to the freshness audit, pre-placement surface receipt, feature-alone canary, shared-evaluator holdout with a declared physical-cluster 95 % interval, exact file **and** decoded-pixel hashes, staged publish with rollback, and refusal to overwrite an existing deliverable. With no qualification receipt the emitter exits 2 and writes nothing. |
+| [`src/gems57/submission_writer.py`](src/gems57/submission_writer.py) | The writer receipt now binds the **decoded** float32 pixels, not only the compressed file bytes, so qualification cannot drift with compression or metadata order. |
+| Archived legacy run cards | `evidence/ribbon/archive-s3/run_card_v2.json` and `run_card_final.json` keep every measurement but their top label is now `LEGACY-DIAGNOSTIC-ONLY`: the 0.043651 value came from the legacy `gems58-pooled-hide-v1` instrument and is not a promotion-grade `HOLDOUT-DTI` result. |
+| [`docs/deliverable/`](docs/deliverable/) | The stale "download OK / PRIMARY — download & submit candidate" pages are replaced by red archival notices; their rasters are labeled in the per-file index. |
+
+## S6.1 Still open, unchanged by this session
+
+1. Portal `[0,1]` rejection for a submitted raster remains **unresolved**: no error payload or
+   receipt is bound to any candidate hash here, and matching the sample's NaN-outside representation
+   does not prove acceptance.
+2. Inventory freshness is still `BLOCKED_NOT_EXHAUSTIVE`; a 703-raster snapshot count is not a
+   freshness certification.
+3. `evidence/ribbon_qualification.json` (pre-placement + canary + shared-evaluator holdout with a
+   defensible 95 % CI) does not exist, so no emission is permitted.
+4. H58-U1 (relief-conditioned ribbon width) remains the top-ranked untried within-lane hypothesis and
+   is **NOT VALIDATED** — see [`docs/research/hypotheses_new.md`](docs/research/hypotheses_new.md).
+
 # Session 5 (2026-10-11 UTC) — current status: NEGATIVE verdict, gate ratified, candidate blocked
 
 This section supersedes everything below it as the current status. Three experiments were run

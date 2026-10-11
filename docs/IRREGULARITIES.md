@@ -183,3 +183,38 @@ NOT OK TO SUBMIT verdict. Evidence: [`evidence/session4_verification_20261011.js
   official board ties 0.2778 to `extradr19` (rank 23). The GEMSDOE32 owner page says that H33 file has
   "NO ORGANISER SCORE" and calls 0.2747 a projection. No receipt or hash ties 0.2778 to H33. The
   attribution is unsupported and must not be repeated as fact.
+
+---
+
+## Session 6 (2026-10-11 UTC) — merge-reconciliation irregularities
+
+Logged while merging the session-6 review branch into the session-5 trunk. None of these changes a
+verdict; each one removes a claim that the evidence did not support.
+
+- **IR-58-S6-01 — the archived front-door pages still granted download permission.**
+  `docs/deliverable/index.html` and `docs/deliverable/executive-summary.html` carried
+  "⭑ PRIMARY — download & submit candidate" and "download OK" badges for rasters whose own lanes
+  recorded a negative verdict, and quoted `HOLDOUT-DTI 0.000000` beside a green badge. Both pages are
+  now red archival notices, their rasters are labeled individually in
+  [`docs/downloads/index.html`](downloads/index.html), and `scripts/ribbon_check_site.py` plus
+  `tests/test_ribbon_repo_hygiene.py` fail if the affirmative wording returns.
+- **IR-58-S6-02 — a legacy diagnostic was labelled promotion-grade.** The archived sigma-adaptive run
+  cards (`evidence/ribbon/archive-s3/run_card_v2.json`, `run_card_final.json`) carried
+  `holdout_dti_label: "HOLDOUT-DTI"` for 0.043651 measured with the legacy `gems58-pooled-hide-v1`
+  instrument and a four-block min–max range. The label is now `LEGACY-DIAGNOSTIC-ONLY` with a note;
+  the value, evaluator, protocol, withheld-positive count and receipts are unchanged. A four-block
+  min–max range is not a defensible 95 % CI, and the standing protocol requires one.
+- **IR-58-S6-03 — the local file audit was pinned to a superseded file.** The audit script hard-coded
+  the session-3 TIFF, so after session 5 emitted a new candidate it would have kept certifying the
+  old bytes. It now reads the candidate from `evidence/ribbon/emission.json`. The regenerated receipt
+  reports 10/10 checks and states that the decoded-pixel binding is *computed*, because that emission
+  receipt records no decoded hash — the check is not silently skipped as a pass.
+- **IR-58-S6-04 — stale counts in the review documents.** `docs/SOURCES.md`, `docs/MISSION.md`,
+  `docs/SUBMISSION_GUIDE.md` and two research notes still quoted the session-3 scan (702 rasters, 81
+  triggers, `ecf833f8…`). They now quote the governing receipt (703 rasters, 83 triggers, 29
+  informative, `f709b6f1…`) and name the session-3 receipts as archived.
+- **IR-58-S6-05 — no qualification receipt exists, so nothing may be emitted.**
+  `evidence/ribbon_qualification.json` is absent; `scripts/build_ribbon_emission.py` exits 2 without
+  writing a TIFF. The pre-emission contract it enforces is
+  [`scripts/qualification_gates.py`](../scripts/qualification_gates.py), documented in
+  [`docs/research/qualification_gates.md`](research/qualification_gates.md).

@@ -285,12 +285,23 @@ The earlier ranked, untried ribbon-width proposals are in
 Run tests in an environment with `requirements.txt` installed:
 
 ```bash
-PYTHONPATH=src python -m pytest -q          # 123 tests, all pass (session 4 count)
+PYTHONPATH=src python -m pytest -q          # 152 tests, all pass (session 6 count)
 python scripts/build_site.py                # renders docs/ from the receipts (exit 0)
 python scripts/build_site.py --strict       # exits 2 while any gate G1-G5 is open
 PYTHONPATH=src python scripts/crosscheck_shared_metric.py  # re-derive the DTI with gems57 (21 s)
 python scripts/ribbon_check_site.py         # QA: archived ribbon pages + current negative gates
+python scripts/gems60_build_page.py         # session-5 lane page + front-door box (CI order)
+PYTHONPATH=src:scripts python scripts/audit_current_tiff.py   # independent TIFF/ZIP file audit
+python scripts/build_downloads_index.py     # per-file submit-eligibility labels for every raster
 ```
+
+Three session-6 tools are additive and change no verdict:
+
+| Tool | What it proves — and what it does not |
+|---|---|
+| [`scripts/audit_current_tiff.py`](scripts/audit_current_tiff.py) → [`evidence/ribbon/file_audit.json`](evidence/ribbon/file_audit.json) | Independently re-reads the **current** candidate named by `evidence/ribbon/emission.json` (never a hard-coded file) and checks Float32/sample grid, NaN-outside mask, in-footprint `[0,1]` values, positive count, file hash and ZIP round-trip. A local file audit only: not portal acceptance, uniqueness, holdout qualification, or eligibility. |
+| [`scripts/build_downloads_index.py`](scripts/build_downloads_index.py) → [`docs/downloads/index.html`](docs/downloads/index.html) | Labels **every** public TIFF/ZIP separately, including archived and legacy-lane files, so no raster inherits clearance from another. |
+| [`scripts/qualification_gates.py`](scripts/qualification_gates.py) | The hash-bound pre-emission contract consulted by `scripts/build_ribbon_emission.py`: fresh inventory, pre-placement surface, feature-alone canary, and a shared-evaluator holdout with a defensible 95 % interval, each bound to the exact candidate and receipt hashes. `evidence/ribbon_qualification.json` is absent, so the emitter exits 2 and writes nothing. |
 
 Reproducing the session-3 measurements themselves needs the pinned feature stack and the witness cache:
 

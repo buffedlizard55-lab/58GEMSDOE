@@ -3,14 +3,13 @@
 <title>Ribbon-width hypotheses — proposals only</title><link rel="stylesheet" href="assets/site.css"></head>
 <body><div class="wrap">
 <nav><a href="index.html">Archive notice</a><a href="hypotheses.html">Hypotheses</a><a href="research.html">Research note</a><a href="sources.html">Sources</a><a href="irregularities.html">Irregularities</a></nav>
-<div class="card bad" role="alert"><h1>NOT OK TO SUBMIT — DO NOT SUBMIT</h1><p>The items below are untested research proposals. None has a result or slot decision. The current registry stop must be resolved before any test.</p><p><a href="../research/hypotheses_new.md">Current ranked hypotheses and test plan</a> · <a href="../index.html">Current status</a></p></div>
-<h2>Within-lane proposals only</h2>
+<div class="card bad" role="alert"><h1>NOT OK TO SUBMIT — DO NOT SUBMIT</h1><p>The three proposals below are unimplemented and unmeasured in this checkout. They have no result, candidate emission, or slot decision. The top hypothesis is <strong>not validated</strong>: the final-dot literal uniqueness stop blocks any holdout.</p><p><a href="../research/hypotheses_new.md">Full ranked hypotheses and audit</a> · <a href="../index.html">Current status</a></p></div>
+<h2>Within-lane proposals only — fixed ridge surface</h2>
 <ol>
-<li><strong>Magnetic signed-bias/asymmetric ribbon</strong> — existing magnetic edges; fit signed normal error by training block and test a frozen shift/unequal offsets on untouched blocks.</li>
-<li><strong>Relief-conditioned topographic width</strong> — existing detrended-elevation ridges; test whether localization error changes with local relief before choosing ribbon width.</li>
-<li><strong>Geodetic signed-normal shift</strong> — existing strain ridges; test whether a stable cross-fitted normal bias justifies an offset centerline.</li>
-<li><strong>Empirical-tail gravity width</strong> — existing gravity edges; compare empirical error quantiles with the legacy scalar/Normal width assumption.</li>
+<li><strong>H58-U1: relief-conditioned width.</strong> `det_elev` and `det_elev_slope`; condition width around existing topographic ridges on training-only local-relief strata.</li>
+<li><strong>H58-U2: basin-cover / basement-context-conditioned width.</strong> `depth_to_base_surf` and `cond_surf`; condition width around existing ridges only, without adding a detector.</li>
+<li><strong>H58-U3: along-strike centerline-curvature-conditioned width.</strong> Use existing ridge geometry to test whether bends/kinks need different width after controlling for family, scale, sign, and magnitude.</li>
 </ol>
-<p>These proposals can only improve emission around a detected ridge that is already near a fault trace. They cannot recover an entirely missed fault. Their expected effects are qualitative, not projected scores. See the root hypothesis document for differences from prior code, mimic processes, costs, and stop criteria.</p>
-<footer>Proposal list only; no candidate has been implemented or validated.</footer>
+<p>Signed magnetic/geodetic bias, adaptive scalar widths, along-strike spacing, covariance/tensor models, empirical radial tails, and new detection/filtering are excluded because related implementations, measurements, or out-of-lane code already exist. See the full audit and cited paths.</p>
+<footer>Proposal list only; no numerical gain is projected and no proposal is validated.</footer>
 </div></body></html>
