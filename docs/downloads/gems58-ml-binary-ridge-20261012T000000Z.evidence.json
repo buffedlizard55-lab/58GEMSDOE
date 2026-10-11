@@ -1,0 +1,10 @@
+{
+  "hypothesis": "RandomForest binary predictions at ML-detected structural ridges",
+  "mechanism": "20 gradient features from 10 key GeoDAWN bands, RF 100 trees, threshold 0.45",
+  "validation_auc": 0.7152,
+  "positive_pixels": 45355,
+  "threshold": 0.45,
+  "prediction_value": 1.0,
+  "file_sha256": "40c2518802a9a220fa362be0b152f2c4c7ca753c3919624eed22a556c5769366",
+  "format": "float32 EPSG:32611 3730x3292 100m [0,1] zero-outside all-finite"
+}
