@@ -18,7 +18,9 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from gems58w import submission  # noqa: E402
-from gems58w.paths import DOCS, DOWNLOADS, EVIDENCE  # noqa: E402
+from gems58w.paths import EVIDENCE  # noqa: E402
+
+DOCS = ROOT / "docs" / "deliverable"   # NOT docs/ribbon: main archives that dir fail-closed
 
 V2 = ROOT / "evidence" / "ribbon_v2"
 
@@ -236,6 +238,7 @@ emission is better comes from the equal-budget contest on the overview page and 
 sibling's paired live-anchored model.</p>
 """ + FOOT)
 
+    DOCS.mkdir(parents=True, exist_ok=True)
     (DOCS / "index.html").write_text(index)
     (DOCS / "executive-summary.html").write_text(html)
     print("wrote", DOCS / "index.html")
