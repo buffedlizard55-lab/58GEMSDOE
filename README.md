@@ -1,191 +1,180 @@
-# 58GEMSDOE — DOE GEMS Prize Challenge (DrivenData competition #306)
+# 58GEMSDOE — DOE GEMS Prize Challenge
 
-**Core values: Maximize P(Win) · Own the Outcome.** Every number in this repository is labelled
-`HOLDOUT-DTI`, `ORGANIZER-CONFIRMED` or `PUBLIC-LEADERBOARD SNAPSHOT`. A projection is never
-written as a score. Negative results are deliverables. A file is never cleared because someone
-asked for one — only because the gates pass, and the gates are computed from evidence files, never
-typed by hand.
+**Mission:** Maximize P(Win) and own the outcome, subject to evidence and no-go gates. **Current review (session 7, 2026-10-11 UTC): negative. Do not submit the downloadable raster.** This checkout's lane is ribbon width around existing ridge centerlines, calibrated from localization error. The task is geological fault detection, not geothermal-vent detection. Required gates take precedence over producing a TIFF.
 
-> **Current repo-level verdict: NOT OK TO SUBMIT — DO NOT SUBMIT.**
-> No organizer submission receipt exists for any artifact, so nothing here can be labelled
-> accepted or scored. The current candidate (`gems58-concordance-ribbon-40768-20261011T160514Z.tif`,
-> sha256 `f709b6f1…d0d`) is stopped by the ratified uniqueness gate — rule A fires against 9
-> witnesses, rule B against 3 (IR-58-UNIQ-07). The newest artifact merged from `main` (the ML
-> RandomForest candidate, PR #30) carries a format receipt **only**: no uniqueness screen, no
-> holdout receipt, no organizer receipt (IR-58-S6-06). **The owner has used 0 of the weekly slots.**
+## Current decision at a glance
 
----
+- **Review-only artifact:** [`58GEMSDOE-ribbon-sparse-review-only-20261011T182511Z.tif`](docs/downloads/58GEMSDOE-ribbon-sparse-review-only-20261011T182511Z.tif) · [ZIP](docs/downloads/58GEMSDOE-ribbon-sparse-review-only-20261011T182511Z.zip) · [metadata](docs/downloads/58GEMSDOE-ribbon-sparse-review-only-20261011T182511Z.json). Its previous filename said `unique`; that claim was unsupported. It was renamed review-only without changing the raster bytes.
+- **Literal uniqueness stop:** the direct final-dot measurement found **1.0000** of the candidate dots within 3 px of one hash-pinned registry raster, above the active **70%** stop. The witness's 3 px dilation covers the full bridged footprint. This is a protocol stop, not proof of byte- or pixel-copying. Do not waive it using the old chance-corrected reading.
+- **Local format/range audit:** 19/19 checks pass; this is not uniqueness clearance, holdout evidence, or organizer/portal acceptance. The candidate TIFF has `nodata=null`, while the sample has `nodata=NaN`; portal handling is unconfirmed.
+- **Unmeasured:** pre-placement surface, current exhaustive inventory clearance, HOLDOUT-DTI, σ table, simulated gain by class, and leakage canary. No score is projected.
+- **This review:** zero experiments; zero slots used; no upload. The feature-stack cache was restored and hash-checked against an owner-maintained GitHub bridge pin, not independently authenticated by the competition.
 
-## ⚡ START HERE — download and submit, once a file is cleared
+Full review: [`docs/research/session7_review_20261011.md`](docs/research/session7_review_20261011.md). Current issue/status log: [`docs/IRREGULARITIES.md`](docs/IRREGULARITIES.md). Artifact-specific JSON run card: [`evidence/58gemsdoe_unique_ribbon/run_card.json`](evidence/58gemsdoe_unique_ribbon/run_card.json); audit receipt: [`evidence/58gemsdoe_unique_ribbon/audit.json`](evidence/58gemsdoe_unique_ribbon/audit.json).
 
-| | |
-|---|---|
-| **Step 1 — status & download** | Open **[docs/index.html](docs/index.html)**. The banner at the top is the machine-computed verdict for the current candidate: **OK TO SUBMIT** or **NOT OK TO SUBMIT — DO NOT SUBMIT**. The download button sits directly under it. |
-| **Step 2 — how to submit** | Open **[docs/executive-summary.html](docs/executive-summary.html)** (and [docs/submit.html](docs/submit.html) for the portal checklist). It gives the click-by-click upload path, the **submission name**, and the **note (≤ 140 characters)**. |
-| **Step 3 — per-file verdicts** | Open **[docs/downloads/index.html](docs/downloads/index.html)**. Every public TIFF/ZIP in this repository is listed with **its own** verdict and SHA-256; no file can inherit another file's clearance. |
-| **Step 4 — verify** | Compare the SHA-256 on the page with `sha256sum <file>` on the download. The verdict applies to that hash and nothing else. |
+**Post-review base-branch notice:** a separate file, [`gems58-ml-binary-ridge-20261012T000000Z.tif`](docs/downloads/gems58-ml-binary-ridge-20261012T000000Z.tif), its [ZIP](docs/downloads/gems58-ml-binary-ridge-20261012T000000Z.zip), and [sidecar record](docs/downloads/gems58-ml-binary-ridge-20261012T000000Z.evidence.json) were added to the base branch after this session-7 review. This review did not generate, evaluate, or qualify that artifact. It is outside this checkout's current ribbon-width task and is **not approved for submission**; the per-file download index labels it review-only. Do not run its generation scripts or use sidecar fields as current HOLDOUT-DTI or organizer evidence.
 
-The pages never ask anyone to interpret anything: the banner is one of two sentences, and every
-gate behind it is listed with its measured value and the evidence file it came from. An organizer
-receipt (`G6`) cannot exist before a file is uploaded, so it is always reported as *open — owner
-step*, and the banner states that its verdict covers the local gates `G1–G5` only.
+## Requested deliverables and evidence
 
----
+| Deliverable | Current record | What it says |
+|---|---|---|
+| Downloadable GeoTIFF | [`review-only TIFF`](docs/downloads/58GEMSDOE-ribbon-sparse-review-only-20261011T182511Z.tif), [`ZIP`](docs/downloads/58GEMSDOE-ribbon-sparse-review-only-20261011T182511Z.zip) | Available for audit only; **NOT OK TO SUBMIT — DO NOT SUBMIT**. No file is labeled unique or ready. |
+| Executive submission guide | [`docs/SUBMISSION_GUIDE.md`](docs/SUBMISSION_GUIDE.md), [`docs/submit.html`](docs/submit.html), [`docs/executive-summary.html`](docs/executive-summary.html) | Updated status and organizer-receipt requirements; local preflight is not portal acceptance. |
+| Ranked within-lane hypotheses | [`docs/research/hypotheses_new.md`](docs/research/hypotheses_new.md) | Three proposal-only ribbon-width tests; H58-U1 relief-conditioned width ranks first. None is implemented or validated. |
+| 0.2778 score discrepancy | [`docs/research/why-02778.md`](docs/research/why-02778.md), [`session-7 review §3`](docs/research/session7_review_20261011.md#3-highest-score-attribution-what-can-and-cannot-be-answered), [`docs/LEADERBOARD.md`](docs/LEADERBOARD.md) | The dated public board associates 0.2778 with `extradr19`. No hash/receipt ties it to the GEMSDOE32 H33 file; the H33 owner page calls 0.2747 a projection. Why `extradr19` scored 0.2778 is unknown from the available records. |
+| Auditable sources | [`docs/SOURCES.md`](docs/SOURCES.md), [`evidence/feature_stack_restore_20261011.json`](evidence/feature_stack_restore_20261011.json) | Official sources are linked and evidence classes separated. The official DrivenData/USGS/PDF pages were not freshly fetched in this session; the stack pin is an owner-mirror integrity check only. |
+| JSON run card | [`evidence/58gemsdoe_unique_ribbon/run_card.json`](evidence/58gemsdoe_unique_ribbon/run_card.json) | Records the negative verdict, stop, unmeasured holdout and surface gates, hashes, validator, zero experiments, and zero slots. |
 
-## 📜 Standing prompt — the binding contract
+## Current artifact facts
 
-The full operating contract lives in **[PROMPT.md](PROMPT.md)** (read it first, every session) with
-the verbatim brief in **[docs/MISSION.md](docs/MISSION.md)** and the current decision in
-**[REMAINING_WORK.md](REMAINING_WORK.md)**. The clauses that govern every session:
+The downloadable raster is one float32 band on the 100 m sample grid (EPSG:32611, 3730 × 3292; transform `[100,0,243350,0,-100,4508550]`). It has 15,000 positive pixels, each exactly `1.0`; all values are finite and within `[0,1]`, outside-footprint positives are zero, and there are no positive pixels on the bridged mapped catalogue. Raster SHA-256: `b4cd208015892a19bb2de36585a6f5ff8203dd78b95d49d6b88c8d4c927c1448`. Decoded-pixel SHA-256: `21178ff6da8eef1bc286826deb963224a7909c0ee4f318dc4feac7a9e1ff5b15`.
 
-1. **Gates, not labels.** *"A unique, downloadable GeoTIFF is the goal, but uniqueness and
-   validation are gates, not labels."* A TIFF must be prominently marked **NOT OK TO SUBMIT — DO
-   NOT SUBMIT** unless every holdout, surface, dot, inventory, format and validation gate passes.
-   *"Never copy a prior submission except for learning. Never select or use a weekly slot during
-   research."* When an unconditional request to produce a TIFF conflicts with a no-go gate,
-   preserve the gate, publish the negative decision, and do not manufacture a false clearance.
-2. **Evidence labels.** `HOLDOUT-DTI` requires the shared evaluator version, withheld-positive
-   count, the prescribed spatially blocked protocol and a defensible 95 % CI.
-   `ORGANIZER-CONFIRMED` requires an organizer receipt/hash crosswalk. A projection, local proxy,
-   format preflight or leaderboard row is **not** a score for a TIFF.
-3. **RATIFIED-UNIQ-v1** (ratified session 5, IR-58-UNIQ-07). Compare the pre-placement surface and
-   the final dots against the registry. Stop and record a duplicate if rank correlation > 0.90, if
-   dot-set Jaccard > 0.50, if bytes or decoded pixels are identical to a witness, if the scan is
-   incomplete/stale, or if an overlap firing is *informative*: literal 3 px forward overlap > 0.70
-   against a witness whose chance expectation `E < 0.70` (**rule A**), or chance-corrected lift
-   `(O − E)/(1 − E) > 0.50` against any witness with `E < 0.99` (**rule B**). The literal
-   pre-ratification reading is always computed and published beside the governing verdict.
-4. **Reuse shared tools.** One metric (`src/gems57/metric.py`, transcribed from the official
-   metric page), one holdout constructor, one writer, one uniqueness instrument. No private forks;
-   if a shared tool is wrong, fix it and its tests once.
-5. **Metric-aware width calibration.** `U = (1 − αs)·ΔTP − αs·ΔFP` with `s` the current DTI and
-   `ΔTP, ΔFP` the exact marginal changes; the shortcut `k > αs` holds only for one added,
-   non-redundant dot. Ribbon width and offsets are chosen only from these exact numbers.
-6. **Leakage canary.** *"Test each feature alone on the holdout before trusting it. AUC > 0.90 is
-   leakage until explained."*
-7. **Hypotheses before implementation.** Rank 3–5 genuinely untried within-lane hypotheses by
-   expected benefit, uncertainty and cost; name layers, physical signature, why the signature
-   marks an unmapped fault rather than a catalogued trace, and the official data source for any new
-   data. A ribbon cannot discover a fault the ridge detector entirely missed — that is a different
-   lane, and this checkout stays in the ribbon lane.
-8. **Experiment budget and stopping.** At most three experiments, stop at two hours, and stop
-   immediately on a literal uniqueness trigger, stale/incomplete inventory, canary failure or a
-   nonpositive/uncertain primary result. Do not add experiments because a result is weak.
-9. **Run card, no slot selection.** End with one JSON card — hypothesis, mechanism, named non-fault
-   mimic, HOLDOUT-DTI/evaluator/count/95 % CI or explicit `NOT MEASURED`, registry results, raster
-   SHA-256, validator output, submission name and note ≤ 140 characters, verdict `promote` or
-   `negative`. Qualification and a real submission are separate human decisions.
+The review witness is `GEMSDOE2:data/evidence/runs/turbo-simple-20260925T042003Z/submission.tif`, SHA-256 `03d619fa75689b48bd3eb4f74c3fa529a9b04c19bd716e15640d910baf3d5a90`. The public blob bytes match this owner-maintained registry pin. Its positive support covers 5,167,373/5,167,373 bridged footprint cells and leaves zero uncovered after 3 px dilation; the candidate's measured overlap is 1.0. The repository's older 703-raster scan is complete only for its frozen scope; the current inventory freshness record remains `BLOCKED_NOT_EXHAUSTIVE`. One literal stop is sufficient to block this raster, but neither a fresh exhaustive scan nor a complete uniqueness clearance is claimed.
 
----
+## Evidence labels and score attribution
 
-## 🧭 Verified competition facts (each with its source)
+A model result must be labeled **HOLDOUT-DTI** and include shared evaluator/version, withheld-positive count, protocol, and a defensible 95% CI. If not measured, say so. A competition score may be **ORGANIZER-CONFIRMED** only with a receipt/hash crosswalk for the exact artifact. Public-board observations are dated **PUBLIC-LEADERBOARD-SNAPSHOT** records, never scores for a local TIFF without that crosswalk. A projection, raster property, format check, or local proxy is not a competition score.
 
-| Fact | Source |
-|---|---|
-| Target = **geological faults that are indicative of geothermal resources** — not vents. Expert labels include **faults absent from** the public USGS/INGENIOUS database; the region is split into a **public** and a **private** subset; the Private Prize Round is scored on the private subset and re-scored against an expanded expert label set in the Final Round. | [problem page 967](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/) (read 2026-10-11) |
-| Metric = distance-weighted Tversky index, α = 0.2 (false positives), β = 0.8 (false negatives), triangular kernel **R = 300 m = 3 px**: `DTI = TP_w / (TP_w + 0.2·FP_w + 0.8·FN_w)`. | page 967, *Performance metric* |
-| Submission = single-band **float32** GeoTIFF in **EPSG:32611**, 100 m, region bounds identical to the training data, **values within [0, 1]**, *"data outside the bounds is null or nan"*. | page 967, *Submission format* |
-| Portal rejection *"Predicted values must be in range [0, 1]"* is **unresolved**: no portal response or receipt in this repository is bound to a candidate's SHA-256, so the cause is neither asserted nor explained away. | [docs/SOURCES.md](docs/SOURCES.md) §*Portal `[0,1]` report* |
-| Public leaderboard snapshot **2026-10-11**: #1 `xiaofanhu` **0.4133**, #8 `kinghorton42` 0.3261, #9 `DARD` **0.3195**, #23 `extradr19` **0.2778**. Ranks are dynamic (DARD was observed at rank 8 earlier the same day); rows identify no TIFF. | [leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/), recorded in [docs/LEADERBOARD.md](docs/LEADERBOARD.md) |
-| The **0.2778** figure is the `extradr19` participant row. The `GEMSDOE32` H33 artifact is marked **UNSCORED** by its own audit (projected 0.2747, sha256 `c55bafc4…`); no hash/receipt crosswalk ties 0.2778 to it. | [docs/LEADERBOARD.md](docs/LEADERBOARD.md), [registry/submissions_seen.csv](registry/submissions_seen.csv) |
-| The **0.3774** figure is a historical repository-page figure, not the live board. | 60GEMSDOE README erratum, 2026-10-11 |
+For the 0.2778 question: the local dated 2026-10-11 public-board snapshot places `extradr19` at 0.2778 (rank 23 in one saved observation). The GEMSDOE32 owner-maintained H33 page says “no organizer score” and describes 0.2747 as a projection. No submission receipt or hash crosswalk identifies the H33 TIFF with `extradr19`. Therefore the claim that H33 scored 0.2778 is unsubstantiated, and the cause of `extradr19`'s public score cannot be inferred from the row alone. The saved board also records 0.4133 for xiaofanhu and 0.3195 for DARD; these are dated snapshots, not today's live board. No score forecast is made for this repository's raster.
 
-**What the numbers imply (measured, not asserted).** Twenty-two-plus participants sit above 0.2778,
-so beating it is demonstrated possible. This repository's own emission family (37k–44k off-catalogue
-dots at 1.0) occupies the 0.26–0.275 band on the public board, i.e. just under the target, and a
-controlled probe inside that family shows the gap is **placement, not density**: `h34-scatter-q50-arr-matched`
-matches the family's arrangement statistics to four decimals, shares 644 of 37,654 dots with it
-(Jaccard 0.0086) — and scored **0.0778**. Which pixels are chosen is what pays. See
-[docs/research/why-02778.md](docs/research/why-02778.md) and [docs/HYPOTHESES.md](docs/HYPOTHESES.md).
+## Safe review commands
 
-### Official links for manual review
-
-| Purpose | Link |
-|---|---|
-| Competition home | <https://www.drivendata.org/competitions/306/competition-doe-gems/> |
-| Problem statement, metric, submission format | <https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/> |
-| Live public leaderboard | <https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/> |
-| Official rules (PDF) | <https://docs.nlr.gov/docs/fy26osti/96647.pdf> |
-| Official reference solution | <https://github.com/drivendataorg/gems-prize-reference-solution> |
-| GeoDAWN airborne magnetic/radiometric survey (USGS) | <https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and> |
-| INGENIOUS fault catalogue (GBCGE) | <https://gbcge.org/current-projects/ingenious/> |
-| EPSG:32611 grid definition | <https://epsg.io/32611> |
-
-The full source register, with what each source does and does not establish, is
-[docs/SOURCES.md](docs/SOURCES.md) and [registry/sources.csv](registry/sources.csv).
-
----
-
-## 🗂️ Repository map
-
-```
-data/            official competition inputs (sha256-pinned bridge), external mirrors, witness registry
-src/gems57/      shared tools: metric, validate, holdout, evaluate_holdout, uniqueness, submission_writer, gates
-src/gems58w/     ribbon-lane building blocks: features, ridges, extraction, sigma, holdout, metric
-src/gems61/      this session's lane: extended layers, ridge field, sigma table, pattern ladder, emission
-scripts/         runners, fetchers, screeners, site builders, validators (gems61_* = current lane)
-evidence/        receipts — one JSON per measurement, each carrying its evidence class
-docs/            the public site (GitHub Pages), research notes, source register, leaderboard record
-registry/        every public raster scanned by this project, with sha256 pins and uniqueness rows
-tests/           pytest suite — the shared metric, holdout, writer and gate contracts are all tested
-```
-
-Reproduce the current lane end to end:
+These audit or documentation commands do not run experiments or emit candidate rasters:
 
 ```bash
-bash scripts/ribbon_fetch_features.sh                 # 19-band organizer stack (419 MB, sha256-pinned)
-bash scripts/gems61_fetch_extended.sh                 # GeoDAWN radiometric / lidar / DEM mirrors (sha256-pinned)
-PYTHONPATH=src python3 scripts/gems61_run.py field    # cached extended ridge field            [run, evidence written]
-PYTHONPATH=src python3 scripts/gems61_run.py sigma    # σ(x) by block × resolution × ridge type
-PYTHONPATH=src python3 scripts/gems61_run.py pattern  # exact-metric pattern ladder + choices
-PYTHONPATH=src python3 scripts/gems61_run.py canary   # single-feature leakage canary
-PYTHONPATH=src python3 scripts/gems61_run.py emit     # candidate GeoTIFF + ZIP + receipts
-python3 scripts/gems61_screen.py --candidate docs/downloads/<name>.tif \
-        --out evidence/gems61/uniqueness.json         # RATIFIED-UNIQ-v1 screen vs 703 witnesses
-python3 scripts/build_downloads_index.py              # docs/downloads/index.html (one verdict per file)
-python3 scripts/build_site.py                         # docs/index.html gates + banner
-python3 scripts/gems60_build_page.py                  # session-5 deliverable box (must run last)
-python3 -m pytest tests/ -q
+PYTHONPATH=src .venv/bin/python scripts/audit_sparse_candidate.py \
+  --witness .cache/registry/universal-blocker.tif
+.venv/bin/python scripts/build_downloads_index.py
+.venv/bin/python scripts/build_session7_pages.py
+PYTHONPATH=src .venv/bin/python -m pytest -q
 ```
 
-At this commit only `field` has been executed in the `gems61` lane (`evidence/gems61/field.json`:
-5,167,205 ridge pixels, 41 classes over 9 feature families); `sigma`, `pattern`, `canary` and `emit`
-are implemented but **not yet run**, so the lane has produced no candidate and cleared nothing.
-Everything runs without the organizer's login wall: inputs are restored from hash-pinned public
-mirrors and re-verified at run time, and a mismatch aborts the run.
+Do not run experiment/emission/slot/upload commands after the literal stop. The former `scripts/build_site.py` and `scripts/gems60_build_page.py` render historical sessions; the session-7 builder owns current pages. The standing prompt caps work at three experiments or two hours, stops on the literal rule, and requires shared `gems57.evaluate_holdout` and `gems57.submission_writer` if a future experiment is authorized. See `PROMPT.md` and `REMAINING_WORK.md` before further work.
 
----
+## Session-start reading order
 
-## ⚖️ Rules that keep the numbers honest
+At the start of each session, read `PROMPT.md`, `README.md`, and `REMAINING_WORK.md` in full, then the current status and linked evidence. The **complete current operating prompt** is reproduced verbatim below and is also kept as [`PROMPT.md`](PROMPT.md).
 
-1. **Evidence classes.** `HOLDOUT-DTI` (evaluator version, withheld positives, protocol, CI) /
-   `ORGANIZER-CONFIRMED` (organizer receipt or hash crosswalk only) / `PUBLIC-LEADERBOARD SNAPSHOT`
-   (dated participant rows, never artifact scores). Projections and preflights are never scores.
-2. **The instrument is shared.** One metric implementation, cross-checked against a brute-force
-   oracle; one holdout; one writer; one uniqueness instrument. A private fork is a defect.
-3. **The holdout measures catalogue recovery only.** It is structurally blind to off-catalogue
-   truth (IR-58-02): it ranks this repository's own families at ρ ≈ 0.5 and does not explain the 66
-   measured live rows (R² negative on the full set). It is a *screen*, never a leaderboard forecast.
-4. **Gates, not labels.** Downloads stay available for review; the banner and the per-file table
-   carry the verdict; no file is ever promoted to a weekly slot by this repository.
-5. **Fail closed.** A stale or incomplete inventory, a canary AUC > 0.90, or any metric mismatch
-   stops the lane and is published as a negative result.
+<!-- BEGIN FULL PROMPT: PROMPT.md -->
 
----
+# Standing project prompt — 58GEMSDOE
 
-## 🚧 Known limitations (part of the deliverable)
+Read this file, `README.md`, and `REMAINING_WORK.md` at the start of each session, then read the current status/evidence documents they point to. This is the operating contract. If a request to produce or submit a TIFF conflicts with a hard validation or uniqueness stop, preserve the gate, report the negative result, and do not manufacture a clearance.
 
-* The organizer's expert truth is unpublished; every local number here measures *catalogue*
-  recovery, and is labelled as such.
-* Public/private chunking is undisclosed, so public-board rows carry chunk noise that no local
-  statistic models.
-* The owner-published radiometric and lidar mirrors are **8-bit** products with no published
-  scaling; this lane uses them **ordinal-only** and claims no physical units.
-* The registry inventory is a snapshot of public repositories, not an organizer-wide inventory;
-  `BLOCKED_NOT_EXHAUSTIVE` still applies to the freshness audit.
-* The ML candidate merged from `main` has a format receipt only; its local AUC 0.7152 measures
-  catalogue-fault discrimination on a non-spatial split and is not a HOLDOUT-DTI and not a score.
-* Weekly slots are an owner decision; this repository never spends one.
+## Mission and lane
 
-See [REMAINING_WORK.md](REMAINING_WORK.md) for ranked next steps and
-[docs/IRREGULARITIES.md](docs/IRREGULARITIES.md) for every open blocker and correction.
+Work on the DOE GEMS Prize Challenge (DrivenData competition 306). The target is geological faults indicative of geothermal resources, not geothermal vents. The strategic goal is to maximize the probability of winning and own the outcome. Work autonomously; do not request manual input. Use official or trusted sources and state uncertainty where access or provenance is incomplete rather than filling gaps with assumptions. This checkout's lane is **ribbon width calibrated to measured localization error**. Keep an existing ridge-placement surface fixed; vary only width/offset/ribbon support around already-detected ridges. Do not switch to a detector, another feature/detection lane, alternate competition lane, or submission-slot work. Never claim a ribbon can detect a fault for which the fixed ridge surface has no nearby ridge.
+
+The requested deliverables remain: a clearly labeled downloadable GeoTIFF, executive submission guide, ranked within-lane hypotheses, source-bounded explanation of the disputed 0.2778 score, auditable sources, and a JSON run card. A negative verdict is acceptable; never label a file unique or ready without the required evidence. A link or local artifact label does not authorize a competition submission.
+
+A qualifying, unique, downloadable GeoTIFF is the goal, but uniqueness and validation are **gates, not labels**. A failed or unmeasured gate means **NOT OK TO SUBMIT — DO NOT SUBMIT**. Never copy a prior submission except for learning. Never select or use a competition slot during research and never upload while researching.
+
+## Uniqueness stop — use the literal rule for this task
+
+Compare the candidate-specific pre-placement surface **before placement/emission** and the final dots against the accessible registry. Stop and record a duplicate/drift failure if **either**:
+
+1. surface rank correlation with any one registry raster is **greater than 0.90**; or
+2. **more than 70%** of the candidate's final positive dots fall within **3 pixels** of any one registry raster's positive dots.
+
+Do not waive, reinterpret, chance-correct, or exempt a firing because the witness is dense, saturated, a lattice, a blanket, a carrier, or believed to be non-discriminating. The chance-corrected `RATIFIED-UNIQ-v1` text retained in older records is superseded for this current-session task where it conflicts with this literal rule. An incomplete or stale registry is not clearance. A directly observed literal trigger is decisive; do not generate a replacement candidate, use a slot, or keep searching for a non-triggering witness merely to manufacture a pass. If the pre-placement surface or required registry evidence is unavailable, record that gate as NOT MEASURED / BLOCKED, not passed.
+
+A literal overlap trigger is a protocol stop; by itself it is **not** proof of byte copying, pixel copying, or intentional reuse. State only what the measurements show.
+
+## Evidence labels and score attribution
+
+- A model result is reportable only as **HOLDOUT-DTI**, with the shared evaluator and version, withheld-positive count, protocol, and a defensible 95% confidence interval. If it was not run, write `NOT MEASURED`; do not substitute zero, a projection, or an older artifact's result.
+- Use **ORGANIZER-CONFIRMED** for a competition score only if an organizer receipt or equivalent submission record ties the exact raster hash to that score. A public participant-board entry is a separately labeled, dated **PUBLIC-LEADERBOARD-SNAPSHOT**, never a score attributed to a local TIFF without a hash/receipt crosswalk.
+- A projection, local proxy, raster property, format preflight, and public leaderboard row are not a score for this repository's TIFF.
+- The saved 2026-10-11 board observation recorded xiaofanhu at 0.4133, DARD at 0.3195, and extradr19 at 0.2778. These are dated public rows, not fresh live-board results and not local file scores. The GEMSDOE32 owner-maintained H33 page says its artifact has no organizer score and calls 0.2747 a projection. There is no receipt/hash crosswalk connecting H33 to extradr19's 0.2778. The cause of the actual extradr19 result is not established by its public score alone. See `docs/LEADERBOARD.md`, `docs/research/why-02778.md`, and `docs/SOURCES.md`.
+
+## PARALLEL-RUN PROTOCOL — mandatory
+
+## Holdout and shared tooling
+
+Reuse the cached feature stack, shared `gems57.evaluate_holdout`, and `gems57.submission_writer`. Do not create or use a private metric, scoring, evaluator, holdout, or writer fork. If a shared tool is wrong, fix the shared implementation and regression tests once.
+
+Any authorized experiment must:
+
+- withhold buffered **whole fault segments**;
+- derive catalogue-based features only from visible faults;
+- mask visible faults pixel-exactly;
+- use pooled DTI with α=0.2, β=0.8, and a 300 m triangular kernel;
+- test each feature alone as a leakage canary; AUC >0.90 is leakage until explained; and
+- report evaluator/version, withheld-positive count, protocol, and a defensible 95% CI.
+
+Do not reuse legacy holdout values as current evidence. A result on known-catalogue faults estimates performance on that proxy truth; it does not establish performance on the organizer's hidden faults.
+
+## Ribbon-width calibration and hypotheses
+
+Before implementation, review the prior-session status and rank **3–5 genuinely untried within-lane hypotheses** by expected relative benefit, uncertainty, and cost. Name the feature layers and physical signature, a plausible named non-fault mimic, how the proposal differs from existing code, and the official source for any proposed external data. Explain why a width/offset change might capture a nearby uncatalogued fault only where the existing ridge is already present. Keep the top hypotheses and falsifiers in `docs/research/hypotheses_new.md`.
+
+Measure localization error on training-only spatial blocks by block, feature resolution, ridge type, and any preregistered conditioning variable. Do not tune on the outer holdout. Choose ribbon widths/offsets only using exact max-credit marginal metric changes, including interactions and redundant predictions. For a pattern change use:
+
+`U = (1 − αs)·ΔTP − αs·ΔFP`
+
+where `s` is current DTI and `ΔTP`,`ΔFP` are exact marginal changes. The shortcut `k > αs` is valid only for one added, non-redundant dot with fresh truth credit `ΔTP=k` and FP increment `ΔFP=1−k`.
+
+## Budget, stopping, and artifacts
+
+- Run at most **three experiments or two hours**, whichever comes first.
+- Stop immediately on a literal uniqueness trigger, stale/incomplete required inventory, leakage-canary failure, an invalid holdout, or a nonpositive/uncertain primary result under the preregistered rule. Do not add experiments because a result is weak.
+- Do not run an experiment, emit or regenerate a prediction candidate, use a slot, or upload after a literal uniqueness stop.
+- Keep a downloadable GeoTIFF only with an unmistakable per-file warning when qualification is incomplete. A failed artifact may be available for audit; its name/button is not permission to submit. Never label it unique or ready without the required evidence.
+- Reconcile project docs and generated pages with the evidence. Do not leave a stale green badge, incorrect score claim, or unverified causal diagnosis in the README, front page, download index, or submission guide.
+
+## Required end-of-review JSON run card
+
+Maintain an artifact-specific machine-readable card containing:
+
+- hypothesis, mechanism, and named non-fault mimic (or explicit proposal-only / not run);
+- HOLDOUT-DTI value and evaluator/version, withheld-positive count, protocol and defensible 95% CI, or explicit `NOT MEASURED`;
+- pre-placement surface and final-dot registry results separately, including inventory scope/freshness and an explicit unmeasured state where needed;
+- raster SHA-256 and decoded-pixel SHA-256 if measured;
+- local validator output clearly separated from organizer acceptance;
+- submission/artifact name and a note of at most 140 characters;
+- experiment/slot counts; and
+- an unmistakable `promote` or `negative` verdict, with stop status.
+
+Negative results are valid deliverables. Do not turn missing evidence into a pass.
+
+## Current status — session 7, 2026-10-11 UTC
+
+- Existing raster: `docs/downloads/58GEMSDOE-ribbon-sparse-review-only-20261011T182511Z.tif` (15,000 positive dots, SHA-256 `b4cd208015892a19bb2de36585a6f5ff8203dd78b95d49d6b88c8d4c927c1448`). Its former filename contained `unique`; it was renamed review-only without changing raster bytes. **Do not submit.**
+- The local format/range audit passes 19/19 checks, not organizer acceptance. Candidate nodata metadata is null while the sample's is NaN; portal acceptance is unconfirmed.
+- Direct final-dot comparison with a hash-pinned registry raster measured overlap 1.0000 within 3 px. This exceeds the literal 70% stop. The witness's 3-px support covers the entire bridged footprint. This is a duplicate/drift protocol stop, not proof of byte or pixel copying.
+- Pre-placement surface is NOT MEASURED. The current registry freshness audit is BLOCKED_NOT_EXHAUSTIVE. No holdout-DTI, σ table, simulated gain by class, or leakage canary was measured for this TIFF. No score is projected.
+- Experiments this review: 0. Slots used: 0. Nothing was uploaded. Verdict: `negative`.
+- Full session record: `docs/research/session7_review_20261011.md`; run card: `evidence/58gemsdoe_unique_ribbon/run_card.json`; audit: `evidence/58gemsdoe_unique_ribbon/audit.json`; status log: `docs/IRREGULARITIES.md`.
+
+## Official source links
+
+- [Competition problem and metric](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/)
+- [Competition About page](https://www.drivendata.org/competitions/306/competition-doe-gems/page/968/)
+- [Official data tab](https://www.drivendata.org/competitions/306/competition-doe-gems/data/) — login may be required.
+- [Official rules PDF](https://docs.nlr.gov/docs/fy26osti/96647.pdf)
+- [Official reference-solution repository](https://github.com/drivendataorg/gems-prize-reference-solution)
+- [Official public leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/) — dynamic; refresh directly before relying on rank.
+- Source/evidence register: `docs/SOURCES.md`.
+
+<!-- END FULL PROMPT: PROMPT.md -->
+
+## Session-8 lane addition — `gems61` (extended-layer ridge lane)
+
+This branch adds the `gems61` lane next to the historical lanes. It changes no verdict and no
+download label: the literal uniqueness stop recorded above governs, and the review-only raster stays
+review-only. Contents:
+
+| Path | What it is | State |
+|---|---|---|
+| `src/gems61/layers.py` | reader for the hash-pinned GeoDAWN radiometric / 3DEP lidar / DEM mirrors, as ordinal bands on the competition grid | implemented |
+| `src/gems61/detect.py` | multi-family, multi-scale, dual-polarity ridge field (Hessian + non-maximum suppression) with per-family quantile thresholds | implemented |
+| `src/gems61/lane.py` | σ(x) table (block × scale × sign, leave-one-block-out), exact-metric pattern ladder `U = (1 − 0.2·DTI₀)·ΔTP − 0.2·DTI₀·ΔFP`, `emit_dots`, `uniqueness_repair`, `score_dots` (cross-checked against `gems58w.metric.dti_binary`) | implemented |
+| `scripts/gems61_run.py` | `field\|sigma\|pattern\|canary\|emit` driver | only `field` executed |
+| `scripts/gems61_screen.py` | registry screen that publishes the literal 70 % reading beside the ratified one | implemented, not yet run on a candidate |
+| `scripts/gems61_fetch_extended.sh`, `data/external/gems61_extension_pins.json` | byte-verified restore of the five mirror files | implemented |
+| `evidence/gems61/field.json` | 5,167,205 ridge pixels, 41 classes, 9 feature families | written |
+
+`sigma`, `pattern`, `canary` and `emit` have **not** been run on this branch: the lane has produced
+no candidate, no σ table, no simulated gain and no holdout number, and nothing above is clearance.
+`evidence/ribbon_qualification.json` is still absent, so `scripts/build_ribbon_emission.py` remains
+fail-closed, and the literal rule in `PROMPT.md` applies to any future candidate from this lane as-is.
