@@ -223,7 +223,7 @@ The earlier geophysical-ridge v1 TIFF remains under `docs/downloads/archive/` wi
 > * **38,000 dots, every one exactly `1.0`; `NaN` outside the footprint and nowhere inside it**
 >   — this is the format the portal accepts; the *"Predicted values must be in range [0, 1]"*
 >   rejection comes from `NaN` (or a value outside `[0, 1]`) landing **inside** the scored
->   footprint, and the 15 local checks in `src/gems58/submission.py` fail closed on it.
+>   footprint, and the 15 local checks in `src/gems58w/submission.py` fail closed on it.
 > * 0 dots on the mapped catalogue and 0 within 300 m of it; median catalogue distance 21.9 px
 > * **15/15 local acceptance checks pass**; uniqueness screen: worst rank correlation **0.0137**
 >   and worst 3 px forward overlap **0.3600** against every accessible earlier raster
@@ -263,7 +263,7 @@ emission-geometry lane: given a placement surface, how **wide** should the emiss
 
 Full derivation and receipts: [`docs/research/why-02778.md`](docs/research/why-02778.md),
 [`docs/research/ribbon-algebra.md`](docs/research/ribbon-algebra.md),
-[`evidence/theorems.json`](evidence/theorems.json).
+[`evidence/ribbon/theorems.json`](evidence/ribbon/theorems.json).
 
 **1. The metric is a coverage-per-cost problem, not a precision problem.** With
 `R = 300 m = 3 px`, `α = 0.2`, `β = 0.8` and `FN_w = |G| − TP_w`, the official equation
@@ -274,7 +274,7 @@ DTI = TP_w / (TP_w + α·FP_w + β·FN_w)        becomes        DTI = TP / (0.2�
 
 So **one emitted pixel of unit mass moves `TP+FP` by exactly 1** and costs exactly `0.2` of the
 denominator, wherever it lands. Two exact consequences follow, and both are verified by machine
-in `scripts/verify_theorems.py`:
+in `scripts/ribbon_verify_theorems.py`:
 
 * **binary beats graded.** `DTI(λ) = λT / (0.2λ(T+F) + 0.8G)` is strictly increasing in `λ` on
   `(0, 1]`, so a soft raster is strictly dominated by its own thresholded support. Emit `1.0`.
@@ -308,7 +308,7 @@ hidden truth**. Nothing in this lane's measurements is within a factor of two of
 a coverage gap, not an emission gap** — exactly the conclusion GEMSDOE32's ceiling analysis
 reached independently. No emission geometry can manufacture coverage it does not have.
 
-**4. What this lane actually measured** ([`evidence/`](evidence/)):
+**4. What this lane actually measured** ([`evidence/`](evidence/ribbon/)):
 
 | measurement | result |
 | --- | --- |
@@ -389,7 +389,7 @@ quoted here is **OWNER-REPORTED**. See [Limitations](#limitations-and-flagged-ir
 * **No hallucinations.** Every number in this repository is either measured in-repo and
   reproducible by a named script, or copied from a cited official source. Links for manual review
   are in [`registry/sources.json`](registry/sources.json) and `docs/sources.html`.
-* **No manual input.** `scripts/build_submission.py` runs the whole pipeline unattended.
+* **No manual input.** `scripts/ribbon_build_submission.py` runs the whole pipeline unattended.
 * **Flag irregularities for review.** [`docs/irregularities.html`](docs/irregularities.html).
 * **A site that makes submitting obvious**, with the download and the submit guide at the very top.
 * **Core values.** *Maximize P(Win)* — choose the path that maximises the probability of winning,
@@ -402,12 +402,12 @@ quoted here is **OWNER-REPORTED**. See [Limitations](#limitations-and-flagged-ir
 
 ```bash
 pip install --break-system-packages -r requirements.txt      # numpy, scipy, rasterio, pytest
-bash scripts/fetch_features.sh                                # 419 MB stack, sha256-pinned
-PYTHONPATH=src python3 scripts/verify_theorems.py             # exact-metric theorems
-PYTHONPATH=src python3 scripts/run_equal_budget.py            # EXP-3: the ribbon vs chain test
-PYTHONPATH=src python3 scripts/build_submission.py            # build + 15 checks + uniqueness
+bash scripts/ribbon_fetch_features.sh                                # 419 MB stack, sha256-pinned
+PYTHONPATH=src python3 scripts/ribbon_verify_theorems.py             # exact-metric theorems
+PYTHONPATH=src python3 scripts/ribbon_run_equal_budget.py            # EXP-3: the ribbon vs chain test
+PYTHONPATH=src python3 scripts/ribbon_build_submission.py            # build + 15 checks + uniqueness
 python3 -m pytest -q                                          # test suite
-python3 scripts/build_site.py                                 # regenerate docs/
+python3 scripts/ribbon_build_site.py                                 # regenerate docs/
 ```
 
 `GEMS_FEATURE_STACK` may point at any copy of the organizer's stack; the build refuses to run
@@ -417,16 +417,16 @@ without one whose sha256 is `4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208
 
 | path | what it holds |
 | --- | --- |
-| `src/gems58/metric.py` | literal transcription of the official metric + fast exact paths |
-| `src/gems58/grid.py` | grid, footprint (5,167,373 px), catalogue mask (60,988 px) |
-| `src/gems58/features.py` | the 19-band organizer stack, band tags read from the file |
-| `src/gems58/ridges.py` | Hessian ridge operator + across-strike geometry |
-| `src/gems58/extract.py` | cached multi-family / multi-scale ridge field |
-| `src/gems58/holdout.py` | `gems58-pooled-hide-v1` buffered hide-and-recover holdout |
-| `src/gems58/sigma.py` | the σ(x) estimator by block / resolution / ridge type |
-| `src/gems58/allocation.py` | ribbon plan (number + offsets of parallel dotted lines) |
-| `src/gems58/uniqueness.py` | rank-correlation and 3 px forward-overlap screen |
-| `src/gems58/submission.py` | writer + the 15 portal checks |
+| `src/gems58w/metric.py` | literal transcription of the official metric + fast exact paths |
+| `src/gems58w/grid.py` | grid, footprint (5,167,373 px), catalogue mask (60,988 px) |
+| `src/gems58w/features.py` | the 19-band organizer stack, band tags read from the file |
+| `src/gems58w/ridges.py` | Hessian ridge operator + across-strike geometry |
+| `src/gems58w/extract.py` | cached multi-family / multi-scale ridge field |
+| `src/gems58w/holdout.py` | `gems58-pooled-hide-v1` buffered hide-and-recover holdout |
+| `src/gems58w/sigma.py` | the σ(x) estimator by block / resolution / ridge type |
+| `src/gems58w/allocation.py` | ribbon plan (number + offsets of parallel dotted lines) |
+| `src/gems58w/uniqueness.py` | rank-correlation and 3 px forward-overlap screen |
+| `src/gems58w/submission.py` | writer + the 15 portal checks |
 | `evidence/` | every receipt: theorems, σ table, sweeps, run card, instrument control |
 | `registry/` | source pins, protocol pins, registry raster index |
 | `docs/` | the GitHub Pages site (index, executive summary, hypotheses, sources) |
@@ -440,7 +440,7 @@ without one whose sha256 is `4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208
 2. **IR-58-02 — the mandated holdout cannot score an off-catalogue file.** The holdout's withheld
    truth *is* catalogue, so a catalogue-margin screen (the property every good live file has)
    makes HOLDOUT-DTI read exactly `0` *by construction*. Proof and control experiment:
-   `evidence/instrument_control.json`. Consequence: this lane's *geometric* findings transfer, its
+   `evidence/ribbon/instrument_control.json`. Consequence: this lane's *geometric* findings transfer, its
    holdout DTIs are **not** live-score forecasts, and the standing rule "validate on the holdout
    before touching a slot" is **not sufficient** for this family of files. The sibling lane
    measured the same obstruction from the other side (`IR-57-INSTR-01`, Spearman(live, proxy-DTI)
