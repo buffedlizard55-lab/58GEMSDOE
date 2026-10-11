@@ -148,7 +148,7 @@
     "detail": "No DrivenData submission receipt exists for this raster, so no ORGANIZER-CONFIRMED score can be quoted for it. This gate can only be closed by the owner's selector step and is never claimed here; the site verdict is computed over G1\u2013G5."
    }
   ],
-  "site_generated_utc": "2026-10-11T16:26:38Z",
+  "site_generated_utc": "2026-10-11T16:31:17Z",
   "site_note": "G6 (organizer receipt) can never pass from this sandbox; the site verdict is computed over G1-G5 and the missing receipt is stated on every page.",
   "equal_budget_arms": {
    "R0": {
