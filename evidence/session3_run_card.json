@@ -1,0 +1,62 @@
+{
+  "evidence_class": "SESSION-REVIEW (no new experiment run; checks on existing rasters)",
+  "generated_utc": "2026-10-11",
+  "hypothesis": "H58-R ribbon lane (emission width matched to localisation error) produces a unique, holdout-positive GeoTIFF for the DOE GEMS challenge.",
+  "mechanism": "Per-segment parallel dotted lines at the 3-px kernel radius cover withheld fault pixels that a single tight line misses when localisation error is 1.5-6 px.",
+  "named_non_fault_process": "Flight-line levelling and draped-sensor artefacts in the aeromagnetic grid, and scarp-like curvature from dense volcanic or alluvial contacts in the detrended DEM.",
+  "result": "NEGATIVE for submission: the candidate duplicates our own control raster and its own holdout DTI is 0.0.",
+  "candidate": {
+    "file": "docs/ribbon/downloads/gems58-adaptive-ribbon-38000-20261011T000000Z.tif",
+    "sha256": "d631b4af205bd6e0961f4bad3f4d12bc27b651a020dcd38666e4c5f5246720f7",
+    "bytes": 426559,
+    "n_positives": 38000,
+    "n_positives_on_catalogue": 0,
+    "min_distance_to_catalogue_px": 3.0
+  },
+  "holdout_dti": {
+    "value": 0.0,
+    "label": "HOLDOUT-DTI",
+    "evaluator": "gems58w.metric/v1 (exact triangular kernel, R=3 px, alpha=0.2, beta=0.8), off-catalogue variant",
+    "withheld_positives": "60,869 (run_card) vs 60,474 (holdout_eval, final_sweep) vs 60,988 (equal_budget): INCONSISTENT, see IR-58-S3-02",
+    "ci_95": null,
+    "ci_note": "not reported: 4 block-level pairs"
+  },
+  "correlation_overlap_vs_local_rasters": {
+    "scope": "25 local rasters (19 registry + 4 downloads + 2 evidence); full 695-raster registry not available in this checkout",
+    "worst_rho": 0.8955476644026387,
+    "worst_rho_path": "evidence/gems58-ribbon-sigma168-w3-38000-M1-CONTROL-20261011T000000Z.tif",
+    "max_frac_dots_within_3px": 0.9590526315789474,
+    "max_frac_dots_within_3px_path": "evidence/gems58-ribbon-sigma168-w3-38000-M1-CONTROL-20261011T000000Z.tif",
+    "limits": {"rho": 0.90, "overlap": 0.70},
+    "verdict": "DUPLICATE_OR_DRIFT",
+    "script": "scripts/check_own_rasters.py",
+    "receipt": "evidence/own_raster_duplicate_check_ribbon.json"
+  },
+  "validator_output": {
+    "source": "rasterio 1.4 in .venv_gems (independent re-check) and src/gems58w/submission.py (sha256 + checks)",
+    "single_band_float32": true,
+    "crs": "EPSG:32611",
+    "shape": [3730, 3292],
+    "transform": [100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0],
+    "transform_matches_official_sample": true,
+    "nan_inside_footprint": 0,
+    "footprint_equals_official_sample_footprint": true,
+    "footprint_cells": 5167373,
+    "values": "{0.0, 1.0} only",
+    "in_unit_interval": true
+  },
+  "submission_name": "gems58-adaptive-ribbon-38000-20261011T000000Z",
+  "submission_note": "Ribbon lane: per-segment dotted ribbons (5 lines at 0, +-300 m, +-600 m) on off-catalogue ridge detections; 38k isolated dots.",
+  "submission_note_length": 126,
+  "verdict": "negative - DO NOT SUBMIT",
+  "budget": "review only: 0 new experiments, 0 submission slots used",
+  "official_sources": [
+    "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/ (metric, format: float32, values 0-1, NaN outside bounds)",
+    "https://www.drivendata.org/competitions/306/competition-doe-gems/data/ (login required; not accessed)"
+  ],
+  "open_items": [
+    "Restore the 695-raster registry to run the full uniqueness scan (rate-limited earlier).",
+    "Owner to reconcile the three withheld-positive counts and state which holdout variant is the protocol variant.",
+    "Obtain the organiser's validator or the exact rejection rule behind 'Predicted values must be in range [0, 1]'."
+  ]
+}

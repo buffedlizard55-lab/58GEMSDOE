@@ -79,8 +79,10 @@ def main() -> int:
 
     idx = (doc / "index.html").read_text() if (doc / "index.html").exists() else ""
     if card["verdict"].startswith("candidate"):
-        if "Download: OK" not in idx:
-            errors.append("run card is a candidate but the index does not say download is OK")
+        if "DO NOT SUBMIT" not in idx:
+            errors.append("run card is a candidate but the index does not state DO NOT SUBMIT")
+        if "DUPLICATE_OR_DRIFT" not in idx:
+            errors.append("index must report the own-raster duplicate verdict")
     for frag in ("0.3195", "OWNER-REPORTED"):
         if frag not in idx:
             errors.append(f"index.html must carry {frag}")

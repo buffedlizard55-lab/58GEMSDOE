@@ -110,25 +110,30 @@ def main() -> int:
     dl_tif = f"downloads/{name}.tif"
     dl_zip = f"downloads/{name}.zip"
 
-    banner = f"""<div class="card ok">
+    own = json.loads(Path("evidence/own_raster_duplicate_check_ribbon.json").read_text())
+    own_ctrl = next(r for r in own["rows"] if r.get("path", "").endswith("M1-CONTROL-20261011T000000Z.tif")
+                    and "rho" in r)
+    banner = f"""<div class="card" style="border-left:6px solid #b00020">
 <h2 style="margin-top:0;border:0">Download — and what it is for</h2>
-<p><strong>Download: OK &nbsp;·&nbsp; Submit to the competition: NOT CLEARED YET</strong>
+<p><strong>Download: format-check copy only &nbsp;·&nbsp; Submit to the competition: DO NOT SUBMIT</strong>
 (this project never clicks Submit and never spends a slot).</p>
-<p class="small"><strong>Why not cleared.</strong> The uniqueness screen behind this lane ran against the
-<strong>{usum['n_checked']}</strong> earlier rasters present in this checkout (worst rank correlation
-{usum['worst_rho']:.4f}, worst 3&nbsp;px forward overlap {usum['worst_forward_overlap']:.4f} — below the
-0.90 / 0.70 stop limits). The sibling lane maintains a <strong>695-raster frozen inventory</strong> and
-found one of <em>its</em> candidates at <strong>100&nbsp;%</strong> 3&nbsp;px overlap, so the same scan must be
-run against this raster before anyone submits it. Until then the file is a
-<strong>reviewable artifact, not a cleared submission</strong>.</p>
-<a class="dl" href="{dl_tif}">⬇ Download the submission GeoTIFF &nbsp;·&nbsp; {name}.tif &nbsp;·&nbsp; {card['raster_bytes']:,} bytes</a>
-<a class="dl" href="{dl_zip}">⬇ Download the single-GeoTIFF ZIP (portal accepts this too)</a>
+<p class="small"><strong>Why DO NOT SUBMIT.</strong>
+(1) <strong>Duplicate of our own control.</strong> Against the M1-CONTROL raster in
+<code>evidence/</code> this file has Spearman rho <strong>{own_ctrl['rho']:.4f}</strong> (limit 0.90) and
+<strong>{own_ctrl['frac_dots_within_3px_of_other']*100:.1f}&nbsp;%</strong> of its dots within 3&nbsp;px of the
+control's dots (limit 70&nbsp;%); verdict <strong>{own['verdict']}</strong>
+(<code>evidence/own_raster_duplicate_check_ribbon.json</code>, <code>scripts/check_own_rasters.py</code>).
+The earlier "0 duplicates" claim covered only the 19 registry rasters, not our own outputs.
+(2) <strong>Own holdout gives 0.0.</strong> The emission's HOLDOUT-DTI is <strong>{card['holdout_dti']:.4f}</strong>
+(evaluator {card['holdout_dti_evaluator']}, {card['holdout_dti_withheld_positives']:,} withheld positives,
+95&nbsp;% CI not reported). The repo's own rule is not to spend a slot on a candidate that has not beaten the holdout best.
+(3) The 695-raster frozen registry is not in this checkout, so the full-registry uniqueness scan cannot be run here.</p>
+<a class="dl" href="{dl_tif}">⬇ Download the GeoTIFF (format-check copy) &nbsp;·&nbsp; {name}.tif &nbsp;·&nbsp; {card['raster_bytes']:,} bytes</a>
+<a class="dl" href="{dl_zip}">⬇ Download the single-GeoTIFF ZIP (same file)</a>
 <p class="small">sha256 <code>{sha}</code> &nbsp;·&nbsp; {n_dots:,} dots, every value exactly
-<code>1.0</code> &nbsp;·&nbsp; <strong>{n_pass}/{len(checks)} local acceptance checks pass</strong>
-&nbsp;·&nbsp; worst registry rank correlation <strong>{usum['worst_rho']:.4f}</strong>
-&nbsp;·&nbsp; worst 3&nbsp;px forward overlap <strong>{usum['worst_forward_overlap']:.4f}</strong>
-&nbsp;·&nbsp; <strong>{usum['n_triggers']} duplicates</strong></p>
-<p><strong>Suggested submission note ({len(note)} / 140 characters):</strong><br>
+<code>1.0</code> &nbsp;·&nbsp; <strong>{n_pass}/{len(checks)} local format checks pass</strong>
+&nbsp;·&nbsp; <strong>DUPLICATE_OR_DRIFT</strong> against our own control.</p>
+<p class="small">Suggested note for the record only ({len(note)} / 140 characters):<br>
 <code>{html.escape(note)}</code></p>
 <p class="small">Do not upload this page, a JSON receipt, or a ZIP of the repository:
 the portal takes the <code>.tif</code>, or a ZIP containing exactly one GeoTIFF.</p>
