@@ -1,0 +1,5939 @@
+{
+ "evidence_class": "HOLDOUT-DTI",
+ "evaluator_version": "gems61-buffered-hide-v1: gems57.holdout.build_buffered_holdout_context seeds=(20, 21) hide_frac=0.2 mode=all; exact triangular DTI alpha=0.2 beta=0.8 R=3px (gems57.metric)",
+ "generated_utc": "2026-10-11T19:01:45Z",
+ "label": "HOLDOUT-DTI on catalogue-recovery proxy truth (withheld whole components); not a leaderboard forecast; protocol item 3",
+ "n_withheld_positive_pixels": 22893,
+ "arms": {
+  "A0_single_line": {
+   "dti": 0.02942999003736653,
+   "tp": 762.2170564417199,
+   "fp": 37162.4384765625,
+   "fn": 22130.782943558283,
+   "n_truth": 22893,
+   "n_dots": 82120
+  },
+  "A1_sigma_ribbon": {
+   "dti": 0.04495778367380215,
+   "tp": 1819.7320946988448,
+   "fp": 108990.5859375,
+   "fn": 21073.267905301156,
+   "n_truth": 22893,
+   "n_dots": 238689
+  }
+ },
+ "per_quadrant": {
+  "A0_single_line": {
+   "NE": {
+    "tp": 164.13621134506695,
+    "fp": 10735.40625,
+    "fn": 4563.863788654933,
+    "n_truth": 4728,
+    "n_dots": 20530,
+    "dti": 0.02752896995482421
+   },
+   "NW": {
+    "tp": 106.76070940504054,
+    "fp": 8297.431640625,
+    "fn": 3734.2392905949596,
+    "n_truth": 3841,
+    "n_dots": 20530,
+    "dti": 0.022458735572481507
+   },
+   "SE": {
+    "tp": 239.7640662960387,
+    "fp": 9088.18994140625,
+    "fn": 6490.235933703962,
+    "n_truth": 6730,
+    "n_dots": 20530,
+    "dti": 0.03307277236186785
+   },
+   "SW": {
+    "tp": 251.55606939557373,
+    "fp": 9041.41064453125,
+    "fn": 7342.443930604426,
+    "n_truth": 7594,
+    "n_dots": 20530,
+    "dti": 0.03170690973748736
+   }
+  },
+  "A1_sigma_ribbon": {
+   "NE": {
+    "tp": 382.5956364344106,
+    "fp": 31293.115234375,
+    "fn": 4345.404363565589,
+    "n_truth": 4728,
+    "n_dots": 59476,
+    "dti": 0.03781507700669447
+   },
+   "NW": {
+    "tp": 298.5327042939299,
+    "fp": 24430.2216796875,
+    "fn": 3542.46729570607,
+    "n_truth": 3841,
+    "n_dots": 59820,
+    "dti": 0.03723025629952789
+   },
+   "SE": {
+    "tp": 580.6714273117623,
+    "fp": 26745.5849609375,
+    "fn": 6149.328572688239,
+    "n_truth": 6730,
+    "n_dots": 59820,
+    "dti": 0.053521797260607476
+   },
+   "SW": {
+    "tp": 557.932326658742,
+    "fp": 26521.6640625,
+    "fn": 7036.067673341258,
+    "n_truth": 7594,
+    "n_dots": 59573,
+    "dti": 0.0485533491707013
+   }
+  }
+ },
+ "reference": {
+  "dti": 0.030162388715534644,
+  "tp": 907.2681195353584,
+  "fp": 57917.9912109375,
+  "fn": 21985.731880464642,
+  "n_truth": 22893,
+  "n_dots": 40768,
+  "file": "gems58-concordance-ribbon-40768-20261011T160514Z.tif",
+  "label": "published session-5 concordance candidate re-scored on this instrument"
+ },
+ "paired_A1_minus_A0": {
+  "delta": 0.015527793636435618,
+  "ci95_quadrant_cluster_bootstrap": [
+   0.01195131565999561,
+   0.01913255267515095
+  ],
+  "draws": 2000,
+  "clusters": 4,
+  "note": "paired percentile bootstrap over the 4 spatial quadrants (both seeds pooled per quadrant); coarse, 4 clusters"
+ },
+ "simulated_gain_per_class": [
+  {
+   "outer": "NE",
+   "stratum": "subsurface:cond_surf@1.5px relief1",
+   "strength_bin": "high",
+   "n_segments": 4,
+   "chosen": "DROP",
+   "U_best": 0.0,
+   "per_pattern": {
+    "P1-single": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 17,
+     "U_per_dot": 0.0
+    },
+    "P2-pair": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 34,
+     "U_per_dot": 0.0
+    },
+    "P3-triple": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 51,
+     "U_per_dot": 0.0
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.725371976672278
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.725371976672278
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.725371976672278
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "NE",
+   "stratum": "subsurface:cond_surf@1.5px relief1",
+   "strength_bin": "mid",
+   "n_segments": 3,
+   "chosen": "DROP",
+   "U_best": 0.0,
+   "per_pattern": {
+    "P1-single": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 8,
+     "U_per_dot": 0.0
+    },
+    "P2-pair": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 16,
+     "U_per_dot": 0.0
+    },
+    "P3-triple": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 24,
+     "U_per_dot": 0.0
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.725371976672278
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.725371976672278
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.725371976672278
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "NE",
+   "stratum": "subsurface:cond_surf@1.5px relief1",
+   "strength_bin": "low",
+   "n_segments": 3,
+   "chosen": "DROP",
+   "U_best": 0.0,
+   "per_pattern": {
+    "P1-single": {
+     "U": -0.047997605794295045,
+     "TP": 0.0,
+     "FP": 8.0,
+     "n_dots": 8,
+     "U_per_dot": -0.005999700724286881
+    },
+    "P2-pair": {
+     "U": -0.09599521158859009,
+     "TP": 0.0,
+     "FP": 16.0,
+     "n_dots": 16,
+     "U_per_dot": -0.005999700724286881
+    },
+    "P3-triple": {
+     "U": -0.14399281738288514,
+     "TP": 0.0,
+     "FP": 24.0,
+     "n_dots": 24,
+     "U_per_dot": -0.005999700724286881
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.725371976672278
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.725371976672278
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.725371976672278
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "NE",
+   "stratum": "subsurface:cond_surf@1.5px relief2",
+   "strength_bin": "high",
+   "n_segments": 5,
+   "chosen": "DROP",
+   "U_best": 0.0,
+   "per_pattern": {
+    "P1-single": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 28,
+     "U_per_dot": 0.0
+    },
+    "P2-pair": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 56,
+     "U_per_dot": 0.0
+    },
+    "P3-triple": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 84,
+     "U_per_dot": 0.0
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.725371976672278
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.725371976672278
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.725371976672278
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "NE",
+   "stratum": "subsurface:cond_surf@1.5px relief2",
+   "strength_bin": "mid",
+   "n_segments": 4,
+   "chosen": "DROP",
+   "U_best": 0.0,
+   "per_pattern": {
+    "P1-single": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 26,
+     "U_per_dot": 0.0
+    },
+    "P2-pair": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 52,
+     "U_per_dot": 0.0
+    },
+    "P3-triple": {
+     "U": -0.09599521158859009,
+     "TP": 0.0,
+     "FP": 16.0,
+     "n_dots": 78,
+     "U_per_dot": -0.0012307078408793602
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.725371976672278
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.725371976672278
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.725371976672278
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "NE",
+   "stratum": "subsurface:cond_surf@1.5px relief2",
+   "strength_bin": "low",
+   "n_segments": 4,
+   "chosen": "DROP",
+   "U_best": 0.0,
+   "per_pattern": {
+    "P1-single": {
+     "U": -0.035998204345721284,
+     "TP": 0.0,
+     "FP": 6.0,
+     "n_dots": 37,
+     "U_per_dot": -0.0009729244417762509
+    },
+    "P2-pair": {
+     "U": -0.07199640869144257,
+     "TP": 0.0,
+     "FP": 12.0,
+     "n_dots": 74,
+     "U_per_dot": -0.0009729244417762509
+    },
+    "P3-triple": {
+     "U": -0.11999401448573761,
+     "TP": 0.0,
+     "FP": 20.0,
+     "n_dots": 111,
+     "U_per_dot": -0.0010810271575291677
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.725371976672278
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.725371976672278
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.725371976672278
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "NE",
+   "stratum": "subsurface:depth_to_base_surf@1.5px relief0",
+   "strength_bin": "high",
+   "n_segments": 27,
+   "chosen": "DROP",
+   "U_best": 0.0,
+   "per_pattern": {
+    "P1-single": {
+     "U": -0.45597725504580294,
+     "TP": 0.0,
+     "FP": 76.0,
+     "n_dots": 73,
+     "U_per_dot": -0.006246263767750725
+    },
+    "P2-pair": {
+     "U": -0.9239539115401796,
+     "TP": 0.0,
+     "FP": 154.0,
+     "n_dots": 146,
+     "U_per_dot": -0.00632845144890534
+    },
+    "P3-triple": {
+     "U": -1.3679317651374088,
+     "TP": 0.0,
+     "FP": 228.0,
+     "n_dots": 219,
+     "U_per_dot": -0.006246263767750725
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale",
+      "sigma_raw": 10.725371976672278
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale",
+      "sigma_raw": 10.725371976672278
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale",
+      "sigma_raw": 10.725371976672278
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "NE",
+   "stratum": "subsurface:depth_to_base_surf@1.5px relief0",
+   "strength_bin": "mid",
+   "n_segments": 26,
+   "chosen": "P3-triple",
+   "U_best": 7.211004964684396,
+   "per_pattern": {
+    "P1-single": {
+     "U": 4.138036394132093,
+     "TP": 4.683051793460448,
+     "FP": 86.15737915039062,
+     "n_dots": 69,
+     "U_per_dot": 0.05997154194394337
+    },
+    "P2-pair": {
+     "U": 5.740157463367595,
+     "TP": 6.818932077711649,
+     "FP": 172.9858055114746,
+     "n_dots": 138,
+     "U_per_dot": 0.04159534393744634
+    },
+    "P3-triple": {
+     "U": 7.211004964684396,
+     "TP": 8.795242807089823,
+     "FP": 255.257568359375,
+     "n_dots": 207,
+     "U_per_dot": 0.034835772776253125
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale",
+      "sigma_raw": 10.725371976672278
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale",
+      "sigma_raw": 10.725371976672278
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale",
+      "sigma_raw": 10.725371976672278
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "NE",
+   "stratum": "subsurface:depth_to_base_surf@1.5px relief0",
+   "strength_bin": "low",
+   "n_segments": 26,
+   "chosen": "DROP",
+   "U_best": 0.0,
+   "per_pattern": {
+    "P1-single": {
+     "U": -0.5759712695315405,
+     "TP": 0.0,
+     "FP": 96.0,
+     "n_dots": 61,
+     "U_per_dot": -0.009442151959533452
+    },
+    "P2-pair": {
+     "U": -1.151942539063081,
+     "TP": 0.0,
+     "FP": 192.0,
+     "n_dots": 122,
+     "U_per_dot": -0.009442151959533452
+    },
+    "P3-triple": {
+     "U": -1.7279138085946215,
+     "TP": 0.0,
+     "FP": 288.0,
+     "n_dots": 183,
+     "U_per_dot": -0.00944215195953345
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale",
+      "sigma_raw": 10.725371976672278
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale",
+      "sigma_raw": 10.725371976672278
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale",
+      "sigma_raw": 10.725371976672278
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "NE",
+   "stratum": "subsurface:depth_to_base_surf@1.5px relief1",
+   "strength_bin": "high",
+   "n_segments": 24,
+   "chosen": "P3-triple",
+   "U_best": 6.153676699326161,
+   "per_pattern": {
+    "P1-single": {
+     "U": 1.6550996682093684,
+     "TP": 1.9926958561719563,
+     "FP": 54.27614212036133,
+     "n_dots": 76,
+     "U_per_dot": 0.021777627213281164
+    },
+    "P2-pair": {
+     "U": 3.1797578906197663,
+     "TP": 3.8546246687142585,
+     "FP": 108.62878227233887,
+     "n_dots": 152,
+     "U_per_dot": 0.02091945980670899
+    },
+    "P3-triple": {
+     "U": 6.153676699326161,
+     "TP": 7.164268731425766,
+     "FP": 161.27613830566406,
+     "n_dots": 228,
+     "U_per_dot": 0.026989810084763866
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 11.184591428965897
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 11.184591428965897
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 11.184591428965897
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "NE",
+   "stratum": "subsurface:depth_to_base_surf@1.5px relief1",
+   "strength_bin": "mid",
+   "n_segments": 23,
+   "chosen": "DROP",
+   "U_best": 0.0,
+   "per_pattern": {
+    "P1-single": {
+     "U": -0.5399730651858192,
+     "TP": 0.0,
+     "FP": 90.0,
+     "n_dots": 62,
+     "U_per_dot": -0.008709242986868052
+    },
+    "P2-pair": {
+     "U": -1.0919455318202123,
+     "TP": 0.0,
+     "FP": 182.0,
+     "n_dots": 124,
+     "U_per_dot": -0.008806012353388808
+    },
+    "P3-triple": {
+     "U": -1.0006206004161136,
+     "TP": 0.64516829925134,
+     "FP": 273.66666412353516,
+     "n_dots": 186,
+     "U_per_dot": -0.00537968064739846
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 11.184591428965897
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 11.184591428965897
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 11.184591428965897
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "NE",
+   "stratum": "subsurface:depth_to_base_surf@1.5px relief1",
+   "strength_bin": "low",
+   "n_segments": 23,
+   "chosen": "DROP",
+   "U_best": 0.0,
+   "per_pattern": {
+    "P1-single": {
+     "U": -0.5159742622886717,
+     "TP": 0.0,
+     "FP": 86.0,
+     "n_dots": 55,
+     "U_per_dot": -0.009381350223430394
+    },
+    "P2-pair": {
+     "U": -1.0319485245773434,
+     "TP": 0.0,
+     "FP": 172.0,
+     "n_dots": 110,
+     "U_per_dot": -0.009381350223430394
+    },
+    "P3-triple": {
+     "U": -1.5719215897631627,
+     "TP": 0.0,
+     "FP": 262.0,
+     "n_dots": 165,
+     "U_per_dot": -0.009526797513716137
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 11.184591428965897
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 11.184591428965897
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 11.184591428965897
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "NE",
+   "stratum": "subsurface:depth_to_base_surf@1.5px relief2",
+   "strength_bin": "high",
+   "n_segments": 22,
+   "chosen": "DROP",
+   "U_best": 0.0,
+   "per_pattern": {
+    "P1-single": {
+     "U": -0.3119844376629178,
+     "TP": 0.0,
+     "FP": 52.0,
+     "n_dots": 60,
+     "U_per_dot": -0.005199740627715296
+    },
+    "P2-pair": {
+     "U": -0.5095869592499731,
+     "TP": 0.11438191683587307,
+     "FP": 103.88561820983887,
+     "n_dots": 120,
+     "U_per_dot": -0.004246557993749776
+    },
+    "P3-triple": {
+     "U": -0.3694743410356238,
+     "TP": 0.5664789734180767,
+     "FP": 155.43352127075195,
+     "n_dots": 180,
+     "U_per_dot": -0.002052635227975688
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.18118280218071
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.18118280218071
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.18118280218071
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "NE",
+   "stratum": "subsurface:depth_to_base_surf@1.5px relief2",
+   "strength_bin": "mid",
+   "n_segments": 21,
+   "chosen": "DROP",
+   "U_best": 0.0,
+   "per_pattern": {
+    "P1-single": {
+     "U": -0.299985036214344,
+     "TP": 0.0,
+     "FP": 50.0,
+     "n_dots": 55,
+     "U_per_dot": -0.005454273385715346
+    },
+    "P2-pair": {
+     "U": -0.599970072428688,
+     "TP": 0.0,
+     "FP": 100.0,
+     "n_dots": 110,
+     "U_per_dot": -0.005454273385715346
+    },
+    "P3-triple": {
+     "U": -0.8999551086430321,
+     "TP": 0.0,
+     "FP": 150.0,
+     "n_dots": 165,
+     "U_per_dot": -0.005454273385715346
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.18118280218071
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.18118280218071
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.18118280218071
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "NE",
+   "stratum": "subsurface:depth_to_base_surf@1.5px relief2",
+   "strength_bin": "low",
+   "n_segments": 22,
+   "chosen": "DROP",
+   "U_best": 0.0,
+   "per_pattern": {
+    "P1-single": {
+     "U": -0.38398084635436036,
+     "TP": 0.0,
+     "FP": 64.0,
+     "n_dots": 51,
+     "U_per_dot": -0.007529036203026674
+    },
+    "P2-pair": {
+     "U": -0.7679616927087207,
+     "TP": 0.0,
+     "FP": 128.0,
+     "n_dots": 102,
+     "U_per_dot": -0.007529036203026674
+    },
+    "P3-triple": {
+     "U": -1.151942539063081,
+     "TP": 0.0,
+     "FP": 192.0,
+     "n_dots": 153,
+     "U_per_dot": -0.007529036203026674
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.18118280218071
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.18118280218071
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.18118280218071
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "NE",
+   "stratum": "magnetic:tc@1.5px relief0",
+   "strength_bin": "high",
+   "n_segments": 579,
+   "chosen": "P3-triple",
+   "U_best": 148.1489989844236,
+   "per_pattern": {
+    "P1-single": {
+     "U": 57.49514884561834,
+     "TP": 88.10541471789433,
+     "FP": 5013.860046386719,
+     "n_dots": 3571,
+     "U_per_dot": 0.01610057374562261
+    },
+    "P2-pair": {
+     "U": 81.74204276353984,
+     "TP": 142.89878059249824,
+     "FP": 10050.399291992188,
+     "n_dots": 7139,
+     "U_per_dot": 0.011450069024168629
+    },
+    "P3-triple": {
+     "U": 148.1489989844236,
+     "TP": 239.82751599335552,
+     "FP": 15040.6875,
+     "n_dots": 10697,
+     "U_per_dot": 0.013849583900572459
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.830245431384732
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.830245431384732
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.830245431384732
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "NE",
+   "stratum": "magnetic:tc@1.5px relief0",
+   "strength_bin": "mid",
+   "n_segments": 578,
+   "chosen": "P3-triple",
+   "U_best": 78.7181124222968,
+   "per_pattern": {
+    "P1-single": {
+     "U": 36.26105449801382,
+     "TP": 54.318624952329046,
+     "FP": 2955.4265747070312,
+     "n_dots": 2124,
+     "U_per_dot": 0.01707205955650368
+    },
+    "P2-pair": {
+     "U": 47.84052638396963,
+     "TP": 83.74191949766788,
+     "FP": 5900.1220703125,
+     "n_dots": 4246,
+     "U_per_dot": 0.011267198865748854
+    },
+    "P3-triple": {
+     "U": 78.7181124222968,
+     "TP": 132.55605570489772,
+     "FP": 8840.882080078125,
+     "n_dots": 6350,
+     "U_per_dot": 0.012396553137369575
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.830245431384732
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.830245431384732
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.830245431384732
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "NE",
+   "stratum": "magnetic:tc@1.5px relief0",
+   "strength_bin": "low",
+   "n_segments": 579,
+   "chosen": "P3-triple",
+   "U_best": 57.411927336112036,
+   "per_pattern": {
+    "P1-single": {
+     "U": 16.349857050583346,
+     "TP": 32.46911352423633,
+     "FP": 2654.2076416015625,
+     "n_dots": 1781,
+     "U_per_dot": 0.00918015555900244
+    },
+    "P2-pair": {
+     "U": 25.331492081502166,
+     "TP": 57.525158984376915,
+     "FP": 5308.3536376953125,
+     "n_dots": 3557,
+     "U_per_dot": 0.007121589002390263
+    },
+    "P3-triple": {
+     "U": 57.411927336112036,
+     "TP": 105.59905243972837,
+     "FP": 7925.989074707031,
+     "n_dots": 5321,
+     "U_per_dot": 0.010789687527929344
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.830245431384732
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.830245431384732
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.830245431384732
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "NE",
+   "stratum": "magnetic:tc@1.5px relief1",
+   "strength_bin": "high",
+   "n_segments": 545,
+   "chosen": "P3-triple",
+   "U_best": 105.11637765711536,
+   "per_pattern": {
+    "P1-single": {
+     "U": 58.13089294913798,
+     "TP": 77.07306192779473,
+     "FP": 3080.112579345703,
+     "n_dots": 2380,
+     "U_per_dot": 0.024424744936612598
+    },
+    "P2-pair": {
+     "U": 76.44859034014412,
+     "TP": 114.52036311389512,
+     "FP": 6231.091613769531,
+     "n_dots": 4759,
+     "U_per_dot": 0.01606400301326836
+    },
+    "P3-triple": {
+     "U": 105.11637765711536,
+     "TP": 161.83356085488202,
+     "FP": 9291.501831054688,
+     "n_dots": 7130,
+     "U_per_dot": 0.014742829965934835
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.753253200231896
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.753253200231896
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.753253200231896
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "NE",
+   "stratum": "magnetic:tc@1.5px relief1",
+   "strength_bin": "mid",
+   "n_segments": 544,
+   "chosen": "P3-triple",
+   "U_best": 171.65354321882296,
+   "per_pattern": {
+    "P1-single": {
+     "U": 78.96790312833046,
+     "TP": 94.6671979141788,
+     "FP": 2522.012451171875,
+     "n_dots": 1949,
+     "U_per_dot": 0.04051713859842507
+    },
+    "P2-pair": {
+     "U": 106.48230531008431,
+     "TP": 137.67043762173358,
+     "FP": 5060.610900878906,
+     "n_dots": 3894,
+     "U_per_dot": 0.027345224784305164
+    },
+    "P3-triple": {
+     "U": 171.65354321882296,
+     "TP": 218.372286121405,
+     "FP": 7568.4732666015625,
+     "n_dots": 5831,
+     "U_per_dot": 0.029438096933428737
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.753253200231896
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.753253200231896
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.753253200231896
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "NE",
+   "stratum": "magnetic:tc@1.5px relief1",
+   "strength_bin": "low",
+   "n_segments": 544,
+   "chosen": "P3-triple",
+   "U_best": 146.48981227735547,
+   "per_pattern": {
+    "P1-single": {
+     "U": 60.99243930852594,
+     "TP": 75.211447085973,
+     "FP": 2294.7413940429688,
+     "n_dots": 1769,
+     "U_per_dot": 0.03447848462890104
+    },
+    "P2-pair": {
+     "U": 96.79454657815714,
+     "TP": 124.97496504440441,
+     "FP": 4571.9957275390625,
+     "n_dots": 3536,
+     "U_per_dot": 0.027374023353551227
+    },
+    "P3-triple": {
+     "U": 146.48981227735547,
+     "TP": 188.8079946517743,
+     "FP": 6864.57421875,
+     "n_dots": 5299,
+     "U_per_dot": 0.02764480322275061
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.753253200231896
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.753253200231896
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.753253200231896
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "NE",
+   "stratum": "magnetic:tc@1.5px relief2",
+   "strength_bin": "high",
+   "n_segments": 536,
+   "chosen": "P3-triple",
+   "U_best": 80.23477729470142,
+   "per_pattern": {
+    "P1-single": {
+     "U": 37.1630635149363,
+     "TP": 53.25486128429161,
+     "FP": 2628.84521484375,
+     "n_dots": 2422,
+     "U_per_dot": 0.01534395686000673
+    },
+    "P2-pair": {
+     "U": 54.25795222831121,
+     "TP": 86.41985805050678,
+     "FP": 5274.1651611328125,
+     "n_dots": 4842,
+     "U_per_dot": 0.011205690257809008
+    },
+    "P3-triple": {
+     "U": 80.23477729470142,
+     "TP": 128.42675152968516,
+     "FP": 7903.9696044921875,
+     "n_dots": 7245,
+     "U_per_dot": 0.011074503422319037
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.814838065117508
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.814838065117508
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.814838065117508
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "NE",
+   "stratum": "magnetic:tc@1.5px relief2",
+   "strength_bin": "mid",
+   "n_segments": 536,
+   "chosen": "P3-triple",
+   "U_best": 85.11128324238629,
+   "per_pattern": {
+    "P1-single": {
+     "U": 27.765628834162346,
+     "TP": 42.776566683741336,
+     "FP": 2459.1712036132812,
+     "n_dots": 2016,
+     "U_per_dot": 0.01377263335027894
+    },
+    "P2-pair": {
+     "U": 45.881778412319804,
+     "TP": 75.96776099392457,
+     "FP": 4938.61279296875,
+     "n_dots": 4032,
+     "U_per_dot": 0.011379409328452333
+    },
+    "P3-triple": {
+     "U": 85.11128324238629,
+     "TP": 130.1702305896992,
+     "FP": 7380.0289306640625,
+     "n_dots": 6038,
+     "U_per_dot": 0.014095939589663181
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.814838065117508
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.814838065117508
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.814838065117508
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "NE",
+   "stratum": "magnetic:tc@1.5px relief2",
+   "strength_bin": "low",
+   "n_segments": 536,
+   "chosen": "P3-triple",
+   "U_best": 133.04385742983595,
+   "per_pattern": {
+    "P1-single": {
+     "U": 63.51563691331219,
+     "TP": 76.57577383375622,
+     "FP": 2100.2222900390625,
+     "n_dots": 1760,
+     "U_per_dot": 0.03608843006438193
+    },
+    "P2-pair": {
+     "U": 91.12347057978936,
+     "TP": 117.0033568909981,
+     "FP": 4196.526184082031,
+     "n_dots": 3519,
+     "U_per_dot": 0.025894706047112633
+    },
+    "P3-triple": {
+     "U": 133.04385742983595,
+     "TP": 171.90932784330022,
+     "FP": 6305.9921875,
+     "n_dots": 5263,
+     "U_per_dot": 0.025279091284407362
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.814838065117508
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.814838065117508
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.814838065117508
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "NE",
+   "stratum": "magnetic:tc@3px relief1",
+   "strength_bin": "high",
+   "n_segments": 3,
+   "chosen": "DROP",
+   "U_best": 0.0,
+   "per_pattern": {
+    "P1-single": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 11,
+     "U_per_dot": 0.0
+    },
+    "P2-pair": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 22,
+     "U_per_dot": 0.0
+    },
+    "P3-triple": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 33,
+     "U_per_dot": 0.0
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "family",
+      "sigma_raw": 8.784335886225282
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family",
+      "sigma_raw": 8.784335886225282
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family",
+      "sigma_raw": 8.784335886225282
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "NE",
+   "stratum": "magnetic:tc@3px relief1",
+   "strength_bin": "low",
+   "n_segments": 3,
+   "chosen": "P3-triple",
+   "U_best": 3.710764781904347,
+   "per_pattern": {
+    "P1-single": {
+     "U": -0.047997605794295045,
+     "TP": 0.0,
+     "FP": 8.0,
+     "n_dots": 7,
+     "U_per_dot": -0.006856800827756435
+    },
+    "P2-pair": {
+     "U": 0.8572662215926308,
+     "TP": 0.9570032651693466,
+     "FP": 15.666666507720947,
+     "n_dots": 14,
+     "U_per_dot": 0.06123330154233077
+    },
+    "P3-triple": {
+     "U": 3.710764781904347,
+     "TP": 3.8619288125423017,
+     "FP": 21.333333015441895,
+     "n_dots": 21,
+     "U_per_dot": 0.17670308485258795
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "family",
+      "sigma_raw": 8.784335886225282
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family",
+      "sigma_raw": 8.784335886225282
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family",
+      "sigma_raw": 8.784335886225282
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "NW",
+   "stratum": "subsurface:cond_surf@1.5px relief1",
+   "strength_bin": "high",
+   "n_segments": 4,
+   "chosen": "DROP",
+   "U_best": 0.0,
+   "per_pattern": {
+    "P1-single": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 17,
+     "U_per_dot": 0.0
+    },
+    "P2-pair": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 34,
+     "U_per_dot": 0.0
+    },
+    "P3-triple": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 51,
+     "U_per_dot": 0.0
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 12.108881038312335
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 12.108881038312335
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 12.108881038312335
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "NW",
+   "stratum": "subsurface:cond_surf@1.5px relief1",
+   "strength_bin": "mid",
+   "n_segments": 3,
+   "chosen": "DROP",
+   "U_best": 0.0,
+   "per_pattern": {
+    "P1-single": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 8,
+     "U_per_dot": 0.0
+    },
+    "P2-pair": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 16,
+     "U_per_dot": 0.0
+    },
+    "P3-triple": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 24,
+     "U_per_dot": 0.0
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 12.108881038312335
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 12.108881038312335
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 12.108881038312335
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "NW",
+   "stratum": "subsurface:cond_surf@1.5px relief1",
+   "strength_bin": "low",
+   "n_segments": 3,
+   "chosen": "DROP",
+   "U_best": 0.0,
+   "per_pattern": {
+    "P1-single": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 8,
+     "U_per_dot": 0.0
+    },
+    "P2-pair": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 16,
+     "U_per_dot": 0.0
+    },
+    "P3-triple": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 24,
+     "U_per_dot": 0.0
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 12.108881038312335
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 12.108881038312335
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 12.108881038312335
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "NW",
+   "stratum": "subsurface:cond_surf@1.5px relief2",
+   "strength_bin": "high",
+   "n_segments": 5,
+   "chosen": "DROP",
+   "U_best": 0.0,
+   "per_pattern": {
+    "P1-single": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 28,
+     "U_per_dot": 0.0
+    },
+    "P2-pair": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 56,
+     "U_per_dot": 0.0
+    },
+    "P3-triple": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 84,
+     "U_per_dot": 0.0
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 12.108881038312335
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 12.108881038312335
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 12.108881038312335
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "NW",
+   "stratum": "subsurface:cond_surf@1.5px relief2",
+   "strength_bin": "mid",
+   "n_segments": 4,
+   "chosen": "DROP",
+   "U_best": 0.0,
+   "per_pattern": {
+    "P1-single": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 26,
+     "U_per_dot": 0.0
+    },
+    "P2-pair": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 52,
+     "U_per_dot": 0.0
+    },
+    "P3-triple": {
+     "U": -0.0991909012659864,
+     "TP": 0.0,
+     "FP": 16.0,
+     "n_dots": 78,
+     "U_per_dot": -0.0012716782213588
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 12.108881038312335
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 12.108881038312335
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 12.108881038312335
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "NW",
+   "stratum": "subsurface:cond_surf@1.5px relief2",
+   "strength_bin": "low",
+   "n_segments": 4,
+   "chosen": "DROP",
+   "U_best": 0.0,
+   "per_pattern": {
+    "P1-single": {
+     "U": -0.0371965879747449,
+     "TP": 0.0,
+     "FP": 6.0,
+     "n_dots": 37,
+     "U_per_dot": -0.0010053131885066188
+    },
+    "P2-pair": {
+     "U": -0.0743931759494898,
+     "TP": 0.0,
+     "FP": 12.0,
+     "n_dots": 74,
+     "U_per_dot": -0.0010053131885066188
+    },
+    "P3-triple": {
+     "U": -0.123988626582483,
+     "TP": 0.0,
+     "FP": 20.0,
+     "n_dots": 111,
+     "U_per_dot": -0.0011170146538962433
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 12.108881038312335
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 12.108881038312335
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 12.108881038312335
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "NW",
+   "stratum": "subsurface:depth_to_base_surf@1.5px relief0",
+   "strength_bin": "high",
+   "n_segments": 27,
+   "chosen": "DROP",
+   "U_best": 0.0,
+   "per_pattern": {
+    "P1-single": {
+     "U": -0.6819374462036565,
+     "TP": 0.0,
+     "FP": 110.0,
+     "n_dots": 73,
+     "U_per_dot": -0.009341608852104883
+    },
+    "P2-pair": {
+     "U": -1.3762737550655613,
+     "TP": 0.0,
+     "FP": 222.0,
+     "n_dots": 146,
+     "U_per_dot": -0.0094265325689422
+    },
+    "P3-triple": {
+     "U": -1.791168316890833,
+     "TP": 0.2546440075000701,
+     "FP": 329.74535369873047,
+     "n_dots": 219,
+     "U_per_dot": -0.008178850762058598
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 12.11129323399134
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 12.11129323399134
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 12.11129323399134
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "NW",
+   "stratum": "subsurface:depth_to_base_surf@1.5px relief0",
+   "strength_bin": "mid",
+   "n_segments": 26,
+   "chosen": "P3-triple",
+   "U_best": 3.951454885104751,
+   "per_pattern": {
+    "P1-single": {
+     "U": 2.9636887680491366,
+     "TP": 3.566478973418077,
+     "FP": 93.66666603088379,
+     "n_dots": 69,
+     "U_per_dot": 0.042952011131146904
+    },
+    "P2-pair": {
+     "U": 3.5521517588314735,
+     "TP": 4.759550216087213,
+     "FP": 190.0,
+     "n_dots": 138,
+     "U_per_dot": 0.025740230136459954
+    },
+    "P3-triple": {
+     "U": 3.951454885104751,
+     "TP": 5.704550160875775,
+     "FP": 277.0786895751953,
+     "n_dots": 207,
+     "U_per_dot": 0.01908915403432247
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 12.11129323399134
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 12.11129323399134
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 12.11129323399134
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "NW",
+   "stratum": "subsurface:depth_to_base_surf@1.5px relief0",
+   "strength_bin": "low",
+   "n_segments": 26,
+   "chosen": "P3-triple",
+   "U_best": 6.3923819935559525,
+   "per_pattern": {
+    "P1-single": {
+     "U": 1.880327603982008,
+     "TP": 2.30891262850296,
+     "FP": 66.82404518127441,
+     "n_dots": 61,
+     "U_per_dot": 0.03082504268822964
+    },
+    "P2-pair": {
+     "U": 6.262146827870977,
+     "TP": 7.132957946836154,
+     "FP": 133.33333206176758,
+     "n_dots": 122,
+     "U_per_dot": 0.05132907235959817
+    },
+    "P3-triple": {
+     "U": 6.3923819935559525,
+     "TP": 7.68086089025395,
+     "FP": 200.15737915039062,
+     "n_dots": 183,
+     "U_per_dot": 0.034931049145114496
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 12.11129323399134
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 12.11129323399134
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 12.11129323399134
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "NW",
+   "stratum": "subsurface:depth_to_base_surf@1.5px relief1",
+   "strength_bin": "high",
+   "n_segments": 24,
+   "chosen": "P3-triple",
+   "U_best": 6.008444231025372,
+   "per_pattern": {
+    "P1-single": {
+     "U": 1.6066644711920803,
+     "TP": 1.9926958561719563,
+     "FP": 60.27614212036133,
+     "n_dots": 76,
+     "U_per_dot": 0.02114032198936948
+    },
+    "P2-pair": {
+     "U": 3.0828983357677835,
+     "TP": 3.8546246687142585,
+     "FP": 120.62878227233887,
+     "n_dots": 152,
+     "U_per_dot": 0.0202822258932091
+    },
+    "P3-triple": {
+     "U": 6.008444231025372,
+     "TP": 7.164268731425766,
+     "FP": 179.27613830566406,
+     "n_dots": 228,
+     "U_per_dot": 0.026352825574672684
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale",
+      "sigma_raw": 12.108881038312335
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale",
+      "sigma_raw": 12.108881038312335
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale",
+      "sigma_raw": 12.108881038312335
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "NW",
+   "stratum": "subsurface:depth_to_base_surf@1.5px relief1",
+   "strength_bin": "mid",
+   "n_segments": 23,
+   "chosen": "DROP",
+   "U_best": 0.0,
+   "per_pattern": {
+    "P1-single": {
+     "U": -0.6075442702541667,
+     "TP": 0.0,
+     "FP": 98.0,
+     "n_dots": 62,
+     "U_per_dot": -0.00979910113313172
+    },
+    "P2-pair": {
+     "U": -1.2274874031665817,
+     "TP": 0.0,
+     "FP": 198.0,
+     "n_dots": 124,
+     "U_per_dot": -0.00989909196102082
+    },
+    "P3-triple": {
+     "U": -1.2041954205189158,
+     "TP": 0.64516829925134,
+     "FP": 297.66666412353516,
+     "n_dots": 186,
+     "U_per_dot": -0.006474168927521053
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale",
+      "sigma_raw": 12.108881038312335
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale",
+      "sigma_raw": 12.108881038312335
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale",
+      "sigma_raw": 12.108881038312335
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "NW",
+   "stratum": "subsurface:depth_to_base_surf@1.5px relief1",
+   "strength_bin": "low",
+   "n_segments": 23,
+   "chosen": "DROP",
+   "U_best": 0.0,
+   "per_pattern": {
+    "P1-single": {
+     "U": -0.4587579183551871,
+     "TP": 0.0,
+     "FP": 74.0,
+     "n_dots": 55,
+     "U_per_dot": -0.008341053061003401
+    },
+    "P2-pair": {
+     "U": -0.9299146993686225,
+     "TP": 0.0,
+     "FP": 150.0,
+     "n_dots": 110,
+     "U_per_dot": -0.008453769994260204
+    },
+    "P3-triple": {
+     "U": -1.4258692056985545,
+     "TP": 0.0,
+     "FP": 230.0,
+     "n_dots": 165,
+     "U_per_dot": -0.008641631549688208
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale",
+      "sigma_raw": 12.108881038312335
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale",
+      "sigma_raw": 12.108881038312335
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale",
+      "sigma_raw": 12.108881038312335
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "NW",
+   "stratum": "subsurface:depth_to_base_surf@1.5px relief2",
+   "strength_bin": "high",
+   "n_segments": 22,
+   "chosen": "DROP",
+   "U_best": 0.0,
+   "per_pattern": {
+    "P1-single": {
+     "U": -0.4835556436716837,
+     "TP": 0.0,
+     "FP": 78.0,
+     "n_dots": 60,
+     "U_per_dot": -0.008059260727861395
+    },
+    "P2-pair": {
+     "U": -0.8527293712928057,
+     "TP": 0.11438191683587307,
+     "FP": 155.88561820983887,
+     "n_dots": 120,
+     "U_per_dot": -0.007106078094106714
+    },
+    "P3-triple": {
+     "U": -0.8469913711359448,
+     "TP": 0.5664789734180767,
+     "FP": 227.43352127075195,
+     "n_dots": 180,
+     "U_per_dot": -0.004705507617421916
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale",
+      "sigma_raw": 12.108881038312335
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale",
+      "sigma_raw": 12.108881038312335
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale",
+      "sigma_raw": 12.108881038312335
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "NW",
+   "stratum": "subsurface:depth_to_base_surf@1.5px relief2",
+   "strength_bin": "mid",
+   "n_segments": 21,
+   "chosen": "P3-triple",
+   "U_best": 1.1556264142163672,
+   "per_pattern": {
+    "P1-single": {
+     "U": 0.38278918791696026,
+     "TP": 0.9570032651693466,
+     "FP": 91.66666603088379,
+     "n_dots": 55,
+     "U_per_dot": 0.006959803416672005
+    },
+    "P2-pair": {
+     "U": 0.3988402023745645,
+     "TP": 1.54498060600275,
+     "FP": 183.33333206176758,
+     "n_dots": 110,
+     "U_per_dot": 0.00362582002158695
+    },
+    "P3-triple": {
+     "U": 1.1556264142163672,
+     "TP": 2.8783139393360835,
+     "FP": 275.0,
+     "n_dots": 165,
+     "U_per_dot": 0.007003796449796165
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale",
+      "sigma_raw": 12.108881038312335
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale",
+      "sigma_raw": 12.108881038312335
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale",
+      "sigma_raw": 12.108881038312335
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "NW",
+   "stratum": "subsurface:depth_to_base_surf@1.5px relief2",
+   "strength_bin": "low",
+   "n_segments": 22,
+   "chosen": "DROP",
+   "U_best": 0.0,
+   "per_pattern": {
+    "P1-single": {
+     "U": -0.4711567810134354,
+     "TP": 0.0,
+     "FP": 76.0,
+     "n_dots": 51,
+     "U_per_dot": -0.0092383682551654
+    },
+    "P2-pair": {
+     "U": -0.9299146993686225,
+     "TP": 0.0,
+     "FP": 150.0,
+     "n_dots": 102,
+     "U_per_dot": -0.009116810778123749
+    },
+    "P3-triple": {
+     "U": -1.4134703430403062,
+     "TP": 0.0,
+     "FP": 228.0,
+     "n_dots": 153,
+     "U_per_dot": -0.0092383682551654
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale",
+      "sigma_raw": 12.108881038312335
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale",
+      "sigma_raw": 12.108881038312335
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale",
+      "sigma_raw": 12.108881038312335
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "NW",
+   "stratum": "magnetic:tc@1.5px relief0",
+   "strength_bin": "high",
+   "n_segments": 579,
+   "chosen": "P3-triple",
+   "U_best": 135.2167710452833,
+   "per_pattern": {
+    "P1-single": {
+     "U": 60.16492265925195,
+     "TP": 93.6718936913124,
+     "FP": 5311.174011230469,
+     "n_dots": 3571,
+     "U_per_dot": 0.016848200128605977
+    },
+    "P2-pair": {
+     "U": 79.23108170547444,
+     "TP": 146.17784530482868,
+     "FP": 10652.677734375,
+     "n_dots": 7139,
+     "U_per_dot": 0.011098344544820624
+    },
+    "P3-triple": {
+     "U": 135.2167710452833,
+     "TP": 235.57182318150717,
+     "FP": 15952.211669921875,
+     "n_dots": 10697,
+     "U_per_dot": 0.012640625506710601
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.751162728319322
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.751162728319322
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.751162728319322
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "NW",
+   "stratum": "magnetic:tc@1.5px relief0",
+   "strength_bin": "mid",
+   "n_segments": 578,
+   "chosen": "P3-triple",
+   "U_best": 73.3278006855769,
+   "per_pattern": {
+    "P1-single": {
+     "U": 35.20772092620773,
+     "TP": 54.31643404912254,
+     "FP": 3028.0167846679688,
+     "n_dots": 2124,
+     "U_per_dot": 0.01657613979576635
+    },
+    "P2-pair": {
+     "U": 46.013011767595984,
+     "TP": 83.99437260196144,
+     "FP": 6042.593505859375,
+     "n_dots": 4246,
+     "U_per_dot": 0.010836790336221381
+    },
+    "P3-triple": {
+     "U": 73.3278006855769,
+     "TP": 130.3422175290218,
+     "FP": 9066.375,
+     "n_dots": 6350,
+     "U_per_dot": 0.011547685147334945
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.751162728319322
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.751162728319322
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.751162728319322
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "NW",
+   "stratum": "magnetic:tc@1.5px relief0",
+   "strength_bin": "low",
+   "n_segments": 579,
+   "chosen": "P3-triple",
+   "U_best": 50.365384444086104,
+   "per_pattern": {
+    "P1-single": {
+     "U": 17.237478388243886,
+     "TP": 32.040705738275946,
+     "FP": 2355.795623779297,
+     "n_dots": 1781,
+     "U_per_dot": 0.00967853924101285
+    },
+    "P2-pair": {
+     "U": 24.96585397347581,
+     "TP": 54.57107805662261,
+     "FP": 4720.903076171875,
+     "n_dots": 3557,
+     "U_per_dot": 0.007018795044553222
+    },
+    "P3-triple": {
+     "U": 50.365384444086104,
+     "TP": 94.68504590938969,
+     "FP": 7054.303161621094,
+     "n_dots": 5321,
+     "U_per_dot": 0.009465398316873916
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.751162728319322
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.751162728319322
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.751162728319322
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "NW",
+   "stratum": "magnetic:tc@1.5px relief1",
+   "strength_bin": "high",
+   "n_segments": 545,
+   "chosen": "P3-triple",
+   "U_best": 116.7392554036199,
+   "per_pattern": {
+    "P1-single": {
+     "U": 60.71531191919175,
+     "TP": 81.05375446358589,
+     "FP": 3199.64111328125,
+     "n_dots": 2380,
+     "U_per_dot": 0.0255106352601646
+    },
+    "P2-pair": {
+     "U": 82.95367882107968,
+     "TP": 123.78262863536298,
+     "FP": 6462.135925292969,
+     "n_dots": 4759,
+     "U_per_dot": 0.017430905404723612
+    },
+    "P3-triple": {
+     "U": 116.7392554036199,
+     "TP": 177.6473796919721,
+     "FP": 9647.144775390625,
+     "n_dots": 7130,
+     "U_per_dot": 0.016372967097281893
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.323023925997525
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.323023925997525
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.323023925997525
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "NW",
+   "stratum": "magnetic:tc@1.5px relief1",
+   "strength_bin": "mid",
+   "n_segments": 544,
+   "chosen": "P3-triple",
+   "U_best": 206.09396714930728,
+   "per_pattern": {
+    "P1-single": {
+     "U": 93.08808256509955,
+     "TP": 110.45805891485563,
+     "FP": 2691.4080200195312,
+     "n_dots": 1949,
+     "U_per_dot": 0.047761971557259905
+    },
+    "P2-pair": {
+     "U": 124.95817383672107,
+     "TP": 159.4000398283001,
+     "FP": 5396.249206542969,
+     "n_dots": 3894,
+     "U_per_dot": 0.03208992651174142
+    },
+    "P3-triple": {
+     "U": 206.09396714930728,
+     "TP": 257.568179608141,
+     "FP": 8045.4857177734375,
+     "n_dots": 5831,
+     "U_per_dot": 0.0353445321813252
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.323023925997525
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.323023925997525
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.323023925997525
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "NW",
+   "stratum": "magnetic:tc@1.5px relief1",
+   "strength_bin": "low",
+   "n_segments": 544,
+   "chosen": "P3-triple",
+   "U_best": 196.9265688575633,
+   "per_pattern": {
+    "P1-single": {
+     "U": 91.44729034468554,
+     "TP": 107.7618549033179,
+     "FP": 2523.8609008789062,
+     "n_dots": 1769,
+     "U_per_dot": 0.05169434163068713
+    },
+    "P2-pair": {
+     "U": 139.23933286143586,
+     "TP": 171.52203985968458,
+     "FP": 5035.843811035156,
+     "n_dots": 3536,
+     "U_per_dot": 0.03937763938389023
+    },
+    "P3-triple": {
+     "U": 196.9265688575633,
+     "TP": 245.3416032782566,
+     "FP": 7564.251220703125,
+     "n_dots": 5299,
+     "U_per_dot": 0.03716296826902497
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.323023925997525
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.323023925997525
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.323023925997525
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "NW",
+   "stratum": "magnetic:tc@1.5px relief2",
+   "strength_bin": "high",
+   "n_segments": 536,
+   "chosen": "P3-triple",
+   "U_best": 80.83935597577538,
+   "per_pattern": {
+    "P1-single": {
+     "U": 37.47475167143725,
+     "TP": 58.13755703004069,
+     "FP": 3274.878692626953,
+     "n_dots": 2422,
+     "U_per_dot": 0.015472647263186312
+    },
+    "P2-pair": {
+     "U": 58.59885125209966,
+     "TP": 99.88395842746976,
+     "FP": 6559.6151123046875,
+     "n_dots": 4842,
+     "U_per_dot": 0.012102199762928471
+    },
+    "P3-triple": {
+     "U": 80.83935597577538,
+     "TP": 142.65697483235485,
+     "FP": 9828.84130859375,
+     "n_dots": 7245,
+     "U_per_dot": 0.011157951135372723
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.344129376943688
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.344129376943688
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.344129376943688
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "NW",
+   "stratum": "magnetic:tc@1.5px relief2",
+   "strength_bin": "mid",
+   "n_segments": 536,
+   "chosen": "P3-triple",
+   "U_best": 66.83177361893246,
+   "per_pattern": {
+    "P1-single": {
+     "U": 20.22723968623862,
+     "TP": 39.467654055238384,
+     "FP": 3064.109649658203,
+     "n_dots": 2016,
+     "U_per_dot": 0.010033353018967569
+    },
+    "P2-pair": {
+     "U": 30.85213668263431,
+     "TP": 69.5415441111707,
+     "FP": 6171.257873535156,
+     "n_dots": 4032,
+     "U_per_dot": 0.007651819613748589
+    },
+    "P3-triple": {
+     "U": 66.83177361893246,
+     "TP": 124.5301755310694,
+     "FP": 9182.517333984375,
+     "n_dots": 6038,
+     "U_per_dot": 0.011068528257524421
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.344129376943688
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.344129376943688
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.344129376943688
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "NW",
+   "stratum": "magnetic:tc@1.5px relief2",
+   "strength_bin": "low",
+   "n_segments": 536,
+   "chosen": "P3-triple",
+   "U_best": 108.66853265756563,
+   "per_pattern": {
+    "P1-single": {
+     "U": 57.28018976565578,
+     "TP": 73.82968980646687,
+     "FP": 2595.6893615722656,
+     "n_dots": 1760,
+     "U_per_dot": 0.03254556236684987
+    },
+    "P2-pair": {
+     "U": 78.1423951748994,
+     "TP": 111.07223379965708,
+     "FP": 5200.679260253906,
+     "n_dots": 3519,
+     "U_per_dot": 0.022205852564620463
+    },
+    "P3-triple": {
+     "U": 108.66853265756563,
+     "TP": 158.0678519932441,
+     "FP": 7810.295166015625,
+     "n_dots": 5263,
+     "U_per_dot": 0.020647640634156497
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.344129376943688
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.344129376943688
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.344129376943688
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "NW",
+   "stratum": "magnetic:tc@3px relief1",
+   "strength_bin": "high",
+   "n_segments": 3,
+   "chosen": "DROP",
+   "U_best": 0.0,
+   "per_pattern": {
+    "P1-single": {
+     "U": -0.0495954506329932,
+     "TP": 0.0,
+     "FP": 8.0,
+     "n_dots": 11,
+     "U_per_dot": -0.004508677330272109
+    },
+    "P2-pair": {
+     "U": -0.0991909012659864,
+     "TP": 0.0,
+     "FP": 16.0,
+     "n_dots": 22,
+     "U_per_dot": -0.004508677330272109
+    },
+    "P3-triple": {
+     "U": -0.1487863518989796,
+     "TP": 0.0,
+     "FP": 24.0,
+     "n_dots": 33,
+     "U_per_dot": -0.004508677330272109
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "family",
+      "sigma_raw": 8.683757284395448
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family",
+      "sigma_raw": 8.683757284395448
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family",
+      "sigma_raw": 8.683757284395448
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "NW",
+   "stratum": "magnetic:tc@3px relief1",
+   "strength_bin": "low",
+   "n_segments": 3,
+   "chosen": "P3-triple",
+   "U_best": 3.5941427530961763,
+   "per_pattern": {
+    "P1-single": {
+     "U": -0.0867920386077381,
+     "TP": 0.0,
+     "FP": 14.0,
+     "n_dots": 7,
+     "U_per_dot": -0.0123988626582483
+    },
+    "P2-pair": {
+     "U": 0.7795527900247866,
+     "TP": 0.9570032651693466,
+     "FP": 27.666666507720947,
+     "n_dots": 14,
+     "U_per_dot": 0.05568234214462762
+    },
+    "P3-triple": {
+     "U": 3.5941427530961763,
+     "TP": 3.8619288125423017,
+     "FP": 39.333333015441895,
+     "n_dots": 21,
+     "U_per_dot": 0.17114965490934173
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "family",
+      "sigma_raw": 8.683757284395448
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family",
+      "sigma_raw": 8.683757284395448
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family",
+      "sigma_raw": 8.683757284395448
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "SE",
+   "stratum": "subsurface:cond_surf@1.5px relief1",
+   "strength_bin": "high",
+   "n_segments": 4,
+   "chosen": "DROP",
+   "U_best": 0.0,
+   "per_pattern": {
+    "P1-single": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 17,
+     "U_per_dot": 0.0
+    },
+    "P2-pair": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 34,
+     "U_per_dot": 0.0
+    },
+    "P3-triple": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 51,
+     "U_per_dot": 0.0
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.471382545990753
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.471382545990753
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.471382545990753
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "SE",
+   "stratum": "subsurface:cond_surf@1.5px relief1",
+   "strength_bin": "mid",
+   "n_segments": 3,
+   "chosen": "DROP",
+   "U_best": 0.0,
+   "per_pattern": {
+    "P1-single": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 8,
+     "U_per_dot": 0.0
+    },
+    "P2-pair": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 16,
+     "U_per_dot": 0.0
+    },
+    "P3-triple": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 24,
+     "U_per_dot": 0.0
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.471382545990753
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.471382545990753
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.471382545990753
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "SE",
+   "stratum": "subsurface:cond_surf@1.5px relief1",
+   "strength_bin": "low",
+   "n_segments": 3,
+   "chosen": "DROP",
+   "U_best": 0.0,
+   "per_pattern": {
+    "P1-single": {
+     "U": -0.04482232838417979,
+     "TP": 0.0,
+     "FP": 8.0,
+     "n_dots": 8,
+     "U_per_dot": -0.005602791048022473
+    },
+    "P2-pair": {
+     "U": -0.08964465676835957,
+     "TP": 0.0,
+     "FP": 16.0,
+     "n_dots": 16,
+     "U_per_dot": -0.005602791048022473
+    },
+    "P3-triple": {
+     "U": -0.13446698515253935,
+     "TP": 0.0,
+     "FP": 24.0,
+     "n_dots": 24,
+     "U_per_dot": -0.005602791048022473
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.471382545990753
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.471382545990753
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.471382545990753
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "SE",
+   "stratum": "subsurface:cond_surf@1.5px relief2",
+   "strength_bin": "high",
+   "n_segments": 5,
+   "chosen": "DROP",
+   "U_best": 0.0,
+   "per_pattern": {
+    "P1-single": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 28,
+     "U_per_dot": 0.0
+    },
+    "P2-pair": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 56,
+     "U_per_dot": 0.0
+    },
+    "P3-triple": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 84,
+     "U_per_dot": 0.0
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.471382545990753
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.471382545990753
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.471382545990753
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "SE",
+   "stratum": "subsurface:cond_surf@1.5px relief2",
+   "strength_bin": "mid",
+   "n_segments": 4,
+   "chosen": "DROP",
+   "U_best": 0.0,
+   "per_pattern": {
+    "P1-single": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 26,
+     "U_per_dot": 0.0
+    },
+    "P2-pair": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 52,
+     "U_per_dot": 0.0
+    },
+    "P3-triple": {
+     "U": -0.08964465676835957,
+     "TP": 0.0,
+     "FP": 16.0,
+     "n_dots": 78,
+     "U_per_dot": -0.0011492904713892253
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.471382545990753
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.471382545990753
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.471382545990753
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "SE",
+   "stratum": "subsurface:cond_surf@1.5px relief2",
+   "strength_bin": "low",
+   "n_segments": 4,
+   "chosen": "DROP",
+   "U_best": 0.0,
+   "per_pattern": {
+    "P1-single": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 37,
+     "U_per_dot": 0.0
+    },
+    "P2-pair": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 74,
+     "U_per_dot": 0.0
+    },
+    "P3-triple": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 111,
+     "U_per_dot": 0.0
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.471382545990753
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.471382545990753
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.471382545990753
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "SE",
+   "stratum": "subsurface:depth_to_base_surf@1.5px relief0",
+   "strength_bin": "high",
+   "n_segments": 27,
+   "chosen": "DROP",
+   "U_best": 0.0,
+   "per_pattern": {
+    "P1-single": {
+     "U": -0.4818400301299327,
+     "TP": 0.0,
+     "FP": 86.0,
+     "n_dots": 73,
+     "U_per_dot": -0.006600548357944284
+    },
+    "P2-pair": {
+     "U": -0.9636800602598654,
+     "TP": 0.0,
+     "FP": 172.0,
+     "n_dots": 146,
+     "U_per_dot": -0.006600548357944284
+    },
+    "P3-triple": {
+     "U": -1.190876070038217,
+     "TP": 0.2546440075000701,
+     "FP": 257.74535369873047,
+     "n_dots": 219,
+     "U_per_dot": -0.00543779027414711
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 10.114561178127648
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 10.114561178127648
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 10.114561178127648
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "SE",
+   "stratum": "subsurface:depth_to_base_surf@1.5px relief0",
+   "strength_bin": "mid",
+   "n_segments": 26,
+   "chosen": "P3-triple",
+   "U_best": 12.80306585295039,
+   "per_pattern": {
+    "P1-single": {
+     "U": 7.666428267220526,
+     "TP": 8.249530766878525,
+     "FP": 95.82404518127441,
+     "n_dots": 69,
+     "U_per_dot": 0.1111076560466743
+    },
+    "P2-pair": {
+     "U": 10.421145751242337,
+     "TP": 11.578482293798862,
+     "FP": 194.9858055114746,
+     "n_dots": 138,
+     "U_per_dot": 0.07551554892204591
+    },
+    "P3-triple": {
+     "U": 12.80306585295039,
+     "TP": 14.499792967965597,
+     "FP": 288.3362579345703,
+     "n_dots": 207,
+     "U_per_dot": 0.06185055967608884
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 10.114561178127648
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 10.114561178127648
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 10.114561178127648
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "SE",
+   "stratum": "subsurface:depth_to_base_surf@1.5px relief0",
+   "strength_bin": "low",
+   "n_segments": 26,
+   "chosen": "P3-triple",
+   "U_best": 6.045752211483592,
+   "per_pattern": {
+    "P1-single": {
+     "U": 1.764696962018395,
+     "TP": 2.30891262850296,
+     "FP": 94.82404518127441,
+     "n_dots": 61,
+     "U_per_dot": 0.02892945839374418
+    },
+    "P2-pair": {
+     "U": 6.032198375937761,
+     "TP": 7.132957946836154,
+     "FP": 189.33333206176758,
+     "n_dots": 122,
+     "U_per_dot": 0.0494442489830964
+    },
+    "P3-triple": {
+     "U": 6.045752211483592,
+     "TP": 7.68086089025395,
+     "FP": 284.1573791503906,
+     "n_dots": 183,
+     "U_per_dot": 0.03303689733051143
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 10.114561178127648
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 10.114561178127648
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 10.114561178127648
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "SE",
+   "stratum": "subsurface:depth_to_base_surf@1.5px relief1",
+   "strength_bin": "high",
+   "n_segments": 24,
+   "chosen": "P3-triple",
+   "U_best": 6.242943490945187,
+   "per_pattern": {
+    "P1-single": {
+     "U": 1.6886388965704535,
+     "TP": 1.9926958561719563,
+     "FP": 52.27614212036133,
+     "n_dots": 76,
+     "U_per_dot": 0.02221893284961123
+    },
+    "P2-pair": {
+     "U": 3.246814807445947,
+     "TP": 3.8546246687142585,
+     "FP": 104.62878227233887,
+     "n_dots": 152,
+     "U_per_dot": 0.02136062373319702
+    },
+    "P3-triple": {
+     "U": 6.242943490945187,
+     "TP": 7.164268731425766,
+     "FP": 157.27613830566406,
+     "n_dots": 228,
+     "U_per_dot": 0.027381331100636785
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 10.828203913853857
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 10.828203913853857
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 10.828203913853857
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "SE",
+   "stratum": "subsurface:depth_to_base_surf@1.5px relief1",
+   "strength_bin": "mid",
+   "n_segments": 23,
+   "chosen": "DROP",
+   "U_best": 0.0,
+   "per_pattern": {
+    "P1-single": {
+     "U": -0.5266623585141125,
+     "TP": 0.0,
+     "FP": 94.0,
+     "n_dots": 62,
+     "U_per_dot": -0.008494554169582459
+    },
+    "P2-pair": {
+     "U": -1.053324717028225,
+     "TP": 0.0,
+     "FP": 188.0,
+     "n_dots": 124,
+     "U_per_dot": -0.008494554169582459
+    },
+    "P3-triple": {
+     "U": -0.9365659081978688,
+     "TP": 0.64516829925134,
+     "FP": 281.66666412353516,
+     "n_dots": 186,
+     "U_per_dot": -0.005035300581708972
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 10.828203913853857
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 10.828203913853857
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 10.828203913853857
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "SE",
+   "stratum": "subsurface:depth_to_base_surf@1.5px relief1",
+   "strength_bin": "low",
+   "n_segments": 23,
+   "chosen": "DROP",
+   "U_best": 0.0,
+   "per_pattern": {
+    "P1-single": {
+     "U": -0.3921953733615731,
+     "TP": 0.0,
+     "FP": 70.0,
+     "n_dots": 55,
+     "U_per_dot": -0.007130824970210421
+    },
+    "P2-pair": {
+     "U": -0.7955963288191912,
+     "TP": 0.0,
+     "FP": 142.0,
+     "n_dots": 110,
+     "U_per_dot": -0.007232693898356284
+    },
+    "P3-triple": {
+     "U": -1.1989972842768093,
+     "TP": 0.0,
+     "FP": 214.0,
+     "n_dots": 165,
+     "U_per_dot": -0.0072666502077382384
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 10.828203913853857
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 10.828203913853857
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 10.828203913853857
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "SE",
+   "stratum": "subsurface:depth_to_base_surf@1.5px relief2",
+   "strength_bin": "high",
+   "n_segments": 22,
+   "chosen": "DROP",
+   "U_best": 0.0,
+   "per_pattern": {
+    "P1-single": {
+     "U": -0.43701770174575294,
+     "TP": 0.0,
+     "FP": 78.0,
+     "n_dots": 60,
+     "U_per_dot": -0.0072836283624292154
+    },
+    "P2-pair": {
+     "U": -0.8740354034915059,
+     "TP": 0.0,
+     "FP": 156.0,
+     "n_dots": 120,
+     "U_per_dot": -0.0072836283624292154
+    },
+    "P3-triple": {
+     "U": -1.277436358949124,
+     "TP": 0.0,
+     "FP": 228.0,
+     "n_dots": 180,
+     "U_per_dot": -0.007096868660828467
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 10.33787336737668
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 10.33787336737668
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 10.33787336737668
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "SE",
+   "stratum": "subsurface:depth_to_base_surf@1.5px relief2",
+   "strength_bin": "mid",
+   "n_segments": 21,
+   "chosen": "P3-triple",
+   "U_best": 1.422270048421597,
+   "per_pattern": {
+    "P1-single": {
+     "U": 0.47166894629056083,
+     "TP": 0.9570032651693466,
+     "FP": 85.66666603088379,
+     "n_dots": 55,
+     "U_per_dot": 0.008575799023464743
+    },
+    "P2-pair": {
+     "U": 0.5763795433905362,
+     "TP": 1.54498060600275,
+     "FP": 171.33333206176758,
+     "n_dots": 110,
+     "U_per_dot": 0.0052398140308230565
+    },
+    "P3-triple": {
+     "U": 1.422270048421597,
+     "TP": 2.8783139393360835,
+     "FP": 257.0,
+     "n_dots": 165,
+     "U_per_dot": 0.008619818475282407
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 10.33787336737668
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 10.33787336737668
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 10.33787336737668
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "SE",
+   "stratum": "subsurface:depth_to_base_surf@1.5px relief2",
+   "strength_bin": "low",
+   "n_segments": 22,
+   "chosen": "DROP",
+   "U_best": 0.0,
+   "per_pattern": {
+    "P1-single": {
+     "U": -0.4818400301299327,
+     "TP": 0.0,
+     "FP": 86.0,
+     "n_dots": 51,
+     "U_per_dot": -0.009447843728037897
+    },
+    "P2-pair": {
+     "U": -0.9524744781638205,
+     "TP": 0.0,
+     "FP": 170.0,
+     "n_dots": 102,
+     "U_per_dot": -0.009337985080037456
+    },
+    "P3-triple": {
+     "U": -1.4455200903897982,
+     "TP": 0.0,
+     "FP": 258.0,
+     "n_dots": 153,
+     "U_per_dot": -0.009447843728037897
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 10.33787336737668
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 10.33787336737668
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 10.33787336737668
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "SE",
+   "stratum": "magnetic:tc@1.5px relief0",
+   "strength_bin": "high",
+   "n_segments": 579,
+   "chosen": "P3-triple",
+   "U_best": 108.91727225312466,
+   "per_pattern": {
+    "P1-single": {
+     "U": 45.62047208187009,
+     "TP": 71.05521393258383,
+     "FP": 4468.600402832031,
+     "n_dots": 3571,
+     "U_per_dot": 0.012775265214749395
+    },
+    "P2-pair": {
+     "U": 60.33808210413205,
+     "TP": 111.06314941727221,
+     "FP": 8942.472290039062,
+     "n_dots": 7139,
+     "U_per_dot": 0.008451895518158292
+    },
+    "P3-triple": {
+     "U": 108.91727225312466,
+     "TP": 185.07359317530688,
+     "FP": 13407.494873046875,
+     "n_dots": 10697,
+     "U_per_dot": 0.010182039100039699
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.495151117114572
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.495151117114572
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.495151117114572
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "SE",
+   "stratum": "magnetic:tc@1.5px relief0",
+   "strength_bin": "mid",
+   "n_segments": 578,
+   "chosen": "P3-triple",
+   "U_best": 25.32943088449489,
+   "per_pattern": {
+    "P1-single": {
+     "U": 14.563153490354285,
+     "TP": 32.635987222937395,
+     "FP": 3193.048065185547,
+     "n_dots": 2124,
+     "U_per_dot": 0.006856475277944579
+    },
+    "P2-pair": {
+     "U": 15.521870243425319,
+     "TP": 51.56711031427842,
+     "FP": 6381.87646484375,
+     "n_dots": 4246,
+     "U_per_dot": 0.0036556453705664906
+    },
+    "P3-triple": {
+     "U": 25.32943088449489,
+     "TP": 79.27855055491344,
+     "FP": 9549.693725585938,
+     "n_dots": 6350,
+     "U_per_dot": 0.003988886753463762
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.495151117114572
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.495151117114572
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.495151117114572
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "SE",
+   "stratum": "magnetic:tc@1.5px relief0",
+   "strength_bin": "low",
+   "n_segments": 579,
+   "chosen": "P3-triple",
+   "U_best": 20.10227358834537,
+   "per_pattern": {
+    "P1-single": {
+     "U": 8.188655682265193,
+     "TP": 23.755482380394817,
+     "FP": 2754.6502380371094,
+     "n_dots": 1781,
+     "U_per_dot": 0.004597785335353842
+    },
+    "P2-pair": {
+     "U": 9.036890698195815,
+     "TP": 40.186081069561695,
+     "FP": 5519.3984375,
+     "n_dots": 3557,
+     "U_per_dot": 0.0025405933928017476
+    },
+    "P3-triple": {
+     "U": 20.10227358834537,
+     "TP": 66.63411368987065,
+     "FP": 8238.483764648438,
+     "n_dots": 5321,
+     "U_per_dot": 0.0037779127209820276
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.495151117114572
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.495151117114572
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.495151117114572
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "SE",
+   "stratum": "magnetic:tc@1.5px relief1",
+   "strength_bin": "high",
+   "n_segments": 545,
+   "chosen": "P3-triple",
+   "U_best": 69.09712845321951,
+   "per_pattern": {
+    "P1-single": {
+     "U": 32.2203012160449,
+     "TP": 48.14997441449029,
+     "FP": 2795.0174865722656,
+     "n_dots": 2380,
+     "U_per_dot": 0.013537941687413825
+    },
+    "P2-pair": {
+     "U": 46.149724770608486,
+     "TP": 78.05448589779442,
+     "FP": 5616.386169433594,
+     "n_dots": 4759,
+     "U_per_dot": 0.009697357589957656
+    },
+    "P3-triple": {
+     "U": 69.09712845321951,
+     "TP": 116.87039894416196,
+     "FP": 8409.821044921875,
+     "n_dots": 7130,
+     "U_per_dot": 0.009691041858796566
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.717797887081348
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.717797887081348
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.717797887081348
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "SE",
+   "stratum": "magnetic:tc@1.5px relief1",
+   "strength_bin": "mid",
+   "n_segments": 544,
+   "chosen": "P3-triple",
+   "U_best": 180.53849252514544,
+   "per_pattern": {
+    "P1-single": {
+     "U": 78.29747375976612,
+     "TP": 94.37612988146758,
+     "FP": 2775.3821716308594,
+     "n_dots": 1949,
+     "U_per_dot": 0.04017315226257882
+    },
+    "P2-pair": {
+     "U": 112.41259945728083,
+     "TP": 144.45545394758034,
+     "FP": 5574.6324462890625,
+     "n_dots": 3894,
+     "U_per_dot": 0.028868155998274483
+    },
+    "P3-triple": {
+     "U": 180.53849252514544,
+     "TP": 228.39013071719677,
+     "FP": 8312.28857421875,
+     "n_dots": 5831,
+     "U_per_dot": 0.03096184059769258
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.717797887081348
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.717797887081348
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.717797887081348
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "SE",
+   "stratum": "magnetic:tc@1.5px relief1",
+   "strength_bin": "low",
+   "n_segments": 544,
+   "chosen": "P3-triple",
+   "U_best": 181.51388380320788,
+   "per_pattern": {
+    "P1-single": {
+     "U": 91.56026876206188,
+     "TP": 106.29045038252687,
+     "FP": 2522.788787841797,
+     "n_dots": 1769,
+     "U_per_dot": 0.05175820732733854
+    },
+    "P2-pair": {
+     "U": 136.4399949643805,
+     "TP": 165.6725284315919,
+     "FP": 5051.822326660156,
+     "n_dots": 3536,
+     "U_per_dot": 0.0385859714265782
+    },
+    "P3-triple": {
+     "U": 181.51388380320788,
+     "TP": 225.18756102807393,
+     "FP": 7569.79833984375,
+     "n_dots": 5299,
+     "U_per_dot": 0.034254365692245305
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.717797887081348
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.717797887081348
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.717797887081348
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "SE",
+   "stratum": "magnetic:tc@1.5px relief2",
+   "strength_bin": "high",
+   "n_segments": 536,
+   "chosen": "P3-triple",
+   "U_best": 26.60404810273345,
+   "per_pattern": {
+    "P1-single": {
+     "U": 15.481597153010856,
+     "TP": 32.79190640560597,
+     "FP": 3056.794891357422,
+     "n_dots": 2422,
+     "U_per_dot": 0.006392071491746844
+    },
+    "P2-pair": {
+     "U": 14.049294912709975,
+     "TP": 48.65456325293768,
+     "FP": 6127.779296875,
+     "n_dots": 4842,
+     "U_per_dot": 0.0029015478960574092
+    },
+    "P3-triple": {
+     "U": 26.60404810273345,
+     "TP": 78.39324984188904,
+     "FP": 9165.071533203125,
+     "n_dots": 7245,
+     "U_per_dot": 0.0036720563288797033
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.810505093353047
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.810505093353047
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.810505093353047
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "SE",
+   "stratum": "magnetic:tc@1.5px relief2",
+   "strength_bin": "mid",
+   "n_segments": 536,
+   "chosen": "P3-triple",
+   "U_best": 83.18643566528942,
+   "per_pattern": {
+    "P1-single": {
+     "U": 24.74396244294871,
+     "TP": 41.928832094786316,
+     "FP": 3025.2691955566406,
+     "n_dots": 2016,
+     "U_per_dot": 0.012273790894319797
+    },
+    "P2-pair": {
+     "U": 45.1513613369082,
+     "TP": 79.57431436475827,
+     "FP": 6064.3194580078125,
+     "n_dots": 4032,
+     "U_per_dot": 0.011198254299828424
+    },
+    "P3-triple": {
+     "U": 83.18643566528942,
+     "TP": 134.69882606890818,
+     "FP": 9059.359985351562,
+     "n_dots": 6038,
+     "U_per_dot": 0.01377715065672233
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.810505093353047
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.810505093353047
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.810505093353047
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "SE",
+   "stratum": "magnetic:tc@1.5px relief2",
+   "strength_bin": "low",
+   "n_segments": 536,
+   "chosen": "P3-triple",
+   "U_best": 114.76519885911,
+   "per_pattern": {
+    "P1-single": {
+     "U": 46.31401331264009,
+     "TP": 61.698191328628674,
+     "FP": 2684.107940673828,
+     "n_dots": 1760,
+     "U_per_dot": 0.02631478029127278
+    },
+    "P2-pair": {
+     "U": 72.41385793009985,
+     "TP": 103.09592307027893,
+     "FP": 5373.114929199219,
+     "n_dots": 3519,
+     "U_per_dot": 0.02057796474285304
+    },
+    "P3-triple": {
+     "U": 114.76519885911,
+     "TP": 160.69256733000927,
+     "FP": 8036.5377197265625,
+     "n_dots": 5263,
+     "U_per_dot": 0.021806041964489833
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.810505093353047
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.810505093353047
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.810505093353047
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "SE",
+   "stratum": "magnetic:tc@3px relief1",
+   "strength_bin": "high",
+   "n_segments": 3,
+   "chosen": "DROP",
+   "U_best": 0.0,
+   "per_pattern": {
+    "P1-single": {
+     "U": -0.04482232838417979,
+     "TP": 0.0,
+     "FP": 8.0,
+     "n_dots": 11,
+     "U_per_dot": -0.004074757125834526
+    },
+    "P2-pair": {
+     "U": -0.08964465676835957,
+     "TP": 0.0,
+     "FP": 16.0,
+     "n_dots": 22,
+     "U_per_dot": -0.004074757125834526
+    },
+    "P3-triple": {
+     "U": -0.13446698515253935,
+     "TP": 0.0,
+     "FP": 24.0,
+     "n_dots": 33,
+     "U_per_dot": -0.004074757125834526
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "family",
+      "sigma_raw": 8.825468196582484
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family",
+      "sigma_raw": 8.825468196582484
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family",
+      "sigma_raw": 8.825468196582484
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "SE",
+   "stratum": "magnetic:tc@3px relief1",
+   "strength_bin": "low",
+   "n_segments": 3,
+   "chosen": "P3-triple",
+   "U_best": 3.6871482788317547,
+   "per_pattern": {
+    "P1-single": {
+     "U": -0.056027910480224735,
+     "TP": 0.0,
+     "FP": 10.0,
+     "n_dots": 7,
+     "U_per_dot": -0.008003987211460676
+    },
+    "P2-pair": {
+     "U": 0.8414531527884251,
+     "TP": 0.9570032651693466,
+     "FP": 19.666666507720947,
+     "n_dots": 14,
+     "U_per_dot": 0.060103796627744656
+    },
+    "P3-triple": {
+     "U": 3.6871482788317547,
+     "TP": 3.8619288125423017,
+     "FP": 27.333333015441895,
+     "n_dots": 21,
+     "U_per_dot": 0.1755784894681788
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "family",
+      "sigma_raw": 8.825468196582484
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family",
+      "sigma_raw": 8.825468196582484
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family",
+      "sigma_raw": 8.825468196582484
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "SW",
+   "stratum": "subsurface:cond_surf@1.5px relief1",
+   "strength_bin": "high",
+   "n_segments": 4,
+   "chosen": "DROP",
+   "U_best": 0.0,
+   "per_pattern": {
+    "P1-single": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 17,
+     "U_per_dot": 0.0
+    },
+    "P2-pair": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 34,
+     "U_per_dot": 0.0
+    },
+    "P3-triple": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 51,
+     "U_per_dot": 0.0
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.114561178127648
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.114561178127648
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.114561178127648
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "SW",
+   "stratum": "subsurface:cond_surf@1.5px relief1",
+   "strength_bin": "mid",
+   "n_segments": 3,
+   "chosen": "DROP",
+   "U_best": 0.0,
+   "per_pattern": {
+    "P1-single": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 8,
+     "U_per_dot": 0.0
+    },
+    "P2-pair": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 16,
+     "U_per_dot": 0.0
+    },
+    "P3-triple": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 24,
+     "U_per_dot": 0.0
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.114561178127648
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.114561178127648
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.114561178127648
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "SW",
+   "stratum": "subsurface:cond_surf@1.5px relief1",
+   "strength_bin": "low",
+   "n_segments": 3,
+   "chosen": "DROP",
+   "U_best": 0.0,
+   "per_pattern": {
+    "P1-single": {
+     "U": -0.04547916071399073,
+     "TP": 0.0,
+     "FP": 8.0,
+     "n_dots": 8,
+     "U_per_dot": -0.0056848950892488415
+    },
+    "P2-pair": {
+     "U": -0.09095832142798146,
+     "TP": 0.0,
+     "FP": 16.0,
+     "n_dots": 16,
+     "U_per_dot": -0.0056848950892488415
+    },
+    "P3-triple": {
+     "U": -0.1364374821419722,
+     "TP": 0.0,
+     "FP": 24.0,
+     "n_dots": 24,
+     "U_per_dot": -0.005684895089248842
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.114561178127648
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.114561178127648
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.114561178127648
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "SW",
+   "stratum": "subsurface:cond_surf@1.5px relief2",
+   "strength_bin": "high",
+   "n_segments": 5,
+   "chosen": "DROP",
+   "U_best": 0.0,
+   "per_pattern": {
+    "P1-single": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 28,
+     "U_per_dot": 0.0
+    },
+    "P2-pair": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 56,
+     "U_per_dot": 0.0
+    },
+    "P3-triple": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 84,
+     "U_per_dot": 0.0
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.114561178127648
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.114561178127648
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.114561178127648
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "SW",
+   "stratum": "subsurface:cond_surf@1.5px relief2",
+   "strength_bin": "mid",
+   "n_segments": 4,
+   "chosen": "DROP",
+   "U_best": 0.0,
+   "per_pattern": {
+    "P1-single": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 26,
+     "U_per_dot": 0.0
+    },
+    "P2-pair": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 52,
+     "U_per_dot": 0.0
+    },
+    "P3-triple": {
+     "U": 0.0,
+     "TP": 0.0,
+     "FP": 0.0,
+     "n_dots": 78,
+     "U_per_dot": 0.0
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.114561178127648
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.114561178127648
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.114561178127648
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "SW",
+   "stratum": "subsurface:cond_surf@1.5px relief2",
+   "strength_bin": "low",
+   "n_segments": 4,
+   "chosen": "DROP",
+   "U_best": 0.0,
+   "per_pattern": {
+    "P1-single": {
+     "U": -0.03410937053549305,
+     "TP": 0.0,
+     "FP": 6.0,
+     "n_dots": 37,
+     "U_per_dot": -0.00092187487933765
+    },
+    "P2-pair": {
+     "U": -0.0682187410709861,
+     "TP": 0.0,
+     "FP": 12.0,
+     "n_dots": 74,
+     "U_per_dot": -0.00092187487933765
+    },
+    "P3-triple": {
+     "U": -0.11369790178497682,
+     "TP": 0.0,
+     "FP": 20.0,
+     "n_dots": 111,
+     "U_per_dot": -0.0010243054214862776
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.114561178127648
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.114561178127648
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family_scale",
+      "sigma_raw": 10.114561178127648
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "SW",
+   "stratum": "subsurface:depth_to_base_surf@1.5px relief0",
+   "strength_bin": "high",
+   "n_segments": 27,
+   "chosen": "DROP",
+   "U_best": 0.0,
+   "per_pattern": {
+    "P1-single": {
+     "U": -0.5684895089248841,
+     "TP": 0.0,
+     "FP": 100.0,
+     "n_dots": 73,
+     "U_per_dot": -0.007787527519518961
+    },
+    "P2-pair": {
+     "U": -1.148348808028266,
+     "TP": 0.0,
+     "FP": 202.0,
+     "n_dots": 146,
+     "U_per_dot": -0.007865402794714151
+    },
+    "P3-triple": {
+     "U": -1.4508245062347436,
+     "TP": 0.2546440075000701,
+     "FP": 299.74535369873047,
+     "n_dots": 219,
+     "U_per_dot": -0.006624769434861843
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.727666012131175
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.727666012131175
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.727666012131175
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "SW",
+   "stratum": "subsurface:depth_to_base_surf@1.5px relief0",
+   "strength_bin": "mid",
+   "n_segments": 26,
+   "chosen": "P3-triple",
+   "U_best": 12.903269481305733,
+   "per_pattern": {
+    "P1-single": {
+     "U": 7.691992776585797,
+     "TP": 8.249530766878525,
+     "FP": 89.82404518127441,
+     "n_dots": 69,
+     "U_per_dot": 0.11147815618240287
+    },
+    "P2-pair": {
+     "U": 10.472404729511464,
+     "TP": 11.578482293798862,
+     "FP": 182.9858055114746,
+     "n_dots": 138,
+     "U_per_dot": 0.07588699079356133
+    },
+    "P3-triple": {
+     "U": 12.903269481305733,
+     "TP": 14.499792967965597,
+     "FP": 266.3362579345703,
+     "n_dots": 207,
+     "U_per_dot": 0.062334635175390014
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.727666012131175
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.727666012131175
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.727666012131175
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "SW",
+   "stratum": "subsurface:depth_to_base_surf@1.5px relief0",
+   "strength_bin": "low",
+   "n_segments": 26,
+   "chosen": "P3-triple",
+   "U_best": 6.055900483127358,
+   "per_pattern": {
+    "P1-single": {
+     "U": 1.7680917438244395,
+     "TP": 2.30891262850296,
+     "FP": 92.82404518127441,
+     "n_dots": 61,
+     "U_per_dot": 0.028985110554499007
+    },
+    "P2-pair": {
+     "U": 6.038807279920299,
+     "TP": 7.132957946836154,
+     "FP": 185.33333206176758,
+     "n_dots": 122,
+     "U_per_dot": 0.04949842032721556
+    },
+    "P3-triple": {
+     "U": 6.055900483127358,
+     "TP": 7.68086089025395,
+     "FP": 278.1573791503906,
+     "n_dots": 183,
+     "U_per_dot": 0.033092352366816166
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.727666012131175
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.727666012131175
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.727666012131175
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "SW",
+   "stratum": "subsurface:depth_to_base_surf@1.5px relief1",
+   "strength_bin": "high",
+   "n_segments": 24,
+   "chosen": "DROP",
+   "U_best": 0.0,
+   "per_pattern": {
+    "P1-single": {
+     "U": -0.250135383926949,
+     "TP": 0.0,
+     "FP": 44.0,
+     "n_dots": 76,
+     "U_per_dot": -0.003291255051670382
+    },
+    "P2-pair": {
+     "U": -0.500270767853898,
+     "TP": 0.0,
+     "FP": 88.0,
+     "n_dots": 152,
+     "U_per_dot": -0.003291255051670382
+    },
+    "P3-triple": {
+     "U": -0.7390363616023494,
+     "TP": 0.0,
+     "FP": 130.0,
+     "n_dots": 228,
+     "U_per_dot": -0.0032413875508874976
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 11.768234470496346
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 11.768234470496346
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 11.768234470496346
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "SW",
+   "stratum": "subsurface:depth_to_base_surf@1.5px relief1",
+   "strength_bin": "mid",
+   "n_segments": 23,
+   "chosen": "DROP",
+   "U_best": 0.0,
+   "per_pattern": {
+    "P1-single": {
+     "U": -0.37520307589042357,
+     "TP": 0.0,
+     "FP": 66.0,
+     "n_dots": 62,
+     "U_per_dot": -0.006051662514361671
+    },
+    "P2-pair": {
+     "U": -0.7617759419593447,
+     "TP": 0.0,
+     "FP": 134.0,
+     "n_dots": 124,
+     "U_per_dot": -0.006143354370639877
+    },
+    "P3-triple": {
+     "U": -1.148348808028266,
+     "TP": 0.0,
+     "FP": 202.0,
+     "n_dots": 186,
+     "U_per_dot": -0.006173918322732613
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 11.768234470496346
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 11.768234470496346
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 11.768234470496346
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "SW",
+   "stratum": "subsurface:depth_to_base_surf@1.5px relief1",
+   "strength_bin": "low",
+   "n_segments": 23,
+   "chosen": "DROP",
+   "U_best": 0.0,
+   "per_pattern": {
+    "P1-single": {
+     "U": -0.43205202678291194,
+     "TP": 0.0,
+     "FP": 76.0,
+     "n_dots": 55,
+     "U_per_dot": -0.007855491396052945
+    },
+    "P2-pair": {
+     "U": -0.8754738437443216,
+     "TP": 0.0,
+     "FP": 154.0,
+     "n_dots": 110,
+     "U_per_dot": -0.007958853124948378
+    },
+    "P3-triple": {
+     "U": -1.3416352410627266,
+     "TP": 0.0,
+     "FP": 236.0,
+     "n_dots": 165,
+     "U_per_dot": -0.008131122673107434
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 11.768234470496346
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 11.768234470496346
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 11.768234470496346
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "SW",
+   "stratum": "subsurface:depth_to_base_surf@1.5px relief2",
+   "strength_bin": "high",
+   "n_segments": 22,
+   "chosen": "DROP",
+   "U_best": 0.0,
+   "per_pattern": {
+    "P1-single": {
+     "U": -0.35246349553342815,
+     "TP": 0.0,
+     "FP": 62.0,
+     "n_dots": 60,
+     "U_per_dot": -0.005874391592223803
+    },
+    "P2-pair": {
+     "U": -0.590545074951116,
+     "TP": 0.11438191683587307,
+     "FP": 123.88561820983887,
+     "n_dots": 120,
+     "U_per_dot": -0.004921208957925967
+    },
+    "P3-triple": {
+     "U": -0.4568021440347957,
+     "TP": 0.5664789734180767,
+     "FP": 179.43352127075195,
+     "n_dots": 180,
+     "U_per_dot": -0.0025377896890821984
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.18118280218071
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.18118280218071
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.18118280218071
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "SW",
+   "stratum": "subsurface:depth_to_base_surf@1.5px relief2",
+   "strength_bin": "mid",
+   "n_segments": 21,
+   "chosen": "P3-triple",
+   "U_best": 1.3327142475490967,
+   "per_pattern": {
+    "P1-single": {
+     "U": 0.44181721261850315,
+     "TP": 0.9570032651693466,
+     "FP": 89.66666603088379,
+     "n_dots": 55,
+     "U_per_dot": 0.00803304022942733
+    },
+    "P2-pair": {
+     "U": 0.5167063745661258,
+     "TP": 1.54498060600275,
+     "FP": 179.33333206176758,
+     "n_dots": 110,
+     "U_per_dot": 0.00469733067787387
+    },
+    "P3-triple": {
+     "U": 1.3327142475490967,
+     "TP": 2.8783139393360835,
+     "FP": 269.0,
+     "n_dots": 165,
+     "U_per_dot": 0.008077056045752101
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.18118280218071
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.18118280218071
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.18118280218071
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "SW",
+   "stratum": "subsurface:depth_to_base_surf@1.5px relief2",
+   "strength_bin": "low",
+   "n_segments": 22,
+   "chosen": "DROP",
+   "U_best": 0.0,
+   "per_pattern": {
+    "P1-single": {
+     "U": -0.3865728660689212,
+     "TP": 0.0,
+     "FP": 68.0,
+     "n_dots": 51,
+     "U_per_dot": -0.007579860118998455
+    },
+    "P2-pair": {
+     "U": -0.7617759419593447,
+     "TP": 0.0,
+     "FP": 134.0,
+     "n_dots": 102,
+     "U_per_dot": -0.007468391587836713
+    },
+    "P3-triple": {
+     "U": -1.1597185982067637,
+     "TP": 0.0,
+     "FP": 204.0,
+     "n_dots": 153,
+     "U_per_dot": -0.007579860118998456
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.18118280218071
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.18118280218071
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.18118280218071
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "SW",
+   "stratum": "magnetic:tc@1.5px relief0",
+   "strength_bin": "high",
+   "n_segments": 579,
+   "chosen": "P3-triple",
+   "U_best": 87.40242022718134,
+   "per_pattern": {
+    "P1-single": {
+     "U": 35.276919630273795,
+     "TP": 63.0879841861714,
+     "FP": 4829.0101318359375,
+     "n_dots": 3571,
+     "U_per_dot": 0.00987872294322985
+    },
+    "P2-pair": {
+     "U": 44.03179344399035,
+     "TP": 99.55312996806353,
+     "FP": 9666.913208007812,
+     "n_dots": 7139,
+     "U_per_dot": 0.006167781684268154
+    },
+    "P3-triple": {
+     "U": 87.40242022718134,
+     "TP": 170.71218876493867,
+     "FP": 14483.87109375,
+     "n_dots": 10697,
+     "U_per_dot": 0.008170741350582532
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.359962818407416
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.359962818407416
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.359962818407416
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "SW",
+   "stratum": "magnetic:tc@1.5px relief0",
+   "strength_bin": "mid",
+   "n_segments": 578,
+   "chosen": "P3-triple",
+   "U_best": 36.119785090601894,
+   "per_pattern": {
+    "P1-single": {
+     "U": 15.026922640159516,
+     "TP": 32.9055568882333,
+     "FP": 3112.030975341797,
+     "n_dots": 2124,
+     "U_per_dot": 0.007074822335291674
+    },
+    "P2-pair": {
+     "U": 15.900145115760843,
+     "TP": 51.49280279485815,
+     "FP": 6209.4244384765625,
+     "n_dots": 4246,
+     "U_per_dot": 0.0037447350720115034
+    },
+    "P3-triple": {
+     "U": 36.119785090601894,
+     "TP": 89.45409117251143,
+     "FP": 9292.30322265625,
+     "n_dots": 6350,
+     "U_per_dot": 0.005688155132378251
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.359962818407416
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.359962818407416
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.359962818407416
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "SW",
+   "stratum": "magnetic:tc@1.5px relief0",
+   "strength_bin": "low",
+   "n_segments": 579,
+   "chosen": "P3-triple",
+   "U_best": 21.864715748944448,
+   "per_pattern": {
+    "P1-single": {
+     "U": 4.4457996828564,
+     "TP": 18.25568941242922,
+     "FP": 2410.9693908691406,
+     "n_dots": 1781,
+     "U_per_dot": 0.00249623789043032
+    },
+    "P2-pair": {
+     "U": 4.820798139505371,
+     "TP": 32.464731717823334,
+     "FP": 4830.2342529296875,
+     "n_dots": 3557,
+     "U_per_dot": 0.0013552988865632191
+    },
+    "P3-triple": {
+     "U": 21.864715748944448,
+     "TP": 63.16416863807756,
+     "FP": 7201.605407714844,
+     "n_dots": 5321,
+     "U_per_dot": 0.0041091365812712735
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.359962818407416
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.359962818407416
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 9.359962818407416
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "SW",
+   "stratum": "magnetic:tc@1.5px relief1",
+   "strength_bin": "high",
+   "n_segments": 545,
+   "chosen": "P3-triple",
+   "U_best": 104.2832522937984,
+   "per_pattern": {
+    "P1-single": {
+     "U": 46.04747047104995,
+     "TP": 64.96087091416534,
+     "FP": 3261.9959411621094,
+     "n_dots": 2380,
+     "U_per_dot": 0.019347676668508382
+    },
+    "P2-pair": {
+     "U": 70.94415493219583,
+     "TP": 108.88646670081602,
+     "FP": 6565.3460693359375,
+     "n_dots": 4759,
+     "U_per_dot": 0.014907366029038837
+    },
+    "P3-triple": {
+     "U": 104.2832522937984,
+     "TP": 160.84629560947135,
+     "FP": 9788.861206054688,
+     "n_dots": 7130,
+     "U_per_dot": 0.01462598208889178
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.745439213182578
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.745439213182578
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.745439213182578
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "SW",
+   "stratum": "magnetic:tc@1.5px relief1",
+   "strength_bin": "mid",
+   "n_segments": 544,
+   "chosen": "P3-triple",
+   "U_best": 185.9174327465269,
+   "per_pattern": {
+    "P1-single": {
+     "U": 79.12548442340724,
+     "TP": 95.46828539609872,
+     "FP": 2779.307891845703,
+     "n_dots": 1949,
+     "U_per_dot": 0.04059799098173794
+    },
+    "P2-pair": {
+     "U": 109.35988369392746,
+     "TP": 141.85109147995314,
+     "FP": 5573.506408691406,
+     "n_dots": 3894,
+     "U_per_dot": 0.02808420228400808
+    },
+    "P3-triple": {
+     "U": 185.9174327465269,
+     "TP": 234.57808871924433,
+     "FP": 8325.06201171875,
+     "n_dots": 5831,
+     "U_per_dot": 0.031884313624854554
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.745439213182578
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.745439213182578
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.745439213182578
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "SW",
+   "stratum": "magnetic:tc@1.5px relief1",
+   "strength_bin": "low",
+   "n_segments": 544,
+   "chosen": "P3-triple",
+   "U_best": 134.72363163870284,
+   "per_pattern": {
+    "P1-single": {
+     "U": 57.57805620126851,
+     "TP": 72.25444382080367,
+     "FP": 2509.3917236328125,
+     "n_dots": 1769,
+     "U_per_dot": 0.03254836416125976
+    },
+    "P2-pair": {
+     "U": 88.60892333394898,
+     "TP": 117.64236314527963,
+     "FP": 4989.477355957031,
+     "n_dots": 3536,
+     "U_per_dot": 0.025059084653266114
+    },
+    "P3-triple": {
+     "U": 134.72363163870284,
+     "TP": 178.2546610975952,
+     "FP": 7479.059814453125,
+     "n_dots": 5299,
+     "U_per_dot": 0.02542435018658291
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.745439213182578
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.745439213182578
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.745439213182578
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "SW",
+   "stratum": "magnetic:tc@1.5px relief2",
+   "strength_bin": "high",
+   "n_segments": 536,
+   "chosen": "P3-triple",
+   "U_best": 106.67189992513246,
+   "per_pattern": {
+    "P1-single": {
+     "U": 49.10572738547377,
+     "TP": 67.59216235996914,
+     "FP": 3184.2593994140625,
+     "n_dots": 2422,
+     "U_per_dot": 0.020274866798296355
+    },
+    "P2-pair": {
+     "U": 74.39910813491343,
+     "TP": 111.36882573763954,
+     "FP": 6391.77978515625,
+     "n_dots": 4842,
+     "U_per_dot": 0.015365367231498023
+    },
+    "P3-triple": {
+     "U": 106.67189992513246,
+     "TP": 161.98551229520638,
+     "FP": 9567.941162109375,
+     "n_dots": 7245,
+     "U_per_dot": 0.014723519658403376
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.959786167431051
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.959786167431051
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.959786167431051
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "SW",
+   "stratum": "magnetic:tc@1.5px relief2",
+   "strength_bin": "mid",
+   "n_segments": 536,
+   "chosen": "P3-triple",
+   "U_best": 36.00795449352385,
+   "per_pattern": {
+    "P1-single": {
+     "U": 5.931619369571987,
+     "TP": 21.834171706228076,
+     "FP": 2775.5001831054688,
+     "n_dots": 2016,
+     "U_per_dot": 0.0029422715126845174
+    },
+    "P2-pair": {
+     "U": 11.286744043759814,
+     "TP": 43.18785790869939,
+     "FP": 5568.369323730469,
+     "n_dots": 4032,
+     "U_per_dot": 0.0027992916775197952
+    },
+    "P3-triple": {
+     "U": 36.00795449352385,
+     "TP": 83.68723681259618,
+     "FP": 8303.324584960938,
+     "n_dots": 6038,
+     "U_per_dot": 0.005963556557390501
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.959786167431051
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.959786167431051
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.959786167431051
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "SW",
+   "stratum": "magnetic:tc@1.5px relief2",
+   "strength_bin": "low",
+   "n_segments": 536,
+   "chosen": "P3-triple",
+   "U_best": 99.68927533274697,
+   "per_pattern": {
+    "P1-single": {
+     "U": 49.74982711130581,
+     "TP": 64.38635636271067,
+     "FP": 2510.24853515625,
+     "n_dots": 1760,
+     "U_per_dot": 0.028266947222332847
+    },
+    "P2-pair": {
+     "U": 69.39600536528889,
+     "TP": 98.54113004710189,
+     "FP": 5028.2244873046875,
+     "n_dots": 3519,
+     "U_per_dot": 0.019720376631227304
+    },
+    "P3-triple": {
+     "U": 99.68927533274697,
+     "TP": 143.25580999529168,
+     "FP": 7520.30419921875,
+     "n_dots": 5263,
+     "U_per_dot": 0.0189415305591387
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.959786167431051
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.959786167431051
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "band_scale_relief",
+      "sigma_raw": 8.959786167431051
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "SW",
+   "stratum": "magnetic:tc@3px relief1",
+   "strength_bin": "high",
+   "n_segments": 3,
+   "chosen": "DROP",
+   "U_best": 0.0,
+   "per_pattern": {
+    "P1-single": {
+     "U": -0.04547916071399073,
+     "TP": 0.0,
+     "FP": 8.0,
+     "n_dots": 11,
+     "U_per_dot": -0.004134469155817339
+    },
+    "P2-pair": {
+     "U": -0.09095832142798146,
+     "TP": 0.0,
+     "FP": 16.0,
+     "n_dots": 22,
+     "U_per_dot": -0.004134469155817339
+    },
+    "P3-triple": {
+     "U": -0.1364374821419722,
+     "TP": 0.0,
+     "FP": 24.0,
+     "n_dots": 33,
+     "U_per_dot": -0.00413446915581734
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "family",
+      "sigma_raw": 8.916277250063503
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family",
+      "sigma_raw": 8.916277250063503
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family",
+      "sigma_raw": 8.916277250063503
+     }
+    ]
+   ]
+  },
+  {
+   "outer": "SW",
+   "stratum": "magnetic:tc@3px relief1",
+   "strength_bin": "low",
+   "n_segments": 3,
+   "chosen": "DROP",
+   "U_best": 0.0,
+   "per_pattern": {
+    "P1-single": {
+     "U": -0.05684895089248841,
+     "TP": 0.0,
+     "FP": 10.0,
+     "n_dots": 7,
+     "U_per_dot": -0.008121278698926915
+    },
+    "P2-pair": {
+     "U": -0.11369790178497682,
+     "TP": 0.0,
+     "FP": 20.0,
+     "n_dots": 14,
+     "U_per_dot": -0.008121278698926915
+    },
+    "P3-triple": {
+     "U": -0.17054685267746525,
+     "TP": 0.0,
+     "FP": 30.0,
+     "n_dots": 21,
+     "U_per_dot": -0.008121278698926917
+    }
+   },
+   "sigma_source_examples": [
+    [
+     6.0,
+     {
+      "source": "family",
+      "sigma_raw": 8.916277250063503
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family",
+      "sigma_raw": 8.916277250063503
+     }
+    ],
+    [
+     6.0,
+     {
+      "source": "family",
+      "sigma_raw": 8.916277250063503
+     }
+    ]
+   ]
+  }
+ ],
+ "cross_fitted_selection": {
+  "NE": {
+   "cond_surf@1.5r0": {},
+   "cond_surf@1.5r1": {
+    "0": "DROP",
+    "1": "DROP",
+    "2": "DROP"
+   },
+   "cond_surf@1.5r2": {
+    "0": "DROP",
+    "1": "DROP",
+    "2": "DROP"
+   },
+   "cond_surf@3r0": {},
+   "depth_to_base_surf@1.5r0": {
+    "0": "DROP",
+    "1": "P3-triple",
+    "2": "DROP"
+   },
+   "depth_to_base_surf@1.5r1": {
+    "0": "P3-triple",
+    "1": "DROP",
+    "2": "DROP"
+   },
+   "depth_to_base_surf@1.5r2": {
+    "0": "DROP",
+    "1": "DROP",
+    "2": "DROP"
+   },
+   "depth_to_base_surf@3r2": {},
+   "tc@1.5r0": {
+    "0": "P3-triple",
+    "1": "P3-triple",
+    "2": "P3-triple"
+   },
+   "tc@1.5r1": {
+    "0": "P3-triple",
+    "1": "P3-triple",
+    "2": "P3-triple"
+   },
+   "tc@1.5r2": {
+    "0": "P3-triple",
+    "1": "P3-triple",
+    "2": "P3-triple"
+   },
+   "tc@3r0": {},
+   "tc@3r1": {
+    "0": "DROP",
+    "2": "P3-triple"
+   },
+   "tc@3r2": {}
+  },
+  "NW": {
+   "cond_surf@1.5r0": {},
+   "cond_surf@1.5r1": {
+    "0": "DROP",
+    "1": "DROP",
+    "2": "DROP"
+   },
+   "cond_surf@1.5r2": {
+    "0": "DROP",
+    "1": "DROP",
+    "2": "DROP"
+   },
+   "cond_surf@3r0": {},
+   "depth_to_base_surf@1.5r0": {
+    "0": "DROP",
+    "1": "P3-triple",
+    "2": "P3-triple"
+   },
+   "depth_to_base_surf@1.5r1": {
+    "0": "P3-triple",
+    "1": "DROP",
+    "2": "DROP"
+   },
+   "depth_to_base_surf@1.5r2": {
+    "0": "DROP",
+    "1": "P3-triple",
+    "2": "DROP"
+   },
+   "depth_to_base_surf@3r2": {},
+   "tc@1.5r0": {
+    "0": "P3-triple",
+    "1": "P3-triple",
+    "2": "P3-triple"
+   },
+   "tc@1.5r1": {
+    "0": "P3-triple",
+    "1": "P3-triple",
+    "2": "P3-triple"
+   },
+   "tc@1.5r2": {
+    "0": "P3-triple",
+    "1": "P3-triple",
+    "2": "P3-triple"
+   },
+   "tc@3r0": {},
+   "tc@3r1": {
+    "0": "DROP",
+    "2": "P3-triple"
+   },
+   "tc@3r2": {}
+  },
+  "SE": {
+   "cond_surf@1.5r0": {},
+   "cond_surf@1.5r1": {
+    "0": "DROP",
+    "1": "DROP",
+    "2": "DROP"
+   },
+   "cond_surf@1.5r2": {
+    "0": "DROP",
+    "1": "DROP",
+    "2": "DROP"
+   },
+   "cond_surf@3r0": {},
+   "depth_to_base_surf@1.5r0": {
+    "0": "DROP",
+    "1": "P3-triple",
+    "2": "P3-triple"
+   },
+   "depth_to_base_surf@1.5r1": {
+    "0": "P3-triple",
+    "1": "DROP",
+    "2": "DROP"
+   },
+   "depth_to_base_surf@1.5r2": {
+    "0": "DROP",
+    "1": "P3-triple",
+    "2": "DROP"
+   },
+   "depth_to_base_surf@3r2": {},
+   "tc@1.5r0": {
+    "0": "P3-triple",
+    "1": "P3-triple",
+    "2": "P3-triple"
+   },
+   "tc@1.5r1": {
+    "0": "P3-triple",
+    "1": "P3-triple",
+    "2": "P3-triple"
+   },
+   "tc@1.5r2": {
+    "0": "P3-triple",
+    "1": "P3-triple",
+    "2": "P3-triple"
+   },
+   "tc@3r0": {},
+   "tc@3r1": {
+    "0": "DROP",
+    "2": "P3-triple"
+   },
+   "tc@3r2": {}
+  },
+  "SW": {
+   "cond_surf@1.5r0": {},
+   "cond_surf@1.5r1": {
+    "0": "DROP",
+    "1": "DROP",
+    "2": "DROP"
+   },
+   "cond_surf@1.5r2": {
+    "0": "DROP",
+    "1": "DROP",
+    "2": "DROP"
+   },
+   "cond_surf@3r0": {},
+   "depth_to_base_surf@1.5r0": {
+    "0": "DROP",
+    "1": "P3-triple",
+    "2": "P3-triple"
+   },
+   "depth_to_base_surf@1.5r1": {
+    "0": "DROP",
+    "1": "DROP",
+    "2": "DROP"
+   },
+   "depth_to_base_surf@1.5r2": {
+    "0": "DROP",
+    "1": "P3-triple",
+    "2": "DROP"
+   },
+   "depth_to_base_surf@3r2": {},
+   "tc@1.5r0": {
+    "0": "P3-triple",
+    "1": "P3-triple",
+    "2": "P3-triple"
+   },
+   "tc@1.5r1": {
+    "0": "P3-triple",
+    "1": "P3-triple",
+    "2": "P3-triple"
+   },
+   "tc@1.5r2": {
+    "0": "P3-triple",
+    "1": "P3-triple",
+    "2": "P3-triple"
+   },
+   "tc@3r0": {},
+   "tc@3r1": {
+    "0": "DROP",
+    "2": "DROP"
+   },
+   "tc@3r2": {}
+  }
+ }
+}

@@ -1,32 +1,29 @@
-"""gems61 — session-6 ribbon lane: sigma-matched dotted ribbons on extended evidence.
+"""``gems61`` — two sibling session-7 lanes share this package name.
 
-This package is part of **58GEMSDOE** (the repository you are in).  The name is a
-version tag, not a reference to the separate public repository ``61GEMSDOE``.
+The name is a version tag, not a reference to the separate public repository
+``61GEMSDOE``.  Two independently developed lanes live side by side here; both
+reuse the shared ``gems57`` metric / holdout / writer and fork nothing:
 
-What is new here relative to the earlier lanes in this checkout
-----------------------------------------------------------------
-Earlier lanes in this repository read only the organizer's 19-band numerical
-stack.  This lane adds three evidence families that were documented as missing
-(``docs/IRREGULARITIES.md`` IR-58-DATA-01) and that the owner already publishes,
-hash-pinned, as mirrors on the study grid:
+**A. Deep-edge sigma-ribbon** (this session; modules ``surfaces``, ``sigma_fit``,
+``patterns``; runner ``scripts/gems61_deepedge_run.py``).  Hypothesis H7-A:
+faults buried under basin fill appear as *step edges* (first-derivative maxima)
+on the organizer's subsurface/magnetic-structure surfaces (``depth_to_base_surf``,
+``cond_surf``, ``tc``); ribbon width is the measured localisation error
+(H7-B, relief-conditioned), pattern choice maximises the exact-metric utility
+``U = (1 - 0.2*DTI0)*dTP - 0.2*DTI0*dFP`` (H7-C gap-aware).  Receipts:
+``evidence/gems61/{exp1_sigma_canary,exp2_holdout_arms,run_card}.json``.
 
-* ``geodawn_rad_u8.tif``      K, Th, U, TC      -- GeoDAWN aeroradiometric channels
-* ``lidar_scarp_features_u8.tif`` 12 bands      -- lidar scarp morphology
-* ``geodawn_dem_a2_100m.tif`` + ``dem10_chi_100m_u8.tif`` -- DEM and channel metrics
+**B. Extended-evidence ridge lane** (modules ``layers``, ``detect``, ``lane``;
+runner ``scripts/gems61_run.py``).  Ridge field over the organizer stack plus
+hash-pinned GeoDAWN radiometrics, lidar scarp morphology and DEM/chi metrics;
+same sigma-matched ribbon question on ``gems58-pooled-hide-v1``.  Field receipt:
+``evidence/gems61/field.json``.
 
-Every layer is reused, never rebuilt: ridge extraction delegates to
-``gems58w.ridges``, scoring to ``gems57.metric`` / ``gems57.evaluate_holdout``,
-the holdout split to ``gems58w.holdout`` (``gems58-pooled-hide-v1``), packaging to
-``gems57.submission_writer``, and the uniqueness instrument to
-``gems57.uniqueness``.  Nothing here forks those tools.
-
-The lane question
------------------
-"Match emission width to the measured localisation error": measure the
-across-strike distance between each candidate ridge and the nearest *withheld*
-segment by data block, feature resolution and ridge type, fit ``sigma(x)``, and
-choose per class the number and offset of parallel dotted lines that maximise the
-exact-metric utility ``U = (1 - 0.2*DTI0)*dTP - 0.2*DTI0*dFP``.
+Scoring is always ``gems57.metric`` / ``gems57.evaluate_holdout``, packaging
+``gems57.submission_writer``, uniqueness ``gems57.uniqueness`` /
+``gems58w.uniqueness``.  Nothing here forks a metric, evaluator or writer.
 """
 
-__all__ = ["layers", "detect", "lane"]
+__version__ = "0.2.0"
+
+__all__ = ["surfaces", "sigma_fit", "patterns", "layers", "detect", "lane"]

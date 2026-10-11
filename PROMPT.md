@@ -87,6 +87,30 @@ Negative results are valid deliverables. Do not turn missing evidence into a pas
 - Experiments this review: 0. Slots used: 0. Nothing was uploaded. Verdict: `negative`.
 - Full session record: `docs/research/session7_review_20261011.md`; run card: `evidence/58gemsdoe_unique_ribbon/run_card.json`; audit: `evidence/58gemsdoe_unique_ribbon/audit.json`; status log: `docs/IRREGULARITIES.md`.
 
+
+### Parallel-lane status — H7-A deep-edge sigma-ribbon (same task, second lineage)
+
+- Raster `docs/downloads/gems61-deepedge-sigribbon-40000-20261011T201101Z.tif` (40,000
+  placements, 39,868 unique pixels at exactly 1.0, 0 on catalogue, SHA-256
+  `d35e2b4d68588672d526a88fa0f98c398187e3a8d9c4a4327feeb2637b325256`). Format/range audit
+  passes 13/13 local checks (all-finite, [0, 1], no nodata tag), not organizer acceptance.
+- The measurement is complete where the sibling lane's is not: leakage canary CLEAN
+  (AUC 0.499–0.544, 8 cells), σ table by block × resolution × ridge type × relief class,
+  and cross-fitted blocked holdout HOLDOUT-DTI (`gems61-buffered-hide-v1`, 22,893 withheld
+  positives) A1 σ-ribbon 0.04496 vs A0 single-line 0.02943 (paired Δ +0.0155, 95 % CI
+  [+0.0120, +0.0191]), same-instrument reference 0.03016.
+- **Uniqueness under the literal rule: STOP.** The final-dot scan over 694 byte-verified
+  witnesses measures 74 literal firings (forward 3 px overlap > 0.70; worst 1.0000 against
+  `GEMSDOE48:data/source_mirrors/footprint-mask.tif` and other whole-footprint witnesses;
+  54 of the 74 have E ≥ 0.99). Under the literal rule in force above this is a decisive
+  duplicate/drift stop and the file is **NOT CLEARED — DO NOT SUBMIT** (retained for review).
+  The chance-corrected readings (rule A 0, rule B 0, rank correlation 0 firings — the surface
+  has no lane's concentration) are recorded in `evidence/gems61/run_card.json` beside the
+  literal reading and are **not** used to waive the stop.
+- Experiments: 3 (canary/σ, holdout arms, emission+validators). Slots used: 0. Verdict:
+  `negative` (uniqueness stop). Run card: `evidence/gems61/run_card.json`; deliverable page:
+  `docs/gems61.html`.
+
 ## Official source links
 
 - [Competition problem and metric](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/)
