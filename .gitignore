@@ -1,0 +1,11 @@
+# Competition data must never be committed (DrivenData terms; see docs/IRREGULARITIES.md)
+data/*
+!data/.gitkeep
+!data/fetch_log.json
+*.tif
+*.tiff
+*.zip
+submissions/
+.venv*/
+__pycache__/
+.pytest_cache/
