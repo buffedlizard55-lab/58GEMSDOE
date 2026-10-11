@@ -1,7 +1,7 @@
 # 58GEMSDOE — DOE GEMS Prize (DrivenData #306): submission pipeline and audit trail
 
 > **Read this first.** This README contains the standing project prompt (section 2). Read it at the start of every session.
-> Live page (GitHub Pages, served from `docs/`): <https://buffedlizard55-lab.github.io/58GEMSDOE/>
+> Live site: <https://buffedlizard55-lab.github.io/58GEMSDOE/>. The Pages source is the repository root (set by the earlier session; the sandbox token cannot change it to `/docs`, HTTP 403). The root `index.html` redirects to `docs/index.html`, which is the site.
 
 ## 1. Status at a glance (2026-10-11)
 
@@ -216,6 +216,9 @@ Go ahead and create a pull request and then merge the pull request onto the main
 
 </details>
 
+
+> Note: the E1/E2 JSON files record the evaluator as `gems.metric`. That is the same code, which was renamed to `gems58` when this branch was merged with `main` (the earlier `gems/` package on main is a different, unverified approximation).
+
 ## 3. Where things are
 
 | path | what it is |
@@ -273,7 +276,7 @@ PYTHONPATH=src ~/.cache/venv/bin/python -m pytest -q tests
 ~/.cache/venv/bin/python scripts/build_site.py          # regenerates docs/*.html and registry/RUN_CARD.json
 ```
 
-Registry clones (`~/.cache/gems-src`) are needed for the uniqueness check; they are not committed.
+Registry clones (`~/.cache/gems-src`) are needed for the uniqueness check; they are not committed. The list of 62 GEMSDOE-pattern repositories is in `registry/registry_repos.txt`. The local clones (7.4 GB) were removed at the end of this session after the registry scan was final; re-clone them from that list (`git clone --depth 1 https://github.com/buffedlizard55-lab/<name>.git`) before re-running the uniqueness check.
 
 ## 7. Data policy
 
