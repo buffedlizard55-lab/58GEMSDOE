@@ -44,7 +44,14 @@ def feature_stack() -> Path:
 
 
 def cache_dir() -> Path:
-    d = ROOT / ".cache" / "gems58"
+    """Cache directory for the 419 MB stack's derived arrays.
+
+    ``GEMS58W_CACHE`` overrides the default (``ROOT/.cache/gems58``) so the
+    cache can live outside a checkout whose ``.cache`` is not snapshotted or
+    not writable.  The default is unchanged.
+    """
+    env = os.environ.get("GEMS58W_CACHE")
+    d = Path(env).expanduser() if env else ROOT / ".cache" / "gems58"
     d.mkdir(parents=True, exist_ok=True)
     return d
 

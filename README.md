@@ -8,6 +8,28 @@ Core values: **Maximize P(Win)** and **Own the Outcome** — report the actual r
 
 The downloadable file is an existing **research diagnostic**, not a cleared competition submission. No new TIFF was generated in this review, no experiment or slot was used, and no organizer receipt links a score to this file.
 
+### Lane deliverable from this session — a new, separately screened TIFF
+
+This review also produced one **new** raster in the ribbon lane, screened against the live registry
+(not the stale 695-raster snapshot) and delivered for the owner's decision. It does not override the
+status above: the repository's fail-closed gate still applies to the earlier diagnostic file, and no
+slot has been used, no organizer receipt exists, and nothing here is a score.
+
+| check | result |
+|---|---|
+| File | [`docs/deliverable/downloads/gems58-novel-scatter-44090-20261011T0630Z.tif`](docs/deliverable/downloads/gems58-novel-scatter-44090-20261011T0630Z.tif) (+ single-GeoTIFF ZIP) |
+| Raster SHA256 | `5f64b6dc44a3d6639691b679337ec64c1b4bb1b3f1ce63dfe17258ad6fdbf1e0` (347876 bytes) |
+| Dots | 44,090, every value exactly `1.0`; 0 on the mapped catalogue |
+| Local portal checks | **15/15 pass** |
+| Uniqueness screen (live inventory, fetched this session) | **473** rasters · worst rank correlation **0.0557** (limit 0.90) · worst 3 px forward overlap **0.3160** (limit 0.70) · **0 triggers** |
+| HOLDOUT-DTI | `0.000000` — zero *by construction* for an off-catalogue emission (IR-58-02); no promotion-grade holdout is claimed |
+| Organizer score | none — no receipt |
+
+Download it, verify the hash, and read the caveats on
+[`docs/deliverable/executive-summary.html`](docs/deliverable/executive-summary.html) and
+[`docs/research/why-the-score-and-how-to-beat-it.md`](docs/research/why-the-score-and-how-to-beat-it.md)
+before deciding whether to submit.
+
 ### Why it is blocked
 
 - **Literal final-dot duplicate stop:** 67,379 candidate dots; **100%** lie within 3 px of the prior full-footprint-positive raster `GEMSDOE2:data/evidence/runs/turbo-simple-20260925T042003Z/submission.tif`. The stop threshold is >70%. The candidate's rank correlation being below 0.90 does not override this independent failure. See `evidence/ribbon_uniqueness.json`.

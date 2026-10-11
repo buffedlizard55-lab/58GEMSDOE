@@ -85,12 +85,27 @@ def _load(path: Path, fp: np.ndarray, shape) -> np.ndarray | None:
 
 
 def screen_against(dots: np.ndarray, registry_dir: Path, fp: np.ndarray | None = None,
-                   shape=None) -> tuple[list[Screen], dict]:
+                   shape=None, rho_subsample: int | None = None,
+                   dot_index: np.ndarray | None = None) -> tuple[list[Screen], dict]:
+    """Screen ``dots`` against every ``*.tif`` in ``registry_dir``.
+
+    ``rho_subsample`` imposes a deterministic stride over the finite cells before
+    the rank correlation is computed.  ``None`` (the default) keeps the exact
+    full-field Spearman; an integer is used for large inventories, where the
+    statistic is identical to within its own sampling error and the scan becomes
+    tractable.  The stride is a fixed arithmetic progression of flat indices, so
+    the result is reproducible.
+
+    ``dot_index`` optionally supplies the (row, col) index array of the dots, so
+    a caller that already holds it does not pay for ``argwhere`` again.
+    """
     fp = grid.footprint() if fp is None else fp
     shape = fp.shape if shape is None else shape
     mine_vals = dots.astype(np.float32)
     mine_vals[~fp] = np.nan
     d_dot = distance_transform_edt(~dots)
+    if dot_index is None:
+        dot_index = np.argwhere(dots)
     out: list[Screen] = []
     skipped: list[dict] = []
     for path in sorted(Path(registry_dir).glob("*.tif")):
@@ -109,11 +124,21 @@ def screen_against(dots: np.ndarray, registry_dir: Path, fp: np.ndarray | None =
         fwd = float((d_dot[other] <= BUFFER_PX).mean()) if n_other else 0.0
         rev = 0.0
         if dots.any():
-            rev = float((distance_transform_edt(~other)[dots] <= BUFFER_PX).mean())
+            if n_other:
+                rev = float((distance_transform_edt(~other)[dots] <= BUFFER_PX).mean())
+            else:
+                rev = 0.0
         vx = np.where(fin, np.nan_to_num(mine_vals, nan=0.0), np.nan)
         vy = np.where(fin, a, np.nan)
         okfin = np.isfinite(vx) & np.isfinite(vy)
-        rho = spearman(vx[okfin], vy[okfin]) if okfin.sum() > 100 else 0.0
+        if rho_subsample is not None:
+            idx = np.flatnonzero(okfin)
+            if idx.size > rho_subsample:
+                idx = idx[:: max(1, idx.size // rho_subsample)]
+            sx, sy = vx.flat[idx], vy.flat[idx]
+        else:
+            sx, sy = vx[okfin], vy[okfin]
+        rho = spearman(sx, sy) if sx.size > 100 else 0.0
         triggers = []
         if rho > RHO_MAX:
             triggers.append("rho")
@@ -131,6 +156,7 @@ def screen_against(dots: np.ndarray, registry_dir: Path, fp: np.ndarray | None =
         n_triggers=sum(1 for s in out if s.triggers),
         n_dense_priors=sum(1 for s in out if s.dense),
         rho_max=RHO_MAX, overlap_max=OVERLAP_MAX, buffer_px=BUFFER_PX,
+        rho_subsample=rho_subsample,
     )
     worst_dense = [s for s in out if s.dense]
     if worst_dense:
